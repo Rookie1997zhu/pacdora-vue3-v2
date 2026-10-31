@@ -32,7 +32,11 @@ for(const p of PRESETS){
   }
   if(p.hasGeometry){
     withGeom++
-    assert.ok(existsSync(join(root,'geometry','pacdora_boxes',`${p.sourceNum}.json`)),`geom missing ${p.sourceNum}`)
+    assert.ok(
+      existsSync(join(root,'public','shipping-geom',`${p.sourceNum}.json`))
+      ||existsSync(join(root,'geometry','pacdora_boxes',`${p.sourceNum}.json`)),
+      `geom missing ${p.sourceNum}`
+    )
   }
 }
 
