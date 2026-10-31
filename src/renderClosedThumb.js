@@ -6,9 +6,9 @@ import * as THREE from 'three'
 import {createKnife} from './knife.js'
 import {getTemplate} from './templates/index.js'
 import {neutralMeshOffset,foldRotation} from './foldSim.js'
+import {ensureBoardPack,createBoardMaterial} from './boardMaterial.js'
 
 const cache=new Map()
-const colors={kraft:0xc6a47a,white:0xf4f0e7,blue:0x8aa6c8}
 
 function disposeTree(node){
   node.traverse(o=>{
@@ -20,7 +20,7 @@ function disposeTree(node){
   })
 }
 
-function panelMesh(f,T,color,faceHoles=[]){
+function panelMesh(f,T,materialId,faceHoles=[],{colorScale=1}={}){
   const shape=new THREE.Shape()
   const cx=f.x+f.w/2,cy=f.y+f.h/2
   if(Array.isArray(f.outline)&&f.outline.length>=3){
@@ -49,9 +49,8 @@ function panelMesh(f,T,color,faceHoles=[]){
     shape.holes.push(path)
   }
   const geo=new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:false})
-  const mat=new THREE.MeshStandardMaterial({
-    color,side:THREE.DoubleSide,roughness:.9,flatShading:!f.smooth
-  })
+  const mat=createBoardMaterial(materialId,{flatShading:!f.smooth})
+  if(colorScale!==1)mat.color.multiplyScalar(colorScale)
   const mesh=new THREE.Mesh(geo,mat)
   mesh.position.z=neutralMeshOffset(T).z
   return mesh
@@ -72,8 +71,6 @@ function resolveFoldDeg(knife,faceName){
 
 function buildClosedGroup(knife,materialId='kraft',{colorScale=1,foldProgress=.78}={}){
   const T=Number(knife.dimensions.thickness)||1.5
-  const base=colors[materialId]??colors.kraft
-  const color=new THREE.Color(base).multiplyScalar(colorScale)
   const root=new THREE.Group()
   const byName=Object.fromEntries(knife.faces.map(f=>[f.name,f]))
   const holesByFace=new Map()
@@ -90,7 +87,7 @@ function buildClosedGroup(knife,materialId='kraft',{colorScale=1,foldProgress=.7
   function attach(name){
     if(world.has(name))return world.get(name)
     const f=byName[name]
-    const mesh=panelMesh(f,T,color,holesByFace.get(name)||[])
+    const mesh=panelMesh(f,T,materialId,holesByFace.get(name)||[],{colorScale})
     mesh.userData.face=f
     let anchor
     if(!f.parent){
@@ -400,50 +397,49 @@ function assemblePieces(templateId,t,d,materialId){
 /**
  * @returns {Promise<string>} dataURL png
  */
-export function renderClosedThumb(templateId,{size=360,materialId='kraft'}={}){
-  const key=`${templateId}|${materialId}|${size}|v7`
-  if(cache.has(key))return Promise.resolve(cache.get(key))
+export async function renderClosedThumb(templateId,{size=360,materialId='kraft'}={}){
+  const key=`${templateId}|${materialId}|${size}|v8pbr`
+  if(cache.has(key))return cache.get(key)
 
-  return new Promise(resolve=>{
-    try{
-      const t=getTemplate(templateId)
-      const d=t.defaults||{}
-      const scene=new THREE.Scene()
-      scene.background=new THREE.Color(0xf3f5f8)
-      scene.add(new THREE.HemisphereLight(0xffffff,0x8a8d93,2.4))
-      const sun=new THREE.DirectionalLight(0xffffff,1.8)
-      sun.position.set(220,280,260)
-      scene.add(sun)
+  try{
+    try{await ensureBoardPack(materialId)}catch{/* 纯色回退 */}
+    const t=getTemplate(templateId)
+    const d=t.defaults||{}
+    const scene=new THREE.Scene()
+    scene.background=new THREE.Color(0xf3f5f8)
+    scene.add(new THREE.HemisphereLight(0xffffff,0x8a8d93,2.4))
+    const sun=new THREE.DirectionalLight(0xffffff,1.8)
+    sun.position.set(220,280,260)
+    scene.add(sun)
 
-      const wrap=assemblePieces(templateId,t,d,materialId)
-      scene.add(wrap)
+    const wrap=assemblePieces(templateId,t,d,materialId)
+    scene.add(wrap)
 
-      const box=new THREE.Box3().setFromObject(wrap)
-      const center=box.getCenter(new THREE.Vector3())
-      const sphere=box.getBoundingSphere(new THREE.Sphere())
-      const r=Math.max(sphere.radius,20)
+    const box=new THREE.Box3().setFromObject(wrap)
+    const center=box.getCenter(new THREE.Vector3())
+    const sphere=box.getBoundingSphere(new THREE.Sphere())
+    const r=Math.max(sphere.radius,20)
 
-      const fov=36
-      const camera=new THREE.PerspectiveCamera(fov,1,.1,r*20)
-      const dist=r/Math.sin(fov*Math.PI/360)*1.08
-      const dir=new THREE.Vector3(1.6,-1.7,1.35).normalize()
-      camera.position.copy(center).addScaledVector(dir,dist)
-      camera.lookAt(center)
+    const fov=36
+    const camera=new THREE.PerspectiveCamera(fov,1,.1,r*20)
+    const dist=r/Math.sin(fov*Math.PI/360)*1.08
+    const dir=new THREE.Vector3(1.6,-1.7,1.35).normalize()
+    camera.position.copy(center).addScaledVector(dir,dist)
+    camera.lookAt(center)
 
-      const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false})
-      renderer.setSize(size,size,false)
-      renderer.setPixelRatio(1)
-      renderer.render(scene,camera)
-      const url=renderer.domElement.toDataURL('image/png')
-      disposeTree(wrap)
-      renderer.dispose()
-      cache.set(key,url)
-      resolve(url)
-    }catch(e){
-      console.warn('thumb fail',templateId,e)
-      resolve('')
-    }
-  })
+    const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false})
+    renderer.setSize(size,size,false)
+    renderer.setPixelRatio(1)
+    renderer.render(scene,camera)
+    const url=renderer.domElement.toDataURL('image/png')
+    disposeTree(wrap)
+    renderer.dispose()
+    cache.set(key,url)
+    return url
+  }catch(e){
+    console.warn('thumb fail',templateId,e)
+    return ''
+  }
 }
 
 export function clearThumbCache(){cache.clear()}

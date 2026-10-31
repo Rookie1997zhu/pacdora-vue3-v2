@@ -15,6 +15,7 @@ import {renderClosedThumb,structureKind} from './renderClosedThumb.js'
 import {renderProxyThumb} from './renderProxyThumb.js'
 import {renderGeomClosedThumb} from './renderGeomClosedThumb.js'
 import {loadPacdoraGeomKnife,clearPacdoraGeomCache} from './pacdoraGeomKnife.js'
+import {ensureBoardPack,createBoardMaterial} from './boardMaterial.js'
 clearPacdoraGeomCache()
 
 const EMPTY_KNIFE=Object.freeze({
@@ -322,8 +323,7 @@ const contractStatusText=computed(()=>{
   const n=(v.checks||[]).filter(c=>!c.ok).length
   return `契约：${n} 项失败`
 })
-const colors={kraft:0xc6a47a,white:0xf4f0e7,blue:0x8aa6c8}
-let scene,camera,renderer,controls,group,raf,observer,hinges=[],geomRig=null
+let scene,camera,renderer,controls,group,raf,observer,hinges=[],geomRig=null,buildToken=0
 function disposeTree(node){node.traverse(o=>{o.geometry?.dispose();if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>m.dispose())}})}
 function panelMesh(f,faceHoles=[]){
   const T=Number(thickness.value)
@@ -352,10 +352,7 @@ function panelMesh(f,faceHoles=[]){
     shape.holes.push(path)
   }
   const geo=new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:false})
-  const mat=new THREE.MeshStandardMaterial({
-    color:colors[material.value],side:THREE.DoubleSide,roughness:.9,
-    flatShading:!f.smooth
-  })
+  const mat=createBoardMaterial(material.value,{flatShading:!f.smooth})
   const mesh=new THREE.Mesh(geo,mat)
   mesh.name=f.name
   const off=neutralMeshOffset(T)
@@ -366,7 +363,13 @@ function updateFoldStatus(){
   if(Number(progress.value)<100){foldStatus.value={ok:true,issues:[]};return}
   foldStatus.value=estimateClosedCollisions(knife.value,thickness.value)
 }
-function build3D(){if(!scene)return;if(group){scene.remove(group);disposeTree(group)}group=new THREE.Group();scene.add(group);hinges=[];geomRig=null
+async function build3D(){
+  if(!scene)return
+  const token=++buildToken
+  const mid=material.value
+  try{await ensureBoardPack(mid)}catch{/* 退回纯色 */}
+  if(token!==buildToken||!scene)return
+  if(group){scene.remove(group);disposeTree(group)}group=new THREE.Group();scene.add(group);hinges=[];geomRig=null
   const faces=knife.value.faces||[]
   if(!faces.length){setFold();controls?.update();return}
   const byName=Object.fromEntries(faces.map(f=>[f.name,f]));const world=new Map()
@@ -610,7 +613,13 @@ watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value){build3D()
 watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(()=>{build3D();resetView()})})
 watch(progress,()=>{if(screen.value==='lab')setFold()})
 watch([boxTab,importSubclassId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
-onMounted(()=>nextTick(()=>{syncAdvancedDefaults(true);loadGalleryThumbs()}))
+onMounted(()=>nextTick(()=>{
+  syncAdvancedDefaults(true)
+  // 预热纸板/纸纹贴图，列表缩略图与 Lab 共用缓存
+  ensureBoardPack('kraft').catch(()=>{})
+  ensureBoardPack('white').catch(()=>{})
+  loadGalleryThumbs()
+}))
 onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.dispose();if(group)disposeTree(group);renderer?.dispose();renderer?.domElement?.remove()})
 </script>
 <template>

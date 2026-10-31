@@ -5,9 +5,9 @@ import * as THREE from 'three'
 import {neutralMeshOffset} from './foldSim.js'
 import {loadPacdoraGeomKnife} from './pacdoraGeomKnife.js'
 import {buildGeomRig} from './geomRig.js'
+import {ensureBoardPack,createBoardMaterial} from './boardMaterial.js'
 
 const cache=new Map()
-const colors={kraft:0xc6a47a,white:0xf4f0e7,blue:0x8aa6c8}
 
 function disposeTree(node){
   node.traverse(o=>{
@@ -19,7 +19,7 @@ function disposeTree(node){
   })
 }
 
-function panelMesh(f,T,color,faceHoles=[]){
+function panelMesh(f,T,materialId,faceHoles=[]){
   const shape=new THREE.Shape()
   const cx=f.x+f.w/2,cy=f.y+f.h/2
   if(Array.isArray(f.outline)&&f.outline.length>=3){
@@ -48,23 +48,21 @@ function panelMesh(f,T,color,faceHoles=[]){
     shape.holes.push(path)
   }
   const geo=new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:false})
-  const mat=new THREE.MeshStandardMaterial({
-    color,side:THREE.DoubleSide,roughness:.9,flatShading:!f.smooth
-  })
+  const mat=createBoardMaterial(materialId,{flatShading:!f.smooth})
   return new THREE.Mesh(geo,mat)
 }
 
 function buildGeomClosedGroup(knife,materialId='kraft'){
   const T=Number(knife.dimensions?.thickness)||1.5
-  const color=new THREE.Color(colors[materialId]??colors.kraft)
   const holesByFace=new Map()
   for(const h of knife.holes||[]){
     if(!h?.face)continue
     if(!holesByFace.has(h.face))holesByFace.set(h.face,[])
     holesByFace.get(h.face).push(h)
   }
+  const mid=materialId
   const rig=buildGeomRig(knife,{
-    makeMesh:f=>panelMesh(f,T,color,holesByFace.get(f.name)||[]),
+    makeMesh:f=>panelMesh(f,T,mid,holesByFace.get(f.name)||[]),
     zOff:neutralMeshOffset(T).z
   })
   rig.apply(1)
@@ -80,10 +78,11 @@ export async function renderGeomClosedThumb(sourceNum,{
   size=320,materialId='kraft',label,length,width,height,thickness
 }={}){
   const num=String(sourceNum||'')
-  const key=`geom|${num}|${materialId}|${size}|v4`
+  const key=`geom|${num}|${materialId}|${size}|v5pbr`
   if(cache.has(key))return cache.get(key)
 
   try{
+    try{await ensureBoardPack(materialId)}catch{/* 纯色回退 */}
     const knife=await loadPacdoraGeomKnife(num,{label,length,width,height,thickness})
     const scene=new THREE.Scene()
     scene.background=new THREE.Color(0xf3f5f8)
