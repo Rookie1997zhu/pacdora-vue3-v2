@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <title>thumb</title>
+  <style>
+    html,body{margin:0;background:#f3f5f8;display:grid;place-items:center;min-height:100vh;font:14px system-ui}
+    #msg{color:#888}
+    img{width:360px;height:360px;object-fit:contain;background:#fff;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div id="msg">loading…</div>
+  <script type="module">
+    const q=new URLSearchParams(location.search)
+    const tid=q.get('templateId')||''
+    const size=Number(q.get('size')||360)
+    const msg=document.getElementById('msg')
+    if(!tid){msg.textContent='missing templateId';throw 0}
+    try{
+      const {renderClosedThumb}=await import('/src/renderClosedThumb.js')
+      const url=await renderClosedThumb(tid,{size,materialId:'kraft'})
+      if(!url){msg.textContent='empty thumb';}
+      else{
+        msg.remove()
+        const img=document.createElement('img')
+        img.src=url
+        img.alt=tid
+        document.body.appendChild(img)
+        document.title='ok:'+tid
+      }
+    }catch(e){
+      msg.textContent=String(e.message||e)
+    }
+  </script>
+</body>
+</html>

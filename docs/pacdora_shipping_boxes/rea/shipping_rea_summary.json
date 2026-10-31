@@ -1,0 +1,74 @@
+{
+  "page": "https://www.pacdora.cn/mockups/mailing-and-shipping-box-mockups",
+  "slug_expected": "mailing-and-shipping-box-mockups",
+  "ctree_hits": [
+    {
+      "path": "/盒子/运输箱",
+      "name": "运输箱",
+      "nameKey": "mailing-shipping-boxes",
+      "mockupNameKey": "mailing-and-shipping-box-mockups",
+      "count": 47,
+      "id": 220
+    }
+  ],
+  "models_total": 47,
+  "models_page1_rows": 47,
+  "sample_list": {
+    "id": 5066,
+    "num": 20001001,
+    "name": "方形运输箱",
+    "mockupNameKey": "square-shipping-box-20001001",
+    "length": 305,
+    "width": 305,
+    "height": 305,
+    "knife_url": "https://oss.pacdora.cn/admin-materials/cb191981-1d12-4d85-b4ce-29420c77606a.png"
+  },
+  "auth_code": 200,
+  "knife_probe": {
+    "code": 200,
+    "modeCate": {
+      "id": 5139,
+      "code": "Carton",
+      "name": "Gsquarebox08",
+      "remarks": "200010纸箱衍生样机"
+    },
+    "knifeSize": {
+      "L": 305,
+      "W": 305,
+      "H": 305,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "size": {
+      "L": 301,
+      "W": 301,
+      "H": 297,
+      "D": 3,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "outSize": {
+      "L": 307,
+      "W": 307,
+      "H": 309,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "openParams_count": 6,
+    "layers": [
+      "traditional"
+    ],
+    "has_cuts": true
+  },
+  "apis": [
+    "GET /api/v2/models/ctree?mockup=true",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?...&mockupNameKey=mailing-and-shipping-box-mockups",
+    "GET /api/v2/project/knife?id={列表id}&bleed=5&export_type=model"
+  ]
+}
