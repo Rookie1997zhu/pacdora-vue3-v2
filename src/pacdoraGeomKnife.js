@@ -5,6 +5,7 @@
 import {foldStagesFromAnimation} from './foldStages.js'
 import {sizeArrowDataFromBounds} from './dimAnnotations.js'
 import {BLEED_EXTRA_MM,expandBleedLoops} from './knife.js'
+import {publicAssetUrl} from './assetUrl.js'
 
 const cache=new Map()
 const inflight=new Map()
@@ -409,7 +410,7 @@ export async function loadPacdoraGeomKnife(sourceNum,meta={}){
   if(!num)throw new Error('missing sourceNum')
   if(cache.has(num))return cache.get(num)
   if(inflight.has(num))return inflight.get(num)
-  const p=fetch(`/shipping-geom/${num}.json`)
+  const p=fetch(publicAssetUrl(`shipping-geom/${num}.json`))
     .then(r=>{
       if(!r.ok)throw new Error(`geom fetch ${num}: ${r.status}`)
       return r.json()

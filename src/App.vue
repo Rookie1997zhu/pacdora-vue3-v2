@@ -16,7 +16,9 @@ import {renderProxyThumb} from './renderProxyThumb.js'
 import {renderGeomClosedThumb} from './renderGeomClosedThumb.js'
 import {loadPacdoraGeomKnife,clearPacdoraGeomCache} from './pacdoraGeomKnife.js'
 import {ensureBoardPack,createBoardMaterial} from './boardMaterial.js'
+import {publicAssetUrl} from './assetUrl.js'
 clearPacdoraGeomCache()
+function assetUrl(path){return publicAssetUrl(path)}
 
 const EMPTY_KNIFE=Object.freeze({
   faces:[],folds:[],cuts:[],bleeds:[],hinges:[],holes:[],
@@ -129,12 +131,15 @@ function loadGalleryThumbs(){
   }
 }
 
+function remount3D(){
+  return build3D().then(()=>{if(screen.value==='lab')resetView()})
+}
 function mountLabScene(){
   nextTick(()=>nextTick(()=>{
     if(!threeRef.value)return
     progress.value=100
     if(!renderer)init3D()
-    else{build3D();resetView()}
+    else remount3D()
   }))
 }
 function enterLabFromTemplate(id){
@@ -227,7 +232,7 @@ async function refreshGeomKnife(){
     geomError.value=String(err?.message||err)
   }finally{
     geomLoading.value=false
-    if(screen.value==='lab'&&renderer)nextTick(()=>{build3D();resetView()})
+    if(screen.value==='lab'&&renderer)nextTick(()=>remount3D())
   }
 }
 function defaultPieceId(t){
@@ -425,6 +430,8 @@ async function build3D(){
     world.set(name,{anchor,mesh});return world.get(name)
   }
   faces.forEach(f=>attach(f.name));setFold();controls?.update()
+  // 贴图 await 之后再对齐一次视角（resize 首次 fit 常早于 mesh 就绪）
+  if(camera)resetView()
 }
 const foldStageLabel=computed(()=>{
   const stages=knife.value?.foldStages
@@ -468,7 +475,7 @@ function setFold(){
 function init3D(){
   if(!threeRef.value||renderer)return
   scene=new THREE.Scene();scene.background=new THREE.Color(0xf7f8fa);camera=new THREE.PerspectiveCamera(38,1,.1,5000);renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));threeRef.value.appendChild(renderer.domElement);scene.add(new THREE.HemisphereLight(0xffffff,0x8a8d93,2.7));const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(250,300,300);scene.add(sun);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=100;controls.maxDistance=2500
-  build3D()
+  remount3D()
   let fittedOnce=false
   const resize=()=>{
     const r=threeRef.value?.getBoundingClientRect()
@@ -535,7 +542,7 @@ function selectTemplate(id){
   advancedDirty.value={}
   syncAdvancedDefaults(true)
   applyCylinderSides()
-  if(screen.value==='lab')nextTick(()=>{if(renderer){build3D();resetView()}})
+  if(screen.value==='lab')nextTick(()=>{if(renderer)remount3D()})
 }
 /** @returns {boolean} 是否成功挂上结构模板 / 官方几何 */
 function applyImportedSize(id){
@@ -596,7 +603,7 @@ function applyImportedSize(id){
     advancedParams.value=merged
   }
   applyCylinderSides()
-  if(screen.value==='lab')nextTick(()=>{if(renderer){build3D();resetView()}})
+  if(screen.value==='lab')nextTick(()=>{if(renderer)remount3D()})
   return true
 }
 function downloadSVG(){if(isModelOnly.value)return;saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${exportBase()}.svg`)}
@@ -607,10 +614,10 @@ function downloadJSON(){if(isModelOnly.value)return;saveFile(JSON.stringify(knif
 watch([L,W,H,thickness,sizeMode,templateId],()=>{if(screen.value==='lab')syncAdvancedDefaults(false)})
 watch([L,W,H,thickness,material,sizeMode,fluteDirection,piece,advancedParams],()=>{
   if(geomMode.value)return
-  if(screen.value==='lab'&&renderer){build3D();resetView()}
+  if(screen.value==='lab'&&renderer)remount3D()
 })
-watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value){build3D();resetView()}})
-watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(()=>{build3D();resetView()})})
+watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)remount3D()})
+watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(()=>remount3D())})
 watch(progress,()=>{if(screen.value==='lab')setFold()})
 watch([boxTab,importSubclassId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
 onMounted(()=>nextTick(()=>{
@@ -697,7 +704,7 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
             <img v-if="geomThumbMap[p.id]" :src="geomThumbMap[p.id]" :alt="p.label"/>
             <img v-else-if="p.modelOnly&&proxyThumbMap[p.id]" :src="proxyThumbMap[p.id]" :alt="p.label"/>
             <img v-else-if="p.templateId&&thumbMap[p.templateId]" :src="thumbMap[p.templateId]" :alt="p.label"/>
-            <img v-else-if="p.coverRel" :src="'/' + p.coverRel" :alt="p.label"/>
+            <img v-else-if="p.coverRel" :src="assetUrl(p.coverRel)" :alt="p.label"/>
             <div v-else class="box-cover-ph">{{p.hasGeometry?'合盖预览':(p.modelOnly?'样机预览':(p.templateId?'合盖预览':'未映射'))}}</div>
             <i v-if="p.hasGeometry||p.coverRel" class="box-badge" data-kind="closed">运输箱</i>
             <i v-else-if="p.modelOnly" class="box-badge" data-kind="modelOnly">仅 3D 样机</i>
@@ -727,7 +734,7 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
 <div class="mini-illustration">
   <img v-if="activePreset&&geomThumbMap[activePreset.id]" class="mini-cover" :src="geomThumbMap[activePreset.id]" :alt="labTitle.label"/>
   <img v-else-if="thumbMap[templateId]" class="mini-cover" :src="thumbMap[templateId]" :alt="labTitle.label"/>
-  <img v-else-if="activePreset?.coverRel" class="mini-cover" :src="'/' + activePreset.coverRel" :alt="labTitle.label"/>
+  <img v-else-if="activePreset?.coverRel" class="mini-cover" :src="assetUrl(activePreset.coverRel)" :alt="labTitle.label"/>
   <svg v-else viewBox="0 0 180 110"><path d="M30 40L105 22L150 45L76 66Z" fill="#d9b98b" stroke="#96744a"/><path d="M30 40V75L76 100V66Z" fill="#c5a072" stroke="#96744a"/><path d="M76 66V100L150 76V45Z" fill="#b58e60" stroke="#96744a"/><path d="M30 40L15 18L90 2L105 22Z" fill="#e9cfa7" stroke="#96744a"/></svg>
 </div></div><div class="section"><div class="eyebrow">PARAMETERS / 参数</div><h3>尺寸设置 <span class="unit">mm</span></h3>
 <p v-if="geomMode" class="hint">官方样本刀版 · 尺寸锁定（试播不改尺）</p>

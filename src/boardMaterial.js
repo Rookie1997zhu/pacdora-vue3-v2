@@ -3,6 +3,7 @@
  * ExtrudeGeometry UV 单位为 mm，用 texture.repeat=1/tileMm 平铺。
  */
 import * as THREE from 'three'
+import {publicAssetUrl} from './assetUrl.js'
 
 const FALLBACK={kraft:0xc6a47a,white:0xf4f0e7,blue:0x8aa6c8}
 
@@ -78,8 +79,7 @@ export function ensureBoardPack(materialId='kraft'){
   if(inflight.has(key))return inflight.get(key)
 
   const s=SPECS[id]
-  const root=(import.meta.env.BASE_URL||'/').replace(/\/?$/,'/')
-  const base=`${root}materials/${s.dir}/${s.prefix}`
+  const base=publicAssetUrl(`materials/${s.dir}/${s.prefix}`)
   const repeat=1/s.tileMm
   const p=Promise.all([
     loadMap(`${base}_Color.jpg`,{color:true,repeat}),
