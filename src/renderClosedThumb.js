@@ -3,6 +3,7 @@
  * assembly: stack（天地盖）/ sleeve（抽屉袖套）/ row（多件并排）。
  */
 import * as THREE from 'three'
+import {renderSceneToDataUrl} from './thumbRenderer.js'
 import {createKnife} from './knife.js'
 import {getTemplate} from './templates/index.js'
 import {neutralMeshOffset,foldRotation} from './foldSim.js'
@@ -427,13 +428,8 @@ export async function renderClosedThumb(templateId,{size=360,materialId='kraft'}
     camera.position.copy(center).addScaledVector(dir,dist)
     camera.lookAt(center)
 
-    const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false})
-    renderer.setSize(size,size,false)
-    renderer.setPixelRatio(1)
-    renderer.render(scene,camera)
-    const url=renderer.domElement.toDataURL('image/png')
+    const url=renderSceneToDataUrl(scene,camera,size)
     disposeTree(wrap)
-    renderer.dispose()
     cache.set(key,url)
     return url
   }catch(e){

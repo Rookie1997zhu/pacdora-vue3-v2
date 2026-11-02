@@ -2,6 +2,7 @@
  * modelOnly 替身缩略图：按名称/尺寸渲染圆柱 / 袋 / 圆角盒（无刀版）。
  */
 import * as THREE from 'three'
+import {renderSceneToDataUrl} from './thumbRenderer.js'
 
 const cache=new Map()
 
@@ -89,13 +90,8 @@ export function renderProxyThumb(preset,{size=360}={}){
       const dist=r/Math.sin(fov*Math.PI/360)*1.12
       camera.position.copy(center).addScaledVector(new THREE.Vector3(1.5,-1.6,1.3).normalize(),dist)
       camera.lookAt(center)
-      const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true})
-      renderer.setSize(size,size,false)
-      renderer.setPixelRatio(1)
-      renderer.render(scene,camera)
-      const url=renderer.domElement.toDataURL('image/png')
+      const url=renderSceneToDataUrl(scene,camera,size)
       disposeTree(wrap)
-      renderer.dispose()
       cache.set(key,url)
       resolve(url)
     }catch(e){

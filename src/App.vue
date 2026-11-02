@@ -475,6 +475,8 @@ function setFold(){
 function init3D(){
   if(!threeRef.value||renderer)return
   scene=new THREE.Scene();scene.background=new THREE.Color(0xf7f8fa);camera=new THREE.PerspectiveCamera(38,1,.1,5000);renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));threeRef.value.appendChild(renderer.domElement);scene.add(new THREE.HemisphereLight(0xffffff,0x8a8d93,2.7));const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(250,300,300);scene.add(sun);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=100;controls.maxDistance=2500
+  renderer.domElement.addEventListener('webglcontextlost',()=>console.warn('[lab3d] WebGL context lost'))
+  renderer.domElement.addEventListener('webglcontextrestored',()=>remount3D())
   remount3D()
   let fittedOnce=false
   const resize=()=>{

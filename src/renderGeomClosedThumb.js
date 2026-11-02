@@ -2,6 +2,7 @@
  * 运输箱列表：用官方几何合盖 3D 出缩略图（非刀版平面图）。
  */
 import * as THREE from 'three'
+import {renderSceneToDataUrl} from './thumbRenderer.js'
 import {neutralMeshOffset} from './foldSim.js'
 import {loadPacdoraGeomKnife} from './pacdoraGeomKnife.js'
 import {buildGeomRig} from './geomRig.js'
@@ -105,13 +106,8 @@ export async function renderGeomClosedThumb(sourceNum,{
     camera.position.copy(center).addScaledVector(dir,dist)
     camera.lookAt(center)
 
-    const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false})
-    renderer.setSize(size,size,false)
-    renderer.setPixelRatio(1)
-    renderer.render(scene,camera)
-    const url=renderer.domElement.toDataURL('image/png')
+    const url=renderSceneToDataUrl(scene,camera,size)
     disposeTree(wrap)
-    renderer.dispose()
     cache.set(key,url)
     return url
   }catch(e){
