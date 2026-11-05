@@ -14,7 +14,10 @@ import {
   choosePacking,
   packingCandidates,
   packingContentCells,
-  packingStats
+  packingStats,
+  fitInFixedOutbox,
+  maxQuantityWithinLimits,
+  withinLimits
 } from '../src/outbox.js'
 
 const samples=[
@@ -145,14 +148,92 @@ for(const s of samples){
   const bad=choosePacking(outer,12,DEFAULT_OUTBOX_GAP,{manual:{nx:2,ny:2,nz:2,rotated:false}})
   if(!bad.warnings.includes('layoutMismatch'))fail('manual mismatch warning missing')
   else ok('manual 2x2x2 vs N=12 warns layoutMismatch')
+
+  // grow 超限：不再静默夹紧，返回 overLimit
+  {
+    const huge=buildOutboxKnife({
+      inboxKnife:inbox,
+      quantity:2000,
+      gap:DEFAULT_OUTBOX_GAP,
+      thickness:DEFAULT_OUTBOX_THICKNESS,
+      sizingMode:'grow'
+    })
+    if(!huge||huge.error!=='overLimit')fail(`grow N=2000: expected overLimit got ${huge?.error}`)
+    else if(huge.knife)fail('grow N=2000: knife should be null')
+    else if(!(huge.hint?.maxFit>0))fail(`grow N=2000: maxFit missing got ${huge.hint?.maxFit}`)
+    else{
+      const maxFit=maxQuantityWithinLimits(outer,DEFAULT_OUTBOX_GAP)
+      if(maxFit!==huge.hint.maxFit)fail(`grow N=2000: hint.maxFit ${huge.hint.maxFit} != ${maxFit}`)
+      else ok(`grow N=2000: overLimit, maxFit=${maxFit}`)
+    }
+  }
+
+  // fixed：按实际外廓手算期望装量
+  {
+    const small=createKnife({
+      templateId:'tuck-end-straight',
+      length:80,width:50,height:150,thickness:1.5,bleed:5,sizeMode:'inner'
+    })
+    const smallOuter=inboxOuterDims(small)
+    const fixed={length:430,width:210,height:270}
+    const g=DEFAULT_OUTBOX_GAP
+    const usable={
+      length:fixed.length-2*g.length,
+      width:fixed.width-2*g.width,
+      height:fixed.height-2*g.height
+    }
+    const orients=[
+      {nx:Math.floor(usable.length/smallOuter.length),ny:Math.floor(usable.width/smallOuter.width),nz:Math.floor(usable.height/smallOuter.height)},
+      {nx:Math.floor(usable.length/smallOuter.width),ny:Math.floor(usable.width/smallOuter.length),nz:Math.floor(usable.height/smallOuter.height)}
+    ]
+    const expected=Math.max(
+      orients[0].nx>=1&&orients[0].ny>=1&&orients[0].nz>=1?orients[0].nx*orients[0].ny*orients[0].nz:0,
+      orients[1].nx>=1&&orients[1].ny>=1&&orients[1].nz>=1?orients[1].nx*orients[1].ny*orients[1].nz:0
+    )
+    const fit=fitInFixedOutbox(smallOuter,fixed,DEFAULT_OUTBOX_GAP)
+    if(!fit||fit.error)fail(`fixed fit: unexpected error ${fit?.error}`)
+    else if(fit.quantity!==expected){
+      fail(`fixed fit: expected ${expected} got ${fit.nx}x${fit.ny}x${fit.nz}=${fit.quantity}`)
+    }else ok(`fixed fit: ${smallOuter.length}×${smallOuter.width}×${smallOuter.height} in 430×210×270 → ${fit.nx}x${fit.ny}x${fit.nz}=${fit.quantity}`)
+
+    const builtFixed=buildOutboxKnife({
+      inboxKnife:small,
+      gap:DEFAULT_OUTBOX_GAP,
+      thickness:DEFAULT_OUTBOX_THICKNESS,
+      sizingMode:'fixed',
+      fixedInner:fixed
+    })
+    if(!builtFixed?.knife)fail('fixed build: no knife')
+    else if(builtFixed.packing.quantity!==expected)fail(`fixed build qty ${builtFixed.packing.quantity}`)
+    else if(builtFixed.plan.inner.length!==430||builtFixed.plan.inner.width!==210||builtFixed.plan.inner.height!==270){
+      fail(`fixed build size ${builtFixed.plan.inner.length}x${builtFixed.plan.inner.width}x${builtFixed.plan.inner.height}`)
+    }else ok(`fixed build: knife at 430×210×270 with ${expected} units`)
+
+    // 尺寸在模板范围内，但放不下一盒
+    const none=buildOutboxKnife({
+      inboxKnife:small,
+      gap:DEFAULT_OUTBOX_GAP,
+      thickness:DEFAULT_OUTBOX_THICKNESS,
+      sizingMode:'fixed',
+      fixedInner:{length:100,width:80,height:50}
+    })
+    if(!none||none.error!=='noneFit'||none.knife)fail(`fixed tiny: expected noneFit got ${none?.error}`)
+    else ok('fixed tiny: noneFit')
+
+    const oor=buildOutboxKnife({
+      inboxKnife:small,
+      gap:DEFAULT_OUTBOX_GAP,
+      thickness:DEFAULT_OUTBOX_THICKNESS,
+      sizingMode:'fixed',
+      fixedInner:{length:2000,width:210,height:270}
+    })
+    if(!oor||oor.error!=='fixedOutOfRange'||oor.knife)fail(`fixed OOR: expected fixedOutOfRange got ${oor?.error}`)
+    else ok('fixed OOR: fixedOutOfRange')
+  }
 }
 
 function withinLoose(inner){
-  // 与 outbox withinLimits 对齐的简化：rea-carton-0201 limits
-  const lim={length:[80,1200],width:[60,1000],height:[40,1000]}
-  return inner.length>=lim.length[0]&&inner.length<=lim.length[1]
-    &&inner.width>=lim.width[0]&&inner.width<=lim.width[1]
-    &&inner.height>=lim.height[0]&&inner.height<=lim.height[1]
+  return withinLimits(inner)
 }
 
 if(failed){

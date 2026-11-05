@@ -11,7 +11,7 @@ import {buildGeomRig} from './geomRig.js'
 import {toDxf,toPdf,toAi,toSvgDieline} from './exportDieline.js'
 import {buildDimAnnotations} from './dimAnnotations.js'
 import {DEFAULT_TEMPLATE_ID,getTemplate} from './templates/index.js'
-import {PRESET_CATALOG,OFFICIAL_SUBCLASSES,UNCLASSIFIED_SUBCLASS_COUNT,getPreset,searchImportedPresets,ownedGroupsWithTemplates,countModelOnly} from './catalog/index.js'
+import {PRESET_CATALOG,OFFICIAL_SUBCLASSES,UNCLASSIFIED_SUBCLASS_COUNT,getPreset,searchImportedPresets,ownedGroupsWithTemplates,countModelOnly,outboxCatalogOptions} from './catalog/index.js'
 import {renderClosedThumb,structureKind} from './renderClosedThumb.js'
 import {renderProxyThumb} from './renderProxyThumb.js'
 import {renderGeomClosedThumb} from './renderGeomClosedThumb.js'
@@ -188,7 +188,7 @@ function mountOutboxScene(){
     }
     if(!outboxScene)outboxScene=createKnifeScene(outboxThreeRef.value,{materialId:material.value})
     await outboxScene.setKnife(outboxKnife.value,outboxThickness.value,material.value)
-    outboxScene.setProgress(progress.value)
+    outboxScene.setProgress(outboxProgress.value)
     syncOutboxContents()
   }))
 }
@@ -247,6 +247,7 @@ const L=ref(315),W=ref(202),H=ref(62),thickness=ref(1.5),progress=ref(100),zoom=
 const sizeMode=ref('inner'),fluteDirection=ref('L')
 const piece=ref('bottom') // 多件：底盖/天盖/抽屉/袖套等
 const outboxEnabled=ref(true)
+const outboxSizingMode=ref('grow') // 'grow' | 'fixed'
 const outboxGapL=ref(DEFAULT_OUTBOX_GAP.length)
 const outboxGapW=ref(DEFAULT_OUTBOX_GAP.width)
 const outboxGapH=ref(DEFAULT_OUTBOX_GAP.height)
@@ -258,9 +259,15 @@ const outboxNy=ref(1)
 const outboxNz=ref(1)
 const outboxRotated=ref(false)
 const outboxShowContents=ref(true)
+const outboxProgress=ref(100)
 const outboxZoom=ref(1)
+const outboxFixedL=ref(430)
+const outboxFixedW=ref(210)
+const outboxFixedH=ref(270)
+const outboxCatalogPick=ref('')
 const outboxThreeRef=ref(null)
 let outboxScene=null
+const outboxCatalogList=computed(()=>outboxCatalogOptions())
 /** 仅 3D 样机（无刀版）提示文案 */
 const MODEL_ONLY_TEXT=computed(()=>t('modelOnly.hint'))
 const activePreset=computed(()=>importId.value?getPreset(importId.value):null)
@@ -434,6 +441,7 @@ const outboxEligible=computed(()=>canBuildOutbox({
   enabled:outboxEnabled.value
 }))
 const outboxManualLayout=computed(()=>{
+  if(outboxSizingMode.value!=='grow')return null
   if(!outboxManual.value)return null
   return {
     nx:outboxNx.value,
@@ -442,6 +450,11 @@ const outboxManualLayout=computed(()=>{
     rotated:outboxRotated.value
   }
 })
+const outboxFixedInner=computed(()=>({
+  length:Number(outboxFixedL.value)||0,
+  width:Number(outboxFixedW.value)||0,
+  height:Number(outboxFixedH.value)||0
+}))
 const outboxBundle=computed(()=>buildOutboxKnife({
   inboxKnife:knife.value,
   gap:outboxGap.value,
@@ -453,13 +466,17 @@ const outboxBundle=computed(()=>buildOutboxKnife({
   flatHeight:isFlatHeight.value,
   enabled:outboxEnabled.value,
   quantity:outboxQty.value,
-  manualLayout:outboxManualLayout.value
+  manualLayout:outboxManualLayout.value,
+  sizingMode:outboxSizingMode.value,
+  fixedInner:outboxSizingMode.value==='fixed'?outboxFixedInner.value:null
 }))
 const outboxKnife=computed(()=>outboxBundle.value?.knife||null)
 const outboxPlan=computed(()=>outboxBundle.value?.plan||null)
 const outboxOuter=computed(()=>outboxBundle.value?.outer||null)
 const outboxPacking=computed(()=>outboxBundle.value?.packing||null)
 const outboxStats=computed(()=>outboxBundle.value?.stats||null)
+const outboxError=computed(()=>outboxBundle.value?.error||null)
+const outboxHint=computed(()=>outboxBundle.value?.hint||null)
 const outboxHasMismatch=computed(()=>(outboxPlan.value?.warnings||[]).includes('layoutMismatch'))
 const outboxStatsLine=computed(()=>{
   const s=outboxStats.value
@@ -471,9 +488,51 @@ const outboxStatsLine=computed(()=>{
     t('outbox.fillRate',{v:s.fillRate})
   ].join(' · ')
 })
+const outboxErrorText=computed(()=>{
+  const err=outboxError.value
+  if(!err)return ''
+  if(err==='overLimit'){
+    const o=outboxHint.value?.overflow||{}
+    return t('outbox.errOverLimit',{
+      ol:o.length||0,
+      ow:o.width||0,
+      oh:o.height||0
+    })
+  }
+  if(err==='noneFit')return t('outbox.errNoneFit')
+  if(err==='fixedOutOfRange')return t('outbox.errFixedRange')
+  return err
+})
+const outboxErrorHintText=computed(()=>{
+  if(outboxError.value!=='overLimit')return ''
+  const max=outboxHint.value?.maxFit
+  if(!(max>0))return ''
+  return t('outbox.errOverLimitHint',{max})
+})
+function applyOutboxCatalogPick(id){
+  outboxCatalogPick.value=id||''
+  if(!id)return
+  const opt=outboxCatalogList.value.find(p=>p.id===id)
+  if(!opt)return
+  outboxFixedL.value=opt.length
+  outboxFixedW.value=opt.width
+  outboxFixedH.value=opt.height
+}
+function setOutboxSizingMode(mode){
+  if(mode!=='grow'&&mode!=='fixed')return
+  if(mode==='fixed'&&outboxSizingMode.value==='grow'&&outboxPlan.value?.inner){
+    // 切到固定模式时，用当前自动算出的外箱内空作默认值
+    outboxFixedL.value=outboxPlan.value.inner.length
+    outboxFixedW.value=outboxPlan.value.inner.width
+    outboxFixedH.value=outboxPlan.value.inner.height
+    outboxCatalogPick.value=''
+  }
+  outboxSizingMode.value=mode
+}
 
 watch(outboxPacking,(p)=>{
-  if(!p||outboxManual.value)return
+  if(!p||outboxSizingMode.value!=='grow'||outboxManual.value)return
+  if(p.error)return
   outboxNx.value=p.nx
   outboxNy.value=p.ny
   outboxNz.value=p.nz
@@ -813,8 +872,9 @@ function outboxExportBase(){
   const plan=outboxPlan.value?.inner
   const size=plan?`${plan.length}x${plan.width}x${plan.height}`:`${L.value}x${W.value}x${H.value}`
   const p=outboxPacking.value
-  const layout=p?`-N${p.quantity}-${p.nx}x${p.ny}x${p.nz}`:''
-  return `outbox-${OUTBOX_TEMPLATE_ID}-${size}${layout}`
+  const layout=p&&!p.error?`-N${p.quantity}-${p.nx}x${p.ny}x${p.nz}`:''
+  const modeTag=outboxSizingMode.value==='fixed'?'-fixed':''
+  return `outbox-${OUTBOX_TEMPLATE_ID}-${size}${layout}${modeTag}`
 }
 function downloadOutboxSVG(){
   if(!outboxKnife.value)return
@@ -843,10 +903,17 @@ watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(
 watch(progress,()=>{
   if(screen.value!=='lab')return
   setFold()
-  outboxScene?.setProgress(progress.value)
 })
-watch([outboxKnife,outboxThickness,material,outboxEnabled,outboxQty,outboxManual,outboxNx,outboxNy,outboxNz,outboxRotated],()=>{
-  if(screen.value==='lab')mountOutboxScene()
+watch(outboxProgress,()=>{
+  if(screen.value==='lab')outboxScene?.setProgress(outboxProgress.value)
+})
+watch([outboxKnife,outboxThickness,material,outboxEnabled,outboxQty,outboxManual,outboxNx,outboxNy,outboxNz,outboxRotated,outboxSizingMode,outboxFixedL,outboxFixedW,outboxFixedH,outboxError],()=>{
+  if(screen.value!=='lab')return
+  if(outboxError.value||!outboxKnife.value){
+    disposeOutboxScene()
+    return
+  }
+  mountOutboxScene()
 })
 watch(outboxShowContents,()=>{
   if(screen.value==='lab')syncOutboxContents()
@@ -1015,31 +1082,60 @@ onBeforeUnmount(()=>{
       <button type="button" :class="['chip',{selected:!outboxEnabled}]" @click="outboxEnabled=false">OFF</button>
     </div>
   </div>
-  <template v-if="outboxEnabled&&outboxKnife">
+  <template v-if="outboxEnabled&&outboxEligible">
     <p class="hint">{{t('outbox.template')}}</p>
-    <div class="field"><label>{{t('outbox.qty')}}</label><div class="inputwrap"><input v-model.number="outboxQty" type="number" min="1" max="500" step="1"/><b>pcs</b></div></div>
-    <div class="field"><label>{{outboxManual?t('outbox.layoutManual'):t('outbox.layoutAuto')}}</label>
+    <div class="field"><label>{{t('outbox.modeGrow')}}</label>
       <div class="inputwrap mode-toggle">
-        <button type="button" :class="['chip',{selected:!outboxManual}]" @click="outboxManual=false">{{t('outbox.layoutAuto')}}</button>
-        <button type="button" :class="['chip',{selected:outboxManual}]" @click="outboxManual=true">{{t('outbox.layoutManual')}}</button>
+        <button type="button" :class="['chip','lang-chip',{selected:outboxSizingMode==='grow'}]" @click="setOutboxSizingMode('grow')">{{t('outbox.modeGrow')}}</button>
+        <button type="button" :class="['chip','lang-chip',{selected:outboxSizingMode==='fixed'}]" @click="setOutboxSizingMode('fixed')">{{t('outbox.modeFixed')}}</button>
       </div>
     </div>
-    <p class="hint dim-meta" v-if="outboxPacking">{{t('outbox.layoutLabel',{nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz})}}{{outboxPacking.rotated?` · ${t('outbox.rotated')}`:''}}</p>
-    <template v-if="outboxManual">
-      <div class="field"><label>{{t('outbox.nx')}}</label><div class="inputwrap"><input v-model.number="outboxNx" type="number" min="1" max="50" step="1"/></div></div>
-      <div class="field"><label>{{t('outbox.ny')}}</label><div class="inputwrap"><input v-model.number="outboxNy" type="number" min="1" max="50" step="1"/></div></div>
-      <div class="field"><label>{{t('outbox.nz')}}</label><div class="inputwrap"><input v-model.number="outboxNz" type="number" min="1" max="50" step="1"/></div></div>
-      <div class="field"><label>{{t('outbox.rotated')}}</label>
+
+    <template v-if="outboxSizingMode==='grow'">
+      <div class="field"><label>{{t('outbox.qty')}}</label><div class="inputwrap"><input v-model.number="outboxQty" type="number" min="1" max="500" step="1"/><b>pcs</b></div></div>
+      <div class="field"><label>{{outboxManual?t('outbox.layoutManual'):t('outbox.layoutAuto')}}</label>
         <div class="inputwrap mode-toggle">
-          <button type="button" :class="['chip',{selected:outboxRotated}]" @click="outboxRotated=true">ON</button>
-          <button type="button" :class="['chip',{selected:!outboxRotated}]" @click="outboxRotated=false">OFF</button>
+          <button type="button" :class="['chip',{selected:!outboxManual}]" @click="outboxManual=false">{{t('outbox.layoutAuto')}}</button>
+          <button type="button" :class="['chip',{selected:outboxManual}]" @click="outboxManual=true">{{t('outbox.layoutManual')}}</button>
         </div>
       </div>
-      <p class="hint model-only-hint" v-if="outboxHasMismatch">{{t('outbox.layoutMismatch')}}</p>
+      <p class="hint dim-meta" v-if="outboxPacking&&!outboxError">{{t('outbox.layoutLabel',{nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz})}}{{outboxPacking.rotated?` · ${t('outbox.rotated')}`:''}}</p>
+      <template v-if="outboxManual">
+        <div class="field"><label>{{t('outbox.nx')}}</label><div class="inputwrap"><input v-model.number="outboxNx" type="number" min="1" max="50" step="1"/></div></div>
+        <div class="field"><label>{{t('outbox.ny')}}</label><div class="inputwrap"><input v-model.number="outboxNy" type="number" min="1" max="50" step="1"/></div></div>
+        <div class="field"><label>{{t('outbox.nz')}}</label><div class="inputwrap"><input v-model.number="outboxNz" type="number" min="1" max="50" step="1"/></div></div>
+        <div class="field"><label>{{t('outbox.rotated')}}</label>
+          <div class="inputwrap mode-toggle">
+            <button type="button" :class="['chip',{selected:outboxRotated}]" @click="outboxRotated=true">ON</button>
+            <button type="button" :class="['chip',{selected:!outboxRotated}]" @click="outboxRotated=false">OFF</button>
+          </div>
+        </div>
+        <p class="hint model-only-hint" v-if="outboxHasMismatch">{{t('outbox.layoutMismatch')}}</p>
+      </template>
     </template>
-    <p class="hint dim-meta" v-if="outboxOuter&&outboxPlan&&outboxPacking">{{t('outbox.mapping',{ol:outboxOuter.length,ow:outboxOuter.width,oh:outboxOuter.height,n:outboxPacking.quantity,nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz,il:outboxPlan.inner.length,iw:outboxPlan.inner.width,ih:outboxPlan.inner.height})}}</p>
-    <p class="hint dim-meta" v-if="outboxStats">{{outboxStatsLine}}</p>
-    <p class="hint model-only-hint" v-if="outboxPlan?.clamped">{{t('outbox.clamped')}}</p>
+
+    <template v-else>
+      <div class="field"><label>{{t('outbox.catalogPick')}}</label>
+        <select class="outbox-select" :value="outboxCatalogPick" @change="applyOutboxCatalogPick($event.target.value)">
+          <option value="">{{t('outbox.catalogNone')}}</option>
+          <option v-for="opt in outboxCatalogList" :key="opt.id" :value="opt.id">
+            #{{opt.sourceNum}} · {{displayPresetLabel(opt)}} · {{opt.length}}×{{opt.width}}×{{opt.height}}
+          </option>
+        </select>
+      </div>
+      <div class="field"><label>{{t('outbox.fixedL')}}</label><div class="inputwrap"><input v-model.number="outboxFixedL" type="number" min="80" max="1200" step="1"/><b>mm</b></div></div>
+      <div class="field"><label>{{t('outbox.fixedW')}}</label><div class="inputwrap"><input v-model.number="outboxFixedW" type="number" min="60" max="1000" step="1"/><b>mm</b></div></div>
+      <div class="field"><label>{{t('outbox.fixedH')}}</label><div class="inputwrap"><input v-model.number="outboxFixedH" type="number" min="40" max="1000" step="1"/><b>mm</b></div></div>
+      <p class="hint dim-meta" v-if="outboxPacking&&!outboxError">{{t('outbox.fitResult',{n:outboxPacking.quantity,nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz})}}{{outboxPacking.rotated?` · ${t('outbox.rotated')}`:''}}</p>
+    </template>
+
+    <div class="outbox-error" v-if="outboxError">
+      <p>{{outboxErrorText}}</p>
+      <p v-if="outboxErrorHintText">{{outboxErrorHintText}}</p>
+    </div>
+
+    <p class="hint dim-meta" v-if="!outboxError&&outboxOuter&&outboxPlan&&outboxPacking">{{t('outbox.mapping',{ol:outboxOuter.length,ow:outboxOuter.width,oh:outboxOuter.height,n:outboxPacking.quantity,nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz,il:outboxPlan.inner.length,iw:outboxPlan.inner.width,ih:outboxPlan.inner.height})}}</p>
+    <p class="hint dim-meta" v-if="!outboxError&&outboxStats">{{outboxStatsLine}}</p>
     <div class="field"><label>{{t('outbox.gapL')}}</label><div class="inputwrap"><input v-model.number="outboxGapL" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
     <div class="field"><label>{{t('outbox.gapW')}}</label><div class="inputwrap"><input v-model.number="outboxGapW" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
     <div class="field"><label>{{t('outbox.gapH')}}</label><div class="inputwrap"><input v-model.number="outboxGapH" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
@@ -1051,18 +1147,31 @@ onBeforeUnmount(()=>{
       </div>
     </div>
     <div class="eyebrow" style="margin-top:14px">{{t('outbox.export')}}</div>
-    <button class="btn full ghost" type="button" @click="downloadOutboxSVG"><Download :size="15"/> {{t('outbox.exportSvg')}}</button>
-    <button class="btn full ghost" type="button" @click="downloadOutboxDXF"><Download :size="15"/> {{t('outbox.exportDxf')}}</button>
-    <button class="btn full ghost" type="button" @click="downloadOutboxPDF"><Download :size="15"/> {{t('outbox.exportPdf')}}</button>
-    <button class="btn full ghost" type="button" @click="downloadOutboxJSON"><Download :size="15"/> {{t('outbox.exportJson')}}</button>
-    <p class="hint">{{t('outbox.syncFold')}}</p>
+    <p class="hint model-only-hint" v-if="outboxError">{{t('outbox.exportDisabled')}}</p>
+    <button class="btn full ghost" type="button" :disabled="!!outboxError||!outboxKnife" @click="downloadOutboxSVG"><Download :size="15"/> {{t('outbox.exportSvg')}}</button>
+    <button class="btn full ghost" type="button" :disabled="!!outboxError||!outboxKnife" @click="downloadOutboxDXF"><Download :size="15"/> {{t('outbox.exportDxf')}}</button>
+    <button class="btn full ghost" type="button" :disabled="!!outboxError||!outboxKnife" @click="downloadOutboxPDF"><Download :size="15"/> {{t('outbox.exportPdf')}}</button>
+    <button class="btn full ghost" type="button" :disabled="!!outboxError||!outboxKnife" @click="downloadOutboxJSON"><Download :size="15"/> {{t('outbox.exportJson')}}</button>
   </template>
   <p v-else-if="outboxEnabled" class="hint">{{t('outbox.hidden')}}</p>
 </div>
 <div class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p></div></aside>
 <main><div class="panels" :class="{'model-only-lab':isModelOnly}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam')}}</h3></div><div class="pill">{{geomMode?t('lab.pillGeom'):t('lab.pillKnife')}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div></section>
 <section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div>
-<div v-if="outboxKnife" class="panels outbox-panels">
+<div v-if="outboxEligible&&outboxError" class="panels outbox-panels">
+  <section class="panel outbox-error-panel">
+    <div class="panel-header">
+      <div><div class="eyebrow">{{t('outbox.title')}}</div><h3>{{t('outbox.preview')}}</h3></div>
+      <div class="pill">{{t('outbox.template')}}</div>
+    </div>
+    <div class="outbox-error">
+      <p>{{outboxErrorText}}</p>
+      <p v-if="outboxErrorHintText">{{outboxErrorHintText}}</p>
+      <p class="hint">{{t('outbox.exportDisabled')}}</p>
+    </div>
+  </section>
+</div>
+<div v-else-if="outboxKnife" class="panels outbox-panels">
   <section class="panel">
     <div class="panel-header">
       <div><div class="eyebrow">{{t('outbox.title')}}</div><h3>{{t('outbox.dieline')}}</h3></div>
@@ -1103,7 +1212,17 @@ onBeforeUnmount(()=>{
     <div class="scene-area">
       <div ref="outboxThreeRef" class="three-container"></div>
       <button class="reset-camera" @click="resetOutboxView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button>
-      <div class="scene-note">{{t('outbox.syncFold')}}</div>
+      <div class="scene-note">{{t('outbox.foldNote')}}</div>
+    </div>
+    <div class="fold-controls">
+      <div class="fold-top"><strong>{{t('outbox.foldProgress')}}</strong><span>{{outboxProgress}}%</span></div>
+      <input v-model.number="outboxProgress" class="range" type="range" min="0" max="100" step="1"/>
+      <div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div>
+      <div class="preset">
+        <button type="button" @click="outboxProgress=0">{{t('lab.fullOpen')}}</button>
+        <button type="button" @click="outboxProgress=50">{{t('lab.halfFold')}}</button>
+        <button type="button" @click="outboxProgress=100">{{t('lab.fullClose')}}</button>
+      </div>
     </div>
   </section>
 </div>

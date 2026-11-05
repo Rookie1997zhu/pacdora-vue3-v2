@@ -99,3 +99,33 @@ export function searchImportedPresets(query='',{categoryId='',subclassId='',mode
 export function countModelOnly(){
   return PRESETS.filter(p=>p.modelOnly).length
 }
+
+const OUTBOX_PREFERRED_TEMPLATES=new Set(['rea-carton-0201','fefco-0201'])
+
+/**
+ * 外箱固定尺寸模式下的运输箱目录选项
+ * 开槽箱模板优先；排除纯样机与无效尺寸
+ * @returns {Array<{id:string,sourceNum:string,label:string,length:number,width:number,height:number,templateId:string,preferred:boolean}>}
+ */
+export function outboxCatalogOptions(){
+  const list=PRESETS.filter(p=>{
+    if(p.categoryId&&p.categoryId!=='shipping')return false
+    if(p.modelOnly)return false
+    const L=Number(p.length),W=Number(p.width),H=Number(p.height)
+    return L>0&&W>0&&H>0
+  }).map(p=>({
+    id:p.id,
+    sourceNum:String(p.sourceNum||''),
+    label:p.label||'',
+    length:Number(p.length),
+    width:Number(p.width),
+    height:Number(p.height),
+    templateId:p.templateId||'',
+    preferred:OUTBOX_PREFERRED_TEMPLATES.has(p.templateId)
+  }))
+  list.sort((a,b)=>{
+    if(a.preferred!==b.preferred)return a.preferred?-1:1
+    return String(a.sourceNum).localeCompare(String(b.sourceNum),'en',{numeric:true})
+  })
+  return list
+}
