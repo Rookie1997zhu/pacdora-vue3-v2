@@ -125,5 +125,26 @@ export default {
     multiPiece:'多件组合',
     telescoping:'天地盖成套',
     flat:'平板'
+  },
+  outbox:{
+    title:'OUTBOX / 外箱',
+    enable:'联动外箱',
+    gap:'装箱间隙',
+    gapL:'间隙 L',
+    gapW:'间隙 W',
+    gapH:'间隙 H',
+    thickness:'外箱板厚',
+    mapping:'内盒外廓 {ol}×{ow}×{oh} → 外箱内空 {il}×{iw}×{ih}',
+    clamped:'尺寸已按外箱模板范围夹紧',
+    template:'FEFCO 0201 · 开槽纸箱',
+    dieline:'外箱 2D 刀版',
+    preview:'外箱 3D',
+    export:'导出外箱',
+    exportSvg:'导出外箱 SVG',
+    exportDxf:'导出外箱 DXF',
+    exportPdf:'导出外箱 PDF',
+    exportJson:'导出外箱 JSON',
+    syncFold:'与内盒共用折叠进度',
+    hidden:'当前内盒不支持外箱联动（样机/平板/无刀版）'
   }
 }

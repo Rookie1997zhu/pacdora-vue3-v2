@@ -125,5 +125,26 @@ export default {
     multiPiece:'다부품 조합',
     telescoping:'천지개 세트',
     flat:'평판'
+  },
+  outbox:{
+    title:'OUTBOX / 외박스',
+    enable:'외박스 연동',
+    gap:'포장 여유',
+    gapL:'여유 L',
+    gapW:'여유 W',
+    gapH:'여유 H',
+    thickness:'외박스 판 두께',
+    mapping:'내박스 외곽 {ol}×{ow}×{oh} → 외박스 내부 {il}×{iw}×{ih}',
+    clamped:'외박스 템플릿 한도에 맞춰 치수 조정됨',
+    template:'FEFCO 0201 · 개조형 골판상자',
+    dieline:'외박스 2D 전개도',
+    preview:'외박스 3D',
+    export:'외박스 내보내기',
+    exportSvg:'외박스 SVG 내보내기',
+    exportDxf:'외박스 DXF 내보내기',
+    exportPdf:'외박스 PDF 내보내기',
+    exportJson:'외박스 JSON 내보내기',
+    syncFold:'내박스와 접기 진행 공유',
+    hidden:'현재 내박스는 외박스 연동 불가(샘플/평판/전개도 없음)'
   }
 }

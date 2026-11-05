@@ -28,6 +28,14 @@ import {
   displayPieceLabel,
   displayStructureKindLabel
 } from './i18n/displayName.js'
+import {
+  DEFAULT_OUTBOX_GAP,
+  DEFAULT_OUTBOX_THICKNESS,
+  OUTBOX_TEMPLATE_ID,
+  buildOutboxKnife,
+  canBuildOutbox
+} from './outbox.js'
+import {createKnifeScene} from './lab/knifeScene.js'
 clearPacdoraGeomCache()
 function assetUrl(path){return publicAssetUrl(path)}
 
@@ -158,12 +166,25 @@ function loadGalleryThumbs(){
 function remount3D(){
   return build3D().then(()=>{if(screen.value==='lab')resetView()})
 }
+function mountOutboxScene(){
+  nextTick(()=>nextTick(async()=>{
+    if(screen.value!=='lab')return
+    if(!outboxEligible.value||!outboxKnife.value||!outboxThreeRef.value){
+      disposeOutboxScene()
+      return
+    }
+    if(!outboxScene)outboxScene=createKnifeScene(outboxThreeRef.value,{materialId:material.value})
+    await outboxScene.setKnife(outboxKnife.value,outboxThickness.value,material.value)
+    outboxScene.setProgress(progress.value)
+  }))
+}
 function mountLabScene(){
   nextTick(()=>nextTick(()=>{
     if(!threeRef.value)return
     progress.value=100
     if(!renderer)init3D()
     else remount3D()
+    mountOutboxScene()
   }))
 }
 function enterLabFromTemplate(id){
@@ -190,9 +211,15 @@ async function enterLabFromPreset(id){
   screen.value='lab'
   mountLabScene()
 }
+function disposeOutboxScene(){
+  outboxScene?.dispose()
+  outboxScene=null
+}
+function resetOutboxView(){outboxScene?.resetView()}
 function backToGallery(){
   screen.value='gallery'
   // 释放 lab 里的 WebGL，回列表再进时重建
+  disposeOutboxScene()
   cancelAnimationFrame(raf);raf=0
   observer?.disconnect();observer=null
   controls?.dispose();controls=null
@@ -205,6 +232,14 @@ function backToGallery(){
 const L=ref(315),W=ref(202),H=ref(62),thickness=ref(1.5),progress=ref(100),zoom=ref(1),bleed=ref(5)
 const sizeMode=ref('inner'),fluteDirection=ref('L')
 const piece=ref('bottom') // 多件：底盖/天盖/抽屉/袖套等
+const outboxEnabled=ref(true)
+const outboxGapL=ref(DEFAULT_OUTBOX_GAP.length)
+const outboxGapW=ref(DEFAULT_OUTBOX_GAP.width)
+const outboxGapH=ref(DEFAULT_OUTBOX_GAP.height)
+const outboxThickness=ref(DEFAULT_OUTBOX_THICKNESS)
+const outboxZoom=ref(1)
+const outboxThreeRef=ref(null)
+let outboxScene=null
 /** 仅 3D 样机（无刀版）提示文案 */
 const MODEL_ONLY_TEXT=computed(()=>t('modelOnly.hint'))
 const activePreset=computed(()=>importId.value?getPreset(importId.value):null)
@@ -360,11 +395,69 @@ const bleedPaths=computed(()=>{
 })
 const dimFontSize=computed(()=>Math.max(4,Math.min(13,Math.min(knife.value.totalX,knife.value.totalY)/30)))
 const dimAnnotations=computed(()=>buildDimAnnotations(knife.value))
-const dimLines=computed(()=>dimAnnotations.value.flatMap((a,ai)=>(a.lines||[]).map((L,li)=>({key:`dl${ai}-${li}`,...L}))))
+const dimLines=computed(()=>dimAnnotations.value.flatMap((a,ai)=>(a.lines||[]).map((ln,li)=>({key:`dl${ai}-${li}`,...ln}))))
 const dimPolys=computed(()=>dimAnnotations.value.flatMap((a,ai)=>(a.polys||[]).map((pts,pi)=>({key:`dp${ai}-${pi}`,points:pts.map(p=>`${p[0]},${p[1]}`).join(' ')}))))
 const dimTexts=computed(()=>dimAnnotations.value.filter(a=>a.text).map((a,ai)=>({key:`dt${ai}`,kind:a.kind,...a.text})))
 const bleedEffectiveMm=computed(()=>Number(knife.value.bleedEffective)||(Number(knife.value.bleed||bleed.value||0)+BLEED_EXTRA_MM))
 const viewBox=computed(()=>{const b=knife.value.bounds,p=26+bleedEffectiveMm.value;return `${b.minX-p} ${b.minY-p} ${b.maxX-b.minX+2*p} ${b.maxY-b.minY+2*p}`})
+
+const outboxGap=computed(()=>({
+  length:Number(outboxGapL.value)||0,
+  width:Number(outboxGapW.value)||0,
+  height:Number(outboxGapH.value)||0
+}))
+const outboxEligible=computed(()=>canBuildOutbox({
+  knife:knife.value,
+  modelOnly:isModelOnly.value,
+  flatHeight:isFlatHeight.value,
+  enabled:outboxEnabled.value
+}))
+const outboxBundle=computed(()=>buildOutboxKnife({
+  inboxKnife:knife.value,
+  gap:outboxGap.value,
+  thickness:outboxThickness.value,
+  bleed:bleed.value,
+  materialId:material.value,
+  fluteDirection:fluteDirection.value,
+  modelOnly:isModelOnly.value,
+  flatHeight:isFlatHeight.value,
+  enabled:outboxEnabled.value
+}))
+const outboxKnife=computed(()=>outboxBundle.value?.knife||null)
+const outboxPlan=computed(()=>outboxBundle.value?.plan||null)
+const outboxOuter=computed(()=>outboxBundle.value?.outer||null)
+const outboxCutPaths=computed(()=>{
+  const k=outboxKnife.value
+  if(!k)return []
+  if(Array.isArray(k.cutPaths)&&k.cutPaths.length)return k.cutPaths
+  return k.cutPath?[k.cutPath]:[]
+})
+const outboxBleedPaths=computed(()=>{
+  const k=outboxKnife.value
+  if(!k)return []
+  if(Array.isArray(k.bleedPaths)&&k.bleedPaths.length)return k.bleedPaths
+  return k.bleedPath?[k.bleedPath]:[]
+})
+const outboxBleedEffectiveMm=computed(()=>{
+  const k=outboxKnife.value
+  if(!k)return 0
+  return Number(k.bleedEffective)||(Number(k.bleed||bleed.value||0)+BLEED_EXTRA_MM)
+})
+const outboxViewBox=computed(()=>{
+  const k=outboxKnife.value
+  if(!k?.bounds)return '0 0 100 100'
+  const b=k.bounds,p=26+outboxBleedEffectiveMm.value
+  return `${b.minX-p} ${b.minY-p} ${b.maxX-b.minX+2*p} ${b.maxY-b.minY+2*p}`
+})
+const outboxDimFontSize=computed(()=>{
+  const k=outboxKnife.value
+  if(!k)return 8
+  return Math.max(4,Math.min(13,Math.min(k.totalX,k.totalY)/30))
+})
+const outboxDimAnnotations=computed(()=>outboxKnife.value?buildDimAnnotations(outboxKnife.value):[])
+const outboxDimLines=computed(()=>outboxDimAnnotations.value.flatMap((a,ai)=>(a.lines||[]).map((ln,li)=>({key:`odl${ai}-${li}`,...ln}))))
+const outboxDimPolys=computed(()=>outboxDimAnnotations.value.flatMap((a,ai)=>(a.polys||[]).map((pts,pi)=>({key:`odp${ai}-${pi}`,points:pts.map(p=>`${p[0]},${p[1]}`).join(' ')}))))
+const outboxDimTexts=computed(()=>outboxDimAnnotations.value.filter(a=>a.text).map((a,ai)=>({key:`odt${ai}`,kind:a.kind,...a.text})))
 const foldStatusText=computed(()=>{
   const s=foldStatus.value
   if(s.skipped)return t('fold.checkSkip')
@@ -663,6 +756,28 @@ function downloadDXF(){if(isModelOnly.value)return;saveFile(toDxf(knife.value),'
 async function downloadPDF(){if(isModelOnly.value)return;const bytes=await toPdf(knife.value);saveFile(bytes,'application/pdf',`${exportBase()}.pdf`)}
 async function downloadAI(){if(isModelOnly.value)return;const bytes=await toAi(knife.value);saveFile(bytes,'application/postscript',`${exportBase()}.ai`)}
 function downloadJSON(){if(isModelOnly.value)return;saveFile(JSON.stringify(knife.value,null,2),'application/json',`knife-v3-${exportBase()}.json`)}
+function outboxExportBase(){
+  const plan=outboxPlan.value?.inner
+  const size=plan?`${plan.length}x${plan.width}x${plan.height}`:`${L.value}x${W.value}x${H.value}`
+  return `outbox-${OUTBOX_TEMPLATE_ID}-${size}`
+}
+function downloadOutboxSVG(){
+  if(!outboxKnife.value)return
+  saveFile(toSvgDieline(outboxKnife.value,{includeDims:showDims.value}),'image/svg+xml',`${outboxExportBase()}.svg`)
+}
+function downloadOutboxDXF(){
+  if(!outboxKnife.value)return
+  saveFile(toDxf(outboxKnife.value),'application/dxf',`${outboxExportBase()}.dxf`)
+}
+async function downloadOutboxPDF(){
+  if(!outboxKnife.value)return
+  const bytes=await toPdf(outboxKnife.value)
+  saveFile(bytes,'application/pdf',`${outboxExportBase()}.pdf`)
+}
+function downloadOutboxJSON(){
+  if(!outboxKnife.value)return
+  saveFile(JSON.stringify(outboxKnife.value,null,2),'application/json',`${outboxExportBase()}.json`)
+}
 watch([L,W,H,thickness,sizeMode,templateId],()=>{if(screen.value==='lab')syncAdvancedDefaults(false)})
 watch([L,W,H,thickness,material,sizeMode,fluteDirection,piece,advancedParams],()=>{
   if(geomMode.value)return
@@ -670,7 +785,14 @@ watch([L,W,H,thickness,material,sizeMode,fluteDirection,piece,advancedParams],()
 })
 watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)remount3D()})
 watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(()=>remount3D())})
-watch(progress,()=>{if(screen.value==='lab')setFold()})
+watch(progress,()=>{
+  if(screen.value!=='lab')return
+  setFold()
+  outboxScene?.setProgress(progress.value)
+})
+watch([outboxKnife,outboxThickness,material,outboxEnabled],()=>{
+  if(screen.value==='lab')mountOutboxScene()
+})
 watch([boxTab,importSubclassId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
 onMounted(()=>nextTick(()=>{
   syncAdvancedDefaults(true)
@@ -679,7 +801,10 @@ onMounted(()=>nextTick(()=>{
   ensureBoardPack('white').catch(()=>{})
   loadGalleryThumbs()
 }))
-onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.dispose();if(group)disposeTree(group);renderer?.dispose();renderer?.domElement?.remove()})
+onBeforeUnmount(()=>{
+  disposeOutboxScene()
+  cancelAnimationFrame(raf);observer?.disconnect();controls?.dispose();if(group)disposeTree(group);renderer?.dispose();renderer?.domElement?.remove()
+})
 </script>
 <template>
 <div class="app">
@@ -823,8 +948,81 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
     <button type="button" class="btn full ghost" @click="resetAdvanced">{{t('lab.resetAdvanced')}}</button>
   </div>
 </div>
-</div><div class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p></div></aside>
+</div>
+<div class="section outbox-section">
+  <div class="eyebrow">{{t('outbox.title')}}</div>
+  <div class="field"><label>{{t('outbox.enable')}}</label>
+    <div class="inputwrap mode-toggle">
+      <button type="button" :class="['chip',{selected:outboxEnabled}]" @click="outboxEnabled=true">ON</button>
+      <button type="button" :class="['chip',{selected:!outboxEnabled}]" @click="outboxEnabled=false">OFF</button>
+    </div>
+  </div>
+  <template v-if="outboxEnabled&&outboxKnife">
+    <p class="hint">{{t('outbox.template')}}</p>
+    <p class="hint dim-meta" v-if="outboxOuter&&outboxPlan">{{t('outbox.mapping',{ol:outboxOuter.length,ow:outboxOuter.width,oh:outboxOuter.height,il:outboxPlan.inner.length,iw:outboxPlan.inner.width,ih:outboxPlan.inner.height})}}</p>
+    <p class="hint model-only-hint" v-if="outboxPlan?.clamped">{{t('outbox.clamped')}}</p>
+    <div class="field"><label>{{t('outbox.gapL')}}</label><div class="inputwrap"><input v-model.number="outboxGapL" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
+    <div class="field"><label>{{t('outbox.gapW')}}</label><div class="inputwrap"><input v-model.number="outboxGapW" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
+    <div class="field"><label>{{t('outbox.gapH')}}</label><div class="inputwrap"><input v-model.number="outboxGapH" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
+    <div class="field"><label>{{t('outbox.thickness')}}</label><div class="inputwrap"><input v-model.number="outboxThickness" type="number" min="0.5" max="12" step="0.5"/><b>mm</b></div></div>
+    <div class="eyebrow" style="margin-top:14px">{{t('outbox.export')}}</div>
+    <button class="btn full ghost" type="button" @click="downloadOutboxSVG"><Download :size="15"/> {{t('outbox.exportSvg')}}</button>
+    <button class="btn full ghost" type="button" @click="downloadOutboxDXF"><Download :size="15"/> {{t('outbox.exportDxf')}}</button>
+    <button class="btn full ghost" type="button" @click="downloadOutboxPDF"><Download :size="15"/> {{t('outbox.exportPdf')}}</button>
+    <button class="btn full ghost" type="button" @click="downloadOutboxJSON"><Download :size="15"/> {{t('outbox.exportJson')}}</button>
+    <p class="hint">{{t('outbox.syncFold')}}</p>
+  </template>
+  <p v-else-if="outboxEnabled" class="hint">{{t('outbox.hidden')}}</p>
+</div>
+<div class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p></div></aside>
 <main><div class="panels" :class="{'model-only-lab':isModelOnly}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam')}}</h3></div><div class="pill">{{geomMode?t('lab.pillGeom'):t('lab.pillKnife')}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div></section>
-<section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div><div class="notice"><strong>{{t('lab.noticeTitle')}}</strong><span>{{t('lab.noticeBody')}}</span></div></main></div></div>
+<section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div>
+<div v-if="outboxKnife" class="panels outbox-panels">
+  <section class="panel">
+    <div class="panel-header">
+      <div><div class="eyebrow">{{t('outbox.title')}}</div><h3>{{t('outbox.dieline')}}</h3></div>
+      <div class="pill">{{t('outbox.template')}}</div>
+    </div>
+    <div class="canvas-area">
+      <div class="canvas-controls">
+        <button @click="outboxZoom=Math.min(2,outboxZoom+.15)"><ZoomIn :size="17"/></button>
+        <span>{{Math.round(outboxZoom*100)}}%</span>
+        <button @click="outboxZoom=Math.max(.4,outboxZoom-.15)"><ZoomOut :size="17"/></button>
+        <button @click="outboxZoom=1"><Maximize2 :size="16"/></button>
+      </div>
+      <svg class="dieline" :viewBox="outboxViewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${outboxZoom})`}">
+        <path v-for="(d,i) in (showBleed?outboxBleedPaths:[])" :key="'ob'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/>
+        <path v-for="(d,i) in (showCut?outboxCutPaths:[])" :key="'oc'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/>
+        <g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4">
+          <line v-for="(f,i) in outboxKnife.folds" :key="'of'+i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/>
+        </g>
+        <g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="outboxDimFontSize" text-anchor="middle">
+          <line v-for="dl in outboxDimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/>
+          <polygon v-for="dp in outboxDimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/>
+          <text v-for="dt in outboxDimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text>
+        </g>
+      </svg>
+    </div>
+    <div class="legend">
+      <label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label>
+      <label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label>
+      <label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(outboxBleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label>
+      <label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="panel-header">
+      <div><div class="eyebrow">{{t('outbox.title')}}</div><h3>{{t('outbox.preview')}}</h3></div>
+      <span class="pill"><Layers3 :size="14"/> Three.js</span>
+    </div>
+    <div class="scene-area">
+      <div ref="outboxThreeRef" class="three-container"></div>
+      <button class="reset-camera" @click="resetOutboxView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button>
+      <div class="scene-note">{{t('outbox.syncFold')}}</div>
+    </div>
+  </section>
+</div>
+<div class="notice"><strong>{{t('lab.noticeTitle')}}</strong><span>{{t('lab.noticeBody')}}</span></div></main></div></div>
 </template>
+
 

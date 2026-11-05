@@ -12,7 +12,8 @@ const steps=[
   'check-templates.mjs',
   'check-rea-golden.mjs',
   'check-catalog.mjs',
-  'check-geom-assembly.mjs'
+  'check-geom-assembly.mjs',
+  'check-outbox.mjs'
 ]
 
 for(const file of steps){
