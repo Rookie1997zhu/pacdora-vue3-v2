@@ -134,7 +134,7 @@ export default {
     gapW:'间隙 W',
     gapH:'间隙 H',
     thickness:'外箱板厚',
-    mapping:'内盒外廓 {ol}×{ow}×{oh} → 外箱内空 {il}×{iw}×{ih}',
+    mapping:'内盒外廓 {ol}×{ow}×{oh} ×{n}（{nx}×{ny}×{nz}）→ 外箱内空 {il}×{iw}×{ih}',
     clamped:'尺寸已按外箱模板范围夹紧',
     template:'FEFCO 0201 · 开槽纸箱',
     dieline:'外箱 2D 刀版',
@@ -145,6 +145,20 @@ export default {
     exportPdf:'导出外箱 PDF',
     exportJson:'导出外箱 JSON',
     syncFold:'与内盒共用折叠进度',
-    hidden:'当前内盒不支持外箱联动（样机/平板/无刀版）'
+    hidden:'当前内盒不支持外箱联动（样机/平板/无刀版）',
+    qty:'每箱数量',
+    layoutAuto:'自动排布',
+    layoutManual:'手动调整',
+    layoutLabel:'排布 {nx}×{ny}×{nz}',
+    nx:'长向个数',
+    ny:'宽向个数',
+    nz:'层数',
+    rotated:'内盒水平旋转 90°',
+    unitVol:'单盒体积 {v} L',
+    totalVol:'合计体积 {v} L',
+    cavityVol:'外箱内空 {v} L',
+    fillRate:'装载率 {v}%',
+    layoutMismatch:'排布乘积与每箱数量不一致',
+    showContents:'显示装箱效果'
   }
 }

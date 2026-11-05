@@ -134,7 +134,7 @@ export default {
     gapW:'여유 W',
     gapH:'여유 H',
     thickness:'외박스 판 두께',
-    mapping:'내박스 외곽 {ol}×{ow}×{oh} → 외박스 내부 {il}×{iw}×{ih}',
+    mapping:'내박스 외곽 {ol}×{ow}×{oh} ×{n}（{nx}×{ny}×{nz}）→ 외박스 내부 {il}×{iw}×{ih}',
     clamped:'외박스 템플릿 한도에 맞춰 치수 조정됨',
     template:'FEFCO 0201 · 개조형 골판상자',
     dieline:'외박스 2D 전개도',
@@ -145,6 +145,20 @@ export default {
     exportPdf:'외박스 PDF 내보내기',
     exportJson:'외박스 JSON 내보내기',
     syncFold:'내박스와 접기 진행 공유',
-    hidden:'현재 내박스는 외박스 연동 불가(샘플/평판/전개도 없음)'
+    hidden:'현재 내박스는 외박스 연동 불가(샘플/평판/전개도 없음)',
+    qty:'상자당 수량',
+    layoutAuto:'자동 배치',
+    layoutManual:'수동 조정',
+    layoutLabel:'배치 {nx}×{ny}×{nz}',
+    nx:'길이 방향 개수',
+    ny:'너비 방향 개수',
+    nz:'단수',
+    rotated:'내박스 수평 90° 회전',
+    unitVol:'단상자 부피 {v} L',
+    totalVol:'합계 부피 {v} L',
+    cavityVol:'외박스 내부 {v} L',
+    fillRate:'적재율 {v}%',
+    layoutMismatch:'배치 곱과 상자당 수량이 일치하지 않음',
+    showContents:'적재 효과 표시'
   }
 }

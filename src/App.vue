@@ -33,7 +33,8 @@ import {
   DEFAULT_OUTBOX_THICKNESS,
   OUTBOX_TEMPLATE_ID,
   buildOutboxKnife,
-  canBuildOutbox
+  canBuildOutbox,
+  packingContentCells
 } from './outbox.js'
 import {createKnifeScene} from './lab/knifeScene.js'
 clearPacdoraGeomCache()
@@ -166,6 +167,18 @@ function loadGalleryThumbs(){
 function remount3D(){
   return build3D().then(()=>{if(screen.value==='lab')resetView()})
 }
+function syncOutboxContents(){
+  if(!outboxScene)return
+  if(!outboxShowContents.value||!outboxKnife.value||!outboxPacking.value||!outboxPlan.value){
+    outboxScene.setContents(null)
+    return
+  }
+  outboxScene.setContents({
+    cells:packingContentCells(outboxPacking.value),
+    boxSize:outboxPlan.value.inner,
+    materialId:material.value
+  })
+}
 function mountOutboxScene(){
   nextTick(()=>nextTick(async()=>{
     if(screen.value!=='lab')return
@@ -176,6 +189,7 @@ function mountOutboxScene(){
     if(!outboxScene)outboxScene=createKnifeScene(outboxThreeRef.value,{materialId:material.value})
     await outboxScene.setKnife(outboxKnife.value,outboxThickness.value,material.value)
     outboxScene.setProgress(progress.value)
+    syncOutboxContents()
   }))
 }
 function mountLabScene(){
@@ -237,6 +251,13 @@ const outboxGapL=ref(DEFAULT_OUTBOX_GAP.length)
 const outboxGapW=ref(DEFAULT_OUTBOX_GAP.width)
 const outboxGapH=ref(DEFAULT_OUTBOX_GAP.height)
 const outboxThickness=ref(DEFAULT_OUTBOX_THICKNESS)
+const outboxQty=ref(1)
+const outboxManual=ref(false)
+const outboxNx=ref(1)
+const outboxNy=ref(1)
+const outboxNz=ref(1)
+const outboxRotated=ref(false)
+const outboxShowContents=ref(true)
 const outboxZoom=ref(1)
 const outboxThreeRef=ref(null)
 let outboxScene=null
@@ -412,6 +433,15 @@ const outboxEligible=computed(()=>canBuildOutbox({
   flatHeight:isFlatHeight.value,
   enabled:outboxEnabled.value
 }))
+const outboxManualLayout=computed(()=>{
+  if(!outboxManual.value)return null
+  return {
+    nx:outboxNx.value,
+    ny:outboxNy.value,
+    nz:outboxNz.value,
+    rotated:outboxRotated.value
+  }
+})
 const outboxBundle=computed(()=>buildOutboxKnife({
   inboxKnife:knife.value,
   gap:outboxGap.value,
@@ -421,11 +451,34 @@ const outboxBundle=computed(()=>buildOutboxKnife({
   fluteDirection:fluteDirection.value,
   modelOnly:isModelOnly.value,
   flatHeight:isFlatHeight.value,
-  enabled:outboxEnabled.value
+  enabled:outboxEnabled.value,
+  quantity:outboxQty.value,
+  manualLayout:outboxManualLayout.value
 }))
 const outboxKnife=computed(()=>outboxBundle.value?.knife||null)
 const outboxPlan=computed(()=>outboxBundle.value?.plan||null)
 const outboxOuter=computed(()=>outboxBundle.value?.outer||null)
+const outboxPacking=computed(()=>outboxBundle.value?.packing||null)
+const outboxStats=computed(()=>outboxBundle.value?.stats||null)
+const outboxHasMismatch=computed(()=>(outboxPlan.value?.warnings||[]).includes('layoutMismatch'))
+const outboxStatsLine=computed(()=>{
+  const s=outboxStats.value
+  if(!s)return ''
+  return [
+    t('outbox.unitVol',{v:s.unitLiters}),
+    t('outbox.totalVol',{v:s.totalLiters}),
+    t('outbox.cavityVol',{v:s.cavityLiters}),
+    t('outbox.fillRate',{v:s.fillRate})
+  ].join(' · ')
+})
+
+watch(outboxPacking,(p)=>{
+  if(!p||outboxManual.value)return
+  outboxNx.value=p.nx
+  outboxNy.value=p.ny
+  outboxNz.value=p.nz
+  outboxRotated.value=!!p.rotated
+})
 const outboxCutPaths=computed(()=>{
   const k=outboxKnife.value
   if(!k)return []
@@ -759,7 +812,9 @@ function downloadJSON(){if(isModelOnly.value)return;saveFile(JSON.stringify(knif
 function outboxExportBase(){
   const plan=outboxPlan.value?.inner
   const size=plan?`${plan.length}x${plan.width}x${plan.height}`:`${L.value}x${W.value}x${H.value}`
-  return `outbox-${OUTBOX_TEMPLATE_ID}-${size}`
+  const p=outboxPacking.value
+  const layout=p?`-N${p.quantity}-${p.nx}x${p.ny}x${p.nz}`:''
+  return `outbox-${OUTBOX_TEMPLATE_ID}-${size}${layout}`
 }
 function downloadOutboxSVG(){
   if(!outboxKnife.value)return
@@ -790,8 +845,11 @@ watch(progress,()=>{
   setFold()
   outboxScene?.setProgress(progress.value)
 })
-watch([outboxKnife,outboxThickness,material,outboxEnabled],()=>{
+watch([outboxKnife,outboxThickness,material,outboxEnabled,outboxQty,outboxManual,outboxNx,outboxNy,outboxNz,outboxRotated],()=>{
   if(screen.value==='lab')mountOutboxScene()
+})
+watch(outboxShowContents,()=>{
+  if(screen.value==='lab')syncOutboxContents()
 })
 watch([boxTab,importSubclassId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
 onMounted(()=>nextTick(()=>{
@@ -959,12 +1017,39 @@ onBeforeUnmount(()=>{
   </div>
   <template v-if="outboxEnabled&&outboxKnife">
     <p class="hint">{{t('outbox.template')}}</p>
-    <p class="hint dim-meta" v-if="outboxOuter&&outboxPlan">{{t('outbox.mapping',{ol:outboxOuter.length,ow:outboxOuter.width,oh:outboxOuter.height,il:outboxPlan.inner.length,iw:outboxPlan.inner.width,ih:outboxPlan.inner.height})}}</p>
+    <div class="field"><label>{{t('outbox.qty')}}</label><div class="inputwrap"><input v-model.number="outboxQty" type="number" min="1" max="500" step="1"/><b>pcs</b></div></div>
+    <div class="field"><label>{{outboxManual?t('outbox.layoutManual'):t('outbox.layoutAuto')}}</label>
+      <div class="inputwrap mode-toggle">
+        <button type="button" :class="['chip',{selected:!outboxManual}]" @click="outboxManual=false">{{t('outbox.layoutAuto')}}</button>
+        <button type="button" :class="['chip',{selected:outboxManual}]" @click="outboxManual=true">{{t('outbox.layoutManual')}}</button>
+      </div>
+    </div>
+    <p class="hint dim-meta" v-if="outboxPacking">{{t('outbox.layoutLabel',{nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz})}}{{outboxPacking.rotated?` · ${t('outbox.rotated')}`:''}}</p>
+    <template v-if="outboxManual">
+      <div class="field"><label>{{t('outbox.nx')}}</label><div class="inputwrap"><input v-model.number="outboxNx" type="number" min="1" max="50" step="1"/></div></div>
+      <div class="field"><label>{{t('outbox.ny')}}</label><div class="inputwrap"><input v-model.number="outboxNy" type="number" min="1" max="50" step="1"/></div></div>
+      <div class="field"><label>{{t('outbox.nz')}}</label><div class="inputwrap"><input v-model.number="outboxNz" type="number" min="1" max="50" step="1"/></div></div>
+      <div class="field"><label>{{t('outbox.rotated')}}</label>
+        <div class="inputwrap mode-toggle">
+          <button type="button" :class="['chip',{selected:outboxRotated}]" @click="outboxRotated=true">ON</button>
+          <button type="button" :class="['chip',{selected:!outboxRotated}]" @click="outboxRotated=false">OFF</button>
+        </div>
+      </div>
+      <p class="hint model-only-hint" v-if="outboxHasMismatch">{{t('outbox.layoutMismatch')}}</p>
+    </template>
+    <p class="hint dim-meta" v-if="outboxOuter&&outboxPlan&&outboxPacking">{{t('outbox.mapping',{ol:outboxOuter.length,ow:outboxOuter.width,oh:outboxOuter.height,n:outboxPacking.quantity,nx:outboxPacking.nx,ny:outboxPacking.ny,nz:outboxPacking.nz,il:outboxPlan.inner.length,iw:outboxPlan.inner.width,ih:outboxPlan.inner.height})}}</p>
+    <p class="hint dim-meta" v-if="outboxStats">{{outboxStatsLine}}</p>
     <p class="hint model-only-hint" v-if="outboxPlan?.clamped">{{t('outbox.clamped')}}</p>
     <div class="field"><label>{{t('outbox.gapL')}}</label><div class="inputwrap"><input v-model.number="outboxGapL" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
     <div class="field"><label>{{t('outbox.gapW')}}</label><div class="inputwrap"><input v-model.number="outboxGapW" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
     <div class="field"><label>{{t('outbox.gapH')}}</label><div class="inputwrap"><input v-model.number="outboxGapH" type="number" min="0" max="80" step="1"/><b>mm</b></div></div>
     <div class="field"><label>{{t('outbox.thickness')}}</label><div class="inputwrap"><input v-model.number="outboxThickness" type="number" min="0.5" max="12" step="0.5"/><b>mm</b></div></div>
+    <div class="field"><label>{{t('outbox.showContents')}}</label>
+      <div class="inputwrap mode-toggle">
+        <button type="button" :class="['chip',{selected:outboxShowContents}]" @click="outboxShowContents=true">ON</button>
+        <button type="button" :class="['chip',{selected:!outboxShowContents}]" @click="outboxShowContents=false">OFF</button>
+      </div>
+    </div>
     <div class="eyebrow" style="margin-top:14px">{{t('outbox.export')}}</div>
     <button class="btn full ghost" type="button" @click="downloadOutboxSVG"><Download :size="15"/> {{t('outbox.exportSvg')}}</button>
     <button class="btn full ghost" type="button" @click="downloadOutboxDXF"><Download :size="15"/> {{t('outbox.exportDxf')}}</button>

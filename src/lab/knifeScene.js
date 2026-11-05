@@ -75,6 +75,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   controls.maxDistance=2500
 
   let group=null
+  let contentsGroup=null
   let hinges=[]
   let geomRig=null
   let knife=null
@@ -85,6 +86,102 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   let raf=0
   let disposed=false
   let fittedOnce=false
+  /** @type {{cells:Array,boxSize:{length:number,width:number,height:number},materialId?:string}|null} */
+  let contentsDesc=null
+
+  function clearContents(){
+    if(contentsGroup){
+      scene?.remove(contentsGroup)
+      disposeTree(contentsGroup)
+      contentsGroup=null
+    }
+  }
+
+  function assignAxes(size,boxSize){
+    const dims=[
+      {key:'length',target:Number(boxSize.length)||0},
+      {key:'width',target:Number(boxSize.width)||0},
+      {key:'height',target:Number(boxSize.height)||0}
+    ]
+    const axes=[
+      {axis:'x',len:size.x},
+      {axis:'y',len:size.y},
+      {axis:'z',len:size.z}
+    ]
+    const used=new Set()
+    const map={}
+    for(const d of dims){
+      let best=null
+      for(const a of axes){
+        if(used.has(a.axis))continue
+        const err=Math.abs(a.len-d.target)
+        if(!best||err<best.err)best={...a,err}
+      }
+      if(!best)continue
+      used.add(best.axis)
+      map[d.key]=best.axis
+    }
+    // fallback
+    if(!map.length)map.length='x'
+    if(!map.width)map.width=map.length==='y'?'z':'y'
+    if(!map.height){
+      const left=['x','y','z'].find(a=>!Object.values(map).includes(a))
+      map.height=left||'z'
+    }
+    return map
+  }
+
+  function placeContents(){
+    clearContents()
+    if(!contentsDesc?.cells?.length||!group||!scene||disposed)return
+    const saved=progress
+    progress=1
+    applyFold()
+    group.updateMatrixWorld(true)
+    const box=new THREE.Box3().setFromObject(group)
+    progress=saved
+    applyFold()
+    if(box.isEmpty())return
+    const size=box.getSize(new THREE.Vector3())
+    const center=box.getCenter(new THREE.Vector3())
+    const boxSize=contentsDesc.boxSize||{}
+    const axisMap=assignAxes(size,boxSize)
+    const packL=Number(boxSize.length)||size.x
+    const packW=Number(boxSize.width)||size.z
+    const packH=Number(boxSize.height)||size.y
+    const contentMid=contentsDesc.materialId||mid
+    const fill=createBoardMaterial(contentMid,{flatShading:true})
+    fill.transparent=true
+    fill.opacity=0.92
+    const edgeMat=new THREE.LineBasicMaterial({color:0x4a3a28})
+    contentsGroup=new THREE.Group()
+    contentsGroup.name='packContents'
+    for(const cell of contentsDesc.cells){
+      // packing coords: x along L, y along W, z along H from corner
+      const local={
+        length:cell.x-packL/2,
+        width:cell.y-packW/2,
+        height:cell.z-packH/2
+      }
+      const pos=new THREE.Vector3()
+      pos[axisMap.length]=local.length
+      pos[axisMap.width]=local.width
+      pos[axisMap.height]=local.height
+      pos.add(center)
+      const geoSize={x:1,y:1,z:1}
+      geoSize[axisMap.length]=Math.max(1,cell.length-0.8)
+      geoSize[axisMap.width]=Math.max(1,cell.width-0.8)
+      geoSize[axisMap.height]=Math.max(1,cell.height-0.8)
+      const geo=new THREE.BoxGeometry(geoSize.x,geoSize.y,geoSize.z)
+      const mesh=new THREE.Mesh(geo,fill.clone())
+      mesh.position.copy(pos)
+      contentsGroup.add(mesh)
+      const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo),edgeMat)
+      edges.position.copy(pos)
+      contentsGroup.add(edges)
+    }
+    scene.add(contentsGroup)
+  }
 
   function applyFold(){
     const p01=Math.max(0,Math.min(1,Number(progress)))
@@ -149,6 +246,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     const token=++buildToken
     try{await ensureBoardPack(mid)}catch{/* solid */}
     if(token!==buildToken||!scene||disposed)return
+    clearContents()
     if(group){scene.remove(group);disposeTree(group)}
     group=new THREE.Group()
     scene.add(group)
@@ -169,7 +267,9 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     if(knife.geomMode){
       geomRig=buildGeomRig(knife,{makeMesh:panelMesh,zOff})
       group.add(geomRig.root)
-      applyFold();controls?.update();resetView()
+      applyFold()
+      placeContents()
+      controls?.update();resetView()
       return
     }
     function attach(name){
@@ -222,6 +322,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     }
     faces.forEach(f=>attach(f.name))
     applyFold()
+    placeContents()
     controls?.update()
     resetView()
   }
@@ -265,16 +366,25 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       mid=id||mid
       return rebuild()
     },
+    /**
+     * @param {{cells:Array,boxSize:{length:number,width:number,height:number},materialId?:string}|null} desc
+     */
+    setContents(desc){
+      contentsDesc=desc
+      if(!group)return
+      placeContents()
+    },
     resetView,
     dispose(){
       disposed=true
       cancelAnimationFrame(raf);raf=0
       observer.disconnect()
       controls?.dispose();controls=null
+      clearContents()
       if(group){scene?.remove(group);disposeTree(group);group=null}
       renderer?.dispose()
       renderer?.domElement?.remove()
-      renderer=null;scene=null;camera=null;hinges=[];geomRig=null;knife=null
+      renderer=null;scene=null;camera=null;hinges=[];geomRig=null;knife=null;contentsDesc=null
     }
   }
 }
