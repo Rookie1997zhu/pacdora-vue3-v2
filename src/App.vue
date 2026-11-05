@@ -1,5 +1,6 @@
 <script setup>
 import {ref,computed,watch,onMounted,onBeforeUnmount,nextTick} from 'vue'
+import {useI18n} from 'vue-i18n'
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import {Box,Download,RotateCcw,ZoomIn,ZoomOut,Eye,Layers3,Maximize2,ArrowLeft,Search} from 'lucide-vue-next'
@@ -17,8 +18,25 @@ import {renderGeomClosedThumb} from './renderGeomClosedThumb.js'
 import {loadPacdoraGeomKnife,clearPacdoraGeomCache} from './pacdoraGeomKnife.js'
 import {ensureBoardPack,createBoardMaterial} from './boardMaterial.js'
 import {publicAssetUrl} from './assetUrl.js'
+import {setLocale} from './i18n/index.js'
+import {CATALOG_KO} from './i18n/catalogKo.js'
+import {
+  displaySubclassLabel,
+  displayOwnedGroupLabel,
+  displayTemplateLabel,
+  displayPresetLabel,
+  displayPieceLabel,
+  displayStructureKindLabel
+} from './i18n/displayName.js'
 clearPacdoraGeomCache()
 function assetUrl(path){return publicAssetUrl(path)}
+
+const {t,locale}=useI18n()
+function switchLocale(code){setLocale(code)}
+function kindLabel(tpl){
+  const k=structureKind(tpl)
+  return displayStructureKindLabel(k.id,k.label)
+}
 
 const EMPTY_KNIFE=Object.freeze({
   faces:[],folds:[],cuts:[],bleeds:[],hinges:[],holes:[],
@@ -60,16 +78,22 @@ const importCategoryCount=computed(()=>{
   return OFFICIAL_SUBCLASSES.find(c=>c.id===importSubclassId.value)?.count||0
 })
 const galleryOwnedGroups=computed(()=>{
+  void locale.value
   const q=galleryQuery.value.trim().toLowerCase()
   if(!q)return ownedGroups
   return ownedGroups.map(g=>({
     ...g,
-    templates:g.templates.filter(t=>
-      (t.label||'').toLowerCase().includes(q)
-      ||(t.labelEn||'').toLowerCase().includes(q)
-      ||(t.standard||'').toLowerCase().includes(q)
-      ||(t.id||'').toLowerCase().includes(q)
-    )
+    templates:g.templates.filter(tpl=>{
+      const koTpl=CATALOG_KO.templates[tpl.id]||''
+      const koGroup=CATALOG_KO.ownedGroups[g.id]||''
+      return (tpl.label||'').toLowerCase().includes(q)
+        ||(tpl.labelEn||'').toLowerCase().includes(q)
+        ||(tpl.standard||'').toLowerCase().includes(q)
+        ||(tpl.id||'').toLowerCase().includes(q)
+        ||(g.label||'').toLowerCase().includes(q)
+        ||koTpl.toLowerCase().includes(q)
+        ||koGroup.toLowerCase().includes(q)
+    })
   })).filter(g=>g.templates.length)
 })
 const galleryImported=computed(()=>searchImportedPresets(galleryQuery.value||importQuery.value,{
@@ -158,7 +182,7 @@ async function enterLabFromPreset(id){
   const p=getPreset(id)
   if(!p)return
   if(!p.hasGeometry&&!p.templateId){
-    showUnmappedToast(`「${p.label||p.sourceNum}」仅有尺寸、尚未挂接结构模板，不能进入刀版工位（避免误用其它盒型）。`)
+    showUnmappedToast(t('toast.sizeOnly',{name:displayPresetLabel(p)||p.sourceNum}))
     return
   }
   if(!applyImportedSize(id))return
@@ -182,7 +206,7 @@ const L=ref(315),W=ref(202),H=ref(62),thickness=ref(1.5),progress=ref(100),zoom=
 const sizeMode=ref('inner'),fluteDirection=ref('L')
 const piece=ref('bottom') // 多件：底盖/天盖/抽屉/袖套等
 /** 仅 3D 样机（无刀版）提示文案 */
-const MODEL_ONLY_TEXT='Pacdora 该款为 3D 网格样机，无刀版数据'
+const MODEL_ONLY_TEXT=computed(()=>t('modelOnly.hint'))
 const activePreset=computed(()=>importId.value?getPreset(importId.value):null)
 const isModelOnly=computed(()=>!!activePreset.value?.modelOnly)
 /** 运输箱例外：有采集几何则播官方刀版 */
@@ -191,23 +215,48 @@ const geomKnife=ref(null)
 const geomLoading=ref(false)
 const geomError=ref('')
 const pieceOptions=computed(()=>{
+  void locale.value
   if(geomMode.value)return []
   const ps=template.value?.pieces
-  if(Array.isArray(ps)&&ps.length)return ps
-  if(template.value?.supportsPiece)return [{id:'bottom',label:'底盖'},{id:'lid',label:'天盖'}]
+  if(Array.isArray(ps)&&ps.length){
+    return ps.map(p=>({...p,label:displayPieceLabel(p.id,p.label)}))
+  }
+  if(template.value?.supportsPiece){
+    return [
+      {id:'bottom',label:displayPieceLabel('bottom',t('lab.pieceBottom'))},
+      {id:'lid',label:displayPieceLabel('lid',t('lab.pieceLid'))}
+    ]
+  }
   return []
 })
 const labTitle=computed(()=>{
+  void locale.value
   if(geomMode.value&&activePreset.value){
     return {
-      label:activePreset.value.label||activePreset.value.sourceNum,
+      label:displayPresetLabel(activePreset.value),
       labelEn:`Pacdora #${activePreset.value.sourceNum}`,
-      standard:'官方样本刀版 · 运输箱例外'
+      standard:t('lab.standardOfficial')
     }
   }
-  const t=template.value
-  return {label:t.label,labelEn:t.labelEn,standard:t.standard}
+  const tpl=template.value
+  return {
+    label:displayTemplateLabel(tpl.id,tpl.label),
+    labelEn:tpl.labelEn,
+    standard:tpl.standard
+  }
 })
+const sizeFieldDefs=computed(()=>[
+  {label:t('lab.lengthL'),key:'L'},
+  {label:t('lab.widthW'),key:'W'},
+  {label:t('lab.heightH'),key:'H'},
+  {label:t('lab.thickness'),key:'T'},
+  {label:t('lab.bleed'),key:'B'}
+])
+const materialLabels=computed(()=>({
+  kraft:t('lab.kraft'),
+  white:t('lab.white'),
+  blue:t('lab.blue')
+}))
 async function refreshGeomKnife(){
   const p=activePreset.value
   if(!p?.hasGeometry||!p.sourceNum){
@@ -249,8 +298,9 @@ const hasParamDefs=computed(()=>!geomMode.value&&Array.isArray(template.value.pa
 const paramGroups=computed(()=>{
   const defs=template.value.paramDefs||[]
   const map=new Map()
+  const fallback=t('lab.paramGroupFallback')
   for(const d of defs){
-    const g=d.group||'参数'
+    const g=d.group||fallback
     if(!map.has(g))map.set(g,[])
     map.get(g).push(d)
   }
@@ -317,16 +367,16 @@ const bleedEffectiveMm=computed(()=>Number(knife.value.bleedEffective)||(Number(
 const viewBox=computed(()=>{const b=knife.value.bounds,p=26+bleedEffectiveMm.value;return `${b.minX-p} ${b.minY-p} ${b.maxX-b.minX+2*p} ${b.maxY-b.minY+2*p}`})
 const foldStatusText=computed(()=>{
   const s=foldStatus.value
-  if(s.skipped)return '合盖检测：未配置'
-  if(s.ok)return '合盖检测：通过'
-  return `合盖检测：${s.issues.length} 项告警`
+  if(s.skipped)return t('fold.checkSkip')
+  if(s.ok)return t('fold.checkOk')
+  return t('fold.checkWarn',{n:s.issues.length})
 })
 const contractStatusText=computed(()=>{
   const v=knife.value.validation
-  if(!v)return '契约：未知'
-  if(v.ok)return '契约：通过'
+  if(!v)return t('contract.unknown')
+  if(v.ok)return t('contract.ok')
   const n=(v.checks||[]).filter(c=>!c.ok).length
-  return `契约：${n} 项失败`
+  return t('contract.fail',{n})
 })
 let scene,camera,renderer,controls,group,raf,observer,hinges=[],geomRig=null,buildToken=0
 function disposeTree(node){node.traverse(o=>{o.geometry?.dispose();if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>m.dispose())}})}
@@ -417,10 +467,10 @@ async function build3D(){
       const len=Math.hypot(dirX,dirY)||1
       axis={x:dirX/len,y:dirY/len,z:0}
     }else{
-      if(side==='top')hy=p.h/2
-      if(side==='bottom')hy=-p.h/2
-      if(side==='left')hx=-p.w/2
-      if(side==='right')hx=p.w/2
+    if(side==='top')hy=p.h/2
+    if(side==='bottom')hy=-p.h/2
+    if(side==='left')hx=-p.w/2
+    if(side==='right')hx=p.w/2
     }
     anchor.position.set(hx,hy,0);parent.mesh.add(anchor)
     mesh.position.set(dx-hx,dy-hy,zOff);anchor.add(mesh)
@@ -439,7 +489,7 @@ const foldStageLabel=computed(()=>{
   if(!n)return ''
   const t=Math.max(0,Math.min(1,Number(progress.value)/100))
   const {now,total}=stageIndexAt(t,n)
-  return `步骤 ${now}/${total}`
+  return t('fold.step',{now,total})
 })
 function setFold(){
   const t=Math.max(0,Math.min(1,Number(progress.value)/100))
@@ -572,13 +622,13 @@ function applyImportedSize(id){
   // 未映射禁止回退当前 templateId，否则会静默变成翻盖邮寄盒等错误结构
   if(!p.templateId){
     importId.value=p.id
-    showUnmappedToast(`「${p.label||p.sourceNum}」未映射结构模板：仅保留尺寸目录，不加载刀版。`)
+    showUnmappedToast(t('toast.unmapped',{name:displayPresetLabel(p)||p.sourceNum}))
     return false
   }
   const tid=p.templateId
   const t=getTemplate(tid)
   if(!t){
-    showUnmappedToast(`模板 ${tid} 不存在，无法打开「${p.label||p.sourceNum}」。`)
+    showUnmappedToast(t('toast.missingTemplate',{tid,name:displayPresetLabel(p)||p.sourceNum}))
     return false
   }
   const clamp=(n,lo,hi)=>Math.min(hi,Math.max(lo,n))
@@ -634,15 +684,19 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
 <template>
 <div class="app">
 <header>
-  <div class="brand"><span class="brandmark"><Box :size="22"/></span><div><strong>BOXCRAFT <span>LAB</span></strong><small>参数化包装结构工作台 · Vue 3 V3</small></div></div>
+  <div class="brand"><span class="brandmark"><Box :size="22"/></span><div><strong>BOXCRAFT <span>LAB</span></strong><small>{{t('brand.subtitle')}}</small></div></div>
   <div class="headright">
+    <div class="lang-switch" role="group" :aria-label="t('lang.zh')+' / '+t('lang.ko')">
+      <button type="button" :class="['chip','lang-chip',{selected:locale==='zh-CN'}]" @click="switchLocale('zh-CN')">{{t('lang.zh')}}</button>
+      <button type="button" :class="['chip','lang-chip',{selected:locale==='ko-KR'}]" @click="switchLocale('ko-KR')">{{t('lang.ko')}}</button>
+    </div>
     <template v-if="screen==='lab'">
-      <button type="button" class="btn" @click="backToGallery"><ArrowLeft :size="15"/> 盒子列表</button>
-      <span class="demo-tag">{{geomMode?(geomLoading?'加载官方刀版…':`${knife.faces.length} 面 · 官方样本刀版`):(`${knife.faces.length} 面概念拓扑 · 非生产刀版`)}}</span>
-      <button class="btn dark" :disabled="isModelOnly" @click="downloadSVG"><Download :size="15"/> 导出 SVG</button>
+      <button type="button" class="btn" @click="backToGallery"><ArrowLeft :size="15"/> {{t('nav.boxList')}}</button>
+      <span class="demo-tag">{{geomMode?(geomLoading?t('nav.loadingGeom'):t('nav.facesOfficial',{n:knife.faces.length})):t('nav.facesConcept',{n:knife.faces.length})}}</span>
+      <button class="btn dark" :disabled="isModelOnly" @click="downloadSVG"><Download :size="15"/> {{t('nav.exportSvg')}}</button>
     </template>
     <template v-else>
-      <span class="demo-tag">{{boxTab==='imported'?'运输箱官方封面 · 点选进入样本刀版':'合盖封面预览 · 点选进入刀版工位'}}</span>
+      <span class="demo-tag">{{boxTab==='imported'?t('nav.tagImported'):t('nav.tagOwned')}}</span>
     </template>
   </div>
 </header>
@@ -651,47 +705,47 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
 <div v-if="screen==='gallery'" class="gallery">
   <div class="gallery-toolbar">
     <div class="box-tabs gallery-tabs">
-      <button type="button" :class="['chip',{selected:boxTab==='owned'}]" @click="boxTab='owned'">已有的刀版</button>
-      <button type="button" :class="['chip',{selected:boxTab==='imported'}]" @click="boxTab='imported'">运输箱目录</button>
+      <button type="button" :class="['chip',{selected:boxTab==='owned'}]" @click="boxTab='owned'">{{t('gallery.tabOwned')}}</button>
+      <button type="button" :class="['chip',{selected:boxTab==='imported'}]" @click="boxTab='imported'">{{t('gallery.tabImported')}}</button>
     </div>
     <div class="gallery-search">
       <Search :size="16"/>
-      <input v-model="galleryQuery" type="search" placeholder="搜索名称、编号或结构…"/>
+      <input v-model="galleryQuery" type="search" :placeholder="t('gallery.searchPlaceholder')"/>
     </div>
-    <span class="gallery-meta" v-if="thumbsLoading">正在生成合盖封面…</span>
+    <span class="gallery-meta" v-if="thumbsLoading">{{t('gallery.thumbsLoading')}}</span>
   </div>
 
   <div v-if="boxTab==='imported'" class="gallery-filters">
-    <button type="button" :class="['chip',{selected:!importSubclassId}]" @click="importSubclassId=''">全部<small>{{PRESET_CATALOG.count}}</small></button>
-    <button v-for="c in OFFICIAL_SUBCLASSES" :key="c.id" type="button" :class="['chip',{selected:importSubclassId===c.id}]" @click="importSubclassId=c.id">{{c.label}}<small>{{c.count}}</small></button>
-    <button type="button" :class="['chip',{selected:importSubclassId==='__none__'}]" @click="importSubclassId='__none__'">未归类<small>{{UNCLASSIFIED_SUBCLASS_COUNT}}</small></button>
-    <button type="button" :class="['chip',{selected:importSubclassId==='__modelOnly__'}]" @click="importSubclassId='__modelOnly__'">仅 3D 样机<small>{{countModelOnly()}}</small></button>
+    <button type="button" :class="['chip',{selected:!importSubclassId}]" @click="importSubclassId=''">{{t('gallery.all')}}<small>{{PRESET_CATALOG.count}}</small></button>
+    <button v-for="c in OFFICIAL_SUBCLASSES" :key="c.id" type="button" :class="['chip',{selected:importSubclassId===c.id}]" @click="importSubclassId=c.id">{{displaySubclassLabel(c.id,c.label)}}<small>{{c.count}}</small></button>
+    <button type="button" :class="['chip',{selected:importSubclassId==='__none__'}]" @click="importSubclassId='__none__'">{{t('gallery.unclassified')}}<small>{{UNCLASSIFIED_SUBCLASS_COUNT}}</small></button>
+    <button type="button" :class="['chip',{selected:importSubclassId==='__modelOnly__'}]" @click="importSubclassId='__modelOnly__'">{{t('gallery.modelOnly')}}<small>{{countModelOnly()}}</small></button>
   </div>
 
   <template v-if="boxTab==='owned'">
     <section v-for="g in galleryOwnedGroups" :key="g.id" class="gallery-section">
-      <h2>{{g.label}}</h2>
+      <h2>{{displayOwnedGroupLabel(g.id,g.label)}}</h2>
       <div class="box-grid">
-        <button v-for="t in g.templates" :key="t.id" type="button" class="box-card" @click="enterLabFromTemplate(t.id)">
+        <button v-for="tpl in g.templates" :key="tpl.id" type="button" class="box-card" @click="enterLabFromTemplate(tpl.id)">
           <div class="box-cover">
-            <img v-if="thumbMap[t.id]" :src="thumbMap[t.id]" :alt="t.label"/>
-            <div v-else class="box-cover-ph">合盖预览</div>
-            <i class="box-badge" :data-kind="structureKind(t).id">{{structureKind(t).label}}</i>
+            <img v-if="thumbMap[tpl.id]" :src="thumbMap[tpl.id]" :alt="displayTemplateLabel(tpl.id,tpl.label)"/>
+            <div v-else class="box-cover-ph">{{t('gallery.coverPreview')}}</div>
+            <i class="box-badge" :data-kind="structureKind(tpl).id">{{kindLabel(tpl)}}</i>
           </div>
           <div class="box-card-body">
-            <strong>{{t.label}}</strong>
-            <small>{{t.standard}}</small>
-            <span>{{t.defaults.length}}×{{t.defaults.width}}×{{t.defaults.height}} mm</span>
+            <strong>{{displayTemplateLabel(tpl.id,tpl.label)}}</strong>
+            <small>{{tpl.standard}}</small>
+            <span>{{tpl.defaults.length}}×{{tpl.defaults.width}}×{{tpl.defaults.height}} mm</span>
           </div>
         </button>
       </div>
     </section>
-    <p v-if="!galleryOwnedGroups.length" class="gallery-empty">没有匹配的刀版</p>
+    <p v-if="!galleryOwnedGroups.length" class="gallery-empty">{{t('gallery.emptyOwned')}}</p>
   </template>
 
   <template v-else>
     <section class="gallery-section">
-      <h2>运输箱 · 显示 {{galleryImported.length}} / {{importCategoryCount}}</h2>
+      <h2>{{t('gallery.importedHeading',{shown:galleryImported.length,total:importCategoryCount})}}</h2>
       <div class="box-grid">
         <button
           v-for="p in galleryImported"
@@ -699,60 +753,60 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
           type="button"
           class="box-card"
           :class="{'is-unmapped':!p.hasGeometry&&!p.templateId}"
-          :title="p.hasGeometry?'进入官方样本刀版':(p.templateId?'进入刀版工位':'仅有尺寸、未挂结构模板，不能进入工位')"
+          :title="p.hasGeometry?t('gallery.titleGeom'):(p.templateId?t('gallery.titleMapped'):t('gallery.titleUnmapped'))"
           @click="enterLabFromPreset(p.id)"
         >
           <div class="box-cover">
-            <img v-if="geomThumbMap[p.id]" :src="geomThumbMap[p.id]" :alt="p.label"/>
-            <img v-else-if="p.modelOnly&&proxyThumbMap[p.id]" :src="proxyThumbMap[p.id]" :alt="p.label"/>
-            <img v-else-if="p.templateId&&thumbMap[p.templateId]" :src="thumbMap[p.templateId]" :alt="p.label"/>
-            <img v-else-if="p.coverRel" :src="assetUrl(p.coverRel)" :alt="p.label"/>
-            <div v-else class="box-cover-ph">{{p.hasGeometry?'合盖预览':(p.modelOnly?'样机预览':(p.templateId?'合盖预览':'未映射'))}}</div>
-            <i v-if="p.hasGeometry||p.coverRel" class="box-badge" data-kind="closed">运输箱</i>
-            <i v-else-if="p.modelOnly" class="box-badge" data-kind="modelOnly">仅 3D 样机</i>
-            <i v-else-if="p.templateId" class="box-badge" :data-kind="structureKind(p.templateId).id">{{structureKind(p.templateId).label}}</i>
-            <i v-else class="box-badge" data-kind="unmapped">仅尺寸</i>
+            <img v-if="geomThumbMap[p.id]" :src="geomThumbMap[p.id]" :alt="displayPresetLabel(p)"/>
+            <img v-else-if="p.modelOnly&&proxyThumbMap[p.id]" :src="proxyThumbMap[p.id]" :alt="displayPresetLabel(p)"/>
+            <img v-else-if="p.templateId&&thumbMap[p.templateId]" :src="thumbMap[p.templateId]" :alt="displayPresetLabel(p)"/>
+            <img v-else-if="p.coverRel" :src="assetUrl(p.coverRel)" :alt="displayPresetLabel(p)"/>
+            <div v-else class="box-cover-ph">{{p.hasGeometry?t('gallery.coverPreview'):(p.modelOnly?t('gallery.proxyPreview'):(p.templateId?t('gallery.coverPreview'):t('gallery.unmapped')))}}</div>
+            <i v-if="p.hasGeometry||p.coverRel" class="box-badge" data-kind="closed">{{t('gallery.shipping')}}</i>
+            <i v-else-if="p.modelOnly" class="box-badge" data-kind="modelOnly">{{t('gallery.modelOnly')}}</i>
+            <i v-else-if="p.templateId" class="box-badge" :data-kind="structureKind(p.templateId).id">{{kindLabel(p.templateId)}}</i>
+            <i v-else class="box-badge" data-kind="unmapped">{{t('gallery.sizeOnly')}}</i>
           </div>
           <div class="box-card-body">
-            <strong>{{p.label}}</strong>
-            <small>{{(p.subclassLabels&&p.subclassLabels[0])||p.categoryLabel||'未归类'}} · {{p.sourceNum}}</small>
+            <strong>{{displayPresetLabel(p)}}</strong>
+            <small>{{displaySubclassLabel(p.subclassIds&&p.subclassIds[0],(p.subclassLabels&&p.subclassLabels[0])||p.categoryLabel||t('gallery.unclassified'))}} · {{p.sourceNum}}</small>
             <span>{{p.length}}×{{p.width}}×{{p.height}} mm</span>
-            <em v-if="!p.hasGeometry&&!p.templateId" class="unmap-hint">未挂模板 · 禁止误开其它结构</em>
+            <em v-if="!p.hasGeometry&&!p.templateId" class="unmap-hint">{{t('gallery.unmapHint')}}</em>
             <em v-else-if="p.modelOnly" class="unmap-hint">{{MODEL_ONLY_TEXT}}</em>
           </div>
         </button>
       </div>
     </section>
-    <p v-if="!galleryImported.length" class="gallery-empty">没有匹配的运输箱</p>
+    <p v-if="!galleryImported.length" class="gallery-empty">{{t('gallery.emptyImported')}}</p>
   </template>
   <div v-if="unmappedToast" class="unmap-toast" role="status">{{unmappedToast}}</div>
 </div>
 
 <!-- 刀版工位（原界面） -->
-<div v-else class="workspace"><aside><div class="section"><div class="eyebrow">CATEGORY / 分类</div><h2 class="cat-title">{{labTitle.label}}</h2>
+<div v-else class="workspace"><aside><div class="section"><div class="eyebrow">{{t('lab.category')}}</div><h2 class="cat-title">{{labTitle.label}}</h2>
 <p class="muted">{{labTitle.labelEn}} · {{labTitle.standard}}</p>
-<p class="hint">从列表进入；点左上角「盒子列表」返回。</p>
-<p v-if="geomError" class="hint model-only-hint">几何加载失败：{{geomError}}</p>
+<p class="hint">{{t('lab.fromList')}}</p>
+<p v-if="geomError" class="hint model-only-hint">{{t('lab.geomFail',{msg:geomError})}}</p>
 <div class="mini-illustration">
   <img v-if="activePreset&&geomThumbMap[activePreset.id]" class="mini-cover" :src="geomThumbMap[activePreset.id]" :alt="labTitle.label"/>
   <img v-else-if="thumbMap[templateId]" class="mini-cover" :src="thumbMap[templateId]" :alt="labTitle.label"/>
   <img v-else-if="activePreset?.coverRel" class="mini-cover" :src="assetUrl(activePreset.coverRel)" :alt="labTitle.label"/>
   <svg v-else viewBox="0 0 180 110"><path d="M30 40L105 22L150 45L76 66Z" fill="#d9b98b" stroke="#96744a"/><path d="M30 40V75L76 100V66Z" fill="#c5a072" stroke="#96744a"/><path d="M76 66V100L150 76V45Z" fill="#b58e60" stroke="#96744a"/><path d="M30 40L15 18L90 2L105 22Z" fill="#e9cfa7" stroke="#96744a"/></svg>
-</div></div><div class="section"><div class="eyebrow">PARAMETERS / 参数</div><h3>尺寸设置 <span class="unit">mm</span></h3>
-<p v-if="geomMode" class="hint">官方样本刀版 · 尺寸锁定（试播不改尺）</p>
-<div class="field"><label>尺寸基准</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:sizeMode==='inner'}]" :disabled="geomMode" @click="sizeMode='inner'">内尺寸</button><button type="button" :class="['chip',{selected:sizeMode==='outer'}]" :disabled="geomMode" @click="sizeMode='outer'">外尺寸</button></div></div>
-<div v-if="pieceOptions.length" class="field"><label>件别</label>
+</div></div><div class="section"><div class="eyebrow">{{t('lab.parameters')}}</div><h3>{{t('lab.sizeSettings')}} <span class="unit">mm</span></h3>
+<p v-if="geomMode" class="hint">{{t('lab.sizeLocked')}}</p>
+<div class="field"><label>{{t('lab.sizeMode')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:sizeMode==='inner'}]" :disabled="geomMode" @click="sizeMode='inner'">{{t('lab.inner')}}</button><button type="button" :class="['chip',{selected:sizeMode==='outer'}]" :disabled="geomMode" @click="sizeMode='outer'">{{t('lab.outer')}}</button></div></div>
+<div v-if="pieceOptions.length" class="field"><label>{{t('lab.piece')}}</label>
   <div v-if="pieceOptions.length<=4" class="inputwrap mode-toggle"><button v-for="p in pieceOptions" :key="p.id" type="button" :class="['chip',{selected:piece===p.id}]" @click="piece=p.id">{{p.label||p.id}}</button></div>
   <div v-else class="inputwrap"><select :value="piece" @change="piece=$event.target.value"><option v-for="p in pieceOptions" :key="p.id" :value="p.id">{{p.label||p.id}}</option></select></div>
 </div>
 <p v-if="isModelOnly" class="hint model-only-hint">{{MODEL_ONLY_TEXT}}</p>
-<div class="field"><label>瓦楞方向</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:fluteDirection==='L'}]" :disabled="geomMode" @click="fluteDirection='L'">沿 L</button><button type="button" :class="['chip',{selected:fluteDirection==='W'}]" :disabled="geomMode" @click="fluteDirection='W'">沿 W</button></div></div>
-<div v-for="f in [{label:'长度 L',value:L,key:'L'},{label:'宽度 W',value:W,key:'W'},{label:'高度 H',value:H,key:'H'},{label:'纸板厚度',value:thickness,key:'T'},{label:'出血距离',value:bleed,key:'B'}]" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="template.limits.length[0]" :max="template.limits.length[1]" :disabled="geomMode"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="template.limits.width[0]" :max="template.limits.width[1]" :disabled="geomMode"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="template.limits.height[0]" :max="template.limits.height[1]" :disabled="geomMode||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode"/><b>mm</b></div></div>
-<p v-if="isFlatHeight&&!geomMode" class="hint">平板刀版：高度固定为 0（单面展开）。</p>
-<p class="hint dim-meta" v-if="geomMode">样本尺寸 {{L}}×{{W}}×{{H}} mm · {{geomLoading?'加载中…':(geomError||`${knife.faces.length} 面`)}}</p>
-<p class="hint dim-meta" v-else>净空 {{knife.dimensions.inner.length}}×{{knife.dimensions.inner.width}}×{{knife.dimensions.inner.height}} · 外廓 {{knife.dimensions.outer.length}}×{{knife.dimensions.outer.width}}×{{knife.dimensions.outer.height}}</p>
+<div class="field"><label>{{t('lab.flute')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:fluteDirection==='L'}]" :disabled="geomMode" @click="fluteDirection='L'">{{t('lab.fluteL')}}</button><button type="button" :class="['chip',{selected:fluteDirection==='W'}]" :disabled="geomMode" @click="fluteDirection='W'">{{t('lab.fluteW')}}</button></div></div>
+<div v-for="f in sizeFieldDefs" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="template.limits.length[0]" :max="template.limits.length[1]" :disabled="geomMode"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="template.limits.width[0]" :max="template.limits.width[1]" :disabled="geomMode"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="template.limits.height[0]" :max="template.limits.height[1]" :disabled="geomMode||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode"/><b>mm</b></div></div>
+<p v-if="isFlatHeight&&!geomMode" class="hint">{{t('lab.flatHint')}}</p>
+<p class="hint dim-meta" v-if="geomMode">{{t('lab.sampleSize',{l:L,w:W,h:H,extra:geomLoading?t('lab.loading'):(geomError||t('lab.facesN',{n:knife.faces.length}))})}}</p>
+<p class="hint dim-meta" v-else>{{t('lab.clearance',{il:knife.dimensions.inner.length,iw:knife.dimensions.inner.width,ih:knife.dimensions.inner.height,ol:knife.dimensions.outer.length,ow:knife.dimensions.outer.width,oh:knife.dimensions.outer.height})}}</p>
 <div v-if="hasParamDefs" class="advanced-params">
-  <button type="button" class="adv-toggle" @click="showAdvanced=!showAdvanced">{{showAdvanced?'收起':'展开'}}高级参数 · {{template.paramDefs.length}} 项</button>
+  <button type="button" class="adv-toggle" @click="showAdvanced=!showAdvanced">{{showAdvanced?t('lab.advCollapse',{n:template.paramDefs.length}):t('lab.advExpand',{n:template.paramDefs.length})}}</button>
   <div v-show="showAdvanced" class="adv-body">
     <div v-for="g in paramGroups" :key="g.label" class="adv-group">
       <div class="group-label">{{g.label}}</div>
@@ -766,10 +820,11 @@ onBeforeUnmount(()=>{cancelAnimationFrame(raf);observer?.disconnect();controls?.
         </div>
       </div>
     </div>
-    <button type="button" class="btn full ghost" @click="resetAdvanced">恢复默认</button>
+    <button type="button" class="btn full ghost" @click="resetAdvanced">{{t('lab.resetAdvanced')}}</button>
   </div>
 </div>
-</div><div class="section"><div class="eyebrow">MATERIAL / 材质</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{{kraft:'牛皮纸',white:'白卡纸',blue:'蓝卡纸'}[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">EXPORT / 导出</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> 导出统一 Knife JSON</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> 导出 DXF</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> 导出 PDF</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> 导出 AI (.ai)</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{knife.faces.length}} 面 · {{knife.folds.length}} 折线 · {{knife.cuts.length}} 外轮廓线段。DXF/PDF/SVG 为技术校样，禁止直接用于开模。</p></div></aside>
-<main><div class="panels" :class="{'model-only-lab':isModelOnly}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">DIELINE EDITOR</div><h3>{{geomMode?'2D 官方样本刀版':'2D 参数化刀版'}}</h3></div><div class="pill">{{geomMode?'Pacdora geom → SVG':'Knife JSON → SVG'}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="L in dimLines" :key="L.key" :x1="L.x1" :y1="L.y1" :x2="L.x2" :y2="L.y2"/><polygon v-for="p in dimPolys" :key="p.key" :points="p.points" fill="#667085" stroke="none"/><text v-for="t in dimTexts" :key="t.key" :x="t.x" :y="t.y" stroke="none" dominant-baseline="middle">{{t.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>裁切</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>折线</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>出血示意 · 实际外扩约 {{Math.round(bleedEffectiveMm)}} mm（含默认 +{{BLEED_EXTRA_MM}}）</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>尺寸</label></div></section>
-<section class="panel"><div class="panel-header"><div><div class="eyebrow">LIVE PREVIEW</div><h3>3D 面片铰链折叠</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> 重置视角</button><div class="scene-note">拖拽旋转 · 滚轮缩放</div></div><div class="fold-controls"><div class="fold-top"><strong>折叠进度</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>展开 0%</span><span>闭合 100%</span></div><div class="preset"><button @click="progress=0">完全展开</button><button @click="progress=50">半折叠</button><button @click="progress=100">完全闭合</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div><div class="notice"><strong>V3 说明</strong><span>默认内尺寸输入，2D/3D 按纸板厚度做外廓补偿；铰链落在板厚中性层。合盖检测为 AABB 示意。DXF/PDF/SVG 由 layers 导出，仅作技术校样。验证闭环：npm run check:all；未打样禁止投产，不可开模。</span></div></main></div></div>
+</div><div class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p></div></aside>
+<main><div class="panels" :class="{'model-only-lab':isModelOnly}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam')}}</h3></div><div class="pill">{{geomMode?t('lab.pillGeom'):t('lab.pillKnife')}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div></section>
+<section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div><div class="notice"><strong>{{t('lab.noticeTitle')}}</strong><span>{{t('lab.noticeBody')}}</span></div></main></div></div>
 </template>
+

@@ -1,6 +1,7 @@
 import data from './presets.js'
 import {TEMPLATES} from '../templates/index.js'
 import {OFFICIAL_SUBCLASS_DEFS} from './officialSubclasses.js'
+import {koSearchAliases,CATALOG_KO} from '../i18n/catalogKo.js'
 
 export const PRESET_CATALOG=data
 export const PRESETS=Object.freeze(data.presets||[])
@@ -74,13 +75,19 @@ export function searchImportedPresets(query='',{categoryId='',subclassId='',mode
   if(modelOnly===true||modelOnly==='only')list=list.filter(p=>!!p.modelOnly)
   else if(modelOnly===false)list=list.filter(p=>!p.modelOnly)
   if(q){
-    list=list.filter(p=>
-      String(p.sourceNum).includes(q)
-      ||p.label.toLowerCase().includes(q)
-      ||(p.templateId||'').includes(q)
-      ||(p.categoryLabel||'').includes(q)
-      ||(p.subclassLabels||[]).some(l=>String(l).toLowerCase().includes(q))
-    )
+    list=list.filter(p=>{
+      if(String(p.sourceNum).includes(q))return true
+      if(p.label.toLowerCase().includes(q))return true
+      if((p.templateId||'').includes(q))return true
+      if((p.categoryLabel||'').includes(q))return true
+      if((p.subclassLabels||[]).some(l=>String(l).toLowerCase().includes(q)))return true
+      // 韩文显示名 / 子类别名（切语言后仍可按中文或韩文搜；编号始终可搜）
+      return koSearchAliases(p).some(a=>a.toLowerCase().includes(q))
+        ||(p.subclassIds||[]).some(id=>{
+          const ko=CATALOG_KO.subclasses[id]
+          return ko&&ko.toLowerCase().includes(q)
+        })
+    })
   }
   // 全部视图：样机排到后面
   if(modelOnly==null||modelOnly===''){
