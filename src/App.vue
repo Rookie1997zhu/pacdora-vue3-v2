@@ -487,18 +487,18 @@ const foldStageLabel=computed(()=>{
   const stages=knife.value?.foldStages
   const n=Array.isArray(stages)?stages.length:0
   if(!n)return ''
-  const t=Math.max(0,Math.min(1,Number(progress.value)/100))
-  const {now,total}=stageIndexAt(t,n)
+  const p01=Math.max(0,Math.min(1,Number(progress.value)/100))
+  const {now,total}=stageIndexAt(p01,n)
   return t('fold.step',{now,total})
 })
 function setFold(){
-  const t=Math.max(0,Math.min(1,Number(progress.value)/100))
-  if(geomRig){geomRig.apply(t);updateFoldStatus();return}
+  const p01=Math.max(0,Math.min(1,Number(progress.value)/100))
+  if(geomRig){geomRig.apply(p01);updateFoldStatus();return}
   const stages=knife.value?.foldStages
   const staged=Array.isArray(stages)&&stages.length>0
-  const angMap=staged?anglesAtProgress(stages,t):null
+  const angMap=staged?anglesAtProgress(stages,p01):null
   const stagedKids=staged?new Set(stages.flatMap(st=>(st||[]).map(s=>s.child))):null
-  const s=t*t*(3-2*t)
+  const s=p01*p01*(3-2*p01)
   for(const h of hinges){
     let v
     if(staged){
@@ -626,8 +626,8 @@ function applyImportedSize(id){
     return false
   }
   const tid=p.templateId
-  const t=getTemplate(tid)
-  if(!t){
+  const tpl=getTemplate(tid)
+  if(!tpl){
     showUnmappedToast(t('toast.missingTemplate',{tid,name:displayPresetLabel(p)||p.sourceNum}))
     return false
   }
@@ -636,11 +636,11 @@ function applyImportedSize(id){
   importId.value=p.id
   geomKnife.value=null
   templateId.value=tid
-  piece.value=defaultPieceId(t)
-  L.value=clamp(p.length,...t.limits.length)
-  W.value=clamp(p.width,...t.limits.width)
-  H.value=clamp(p.height,...t.limits.height)
-  thickness.value=Math.max(.5,Number(p.thickness)||t.defaults.thickness)
+  piece.value=defaultPieceId(tpl)
+  L.value=clamp(p.length,...tpl.limits.length)
+  W.value=clamp(p.width,...tpl.limits.width)
+  H.value=clamp(p.height,...tpl.limits.height)
+  thickness.value=Math.max(.5,Number(p.thickness)||tpl.defaults.thickness)
   if(['kraft','white','blue'].includes(p.materialId))material.value=p.materialId
   sizeMode.value='inner'
   advancedDirty.value={}
