@@ -86,7 +86,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   let raf=0
   let disposed=false
   let fittedOnce=false
-  /** @type {{cells:Array,boxSize:{length:number,width:number,height:number},materialId?:string}|null} */
+  /** @type {{cells:Array,boxSize:{length:number,width:number,height:number},outerSize?:{length:number,width:number,height:number}|null,materialId?:string}|null} */
   let contentsDesc=null
 
   function clearContents(){
@@ -97,38 +97,51 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     }
   }
 
-  function assignAxes(size,boxSize){
-    const dims=[
-      {key:'length',target:Number(boxSize.length)||0},
-      {key:'width',target:Number(boxSize.width)||0},
-      {key:'height',target:Number(boxSize.height)||0}
-    ]
-    const axes=[
-      {axis:'x',len:size.x},
-      {axis:'y',len:size.y},
-      {axis:'z',len:size.z}
-    ]
-    const used=new Set()
-    const map={}
-    for(const d of dims){
-      let best=null
-      for(const a of axes){
-        if(used.has(a.axis))continue
-        const err=Math.abs(a.len-d.target)
-        if(!best||err<best.err)best={...a,err}
-      }
-      if(!best)continue
-      used.add(best.axis)
-      map[d.key]=best.axis
+  /**
+   * 铰链折叠纸箱（0201 等）闭合后约定：X=长 L，Y=高 H，Z=宽 W
+   * 不用包围盒猜轴——摇盖开合会拉歪包围盒，导致内容物「穿出」外箱
+   */
+  function cartonAxisMap(){
+    return {length:'x',width:'z',height:'y'}
+  }
+
+  /**
+   * 兜底：全排列对齐包围盒到 L/W/H（仅无刀版外廓时）
+   */
+  function assignAxesBySize(size,targetSize){
+    const targets={
+      length:Number(targetSize.length)||0,
+      width:Number(targetSize.width)||0,
+      height:Number(targetSize.height)||0
     }
-    // fallback
-    if(!map.length)map.length='x'
-    if(!map.width)map.width=map.length==='y'?'z':'y'
-    if(!map.height){
-      const left=['x','y','z'].find(a=>!Object.values(map).includes(a))
-      map.height=left||'z'
+    const axes=['x','y','z']
+    const lens={x:size.x,y:size.y,z:size.z}
+    const perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]
+    let best=null
+    for(const p of perms){
+      const map={length:axes[p[0]],width:axes[p[1]],height:axes[p[2]]}
+      const err=
+        Math.abs(lens[map.length]-targets.length)
+        +Math.abs(lens[map.width]-targets.width)
+        +Math.abs(lens[map.height]-targets.height)
+      if(!best||err<best.err)best={map,err}
     }
-    return map
+    return best?.map||cartonAxisMap()
+  }
+
+  /** 只用侧墙（不含摇盖）算闭合箱体，避免摇盖撑大包围盒导致内容物中心偏移、穿出箱体 */
+  function bodyBoxFromWalls(){
+    if(!group)return null
+    const wallNames=new Set(['front','back','left','right'])
+    const box=new THREE.Box3()
+    let any=false
+    group.traverse(o=>{
+      if(!o.isMesh||!wallNames.has(o.name))return
+      box.expandByObject(o)
+      any=true
+    })
+    if(!any||box.isEmpty())return null
+    return box
   }
 
   function placeContents(){
@@ -138,30 +151,57 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     progress=1
     applyFold()
     group.updateMatrixWorld(true)
-    const box=new THREE.Box3().setFromObject(group)
+    const box=bodyBoxFromWalls()||new THREE.Box3().setFromObject(group)
     progress=saved
     applyFold()
     if(box.isEmpty())return
     const size=box.getSize(new THREE.Vector3())
     const center=box.getCenter(new THREE.Vector3())
     const boxSize=contentsDesc.boxSize||{}
-    const axisMap=assignAxes(size,boxSize)
-    const packL=Number(boxSize.length)||size.x
-    const packW=Number(boxSize.width)||size.z
-    const packH=Number(boxSize.height)||size.y
+    const packL=Number(boxSize.length)||0
+    const packW=Number(boxSize.width)||0
+    const packH=Number(boxSize.height)||0
+    if(!(packL>0&&packW>0&&packH>0))return
+    // 单盒任一轴大于内空 → 明显放不下，不画（由上层报错）
+    for(const cell of contentsDesc.cells){
+      if(cell.length>packL+0.5||cell.width>packW+0.5||cell.height>packH+0.5){
+        clearContents()
+        return
+      }
+    }
+    const outerSize=contentsDesc.outerSize||knife?.dimensions?.outer||knife?.dimensions?.panel||null
+    const axisMap=outerSize?cartonAxisMap():assignAxesBySize(size,boxSize)
+    // 侧墙包围盒 ≈ 外廓；把内空缩放到侧墙盒内
+    const refL=Number(outerSize?.length)||size[axisMap.length]||packL
+    const refW=Number(outerSize?.width)||size[axisMap.width]||packW
+    const refH=Number(outerSize?.height)||size[axisMap.height]||packH
+    const worldSpan={
+      length:size[axisMap.length]*(packL/Math.max(refL,1e-6)),
+      width:size[axisMap.width]*(packW/Math.max(refW,1e-6)),
+      height:size[axisMap.height]*(packH/Math.max(refH,1e-6))
+    }
+    // 兜底：侧墙盒异常时退回 mm 绝对值
+    if(!(worldSpan.length>1&&worldSpan.width>1&&worldSpan.height>1)){
+      worldSpan.length=packL
+      worldSpan.width=packW
+      worldSpan.height=packH
+    }
     const contentMid=contentsDesc.materialId||mid
     const fill=createBoardMaterial(contentMid,{flatShading:true})
     fill.transparent=true
-    fill.opacity=0.92
-    const edgeMat=new THREE.LineBasicMaterial({color:0x4a3a28})
+    fill.opacity=0.88
+    fill.color=fill.color||new THREE.Color(0xc4a882)
+    // 内容物略深一点，便于和外箱区分
+    if(fill.color?.offsetHSL)fill.color.offsetHSL(0,-0.02,-0.08)
+    const edgeMat=new THREE.LineBasicMaterial({color:0x3a2a1a})
     contentsGroup=new THREE.Group()
     contentsGroup.name='packContents'
     for(const cell of contentsDesc.cells){
-      // packing coords: x along L, y along W, z along H from corner
+      // packing: x→L, y→W, z→H；场景: x→L, y→H, z→W
       const local={
-        length:cell.x-packL/2,
-        width:cell.y-packW/2,
-        height:cell.z-packH/2
+        length:((cell.x/packL)-0.5)*worldSpan.length,
+        width:((cell.y/packW)-0.5)*worldSpan.width,
+        height:((cell.z/packH)-0.5)*worldSpan.height
       }
       const pos=new THREE.Vector3()
       pos[axisMap.length]=local.length
@@ -169,9 +209,10 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       pos[axisMap.height]=local.height
       pos.add(center)
       const geoSize={x:1,y:1,z:1}
-      geoSize[axisMap.length]=Math.max(1,cell.length-0.8)
-      geoSize[axisMap.width]=Math.max(1,cell.width-0.8)
-      geoSize[axisMap.height]=Math.max(1,cell.height-0.8)
+      const shrink=0.96
+      geoSize[axisMap.length]=Math.max(1,(cell.length/packL)*worldSpan.length*shrink)
+      geoSize[axisMap.width]=Math.max(1,(cell.width/packW)*worldSpan.width*shrink)
+      geoSize[axisMap.height]=Math.max(1,(cell.height/packH)*worldSpan.height*shrink)
       const geo=new THREE.BoxGeometry(geoSize.x,geoSize.y,geoSize.z)
       const mesh=new THREE.Mesh(geo,fill.clone())
       mesh.position.copy(pos)
@@ -180,6 +221,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       edges.position.copy(pos)
       contentsGroup.add(edges)
     }
+    contentsGroup.visible=progress>=0.85
     scene.add(contentsGroup)
   }
 
@@ -361,13 +403,15 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     setProgress(pct){
       progress=Math.max(0,Math.min(1,Number(pct)/100))
       applyFold()
+      // 摇盖打开时暂隐内容物，避免「从敞口穿出」被误当成放不下
+      if(contentsGroup)contentsGroup.visible=progress>=0.85
     },
     setMaterial(id){
       mid=id||mid
       return rebuild()
     },
     /**
-     * @param {{cells:Array,boxSize:{length:number,width:number,height:number},materialId?:string}|null} desc
+     * @param {{cells:Array,boxSize:{length:number,width:number,height:number},outerSize?:object,materialId?:string}|null} desc
      */
     setContents(desc){
       contentsDesc=desc

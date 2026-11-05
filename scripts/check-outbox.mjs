@@ -17,6 +17,7 @@ import {
   packingStats,
   fitInFixedOutbox,
   maxQuantityWithinLimits,
+  packingFitsCavity,
   withinLimits
 } from '../src/outbox.js'
 
@@ -229,6 +230,14 @@ for(const s of samples){
     })
     if(!oor||oor.error!=='fixedOutOfRange'||oor.knife)fail(`fixed OOR: expected fixedOutOfRange got ${oor?.error}`)
     else ok('fixed OOR: fixedOutOfRange')
+
+    // 占用超内空 → packingFitsCavity 失败
+    const badFit=packingFitsCavity(
+      {nx:2,ny:1,nz:1,cell:{length:300,width:50,height:50}},
+      {length:400,width:100,height:100}
+    )
+    if(badFit.ok)fail('packingFitsCavity: expected fail for 2x300 into 400')
+    else ok(`packingFitsCavity: overflow L=${badFit.overflow.length}`)
   }
 }
 

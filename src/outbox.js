@@ -377,6 +377,37 @@ export function packingContentCells(packing){
 }
 
 /**
+ * 排布占用是否装得进外箱内空（含单盒任一边超内空）
+ * @returns {{ok:boolean,overflow:{length:number,width:number,height:number}}}
+ */
+export function packingFitsCavity(packing,inner,eps=0.5){
+  const empty={length:0,width:0,height:0}
+  if(!packing?.cell||!inner)return {ok:false,overflow:empty}
+  const cell=packing.cell
+  const nx=Math.max(0,Number(packing.nx)||0)
+  const ny=Math.max(0,Number(packing.ny)||0)
+  const nz=Math.max(0,Number(packing.nz)||0)
+  const need={
+    length:nx*cell.length,
+    width:ny*cell.width,
+    height:nz*cell.height
+  }
+  const overflow={
+    length:Math.max(0,Math.round((need.length-Number(inner.length))*10)/10),
+    width:Math.max(0,Math.round((need.width-Number(inner.width))*10)/10),
+    height:Math.max(0,Math.round((need.height-Number(inner.height))*10)/10)
+  }
+  const ok=
+    need.length<=Number(inner.length)+eps
+    &&need.width<=Number(inner.width)+eps
+    &&need.height<=Number(inner.height)+eps
+    &&cell.length<=Number(inner.length)+eps
+    &&cell.width<=Number(inner.width)+eps
+    &&cell.height<=Number(inner.height)+eps
+  return {ok,overflow,need}
+}
+
+/**
  * 生成外箱 knife
  * @param {{sizingMode?:'grow'|'fixed',fixedInner?:{length,width,height}}} opts
  * @returns {{knife,plan,outer,packing,stats,error,hint}|null}
@@ -418,6 +449,18 @@ export function buildOutboxKnife({
       }
     }
     const plan=computeOutboxSize(outer,g,packing,{fixedInner})
+    const fit=packingFitsCavity(packing,plan.inner)
+    if(!fit.ok){
+      return {
+        knife:null,
+        plan:null,
+        outer,
+        packing,
+        stats:null,
+        error:'noneFit',
+        hint:{maxFit:0,overflow:fit.overflow,need:fit.need}
+      }
+    }
     const T=Math.max(0.5,Number(thickness)||DEFAULT_OUTBOX_THICKNESS)
     const knife=createKnife({
       templateId:OUTBOX_TEMPLATE_ID,
@@ -469,6 +512,19 @@ export function buildOutboxKnife({
         overflow:plan.overflow||overflowAgainstLimits(plan.raw||plan.inner),
         rawInner:plan.raw||plan.inner
       }
+    }
+  }
+  const fit=packingFitsCavity(packing,plan.inner)
+  if(!fit.ok){
+    const maxFit=maxQuantityWithinLimits(outer,g)
+    return {
+      knife:null,
+      plan:null,
+      outer,
+      packing,
+      stats:null,
+      error:'noneFit',
+      hint:{maxFit,overflow:fit.overflow,need:fit.need}
     }
   }
   if(packing.warnings?.length){

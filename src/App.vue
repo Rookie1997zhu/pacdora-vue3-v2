@@ -176,6 +176,7 @@ function syncOutboxContents(){
   outboxScene.setContents({
     cells:packingContentCells(outboxPacking.value),
     boxSize:outboxPlan.value.inner,
+    outerSize:outboxKnife.value?.dimensions?.outer||outboxKnife.value?.dimensions?.panel||null,
     materialId:material.value
   })
 }
