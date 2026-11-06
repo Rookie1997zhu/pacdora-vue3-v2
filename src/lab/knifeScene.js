@@ -95,6 +95,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       disposeTree(contentsGroup)
       contentsGroup=null
     }
+    setOutboxGhost(false)
   }
 
   /**
@@ -144,6 +145,30 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     return box
   }
 
+  /** 显示装箱时让外箱半透明，闭合也能看见内盒；关闭装箱时恢复不透明 */
+  function setOutboxGhost(enabled){
+    if(!group)return
+    group.traverse(o=>{
+      if(!o.isMesh||!o.material)return
+      const mats=Array.isArray(o.material)?o.material:[o.material]
+      for(const m of mats){
+        if(!m)continue
+        if(m.userData?._packOpacity==null)m.userData={...m.userData,_packOpacity:m.opacity??1,_packTransparent:!!m.transparent}
+        if(enabled){
+          m.transparent=true
+          m.opacity=0.38
+          m.depthWrite=false
+          m.needsUpdate=true
+        }else{
+          m.transparent=!!m.userData._packTransparent
+          m.opacity=m.userData._packOpacity
+          m.depthWrite=true
+          m.needsUpdate=true
+        }
+      }
+    })
+  }
+
   function placeContents(){
     clearContents()
     if(!contentsDesc?.cells?.length||!group||!scene||disposed)return
@@ -186,14 +211,16 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       worldSpan.width=packW
       worldSpan.height=packH
     }
-    const contentMid=contentsDesc.materialId||mid
-    const fill=createBoardMaterial(contentMid,{flatShading:true})
-    fill.transparent=true
-    fill.opacity=0.88
-    fill.color=fill.color||new THREE.Color(0xc4a882)
-    // 内容物略深一点，便于和外箱区分
-    if(fill.color?.offsetHSL)fill.color.offsetHSL(0,-0.02,-0.08)
-    const edgeMat=new THREE.LineBasicMaterial({color:0x3a2a1a})
+    // 内容物用实色+描边，和外箱纸纹区分开
+    const fill=new THREE.MeshStandardMaterial({
+      color:0xb8895c,
+      roughness:0.85,
+      metalness:0,
+      flatShading:true,
+      transparent:true,
+      opacity:0.95
+    })
+    const edgeMat=new THREE.LineBasicMaterial({color:0x3a2412})
     contentsGroup=new THREE.Group()
     contentsGroup.name='packContents'
     for(const cell of contentsDesc.cells){
@@ -221,8 +248,9 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       edges.position.copy(pos)
       contentsGroup.add(edges)
     }
-    contentsGroup.visible=progress>=0.85
+    contentsGroup.visible=true
     scene.add(contentsGroup)
+    setOutboxGhost(true)
   }
 
   function applyFold(){
@@ -403,8 +431,6 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     setProgress(pct){
       progress=Math.max(0,Math.min(1,Number(pct)/100))
       applyFold()
-      // 摇盖打开时暂隐内容物，避免「从敞口穿出」被误当成放不下
-      if(contentsGroup)contentsGroup.visible=progress>=0.85
     },
     setMaterial(id){
       mid=id||mid
@@ -415,7 +441,10 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
      */
     setContents(desc){
       contentsDesc=desc
-      if(!group)return
+      if(!group){
+        if(!desc)clearContents()
+        return
+      }
       placeContents()
     },
     resetView,
@@ -425,6 +454,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       observer.disconnect()
       controls?.dispose();controls=null
       clearContents()
+      setOutboxGhost(false)
       if(group){scene?.remove(group);disposeTree(group);group=null}
       renderer?.dispose()
       renderer?.domElement?.remove()
