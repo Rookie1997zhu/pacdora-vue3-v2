@@ -1,0 +1,38 @@
+{
+  "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
+  "sourcePath": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-120_90_60.svg",
+  "observed": {
+    "widthAttr": null,
+    "heightAttr": null,
+    "viewBox": null,
+    "hasScript": false,
+    "hasExternalHref": false,
+    "elementCounts": {
+      "line": 0,
+      "path": 0,
+      "polyline": 0,
+      "polygon": 0,
+      "rect": 0,
+      "g": 0,
+      "circle": 0
+    },
+    "rawSegmentCount": 0
+  },
+  "normalized": {
+    "segments": [],
+    "pageBounds": null,
+    "geometryBounds": null,
+    "cuttingCount": 0,
+    "creasingCount": 0,
+    "unknownStyleCount": 0
+  },
+  "inferred": {
+    "candidateMmPerUu": 0.26458333333333334,
+    "candidateMmPerUuMethod": "css_absolute_unit_candidate_unconfirmed_by_crease_match",
+    "panelHints": [],
+    "notes": [
+      "unit_calibration_weak_no_crease_span_near_LWH"
+    ],
+    "thickness": null
+  }
+}

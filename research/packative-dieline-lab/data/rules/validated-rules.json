@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-11-11T09:59:17.014Z",
+  "real_unique_sizes": [
+    "100x80x80",
+    "200x150x100",
+    "55x55x75"
+  ],
+  "holdout_frozen": "200x150x100",
+  "access_denied_svgs_excluded": true,
+  "note": "120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors",
+  "validated": [
+    {
+      "id": "topology_cut_crease_counts_stable",
+      "layer": "observed",
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "unique_sizes": 3,
+      "sample_ids": [
+        "studio-dieline-100_80_80",
+        "studio-dieline-productbox-crashlock-200_150_100",
+        "studio-dieline-productbox-crashlock-55_55_75"
+      ]
+    },
+    {
+      "id": "envelope_width_template_sparse",
+      "template": "Wmm_2L_W_H_plus12",
+      "train_rmse_uu": 3.314512409159136e-13,
+      "coeffs": {
+        "a": 8.818816666666676,
+        "b": 4.409408333333338,
+        "c": 4.409408333333338,
+        "d": -183.2974000000013
+      },
+      "holdout": "200x150x100",
+      "holdoutEval": [
+        {
+          "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
+          "errW": 6.311583333332237,
+          "errH": 76.63758965516877,
+          "predW": 2682.818016666668,
+          "predH": 1253.7604103448311,
+          "obsW": 2689.1296,
+          "obsH": 1330.398
+        }
+      ],
+      "caution": "sparse_offline_sizes_only_3_unique_real_svgs"
+    }
+  ]
+}

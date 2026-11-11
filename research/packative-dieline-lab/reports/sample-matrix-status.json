@@ -1,0 +1,228 @@
+{
+  "generated_at": "2026-11-11T09:57:53.978Z",
+  "live_collection": false,
+  "available_count": 3,
+  "missing_count": 18,
+  "rows": [
+    {
+      "group": "baseline",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "key": "100x80x80",
+      "status": "available",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 90,
+      "W": 80,
+      "H": 80,
+      "key": "90x80x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 110,
+      "W": 80,
+      "H": 80,
+      "key": "110x80x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 70,
+      "H": 80,
+      "key": "100x70x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 90,
+      "H": 80,
+      "key": "100x90x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 80,
+      "H": 70,
+      "key": "100x80x70",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "key": "100x80x90",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "interaction",
+      "L": 110,
+      "W": 90,
+      "H": 80,
+      "key": "110x90x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "interaction",
+      "L": 110,
+      "W": 80,
+      "H": 90,
+      "key": "110x80x90",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "interaction",
+      "L": 100,
+      "W": 90,
+      "H": 90,
+      "key": "100x90x90",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "cross_scale",
+      "L": 55,
+      "W": 55,
+      "H": 75,
+      "key": "55x55x75",
+      "status": "available",
+      "holdout_frozen": false
+    },
+    {
+      "group": "cross_scale",
+      "L": 100,
+      "W": 80,
+      "H": 50,
+      "key": "100x80x50",
+      "status": "local_stub_access_denied",
+      "holdout_frozen": false
+    },
+    {
+      "group": "cross_scale",
+      "L": 200,
+      "W": 150,
+      "H": 100,
+      "key": "200x150x100",
+      "status": "available",
+      "holdout_frozen": true
+    },
+    {
+      "group": "cross_scale",
+      "L": 300,
+      "W": 200,
+      "H": 150,
+      "key": "300x200x150",
+      "status": "local_stub_access_denied",
+      "holdout_frozen": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 25,
+      "W": 25,
+      "H": 25,
+      "note": "illegal or boundary candidate; verify against limits before use",
+      "key": "25x25x25",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 25,
+      "W": 80,
+      "H": 80,
+      "note": "boundary candidate",
+      "key": "25x80x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 400,
+      "W": 80,
+      "H": 80,
+      "note": "upper boundary candidate",
+      "key": "400x80x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 100,
+      "W": 350,
+      "H": 80,
+      "note": "width upper candidate",
+      "key": "100x350x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 120,
+      "W": 90,
+      "H": 60,
+      "key": "120x90x60",
+      "status": "local_stub_access_denied",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 130,
+      "W": 100,
+      "H": 70,
+      "key": "130x100x70",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 150,
+      "W": 110,
+      "H": 90,
+      "key": "150x110x90",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 180,
+      "W": 120,
+      "H": 80,
+      "key": "180x120x80",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 220,
+      "W": 160,
+      "H": 110,
+      "key": "220x160x110",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    },
+    {
+      "group": "holdout",
+      "L": 95,
+      "W": 75,
+      "H": 85,
+      "key": "95x75x85",
+      "status": "missing_offline",
+      "holdout_frozen": false
+    }
+  ]
+}

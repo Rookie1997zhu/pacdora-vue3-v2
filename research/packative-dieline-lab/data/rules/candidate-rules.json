@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-11-11T09:59:17.014Z",
+  "real_unique_sizes": [
+    "100x80x80",
+    "200x150x100",
+    "55x55x75"
+  ],
+  "holdout_frozen": "200x150x100",
+  "access_denied_svgs_excluded": true,
+  "note": "120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors",
+  "candidates": [
+    {
+      "id": "css_mm_per_uu_25.4_96",
+      "layer": "inferred",
+      "value": 0.26458333333333334,
+      "evidence": "horizontal crease spans near L*uu for 100_80_80",
+      "status": "candidate"
+    },
+    {
+      "id": "envelope_width_Wmm_2L_W_H",
+      "layer": "inferred",
+      "template": "Wmm_2L_W_H",
+      "scale": 1.1666559548611077,
+      "bias": -183.29739999999606,
+      "train_rmse_uu": 7.411475059146425e-13,
+      "n": 2
+    },
+    {
+      "id": "envelope_width_Wmm_2L_W_H_plus12",
+      "layer": "inferred",
+      "template": "Wmm_2L_W_H_plus12",
+      "scale": 1.1666559548611124,
+      "bias": -236.21030000000133,
+      "train_rmse_uu": 3.314512409159136e-13,
+      "n": 2
+    },
+    {
+      "id": "envelope_width_Wmm_L_2W_2H",
+      "layer": "inferred",
+      "template": "Wmm_L_2W_2H",
+      "scale": 1.3333210912698277,
+      "bias": -712.4263999999807,
+      "train_rmse_uu": 2.6770776092500037e-12,
+      "n": 2
+    },
+    {
+      "id": "envelope_height_Wmm_2L_W_H_plus12",
+      "layer": "inferred",
+      "scale": 0.6206891436781653,
+      "bias": 315.39572068965214,
+      "rmse": 6.27856082768816e-13,
+      "tid": "Wmm_2L_W_H_plus12"
+    },
+    {
+      "id": "ols_width",
+      "fit": null,
+      "note": "needs>=4 samples; often null with sparse offline set"
+    },
+    {
+      "id": "ols_height",
+      "fit": null
+    }
+  ]
+}

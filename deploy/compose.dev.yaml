@@ -1,0 +1,22 @@
+# Local development overlay: expose backend for Vite proxy; no public TLS.
+# Usage:
+#   docker compose --env-file deploy/.env -f deploy/compose.yaml -f deploy/compose.dev.yaml up -d postgres redis geometry
+#   cd backend && pip install -r requirements.txt && set DJANGO_SETTINGS_MODULE=config.settings.development && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+#   npm run dev
+name: boxcraft-dev
+
+services:
+  postgres:
+    ports: ["5432:5432"]
+  redis:
+    ports: ["6379:6379"]
+  geometry:
+    ports: ["3100:3100"]
+  backend:
+    profiles: ["full"]
+  caddy:
+    profiles: ["full"]
+  worker:
+    profiles: ["full"]
+  scheduler:
+    profiles: ["full"]

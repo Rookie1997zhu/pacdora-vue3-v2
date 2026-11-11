@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2722.818" height="1293.760" viewBox="0 0 2722.818 1293.760">
+  <!-- BOXCRAFT dieline-lab PARTIAL prototype; not production; lock-bottom NOT implemented -->
+  <g>
+  <line x1="20.000" y1="20.000" x2="2702.818" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="2702.818" y1="20.000" x2="2702.818" y2="1273.760" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="2702.818" y1="1273.760" x2="20.000" y2="1273.760" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="20.000" y1="1273.760" x2="20.000" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="1670.965" y1="20.000" x2="1670.965" y2="1273.760" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="20.000" y1="489.182" x2="2702.818" y2="489.182" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  </g>
+</svg>

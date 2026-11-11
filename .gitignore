@@ -6,3 +6,18 @@ dist
 scripts/_tmp_*.mjs
 # Pacdora reference geometry dumps — local index only, do not publish as product dielines
 geometry/pacdora_boxes/*.json
+backend/.venv/
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
+deploy/.env
+# Local secret scratch files (never commit)
+api key.md
+**/api key.md
+*.apikey
+services/geometry/node_modules/
+research/**/node_modules/
+research/**/dist/
+research/**/data/private/**
+*.pyc
+__pycache__/

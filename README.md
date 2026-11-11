@@ -9,6 +9,10 @@ npm install
 npm run dev
 ```
 
+开发时 Vite 将 `/api`、`/admin` 代理到 `http://127.0.0.1:8000`。旧刀版工具在 `/` 与 `/lab`；新首页占位在 `/home`。
+
+全栈部署（Caddy 托管 dist + Django API，无 frontend 运行容器）见 [deploy/scripts/bootstrap.md](deploy/scripts/bootstrap.md) 与 [docs/implementation/](docs/implementation/)。
+
 自检：
 
 ```bash

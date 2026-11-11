@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-11-11T09:57:52.009Z",
+  "samples": [
+    {
+      "sampleId": "studio-dieline-100_80_80",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1404.0896,
+      "geomHeightUu": 831.4963,
+      "pageWidthUu": 1406.76,
+      "pageHeightUu": 834.163,
+      "topCreaseLengthsUu": [
+        377.94999999999993,
+        374.67900000000003,
+        371.40700000000004,
+        309.92499999999995,
+        302.3620000000001,
+        300.472,
+        300.472,
+        300.472
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_80",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1404.0896,
+      "geomHeightUu": 831.4963,
+      "pageWidthUu": 1406.76,
+      "pageHeightUu": 834.163,
+      "topCreaseLengthsUu": [
+        377.94999999999993,
+        374.67900000000003,
+        371.40700000000004,
+        309.92499999999995,
+        302.3620000000001,
+        300.472,
+        300.472,
+        300.472
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
+      "L": 200,
+      "W": 150,
+      "H": 100,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 2689.1296,
+      "geomHeightUu": 1330.398,
+      "pageWidthUu": 2691.8,
+      "pageHeightUu": 1333.06,
+      "topCreaseLengthsUu": [
+        755.8999999999999,
+        752.632,
+        749.3599999999999,
+        687.8700000000001,
+        565.0400000000004,
+        564.0949999999999,
+        561.7600000000002,
+        560.387
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-55_55_75",
+      "L": 55,
+      "W": 55,
+      "H": 75,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 874.9606,
+      "geomHeightUu": 661.4177,
+      "pageWidthUu": 877.627,
+      "pageHeightUu": 664.084,
+      "topCreaseLengthsUu": [
+        283.46500000000003,
+        281.57499999999993,
+        281.57499999999993,
+        281.57499999999993,
+        207.8739999999999,
+        205.98400000000004,
+        205.04000000000002,
+        204.601
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    }
+  ]
+}

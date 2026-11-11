@@ -6,5 +6,17 @@ const pagesBase=process.env.GITHUB_PAGES==='1'?'/pacdora-vue3-v2/':'/'
 
 export default defineConfig({
   plugins:[vue()],
-  base:pagesBase
+  base:pagesBase,
+  server:{
+    proxy:{
+      '/api':{
+        target:'http://127.0.0.1:8000',
+        changeOrigin:true
+      },
+      '/admin':{
+        target:'http://127.0.0.1:8000',
+        changeOrigin:true
+      }
+    }
+  }
 })

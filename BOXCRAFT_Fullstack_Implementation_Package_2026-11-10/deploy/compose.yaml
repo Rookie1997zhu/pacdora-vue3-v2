@@ -1,0 +1,164 @@
+name: boxcraft
+
+x-backend-env: &backend-env
+  DJANGO_SETTINGS_MODULE: config.settings.production
+  DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?required}
+  DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?required}
+  DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:?required}
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_NAME: ${POSTGRES_DB:-boxcraft}
+  DB_USER: ${POSTGRES_USER:-boxcraft}
+  DB_PASSWORD: ${POSTGRES_PASSWORD:?required}
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  REDIS_PASSWORD: ${REDIS_PASSWORD:?required}
+  GEOMETRY_URL: http://geometry:3100
+  MEDIA_ROOT: /app/media
+  AI_PROVIDER: ${AI_PROVIDER:-disabled}
+  AI_API_KEY: ${AI_API_KEY:-}
+  AI_MODEL: ${AI_MODEL:-}
+  EMAIL_BACKEND_MODE: ${EMAIL_BACKEND_MODE:-disabled}
+  EMAIL_HOST: ${EMAIL_HOST:-}
+  EMAIL_PORT: ${EMAIL_PORT:-587}
+  EMAIL_HOST_USER: ${EMAIL_HOST_USER:-}
+  EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD:-}
+  EMAIL_USE_TLS: ${EMAIL_USE_TLS:-true}
+  DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-}
+  PAYMENT_MODE: ${PAYMENT_MODE:-manual_quote}
+
+x-backend-base: &backend-base
+  image: boxcraft-backend:${APP_TAG:-local}
+  build:
+    context: ..
+    dockerfile: deploy/Dockerfile.backend
+  environment: *backend-env
+  volumes:
+    - media_data:/app/media
+  networks: [edge, core]
+  restart: unless-stopped
+  init: true
+  security_opt: [no-new-privileges:true]
+
+services:
+  caddy:
+    image: boxcraft-caddy:${WEB_TAG:-local}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.caddy
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
+        CADDY_IMAGE: ${CADDY_IMAGE:-caddy:2-alpine}
+        VITE_API_BASE: /api/v1
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?required}
+      ACME_EMAIL: ${ACME_EMAIL:?required}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      backend: { condition: service_healthy }
+    networks: [edge]
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "5" }
+
+  postgres:
+    image: ${POSTGRES_IMAGE:-postgres:17-alpine}
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-boxcraft}
+      POSTGRES_USER: ${POSTGRES_USER:-boxcraft}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes: ["pg_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [core]
+
+  redis:
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?required}
+    command:
+      - sh
+      - -c
+      - 'exec redis-server --appendonly yes --requirepass "$$REDIS_PASSWORD"'
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD-SHELL", 'REDISCLI_AUTH="$$REDIS_PASSWORD" redis-cli ping | grep -q PONG']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [core]
+
+  geometry:
+    image: boxcraft-geometry:${APP_TAG:-local}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.geometry
+    restart: unless-stopped
+    expose: ["3100"]
+    environment:
+      NODE_ENV: production
+      PORT: "3100"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3100/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [core]
+
+  backend:
+    <<: *backend-base
+    command: ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "60"]
+    expose: ["8000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      geometry: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-m", "config.healthcheck"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    <<: *backend-base
+    command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--queues=default,ai,export", "--concurrency=2", "--prefetch-multiplier=1"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      geometry: { condition: service_healthy }
+
+  scheduler:
+    <<: *backend-base
+    command: ["celery", "-A", "config", "beat", "--loglevel=INFO", "--schedule=/tmp/celerybeat-schedule"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  migrate:
+    <<: *backend-base
+    profiles: ["maintenance"]
+    restart: "no"
+    command: ["python", "manage.py", "migrate", "--noinput"]
+    depends_on:
+      postgres: { condition: service_healthy }
+
+volumes:
+  pg_data:
+  redis_data:
+  media_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  edge:
+  core:
+    internal: true

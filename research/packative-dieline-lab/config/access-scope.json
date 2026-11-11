@@ -1,0 +1,27 @@
+{
+  "offline": true,
+  "live_collection": false,
+  "paid_actions": false,
+  "pilot_product": "productbox-crashlock",
+  "evidence_root_readonly": "docs/packative-research/evidence",
+  "robots_notes": [
+    {
+      "source": "docs/packative-research/README.md",
+      "claim": "robots.txt disallows /editor/, /login/, /my/, /checkout/",
+      "status": "report_only_not_retested_this_round",
+      "action": "do_not_crawl_editor_paths"
+    }
+  ],
+  "allowed_this_round": [
+    "hash_and_parse_local_evidence_files",
+    "offline_svg_normalize_diff_infer",
+    "local_prototype_generation"
+  ],
+  "forbidden_this_round": [
+    "live_studio_api_replay",
+    "cdn_path_enumeration",
+    "credential_reuse",
+    "paid_export_checkout_email"
+  ],
+  "online_collection_count": 0
+}

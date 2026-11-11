@@ -1,0 +1,42 @@
+{
+  "product": "productbox-crashlock",
+  "baseline_mm": { "L": 100, "W": 80, "H": 80 },
+  "holdout_frozen": [{ "L": 200, "W": 150, "H": 100, "note": "frozen for phase4; 120x90x60 local SVG is AccessDenied stub" }],
+  "budget_note": "24 points is a budget suggestion not sufficiency",
+  "planned_groups": {
+    "baseline": [{ "L": 100, "W": 80, "H": 80 }],
+    "single_var": [
+      { "L": 90, "W": 80, "H": 80 },
+      { "L": 110, "W": 80, "H": 80 },
+      { "L": 100, "W": 70, "H": 80 },
+      { "L": 100, "W": 90, "H": 80 },
+      { "L": 100, "W": 80, "H": 70 },
+      { "L": 100, "W": 80, "H": 90 }
+    ],
+    "interaction": [
+      { "L": 110, "W": 90, "H": 80 },
+      { "L": 110, "W": 80, "H": 90 },
+      { "L": 100, "W": 90, "H": 90 }
+    ],
+    "cross_scale": [
+      { "L": 55, "W": 55, "H": 75 },
+      { "L": 100, "W": 80, "H": 50 },
+      { "L": 200, "W": 150, "H": 100 },
+      { "L": 300, "W": 200, "H": 150 }
+    ],
+    "near_boundary": [
+      { "L": 25, "W": 25, "H": 25, "note": "illegal or boundary candidate; verify against limits before use" },
+      { "L": 25, "W": 80, "H": 80, "note": "boundary candidate" },
+      { "L": 400, "W": 80, "H": 80, "note": "upper boundary candidate" },
+      { "L": 100, "W": 350, "H": 80, "note": "width upper candidate" }
+    ],
+    "holdout": [
+      { "L": 120, "W": 90, "H": 60 },
+      { "L": 130, "W": 100, "H": 70 },
+      { "L": 150, "W": 110, "H": 90 },
+      { "L": 180, "W": 120, "H": 80 },
+      { "L": 220, "W": 160, "H": 110 },
+      { "L": 95, "W": 75, "H": 85 }
+    ]
+  }
+}

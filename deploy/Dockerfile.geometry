@@ -1,0 +1,13 @@
+ARG NODE_IMAGE=node:22-alpine
+FROM ${NODE_IMAGE}
+WORKDIR /app
+# Install geometry deps at repo root so /app/src/knife.js can resolve polygon-clipping
+COPY services/geometry/package.json ./package.json
+RUN npm install --omit=dev
+COPY src/ ./src/
+COPY services/geometry/ ./services/geometry/
+WORKDIR /app/services/geometry
+ENV NODE_ENV=production
+ENV PORT=3100
+EXPOSE 3100
+CMD ["node", "server.mjs"]

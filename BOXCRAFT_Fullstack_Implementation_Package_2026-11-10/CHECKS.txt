@@ -1,0 +1,18 @@
+BOXCRAFT V1.1 修订核对记录 — 2026-11-10
+
+通过：保留方案 25 章、提示词 13 章；业务主体章节文本比对一致。
+通过：部署架构图统一为 Caddy dist 静态托管 + 独立 Django API。
+通过：Compose 静态检查无 frontend 服务，独立保留 backend/postgres/redis/worker/scheduler/geometry；migrate 仅 maintenance profile。
+通过：Caddyfile、Dockerfile.caddy、compose.yaml 附件与 HTML 中配置逐字一致。
+通过：总控、P0–P8、续做和独立审查提示词同步；两份 HTML 内嵌 master-data/all-data 与可见文本及 TXT 一致。
+通过：旧 frontend 服务、代理上游、运行 Dockerfile、第二份静态 Caddyfile 与 frontend 更新命令不再作为执行要求。
+说明：frontend 一词仅保留在“不创建/检查残留”等否定约束中。
+通过：部署、更新、回滚命令统一指向 caddy，使用独立 WEB_TAG；不覆盖 /srv，不删除数据/证书卷。
+通过：浏览器检查目录锚点、ID 唯一性、搜索、移动端菜单、TXT 实际下载与页面 JavaScript；桌面/手机截图已查看。
+通过：复制按钮捕获到的文本与总控一致（无头浏览器以剪贴板替身验证文本；未验证操作系统剪贴板）。
+
+未执行：Docker Compose 实际解析、镜像构建、Caddy validate、服务启动及 API 集成验收。
+本机 Docker 只读镜像清单探测被权限拒绝；本次未操作用户 Docker 服务。
+本包是方案和配置样板，未包含可运行 Django/geometry 工程及对应完整构建依赖，不代表网站完成或运行验收通过。
+
+输入范围：用户提供的两份原版 HTML。原 ZIP 未提供，未冒充保留其无法取得的附加证据文件。

@@ -1,0 +1,29 @@
+{
+  "name": "packative-dieline-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Offline Packative dieline research lab (isolated; no production integration)",
+  "scripts": {
+    "audit": "tsx src/cli/audit.ts",
+    "import-offline": "tsx src/cli/import-offline.ts",
+    "normalize-svg": "tsx src/cli/normalize-svg.ts",
+    "sample-matrix": "tsx src/cli/sample-matrix.ts",
+    "diff-geometry": "tsx src/cli/diff-geometry.ts",
+    "online-collect": "tsx src/cli/online-collect.ts",
+    "infer-rules": "tsx src/cli/infer-rules.ts",
+    "prototype": "tsx src/cli/prototype.ts",
+    "validate": "tsx src/cli/validate.ts",
+    "phase1": "tsx src/cli/audit.ts",
+    "phase2": "tsx src/cli/run-phase2.ts",
+    "phase3": "tsx src/cli/run-phase3.ts",
+    "phase4": "tsx src/cli/validate.ts",
+    "all": "tsx src/cli/run-all.ts",
+    "test": "tsx src/cli/run-tests.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

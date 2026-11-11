@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boxcraft.local/schemas/design-document.v1.json",
+  "title": "BoxcraftDesignDocumentV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "locale", "geometry", "artwork"],
+  "properties": {
+    "schemaVersion": { "const": "boxcraft.design.v1" },
+    "designId": { "type": "string" },
+    "locale": { "enum": ["zh-CN", "ko-KR"] },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "templateId", "templateVersion", "engineVersion", "params", "geometryHash"],
+      "properties": {
+        "mode": { "enum": ["parametric", "fixed_snapshot", "model_only"] },
+        "templateId": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "templateVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "engineVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "sourceAssetId": { "type": ["string", "null"], "format": "uuid" },
+        "pieceId": { "type": ["string", "null"], "maxLength": 64 },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lengthMm", "widthMm", "heightMm", "thicknessMm", "sizeMode", "fluteDirection", "materialId", "bleedInputMm", "advanced"],
+          "properties": {
+            "lengthMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
+            "widthMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
+            "heightMm": { "type": "number", "minimum": 0, "maximum": 5000 },
+            "thicknessMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 50 },
+            "sizeMode": { "enum": ["inner", "outer"] },
+            "fluteDirection": { "enum": ["L", "W"] },
+            "materialId": { "type": "string", "maxLength": 64 },
+            "bleedInputMm": { "type": "number", "minimum": 0, "maximum": 50 },
+            "advanced": { "type": "object", "additionalProperties": { "type": "number" } }
+          }
+        },
+        "geometryHash": { "type": "string", "maxLength": 256 }
+      }
+    },
+    "artwork": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backgroundColor", "layers"],
+      "properties": {
+        "backgroundColor": { "type": ["string", "null"], "maxLength": 32 },
+        "layers": {
+          "type": "array",
+          "maxItems": 200,
+          "items": { "$ref": "#/$defs/artworkLayer" }
+        }
+      }
+    },
+    "aiSettings": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "enum": ["image", "main_area"] },
+        "prompt": { "type": "string", "maxLength": 4000 },
+        "stylePresetId": { "type": ["string", "null"], "maxLength": 64 },
+        "generationBackgroundColor": { "type": ["string", "null"], "maxLength": 32 },
+        "registration": {
+          "type": ["object", "null"],
+          "additionalProperties": true
+        }
+      }
+    },
+    "outbox": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "sizingMode": { "enum": ["grow", "fixed"] },
+        "quantity": { "type": "integer", "minimum": 1, "maximum": 100000 },
+        "thicknessMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 50 },
+        "gapsMm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["length", "width", "height"],
+          "properties": {
+            "length": { "type": "number", "minimum": 0 },
+            "width": { "type": "number", "minimum": 0 },
+            "height": { "type": "number", "minimum": 0 }
+          }
+        },
+        "fixedInnerMm": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "length": { "type": "number", "exclusiveMinimum": 0 },
+            "width": { "type": "number", "exclusiveMinimum": 0 },
+            "height": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "manualLayout": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "nx": { "type": "integer", "minimum": 1 },
+            "ny": { "type": "integer", "minimum": 1 },
+            "nz": { "type": "integer", "minimum": 1 },
+            "rotated": { "type": "boolean" }
+          }
+        },
+        "catalogPresetId": { "type": ["string", "null"], "maxLength": 64 }
+      }
+    }
+  },
+  "$defs": {
+    "artworkLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name", "coordinateSpace", "side", "transform", "widthMm", "heightMm", "visible", "locked", "opacity", "zIndex", "clip", "resizePolicy"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "kind": { "enum": ["image", "text", "shape"] },
+        "name": { "type": "string", "maxLength": 120 },
+        "coordinateSpace": { "enum": ["panel_mm", "net_mm"] },
+        "panelId": { "type": ["string", "null"], "maxLength": 64 },
+        "pieceId": { "type": ["string", "null"], "maxLength": 64 },
+        "side": { "enum": ["outside", "inside"] },
+        "transform": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["xMm", "yMm", "rotationDeg", "scaleX", "scaleY"],
+          "properties": {
+            "xMm": { "type": "number" },
+            "yMm": { "type": "number" },
+            "rotationDeg": { "type": "number" },
+            "scaleX": { "type": "number" },
+            "scaleY": { "type": "number" }
+          }
+        },
+        "widthMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10000 },
+        "heightMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10000 },
+        "visible": { "type": "boolean" },
+        "locked": { "type": "boolean" },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "zIndex": { "type": "integer" },
+        "clip": { "enum": ["panel", "printable", "none"] },
+        "assetId": { "type": ["string", "null"], "format": "uuid" },
+        "text": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["content", "fontFamily", "fontSizeMm", "fill", "align"],
+          "properties": {
+            "content": { "type": "string", "maxLength": 4000 },
+            "fontFamily": { "type": "string", "maxLength": 120 },
+            "fontSizeMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 500 },
+            "fill": { "type": "string", "maxLength": 32 },
+            "align": { "enum": ["left", "center", "right"] }
+          }
+        },
+        "shape": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["shapeType", "fill", "stroke", "strokeWidthMm"],
+          "properties": {
+            "shapeType": { "enum": ["rect", "ellipse"] },
+            "fill": { "type": "string", "maxLength": 32 },
+            "stroke": { "type": "string", "maxLength": 32 },
+            "strokeWidthMm": { "type": "number", "minimum": 0, "maximum": 50 }
+          }
+        },
+        "crop": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["x", "y", "w", "h"],
+          "properties": {
+            "x": { "type": "number", "minimum": 0, "maximum": 1 },
+            "y": { "type": "number", "minimum": 0, "maximum": 1 },
+            "w": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+            "h": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+          }
+        },
+        "resizePolicy": { "enum": ["keep_mm", "scale_with_panel", "anchor"] },
+        "anchor": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          }
+        },
+        "sourceGeometryHash": { "type": ["string", "null"], "maxLength": 256 },
+        "adaptStatus": { "type": ["string", "null"], "enum": ["ok", "needs_adapt", "needs_rebind", null] }
+      }
+    }
+  }
+}

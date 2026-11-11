@@ -1,0 +1,16 @@
+ARG NODE_IMAGE=node:22-alpine
+ARG CADDY_IMAGE=caddy:2-alpine
+FROM ${NODE_IMAGE} AS vue-build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+ARG VITE_API_BASE=/api/v1
+ENV VITE_API_BASE=${VITE_API_BASE}
+ENV GITHUB_PAGES=0
+RUN npm run build && test -f /app/dist/index.html
+
+FROM ${CADDY_IMAGE} AS runtime
+COPY deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=vue-build /app/dist/ /srv/
+EXPOSE 80 443 443/udp

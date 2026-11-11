@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-11-11T09:59:24.954Z",
+  "results": [
+    {
+      "file": "proto-crashlock-100_80_80.svg",
+      "widthUu": 1404.0896000000002,
+      "heightUu": 831.4963000000005,
+      "implemented": [
+        "outer_envelope_size_vs_LWH_linear_fit",
+        "semantic_cutting_outer_rect",
+        "semantic_creasing_cross_heuristic"
+      ],
+      "gaps": [
+        "auto_bottom_crashlock_flaps_not_reconstructed",
+        "glue_flap_and_dust_flap_topology_unknown",
+        "curve_segments_not_modeled",
+        "material_thickness_unobserved"
+      ]
+    },
+    {
+      "file": "proto-crashlock-55_55_75.svg",
+      "widthUu": 874.9605999999999,
+      "heightUu": 661.4176999999993,
+      "implemented": [
+        "outer_envelope_size_vs_LWH_linear_fit",
+        "semantic_cutting_outer_rect",
+        "semantic_creasing_cross_heuristic"
+      ],
+      "gaps": [
+        "auto_bottom_crashlock_flaps_not_reconstructed",
+        "glue_flap_and_dust_flap_topology_unknown",
+        "curve_segments_not_modeled",
+        "material_thickness_unobserved"
+      ]
+    },
+    {
+      "file": "proto-crashlock-200_150_100.svg",
+      "widthUu": 2682.818016666668,
+      "heightUu": 1253.7604103448311,
+      "implemented": [
+        "outer_envelope_size_vs_LWH_linear_fit",
+        "semantic_cutting_outer_rect",
+        "semantic_creasing_cross_heuristic"
+      ],
+      "gaps": [
+        "auto_bottom_crashlock_flaps_not_reconstructed",
+        "glue_flap_and_dust_flap_topology_unknown",
+        "curve_segments_not_modeled",
+        "material_thickness_unobserved"
+      ]
+    }
+  ]
+}

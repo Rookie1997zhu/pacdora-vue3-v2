@@ -13,7 +13,8 @@ const steps=[
   'check-rea-golden.mjs',
   'check-catalog.mjs',
   'check-geom-assembly.mjs',
-  'check-outbox.mjs'
+  'check-outbox.mjs',
+  'check-net-masks.mjs',
 ]
 
 for(const file of steps){

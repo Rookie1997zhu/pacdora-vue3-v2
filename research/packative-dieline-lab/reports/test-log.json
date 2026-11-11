@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-11-11T09:59:36.634Z",
+  "results": [
+    {
+      "suite": "real",
+      "id": "parse_cutting_creasing",
+      "status": "passed",
+      "detail": "cut=63 crease=14"
+    },
+    {
+      "suite": "real",
+      "id": "no_script_exec",
+      "status": "passed",
+      "detail": "parser strips scripts; does not evaluate"
+    },
+    {
+      "suite": "synthetic",
+      "id": "transform_y_flip_applied",
+      "status": "passed"
+    }
+  ]
+}

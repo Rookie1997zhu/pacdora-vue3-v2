@@ -1,0 +1,508 @@
+{
+  "generated_at": "2026-11-11T09:47:48.920354+00:00",
+  "source_root": "docs/packative-research/evidence",
+  "count": 50,
+  "vector_svg_count": 7,
+  "items": [
+    {
+      "path": "docs\\packative-research\\evidence\\area_mask-100_80_80.png",
+      "name": "area_mask-100_80_80.png",
+      "bytes": 13809,
+      "sha256": "64c90c951fcec2dbacf117225d4a2910b43f0d86b26adc1858a5404367a62042",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\crashlock-100_80_80-main_mask.png",
+      "name": "crashlock-100_80_80-main_mask.png",
+      "bytes": 12806,
+      "sha256": "6ba831ff8b5ebc9d2b9dbe73e7dab7af69b4e07f80556b00268fa9b5f77574a0",
+      "ext": "png",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\crashlock-100_80_80-original_dieline.png",
+      "name": "crashlock-100_80_80-original_dieline.png",
+      "bytes": 25624,
+      "sha256": "c0d140d17502639f5249e5fb99ea191baf689c178d05e61884c5a9720d4696a4",
+      "ext": "png",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\crashlock-100_80_80-total_mask.png",
+      "name": "crashlock-100_80_80-total_mask.png",
+      "bytes": 29688,
+      "sha256": "492df7e1cb0850a3637f83fc77c7acc8336eea9f021bd673da27212940ab02b3",
+      "ext": "png",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-100-headers.txt",
+      "name": "dieline-100-headers.txt",
+      "bytes": 1322,
+      "sha256": "f39288703bda5712fa27ce803c02c1b3425833822f81862d9f6d07bfb80bf9f5",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-120-headers.txt",
+      "name": "dieline-120-headers.txt",
+      "bytes": 1320,
+      "sha256": "fbd606fbcf2fe6c2ad985baa7cfd0cc54b6389647efc9d7b6538de6be829b6ec",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-crashlock-100x80x50.eps",
+      "name": "dieline-crashlock-100x80x50.eps",
+      "bytes": 20116,
+      "sha256": "908912961e415581f1b8aba385bd7ae30a2b9cf8dcd2b39e319475094ab03d69",
+      "ext": "eps",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x50",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-crashlock-120x90x60.eps",
+      "name": "dieline-crashlock-120x90x60.eps",
+      "bytes": 20074,
+      "sha256": "c19dff5346564c08a5537675600858e0607abec06bfae6aeda9e45b692434174",
+      "ext": "eps",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "120x90x60",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-crashlock-200x150x100.eps",
+      "name": "dieline-crashlock-200x150x100.eps",
+      "bytes": 20108,
+      "sha256": "a78fbcb5a675933ef015eeaca04bd15673c7aca8054eb8dab392b6db836fb414",
+      "ext": "eps",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-crashlock-300x200x150.eps",
+      "name": "dieline-crashlock-300x200x150.eps",
+      "bytes": 20102,
+      "sha256": "e32b8b8f938c2a1272f5e0d8af29ba3e967eb30fca5fe6357bb9feda99fa6d0a",
+      "ext": "eps",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "300x200x150",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-crashlock-55x55x75.eps",
+      "name": "dieline-crashlock-55x55x75.eps",
+      "bytes": 20105,
+      "sha256": "d47c3b114181f50bdba28ae078e3d75b0dad0375f8ff0a79e3fcdcea63dfc59a",
+      "ext": "eps",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "55x55x75",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-format-ai-headers.txt",
+      "name": "dieline-format-ai-headers.txt",
+      "bytes": 1372,
+      "sha256": "e1bf6746703af93b5fccbff7d6167422af23d2ef5ef1021e790a803845149dab",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-format-ai-sample.pdf",
+      "name": "dieline-format-ai-sample.pdf",
+      "bytes": 2111,
+      "sha256": "4601f945745931987372bf6c4bc358171a479d6f26b358e2319dd8a1a8e7f5da",
+      "ext": "pdf",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-mailer-200x150x50.eps",
+      "name": "dieline-mailer-200x150x50.eps",
+      "bytes": 78,
+      "sha256": "40863d58eaa219328806917f641164a5bcd65fb6bf88b4ef1cea616c8a9cb957",
+      "ext": "eps",
+      "product": "mailerbox",
+      "dims_mm_guess": "200x150x50",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-mailerbox-100x80x50.eps",
+      "name": "dieline-mailerbox-100x80x50.eps",
+      "bytes": 26388,
+      "sha256": "78544b9816e73a0adcb92049783682f7b8f72bc293d192a57a89231ff9362c5d",
+      "ext": "eps",
+      "product": "mailerbox",
+      "dims_mm_guess": "100x80x50",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-mailerbox-200x150x100.eps",
+      "name": "dieline-mailerbox-200x150x100.eps",
+      "bytes": 27234,
+      "sha256": "254501849f827c4b61c6c510e6cb86ac0fedf5a744e7777d1c2dfef980c1b630",
+      "ext": "eps",
+      "product": "mailerbox",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-mailerbox-200x150x50.eps",
+      "name": "dieline-mailerbox-200x150x50.eps",
+      "bytes": 27728,
+      "sha256": "e77b51feea13e7237c49f820e912f977d97c3b2245590e53fa1f70eeb10496ae",
+      "ext": "eps",
+      "product": "mailerbox",
+      "dims_mm_guess": "200x150x50",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-pillow-100x80x40.eps",
+      "name": "dieline-pillow-100x80x40.eps",
+      "bytes": 22896,
+      "sha256": "187c38cb039240e423b82b96a911fe6315235a74afb02d6d599b5cd76e6287d6",
+      "ext": "eps",
+      "product": "pillowbox",
+      "dims_mm_guess": "100x80x40",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-pillow-200x150x100.eps",
+      "name": "dieline-pillow-200x150x100.eps",
+      "bytes": 26536,
+      "sha256": "2be977886fa6d01593242555109b580b383135ba6e540662222964f1de5df905",
+      "ext": "eps",
+      "product": "pillowbox",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-pillow-80x60x40.eps",
+      "name": "dieline-pillow-80x60x40.eps",
+      "bytes": 21772,
+      "sha256": "fa6d63b2c72d7a2ffa462770706ef80c06b63609e193f71235bf2280c8429033",
+      "ext": "eps",
+      "product": "pillowbox",
+      "dims_mm_guess": "80x60x40",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-png-100_80_80.png",
+      "name": "dieline-png-100_80_80.png",
+      "bytes": 289854,
+      "sha256": "12c1cfa3167015288a506df917625dda3634e7de95a6ba26a8231759dbc610d1",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-sleeve-100x80x50.eps",
+      "name": "dieline-sleeve-100x80x50.eps",
+      "bytes": 15099,
+      "sha256": "70940cf2262363f32535059291773658945767c4967b7d673acb479a1f9d33c1",
+      "ext": "eps",
+      "product": "sleeve",
+      "dims_mm_guess": "100x80x50",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-sleeve-200x150x100.eps",
+      "name": "dieline-sleeve-200x150x100.eps",
+      "bytes": 15095,
+      "sha256": "7a384f594da2e6a11219fb7e980d68016b7a7d852d2ed1016197813aa980d38d",
+      "ext": "eps",
+      "product": "sleeve",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-tray-150x100x40.eps",
+      "name": "dieline-tray-150x100x40.eps",
+      "bytes": 27887,
+      "sha256": "7baa256795dc7fc3aada89a149d7a9f5322629c2d0cf565f335ab932dd65d2db",
+      "ext": "eps",
+      "product": "tray",
+      "dims_mm_guess": "150x100x40",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\dieline-tray-200x150x100.eps",
+      "name": "dieline-tray-200x150x100.eps",
+      "bytes": 27910,
+      "sha256": "694b15938381bb20844f7ac7f1dd600ea7685dcf4c4537e3176e697a5494835d",
+      "ext": "eps",
+      "product": "tray",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_eps"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\headers-area-mask.txt",
+      "name": "headers-area-mask.txt",
+      "bytes": 1031,
+      "sha256": "c52046b35e950f1807634088cd2845ebe1781d6b7b8fa688d462c7997a86abcf",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\model-crashlock-100x80x80-as-svg.bin",
+      "name": "model-crashlock-100x80x80-as-svg.bin",
+      "bytes": 2104,
+      "sha256": "2cfc2af51f8ba2de0aff9bce1d4bfefaaebb21a1bfd82ea147f72a3c0ad05470",
+      "ext": "bin",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\model-crashlock-100x80x80.pdf",
+      "name": "model-crashlock-100x80x80.pdf",
+      "bytes": 2104,
+      "sha256": "54ec850e23311923f17ad27f5701b849ef58f5854f2d1fbca6a9a80517a67522",
+      "ext": "pdf",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase2-dieline-download-login-wall.png",
+      "name": "phase2-dieline-download-login-wall.png",
+      "bytes": 41635,
+      "sha256": "538abc0ba21175af91f39a1390257c8652e0631275c17c4fde8a3b4bb107d0b5",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase2-en-dieline-model-api.txt",
+      "name": "phase2-en-dieline-model-api.txt",
+      "bytes": 900,
+      "sha256": "a4487d606e46c7ded1ab7ec2de5b8016363196e7a19f84778ee34fc1c4a9b76b",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-applied-to-dieline-2d.png",
+      "name": "phase3-ai-applied-to-dieline-2d.png",
+      "bytes": 274239,
+      "sha256": "0e5a77aa966a76279884e1b92670c993ed5ef7ddb4eeab7a7b8c181108a48a7b",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area-on-dieline.png",
+      "name": "phase3-ai-main-area-on-dieline.png",
+      "bytes": 22524,
+      "sha256": "9fa3ee6776f5e39cdce7824a0490d5a8ff46b40b8455cfdc10e17b4b0268bd2d",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-multibox-mailer-editor.png",
+      "name": "phase3-multibox-mailer-editor.png",
+      "bytes": 55160,
+      "sha256": "6933fc00c9ca1477a8d12159a9526cc7be8433182c6c847ada9a0d6f37bc232c",
+      "ext": "png",
+      "product": "mailerbox",
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-multibox-pillow-editor.png",
+      "name": "phase3-multibox-pillow-editor.png",
+      "bytes": 54563,
+      "sha256": "d827f99351ff94a9f4e738b19e60bdf1c7f934a228d286fd76ccc810e2aa6a67",
+      "ext": "png",
+      "product": "pillowbox",
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-multibox-sleeve-pdp.png",
+      "name": "phase3-multibox-sleeve-pdp.png",
+      "bytes": 23346,
+      "sha256": "ed925f18274259065166bdacb99803314e7e3a28aa83a76f8414ac948ef0297b",
+      "ext": "png",
+      "product": "sleeve",
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-own-upload-on-dieline.png",
+      "name": "phase3-own-upload-on-dieline.png",
+      "bytes": 223284,
+      "sha256": "31413af8b4a1cbee8e1637369346cd7540648bd9decd907c56aee7198c2838ee",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\rea-dieline-generate-summary.txt",
+      "name": "rea-dieline-generate-summary.txt",
+      "bytes": 9440,
+      "sha256": "75b624890546567a9430e37122485bce3f52095b20468cc894605d6b6e6767b1",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\rea-dieline-interesting-urls.txt",
+      "name": "rea-dieline-interesting-urls.txt",
+      "bytes": 4007,
+      "sha256": "686f7248e4cedb40748b544a1358b0de1e8989dc6ee2922aa7d59adc26d7e4d2",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\rea-dieline-net-detail.txt",
+      "name": "rea-dieline-net-detail.txt",
+      "bytes": 1426,
+      "sha256": "69e8a01387bd9f91c2c955b3195fe6a7131f9967010abfb9b8bd9772f5d5062b",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-api-dieline-100_80_80.meta.json",
+      "name": "studio-api-dieline-100_80_80.meta.json",
+      "bytes": 2020,
+      "sha256": "7c476e45b97d28a16459676d31103fc66f01f33998a6916f6030846440816f6d",
+      "ext": "json",
+      "product": null,
+      "dims_mm_guess": "100x80x80",
+      "role": "meta"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-api-dieline-overlay-ok.json",
+      "name": "studio-api-dieline-overlay-ok.json",
+      "bytes": 33,
+      "sha256": "f26dcd3580f26f3b494c17bd81ff4eb958401b104fc84698cb36495101190e44",
+      "ext": "json",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-api-dieline-overlay-origin.json",
+      "name": "studio-api-dieline-overlay-origin.json",
+      "bytes": 216,
+      "sha256": "ddaebf929738c7f20999c75f3cd1f5b5c16bc3fa6d1185541e6f9681610b1441",
+      "ext": "json",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-100_80_80.svg",
+      "name": "studio-dieline-100_80_80.svg",
+      "bytes": 12243,
+      "sha256": "543e63098c45d0f8d953894fa4a0bd9c17b6b205d967e431c12d56928d56ab9b",
+      "ext": "svg",
+      "product": null,
+      "dims_mm_guess": "100x80x80",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_50.svg",
+      "name": "studio-dieline-productbox-crashlock-100_80_50.svg",
+      "bytes": 111,
+      "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x50",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_80.svg",
+      "name": "studio-dieline-productbox-crashlock-100_80_80.svg",
+      "bytes": 12243,
+      "sha256": "543e63098c45d0f8d953894fa4a0bd9c17b6b205d967e431c12d56928d56ab9b",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x80",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-120_90_60.svg",
+      "name": "studio-dieline-productbox-crashlock-120_90_60.svg",
+      "bytes": 111,
+      "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "120x90x60",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-200_150_100.svg",
+      "name": "studio-dieline-productbox-crashlock-200_150_100.svg",
+      "bytes": 12365,
+      "sha256": "c6bc3adb8635dcc6fe4fbd205abb06155cc70605bd27736e72e32fc31dcdffb9",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "200x150x100",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-300_200_150.svg",
+      "name": "studio-dieline-productbox-crashlock-300_200_150.svg",
+      "bytes": 111,
+      "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "300x200x150",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-55_55_75.svg",
+      "name": "studio-dieline-productbox-crashlock-55_55_75.svg",
+      "bytes": 12250,
+      "sha256": "b90e4f24755671b9dcecd570fa0df32146108b0cd08bb90930940f25811653e4",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "55x55x75",
+      "role": "vector_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-svg-headers.txt",
+      "name": "studio-dieline-svg-headers.txt",
+      "bytes": 1082,
+      "sha256": "6f37b90e07d7b670f33833533e85748b02ee411a6bec2ec076bae21dbbded20c",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    }
+  ]
+}

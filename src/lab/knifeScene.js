@@ -47,6 +47,14 @@ function makePanelMesh(f,faceHoles,thickness,materialId){
   const mat=createBoardMaterial(materialId,{flatShading:!f.smooth})
   const mesh=new THREE.Mesh(geo,mat)
   mesh.name=f.name
+  mesh.userData.pickablePanel=true
+  mesh.userData.faceW=f.w
+  mesh.userData.faceH=f.h
+  mesh.userData.boardMap=mat.map||null
+  mesh.userData.boardRepeat=mat.map?mat.map.repeat.clone():null
+  mesh.userData.boardOffset=mat.map?mat.map.offset.clone():null
+  mesh.userData.boardWrapS=mat.map?mat.map.wrapS:null
+  mesh.userData.boardWrapT=mat.map?mat.map.wrapT:null
   const off=neutralMeshOffset(T)
   mesh.position.z=off.z
   return mesh
@@ -56,7 +64,7 @@ function makePanelMesh(f,faceHoles,thickness,materialId){
  * @param {HTMLElement} container
  * @param {{materialId?:string,background?:number}} opts
  */
-export function createKnifeScene(container,{materialId='kraft',background=0xf7f8fa}={}){
+export function createKnifeScene(container,{materialId='kraft',background=0xf7f8fa,onPanelSelect=null}={}){
   if(!container)throw new Error('createKnifeScene: container required')
 
   let scene=new THREE.Scene()
@@ -86,8 +94,21 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   let raf=0
   let disposed=false
   let fittedOnce=false
+  /** @type {string|null} */
+  let selectedPanel=null
   /** @type {{cells:Array,boxSize:{length:number,width:number,height:number},outerSize?:{length:number,width:number,height:number}|null,materialId?:string}|null} */
   let contentsDesc=null
+  /** @type {Record<string, THREE.Texture|null>} */
+  let artworkMaps={}
+  /** @type {Set<THREE.Texture>} */
+  const ownedArtworkTextures=new Set()
+  const raycaster=new THREE.Raycaster()
+  const pointerNdc=new THREE.Vector2()
+  /** @type {{x:number,y:number}|null} */
+  let pointerDown=null
+  const CLICK_PX=4
+  const SELECT_EMISSIVE=new THREE.Color(0x0f6e68)
+  const SELECT_INTENSITY=0.28
 
   function clearContents(){
     if(contentsGroup){
@@ -253,6 +274,127 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     setOutboxGhost(true)
   }
 
+  function disposeOwnedArtwork(){
+    for(const tex of ownedArtworkTextures){
+      try{tex.dispose()}catch{/* ignore */}
+    }
+    ownedArtworkTextures.clear()
+  }
+
+  function applyArtworkToMesh(mesh,tex){
+    if(!mesh?.material)return
+    const mat=mesh.material
+    const w=Math.max(Number(mesh.userData.faceW)||1,1e-6)
+    const h=Math.max(Number(mesh.userData.faceH)||1,1e-6)
+    if(tex){
+      tex.colorSpace=THREE.SRGBColorSpace
+      tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping
+      tex.repeat.set(1/w,1/h)
+      tex.offset.set(0.5,0.5)
+      tex.needsUpdate=true
+      mat.map=tex
+      mat.needsUpdate=true
+    }else{
+      mat.map=mesh.userData.boardMap||null
+      if(mat.map&&mesh.userData.boardRepeat){
+        mat.map.repeat.copy(mesh.userData.boardRepeat)
+        if(mesh.userData.boardOffset)mat.map.offset.copy(mesh.userData.boardOffset)
+        if(mesh.userData.boardWrapS!=null)mat.map.wrapS=mesh.userData.boardWrapS
+        if(mesh.userData.boardWrapT!=null)mat.map.wrapT=mesh.userData.boardWrapT
+        mat.map.needsUpdate=true
+      }
+      mat.needsUpdate=true
+    }
+  }
+
+  function applyArtworkMaps(){
+    if(!group&&!geomRig)return
+    const root=geomRig?.root||group
+    if(!root)return
+    root.traverse(obj=>{
+      if(!obj.isMesh||!obj.name)return
+      const key=obj.name
+      if(Object.prototype.hasOwnProperty.call(artworkMaps,key)){
+        applyArtworkToMesh(obj,artworkMaps[key]||null)
+      }else{
+        applyArtworkToMesh(obj,null)
+      }
+    })
+    applySelectedHighlight()
+  }
+
+  function collectPickableMeshes(){
+    /** @type {THREE.Mesh[]} */
+    const meshes=[]
+    const root=geomRig?.root||group
+    if(!root)return meshes
+    root.traverse(obj=>{
+      if(obj.isMesh&&obj.userData?.pickablePanel&&obj.name)meshes.push(obj)
+    })
+    return meshes
+  }
+
+  function setMeshSelectStyle(mesh,on){
+    if(!mesh?.material)return
+    const mats=Array.isArray(mesh.material)?mesh.material:[mesh.material]
+    for(const m of mats){
+      if(!m||!('emissive' in m))continue
+      if(on){
+        m.emissive.copy(SELECT_EMISSIVE)
+        if('emissiveIntensity' in m)m.emissiveIntensity=SELECT_INTENSITY
+      }else{
+        m.emissive.setHex(0x000000)
+        if('emissiveIntensity' in m)m.emissiveIntensity=0
+      }
+      m.needsUpdate=true
+    }
+  }
+
+  function applySelectedHighlight(){
+    for(const mesh of collectPickableMeshes()){
+      setMeshSelectStyle(mesh,!!selectedPanel&&mesh.name===selectedPanel)
+    }
+  }
+
+  function setSelectedPanel(faceName){
+    selectedPanel=faceName||null
+    applySelectedHighlight()
+  }
+
+  function pickPanelAtClient(clientX,clientY){
+    if(!renderer||!camera||disposed)return null
+    const rect=renderer.domElement.getBoundingClientRect()
+    if(!rect.width||!rect.height)return null
+    pointerNdc.x=((clientX-rect.left)/rect.width)*2-1
+    pointerNdc.y=-((clientY-rect.top)/rect.height)*2+1
+    raycaster.setFromCamera(pointerNdc,camera)
+    const hits=raycaster.intersectObjects(collectPickableMeshes(),false)
+    const hit=hits.find(h=>h.object?.userData?.pickablePanel&&h.object.name)
+    return hit?.object?.name||null
+  }
+
+  function onPointerDown(ev){
+    if(ev.button!=null&&ev.button!==0)return
+    pointerDown={x:ev.clientX,y:ev.clientY}
+  }
+
+  function onPointerUp(ev){
+    if(ev.button!=null&&ev.button!==0){pointerDown=null;return}
+    if(!pointerDown)return
+    const dx=ev.clientX-pointerDown.x
+    const dy=ev.clientY-pointerDown.y
+    pointerDown=null
+    if((dx*dx+dy*dy)>(CLICK_PX*CLICK_PX))return
+    const name=pickPanelAtClient(ev.clientX,ev.clientY)
+    if(!name)return
+    setSelectedPanel(name)
+    if(typeof onPanelSelect==='function')onPanelSelect(name)
+  }
+
+  function onPointerCancel(){
+    pointerDown=null
+  }
+
   function applyFold(){
     const p01=Math.max(0,Math.min(1,Number(progress)))
     if(geomRig){geomRig.apply(p01);return}
@@ -338,6 +480,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       geomRig=buildGeomRig(knife,{makeMesh:panelMesh,zOff})
       group.add(geomRig.root)
       applyFold()
+      applyArtworkMaps()
       placeContents()
       controls?.update();resetView()
       return
@@ -392,9 +535,11 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     }
     faces.forEach(f=>attach(f.name))
     applyFold()
+    applyArtworkMaps()
     placeContents()
     controls?.update()
     resetView()
+    applySelectedHighlight()
   }
 
   function resize(){
@@ -410,6 +555,13 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   const observer=new ResizeObserver(resize)
   observer.observe(container)
   resize()
+
+  const canvas=renderer.domElement
+  canvas.style.touchAction='none'
+  canvas.addEventListener('pointerdown',onPointerDown)
+  canvas.addEventListener('pointerup',onPointerUp)
+  canvas.addEventListener('pointercancel',onPointerCancel)
+  canvas.addEventListener('pointerleave',onPointerCancel)
 
   const draw=()=>{
     if(disposed)return
@@ -447,14 +599,38 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       }
       placeContents()
     },
+    /**
+     * @param {Record<string, THREE.Texture|null>|null} maps faceName → texture (owned by caller or scene)
+     * @param {{takeOwnership?:boolean}} [opts] when true, scene disposes previous owned textures
+     */
+    setArtworkMaps(maps,opts={}){
+      if(opts.takeOwnership!==false){
+        disposeOwnedArtwork()
+        if(maps){
+          for(const tex of Object.values(maps)){
+            if(tex)ownedArtworkTextures.add(tex)
+          }
+        }
+      }
+      artworkMaps=maps&&typeof maps==='object'?{...maps}:{}
+      applyArtworkMaps()
+    },
+    setSelectedPanel,
     resetView,
     dispose(){
       disposed=true
       cancelAnimationFrame(raf);raf=0
       observer.disconnect()
+      canvas.removeEventListener('pointerdown',onPointerDown)
+      canvas.removeEventListener('pointerup',onPointerUp)
+      canvas.removeEventListener('pointercancel',onPointerCancel)
+      canvas.removeEventListener('pointerleave',onPointerCancel)
       controls?.dispose();controls=null
       clearContents()
       setOutboxGhost(false)
+      disposeOwnedArtwork()
+      artworkMaps={}
+      selectedPanel=null
       if(group){scene?.remove(group);disposeTree(group);group=null}
       renderer?.dispose()
       renderer?.domElement?.remove()

@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-11-11T09:57:55.977Z",
+  "topology": {
+    "cuttingCounts": [
+      63
+    ],
+    "creasingCounts": [
+      14
+    ],
+    "sameCuttingAcrossAll": true,
+    "sameCreasingAcrossAll": true
+  },
+  "pairs": [
+    {
+      "a": "studio-dieline-productbox-crashlock-55_55_75",
+      "b": "studio-dieline-100_80_80",
+      "dL": 45,
+      "dW": 25,
+      "dH": 5,
+      "dGeomW_uu": 529.129,
+      "dGeomH_uu": 170.07860000000005,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    },
+    {
+      "a": "studio-dieline-productbox-crashlock-55_55_75",
+      "b": "studio-dieline-productbox-crashlock-100_80_80",
+      "dL": 45,
+      "dW": 25,
+      "dH": 5,
+      "dGeomW_uu": 529.129,
+      "dGeomH_uu": 170.07860000000005,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    },
+    {
+      "a": "studio-dieline-productbox-crashlock-55_55_75",
+      "b": "studio-dieline-productbox-crashlock-200_150_100",
+      "dL": 145,
+      "dW": 95,
+      "dH": 25,
+      "dGeomW_uu": 1814.1690000000003,
+      "dGeomH_uu": 668.9802999999999,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    },
+    {
+      "a": "studio-dieline-100_80_80",
+      "b": "studio-dieline-productbox-crashlock-100_80_80",
+      "dL": 0,
+      "dW": 0,
+      "dH": 0,
+      "dGeomW_uu": 0,
+      "dGeomH_uu": 0,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    },
+    {
+      "a": "studio-dieline-100_80_80",
+      "b": "studio-dieline-productbox-crashlock-200_150_100",
+      "dL": 100,
+      "dW": 70,
+      "dH": 20,
+      "dGeomW_uu": 1285.0400000000002,
+      "dGeomH_uu": 498.9016999999999,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    },
+    {
+      "a": "studio-dieline-productbox-crashlock-100_80_80",
+      "b": "studio-dieline-productbox-crashlock-200_150_100",
+      "dL": 100,
+      "dW": 70,
+      "dH": 20,
+      "dGeomW_uu": 1285.0400000000002,
+      "dGeomH_uu": 498.9016999999999,
+      "cuttingEqual": true,
+      "creasingEqual": true,
+      "cuttingA": 63,
+      "cuttingB": 63,
+      "creasingA": 14,
+      "creasingB": 14
+    }
+  ]
+}

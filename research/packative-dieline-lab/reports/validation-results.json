@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-11-11T09:59:31.365Z",
+  "tests": [
+    {
+      "id": "detect_access_denied_stubs",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "excluded_non_dieline_xml stubs; count=3"
+    },
+    {
+      "id": "holdout_envelope_width",
+      "kind": "real_sample",
+      "status": "passed",
+      "predicted_uu": 2682.818016666668,
+      "observed_uu": 2689.1296,
+      "abs_err_uu": 6.311583333332237,
+      "note": "fixed_scale_no_rescaling; partial_prototype_envelope_only; holdout=200x150x100"
+    },
+    {
+      "id": "holdout_envelope_height",
+      "kind": "real_sample",
+      "status": "failed",
+      "predicted_uu": 1253.7604103448311,
+      "observed_uu": 1330.398,
+      "abs_err_uu": 76.63758965516877,
+      "note": "fixed_scale_no_rescaling; partial_prototype_envelope_only; holdout=200x150x100"
+    },
+    {
+      "id": "holdout_full_crashlock_topology",
+      "kind": "real_sample",
+      "status": "not_run",
+      "reason": "lock_bottom_geometry_not_implemented"
+    },
+    {
+      "id": "synthetic_svg_emits_ev_style",
+      "kind": "synthetic",
+      "status": "passed"
+    }
+  ],
+  "privacyHits": [],
+  "online": {
+    "generated_at": "2026-11-11T09:57:59.023Z",
+    "live_collection": false,
+    "paid_actions": false,
+    "collected": 0,
+    "message": "本轮在线采集 0 条（live_collection=false）"
+  }
+}

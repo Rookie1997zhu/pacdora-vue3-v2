@@ -1,0 +1,101 @@
+{
+  "schema": "boxcraft.ui-reference.v1",
+  "createdAt": "2026-11-10",
+  "note": "Opened and catalogued locally. Pixel sizes/colors not measured unless listed. Packative branding is reference only; BOXCRAFT uses own brand.",
+  "viewportsSuggested": ["1440x900", "1920x1080", "768", "390"],
+  "entries": [
+    {
+      "file": "docs/packative-research/evidence/phase0-login-page.png",
+      "page": "login",
+      "locale": "en",
+      "state": "email_password_form_with_google",
+      "regions": ["header", "login_card", "google_button"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase0-products-catalog.png",
+      "page": "products",
+      "locale": "en",
+      "state": "product_grid",
+      "regions": ["nav", "product_cards", "custom_size_tag"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase2-productbox-custom-100x80x50.png",
+      "page": "product_detail",
+      "locale": "en",
+      "state": "custom_LWH_100_80_50",
+      "regions": ["preview", "size_inputs", "qty_paper_coating"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-ai-main-area-ui.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "ai_main_area_panel",
+      "regions": ["tool_rail", "main_area_dieline_preview", "style", "prompt", "generate"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-editor-2d-after-apply.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "ai_image_applied_to_panel",
+      "regions": ["tool_rail", "ai_image_mode", "canvas_dieline", "transform_handles"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-editor-3d-with-panel-art.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "3d_preview_with_panel_art",
+      "regions": ["tool_rail", "ai_panel", "3d_canvas"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-upload-panel-empty.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "upload_empty",
+      "regions": ["tool_rail", "upload_button", "empty_state", "dieline_canvas"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-text-elements-ui.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "elements_shapes",
+      "regions": ["tool_rail", "shapes_grid"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-ai-postprocess-actions.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "generated_images_v1",
+      "regions": ["tool_rail", "generated_gallery"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-cart-with-design.png",
+      "page": "cart",
+      "locale": "ko",
+      "state": "line_item_with_design_thumbnail",
+      "regions": ["thumbnail", "edit_design", "qty", "price"],
+      "measured": false
+    },
+    {
+      "file": "docs/packative-research/evidence/phase3-save-reopen-before.png",
+      "page": "studio",
+      "locale": "ko",
+      "state": "save_reopen_before",
+      "regions": ["tool_rail", "ai_image_panel"],
+      "measured": false
+    }
+  ],
+  "studioToolRailOrder": ["AI", "background", "upload", "text", "elements", "layers"],
+  "ownBrandDifferences": [
+    "Do not copy Packative logo, purple CTA palette as brand identity, or third-party customer logos",
+    "BOXCRAFT brand and authorized materials only"
+  ]
+}
