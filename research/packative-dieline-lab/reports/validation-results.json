@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:26:57.955Z",
+  "generated_at": "2026-11-12T04:08:06.219Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -35,19 +35,19 @@
       "id": "lock_bottom_cutting_correspondence",
       "kind": "real_sample",
       "status": "passed",
-      "note": "holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx"
+      "note": "holdout=100x80x90; matched=23/23; medianNorm=0.0006; cubicPairs=2; medianCubicNorm=0.0054; curve_exact"
     },
     {
       "id": "top_flap_cutting_correspondence",
       "kind": "real_sample",
       "status": "passed",
-      "note": "holdout=100x80x90; matched=29/29; medianNorm=0.0045; curve_approx"
+      "note": "holdout=100x80x90; matched=35/35; medianNorm=0.0038; cubicPairs=6; medianCubicNorm=0.0000; curve_exact"
     },
     {
       "id": "body_outline_cutting_correspondence",
       "kind": "real_sample",
       "status": "passed",
-      "note": "holdout=100x80x90; matched=11/11; medianNorm=0.0007; cubicPairs=8; medianCubicNorm=0.0000; curve_exact"
+      "note": "holdout=100x80x90; matched=3/3; medianNorm=0.0002; lines_only; cubics_relocated_to_lock_top"
     },
     {
       "id": "structural_cutting_count_correspondence",
@@ -167,7 +167,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T03:25:45.094Z",
+    "generated_at": "2026-11-12T04:06:37.465Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,
@@ -333,60 +333,10 @@
   },
   "lock_bottom_match_gate": {
     "holdout": "100x80x90",
-    "require_matched_ge": 18,
-    "expect_real_lines_about": 21,
+    "require_matched_ge": 20,
+    "expect_real_lines_about": 23,
     "median_norm_pos_err_le": 0.06,
-    "passed": true,
-    "holdout_row": {
-      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
-      "L": 100,
-      "W": 80,
-      "H": 90,
-      "role": "holdout",
-      "matched": 21,
-      "genCount": 21,
-      "realCount": 21,
-      "matchRate": 1,
-      "medianNormPosErr": 0.0006296261204982382,
-      "medianEndpointErrUu": 0.6151489834327596,
-      "maxNormPosErr": 0.005502041119388899,
-      "unmatchedGen": [],
-      "unmatchedReal": [],
-      "passed": true,
-      "curve_approx": true
-    }
-  },
-  "top_flap_match_gate": {
-    "holdout": "100x80x90",
-    "require_matched_ge": 22,
-    "expect_real_lines_about": 26,
-    "median_norm_pos_err_le": 0.06,
-    "passed": true,
-    "holdout_row": {
-      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
-      "L": 100,
-      "W": 80,
-      "H": 90,
-      "role": "holdout",
-      "matched": 29,
-      "genCount": 29,
-      "realCount": 29,
-      "matchRate": 1,
-      "medianNormPosErr": 0.004481787932816912,
-      "medianEndpointErrUu": 6.256096014139698,
-      "maxNormPosErr": 0.2911224639536839,
-      "unmatchedGen": [],
-      "unmatchedReal": [],
-      "passed": true,
-      "curve_approx": true
-    }
-  },
-  "body_outline_match_gate": {
-    "holdout": "100x80x90",
-    "require_matched_ge": 8,
-    "expect_real_lines_about": 11,
-    "median_norm_pos_err_le": 0.06,
-    "cubic_pairs_ge": 8,
+    "cubic_pairs_ge": 2,
     "median_cubic_norm_err_le": 0.06,
     "passed": true,
     "holdout_row": {
@@ -395,23 +345,85 @@
       "W": 80,
       "H": 90,
       "role": "holdout",
-      "matched": 11,
-      "genCount": 11,
-      "realCount": 11,
+      "matched": 23,
+      "genCount": 23,
+      "realCount": 23,
       "matchRate": 1,
-      "medianNormPosErr": 0.0006958234255275971,
-      "medianEndpointErrUu": 0.9467564117329724,
-      "maxNormPosErr": 0.004928897830497836,
-      "cubicPairCount": 8,
-      "medianCubicNormErr": 0.0000016547901189558557,
-      "maxCubicNormErr": 0.0038607230067107864,
+      "medianNormPosErr": 0.0006492996489409794,
+      "medianEndpointErrUu": 0.6343703134518272,
+      "maxNormPosErr": 0.005686069450418818,
+      "cubicPairCount": 2,
+      "medianCubicNormErr": 0.005376635530884627,
+      "maxCubicNormErr": 0.005376635530884627,
+      "unmatchedGen": [],
+      "unmatchedReal": [],
+      "passed": true,
+      "curve_exact": true,
+      "curve_approx": false
+    }
+  },
+  "top_flap_match_gate": {
+    "holdout": "100x80x90",
+    "require_matched_ge": 28,
+    "expect_real_lines_about": 32,
+    "median_norm_pos_err_le": 0.06,
+    "cubic_pairs_ge": 6,
+    "median_cubic_norm_err_le": 0.06,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "matched": 35,
+      "genCount": 35,
+      "realCount": 35,
+      "matchRate": 1,
+      "medianNormPosErr": 0.0038251625167203132,
+      "medianEndpointErrUu": 5.339517248563964,
+      "maxNormPosErr": 0.2911224639536839,
+      "cubicPairCount": 6,
+      "medianCubicNormErr": 0.000002012720433380544,
+      "maxCubicNormErr": 0.000002140139467348636,
+      "unmatchedGen": [],
+      "unmatchedReal": [],
+      "passed": true,
+      "curve_exact": true,
+      "curve_approx": false
+    }
+  },
+  "body_outline_match_gate": {
+    "holdout": "100x80x90",
+    "require_matched_ge": 2,
+    "expect_real_lines_about": 3,
+    "median_norm_pos_err_le": 0.06,
+    "cubic_pairs_optional": true,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "matched": 3,
+      "genCount": 3,
+      "realCount": 3,
+      "matchRate": 1,
+      "medianNormPosErr": 0.00019378727680935404,
+      "medianEndpointErrUu": 0.2636727671862707,
+      "maxNormPosErr": 0.0003887896850951478,
+      "cubicPairCount": 0,
+      "medianCubicNormErr": null,
+      "maxCubicNormErr": null,
       "unmatchedGen": [],
       "unmatchedReal": [],
       "passed": true,
       "curve_exact": true,
       "curve_approx": false,
       "cutting_total_diag": 61,
-      "filletsExact": true
+      "filletsExact": true,
+      "outline_lines_only": true
     }
   },
   "structural_cutting_match_gate": {

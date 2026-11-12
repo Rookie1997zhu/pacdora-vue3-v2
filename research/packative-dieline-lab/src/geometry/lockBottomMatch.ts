@@ -7,6 +7,7 @@ import {
   type Bounds,
 } from './segmentMatch.ts'
 import { inferBodyBottomY, lockBottomCuttingLines } from './lockBottomFeatures.ts'
+import { asEndpointFeats, cubicNormErr } from './cubicParams.ts'
 
 function mid(a: { x: number; y: number }, b: { x: number; y: number }) {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
@@ -64,27 +65,30 @@ export function matchLockCutting(
   medianNormPosErr: number
   maxNormPosErr: number
   bodyBottomY: number | null
+  cubicPairCount: number
+  medianCubicNormErr: number
+  maxCubicNormErr: number
+  curveExact: boolean
 } {
   const bodyBottomY = inferBodyBottomY(realSegs)
   const realLock =
     bodyBottomY != null ? lockBottomCuttingLines(realSegs, bodyBottomY) : genSegs.filter(() => false)
-  // Generator cutting is already lock-only; still clip by its own body hinge if creases present
   const genBodyY = inferBodyBottomY(genSegs) ?? bodyBottomY
   const genLock =
     genBodyY != null
-      ? lockBottomCuttingLines(
-          genSegs.map((s) => s),
-          genBodyY,
-        )
-      : genSegs.filter((s) => s.style === 'Cutting' && s.kind === 'line')
+      ? lockBottomCuttingLines(genSegs.map((s) => s), genBodyY)
+      : genSegs.filter((s) => s.style === 'Cutting' && (s.kind === 'line' || (s.kind === 'path' && s.c0 && s.c1)))
 
-  // If generator segs are cutting-only (no creases), use all cutting lines
-  const aSegs = genLock.length ? genLock : genSegs.filter((s) => s.style === 'Cutting' && s.kind === 'line')
-  const bSegs = realLock
+  const aRaw = genLock.length
+    ? genLock
+    : genSegs.filter((s) => s.style === 'Cutting' && (s.kind === 'line' || (s.kind === 'path' && s.c0 && s.c1)))
+  const bRaw = realLock
+  const aPack = asEndpointFeats(aRaw)
+  const bPack = asEndpointFeats(bRaw)
 
-  const aBound = boundsFromSegs(aSegs)
-  const aFeats = lineFeatures(aSegs, aBound)
-  const bFeats = lineFeatures(bSegs, boundsFromSegs(bSegs))
+  const aBound = boundsFromSegs(aPack.lines)
+  const aFeats = lineFeatures(aPack.lines, aBound)
+  const bFeats = lineFeatures(bPack.lines, boundsFromSegs(bPack.lines))
   const usedB = new Set<number>()
   const usedA = new Set<number>()
   const matches: PairMatch[] = []
@@ -115,6 +119,18 @@ export function matchLockCutting(
       bPointCount: bf.pointCount,
     })
   }
+  const cubicErrs: number[] = []
+  for (const m of matches) {
+    const ag = aPack.originals[m.aIndex]
+    const br = bPack.originals[m.bIndex]
+    if (!ag || !br) continue
+    const e = cubicNormErr(ag, br, aBound)
+    if (e != null) cubicErrs.push(e)
+  }
+  cubicErrs.sort((x, y) => x - y)
+  const medianCubicNormErr = cubicErrs.length ? cubicErrs[Math.floor(cubicErrs.length / 2)] : Infinity
+  const maxCubicNormErr = cubicErrs.length ? cubicErrs[cubicErrs.length - 1] : Infinity
+
   const unmatchedGen = aFeats.filter((_, i) => !usedA.has(i)).map((f) => f.index)
   const unmatchedReal = bFeats.filter((_, i) => !usedB.has(i)).map((f) => f.index)
   const errs = matches.map((m) => m.endpointErrUu).sort((x, y) => x - y)
@@ -132,5 +148,9 @@ export function matchLockCutting(
     medianNormPosErr: norms.length ? norms[Math.floor(norms.length / 2)] : Infinity,
     maxNormPosErr: norms.length ? norms[norms.length - 1] : Infinity,
     bodyBottomY,
+    cubicPairCount: cubicErrs.length,
+    medianCubicNormErr,
+    maxCubicNormErr,
+    curveExact: cubicErrs.length >= 2 && medianCubicNormErr <= 0.06,
   }
 }

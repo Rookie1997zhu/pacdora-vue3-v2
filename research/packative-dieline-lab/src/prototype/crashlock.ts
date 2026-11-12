@@ -206,7 +206,7 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
     segs,
     maxX,
     maxY,
-    'BOXCRAFT dieline-lab lock-bottom FIRST SLICE; curve_approx; not full 63/14 topology',
+    'BOXCRAFT dieline-lab lock-bottom FIRST SLICE; exact big-flap cubics + hook line chamfers; not full 63/14 topology',
   )
   return {
     params,
@@ -218,13 +218,15 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
     cutting: built.cutting,
     creasing: built.creasing,
     curveApprox: built.curveApprox,
+    filletsExact: built.filletsExactBigFlap,
     modelWidth: GEOM_WIDTH_UU.model,
     modelHeight: GEOM_HEIGHT_UU.model,
     implemented: [
       'outer_envelope_size_vs_LWH_fit',
       'body_panel_creasing_14_parametric',
       'lock_bottom_cutting_polyline_parametric',
-      'curve_approx_chord_for_cubic_corners',
+      'lock_bottom_exact_big_flap_cubics',
+      'curve_approx_hook_chamfer_lines',
       ...(hooksActive ? ['material_hooks_thickness_kerf_unvalidated'] : []),
     ],
     gaps: [
@@ -232,7 +234,6 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
       'glue_flap_outer_cutting_not_reconstructed',
       'six_top_flap_fillets_not_modeled',
       'full_63_cutting_topology_not_claimed',
-      'exact_cubic_corners_not_modeled',
       ...materialGapTags(hooksActive),
     ],
   }
@@ -240,15 +241,15 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
 
 /**
  * Second-slice generator: lock bottom + top dust flaps + tuck tongues + glue outer.
- * Cubic corners → chord approx (curve_approx). Full 63/14 still not claimed.
+ * Owns 2 big-flap + 6 top-fillet exact cubics. Full 63/14 still not claimed.
  */
 export function generateCrashlockWithTopFlaps(params: CrashlockParams): PrototypeResult {
   return generateCrashlockPartialSlices(params, { includeOutline: false })
 }
 
 /**
- * Third-slice generator: lock + top + body outline (right outer, micro bridge, exact cubic fillets).
- * Zero-length degenerates omitted. Full 63/14 not claimed.
+ * Third-slice generator: lock + top + body outline leftovers (right outer, L-bottom, micro bridge).
+ * Exact cubics live in lock/top; outline is lines-only. Full 63/14 not claimed.
  */
 export function generateCrashlockWithOutline(params: CrashlockParams): PrototypeResult {
   return generateCrashlockPartialSlices(params, { includeOutline: true })
@@ -274,9 +275,9 @@ function generateCrashlockPartialSlices(
   const tipExtra = tipDepthForView(W) * (96 / 25.4)
   const maxX = Math.max(widthUu, built.layout.x4 + 20)
   const maxY = Math.max(heightUu, built.layout.yBodyTop + tipExtra + 40)
-  const filletsExact = Boolean(opts.includeOutline && outline.filletsExact)
-  const sliceLabel = opts.includeOutline ? 'lock+top+outline+cubics' : 'lock+top SECOND SLICE'
-  const curveNote = filletsExact ? 'exact_cubic_fillets' : 'curve_approx'
+  const filletsExact = Boolean(built.filletsExactBigFlap && top.filletsExactTop)
+  const sliceLabel = opts.includeOutline ? 'lock+top+outline' : 'lock+top SECOND SLICE'
+  const curveNote = filletsExact ? 'exact_cubics_lock2_top6' : 'curve_approx'
   const svg = renderSegSvg(
     segs,
     maxX,
@@ -287,15 +288,15 @@ function generateCrashlockPartialSlices(
     'outer_envelope_size_vs_LWH_fit',
     'body_panel_creasing_14_parametric',
     'lock_bottom_cutting_polyline_parametric',
+    'lock_bottom_exact_big_flap_cubics',
     'top_dust_flap_cutting_parametric',
     'tuck_tongue_cutting_parametric',
     'glue_flap_outer_cutting_parametric',
+    'top_exact_body_fillet_cubics',
   ]
   if (opts.includeOutline) {
     implemented.push('body_outline_outer_edges_parametric')
-    implemented.push(filletsExact ? 'body_outline_exact_cubic_fillets' : 'body_outline_fillet_chords')
-  } else {
-    implemented.push('curve_approx_chord_for_cubic_corners')
+    implemented.push('body_outline_lines_only_cubics_relocated')
   }
   if (hooksActive) implemented.push('material_hooks_thickness_kerf_unvalidated')
   const gaps = opts.includeOutline
@@ -307,9 +308,7 @@ function generateCrashlockPartialSlices(
       ]
     : [
         'body_side_outer_and_back_top_edge_not_closed',
-        'bottom_corner_fillet_paths_not_modeled',
         'full_63_cutting_topology_not_claimed',
-        'exact_cubic_corners_not_modeled',
         ...materialGapTags(hooksActive),
       ]
   return {

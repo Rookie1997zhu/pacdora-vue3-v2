@@ -1,4 +1,5 @@
 import type { CompactSeg, Pt } from './segmentMatch.ts'
+import { applyCubic, DEFAULT_CUBIC_PARAMS } from './cubicParams.ts'
 
 export const MM_PER_UU = 25.4 / 96
 export const UU_PER_MM = 96 / 25.4
@@ -216,17 +217,15 @@ export function observeLockBottom(
   }
 }
 
-/** Filter cutting lines in lock-bottom region (below body bottom crease). */
+/** Filter cutting in lock-bottom region (below body bottom crease); includes exact cubic paths. */
 export function lockBottomCuttingLines(segs: CompactSeg[], bodyBottomY: number): CompactSeg[] {
-  return segs.filter(
-    (s) =>
-      s.style === 'Cutting' &&
-      s.kind === 'line' &&
-      s.p0 &&
-      s.p1 &&
-      s.lengthUu > 1.5 &&
-      Math.min(s.p0.y, s.p1.y) < bodyBottomY - 0.5,
-  )
+  return segs.filter((s) => {
+    if (s.style !== 'Cutting' || !s.p0 || !s.p1 || s.lengthUu <= 1.5) return false
+    const below = Math.min(s.p0.y, s.p1.y) < bodyBottomY - 0.5
+    if (!below) return false
+    if (s.kind === 'line') return true
+    return s.kind === 'path' && Boolean(s.c0 && s.c1)
+  })
 }
 
 export function inferBodyBottomY(segs: CompactSeg[]): number | null {
@@ -250,8 +249,8 @@ export function segLine(p0: Pt, p1: Pt, style: 'Cutting' | 'Creasing'): CompactS
 }
 
 /**
- * Build parametric lock-bottom Cutting lines (~21) + body Creasing lines (14).
- * Curve corners approximated as chords (`curve_approx`).
+ * Build parametric lock-bottom Cutting (~21 lines + 2 exact big-flap cubics) + body Creasing (14).
+ * Hook/body chamfers remain real diagonal lines (`curve_approx` for those only).
  */
 export function buildLockBottomSegments(
   L: number,
@@ -259,7 +258,13 @@ export function buildLockBottomSegments(
   H: number,
   params: LockBottomParamsMm = DEFAULT_LOCK_PARAMS,
   opts?: { omitTopCreaseStubs?: boolean },
-): { layout: LockBottomLayoutUu; cutting: CompactSeg[]; creasing: CompactSeg[]; curveApprox: boolean } {
+): {
+  layout: LockBottomLayoutUu
+  cutting: CompactSeg[]
+  creasing: CompactSeg[]
+  curveApprox: boolean
+  filletsExactBigFlap: boolean
+} {
   const lay = layoutLockBottomUu(L, W, H, params)
   const u = UU_PER_MM
   const {
@@ -320,6 +325,8 @@ export function buildLockBottomSegments(
   const wingROuterHook = { x: hookVertXR, y: yBodySide - hookRise }
   const wingROuterTop = { x: hookVertXR, y: yBodySide }
 
+  const cubic = DEFAULT_CUBIC_PARAMS
+  const cornerOff = cubic.bigCornerFromCreaseMm * u
   const cutting: CompactSeg[] = [
     // big flap bottom + notches + sides
     C(botR, botL),
@@ -345,6 +352,9 @@ export function buildLockBottomSegments(
     C(wingROuterMid, wingROuterHook),
     C(wingROuterHook, wingROuterTop),
     C({ x: x3, y: yBodySide }, wingRInnerTop),
+    // exact big-flap corner cubics (2)
+    applyCubic({ x: x2 + cornerOff, y: yNotch }, cubic.bigFlapCubic, false),
+    applyCubic({ x: x3 - cornerOff, y: yNotch }, cubic.bigFlapCubic, true),
   ]
 
   // --- body creases (12 + optional 2 top stubs when top flaps not merged) ---
@@ -378,5 +388,5 @@ export function buildLockBottomSegments(
     )
   }
 
-  return { layout: lay, cutting, creasing, curveApprox: true }
+  return { layout: lay, cutting, creasing, curveApprox: true, filletsExactBigFlap: true }
 }

@@ -89,10 +89,10 @@ export function runPrototype() {
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
 - Parametric **14** body Creasing lines
-- Parametric lock-bottom **Cutting** (~21)
-- Parametric top dust flaps + tuck + glue (~26–29)
-- Parametric body outline: right outer, L-bottom cut, micro bridge (~11 leftovers)
-- Body fillet corners: **exact cubic** (\`filletsExact\`; 8 \`<path C>\`)
+- Parametric lock-bottom **Cutting** (~21 lines + **2** exact big-flap cubics)
+- Parametric top dust flaps + tuck + glue (~29 lines + **6** exact body-top fillet cubics)
+- Parametric body outline leftovers: right outer, L-bottom cut, micro bridge (**lines only**)
+- Exact cubics owned by lock/top (\`filletsExact\`; 8 \`<path C>\` total; no double-count)
 - Zero-length Class A = \`exportArtifact\` (maxX∩bodyBottom); Class B = \`collapsedLockShelf\` (kept in structural)
 - Structural cutting = raw − Class A only (**61**)
 - Material hooks: optional \`thicknessMm\` / \`kerfMm\` (default 0); **unvalidated** sensitivity only

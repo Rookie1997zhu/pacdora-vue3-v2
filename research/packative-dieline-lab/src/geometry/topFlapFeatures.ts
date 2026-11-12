@@ -6,6 +6,7 @@ import {
   segLine,
   type LockBottomLayoutUu,
 } from './lockBottomFeatures.ts'
+import { applyCubic, DEFAULT_CUBIC_PARAMS } from './cubicParams.ts'
 
 /** Empirical top-flap / glue params (mm), fitted across real crashlock SVGs. */
 export type TopFlapParamsMm = {
@@ -68,10 +69,16 @@ export function inferBodyTopY(segs: CompactSeg[]): number | null {
   return ys[ys.length - 1]
 }
 
-/** Top-region cutting: above body top, or glue column left of first crease. */
+/** Top-region cutting: above body top, glue column, or exact body-top fillet paths. */
 export function topFlapCuttingLines(segs: CompactSeg[], bodyTopY: number, glueX: number): CompactSeg[] {
+  const band = Math.max(20, 5 * UU_PER_MM)
   return segs.filter((s) => {
-    if (s.style !== 'Cutting' || s.kind !== 'line' || !s.p0 || !s.p1 || s.lengthUu <= 1.5) return false
+    if (s.style !== 'Cutting' || !s.p0 || !s.p1 || s.lengthUu <= 1.5) return false
+    if (s.kind === 'path' && s.c0 && s.c1) {
+      // Body-top fillets sit at / just below the body-top crease.
+      return Math.abs(s.p0.y - bodyTopY) <= band || Math.abs(((s.p0.y + s.p1.y) / 2) - bodyTopY) <= band
+    }
+    if (s.kind !== 'line') return false
     const above = Math.max(s.p0.y, s.p1.y) > bodyTopY + 0.5
     const inGlue = Math.max(s.p0.x, s.p1.x) < glueX + 1 && Math.min(s.p0.y, s.p1.y) < bodyTopY + 5
     return above || inGlue
@@ -171,18 +178,19 @@ function buildDust(xL: number, xR: number, yTop: number, yDust: number, W: numbe
 }
 
 /**
- * Build top dust flaps + tuck tongues + glue outer cutting (~29 lines; match ≥22/26).
- * Also returns tuck crease diagonals replacing lock-bottom stubs.
+ * Build top dust flaps + tuck tongues + glue outer cutting + 6 exact body-top fillet cubics.
+ * Tip/glue chamfers remain real diagonal lines.
  */
 export function buildTopFlapSegments(
   layout: LockBottomLayoutUu,
   topParams: TopFlapParamsMm = DEFAULT_TOP_PARAMS,
-): { cutting: CompactSeg[]; creasingExtra: CompactSeg[]; curveApprox: boolean } {
+): { cutting: CompactSeg[]; creasingExtra: CompactSeg[]; curveApprox: boolean; filletsExactTop: boolean } {
   const u = UU_PER_MM
-  const { W, x0, x1, x2, x3, x4, yBodyTop, yBodySide } = layout
+  const { W, x0, x1, x2, x3, x4, yBodyTop, yBodyTopInner, yBodySide } = layout
   const yTop = yBodyTop
   const yDust = yTop + dustDepthMm(W) * u
   const yTip = yTop + tipDepthMm(W, topParams) * u
+  const cubic = DEFAULT_CUBIC_PARAMS
 
   const cutting: CompactSeg[] = [
     ...buildTuck(x0, x1, yTop, yDust, yTip, W, topParams, 'left'),
@@ -193,6 +201,13 @@ export function buildTopFlapSegments(
     C({ x: x0, y: yTop }, { x: 0, y: yTop - topParams.glueTopChamferMm * u }),
     C({ x: 0, y: yTop - topParams.glueTopChamferMm * u }, { x: 0, y: yBodySide + topParams.glueBottomRiseMm * u }),
     C({ x: 0, y: yBodySide + topParams.glueBottomRiseMm * u }, { x: x0, y: yBodySide }),
+    // exact body-top fillet cubics (6)
+    applyCubic({ x: x1, y: yBodyTopInner }, cubic.topOutCubic, false),
+    applyCubic({ x: x1, y: yBodyTopInner }, cubic.topInCubic, false),
+    applyCubic({ x: x2, y: yBodyTopInner }, cubic.topX2InCubic, false),
+    applyCubic({ x: x2, y: yBodyTopInner }, cubic.topX2OutCubic, false),
+    applyCubic({ x: x3, y: yBodyTopInner }, cubic.topOutCubic, false),
+    applyCubic({ x: x3, y: yBodyTopInner }, cubic.topInCubic, false),
   ]
 
   const creasingExtra: CompactSeg[] = [
@@ -200,7 +215,7 @@ export function buildTopFlapSegments(
     R({ x: x3 - 21.38 * u, y: yTop + 21.38 * u }, { x: x3 - 21.38 * u - (yDust - yTop - 21.38 * u), y: yDust }),
   ]
 
-  return { cutting, creasingExtra, curveApprox: true }
+  return { cutting, creasingExtra, curveApprox: true, filletsExactTop: true }
 }
 
 export function observeTopFlaps(

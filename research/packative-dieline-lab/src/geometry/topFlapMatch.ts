@@ -2,6 +2,7 @@ import { boundsFromSegs, featCost, type CompactSeg, type PairMatch } from './seg
 import { lineFeatures } from './lockBottomMatch.ts'
 import { layoutLockBottomUu } from './lockBottomFeatures.ts'
 import { inferBodyTopY, topFlapCuttingLines } from './topFlapFeatures.ts'
+import { asEndpointFeats, cubicNormErr } from './cubicParams.ts'
 
 export function matchTopCutting(
   genSegs: CompactSeg[],
@@ -19,22 +20,29 @@ export function matchTopCutting(
   medianNormPosErr: number
   maxNormPosErr: number
   bodyTopY: number | null
+  cubicPairCount: number
+  medianCubicNormErr: number
+  maxCubicNormErr: number
+  curveExact: boolean
 } {
   const lay = layoutLockBottomUu(dims.L, dims.W, dims.H)
   const realTopY = inferBodyTopY(realSegs)
   const genTopY = inferBodyTopY(genSegs) ?? realTopY
   const glueX = lay.x0
 
-  const bSegs =
+  const bRaw =
     realTopY != null ? topFlapCuttingLines(realSegs, realTopY, glueX) : ([] as CompactSeg[])
-  const aSegs =
+  const aRaw =
     genTopY != null
       ? topFlapCuttingLines(genSegs, genTopY, glueX)
-      : genSegs.filter((s) => s.style === 'Cutting' && s.kind === 'line')
+      : genSegs.filter((s) => s.style === 'Cutting' && (s.kind === 'line' || (s.kind === 'path' && s.c0 && s.c1)))
 
-  const aBound = boundsFromSegs(aSegs)
-  const aFeats = lineFeatures(aSegs, aBound)
-  const bFeats = lineFeatures(bSegs, boundsFromSegs(bSegs))
+  const aPack = asEndpointFeats(aRaw)
+  const bPack = asEndpointFeats(bRaw)
+
+  const aBound = boundsFromSegs(aPack.lines)
+  const aFeats = lineFeatures(aPack.lines, aBound)
+  const bFeats = lineFeatures(bPack.lines, boundsFromSegs(bPack.lines))
   const usedB = new Set<number>()
   const usedA = new Set<number>()
   const matches: PairMatch[] = []
@@ -65,6 +73,18 @@ export function matchTopCutting(
       bPointCount: bf.pointCount,
     })
   }
+  const cubicErrs: number[] = []
+  for (const m of matches) {
+    const ag = aPack.originals[m.aIndex]
+    const br = bPack.originals[m.bIndex]
+    if (!ag || !br) continue
+    const e = cubicNormErr(ag, br, aBound)
+    if (e != null) cubicErrs.push(e)
+  }
+  cubicErrs.sort((x, y) => x - y)
+  const medianCubicNormErr = cubicErrs.length ? cubicErrs[Math.floor(cubicErrs.length / 2)] : Infinity
+  const maxCubicNormErr = cubicErrs.length ? cubicErrs[cubicErrs.length - 1] : Infinity
+
   const unmatchedGen = aFeats.filter((_, i) => !usedA.has(i)).map((f) => f.index)
   const unmatchedReal = bFeats.filter((_, i) => !usedB.has(i)).map((f) => f.index)
   const errs = matches.map((m) => m.endpointErrUu).sort((x, y) => x - y)
@@ -82,5 +102,9 @@ export function matchTopCutting(
     medianNormPosErr: norms.length ? norms[Math.floor(norms.length / 2)] : Infinity,
     maxNormPosErr: norms.length ? norms[norms.length - 1] : Infinity,
     bodyTopY: realTopY,
+    cubicPairCount: cubicErrs.length,
+    medianCubicNormErr,
+    maxCubicNormErr,
+    curveExact: cubicErrs.length >= 6 && medianCubicNormErr <= 0.06,
   }
 }

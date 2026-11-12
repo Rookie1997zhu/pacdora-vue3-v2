@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1501.575" height="931.969" viewBox="0 0 1501.575 931.969">
-  <!-- BOXCRAFT dieline-lab lock+top+outline+cubics; exact_cubic_fillets; not full 63/14 topology -->
+  <!-- BOXCRAFT dieline-lab lock+top+outline; exact_cubics_lock2_top6; not full 63/14 topology -->
   <g>
   <line x1="1113.944" y1="931.969" x2="790.938" y2="931.969" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="763.465" y1="886.614" x2="763.465" y2="889.449" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
@@ -23,6 +23,8 @@
   <line x1="1471.181" y1="584.252" x2="1478.740" y2="576.693" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="1478.740" y1="576.693" x2="1478.740" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="1141.417" y1="550.236" x2="1152.756" y2="561.575" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <path d="M 770.608 889.449 C 771.549 906.990 781.134 922.920 796.191 931.969" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <path d="M 1134.274 889.449 C 1133.333 906.990 1123.748 922.920 1108.690 931.969" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="45.354" y1="247.874" x2="55.068" y2="40.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="55.068" y1="40.000" x2="213.543" y2="40.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="213.543" y1="40.000" x2="232.441" y2="58.898" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
@@ -52,17 +54,15 @@
   <line x1="45.354" y1="247.874" x2="0.000" y2="293.228" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="0.000" y1="293.228" x2="0.000" y2="538.104" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="0.000" y1="538.104" x2="45.354" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="423.307" y1="550.236" x2="45.354" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="1481.575" y1="550.236" x2="1481.575" y2="247.874" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="423.307" y1="550.236" x2="426.142" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <path d="M 770.608 889.449 C 771.549 906.990 781.134 922.920 796.191 931.969" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <path d="M 1134.274 889.449 C 1133.333 906.990 1123.748 922.920 1108.690 931.969" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 423.307 249.764 C 424.894 249.764 426.316 248.770 426.860 247.277" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 423.307 249.764 C 422.192 249.764 421.138 249.272 420.420 248.422" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 763.465 249.764 C 762.463 249.764 761.499 249.367 760.792 248.656" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 763.465 249.764 C 765.475 249.764 767.134 248.191 767.240 246.181" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 1141.417 249.764 C 1143.005 249.764 1144.426 248.770 1144.970 247.277" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <path d="M 1141.417 249.764 C 1140.302 249.764 1139.248 249.272 1138.530 248.422" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="423.307" y1="550.236" x2="45.354" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="1481.575" y1="550.236" x2="1481.575" y2="247.874" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="423.307" y1="550.236" x2="426.142" y2="550.236" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="1107.402" y1="886.614" x2="797.480" y2="886.614" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
   <line x1="763.465" y1="552.126" x2="1141.417" y2="552.126" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
   <line x1="45.354" y1="550.236" x2="45.354" y2="247.874" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />

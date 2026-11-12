@@ -119,36 +119,39 @@ export function runValidate() {
     const lockPath = path.join(reportsDir, 'lock-bottom-match.json')
     const lock = fs.existsSync(lockPath) ? JSON.parse(fs.readFileSync(lockPath, 'utf8')) : null
     const lockPass = Boolean(lock?.gate?.passed)
+    const lockRow = lock?.gate?.holdout_row
+    const lockCurveExact = Boolean(lockRow?.curve_exact ?? lock?.summary?.holdout_curve_exact)
     tests.push({
       id: 'lock_bottom_cutting_correspondence',
       kind: 'real_sample',
       status: lock ? (lockPass ? 'passed' : 'failed') : 'not_run',
       note: lock
-        ? `holdout=${lock.gate?.holdout}; matched=${lock.gate?.holdout_row?.matched}/${lock.gate?.holdout_row?.realCount}; medianNorm=${Number(lock.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
+        ? `holdout=${lock.gate?.holdout}; matched=${lockRow?.matched}/${lockRow?.realCount}; medianNorm=${Number(lockRow?.medianNormPosErr ?? NaN).toFixed(4)}; cubicPairs=${lockRow?.cubicPairCount ?? '?'}; medianCubicNorm=${Number(lockRow?.medianCubicNormErr ?? NaN).toFixed(4)}; ${lockCurveExact ? 'curve_exact' : 'endpoint_only'}`
         : 'lock-bottom-match.json missing — run match-lock-bottom',
     })
     const topPath = path.join(reportsDir, 'top-flap-match.json')
     const top = fs.existsSync(topPath) ? JSON.parse(fs.readFileSync(topPath, 'utf8')) : null
     const topPass = Boolean(top?.gate?.passed)
+    const topRow = top?.gate?.holdout_row
+    const topCurveExact = Boolean(topRow?.curve_exact ?? top?.summary?.holdout_curve_exact)
     tests.push({
       id: 'top_flap_cutting_correspondence',
       kind: 'real_sample',
       status: top ? (topPass ? 'passed' : 'failed') : 'not_run',
       note: top
-        ? `holdout=${top.gate?.holdout}; matched=${top.gate?.holdout_row?.matched}/${top.gate?.holdout_row?.realCount}; medianNorm=${Number(top.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
+        ? `holdout=${top.gate?.holdout}; matched=${topRow?.matched}/${topRow?.realCount}; medianNorm=${Number(topRow?.medianNormPosErr ?? NaN).toFixed(4)}; cubicPairs=${topRow?.cubicPairCount ?? '?'}; medianCubicNorm=${Number(topRow?.medianCubicNormErr ?? NaN).toFixed(4)}; ${topCurveExact ? 'curve_exact' : 'endpoint_only'}`
         : 'top-flap-match.json missing — run match-top-flaps',
     })
     const outlinePath = path.join(reportsDir, 'body-outline-match.json')
     const outline = fs.existsSync(outlinePath) ? JSON.parse(fs.readFileSync(outlinePath, 'utf8')) : null
     const outlinePass = Boolean(outline?.gate?.passed)
     const outlineRow = outline?.gate?.holdout_row
-    const outlineCurveExact = Boolean(outlineRow?.curve_exact ?? outline?.summary?.holdout_curve_exact)
     tests.push({
       id: 'body_outline_cutting_correspondence',
       kind: 'real_sample',
       status: outline ? (outlinePass ? 'passed' : 'failed') : 'not_run',
       note: outline
-        ? `holdout=${outline.gate?.holdout}; matched=${outlineRow?.matched}/${outlineRow?.realCount}; medianNorm=${Number(outlineRow?.medianNormPosErr ?? NaN).toFixed(4)}; cubicPairs=${outlineRow?.cubicPairCount ?? '?'}; medianCubicNorm=${Number(outlineRow?.medianCubicNormErr ?? NaN).toFixed(4)}; ${outlineCurveExact ? 'curve_exact' : 'endpoint_only'}`
+        ? `holdout=${outline.gate?.holdout}; matched=${outlineRow?.matched}/${outlineRow?.realCount}; medianNorm=${Number(outlineRow?.medianNormPosErr ?? NaN).toFixed(4)}; lines_only; cubics_relocated_to_lock_top`
         : 'body-outline-match.json missing — run match-body-outline',
     })
     const structuralPath = path.join(reportsDir, 'structural-cutting-match.json')
@@ -168,9 +171,9 @@ export function runValidate() {
       kind: 'real_sample',
       status: 'blocked',
       reason:
-        lockPass && topPass && outlinePass && outlineCurveExact && structuralPass
+        lockPass && topPass && outlinePass && lockCurveExact && topCurveExact && structuralPass
           ? 'raw_63_includes_export_zero_length_artifacts_not_emitted'
-          : lockPass && topPass && outlinePass && outlineCurveExact
+          : lockPass && topPass && outlinePass && lockCurveExact && topCurveExact
             ? 'degenerate_segments_remain'
             : lockPass && topPass && outlinePass
               ? 'curve_approx_and_degenerate_segments_remain'
@@ -200,13 +203,17 @@ export function runValidate() {
       synTop.svg.includes('ev-style="Cutting"') &&
       synTop.svg.includes('ev-style="Creasing"') &&
       synOutline.svg.includes('ev-style="Cutting"') &&
+      /C\s/.test(synLock.svg) &&
+      /C\s/.test(synTop.svg) &&
       /C\s/.test(synOutline.svg) &&
+      Boolean(synLock.filletsExact) &&
+      Boolean(synTop.filletsExact) &&
       Boolean(synOutline.filletsExact) &&
-      (synLock.cutting?.length || 0) >= 18 &&
+      (synLock.cutting?.length || 0) >= 20 &&
       (synLock.creasing?.length || 0) === 14 &&
-      (synTop.cutting?.length || 0) >= 40 &&
+      (synTop.cutting?.length || 0) >= 48 &&
       (synTop.creasing?.length || 0) === 14 &&
-      (synOutline.cutting?.length || 0) >= 50 &&
+      (synOutline.cutting?.length || 0) === 61 &&
       (synOutline.creasing?.length || 0) === 14
         ? 'passed'
         : 'failed',
@@ -287,9 +294,9 @@ ${tests
 ## Verdict
 - Envelope models (\`${fit.geomWidthUu?.model || '?'}\` / \`${fit.geomHeightUu?.model || '?'}\`) on frozen holdout \`${holdoutKey}\` — see \`envelope-diagnosis.md\` (linear vs interaction).
 - Creasing segment correspondence: **${segGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see segment-match.md).
-- Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; curve_approx).
-- Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; curve_approx).
-- Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; endpoint + cubic residual).
+- Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; endpoint + 2 exact cubics).
+- Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; endpoint + 6 exact cubics).
+- Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; lines-only leftovers).
 - Structural cutting count: **${structuralGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see structural-cutting-match.md; expect 61).
 - Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — raw 63 includes export artifacts not emitted; not production.
 - Research phase: **complete (structural)** — see \`PHASE-CLOSEOUT.md\` / \`DELIVERY.md\`.

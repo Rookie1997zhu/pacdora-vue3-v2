@@ -1,29 +1,29 @@
 # Body-outline cutting match
 
 ## Gate (holdout `100x80x90`)
-- require matched ≥ **8** / ~11 meaningful leftover lines
+- require matched ≥ **2** / ~3 leftover lines
 - median norm pos err ≤ **0.06**
-- cubic pairs ≥ **8** with median cubic norm err ≤ **0.06**
+- cubic pairs **optional** (relocated to lock/top)
 - result: **PASSED**
-- holdout matched=11/11 medianNorm=0.0007 cubicPairs=8 medianCubicNorm=0.0000 curve_exact=true
+- holdout matched=3/3 medianNorm=0.0002 cubicPairs=0 medianCubicNorm=Infinity lines_only=true
 
 ## Notes
-- Parametric outline + **exact cubic** fillets; zero-length omitted
+- Outline leftovers are straight edges; 8 exact cubics live in lock/top slices
 - Full 63/14 topology still **not** claimed
 
 ## Rows
 | sample | role | matched | real | medianNorm | cubicPairs | medianCubic | pass |
 |---|---|---:|---:|---:|---:|---:|---|
-| 100x70x80 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 100x80x70 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 100x80x80 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 100x80x90 | holdout | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 100x90x80 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 110x80x80 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
-| 120x90x60 | pressure | 11 | 11 | 0.0006 | 8 | 0.0000 | yes |
-| 200x150x100 | train_or_other | 11 | 11 | 0.0004 | 8 | 0.0000 | yes |
-| 55x55x75 | train_or_other | 11 | 11 | 0.0011 | 8 | 0.0000 | yes |
-| 90x80x80 | train_or_other | 11 | 11 | 0.0007 | 8 | 0.0000 | yes |
+| 100x70x80 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 100x80x70 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 100x80x80 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 100x80x90 | holdout | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 100x90x80 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 110x80x80 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 120x90x60 | pressure | 3 | 3 | 0.0002 | 0 | Infinity | yes |
+| 200x150x100 | train_or_other | 3 | 3 | 0.0001 | 0 | Infinity | yes |
+| 55x55x75 | train_or_other | 3 | 3 | 0.0003 | 0 | Infinity | yes |
+| 90x80x80 | train_or_other | 3 | 3 | 0.0002 | 0 | Infinity | yes |
 
 ## Counterexamples
 - none (excluding pressure row)

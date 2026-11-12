@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="896.850" height="756.447" viewBox="0 0 896.850 756.447">
-  <!-- BOXCRAFT dieline-lab lock-bottom FIRST SLICE; curve_approx; not full 63/14 topology -->
+  <!-- BOXCRAFT dieline-lab lock-bottom FIRST SLICE; exact big-flap cubics + hook line chamfers; not full 63/14 topology -->
   <g>
   <line x1="641.503" y1="756.447" x2="488.576" y2="756.447" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="461.102" y1="711.093" x2="461.102" y2="713.928" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
@@ -23,6 +23,8 @@
   <line x1="866.457" y1="541.014" x2="874.016" y2="533.455" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="874.016" y1="533.455" x2="874.016" y2="506.998" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="668.976" y1="506.998" x2="680.315" y2="518.337" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <path d="M 468.246 713.928 C 469.187 731.468 478.772 747.399 493.829 756.447" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <path d="M 661.833 713.928 C 660.892 731.468 651.307 747.399 636.249 756.447" fill="none" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
   <line x1="634.961" y1="711.093" x2="495.118" y2="711.093" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
   <line x1="461.102" y1="508.888" x2="668.976" y2="508.888" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
   <line x1="45.354" y1="506.998" x2="45.354" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />

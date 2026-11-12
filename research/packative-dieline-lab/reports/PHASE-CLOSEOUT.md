@@ -14,7 +14,7 @@ Structural crashlock dieline research in this lab is **complete for the agreed s
 1. Envelope L/W/H fit → holdout width/height passed
 2. Creasing correspondence → 14 lines gated
 3. Lock-bottom / top-flap / body-outline region matches → passed
-4. Exact cubic fillets (8 paths) → `curve_exact`, median cubic residual ≪ 0.06
+4. Exact cubics relocated: lock 2 + top 6 → residual gates `curve_exact`; outline lines-only
 5. Zero-length inventory → Class A export artifacts (maxX∩bodyBottom); Class B collapsed lock shelf on `55×55×75` only
 6. Structural count gate → real structural ≡ proto **61** (holdout and 55)
 

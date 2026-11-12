@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:26:28.559Z",
+  "generated_at": "2026-11-12T04:07:30.007Z",
   "results": [
     {
       "file": "proto-crashlock-100_80_80-outline.svg",
@@ -16,11 +16,13 @@
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
         "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
         "body_outline_outer_edges_parametric",
-        "body_outline_exact_cubic_fillets"
+        "body_outline_lines_only_cubics_relocated"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
@@ -44,11 +46,13 @@
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
         "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
         "body_outline_outer_edges_parametric",
-        "body_outline_exact_cubic_fillets"
+        "body_outline_lines_only_cubics_relocated"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
@@ -72,11 +76,13 @@
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
         "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
         "body_outline_outer_edges_parametric",
-        "body_outline_exact_cubic_fillets"
+        "body_outline_lines_only_cubics_relocated"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
@@ -100,11 +106,13 @@
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
         "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
         "body_outline_outer_edges_parametric",
-        "body_outline_exact_cubic_fillets"
+        "body_outline_lines_only_cubics_relocated"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",

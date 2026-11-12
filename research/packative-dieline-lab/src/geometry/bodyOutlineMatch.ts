@@ -1,33 +1,7 @@
-import { boundsFromSegs, featCost, type CompactSeg, type PairMatch, type Bounds } from './segmentMatch.ts'
+import { boundsFromSegs, featCost, type CompactSeg, type PairMatch } from './segmentMatch.ts'
 import { lineFeatures } from './lockBottomMatch.ts'
 import { bodyOutlineCuttingLines } from './bodyOutlineFeatures.ts'
-
-function asEndpointFeats(segs: CompactSeg[]) {
-  // Feature extraction uses p0/p1 only; keep c0/c1 on original segs for cubic residual.
-  const lines = segs
-    .filter((s) => s.p0 && s.p1 && s.lengthUu > 1.5)
-    .map((s) => ({
-      ...s,
-      kind: 'line',
-      pointCount: 2,
-    }))
-  return { lines, originals: segs.filter((s) => s.p0 && s.p1 && s.lengthUu > 1.5) }
-}
-
-function cubicNormErr(a: CompactSeg, b: CompactSeg, bound: Bounds | null): number | null {
-  if (!a.c0 || !a.c1 || !b.c0 || !b.c1 || !bound) return null
-  const w = bound.width || 1
-  const h = bound.height || 1
-  const n = (p: { x: number; y: number }) => ({ x: (p.x - bound.minX) / w, y: (p.y - bound.minY) / h })
-  // Undirected: try swapped control order
-  const a0 = n(a.c0)
-  const a1 = n(a.c1)
-  const b0 = n(b.c0)
-  const b1 = n(b.c1)
-  const direct = Math.hypot(a0.x - b0.x, a0.y - b0.y) + Math.hypot(a1.x - b1.x, a1.y - b1.y)
-  const swapped = Math.hypot(a0.x - b1.x, a0.y - b1.y) + Math.hypot(a1.x - b0.x, a1.y - b0.y)
-  return Math.min(direct, swapped) / 2
-}
+import { asEndpointFeats, cubicNormErr } from './cubicParams.ts'
 
 export function matchBodyOutline(
   genSegs: CompactSeg[],
@@ -118,6 +92,7 @@ export function matchBodyOutline(
     cubicPairCount: cubicErrs.length,
     medianCubicNormErr,
     maxCubicNormErr,
-    curveExact: cubicErrs.length >= 8 && medianCubicNormErr <= 0.06,
+    // Cubics relocated to lock/top; outline is lines-only — 0 pairs is OK.
+    curveExact: cubicErrs.length === 0 || medianCubicNormErr <= 0.06,
   }
 }
