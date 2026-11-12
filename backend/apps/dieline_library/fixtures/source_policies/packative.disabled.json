@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "is_example": true,
+  "source_id": "packative",
+  "enabled": false,
+  "adapter_type": "authorized_browser",
+  "entry_url": "https://packative.com/",
+  "allowed_origins": [],
+  "allowed_paths": [],
+  "observed_templates": [],
+  "dimension_plan": [],
+  "access_review": {
+    "status": "pending",
+    "terms_evidence_id": null,
+    "robots_evidence_id": null,
+    "authorization_evidence_id": null,
+    "reviewed_at": null,
+    "perpetual": false
+  },
+  "permissions": {
+    "can_collect_automatically": false,
+    "can_store": false,
+    "can_transform": false,
+    "can_use_internally": false,
+    "can_redistribute_files": false
+  },
+  "execution": {
+    "dry_run": true,
+    "concurrency": 1,
+    "min_seconds_between_jobs": 10,
+    "max_jobs": 10,
+    "max_total_requests": 250,
+    "max_total_bytes": 104857600,
+    "max_transient_retries": 2,
+    "allow_billable_actions": false
+  },
+  "stop_on": [
+    "http_403",
+    "captcha",
+    "access_denied",
+    "unapproved_billable_action"
+  ],
+  "pause_on": [
+    "http_401",
+    "http_429",
+    "session_expired"
+  ],
+  "credentials": {
+    "source": "private_local_session",
+    "export_to_manifest": false
+  },
+  "notes": "Explicit disabled fixture for gate tests only. Default policy is packative.default.json (enabled)."
+}

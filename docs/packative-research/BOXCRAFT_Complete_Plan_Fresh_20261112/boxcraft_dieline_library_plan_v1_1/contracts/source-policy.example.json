@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "is_example": true,
+  "source_id": "packative",
+  "enabled": true,
+  "adapter_type": "authorized_browser",
+  "entry_url": "https://packative.com/",
+  "allowed_origins": ["https://packative.com", "https://studio.packative.com", "https://studio-cdn.packative.com"],
+  "allowed_paths": ["/"],
+  "observed_templates": [],
+  "dimension_plan": [],
+  "access_review": {
+    "status": "approved",
+    "terms_evidence_id": "project-policy-perpetual",
+    "robots_evidence_id": "project-policy-perpetual",
+    "authorization_evidence_id": "project-policy-perpetual",
+    "reviewed_at": "2026-11-12T00:00:00+00:00",
+    "perpetual": true
+  },
+  "permissions": {
+    "can_collect_automatically": true,
+    "can_store": true,
+    "can_transform": true,
+    "can_use_internally": true,
+    "can_use_commercially": true,
+    "can_show_public_preview": true,
+    "can_redistribute_files": true
+  },
+  "grant": {
+    "valid_until": null,
+    "perpetual": true,
+    "attribution": "BOXCRAFT project policy: perpetual grant"
+  },
+  "execution": {
+    "dry_run": false,
+    "concurrency": 1,
+    "min_seconds_between_jobs": 10,
+    "max_jobs": 50,
+    "max_total_requests": 2500,
+    "max_total_bytes": 1073741824,
+    "max_transient_retries": 2,
+    "allow_billable_actions": true
+  },
+  "stop_on": [],
+  "pause_on": [
+    "http_401",
+    "http_429",
+    "session_expired"
+  ],
+  "credentials": {
+    "source": "private_local_session",
+    "export_to_manifest": false
+  },
+  "notes": "Example aligned with project default: enabled + perpetual grant. Contracts via REA + Scrapy, then deterministic adapter execution."
+}

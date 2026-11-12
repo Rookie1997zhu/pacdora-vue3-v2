@@ -6,7 +6,10 @@
   "notes": [
     "Draft catalog for Lab wiring (P2). Not presets.js yet.",
     "dimension_basis=inner from KO product page copy (박스 내부 사이즈).",
-    "Do not claim original-asset library; this is size/geom parameter catalog."
+    "Do not claim original-asset library; this is size/geom parameter catalog.",
+    "geom_rel via scripts/publish-packative-geom.mjs",
+    "mailerbox pilot via CDN anonymous SVG @2026-11-12",
+    "pillowbox pilot via CDN anonymous SVG @2026-11-13"
   ],
   "assets": [
     {
@@ -23,7 +26,8 @@
       "default_flag": true,
       "sample_group": "baseline",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-100_80_80.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -39,7 +43,8 @@
       "default_flag": false,
       "sample_group": "cross_scale",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-55_55_75.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -55,7 +60,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-90_80_80.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -71,7 +77,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-100_70_80.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -103,7 +110,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-100_80_70.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -119,7 +127,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-100_80_90.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -135,7 +144,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-100_90_80.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -151,7 +161,8 @@
       "default_flag": false,
       "sample_group": "single_var",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-110_80_80.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -167,7 +178,8 @@
       "default_flag": false,
       "sample_group": "holdout",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-120_90_60.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -183,7 +195,8 @@
       "default_flag": false,
       "sample_group": "cross_scale",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
-      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/productbox-crashlock-200_150_100.svg"
     },
     {
       "template_id": "productbox-crashlock",
@@ -200,6 +213,57 @@
       "sample_group": "cross_scale",
       "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF",
       "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/productbox-crashlock/{L}_{W}_{H}/dieline.svg"
+    },
+    {
+      "template_id": "mailerbox",
+      "title_zh": "纸质邮寄盒（Mailer）",
+      "title_ko": "종이 메일러 박스",
+      "L_mm": 160,
+      "W_mm": 160,
+      "H_mm": 70,
+      "dimension_basis": "inner",
+      "validation_status": "validated",
+      "rule_or_geom_version": "cdn-anonymous@2026-11-12",
+      "evidence_ref": "docs/packative-research/evidence/studio-dieline-mailerbox-160_160_70.svg; docs/packative-research/evidence/phase3-multibox-studio.txt",
+      "default_flag": false,
+      "sample_group": "mailerbox_pilot",
+      "product_page": "https://packative.com/products/mailerbox/prod_01HR4VWJVZ8PD99XH7WQGKXN4V",
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/mailerbox/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/mailerbox-160_160_70.svg"
+    },
+    {
+      "template_id": "mailerbox",
+      "title_zh": "纸质邮寄盒（Mailer）",
+      "title_ko": "종이 메일러 박스",
+      "L_mm": 100,
+      "W_mm": 100,
+      "H_mm": 50,
+      "dimension_basis": "inner",
+      "validation_status": "validated",
+      "rule_or_geom_version": "cdn-anonymous@2026-11-12",
+      "evidence_ref": "docs/packative-research/evidence/studio-dieline-mailerbox-100_100_50.svg",
+      "default_flag": false,
+      "sample_group": "mailerbox_pilot",
+      "product_page": "https://packative.com/products/mailerbox/prod_01HR4VWJVZ8PD99XH7WQGKXN4V",
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/mailerbox/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/mailerbox-100_100_50.svg"
+    },
+    {
+      "template_id": "pillowbox",
+      "title_zh": "纸质枕形盒（Pillow）",
+      "title_ko": "베개형 박스",
+      "L_mm": 100,
+      "W_mm": 65,
+      "H_mm": 20,
+      "dimension_basis": "inner",
+      "validation_status": "validated",
+      "rule_or_geom_version": "cdn-anonymous@2026-11-13",
+      "evidence_ref": "docs/packative-research/evidence/studio-dieline-pillowbox-100_65_20.svg; docs/packative-research/evidence/phase3-multibox-studio.txt",
+      "default_flag": false,
+      "sample_group": "pillowbox_pilot",
+      "product_page": "https://packative.com/products/pillowbox/prod_01HWW7QPF6D7AD1785QSA55HNJ",
+      "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/pillowbox/{L}_{W}_{H}/dieline.svg",
+      "geom_rel": "packative-geom/pillowbox-100_65_20.svg"
     }
   ]
 }

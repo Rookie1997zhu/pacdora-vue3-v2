@@ -236,11 +236,12 @@ export default {
     exportSvg:'导出 SVG',
     tagImported:'运输箱官方封面 · 点选进入样本刀版',
     tagOwned:'合盖封面预览 · 点选进入刀版工位',
-    tagPackative:'Packative 参数目录 · 验证规格可改尺寸回放',
+    tagPackative:'Packative 官方样本刀版 · 离散规格 · 尺寸锁定',
     loadingGeom:'加载官方刀版…',
+    loadingPackativeGeom:'加载 Packative 官方 SVG…',
     facesOfficial:'{n} 面 · 官方样本刀版',
     facesConcept:'{n} 面概念拓扑 · 非生产刀版',
-    facesPackative:'Packative 原型 2D · 无折叠拓扑'
+    facesPackative:'Packative 官方样本 2D · 无折叠拓扑'
   },
   lang:{zh:'中文',ko:'한국어'},
   gallery:{
@@ -337,16 +338,19 @@ export default {
     standardOfficial:'官方样本刀版 · 运输箱例外',
     paramGroupFallback:'参数',
     packativeEditable:'Packative 原型 · 可在验证范围内改尺寸（内尺寸）',
+    packativeGeomLocked:'官方样本刀版（Packative SVG）· 尺寸锁定 · 离散规格试播',
     packativeHoldout:'Holdout 只读对照 · 尺寸锁定',
     packativeBounds:'验证范围 L {l0}–{l1} · W {w0}–{w1} · H {h0}–{h1} mm',
-    packativeMeta:'原型回放 {l}×{w}×{h} mm · {status}',
-    dieline2dPackative:'2D Packative 原型刀版',
-    pillPackative:'Packative prototype → SVG',
+    packativeMeta:'官方样本 {l}×{w}×{h} mm · {status} · {extra}',
+    packativeLayers:'裁切 {cuts} · 折线 {folds}',
+    dieline2dPackative:'2D Packative 官方样本刀版',
+    pillPackative:'Packative official SVG → knife.v3',
     no3dTitle:'无拓扑 · 不提供 3D',
-    no3dBody:'Packative 原型尚未形成可折叠面片拓扑，仅提供 2D SVG 回放。',
-    exportSvgOnly:'Packative 模式仅导出原型 SVG；DXF/PDF/AI/JSON 不可用。',
-    exportPackativeSvg:'导出原型 SVG',
-    packativePrototypePartial:'局部原型 · 非完整拓扑 · manufacturingReady=false'
+    no3dBody:'本地无 faces/Collada 面片铰链，官方 SVG 仅接入规范 2D（裁切/折线/出血）；不虚构 3D。',
+    exportSvgOnly:'Packative 模式仅导出规范 2D SVG（toSvgDieline）；DXF/PDF/AI/JSON 不可用。',
+    exportPackativeSvg:'导出官方样本 SVG',
+    packativePrototypePartial:'局部原型 · 非完整拓扑 · manufacturingReady=false',
+    packativeGeomPartial:'官方样本刀版 · 2D 规范图层 · 无 3D · manufacturingReady=false'
   },
   fold:{
     step:'步骤 {now}/{total}',
@@ -368,7 +372,9 @@ export default {
     missingTemplate:'模板 {tid} 不存在，无法打开「{name}」。',
     packativeUnvalidated:'「{name}」规格未验证：禁止进入与静默拉伸。',
     packativeOutOfBounds:'尺寸超出验证范围：已恢复上次合法值（禁止静默拉伸）。',
-    packativePlaybackFail:'Packative 原型回放失败：{msg}'
+    packativePlaybackFail:'Packative 原型回放失败：{msg}',
+    packativeGeomMissing:'「{name}」缺少官方 SVG（geom_rel），无法进入规范 2D 工位。',
+    packativeGeomFail:'Packative 官方刀版加载失败：{msg}'
   },
   kind:{
     lidded:'有盖',

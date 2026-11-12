@@ -8,6 +8,7 @@
     "test": "node --test test/validate.test.mjs"
   },
   "dependencies": {
+    "pdf-lib": "^1.17.1",
     "polygon-clipping": "^0.15.7"
   }
 }

@@ -1,0 +1,636 @@
+{
+  "schema_version": "1.0",
+  "is_example": false,
+  "provider": "local_manifest",
+  "source": {
+    "source_id": "packative_official_geom",
+    "source_type": "local_evidence",
+    "notes": "Validated/holdout Packative crashlock official SVG from research evidence; reference_only."
+  },
+  "assets": [
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 80,
+        "height_mm": 80,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-100_80_80.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "baseline",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-100_80_80.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 55,
+        "width_mm": 55,
+        "height_mm": 75,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-55_55_75.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "cross_scale",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-55_55_75.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 90,
+        "width_mm": 80,
+        "height_mm": 80,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-90_80_80.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-90_80_80.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 70,
+        "height_mm": 80,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-100_70_80.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-100_70_80.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 80,
+        "height_mm": 70,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-100_80_70.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-100_80_70.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 80,
+        "height_mm": 90,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-100_80_90.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "holdout",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-100_80_90.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 90,
+        "height_mm": 80,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-100_90_80.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-100_90_80.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 110,
+        "width_mm": 80,
+        "height_mm": 80,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-110_80_80.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "single_var",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-110_80_80.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 120,
+        "width_mm": 90,
+        "height_mm": 60,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-120_90_60.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "holdout",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-120_90_60.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质锁底盒（Crashlock）",
+        "ko": "종이 단상자 (크래시락)"
+      },
+      "family_name": "纸质锁底盒（Crashlock）",
+      "category": "folding",
+      "source_template_id": "productbox-crashlock",
+      "template_revision": "research/packative-dieline-lab/data/rules/validated-rules.json@2026-11-12",
+      "dimensions": {
+        "length_mm": 200,
+        "width_mm": 150,
+        "height_mm": 100,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/productbox-crashlock-200_150_100.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "cross_scale",
+        "evidence_ref": "research/packative-dieline-lab/reports/p1-rea-ko-session.md; research/packative-dieline-lab/reports/p1-sample-inventory.json; data/normalized/studio-dieline-productbox-crashlock-200_150_100.json",
+        "product_page": "https://packative.com/products/productbox-crashlock/prod_01HRQ7914HA85GC0S44N63A3AF"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质邮寄盒（Mailer）",
+        "ko": "종이 메일러 박스"
+      },
+      "family_name": "纸质邮寄盒（Mailer）",
+      "category": "folding",
+      "source_template_id": "mailerbox",
+      "template_revision": "cdn-anonymous@2026-11-12",
+      "dimensions": {
+        "length_mm": 160,
+        "width_mm": 160,
+        "height_mm": 70,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/mailerbox-160_160_70.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "mailerbox_pilot",
+        "evidence_ref": "docs/packative-research/evidence/studio-dieline-mailerbox-160_160_70.svg; docs/packative-research/evidence/phase3-multibox-studio.txt",
+        "product_page": "https://packative.com/products/mailerbox/prod_01HR4VWJVZ8PD99XH7WQGKXN4V"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质邮寄盒（Mailer）",
+        "ko": "종이 메일러 박스"
+      },
+      "family_name": "纸质邮寄盒（Mailer）",
+      "category": "folding",
+      "source_template_id": "mailerbox",
+      "template_revision": "cdn-anonymous@2026-11-12",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 100,
+        "height_mm": 50,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/mailerbox-100_100_50.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "mailerbox_pilot",
+        "evidence_ref": "docs/packative-research/evidence/studio-dieline-mailerbox-100_100_50.svg",
+        "product_page": "https://packative.com/products/mailerbox/prod_01HR4VWJVZ8PD99XH7WQGKXN4V"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    },
+    {
+      "is_example": false,
+      "title": {
+        "zh": "纸质枕形盒（Pillow）",
+        "ko": "베개형 박스"
+      },
+      "family_name": "纸质枕形盒（Pillow）",
+      "category": "folding",
+      "source_template_id": "pillowbox",
+      "template_revision": "cdn-anonymous@2026-11-13",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 65,
+        "height_mm": 20,
+        "basis": "inner"
+      },
+      "material": {
+        "name": null,
+        "thickness_mm": null
+      },
+      "files": [
+        {
+          "path": "packative-geom/pillowbox-100_65_20.svg",
+          "mime": "image/svg+xml"
+        }
+      ],
+      "meta": {
+        "validation_status": "validated",
+        "sample_group": "pillowbox_pilot",
+        "evidence_ref": "docs/packative-research/evidence/studio-dieline-pillowbox-100_65_20.svg; docs/packative-research/evidence/phase3-multibox-studio.txt",
+        "product_page": "https://packative.com/products/pillowbox/prod_01HWW7QPF6D7AD1785QSA55HNJ"
+      },
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": false
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    }
+  ]
+}

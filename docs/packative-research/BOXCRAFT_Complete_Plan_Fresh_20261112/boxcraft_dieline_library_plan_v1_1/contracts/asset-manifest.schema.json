@@ -1,0 +1,728 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dieline asset manifest - planning contract v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "is_example",
+    "asset_id",
+    "asset_kind",
+    "revision_id",
+    "title",
+    "dimensions",
+    "source",
+    "files",
+    "rights",
+    "quality"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "is_example": {
+      "type": "boolean"
+    },
+    "asset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asset_kind": {
+      "enum": [
+        "fixed_dieline",
+        "parametric_template",
+        "reference_image",
+        "multipart_dieline"
+      ]
+    },
+    "title": {
+      "type": "object",
+      "required": [
+        "zh"
+      ],
+      "properties": {
+        "zh": {
+          "type": "string"
+        },
+        "ko": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "family_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_template_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "template_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "length_mm",
+        "width_mm",
+        "height_mm",
+        "basis",
+        "evidence_ids",
+        "value_origin"
+      ],
+      "properties": {
+        "length_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "width_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "height_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "basis": {
+          "enum": [
+            "inner",
+            "outer",
+            "crease",
+            "unknown"
+          ]
+        },
+        "value_origin": {
+          "enum": [
+            "observed",
+            "normalized",
+            "inferred",
+            "assumed",
+            "example",
+            "unknown"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "thickness_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "direction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_type",
+        "captured_at",
+        "evidence_ids"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_type": {
+          "enum": [
+            "local_manifest",
+            "supplier_package",
+            "authorized_browser",
+            "authorized_api",
+            "internal_generator",
+            "example"
+          ]
+        },
+        "source_url_redacted": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "captured_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source_modified_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "part_id",
+          "role",
+          "quantity"
+        ],
+        "properties": {
+          "part_id": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file_id",
+          "role",
+          "format",
+          "storage_key",
+          "sha256",
+          "bytes"
+        ],
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "enum": [
+              "original",
+              "derived",
+              "preview",
+              "report"
+            ]
+          },
+          "format": {
+            "enum": [
+              "svg",
+              "dxf",
+              "pdf",
+              "eps",
+              "ai",
+              "png",
+              "jpg",
+              "webp",
+              "json"
+            ]
+          },
+          "storage_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "part_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "parent_file_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "converter_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_status",
+        "grant_id",
+        "evidence_ids",
+        "permissions"
+      ],
+      "properties": {
+        "grant_status": {
+          "enum": [
+            "pending",
+            "approved",
+            "revoked",
+            "expired"
+          ]
+        },
+        "grant_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "valid_until": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "attribution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissions": {
+          "type": "object",
+          "required": [
+            "can_store",
+            "can_transform",
+            "can_use_internally",
+            "can_use_commercially",
+            "can_show_public_preview",
+            "can_redistribute_files"
+          ],
+          "properties": {
+            "can_store": {
+              "type": "boolean"
+            },
+            "can_transform": {
+              "type": "boolean"
+            },
+            "can_use_internally": {
+              "type": "boolean"
+            },
+            "can_use_commercially": {
+              "type": "boolean"
+            },
+            "can_show_public_preview": {
+              "type": "boolean"
+            },
+            "can_redistribute_files": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_status",
+        "unit_status",
+        "technical_status",
+        "manufacturing_status",
+        "manufacturing_evidence_ids"
+      ],
+      "properties": {
+        "publication_status": {
+          "enum": [
+            "staging",
+            "review_required",
+            "internal_available",
+            "public_download",
+            "withdrawn"
+          ]
+        },
+        "unit_status": {
+          "enum": [
+            "unknown",
+            "candidate",
+            "confirmed"
+          ]
+        },
+        "technical_status": {
+          "enum": [
+            "unprocessed",
+            "failed",
+            "review_required",
+            "approved"
+          ]
+        },
+        "manufacturing_status": {
+          "enum": [
+            "reference_only",
+            "engineering_reviewed",
+            "sampled",
+            "production_validated"
+          ]
+        },
+        "manufacturing_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generator": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "generator_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "validation_evidence_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "generator_id",
+        "version",
+        "validation_evidence_id"
+      ],
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "is_example": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "publication_status": {
+                "enum": [
+                  "staging",
+                  "review_required"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "asset_kind": {
+            "const": "parametric_template"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "generator"
+        ],
+        "properties": {
+          "generator": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "manufacturing_status": {
+                "enum": [
+                  "sampled",
+                  "production_validated"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "manufacturing_evidence_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "publication_status": {
+                "enum": [
+                  "internal_available",
+                  "public_download"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "is_example": {
+            "const": false
+          },
+          "asset_kind": {
+            "enum": [
+              "fixed_dieline",
+              "parametric_template",
+              "multipart_dieline"
+            ]
+          },
+          "files": {
+            "minItems": 1,
+            "contains": {
+              "properties": {
+                "role": {
+                  "enum": [
+                    "original",
+                    "derived"
+                  ]
+                },
+                "format": {
+                  "enum": [
+                    "svg",
+                    "dxf",
+                    "pdf",
+                    "eps",
+                    "ai"
+                  ]
+                }
+              }
+            }
+          },
+          "dimensions": {
+            "properties": {
+              "length_mm": {
+                "type": "number"
+              },
+              "width_mm": {
+                "type": "number"
+              },
+              "height_mm": {
+                "type": "number"
+              },
+              "basis": {
+                "enum": [
+                  "inner",
+                  "outer",
+                  "crease"
+                ]
+              },
+              "value_origin": {
+                "enum": [
+                  "observed",
+                  "normalized"
+                ]
+              },
+              "evidence_ids": {
+                "minItems": 1
+              }
+            }
+          },
+          "source": {
+            "properties": {
+              "source_type": {
+                "not": {
+                  "const": "example"
+                }
+              },
+              "captured_at": {
+                "type": "string"
+              },
+              "evidence_ids": {
+                "minItems": 1
+              }
+            }
+          },
+          "quality": {
+            "properties": {
+              "unit_status": {
+                "const": "confirmed"
+              },
+              "technical_status": {
+                "const": "approved"
+              }
+            }
+          },
+          "rights": {
+            "properties": {
+              "grant_status": {
+                "const": "approved"
+              },
+              "grant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "minItems": 1
+              },
+              "permissions": {
+                "properties": {
+                  "can_store": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "publication_status": {
+                "const": "internal_available"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rights": {
+            "properties": {
+              "permissions": {
+                "properties": {
+                  "can_use_internally": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "quality": {
+            "properties": {
+              "publication_status": {
+                "const": "public_download"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rights": {
+            "properties": {
+              "permissions": {
+                "properties": {
+                  "can_show_public_preview": {
+                    "const": true
+                  },
+                  "can_redistribute_files": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

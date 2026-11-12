@@ -1,0 +1,98 @@
+{
+  "captured_at": "2026-11-12T15:18:00Z",
+  "round": "engview-live-100_80_80",
+  "product": "productbox-crashlock",
+  "size": { "L": 100, "W": 80, "H": 80 },
+  "editor_url_shape": "/editor/productbox-crashlock/{productId}?length=100&width=80&height=80&quantity=*&coating=matte&hash={hash}&designId={uuid}",
+  "access_notes": [
+    "Human Studio session in browser; no credentials saved to repo",
+    "Session/resource UUIDs redacted as {uuid}",
+    "paid_actions=false; credential_reuse=false"
+  ],
+  "fold_slider": {
+    "aria_valuemin": 0,
+    "aria_valuemax": 5500,
+    "aria_valuenow_observed": 5500,
+    "maps_to": "EngView Collada animation timeline"
+  },
+  "requests": [
+    {
+      "url": "https://cad.packative.com/resize-service/api/v1/resize/materials?measurementUnit=mm",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 34244
+    },
+    {
+      "url": "https://cad.packative.com/resize-service/api/v1/resize/processings?measurementUnit=mm",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 4639
+    },
+    {
+      "url": "https://cad.packative.com/resize-service/api/v1/resize/session",
+      "status": 204,
+      "contentType": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://cad.packative.com/resize-service/api/v1/resize/get-template-info",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 23306
+    },
+    {
+      "url": "https://cad.packative.com/resize-service/api/v1/resize/resize-template",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 23628,
+      "note": "multiple resize-template calls observed (also ~95KB variants)"
+    },
+    {
+      "url": "https://cad.packative.com/resource-service/api/v1/resource/{uuid}/{uuid}",
+      "status": 200,
+      "contentType": "model/vnd.collada+xml",
+      "bytes": 1173018,
+      "saved_as": "collada.dae"
+    },
+    {
+      "url": "https://cad.packative.com/resource-service/api/v1/resource/{uuid}/TextureResource1.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 31402,
+      "saved_as": "TextureResource1.png",
+      "note": "session also served ~35035B variant; final disk uses XHR body"
+    },
+    {
+      "url": "https://cad.packative.com/resource-service/api/v1/resource/{uuid}/TextureResource2.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 77,
+      "saved_as": "TextureResource2.png",
+      "note": "4x4 placeholder PNG"
+    },
+    {
+      "url": "https://cad.packative.com/resource-service/api/v1/resource/{uuid}/TextureResource3.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 31200,
+      "saved_as": "TextureResource3.png"
+    },
+    {
+      "url": "https://cad.packative.com/resource-service/api/v1/resource/{uuid}/TextureResource4.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 77,
+      "saved_as": "TextureResource4.png",
+      "note": "4x4 placeholder PNG"
+    }
+  ],
+  "artifacts": [
+    "collada.dae",
+    "TextureResource1.png",
+    "TextureResource2.png",
+    "TextureResource3.png",
+    "TextureResource4.png",
+    "network-summary.json",
+    "structure-compare.json"
+  ]
+}

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.exports',
     'apps.quotes',
     'apps.orders',
+    'apps.dieline_library',
 ]
 
 MIDDLEWARE = [
@@ -167,6 +168,7 @@ CELERY_TASK_ROUTES = {
     'exports.*': {'queue': 'export'},
     'ai_jobs.*': {'queue': 'ai'},
     'assets.*': {'queue': 'media'},
+    'dieline_library.*': {'queue': 'import'},
 }
 
 LOGGING = {

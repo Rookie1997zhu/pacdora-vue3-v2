@@ -1,0 +1,68 @@
+{
+  "schema_note": "V1.2 package inventory; MD prevails over HTML.",
+  "current_plan": "BOXCRAFT_Packative_Lab_Catalog_Plan_V1.2_2026-11-12.md",
+  "files": {
+    "BOXCRAFT_Dieline_Library_Plan_V1.1_2026-11-12.html": {
+      "bytes": 123894,
+      "sha256": "04e1bb8e78c594fa162d9659d3452b60c87c1cd8c6e0f0ea4cc8d0b111e4fdfd",
+      "status": "historical_html_md_prevails"
+    },
+    "BOXCRAFT_Dieline_Library_Plan_V1.1_2026-11-12.md": {
+      "bytes": 49385,
+      "sha256": "6524f9f6a3f7d753dd773593fd5ee6270289738ca11e2fc5c7d90429d7d54611",
+      "status": "historical"
+    },
+    "BOXCRAFT_Packative_Lab_Catalog_Plan_V1.2_2026-11-12.md": {
+      "bytes": 6788,
+      "sha256": "cba29cb43abc9f594ff1eb346b7b0164b5f67a021dad64f7d6ba068749116007"
+    },
+    "CHANGELOG.md": {
+      "bytes": 1960,
+      "sha256": "de6a4bb13698f450b03f19b1eab0bfdd6ecbc4bd407c39913b5e4626f111c5e3"
+    },
+    "contracts/asset-manifest.example.json": {
+      "bytes": 1558,
+      "sha256": "816be72aeb9c340fcb11cb90c2bbd0c343ba6a8668e63ddf558df5d935e6e720"
+    },
+    "contracts/asset-manifest.schema.json": {
+      "bytes": 15231,
+      "sha256": "1510acdf4d82a4a0e84e5fa6613421d2757206b304fcb5b44dffb6c8e32c7201"
+    },
+    "contracts/source-policy.example.json": {
+      "bytes": 1631,
+      "sha256": "0cafb9ba1f088b345eb8650683d3200233d2268fe5e4af5c18864b44b1d3140f"
+    },
+    "HISTORY_SUPERSEDED.md": {
+      "bytes": 1040,
+      "sha256": "c1ee25ef41d952ecd7fb8062eec3608ab34579ead00f4f917e6e5d9b7aad8b4a"
+    },
+    "prompts/00_Master_Implementation_Prompt.txt": {
+      "bytes": 5258,
+      "sha256": "659de9c3dba788d553b290fa23b0b4cb0146faf6cf8812024d4970ea65ff3718"
+    },
+    "prompts/01_REA_and_Collection_Prompt.txt": {
+      "bytes": 4128,
+      "sha256": "3682b2813bd1feca24e21947f533efb19bcfaeac16ac6abb2799915214d9a550"
+    },
+    "prompts/02_Library_Development_Prompt.txt": {
+      "bytes": 2404,
+      "sha256": "62b8c8e7072beaba5bb72ae2d4eb655530c7ba576ad19f7e111783591f0b7a7b"
+    },
+    "prompts/03_QA_and_Acceptance_Prompt.txt": {
+      "bytes": 2180,
+      "sha256": "3cd23c2a94d2641396544a1db904b008b3a52a6e93b9ab5a2e073490096ffbfb"
+    },
+    "prompts/04_Project_Scope_Correction_Prompt.txt": {
+      "bytes": 1796,
+      "sha256": "7375584c4b2411e6a8a87edb21e038a04d792901eb25ee7f9632f31a01301a55"
+    },
+    "README.md": {
+      "bytes": 2360,
+      "sha256": "a1cbccdfb73c9e68f1c4c2e517cbe1106e0a15099584b033d2506da6a3684a2f"
+    },
+    "repository-review.json": {
+      "bytes": 1844,
+      "sha256": "e5adc7bbfa1b5f8c2c457be2ded64169220f0d9f8270dbdc5ae6d479c29d68f3"
+    }
+  }
+}

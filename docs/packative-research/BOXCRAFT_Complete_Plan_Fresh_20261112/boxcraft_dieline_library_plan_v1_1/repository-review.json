@@ -1,0 +1,46 @@
+{
+  "reviewed_on": "2026-11-12",
+  "repository": "Rookie1997zhu/pacdora-vue3-v2",
+  "mode": "read_only_selected_files",
+  "local_worktree_inspected": false,
+  "application_tests_run": false,
+  "repository_modified": false,
+  "third_party_assets_collected": false,
+  "files": [
+    {
+      "id": "B1",
+      "path": "README.md",
+      "git_blob_sha": "781960ca36ec034c9bed8d13a357e1c6045f33c7",
+      "reference_url": "https://github.com/Rookie1997zhu/pacdora-vue3-v2/blob/main/README.md",
+      "note": "BOXCRAFT 标识、几何/模板/尺寸目录职责、制造限制与回归说明"
+    },
+    {
+      "id": "B2",
+      "path": "package.json",
+      "git_blob_sha": "7994970e496fb85eb6cf3f269ad52da84464e6e8",
+      "reference_url": "https://github.com/Rookie1997zhu/pacdora-vue3-v2/blob/main/package.json",
+      "note": "现有构建和检查脚本、依赖声明；未安装或执行"
+    },
+    {
+      "id": "B3",
+      "path": "deploy/compose.yaml",
+      "git_blob_sha": "c54ed0cbc4f91787180b70d00708155eb82f905c",
+      "reference_url": "https://github.com/Rookie1997zhu/pacdora-vue3-v2/blob/main/deploy/compose.yaml",
+      "note": "已声明服务、私有媒体卷、队列与 API 构建配置"
+    },
+    {
+      "id": "B4",
+      "path": "backend/config/urls.py",
+      "git_blob_sha": "3ddcf283d8052d58b39b5a899f6c4688264ec1a2",
+      "reference_url": "https://github.com/Rookie1997zhu/pacdora-vue3-v2/blob/main/backend/config/urls.py",
+      "note": "已有业务路由、/api/v1/ 前缀、末尾兜底"
+    },
+    {
+      "id": "B5",
+      "path": "deploy/Caddyfile",
+      "git_blob_sha": "2dc21b2d908ca392198869abc5d8675feed9149e",
+      "reference_url": "https://github.com/Rookie1997zhu/pacdora-vue3-v2/blob/main/deploy/Caddyfile",
+      "note": "静态托管、后端反代、/media 阻断及请求体上限"
+    }
+  ]
+}

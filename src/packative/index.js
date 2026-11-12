@@ -10,3 +10,12 @@ export {
 } from './catalog.js'
 
 export { playCrashlockPrototype } from './crashlockPlayback.js'
+
+export {
+  parsePackativeOfficialSvg,
+  segmentsFromNormalized,
+  knifeFromPackativeGeom,
+  knifeFromPackativeSvgText,
+  loadPackativeGeomKnife,
+  clearPackativeGeomCache,
+} from './packativeGeomKnife.js'

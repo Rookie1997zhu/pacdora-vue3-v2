@@ -57,29 +57,29 @@ export type FitCoeff = {
   note?: string
 }
 
-/** Fitted on training crashlock SVGs (uu), see data/rules/fit-coeffs.json */
+/** Defaults synced to data/rules/fit-coeffs.json@2026-11-12 (OLS / validated-rules envelope). */
 export const GEOM_WIDTH_UU: FitCoeff = {
-  a: 9.4488,
-  b: 3.7795,
-  c: 3.7795,
-  d: 0,
+  a: 7.559005140049829,
+  b: 7.559153452808672,
+  c: -0.00018231249214184508,
+  d: 43.47466587018427,
   e: 0,
   f: 0,
   g: 0,
   model: 'lwh_linear',
-  note: 'approx 2.5*L + W + H in CSS px if mm*3.7795; refined by OLS on local samples',
+  note: 'fit-coeffs.json geomWidthUu@2026-11-12; lwh_linear OLS',
 }
 
 export const GEOM_HEIGHT_UU: FitCoeff = {
-  a: 3.7795,
-  b: 0,
-  c: 5.6693,
-  d: 0,
-  e: 0,
-  f: 0,
-  g: 0,
-  model: 'lwh_linear',
-  note: 'approx L + 1.5*H in CSS px; refined by OLS on local samples',
+  a: 0.0009457842562090699,
+  b: 6.045474847320218,
+  c: 3.778819750831597,
+  d: 45.40780286286577,
+  e: -5.506342569382325e-7,
+  f: -0.000011271669240737835,
+  g: 0.000022652701149000716,
+  model: 'lwh_interact',
+  note: 'fit-coeffs.json geomHeightUu@2026-11-12; lwh_interact OLS',
 }
 
 export type PrototypeResult = {

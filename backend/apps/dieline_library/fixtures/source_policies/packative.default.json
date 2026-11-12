@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "is_example": false,
+  "source_id": "packative",
+  "enabled": true,
+  "adapter_type": "authorized_api",
+  "entry_url": "https://packative.com/",
+  "contract_id": "packative_cdn_crashlock",
+  "allowed_origins": [
+    "https://packative.com",
+    "https://studio.packative.com",
+    "https://studio-cdn.packative.com"
+  ],
+  "allowed_paths": ["/"],
+  "observed_templates": ["productbox-crashlock"],
+  "dimension_plan": [
+    { "L": 90, "W": 80, "H": 80, "priority": 1, "reason": "single_var_L" },
+    { "L": 110, "W": 80, "H": 80, "priority": 1, "reason": "single_var_L" },
+    { "L": 100, "W": 70, "H": 80, "priority": 1, "reason": "single_var_W" },
+    { "L": 100, "W": 80, "H": 70, "priority": 1, "reason": "single_var_H" },
+    { "L": 100, "W": 80, "H": 90, "priority": 1, "reason": "single_var_H" },
+    { "L": 100, "W": 80, "H": 50, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 120, "W": 90, "H": 60, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 300, "W": 200, "H": 150, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 100, "W": 90, "H": 80, "priority": 2, "reason": "single_var_W_skip_if_valid" },
+    { "L": 150, "W": 110, "H": 90, "priority": 3, "reason": "interaction_holdout_candidate" }
+  ],
+  "access_review": {
+    "status": "approved",
+    "terms_evidence_id": "project-policy-perpetual",
+    "robots_evidence_id": "project-policy-perpetual",
+    "authorization_evidence_id": "project-policy-perpetual",
+    "reviewed_at": "2026-11-12T00:00:00+00:00",
+    "perpetual": true
+  },
+  "permissions": {
+    "can_collect_automatically": true,
+    "can_store": true,
+    "can_transform": true,
+    "can_use_internally": true,
+    "can_use_commercially": true,
+    "can_show_public_preview": true,
+    "can_redistribute_files": true
+  },
+  "grant": {
+    "valid_until": null,
+    "perpetual": true,
+    "attribution": "BOXCRAFT project policy: perpetual grant"
+  },
+  "execution": {
+    "dry_run": false,
+    "concurrency": 1,
+    "min_seconds_between_jobs": 10,
+    "max_jobs": 10,
+    "max_total_requests": 250,
+    "max_total_bytes": 104857600,
+    "max_transient_retries": 2,
+    "allow_billable_actions": true,
+    "require_live_flag": true
+  },
+  "stop_on": ["http_403", "access_denied"],
+  "pause_on": ["http_401", "http_429", "session_expired"],
+  "credentials": {
+    "source": "private_local_session",
+    "export_to_manifest": false
+  },
+  "notes": "Default enabled + perpetual grant. CDN crashlock contract via REA evidence + Scrapy runtime."
+}

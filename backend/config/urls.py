@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/v1/', include('apps.exports.urls')),
     path('api/v1/', include('apps.quotes.urls')),
     path('api/v1/', include('apps.orders.urls')),
+    path('api/v1/', include('apps.dieline_library.urls')),
     re_path(r'^api/v1/.*$', ApiNotFoundView.as_view()),
 ]
 

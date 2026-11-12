@@ -1,0 +1,22 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="537.47" height="456.21" viewBox="-1.33333 -1.33333 537.47 456.21">
+	<g transform="translate(-205.477,577.403) scale(1,-1) ">
+		<line x1="740.28" y1="539.607" x2="740.28" y2="161.655" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<line x1="496.5" y1="161.655" x2="496.5" y2="539.607" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+		<line x1="250.831" y1="161.655" x2="250.831" y2="539.607" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+		<line x1="250.831" y1="539.607" x2="205.477" y2="494.253" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<line x1="205.477" y1="494.253" x2="205.477" y2="207.009" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<line x1="205.477" y1="207.009" x2="250.831" y2="161.655" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M250.831,539.607 c74.1369,50.3937 171.532,50.3937 245.669,0" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M593.823,574.167 c15.2021,-8.77692 33.9318,-8.77692 49.1339,0" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M496.5,539.607 c29.32,18.9151 62.6398,30.747 97.3228,34.5594" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M642.957,574.167 c34.683,-3.81235 68.0028,-15.6442 97.3228,-34.5594" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M496.5,539.607 c-74.1369,-50.3937 -171.532,-50.3937 -245.669,0" fill="none" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+		<path d="M740.28,539.607 c-73.4469,-50.3937 -170.333,-50.3937 -243.78,0" fill="none" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+		<path d="M250.831,161.655 c74.1369,-50.3937 171.532,-50.3937 245.669,0" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M593.823,127.095 c15.2021,8.77692 33.9318,8.77692 49.1339,0" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M496.5,161.655 c29.32,-18.9151 62.6398,-30.747 97.3228,-34.5594" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M642.957,127.095 c34.683,3.81235 68.0028,15.6442 97.3228,34.5594" fill="none" stroke="rgb(255,0,0)" stroke-width="1.84361" ev-style="Cutting" ev-style-annotation="false"/>
+		<path d="M496.5,161.655 c-74.1369,50.3937 -171.532,50.3937 -245.669,0" fill="none" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+		<path d="M740.28,161.655 c-73.4469,50.3937 -170.333,50.3937 -243.78,0" fill="none" stroke="rgb(0,255,0)" stroke-width="1.84361" ev-style="Creasing" ev-style-annotation="false"/>
+	</g>
+</svg>

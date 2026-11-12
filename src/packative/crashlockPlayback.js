@@ -3,7 +3,43 @@
  * Does not inject into knife.js / templates.
  */
 
-import { generateCrashlockWithOutline } from '@packative-lab/prototype/crashlock.ts'
+import {
+  generateCrashlockWithOutline,
+  setFitCoeffs,
+} from '@packative-lab/prototype/crashlock.ts'
+import fitCoeffs from '../../research/packative-dieline-lab/data/rules/fit-coeffs.json'
+
+function applyPublishedFitCoeffs() {
+  const w = fitCoeffs.geomWidthUu
+  const h = fitCoeffs.geomHeightUu
+  if (!w || !h) return
+  setFitCoeffs(
+    {
+      a: w.a,
+      b: w.b,
+      c: w.c,
+      d: w.d,
+      e: w.e ?? 0,
+      f: w.f ?? 0,
+      g: w.g ?? 0,
+      model: w.model,
+      note: 'fit-coeffs.json geomWidthUu (Lab playback)',
+    },
+    {
+      a: h.a,
+      b: h.b,
+      c: h.c,
+      d: h.d,
+      e: h.e ?? 0,
+      f: h.f ?? 0,
+      g: h.g ?? 0,
+      model: h.model,
+      note: 'fit-coeffs.json geomHeightUu (Lab playback)',
+    },
+  )
+}
+
+applyPublishedFitCoeffs()
 
 /**
  * @param {{ L:number, W:number, H:number }} params

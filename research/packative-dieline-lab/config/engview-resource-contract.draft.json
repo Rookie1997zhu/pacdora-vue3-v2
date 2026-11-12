@@ -1,0 +1,61 @@
+{
+  "schema_version": "0.1-draft",
+  "status": "research_draft_not_for_live_ingest",
+  "source_id": "packative_engview",
+  "host": "https://cad.packative.com",
+  "notes": [
+    "Phase 0 draft only. Complements dieline.svg CDN contract; does NOT authorize cross-tenant UUID enumeration.",
+    "Collada/textures require EngView resize session; unauthenticated resource fetch → 403 RESOURCE_8 (see docs/packative-research/evidence/cad-collada-headers.txt).",
+    "paid_actions=false; credential_reuse forbidden. Live capture needs explicit human login each research round.",
+    "Map verdict Phase 0: mesh_only — see reports/packative-3d-map-verdict.md",
+    "Live round 2026-11-12: docs/packative-research/evidence/engview-live-100_80_80/ (collada.dae + textures + network-summary.json); structure matches bf9 counts, sha differs; still no Pacdora faces/hinges/foldStages."
+  ],
+  "related_2d_cdn": {
+    "contract_ref": "backend/apps/dieline_library/fixtures/source_contracts/packative_cdn_crashlock.json",
+    "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/{product}/{L}_{W}_{H}/dieline.svg",
+    "anonymous_get": true
+  },
+  "engview": {
+    "product_pilot": "productbox-crashlock",
+    "size_pilot": { "L": 100, "W": 80, "H": 80 },
+    "flow": [
+      "resize-service: create/resume resize session",
+      "get-template-info / resize-template",
+      "resource-service: Collada (model/vnd.collada+xml ~1.17MB)",
+      "resource-service: TextureResource1..4.png (often 307 → /resource-service/api/v1/resource/hash/{sha256})"
+    ],
+    "url_shapes": {
+      "resource_by_session": "https://cad.packative.com/resource-service/api/v1/resource/{sessionId}/{resourceId}",
+      "resource_by_hash": "https://cad.packative.com/resource-service/api/v1/resource/hash/{sha256}",
+      "forbidden": [
+        "Enumerate other tenants' session UUIDs",
+        "Brute-force resource IDs without a session from the same authorized Studio flow",
+        "Store or replay login cookies across agents"
+      ]
+    },
+    "fold_ui": {
+      "control": "slider",
+      "aria_valuemin": 0,
+      "aria_valuemax": 5500,
+      "maps_to": "EngView Collada animation timeline (not Pacdora foldStages)"
+    },
+    "collada_observed": {
+      "panel_nodes": "PanelNN_node_ hierarchy under geometry",
+      "meshes": "SideResource* triangles",
+      "animation_channels": ["rotate", "translate", "BezierPoints", "BezierProps"],
+      "crease_attrs": ["crInfo*", "curvedInfo*"],
+      "local_evidence": [
+        "docs/packative-research/evidence/cad-collada-bf9ac3b1.dae",
+        "docs/packative-research/evidence/cad-tex-bf9-TextureResource1.png",
+        "docs/packative-research/evidence/engview-live-100_80_80/collada.dae",
+        "docs/packative-research/evidence/engview-live-100_80_80/network-summary.json",
+        "docs/packative-research/evidence/engview-live-100_80_80/structure-compare.json"
+      ]
+    }
+  },
+  "ingest_policy": {
+    "lab_2d": "publish:packative-geom from official SVG only",
+    "lab_3d_phase0": "no faces injection; mesh preview deferred to Phase 1 under mesh_only verdict",
+    "dieline_library": "optional archive of SVG; Collada not in default local_manifest publish"
+  }
+}

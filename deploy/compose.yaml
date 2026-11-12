@@ -134,7 +134,7 @@ services:
 
   worker:
     <<: *backend-base
-    command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--queues=default,ai,export,media", "--concurrency=2", "--prefetch-multiplier=1"]
+    command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--queues=default,ai,export,media,import", "--concurrency=2", "--prefetch-multiplier=1"]
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }

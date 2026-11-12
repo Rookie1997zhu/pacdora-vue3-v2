@@ -6,9 +6,25 @@ from pathlib import Path
 
 from django.conf import settings
 
-SCHEMA_PATH = (
-    Path(settings.BASE_DIR).parent / 'packages' / 'design-schema' / 'design-document.v1.schema.json'
-)
+
+def _resolve_schema_path() -> Path:
+    """Locate design-document schema in monorepo or container layouts."""
+    name = 'design-document.v1.schema.json'
+    env = (getattr(settings, 'DESIGN_DOCUMENT_SCHEMA_PATH', None) or '').strip()
+    if env:
+        return Path(env)
+    candidates = [
+        Path(settings.BASE_DIR).parent / 'packages' / 'design-schema' / name,
+        Path('/packages/design-schema') / name,
+        Path(__file__).resolve().parents[3] / 'packages' / 'design-schema' / name,
+    ]
+    for path in candidates:
+        if path.is_file():
+            return path
+    return candidates[0]
+
+
+SCHEMA_PATH = _resolve_schema_path()
 
 
 class DocumentValidationError(Exception):
@@ -18,7 +34,10 @@ class DocumentValidationError(Exception):
 
 
 def _load_schema():
-    with SCHEMA_PATH.open('r', encoding='utf-8') as f:
+    path = _resolve_schema_path()
+    if not path.is_file():
+        raise DocumentValidationError(f'design schema missing: {path}')
+    with path.open('r', encoding='utf-8') as f:
         return json.load(f)
 
 

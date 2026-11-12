@@ -1,0 +1,347 @@
+{
+  "generated_at": "2026-11-12T09:39:46.719942+00:00",
+  "product": "productbox-crashlock",
+  "holdout_frozen": "100x80x90",
+  "validated_unique_from_rules": [
+    "100x70x80",
+    "100x80x70",
+    "100x80x80",
+    "100x80x90",
+    "100x90x80",
+    "110x80x80",
+    "120x90x60",
+    "200x150x100",
+    "55x55x75",
+    "90x80x80"
+  ],
+  "cdn_probe": {
+    "url_example": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_80/dieline.svg",
+    "anonymous_get_100_80_80": "ok_svg_200"
+  },
+  "refetch": {
+    "attempted": false,
+    "reason": "All validated_rules unique sizes already present locally; optional gaps left missing for P1."
+  },
+  "planned_items": [
+    {
+      "group": "baseline",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "key": "100x80x80",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_80_80.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 90,
+      "W": 80,
+      "H": 80,
+      "key": "90x80x80",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-90_80_80.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 110,
+      "W": 80,
+      "H": 80,
+      "key": "110x80x80",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-110_80_80.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 70,
+      "H": 80,
+      "key": "100x70x80",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_70_80.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 90,
+      "H": 80,
+      "key": "100x90x80",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_90_80.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 80,
+      "H": 70,
+      "key": "100x80x70",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_80_70.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "single_var",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "key": "100x80x90",
+      "note": "",
+      "validation_status": "holdout",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_80_90.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "interaction",
+      "L": 110,
+      "W": 90,
+      "H": 80,
+      "key": "110x90x80",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "interaction",
+      "L": 110,
+      "W": 80,
+      "H": 90,
+      "key": "110x80x90",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "interaction",
+      "L": 100,
+      "W": 90,
+      "H": 90,
+      "key": "100x90x90",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "cross_scale",
+      "L": 55,
+      "W": 55,
+      "H": 75,
+      "key": "55x55x75",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-55_55_75.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "cross_scale",
+      "L": 100,
+      "W": 80,
+      "H": 50,
+      "key": "100x80x50",
+      "note": "",
+      "validation_status": "local_unvalidated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-100_80_50.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": false
+    },
+    {
+      "group": "cross_scale",
+      "L": 200,
+      "W": 150,
+      "H": 100,
+      "key": "200x150x100",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-200_150_100.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "cross_scale",
+      "L": 300,
+      "W": 200,
+      "H": 150,
+      "key": "300x200x150",
+      "note": "",
+      "validation_status": "local_unvalidated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-300_200_150.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 25,
+      "W": 25,
+      "H": 25,
+      "key": "25x25x25",
+      "note": "illegal or boundary candidate; verify against limits before use",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 25,
+      "W": 80,
+      "H": 80,
+      "key": "25x80x80",
+      "note": "boundary candidate",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 400,
+      "W": 80,
+      "H": 80,
+      "key": "400x80x80",
+      "note": "upper boundary candidate",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "near_boundary",
+      "L": 100,
+      "W": 350,
+      "H": 80,
+      "key": "100x350x80",
+      "note": "width upper candidate",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "holdout",
+      "L": 120,
+      "W": 90,
+      "H": 60,
+      "key": "120x90x60",
+      "note": "",
+      "validation_status": "validated",
+      "local": {
+        "normalized_path": "data/normalized/studio-dieline-productbox-crashlock-120_90_60.json",
+        "access_denied": false,
+        "appears_valid": true
+      },
+      "in_validated_rules": true
+    },
+    {
+      "group": "holdout",
+      "L": 130,
+      "W": 100,
+      "H": 70,
+      "key": "130x100x70",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "holdout",
+      "L": 150,
+      "W": 110,
+      "H": 90,
+      "key": "150x110x90",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "holdout",
+      "L": 180,
+      "W": 120,
+      "H": 80,
+      "key": "180x120x80",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "holdout",
+      "L": 220,
+      "W": 160,
+      "H": 110,
+      "key": "220x160x110",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    },
+    {
+      "group": "holdout",
+      "L": 95,
+      "W": 75,
+      "H": 85,
+      "key": "95x75x85",
+      "note": "",
+      "validation_status": "missing",
+      "local": null,
+      "in_validated_rules": false
+    }
+  ],
+  "local_extras_not_in_planned": [],
+  "counts": {
+    "planned": 24,
+    "validated": 9,
+    "holdout": 1,
+    "missing": 12,
+    "local_unvalidated": 2
+  }
+}

@@ -236,11 +236,12 @@ export default {
     exportSvg:'SVG 내보내기',
     tagImported:'운송 상자 공식 표지 · 탭하여 샘플 전개도',
     tagOwned:'닫힘 표지 미리보기 · 탭하여 전개도 작업대',
-    tagPackative:'Packative 파라미터 목록 · 검증 규격만 치수 재생',
+    tagPackative:'Packative 공식 샘플 전개도 · 이산 규격 · 치수 잠금',
     loadingGeom:'공식 전개도 불러오는 중…',
+    loadingPackativeGeom:'Packative 공식 SVG 불러오는 중…',
     facesOfficial:'{n}면 · 공식 샘플 전개도',
     facesConcept:'{n}면 개념 위상 · 비생산 전개도',
-    facesPackative:'Packative 프로토타입 2D · 접기 위상 없음'
+    facesPackative:'Packative 공식 샘플 2D · 접기 위상 없음'
   },
   lang:{zh:'中文',ko:'한국어'},
   gallery:{
@@ -337,16 +338,19 @@ export default {
     standardOfficial:'공식 샘플 전개도 · 운송 상자 예외',
     paramGroupFallback:'파라미터',
     packativeEditable:'Packative 프로토타입 · 검증 범위 내 치수 변경(내부 치수)',
+    packativeGeomLocked:'공식 샘플 전개도(Packative SVG) · 치수 잠금 · 이산 규격 시연',
     packativeHoldout:'Holdout 읽기 전용 대조 · 치수 잠금',
     packativeBounds:'검증 범위 L {l0}–{l1} · W {w0}–{w1} · H {h0}–{h1} mm',
-    packativeMeta:'프로토타입 재생 {l}×{w}×{h} mm · {status}',
-    dieline2dPackative:'2D Packative 프로토타입 전개도',
-    pillPackative:'Packative prototype → SVG',
+    packativeMeta:'공식 샘플 {l}×{w}×{h} mm · {status} · {extra}',
+    packativeLayers:'재단 {cuts} · 접선 {folds}',
+    dieline2dPackative:'2D Packative 공식 샘플 전개도',
+    pillPackative:'Packative official SVG → knife.v3',
     no3dTitle:'위상 없음 · 3D 미제공',
-    no3dBody:'Packative 프로토타입은 접을 수 있는 면 위상이 없어 2D SVG 재생만 제공합니다.',
-    exportSvgOnly:'Packative 모드는 프로토타입 SVG만 내보냅니다. DXF/PDF/AI/JSON 사용 불가.',
-    exportPackativeSvg:'프로토타입 SVG 내보내기',
-    packativePrototypePartial:'부분 프로토타입 · 불완전 위상 · manufacturingReady=false'
+    no3dBody:'로컬에 faces/Collada 면 힌지가 없어 공식 SVG는 규격 2D(재단/접선/블리드)만 연결합니다. 가짜 3D를 만들지 않습니다.',
+    exportSvgOnly:'Packative 모드는 규격 2D SVG(toSvgDieline)만 내보냅니다. DXF/PDF/AI/JSON 사용 불가.',
+    exportPackativeSvg:'공식 샘플 SVG 내보내기',
+    packativePrototypePartial:'부분 프로토타입 · 불완전 위상 · manufacturingReady=false',
+    packativeGeomPartial:'공식 샘플 전개도 · 2D 규격 레이어 · 3D 없음 · manufacturingReady=false'
   },
   fold:{
     step:'단계 {now}/{total}',
@@ -368,7 +372,9 @@ export default {
     missingTemplate:'템플릿 {tid}가 없어 「{name}」을(를) 열 수 없습니다.',
     packativeUnvalidated:'「{name}」규격은 미검증입니다. 진입과 묵시적 확장을 금지합니다.',
     packativeOutOfBounds:'치수가 검증 범위를 벗어났습니다. 이전 유효값으로 복원했습니다.',
-    packativePlaybackFail:'Packative 프로토타입 재생 실패: {msg}'
+    packativePlaybackFail:'Packative 프로토타입 재생 실패: {msg}',
+    packativeGeomMissing:'「{name}」에 공식 SVG(geom_rel)가 없어 규격 2D 작업대에 들어갈 수 없습니다.',
+    packativeGeomFail:'Packative 공식 전개도 로드 실패: {msg}'
   },
 
   kind:{

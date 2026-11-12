@@ -326,7 +326,9 @@ onUnmounted(() => {
 
 <style scoped>
 .page{
-  min-height:100vh;
+  height:100vh;
+  max-height:100vh;
+  overflow:hidden;
   display:flex;
   flex-direction:column;
   background:var(--bc-paper);
@@ -383,6 +385,7 @@ onUnmounted(() => {
   gap:12px;
   padding:12px;
   min-height:0;
+  overflow:hidden;
 }
 .side{
   background:var(--bc-paper-elevated);
@@ -390,9 +393,18 @@ onUnmounted(() => {
   border-radius:var(--bc-radius);
   padding:14px;
   overflow:auto;
+  min-height:0;
+  max-height:100%;
 }
 .side.left{padding:10px}
-.canvas-wrap{min-height:0;display:flex;flex-direction:column;gap:8px}
+.canvas-wrap{
+  min-height:0;
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
 h1{margin:0;font-size:18px;font-family:var(--bc-font-display);letter-spacing:-0.02em}
 h2{margin:14px 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--bc-ink-muted)}
 .meta,.hash{margin:0;font-size:12px;color:var(--bc-ink-muted)}
@@ -454,6 +466,8 @@ input,select{
 .outbox-on{color:var(--bc-steel)}
 .pad{padding:32px 20px}
 @media (max-width:1100px){
-  .layout{grid-template-columns:1fr;grid-template-rows:auto 480px auto}
+  .page{height:auto;max-height:none;overflow:auto}
+  .layout{grid-template-columns:1fr;grid-template-rows:auto 480px auto;overflow:visible}
+  .canvas-wrap{height:480px}
 }
 </style>

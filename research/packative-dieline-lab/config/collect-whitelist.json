@@ -2,6 +2,12 @@
   "product": "productbox-crashlock",
   "tenant_uuid_from_local_meta": "ee4e06e4-c9b7-410f-b600-175fb1212729",
   "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/{product}/{L}_{W}_{H}/dieline.svg",
+  "engview_3d_contract_draft": "research/packative-dieline-lab/config/engview-resource-contract.draft.json",
+  "engview_notes": [
+    "3D Collada is session-scoped on cad.packative.com — NOT part of this SVG whitelist GET list.",
+    "Do not enumerate resource/session UUIDs. See engview-resource-contract.draft.json.",
+    "Phase 0 map verdict: mesh_only (reports/packative-3d-map-verdict.md)."
+  ],
   "min_interval_ms": 5000,
   "max_gets": 10,
   "skip_existing_valid": true,

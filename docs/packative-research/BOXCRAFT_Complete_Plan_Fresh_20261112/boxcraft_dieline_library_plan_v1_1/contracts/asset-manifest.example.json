@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "is_example": true,
+  "asset_id": "EXAMPLE-ONLY-NOT-INVENTORY",
+  "asset_kind": "fixed_dieline",
+  "revision_id": "EXAMPLE-r1",
+  "title": {
+    "zh": "示例记录：不是已采集刀版",
+    "ko": null
+  },
+  "family_id": null,
+  "source_template_id": null,
+  "template_revision": null,
+  "dimensions": {
+    "length_mm": 100,
+    "width_mm": 80,
+    "height_mm": 50,
+    "basis": "unknown",
+    "value_origin": "example",
+    "evidence_ids": []
+  },
+  "material": {
+    "name": null,
+    "thickness_mm": null,
+    "direction": null
+  },
+  "source": {
+    "source_id": "example-only",
+    "source_type": "example",
+    "source_url_redacted": null,
+    "source_record_id": null,
+    "captured_at": null,
+    "source_modified_at": null,
+    "evidence_ids": []
+  },
+  "parts": [],
+  "files": [],
+  "rights": {
+    "grant_status": "pending",
+    "grant_id": null,
+    "valid_until": null,
+    "attribution": null,
+    "evidence_ids": [],
+    "permissions": {
+      "can_store": false,
+      "can_transform": false,
+      "can_use_internally": false,
+      "can_use_commercially": false,
+      "can_show_public_preview": false,
+      "can_redistribute_files": false
+    }
+  },
+  "quality": {
+    "publication_status": "staging",
+    "unit_status": "unknown",
+    "technical_status": "unprocessed",
+    "manufacturing_status": "reference_only",
+    "manufacturing_evidence_ids": []
+  },
+  "generator": null,
+  "notes": "Illustrative metadata only. No file, rights grant, source collection, or production approval is supplied."
+}

@@ -1,0 +1,196 @@
+{
+  "generated_at": "2026-11-12T12:00:44.493Z",
+  "manufacturingReady": false,
+  "full_topology_claimed": false,
+  "holdout_frozen": "100x80x90",
+  "catalog": {
+    "total": 12,
+    "by_status": {
+      "validated": 9,
+      "unvalidated": 2,
+      "holdout": 1
+    },
+    "evidence_with_ref": 12,
+    "bounds": {
+      "length": [
+        55,
+        200
+      ],
+      "width": [
+        55,
+        150
+      ],
+      "height": [
+        60,
+        100
+      ]
+    },
+    "enter_rules": {
+      "validated_ok": true,
+      "holdout_ok": true,
+      "unvalidated_blocked": true
+    }
+  },
+  "research_gate_tests": [
+    {
+      "id": "detect_access_denied_stubs",
+      "status": "passed",
+      "note": "excluded_non_dieline_xml stubs; count=2"
+    },
+    {
+      "id": "holdout_envelope_width",
+      "status": "passed",
+      "abs_err_uu": 0.0014479755679985828,
+      "predicted_uu": 1404.091047975568,
+      "observed_uu": 1404.0896,
+      "note": "model=lwh_linear; holdout=100x80x90; see envelope-diagnosis.md"
+    },
+    {
+      "id": "holdout_envelope_height",
+      "status": "passed",
+      "abs_err_uu": 0.0002040000015313126,
+      "predicted_uu": 869.2913959999985,
+      "observed_uu": 869.2916,
+      "note": "model=lwh_interact; holdout=100x80x90; see envelope-diagnosis.md"
+    },
+    {
+      "id": "crease_segment_correspondence",
+      "status": "passed",
+      "note": "min_matched=14; worst_norm=0.0586; worst_uu=98.66; pairs=45"
+    },
+    {
+      "id": "lock_bottom_cutting_correspondence",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=23/23; medianNorm=0.0006; cubicPairs=2; medianCubicNorm=0.0054; curve_exact"
+    },
+    {
+      "id": "top_flap_cutting_correspondence",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=35/35; medianNorm=0.0038; cubicPairs=6; medianCubicNorm=0.0000; curve_exact"
+    },
+    {
+      "id": "body_outline_cutting_correspondence",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=3/3; medianNorm=0.0002; lines_only; cubics_relocated_to_lock_top"
+    },
+    {
+      "id": "structural_cutting_count_correspondence",
+      "status": "passed",
+      "note": "holdout=100x80x90; realStructural=61; proto=61; exportArtifact=2; collapsedLockShelf=0"
+    },
+    {
+      "id": "holdout_full_crashlock_topology",
+      "status": "blocked",
+      "reason": "raw_63_includes_export_zero_length_artifacts_not_emitted"
+    },
+    {
+      "id": "synthetic_svg_emits_ev_style",
+      "status": "passed"
+    },
+    {
+      "id": "material_hooks_identity_at_zero",
+      "status": "passed",
+      "note": "t=k=0 bit-identical; t>0 grows tuck inset; k>0 deepens top tipAdd"
+    }
+  ],
+  "lab_playback": [
+    {
+      "label": "baseline_validated",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "classify": "validated",
+      "widthUu": 1404.0928711004894,
+      "heightUu": 831.4963480000041,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_thickness_unobserved"
+      ],
+      "implemented": [
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
+        "top_dust_flap_cutting_parametric",
+        "tuck_tongue_cutting_parametric",
+        "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
+        "body_outline_outer_edges_parametric",
+        "body_outline_lines_only_cubics_relocated"
+      ],
+      "svgBytes": 9604
+    },
+    {
+      "label": "cross_scale_validated",
+      "L": 55,
+      "W": 55,
+      "H": 75,
+      "classify": "validated",
+      "widthUu": 874.9597150404911,
+      "heightUu": 661.4176999999333,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_thickness_unobserved"
+      ],
+      "implemented": [
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
+        "top_dust_flap_cutting_parametric",
+        "tuck_tongue_cutting_parametric",
+        "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
+        "body_outline_outer_edges_parametric",
+        "body_outline_lines_only_cubics_relocated"
+      ],
+      "svgBytes": 9540
+    },
+    {
+      "label": "holdout",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "classify": "holdout",
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_thickness_unobserved"
+      ],
+      "implemented": [
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "lock_bottom_exact_big_flap_cubics",
+        "top_dust_flap_cutting_parametric",
+        "tuck_tongue_cutting_parametric",
+        "glue_flap_outer_cutting_parametric",
+        "top_exact_body_fillet_cubics",
+        "body_outline_outer_edges_parametric",
+        "body_outline_lines_only_cubics_relocated"
+      ],
+      "svgBytes": 9604
+    }
+  ],
+  "envelope_delta": {
+    "note": "Lab playback + crashlock defaults use fit-coeffs.json (same OLS as validated-rules envelope). Lab pred should match research holdout pred; Δ vs obs is holdout residual.",
+    "lab_holdout_widthUu": 1404.091047975568,
+    "lab_holdout_heightUu": 869.2913959999985,
+    "research_holdout_obsW": 1404.0896,
+    "research_holdout_obsH": 869.2916,
+    "research_holdout_predW": 1404.091047975568,
+    "research_holdout_predH": 869.2913959999985,
+    "abs_delta_lab_vs_obsW": 0.0014479755679985828,
+    "abs_delta_lab_vs_obsH": 0.0002040000015313126
+  },
+  "verdict": {
+    "research_gates_passed": true,
+    "full_topology_blocked": true,
+    "lab_playback_emits_svg": true,
+    "note": "Lab Packative playback is partial prototype SVG; research structural gates passed; full raw-63 topology remains blocked; manufacturingReady=false."
+  }
+}

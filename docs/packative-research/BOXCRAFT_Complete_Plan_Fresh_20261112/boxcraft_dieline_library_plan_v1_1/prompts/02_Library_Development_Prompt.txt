@@ -1,0 +1,39 @@
+# BOXCRAFT Packative Lab 目录与旁路库——开发提示词（V1.2）
+
+## 项目锁定与代码依据（V1.2）
+
+唯一实施项目：当前本地 BOXCRAFT，对应 Rookie1997zhu/pacdora-vue3-v2。
+本轮不开发、不接入、不同步、不迁移到 PackFlow；不得新建它的账号、API、数据库、存储或部署依赖。
+以本地工作区为准；不 clone/pull，不覆盖未提交修改，不自动 commit/push/deploy。
+先检查 git status 与任务进展；保留已有实现。
+
+README：knife 为自有几何；Pacdora 导入目录为尺寸/geom。Packative 主线对齐 Pacdora 进入 Lab。禁止未验证第三方几何注入自有 templates/knife。
+dieline_library 与 /library/dielines 为旁路。API /api/v1/；Caddy 托管 dist；/media 阻断。
+
+在本地增量实现。读取 V1.2 方案。不破坏已有 Lab/自研/Pacdora 能力。
+
+## 主范围（必须）
+
+1. Lab 增加与「已有刀版 / Pacdora 导入尺寸目录」并列的 **Packative** 源（第三页签或等价筛选）。
+2. 目录数据来自 Packative 参数目录（presets 等价物或独立模块），字段含模板 id、LWH、口径、验证状态、证据/规则版本。
+3. 选中后：2D 展开预览；在已验证范围内改尺寸并重算/回放；未验证尺寸明确提示，禁止静默拉伸 SVG。
+4. 首盒型 productbox-crashlock：复用 research/packative-dieline-lab 已通过结构规则/原型；接线可测。
+5. i18n 补齐；无硬编码用户可见文案（调试除外）。
+6. 无折叠拓扑不虚构 3D。
+
+## 旁路范围（可选，不阻塞主线）
+
+- 保留 dieline_library：Family→Variant→Revision、安全预览、权限下载、采集任务。
+- 固定规格只选已存在规格下载；acquisition/rights/manufacturing 三轴分开。
+- 不得把旁路库存数写成 Lab Packative 主线验收通过。
+
+## 数据与安全
+
+- Packative 目录条目标记来源与验证状态；与「固定资产修订」分表或分字段，避免口径混淆。
+- 原始 SVG 不得 v-html；禁脚本/外链；预览用安全派生。
+- 客户/租户数据保持隔离；旁路下载仍后端鉴权。
+- 不把源站签名 URL 直接公开给客户。
+
+## 交付
+
+可运行 Lab Packative 入口、目录样例、与研究台证据的追溯说明、测试说明、缺口列表。不自动 commit。算法研究深化可并行，但不替代 Lab 接线验收。

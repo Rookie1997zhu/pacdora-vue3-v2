@@ -7,7 +7,7 @@ import data from '../../docs/packative_lab_catalog/packative_catalog.json'
 
 export const PACKATIVE_CATALOG = Object.freeze(data)
 
-/** @typedef {{ template_id:string, title_zh:string, title_ko:string, L_mm:number, W_mm:number, H_mm:number, dimension_basis:string, validation_status:'validated'|'holdout'|'unvalidated'|string, rule_or_geom_version?:string, evidence_ref?:string, default_flag?:boolean, sample_group?:string, product_page?:string, cdn_template?:string, id?:string }} PackativeAsset */
+/** @typedef {{ template_id:string, title_zh:string, title_ko:string, L_mm:number, W_mm:number, H_mm:number, dimension_basis:string, validation_status:'validated'|'holdout'|'unvalidated'|string, rule_or_geom_version?:string, evidence_ref?:string, default_flag?:boolean, sample_group?:string, product_page?:string, cdn_template?:string, geom_rel?:string, id?:string }} PackativeAsset */
 
 /** @returns {PackativeAsset[]} */
 export function listPackativeAssets() {
@@ -47,10 +47,15 @@ export function searchPackativeAssets(query = '') {
 
 /**
  * Axis-aligned bounds from validated catalog rows only.
+ * When templateId is set, bounds are scoped to that product (avoids cross-box AABB bleed).
+ * @param {string} [templateId]
  * @returns {{ length:[number,number], width:[number,number], height:[number,number] }|null}
  */
-export function validatedBounds() {
-  const validated = listPackativeAssets().filter((r) => r.validation_status === 'validated')
+export function validatedBounds(templateId) {
+  const tid = templateId != null && String(templateId) !== '' ? String(templateId) : null
+  const validated = listPackativeAssets().filter(
+    (r) => r.validation_status === 'validated' && (!tid || r.template_id === tid),
+  )
   if (!validated.length) return null
   const Ls = validated.map((r) => Number(r.L_mm))
   const Ws = validated.map((r) => Number(r.W_mm))
@@ -69,18 +74,24 @@ function sizeKey(L, W, H) {
 /**
  * Classify a size against catalog rows + validated AABB.
  * Exact holdout row wins; exact unvalidated row → unvalidated; inside AABB → validated; else unvalidated.
+ * Pass templateId so mailerbox/crashlock AABBs do not merge.
+ * @param {number} L
+ * @param {number} W
+ * @param {number} H
+ * @param {string} [templateId]
  * @returns {'validated'|'holdout'|'unvalidated'}
  */
-export function classifySize(L, W, H) {
+export function classifySize(L, W, H, templateId) {
   const key = sizeKey(L, W, H)
-  const list = listPackativeAssets()
+  const tid = templateId != null && String(templateId) !== '' ? String(templateId) : null
+  const list = listPackativeAssets().filter((r) => !tid || r.template_id === tid)
   const exact = list.find((r) => sizeKey(r.L_mm, r.W_mm, r.H_mm) === key)
   if (exact) {
     if (exact.validation_status === 'holdout') return 'holdout'
     if (exact.validation_status === 'unvalidated') return 'unvalidated'
     if (exact.validation_status === 'validated') return 'validated'
   }
-  const b = validatedBounds()
+  const b = validatedBounds(tid)
   if (!b) return 'unvalidated'
   const l = Number(L)
   const w = Number(W)
@@ -101,9 +112,9 @@ export function classifySize(L, W, H) {
   return 'unvalidated'
 }
 
-/** @param {number} L @param {number} W @param {number} H */
-export function isWithinValidatedBounds(L, W, H) {
-  return classifySize(L, W, H) === 'validated'
+/** @param {number} L @param {number} W @param {number} H @param {string} [templateId] */
+export function isWithinValidatedBounds(L, W, H, templateId) {
+  return classifySize(L, W, H, templateId) === 'validated'
 }
 
 /** @param {PackativeAsset|null|undefined} row */

@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import {ref,computed,watch,onMounted,onBeforeUnmount,nextTick} from 'vue'
 import {useI18n} from 'vue-i18n'
 import * as THREE from 'three'
@@ -42,10 +42,12 @@ import {
   validatedBounds,
   classifySize,
   canEnterPackativeRow,
-  playCrashlockPrototype,
+  loadPackativeGeomKnife,
+  clearPackativeGeomCache,
 } from '../packative/index.js'
 import brandLogoUrl from '../assets/brand/boxcraft-logo.png'
 clearPacdoraGeomCache()
+clearPackativeGeomCache()
 function assetUrl(path){return publicAssetUrl(path)}
 
 const {t,locale}=useI18n()
@@ -76,9 +78,9 @@ const thumbMap=ref({}) // templateId -> dataURL
 const proxyThumbMap=ref({}) // preset.id -> dataURL
 const geomThumbMap=ref({}) // preset.id -> 合盖 3D dataURL
 const packativeRow=ref(null)
-const packativeSvg=ref('')
-const packativeSvgUrl=ref('')
-const packativeMeta=ref(null)
+const packativeKnife=ref(null)
+const packativeGeomLoading=ref(false)
+const packativeGeomError=ref('')
 const packativeLastGood=ref({L:100,W:80,H:80})
 let packativeSizeGuard=false
 const thumbsLoading=ref(false)
@@ -126,10 +128,12 @@ const galleryImported=computed(()=>searchImportedPresets(galleryQuery.value||imp
 }))
 const galleryPackative=computed(()=>searchPackativeAssets(galleryQuery.value))
 const packativeCatalogCount=computed(()=>searchPackativeAssets('').length)
-const packativeBounds=computed(()=>validatedBounds())
+const packativeBounds=computed(()=>validatedBounds(packativeRow.value?.template_id))
 const packativeMode=computed(()=>boxTab.value==='packative'&&!!packativeRow.value)
 const packativeHoldoutLocked=computed(()=>packativeMode.value&&packativeRow.value?.validation_status==='holdout')
-const packativeSizeLocked=computed(()=>packativeHoldoutLocked.value)
+/** 官方 geom 同源：离散规格试播，尺寸一律锁定（含 validated） */
+const packativeSizeLocked=computed(()=>packativeMode.value)
+const packativeHasGeom=computed(()=>!!packativeKnife.value?.fromPackativeGeom)
 
 async function ensureThumbs(ids){
   const need=[...new Set(ids.filter(Boolean))].filter(id=>!thumbMap.value[id])
@@ -269,40 +273,52 @@ function packativeCardTitle(row){
   if(row.validation_status==='unvalidated')return t('gallery.titlePackativeUnvalidated')
   return t('gallery.titlePackativeValidated')
 }
-function revokePackativeSvgUrl(){
-  if(packativeSvgUrl.value){
-    URL.revokeObjectURL(packativeSvgUrl.value)
-    packativeSvgUrl.value=''
-  }
-}
 function clearPackativeState(){
   packativeRow.value=null
-  packativeSvg.value=''
-  packativeMeta.value=null
-  revokePackativeSvgUrl()
+  packativeKnife.value=null
+  packativeGeomLoading.value=false
+  packativeGeomError.value=''
 }
-function setPackativeSvg(svg){
-  packativeSvg.value=svg||''
-  revokePackativeSvgUrl()
-  if(!svg)return
-  packativeSvgUrl.value=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}))
-}
-function refreshPackativeSvg(){
-  try{
-    const played=playCrashlockPrototype({L:L.value,W:W.value,H:H.value})
-    setPackativeSvg(played.svg)
-    packativeMeta.value=played
-    packativeLastGood.value={L:L.value,W:W.value,H:H.value}
-    return true
-  }catch(err){
-    showUnmappedToast(t('toast.packativePlaybackFail',{msg:err?.message||String(err)}))
+async function refreshPackativeGeomKnife(){
+  const row=packativeRow.value
+  if(!row)return false
+  const geomRel=String(row.geom_rel||'').replace(/^\//,'')
+  if(!geomRel){
+    packativeKnife.value=null
+    packativeGeomError.value='missing geom_rel'
+    showUnmappedToast(t('toast.packativeGeomMissing',{name:displayPackativeLabel(row)}))
     return false
   }
+  packativeGeomLoading.value=true
+  packativeGeomError.value=''
+  try{
+    packativeKnife.value=await loadPackativeGeomKnife({
+      templateId:row.template_id,
+      L:Number(row.L_mm),
+      W:Number(row.W_mm),
+      H:Number(row.H_mm),
+      geomRel,
+      label:displayPackativeLabel(row),
+    })
+    packativeLastGood.value={L:Number(row.L_mm),W:Number(row.W_mm),H:Number(row.H_mm)}
+    return true
+  }catch(err){
+    packativeKnife.value=null
+    packativeGeomError.value=err?.message||String(err)
+    showUnmappedToast(t('toast.packativeGeomFail',{msg:packativeGeomError.value}))
+    return false
+  }finally{
+    packativeGeomLoading.value=false
+  }
 }
-function enterLabFromPackative(row){
+async function enterLabFromPackative(row){
   if(!row)return
   if(!canEnterPackativeRow(row)){
     showUnmappedToast(t('toast.packativeUnvalidated',{name:displayPackativeLabel(row)}))
+    return
+  }
+  if(!row.geom_rel){
+    showUnmappedToast(t('toast.packativeGeomMissing',{name:displayPackativeLabel(row)}))
     return
   }
   importId.value=''
@@ -317,7 +333,7 @@ function enterLabFromPackative(row){
   W.value=Number(row.W_mm)
   H.value=Number(row.H_mm)
   packativeSizeGuard=false
-  if(!refreshPackativeSvg())return
+  if(!(await refreshPackativeGeomKnife()))return
   screen.value='lab'
   mountLabScene()
 }
@@ -337,9 +353,7 @@ function backToGallery(){
   renderer?.dispose()
   renderer?.domElement?.remove()
   renderer=null;scene=null;camera=null;hinges=[];geomRig=null
-  // 保留 packativeRow 以便页签停留；SVG blob 在离开工位时可释放
-  revokePackativeSvgUrl()
-  packativeSvg.value=''
+  // 保留 packativeRow 以便页签停留；刀版缓存由 packativeKnife 持有
   nextTick(()=>loadGalleryThumbs())
 }
 const L=ref(315),W=ref(202),H=ref(62),thickness=ref(1.5),progress=ref(100),zoom=ref(1),bleed=ref(5)
@@ -397,7 +411,7 @@ const labTitle=computed(()=>{
     return {
       label:displayPackativeLabel(packativeRow.value),
       labelEn:packativeRow.value.template_id,
-      standard:packativeHoldoutLocked.value?t('lab.packativeHoldout'):t('lab.packativeEditable')
+      standard:packativeHoldoutLocked.value?t('lab.packativeHoldout'):t('lab.packativeGeomLocked')
     }
   }
   if(geomMode.value&&activePreset.value){
@@ -514,7 +528,10 @@ const isFlatHeight=computed(()=>{
   return Array.isArray(lim)&&lim[0]===0&&lim[1]===0
 })
 const knife=computed(()=>{
-  if(packativeMode.value)return EMPTY_KNIFE
+  if(packativeMode.value){
+    if(packativeKnife.value)return packativeKnife.value
+    return EMPTY_KNIFE
+  }
   if(geomMode.value){
     if(geomKnife.value)return geomKnife.value
     return EMPTY_KNIFE
@@ -992,8 +1009,8 @@ function packativeExportBase(){
 function downloadSVG(){
   if(isModelOnly.value)return
   if(packativeMode.value){
-    if(!packativeSvg.value)return
-    saveFile(packativeSvg.value,'image/svg+xml',`${packativeExportBase()}.svg`)
+    if(!packativeHasGeom.value)return
+    saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${packativeExportBase()}.svg`)
     return
   }
   saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${exportBase()}.svg`)
@@ -1036,19 +1053,14 @@ watch([L,W,H,thickness,material,sizeMode,fluteDirection,piece,advancedParams],()
   if(screen.value==='lab'&&renderer)remount3D()
 })
 watch([L,W,H],()=>{
+  // 官方 geom：尺寸锁定，禁止连续改尺回放 / 静默拉伸
   if(!packativeMode.value||screen.value!=='lab')return
   if(packativeSizeGuard||packativeSizeLocked.value)return
-  const status=classifySize(L.value,W.value,H.value)
-  if(status!=='validated'){
-    showUnmappedToast(t('toast.packativeOutOfBounds'))
-    packativeSizeGuard=true
-    L.value=packativeLastGood.value.L
-    W.value=packativeLastGood.value.W
-    H.value=packativeLastGood.value.H
-    packativeSizeGuard=false
-    return
-  }
-  refreshPackativeSvg()
+  packativeSizeGuard=true
+  L.value=packativeLastGood.value.L
+  W.value=packativeLastGood.value.W
+  H.value=packativeLastGood.value.H
+  packativeSizeGuard=false
 })
 watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value&&!packativeMode.value)remount3D()})
 watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value&&!packativeMode.value)nextTick(()=>remount3D())})
@@ -1080,7 +1092,6 @@ onMounted(()=>nextTick(()=>{
 }))
 onBeforeUnmount(()=>{
   disposeOutboxScene()
-  revokePackativeSvgUrl()
   cancelAnimationFrame(raf);observer?.disconnect();controls?.dispose();if(group)disposeTree(group);renderer?.dispose();renderer?.domElement?.remove()
 })
 </script>
@@ -1095,8 +1106,8 @@ onBeforeUnmount(()=>{
     </div>
     <template v-if="screen==='lab'">
       <button type="button" class="btn" @click="backToGallery"><ArrowLeft :size="15"/> {{t('nav.boxList')}}</button>
-      <span class="demo-tag">{{packativeMode?t('nav.facesPackative'):(geomMode?(geomLoading?t('nav.loadingGeom'):t('nav.facesOfficial',{n:knife.faces.length})):t('nav.facesConcept',{n:knife.faces.length}))}}</span>
-      <button class="btn dark" :disabled="isModelOnly||(packativeMode&&!packativeSvg)" @click="downloadSVG"><Download :size="15"/> {{packativeMode?t('lab.exportPackativeSvg'):t('nav.exportSvg')}}</button>
+      <span class="demo-tag">{{packativeMode?(packativeGeomLoading?t('nav.loadingPackativeGeom'):t('nav.facesPackative')):(geomMode?(geomLoading?t('nav.loadingGeom'):t('nav.facesOfficial',{n:knife.faces.length})):t('nav.facesConcept',{n:knife.faces.length}))}}</span>
+      <button class="btn dark" :disabled="isModelOnly||(packativeMode&&!packativeHasGeom)" @click="downloadSVG"><Download :size="15"/> {{packativeMode?t('lab.exportPackativeSvg'):t('nav.exportSvg')}}</button>
     </template>
     <template v-else>
       <span class="demo-tag">{{boxTab==='packative'?t('nav.tagPackative'):(boxTab==='imported'?t('nav.tagImported'):t('nav.tagOwned'))}}</span>
@@ -1229,7 +1240,8 @@ onBeforeUnmount(()=>{
 </div></div><div class="section"><div class="eyebrow">{{t('lab.parameters')}}</div><h3>{{t('lab.sizeSettings')}} <span class="unit">mm</span></h3>
 <p v-if="geomMode" class="hint">{{t('lab.sizeLocked')}}</p>
 <p v-else-if="packativeHoldoutLocked" class="hint">{{t('lab.packativeHoldout')}}</p>
-<p v-else-if="packativeMode" class="hint">{{t('lab.packativeEditable')}}</p>
+<p v-else-if="packativeMode" class="hint">{{t('lab.packativeGeomLocked')}}</p>
+<p v-if="packativeMode&&packativeGeomError" class="hint model-only-hint">{{t('lab.geomFail',{msg:packativeGeomError})}}</p>
 <p v-if="packativeMode&&packativeBounds" class="hint dim-meta">{{t('lab.packativeBounds',{l0:packativeBounds.length[0],l1:packativeBounds.length[1],w0:packativeBounds.width[0],w1:packativeBounds.width[1],h0:packativeBounds.height[0],h1:packativeBounds.height[1]})}}</p>
 <div class="field"><label>{{t('lab.sizeMode')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:sizeMode==='inner'}]" :disabled="geomMode||packativeMode" @click="sizeMode='inner'">{{t('lab.inner')}}</button><button type="button" :class="['chip',{selected:sizeMode==='outer'}]" :disabled="geomMode||packativeMode" @click="sizeMode='outer'">{{t('lab.outer')}}</button></div></div>
 <div v-if="pieceOptions.length" class="field"><label>{{t('lab.piece')}}</label>
@@ -1238,9 +1250,9 @@ onBeforeUnmount(()=>{
 </div>
 <p v-if="isModelOnly" class="hint model-only-hint">{{MODEL_ONLY_TEXT}}</p>
 <div v-if="!packativeMode" class="field"><label>{{t('lab.flute')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:fluteDirection==='L'}]" :disabled="geomMode" @click="fluteDirection='L'">{{t('lab.fluteL')}}</button><button type="button" :class="['chip',{selected:fluteDirection==='W'}]" :disabled="geomMode" @click="fluteDirection='W'">{{t('lab.fluteW')}}</button></div></div>
-<div v-for="f in sizeFieldDefs" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="packativeMode?packativeInputLimits.length[0]:template.limits.length[0]" :max="packativeMode?packativeInputLimits.length[1]:template.limits.length[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="packativeMode?packativeInputLimits.width[0]:template.limits.width[0]" :max="packativeMode?packativeInputLimits.width[1]:template.limits.width[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="packativeMode?packativeInputLimits.height[0]:template.limits.height[0]" :max="packativeMode?packativeInputLimits.height[1]:template.limits.height[1]" :disabled="geomMode||packativeSizeLocked||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode"/><b>mm</b></div></div>
+<div v-for="f in sizeFieldDefs" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="packativeMode?packativeInputLimits.length[0]:template.limits.length[0]" :max="packativeMode?packativeInputLimits.length[1]:template.limits.length[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="packativeMode?packativeInputLimits.width[0]:template.limits.width[0]" :max="packativeMode?packativeInputLimits.width[1]:template.limits.width[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="packativeMode?packativeInputLimits.height[0]:template.limits.height[0]" :max="packativeMode?packativeInputLimits.height[1]:template.limits.height[1]" :disabled="geomMode||packativeSizeLocked||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode||packativeMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode||packativeMode"/><b>mm</b></div></div>
 <p v-if="isFlatHeight&&!geomMode&&!packativeMode" class="hint">{{t('lab.flatHint')}}</p>
-<p class="hint dim-meta" v-if="packativeMode">{{t('lab.packativeMeta',{l:L,w:W,h:H,status:packativeBadgeLabel(packativeRow?.validation_status||classifySize(L,W,H))})}}</p>
+<p class="hint dim-meta" v-if="packativeMode">{{t('lab.packativeMeta',{l:L,w:W,h:H,status:packativeBadgeLabel(packativeRow?.validation_status||classifySize(L,W,H,packativeRow?.template_id)),extra:packativeGeomLoading?t('lab.loading'):(packativeGeomError||t('lab.packativeLayers',{cuts:knife.cuts.length,folds:knife.folds.length}))})}}</p>
 <p class="hint dim-meta" v-else-if="geomMode">{{t('lab.sampleSize',{l:L,w:W,h:H,extra:geomLoading?t('lab.loading'):(geomError||t('lab.facesN',{n:knife.faces.length}))})}}</p>
 <p class="hint dim-meta" v-else>{{t('lab.clearance',{il:knife.dimensions.inner.length,iw:knife.dimensions.inner.width,ih:knife.dimensions.inner.height,ol:knife.dimensions.outer.length,ow:knife.dimensions.outer.width,oh:knife.dimensions.outer.height})}}</p>
 <div v-if="hasParamDefs" class="advanced-params">
@@ -1346,9 +1358,9 @@ onBeforeUnmount(()=>{
 <div v-if="!packativeMode" class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div>
 <div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div>
 <template v-if="packativeMode">
-  <button class="btn full" :disabled="!packativeSvg" @click="downloadSVG"><Download :size="15"/> {{t('lab.exportPackativeSvg')}}</button>
+  <button class="btn full" :disabled="!packativeHasGeom" @click="downloadSVG"><Download :size="15"/> {{t('lab.exportPackativeSvg')}}</button>
   <p class="hint">{{t('lab.exportSvgOnly')}}</p>
-  <p class="hint">{{t('lab.packativePrototypePartial')}}</p>
+  <p class="hint">{{t('lab.packativeGeomPartial')}}</p>
 </template>
 <template v-else>
   <button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button>
@@ -1359,7 +1371,7 @@ onBeforeUnmount(()=>{
   <p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p>
 </template>
 </div></aside>
-<main><div class="panels" :class="{'model-only-lab':isModelOnly||packativeMode}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{packativeMode?t('lab.dieline2dPackative'):(geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam'))}}</h3></div><div class="pill">{{packativeMode?t('lab.pillPackative'):(geomMode?t('lab.pillGeom'):t('lab.pillKnife'))}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><img v-if="packativeMode" class="dieline packative-svg-preview" :src="packativeSvgUrl" alt="Packative prototype" :style="{transform:`scale(${zoom})`}"/><svg v-else ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div v-if="!packativeMode" class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div><p v-else class="hint">{{t('lab.packativePrototypePartial')}}</p></section>
+<main><div class="panels" :class="{'model-only-lab':isModelOnly||packativeMode}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{packativeMode?t('lab.dieline2dPackative'):(geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam'))}}</h3></div><div class="pill">{{packativeMode?t('lab.pillPackative'):(geomMode?t('lab.pillGeom'):t('lab.pillKnife'))}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div><p v-if="packativeMode" class="hint">{{t('lab.packativeGeomPartial')}}</p></section>
 <section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{packativeMode?t('lab.no3dTitle'):t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> {{packativeMode?t('lab.pillPackative'):'Three.js'}}</span></div><div v-if="packativeMode" class="scene-area packative-no3d"><div class="packative-no3d-card"><strong>{{t('lab.no3dTitle')}}</strong><p>{{t('lab.no3dBody')}}</p></div></div><template v-else><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></template></section></div>
 <div v-if="outboxEligible&&outboxError" class="panels outbox-panels">
   <section class="panel outbox-error-panel">

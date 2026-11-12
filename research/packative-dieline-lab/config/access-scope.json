@@ -18,12 +18,17 @@
     "local_prototype_generation",
     "unauth_cdn_dieline_svg_whitelist_get",
     "unauth_editor_path_observation_for_crashlock",
-    "browser_assisted_svg_capture_no_login_required"
+    "browser_assisted_svg_capture_no_login_required",
+    "offline_engview_collada_structure_analysis",
+    "document_engview_resource_contract_draft"
   ],
   "forbidden_this_round": [
     "credential_reuse",
     "paid_export_checkout_email",
-    "paid_actions"
+    "paid_actions",
+    "engview_session_uuid_enumeration",
+    "inject_fake_faces_from_svg_creasing",
+    "lab_packative_geomrig_without_map_verdict_faces_hinges_ok"
   ],
   "online_collection_count": 7,
   "last_live_round_note": "2026-11-12 session-assisted: editor opened for sizes 90/110/100_70/100_80_70/100_80_90/120_90_60 (+prior 100_90_80); CDN then served SVG; paid_actions=false; no cart/checkout"

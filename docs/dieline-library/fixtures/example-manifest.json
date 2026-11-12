@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "is_example": true,
+  "provider": "local_manifest",
+  "source": {
+    "source_id": "local_manifest",
+    "source_type": "example"
+  },
+  "assets": [
+    {
+      "is_example": true,
+      "title": { "zh": "示例固定规格（不计库存）", "ko": null },
+      "family_name": "Example Family",
+      "category": "shipping",
+      "source_template_id": "example-crashlock",
+      "template_revision": "1",
+      "dimensions": {
+        "length_mm": 100,
+        "width_mm": 80,
+        "height_mm": 50,
+        "basis": "unknown"
+      },
+      "material": { "name": null, "thickness_mm": null },
+      "files": [{ "path": "example.svg", "mime": "image/svg+xml" }],
+      "rights": {
+        "grant_status": "granted",
+        "permissions": {
+          "can_store": true,
+          "can_transform": false,
+          "can_use_internally": true,
+          "can_use_commercially": false,
+          "can_show_public_preview": true,
+          "can_redistribute_files": true
+        }
+      },
+      "quality": {
+        "publication_status": "published",
+        "manufacturing_status": "reference_only"
+      }
+    }
+  ]
+}

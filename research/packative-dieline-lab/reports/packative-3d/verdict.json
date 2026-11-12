@@ -1,0 +1,26 @@
+{
+  "phase": 0,
+  "date": "2026-11-12",
+  "product": "productbox-crashlock",
+  "size": { "L": 100, "W": 80, "H": 80 },
+  "verdict": "mesh_only",
+  "verdict_exclusive": true,
+  "lab_faces_injected": false,
+  "geomRig_enabled_for_packative": false,
+  "live_capture": {
+    "round": "engview-live-100_80_80",
+    "dir": "docs/packative-research/evidence/engview-live-100_80_80",
+    "collada_sha256": "27adc403ad21824abba0d76fe3ec566693c7c1198444a3f6d5c78f0a425b6fd6",
+    "bf9_sha256": "293230a52677cf0845e4d0eac55675afb485c365ca66a8b0c6079c68a530fdd0",
+    "structure_match_bf9_counts": true,
+    "fold_slider": { "min": 0, "max": 5500, "observed": 5500 }
+  },
+  "evidence_bundle": "research/packative-dieline-lab/reports/packative-3d/evidence-bundle-crashlock-100_80_80.md",
+  "map_verdict_md": "research/packative-dieline-lab/reports/packative-3d-map-verdict.md",
+  "engview_contract_draft": "research/packative-dieline-lab/config/engview-resource-contract.draft.json",
+  "phase1_entry": "readonly_collada_mesh_preview_optional",
+  "notes": [
+    "Fresh live Collada confirms EngView mesh+timeline model; no Pacdora faces/hinges/foldStages extractable.",
+    "Keep packativeGeomKnife faces:[]; do not enable geomRig for Packative."
+  ]
+}
