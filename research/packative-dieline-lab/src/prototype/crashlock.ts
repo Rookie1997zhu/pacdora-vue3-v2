@@ -11,7 +11,12 @@ import {
   DEFAULT_LOCK_PARAMS,
   type LockBottomLayoutUu,
 } from '../geometry/lockBottomFeatures.ts'
-import { buildTopFlapSegments } from '../geometry/topFlapFeatures.ts'
+import {
+  applyTopMaterialHooks,
+  buildTopFlapSegments,
+  DEFAULT_TOP_PARAMS,
+  tipDepthMm,
+} from '../geometry/topFlapFeatures.ts'
 import { buildBodyOutlineSegments } from '../geometry/bodyOutlineFeatures.ts'
 import type { CompactSeg } from '../geometry/segmentMatch.ts'
 
@@ -29,8 +34,9 @@ function materialFromParams(params: CrashlockParams) {
   const thicknessMm = params.thicknessMm ?? 0
   const kerfMm = params.kerfMm ?? 0
   const lockParams = applyMaterialHooks(DEFAULT_LOCK_PARAMS, thicknessMm, kerfMm)
+  const topParams = applyTopMaterialHooks(DEFAULT_TOP_PARAMS, thicknessMm, kerfMm)
   const hooksActive = thicknessMm !== 0 || kerfMm !== 0
-  return { thicknessMm, kerfMm, lockParams, hooksActive }
+  return { thicknessMm, kerfMm, lockParams, topParams, hooksActive }
 }
 
 function materialGapTags(hooksActive: boolean): string[] {
@@ -260,19 +266,19 @@ function generateCrashlockPartialSlices(
   opts: { includeOutline: boolean },
 ): PrototypeResult {
   const { L, W, H } = params
-  const { lockParams, hooksActive } = materialFromParams(params)
+  const { lockParams, topParams, hooksActive } = materialFromParams(params)
   const widthUu = predLinear(GEOM_WIDTH_UU, L, W, H)
   const heightUu = predLinear(GEOM_HEIGHT_UU, L, W, H)
   const mmPerUuCandidate = 25.4 / 96
   const built = buildLockBottomSegments(L, W, H, lockParams, { omitTopCreaseStubs: true })
-  const top = buildTopFlapSegments(built.layout)
+  const top = buildTopFlapSegments(built.layout, topParams)
   const outline = opts.includeOutline
     ? buildBodyOutlineSegments(built.layout)
     : { cutting: [] as CompactSeg[], curveApprox: true, filletsExact: false }
   const cutting = [...built.cutting, ...top.cutting, ...outline.cutting]
   const creasing = [...built.creasing, ...top.creasingExtra]
   const segs = [...cutting, ...creasing]
-  const tipExtra = tipDepthForView(W) * (96 / 25.4)
+  const tipExtra = tipDepthMm(W, topParams) * (96 / 25.4)
   const maxX = Math.max(widthUu, built.layout.x4 + 20)
   const maxY = Math.max(heightUu, built.layout.yBodyTop + tipExtra + 40)
   const filletsExact = Boolean(built.filletsExactBigFlap && top.filletsExactTop)
@@ -298,13 +304,15 @@ function generateCrashlockPartialSlices(
     implemented.push('body_outline_outer_edges_parametric')
     implemented.push('body_outline_lines_only_cubics_relocated')
   }
-  if (hooksActive) implemented.push('material_hooks_thickness_kerf_unvalidated')
+  if (hooksActive) {
+    implemented.push('material_hooks_thickness_kerf_unvalidated')
+    implemented.push('top_tuck_inset_thickness_hook_unvalidated')
+  }
   const gaps = opts.includeOutline
     ? [
         'zero_length_degenerate_segments_omitted',
         'full_63_cutting_topology_not_claimed',
         ...materialGapTags(hooksActive),
-        'top_flap_tuck_inset_thickness_hook_not_wired',
       ]
     : [
         'body_side_outer_and_back_top_edge_not_closed',
@@ -329,6 +337,3 @@ function generateCrashlockPartialSlices(
   }
 }
 
-function tipDepthForView(W: number): number {
-  return 0.6 * W + 1
-}

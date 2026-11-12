@@ -1,6 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { applyMaterialHooks, DEFAULT_LOCK_PARAMS } from '../geometry/lockBottomFeatures.ts'
+import {
+  applyTopMaterialHooks,
+  DEFAULT_TOP_PARAMS,
+  tipDepthMm,
+} from '../geometry/topFlapFeatures.ts'
 import { generateCrashlockWithOutline, setFitCoeffs } from '../prototype/crashlock.ts'
 import { dataRules, reportsDir } from '../paths.ts'
 
@@ -48,12 +53,16 @@ export function runThicknessSensitivity() {
   const baseCreasing = baseline.creasing?.length ?? 0
   const baseYBodyTop = baseline.layout?.yBodyTop ?? null
   const baseTip = baseline.layout?.tipDepthMm ?? null
+  const baseTop = applyTopMaterialHooks(DEFAULT_TOP_PARAMS, 0, 0)
+  const baseTopTipDepth = tipDepthMm(W, baseTop)
 
   const rows = []
   for (const thicknessMm of THICKNESS_GRID) {
     for (const kerfMm of KERF_GRID) {
       const proto = generateCrashlockWithOutline({ L, W, H, thicknessMm, kerfMm })
       const hooked = applyMaterialHooks(DEFAULT_LOCK_PARAMS, thicknessMm, kerfMm)
+      const topHooked = applyTopMaterialHooks(DEFAULT_TOP_PARAMS, thicknessMm, kerfMm)
+      const topTipDepth = tipDepthMm(W, topHooked)
       rows.push({
         thicknessMm,
         kerfMm,
@@ -66,10 +75,18 @@ export function runThicknessSensitivity() {
         bodyExtraHMm: hooked.bodyExtraHMm,
         tipAddMm: hooked.tipAddMm,
         bigAddMm: hooked.bigAddMm,
+        tuckOuterInsetMm: topHooked.tuckOuterInsetMm,
+        tuckInnerInsetMm: topHooked.tuckInnerInsetMm,
+        topTipAddMm: topHooked.tipAddMm,
+        topTipDepthMm: topTipDepth,
         deltaCutting: (proto.cutting?.length ?? 0) - baseCutting,
         deltaCreasing: (proto.creasing?.length ?? 0) - baseCreasing,
         deltaYBodyTopUu: baseYBodyTop != null && proto.layout ? proto.layout.yBodyTop - baseYBodyTop : null,
         deltaTipDepthMm: baseTip != null && proto.layout ? proto.layout.tipDepthMm - baseTip : null,
+        deltaTuckOuterInsetMm: topHooked.tuckOuterInsetMm - baseTop.tuckOuterInsetMm,
+        deltaTuckInnerInsetMm: topHooked.tuckInnerInsetMm - baseTop.tuckInnerInsetMm,
+        deltaTopTipAddMm: topHooked.tipAddMm - baseTop.tipAddMm,
+        deltaTopTipDepthMm: topTipDepth - baseTopTipDepth,
         hooksActive: thicknessMm !== 0 || kerfMm !== 0,
         gaps: proto.gaps,
       })
@@ -84,6 +101,7 @@ export function runThicknessSensitivity() {
       'All normalized samples still have inferred.thickness = null',
       't=0,k=0 must match default prototype (identity)',
       'Empirical bodyExtraHMm=0.5 competes with a hypothetical thicknessMm=0.5; equivalence is NOT proven',
+      'Top tuck insets grow with thicknessMm; top tipAdd grows with kerfMm/2',
       `holdout=${holdoutKey}`,
     ],
     holdout: holdoutKey,
@@ -104,6 +122,16 @@ export function runThicknessSensitivity() {
         status: 'unvalidated_hook',
         note: 'Conservative single-point research hook; not validated against cutter data.',
       },
+      {
+        claim: 'thicknessMm → tuckOuter/InnerInset equals fitted board clearance',
+        status: 'unvalidated_hook',
+        note: 'Sensitivity only; samples have no caliper. Does not touch dust/fillet/glue.',
+      },
+      {
+        claim: 'kerfMm/2 → top tipAddMm equals production top tip kerf',
+        status: 'unvalidated_hook',
+        note: 'Mirrors lock half-kerf; unvalidated.',
+      },
     ],
     identity: {
       thicknessMm: 0,
@@ -123,7 +151,8 @@ export function runThicknessSensitivity() {
 
 ## Scope
 - Holdout \`${holdoutKey}\` (\`${L}×${W}×${H}\`)
-- Hooks: \`thicknessMm\` → \`bodyExtraHMm\`; \`kerfMm/2\` → \`tipAddMm\` + \`bigAddMm\`
+- Lock: \`thicknessMm\` → \`bodyExtraHMm\`; \`kerfMm/2\` → lock \`tipAddMm\` + \`bigAddMm\`
+- Top: \`thicknessMm\` → \`tuckOuter/InnerInsetMm\`; \`kerfMm/2\` → top \`tipAddMm\`
 - **Not** a fitted paper-caliper rule; samples still \`thickness: null\`
 
 ## Identity (\`t=0,k=0\`)
@@ -136,17 +165,17 @@ export function runThicknessSensitivity() {
 ${out.competitive_explanations.map((c) => `| ${c.claim} | ${c.status} |`).join('\n')}
 
 ## Grid
-| t mm | k mm | cuts | ΔyBodyTop uu | ΔtipDepth mm | bodyExtraH | tipAdd | bigAdd |
-|---:|---:|---:|---:|---:|---:|---:|---:|
+| t mm | k mm | cuts | ΔyBodyTop uu | ΔlockTip mm | tuckOut | tuckIn | topTipAdd | ΔtopTip mm |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 ${rows
   .map(
     (r) =>
-      `| ${r.thicknessMm} | ${r.kerfMm} | ${r.cutting} | ${r.deltaYBodyTopUu == null ? '—' : r.deltaYBodyTopUu.toFixed(3)} | ${r.deltaTipDepthMm == null ? '—' : r.deltaTipDepthMm.toFixed(3)} | ${r.bodyExtraHMm} | ${r.tipAddMm} | ${r.bigAddMm} |`,
+      `| ${r.thicknessMm} | ${r.kerfMm} | ${r.cutting} | ${r.deltaYBodyTopUu == null ? '—' : r.deltaYBodyTopUu.toFixed(3)} | ${r.deltaTipDepthMm == null ? '—' : r.deltaTipDepthMm.toFixed(3)} | ${r.tuckOuterInsetMm.toFixed(2)} | ${r.tuckInnerInsetMm.toFixed(2)} | ${r.topTipAddMm.toFixed(2)} | ${r.deltaTopTipDepthMm.toFixed(3)} |`,
   )
   .join('\n')}
 
 ## Notes
-- Top-flap / outline fillet thickness hooks are **not** wired in this slice.
+- Dust / fillet / glue thickness hooks remain unwired.
 - Do not treat this report as production kerf/caliper validation.
 `
   fs.writeFileSync(path.join(reportsDir, 'thickness-sensitivity.md'), md)

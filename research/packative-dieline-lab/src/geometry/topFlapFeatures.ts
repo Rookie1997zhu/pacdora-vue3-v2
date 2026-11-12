@@ -52,6 +52,27 @@ export const DEFAULT_TOP_PARAMS: TopFlapParamsMm = {
   dustInsetLK: 0.193,
 }
 
+/**
+ * Research-only top material hooks. Defaults t=k=0 leave params identical.
+ * - thicknessMm → tuckOuterInsetMm / tuckInnerInsetMm (clearance grows with board)
+ * - kerfMm → tipAddMm += k/2 (top tip depth; mirrors lock half-kerf)
+ * Does not touch dust / fillet / glue chamfers.
+ */
+export function applyTopMaterialHooks(
+  base: TopFlapParamsMm,
+  thicknessMm = 0,
+  kerfMm = 0,
+): TopFlapParamsMm {
+  const t = Number.isFinite(thicknessMm) ? thicknessMm : 0
+  const k = Number.isFinite(kerfMm) ? kerfMm : 0
+  return {
+    ...base,
+    tuckOuterInsetMm: base.tuckOuterInsetMm + t,
+    tuckInnerInsetMm: base.tuckInnerInsetMm + t,
+    tipAddMm: base.tipAddMm + k / 2,
+  }
+}
+
 export function tipDepthMm(W: number, p: TopFlapParamsMm = DEFAULT_TOP_PARAMS): number {
   return p.tipK * W + p.tipAddMm
 }

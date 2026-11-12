@@ -13,10 +13,10 @@
 - Zero-length Class A = `exportArtifact` (maxX∩bodyBottom); Class B = `collapsedLockShelf` (kept in structural)
 - Structural cutting = raw − Class A only (**61**)
 - Material hooks: optional `thicknessMm` / `kerfMm` (default 0); **unvalidated** sensitivity only
+- Top tuck inset hooks: `thicknessMm` → tuck insets; `kerfMm/2` → top tipAdd (**unvalidated**)
 
 ## Not implemented (explicit / optional later)
 - Fitted paper-caliper / production kerf coefficients (samples still `thickness: null`)
-- Top-flap tuck inset thickness wiring
 - BOXCRAFT production wiring (Vue/Django)
 - Emitting Class A zero-length stubs to fake raw 63
 

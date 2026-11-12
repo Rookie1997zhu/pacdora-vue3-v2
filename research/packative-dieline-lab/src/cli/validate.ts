@@ -7,6 +7,11 @@ import {
   generateCrashlockWithTopFlaps,
   setFitCoeffs,
 } from '../prototype/crashlock.ts'
+import {
+  applyTopMaterialHooks,
+  DEFAULT_TOP_PARAMS,
+  tipDepthMm as topTipDepthMmFn,
+} from '../geometry/topFlapFeatures.ts'
 import { dataRules, labRoot, reportsDir } from '../paths.ts'
 
 function privacyScan(root: string) {
@@ -222,6 +227,8 @@ export function runValidate() {
   const synOutlineZero = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 0, kerfMm: 0 })
   const synOutlineBare = generateCrashlockWithOutline({ L: 100, W: 80, H: 90 })
   const synOutlineThick = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 1, kerfMm: 0.2 })
+  const synOutlineTOnly = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 1, kerfMm: 0 })
+  const synOutlineKOnly = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 0, kerfMm: 0.2 })
   const segsEqual = (a?: { lengthUu: number; p0: unknown; p1: unknown }[], b?: typeof a) => {
     if (!a || !b || a.length !== b.length) return false
     for (let i = 0; i < a.length; i++) {
@@ -236,6 +243,40 @@ export function runValidate() {
     }
     return true
   }
+  // Detect top tip depth (kerf) and left tuck outer inset (thickness) via tip-band geometry.
+  const maxCuttingY = (cuts?: { p0: { x: number; y: number } | null; p1: { x: number; y: number } | null }[]) => {
+    let m = -Infinity
+    for (const s of cuts || []) {
+      if (s.p0) m = Math.max(m, s.p0.y)
+      if (s.p1) m = Math.max(m, s.p1.y)
+    }
+    return m
+  }
+  const leftTuckOuterAtTip = (
+    cuts: { p0: { x: number; y: number } | null; p1: { x: number; y: number } | null }[] | undefined,
+  ) => {
+    const tipY = maxCuttingY(cuts)
+    let minX = Infinity
+    for (const s of cuts || []) {
+      for (const p of [s.p0, s.p1]) {
+        // Exclude glue column (x≈0); left tuck outer lives on first L-panel.
+        if (!p || Math.abs(p.y - tipY) > 2 || p.x < 40) continue
+        minX = Math.min(minX, p.x)
+      }
+    }
+    return minX
+  }
+  const bareMaxY = maxCuttingY(synOutlineBare.cutting)
+  const kMaxY = maxCuttingY(synOutlineKOnly.cutting)
+  const bareTuckX = leftTuckOuterAtTip(synOutlineBare.cutting)
+  const tTuckX = leftTuckOuterAtTip(synOutlineTOnly.cutting)
+  const topT = applyTopMaterialHooks(DEFAULT_TOP_PARAMS, 1, 0)
+  const topK = applyTopMaterialHooks(DEFAULT_TOP_PARAMS, 0, 0.2)
+  const topHookParamsOk =
+    topT.tuckOuterInsetMm > DEFAULT_TOP_PARAMS.tuckOuterInsetMm &&
+    topT.tuckInnerInsetMm > DEFAULT_TOP_PARAMS.tuckInnerInsetMm &&
+    topK.tipAddMm > DEFAULT_TOP_PARAMS.tipAddMm &&
+    topTipDepthMmFn(80, topK) > topTipDepthMmFn(80, DEFAULT_TOP_PARAMS)
   tests.push({
     id: 'material_hooks_identity_at_zero',
     kind: 'synthetic',
@@ -244,10 +285,13 @@ export function runValidate() {
       segsEqual(synOutlineZero.cutting, synOutlineBare.cutting) &&
       segsEqual(synOutlineZero.creasing, synOutlineBare.creasing) &&
       (synOutlineThick.layout?.yBodyTop ?? 0) > (synOutlineBare.layout?.yBodyTop ?? 0) &&
-      (synOutlineThick.layout?.tipDepthMm ?? 0) > (synOutlineBare.layout?.tipDepthMm ?? 0)
+      (synOutlineThick.layout?.tipDepthMm ?? 0) > (synOutlineBare.layout?.tipDepthMm ?? 0) &&
+      topHookParamsOk &&
+      kMaxY > bareMaxY &&
+      tTuckX > bareTuckX
         ? 'passed'
         : 'failed',
-    note: 't=k=0 bit-identical to bare params; t>0/k>0 moves bodyExtraH/tip hooks',
+    note: 't=k=0 bit-identical; t>0 grows tuck inset; k>0 deepens top tipAdd',
   })
 
   const online = JSON.parse(fs.readFileSync(path.join(reportsDir, 'online-collect-log.json'), 'utf8'))
@@ -328,7 +372,7 @@ ${tests
 1. **Lab mainline closed** (structural crashlock research). Holdout \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
 2. Gates — lock: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
 3. Full topology remains **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\`) — intentional; see \`PHASE-CLOSEOUT.md\`.
-4. Thickness/kerf hooks exist as **unvalidated sensitivity** (see \`thickness-sensitivity.md\`); coefficients still unobserved. Optional later: BOXCRAFT production wiring — still not production.
+4. Thickness/kerf hooks (lock bodyExtraH + tip/bigAdd; top tuck insets + tipAdd) are **unvalidated sensitivity**; coefficients still unobserved. Optional later: BOXCRAFT production wiring — still not production.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`; do not emit fake zero-length stubs.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

@@ -21,7 +21,7 @@
 | structural_cutting_count_correspondence | real_sample | **passed** | holdout=100x80x90; realStructural=61; proto=61; exportArtifact=2; collapsedLockShelf=0 |
 | holdout_full_crashlock_topology | real_sample | **blocked** | raw_63_includes_export_zero_length_artifacts_not_emitted |
 | synthetic_svg_emits_ev_style | synthetic | **passed** |  |
-| material_hooks_identity_at_zero | synthetic | **passed** | t=k=0 bit-identical to bare params; t>0/k>0 moves bodyExtraH/tip hooks |
+| material_hooks_identity_at_zero | synthetic | **passed** | t=k=0 bit-identical; t>0 grows tuck inset; k>0 deepens top tipAdd |
 
 ## Privacy scan
 - hits: none

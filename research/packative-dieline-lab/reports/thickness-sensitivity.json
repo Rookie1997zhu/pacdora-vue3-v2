@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-11-12T04:07:36.056Z",
+  "generated_at": "2026-11-12T04:19:07.159Z",
   "notes": [
     "Research sensitivity catalog only — thickness/kerf coefficients are NOT fitted from samples",
     "All normalized samples still have inferred.thickness = null",
     "t=0,k=0 must match default prototype (identity)",
     "Empirical bodyExtraHMm=0.5 competes with a hypothetical thicknessMm=0.5; equivalence is NOT proven",
+    "Top tuck insets grow with thicknessMm; top tipAdd grows with kerfMm/2",
     "holdout=100x80x90"
   ],
   "holdout": "100x80x90",
@@ -28,6 +29,16 @@
       "claim": "kerfMm half-applied to tipAdd/bigAdd is production kerf",
       "status": "unvalidated_hook",
       "note": "Conservative single-point research hook; not validated against cutter data."
+    },
+    {
+      "claim": "thicknessMm → tuckOuter/InnerInset equals fitted board clearance",
+      "status": "unvalidated_hook",
+      "note": "Sensitivity only; samples have no caliper. Does not touch dust/fillet/glue."
+    },
+    {
+      "claim": "kerfMm/2 → top tipAddMm equals production top tip kerf",
+      "status": "unvalidated_hook",
+      "note": "Mirrors lock half-kerf; unvalidated."
     }
   ],
   "identity": {
@@ -50,16 +61,23 @@
       "bodyExtraHMm": 0.5,
       "tipAddMm": 5,
       "bigAddMm": 10.5,
+      "tuckOuterInsetMm": 2.57,
+      "tuckInnerInsetMm": 2,
+      "topTipAddMm": 1,
+      "topTipDepthMm": 49,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 0,
       "deltaTipDepthMm": 0,
+      "deltaTuckOuterInsetMm": 0,
+      "deltaTuckInnerInsetMm": 0,
+      "deltaTopTipAddMm": 0,
+      "deltaTopTipDepthMm": 0,
       "hooksActive": false,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_thickness_unobserved",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_thickness_unobserved"
       ]
     },
     {
@@ -74,16 +92,23 @@
       "bodyExtraHMm": 0.5,
       "tipAddMm": 5.1,
       "bigAddMm": 10.6,
+      "tuckOuterInsetMm": 2.57,
+      "tuckInnerInsetMm": 2,
+      "topTipAddMm": 1.1,
+      "topTipDepthMm": 49.1,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 0.37795275590553956,
       "deltaTipDepthMm": 0.10000000000000142,
+      "deltaTuckOuterInsetMm": 0,
+      "deltaTuckInnerInsetMm": 0,
+      "deltaTopTipAddMm": 0.10000000000000009,
+      "deltaTopTipDepthMm": 0.10000000000000142,
       "hooksActive": true,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_hooks_applied_unvalidated",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_hooks_applied_unvalidated"
       ]
     },
     {
@@ -98,16 +123,23 @@
       "bodyExtraHMm": 1,
       "tipAddMm": 5,
       "bigAddMm": 10.5,
+      "tuckOuterInsetMm": 3.07,
+      "tuckInnerInsetMm": 2.5,
+      "topTipAddMm": 1,
+      "topTipDepthMm": 49,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 1.8897637795274704,
       "deltaTipDepthMm": 0,
+      "deltaTuckOuterInsetMm": 0.5,
+      "deltaTuckInnerInsetMm": 0.5,
+      "deltaTopTipAddMm": 0,
+      "deltaTopTipDepthMm": 0,
       "hooksActive": true,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_hooks_applied_unvalidated",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_hooks_applied_unvalidated"
       ]
     },
     {
@@ -122,16 +154,23 @@
       "bodyExtraHMm": 1,
       "tipAddMm": 5.1,
       "bigAddMm": 10.6,
+      "tuckOuterInsetMm": 3.07,
+      "tuckInnerInsetMm": 2.5,
+      "topTipAddMm": 1.1,
+      "topTipDepthMm": 49.1,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 2.26771653543301,
       "deltaTipDepthMm": 0.10000000000000142,
+      "deltaTuckOuterInsetMm": 0.5,
+      "deltaTuckInnerInsetMm": 0.5,
+      "deltaTopTipAddMm": 0.10000000000000009,
+      "deltaTopTipDepthMm": 0.10000000000000142,
       "hooksActive": true,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_hooks_applied_unvalidated",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_hooks_applied_unvalidated"
       ]
     },
     {
@@ -146,16 +185,23 @@
       "bodyExtraHMm": 1.5,
       "tipAddMm": 5,
       "bigAddMm": 10.5,
+      "tuckOuterInsetMm": 3.57,
+      "tuckInnerInsetMm": 3,
+      "topTipAddMm": 1,
+      "topTipDepthMm": 49,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 3.7795275590550546,
       "deltaTipDepthMm": 0,
+      "deltaTuckOuterInsetMm": 1,
+      "deltaTuckInnerInsetMm": 1,
+      "deltaTopTipAddMm": 0,
+      "deltaTopTipDepthMm": 0,
       "hooksActive": true,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_hooks_applied_unvalidated",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_hooks_applied_unvalidated"
       ]
     },
     {
@@ -170,16 +216,23 @@
       "bodyExtraHMm": 1.5,
       "tipAddMm": 5.1,
       "bigAddMm": 10.6,
+      "tuckOuterInsetMm": 3.57,
+      "tuckInnerInsetMm": 3,
+      "topTipAddMm": 1.1,
+      "topTipDepthMm": 49.1,
       "deltaCutting": 0,
       "deltaCreasing": 0,
       "deltaYBodyTopUu": 4.157480314960594,
       "deltaTipDepthMm": 0.10000000000000142,
+      "deltaTuckOuterInsetMm": 1,
+      "deltaTuckInnerInsetMm": 1,
+      "deltaTopTipAddMm": 0.10000000000000009,
+      "deltaTopTipDepthMm": 0.10000000000000142,
       "hooksActive": true,
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_hooks_applied_unvalidated",
-        "top_flap_tuck_inset_thickness_hook_not_wired"
+        "material_hooks_applied_unvalidated"
       ]
     }
   ]
