@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from django.conf import settings
 
+from apps.ai_jobs.config_store import resolved_settings
 from apps.ai_jobs.models import AiJob
 
 
@@ -12,15 +13,23 @@ IMPLEMENTED = {
 
 
 def provider_name() -> str:
-    return (getattr(settings, 'AI_PROVIDER', 'disabled') or 'disabled').strip().lower()
+    return resolved_settings()['provider']
 
 
 def api_key() -> str:
-    return (getattr(settings, 'AI_API_KEY', '') or '').strip()
+    return resolved_settings()['api_key']
 
 
 def model_name() -> str:
-    return (getattr(settings, 'AI_MODEL', '') or '').strip()
+    return resolved_settings()['model']
+
+
+def gemini_base_url() -> str:
+    return resolved_settings()['gemini_base_url']
+
+
+def openai_images_url() -> str:
+    return resolved_settings()['openai_images_url']
 
 
 def image_generate_available() -> tuple[bool, str]:
@@ -28,7 +37,6 @@ def image_generate_available() -> tuple[bool, str]:
     if name in ('', 'disabled'):
         return False, 'provider_disabled'
     if name == 'test':
-        # deterministic local provider for tests / DEBUG
         if getattr(settings, 'DEBUG', False) or getattr(settings, 'AI_ALLOW_TEST_PROVIDER', False):
             return True, ''
         return False, 'test_provider_not_allowed'

@@ -15,7 +15,7 @@ docker compose --env-file deploy/.env -f deploy/compose.yaml exec backend \
   python manage.py seed_catalog
 docker compose --env-file deploy/.env -f deploy/compose.yaml exec backend \
   python manage.py createsuperuser
-# 或创建冒烟专用用户（email/password 与 deploy/.env 中 SMOKE_* 一致）
+# 超管用于自研控制台 /console（已移除 Django Admin）；也可创建冒烟用户（SMOKE_*）
 ```
 
 冒烟（Caddy `:80`，Host 需匹配 `SITE_ADDRESS`）：
@@ -102,7 +102,7 @@ python -m venv .venv
 pip install -r requirements.txt
 set DJANGO_SETTINGS_MODULE=config.settings.development
 python manage.py migrate
-python manage.py createsuperuser
+python manage.py createsuperuser  # 登录 /console（已移除 Django Admin）
 python manage.py runserver 0.0.0.0:8000
 
 # 终端 3：Vite

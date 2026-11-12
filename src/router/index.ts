@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 
 const rootHome = import.meta.env.VITE_ROOT_HOME === '1'
 
@@ -87,7 +88,94 @@ const router = createRouter({
       name: 'order-detail',
       component: () => import('../pages/OrderDetailPage.vue'),
     },
+    {
+      path: '/console',
+      name: 'console-overview',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleOverviewPage.vue'),
+    },
+    {
+      path: '/console/users',
+      name: 'console-users',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleUsersPage.vue'),
+    },
+    {
+      path: '/console/orgs',
+      name: 'console-orgs',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleOrgsPage.vue'),
+    },
+    {
+      path: '/console/catalog',
+      name: 'console-catalog',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleCatalogPage.vue'),
+    },
+    {
+      path: '/console/designs',
+      name: 'console-designs',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleDesignsPage.vue'),
+    },
+    {
+      path: '/console/exports',
+      name: 'console-exports',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleExportsPage.vue'),
+    },
+    {
+      path: '/console/orders',
+      name: 'console-orders',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleOrdersPage.vue'),
+    },
+    {
+      path: '/console/quotes',
+      name: 'console-quotes',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleQuotesPage.vue'),
+    },
+    {
+      path: '/console/dielines',
+      name: 'console-dielines',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleDielinesPage.vue'),
+    },
+    {
+      path: '/console/assets',
+      name: 'console-assets',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleAssetsPage.vue'),
+    },
+    {
+      path: '/console/ai',
+      name: 'console-ai',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleAiPage.vue'),
+    },
+    {
+      path: '/console/audit',
+      name: 'console-audit',
+      meta: { requiresStaff: true },
+      component: () => import('../pages/console/ConsoleAuditPage.vue'),
+    },
   ],
+})
+
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresStaff) return true
+  const auth = useAuthStore()
+  if (!auth.loaded) {
+    await auth.refreshMe()
+  }
+  if (!auth.user) {
+    return { path: '/account/login', query: { next: to.fullPath } }
+  }
+  if (!auth.user.is_staff) {
+    return { path: '/home' }
+  }
+  return true
 })
 
 export default router

@@ -10,7 +10,6 @@ DEBUG = False
 ALLOWED_HOSTS = [h for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') if h]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -30,6 +29,7 @@ INSTALLED_APPS = [
     'apps.quotes',
     'apps.orders',
     'apps.dieline_library',
+    'apps.console',
 ]
 
 MIDDLEWARE = [

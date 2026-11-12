@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @shared_task(name='assets.generate_thumbnail', bind=True, max_retries=3, queue='media')
-def generate_thumbnail(self, asset_id: str):
+def generate_thumbnail(self, asset_id: str, force: bool = False):
     from apps.assets.models import Asset, AssetDerivative
     from apps.assets.services import (
         AssetUploadError,
@@ -30,8 +30,13 @@ def generate_thumbnail(self, asset_id: str):
             return {'asset_id': asset_id, 'skipped': 'unsupported_mime'}
 
         existing = AssetDerivative.objects.filter(asset=asset, kind=THUMB_KIND).first()
-        if existing and derivative_absolute_path(existing).exists():
+        if existing and derivative_absolute_path(existing).exists() and not force:
             return {'asset_id': asset_id, 'skipped': 'exists'}
+        if existing and force:
+            path = derivative_absolute_path(existing)
+            if path.exists():
+                path.unlink(missing_ok=True)
+            existing.delete()
 
         data = render_thumbnail_bytes(asset)
         store_derivative_bytes(

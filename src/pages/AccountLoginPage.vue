@@ -20,13 +20,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { ApiError } from '../api/client'
 import AppShell from '../components/layout/AppShell.vue'
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const route = useRoute()
 const router = useRouter()
 const email = ref('')
 const password = ref('')
@@ -38,7 +39,10 @@ async function onSubmit() {
   error.value = ''
   try {
     await auth.login(email.value.trim(), password.value)
-    await router.push('/account/profile')
+    const next = typeof route.query.next === 'string' && route.query.next.startsWith('/')
+      ? route.query.next
+      : '/account/profile'
+    await router.push(next)
   } catch (e: unknown) {
     error.value = e instanceof ApiError ? e.message : t('auth.loginFailed')
   } finally {

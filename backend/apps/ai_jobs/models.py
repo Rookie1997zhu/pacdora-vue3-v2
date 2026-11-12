@@ -93,3 +93,29 @@ class UsageLedger(models.Model):
 
     class Meta:
         indexes = [models.Index(fields=['organization', '-created_at'])]
+
+
+class AiProviderConfig(models.Model):
+    """Global singleton AI provider settings. DB overrides env when present."""
+
+    id = models.PositiveSmallIntegerField(primary_key=True, default=1, editable=False)
+    provider = models.CharField(max_length=40, default='disabled')
+    api_key_encrypted = models.TextField(blank=True)
+    model = models.CharField(max_length=120, blank=True)
+    gemini_base_url = models.CharField(max_length=255, blank=True)
+    openai_images_url = models.CharField(max_length=255, blank=True)
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='ai_provider_config_updates',
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.id = 1
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'ai-config:{self.provider}'

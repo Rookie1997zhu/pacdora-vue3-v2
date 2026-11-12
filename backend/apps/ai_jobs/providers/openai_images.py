@@ -3,8 +3,7 @@ from __future__ import annotations
 import base64
 
 import requests
-from django.conf import settings
-
+from apps.ai_jobs.capabilities import api_key, model_name, openai_images_url
 from apps.ai_jobs.providers.base import BaseImageProvider, ProviderError
 
 
@@ -12,11 +11,11 @@ class OpenAIImagesProvider(BaseImageProvider):
     name = 'openai'
 
     def generate_image(self, prompt: str, **meta) -> bytes:
-        key = (getattr(settings, 'AI_API_KEY', '') or '').strip()
+        key = api_key()
         if not key:
             raise ProviderError('missing AI_API_KEY', code='CAPABILITY_UNAVAILABLE', status=400)
-        model = (getattr(settings, 'AI_MODEL', '') or 'gpt-image-1').strip()
-        url = getattr(settings, 'AI_OPENAI_IMAGES_URL', 'https://api.openai.com/v1/images/generations')
+        model = (model_name() or 'gpt-image-1').strip()
+        url = openai_images_url()
         try:
             resp = requests.post(
                 url,

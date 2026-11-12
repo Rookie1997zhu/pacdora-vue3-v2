@@ -482,5 +482,57 @@ export default {
     errNoneFit:'当前外箱尺寸一盒都装不下，请加大尺寸或减小间隙',
     errFixedRange:'外箱尺寸超出 FEFCO 0201 允许范围（L 80–1200 / W 60–1000 / H 40–1000）',
     exportDisabled:'外箱无法生成，导出已禁用'
+  },
+  console:{
+    backSite:'返回站点',
+    refresh:'刷新',
+    search:'搜索',
+    loading:'加载中…',
+    nav:{
+      overview:'总览',
+      users:'用户',
+      orgs:'组织',
+      catalog:'产品目录',
+      designs:'设计',
+      exports:'导出任务',
+      orders:'订单',
+      quotes:'报价',
+      dielines:'刀版库',
+      assets:'资产',
+      ai:'AI 配置',
+      audit:'审计日志'
+    },
+    overview:{
+      designs24h:'今日设计',
+      exports24h:'今日导出',
+      orders24h:'今日订单',
+      quotes24h:'今日报价',
+      exportFailed:'失败导出',
+      aiFailed:'失败 AI',
+      acqFailed:'失败采集',
+      geometry:'Geometry 健康',
+      ok:'正常',
+      down:'异常'
+    },
+    users:{
+      email:'邮箱',
+      name:'姓名'
+    },
+    dielines:{
+      revisions:'修订',
+      acquisition:'采集任务'
+    },
+    ai:{
+      config:'Provider 配置',
+      source:'生效来源',
+      keyPlaceholder:'留空表示不修改密钥',
+      save:'保存',
+      test:'测试连通性',
+      jobs:'AI 任务',
+      saved:'已保存'
+    },
+    audit:{
+      action:'动作'
+    }
   }
 }

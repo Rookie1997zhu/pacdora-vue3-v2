@@ -1,0 +1,37 @@
+from django.urls import path
+
+from apps.console import views
+
+urlpatterns = [
+    path('console/overview/', views.OverviewView.as_view()),
+    path('console/users/', views.UserListView.as_view()),
+    path('console/users/<uuid:user_id>/', views.UserPatchView.as_view()),
+    path('console/orgs/', views.OrgListView.as_view()),
+    path('console/orgs/<uuid:org_id>/members/', views.OrgMembersView.as_view()),
+    path('console/catalog/products/', views.ProductListView.as_view()),
+    path('console/catalog/products/<uuid:product_id>/', views.ProductPatchView.as_view()),
+    path('console/catalog/approvals/', views.TemplateApprovalListView.as_view()),
+    path('console/catalog/approvals/<uuid:approval_id>/', views.TemplateApprovalPatchView.as_view()),
+    path('console/designs/', views.DesignListView.as_view()),
+    path('console/exports/', views.ExportListView.as_view()),
+    path('console/exports/<uuid:job_id>/retry/', views.ExportRetryView.as_view()),
+    path('console/exports/<uuid:job_id>/cancel/', views.ExportCancelView.as_view()),
+    path('console/orders/', views.OrderListView.as_view()),
+    path('console/orders/<uuid:order_id>/manual-quote/', views.OrderManualQuoteView.as_view()),
+    path('console/orders/<uuid:order_id>/confirm/', views.OrderConfirmView.as_view()),
+    path('console/orders/<uuid:order_id>/cancel/', views.OrderCancelView.as_view()),
+    path('console/quotes/', views.QuoteListView.as_view()),
+    path('console/dielines/variants/', views.DielineVariantListView.as_view()),
+    path('console/dielines/revisions/', views.DielineRevisionListView.as_view()),
+    path('console/dielines/revisions/<uuid:revision_id>/publish/', views.DielinePublishView.as_view()),
+    path('console/dielines/revisions/<uuid:revision_id>/grant/', views.DielineGrantView.as_view()),
+    path('console/dielines/acquisition-jobs/', views.AcquisitionJobListView.as_view()),
+    path('console/dielines/acquisition-jobs/<uuid:job_id>/retry/', views.AcquisitionJobRetryView.as_view()),
+    path('console/assets/', views.AssetListView.as_view()),
+    path('console/assets/<uuid:asset_id>/regenerate-thumbnail/', views.AssetThumbRegenView.as_view()),
+    path('console/ai/jobs/', views.AiJobListView.as_view()),
+    path('console/ai/usage/', views.AiUsageListView.as_view()),
+    path('console/ai/config/', views.AiConfigView.as_view()),
+    path('console/ai/config/test/', views.AiConfigTestView.as_view()),
+    path('console/audit/', views.AuditListView.as_view()),
+]

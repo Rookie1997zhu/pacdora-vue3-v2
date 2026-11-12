@@ -19,7 +19,7 @@
         max_size 32MB
     }
 
-    @backend path /api /api/* /admin /admin/* /static /static/*
+    @backend path /api /api/* /static /static/*
     handle @backend {
         reverse_proxy backend:8000 {
             header_up -X-Tenant-Key

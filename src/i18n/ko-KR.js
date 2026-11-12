@@ -483,5 +483,57 @@ export default {
     errNoneFit:'현재 외박스 치수로는 1개도 넣을 수 없습니다. 치수를 키우거나 여유를 줄이세요',
     errFixedRange:'외박스 치수가 FEFCO 0201 허용 범위를 벗어남（L 80–1200 / W 60–1000 / H 40–1000）',
     exportDisabled:'외박스를 생성할 수 없어 내보내기가 비활성화됨'
+  },
+  console:{
+    backSite:'사이트로 돌아가기',
+    refresh:'새로고침',
+    search:'검색',
+    loading:'로딩 중…',
+    nav:{
+      overview:'개요',
+      users:'사용자',
+      orgs:'조직',
+      catalog:'제품 카탈로그',
+      designs:'디자인',
+      exports:'내보내기 작업',
+      orders:'주문',
+      quotes:'견적',
+      dielines:'다이라인',
+      assets:'자산',
+      ai:'AI 설정',
+      audit:'감사 로그'
+    },
+    overview:{
+      designs24h:'오늘 디자인',
+      exports24h:'오늘 내보내기',
+      orders24h:'오늘 주문',
+      quotes24h:'오늘 견적',
+      exportFailed:'실패 내보내기',
+      aiFailed:'실패 AI',
+      acqFailed:'실패 수집',
+      geometry:'Geometry 상태',
+      ok:'정상',
+      down:'이상'
+    },
+    users:{
+      email:'이메일',
+      name:'이름'
+    },
+    dielines:{
+      revisions:'리비전',
+      acquisition:'수집 작업'
+    },
+    ai:{
+      config:'Provider 설정',
+      source:'적용 출처',
+      keyPlaceholder:'비워 두면 키를 변경하지 않음',
+      save:'저장',
+      test:'연결 테스트',
+      jobs:'AI 작업',
+      saved:'저장됨'
+    },
+    audit:{
+      action:'동작'
+    }
   }
 }

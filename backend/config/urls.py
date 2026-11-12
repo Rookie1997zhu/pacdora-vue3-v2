@@ -1,11 +1,9 @@
-from django.contrib import admin
 from django.urls import include, path, re_path
 
 from apps.health.not_found import ApiNotFoundView
 from config.api import fail
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('api/v1/', include('apps.health.urls')),
     path('api/v1/', include('apps.accounts.urls')),
     path('api/v1/', include('apps.organizations.urls')),
@@ -18,6 +16,7 @@ urlpatterns = [
     path('api/v1/', include('apps.quotes.urls')),
     path('api/v1/', include('apps.orders.urls')),
     path('api/v1/', include('apps.dieline_library.urls')),
+    path('api/v1/', include('apps.console.urls')),
     re_path(r'^api/v1/.*$', ApiNotFoundView.as_view()),
 ]
 

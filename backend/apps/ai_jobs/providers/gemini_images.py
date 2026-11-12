@@ -3,8 +3,7 @@ from __future__ import annotations
 import base64
 
 import requests
-from django.conf import settings
-
+from apps.ai_jobs.capabilities import api_key, gemini_base_url, model_name
 from apps.ai_jobs.providers.base import BaseImageProvider, ProviderError
 
 
@@ -12,18 +11,11 @@ class GeminiImagesProvider(BaseImageProvider):
     name = 'gemini'
 
     def generate_image(self, prompt: str, **meta) -> bytes:
-        key = (getattr(settings, 'AI_API_KEY', '') or '').strip()
+        key = api_key()
         if not key:
             raise ProviderError('missing AI_API_KEY', code='CAPABILITY_UNAVAILABLE', status=400)
-        model = (getattr(settings, 'AI_MODEL', '') or 'gemini-2.5-flash-image').strip()
-        base = (
-            getattr(
-                settings,
-                'AI_GEMINI_BASE_URL',
-                'https://generativelanguage.googleapis.com/v1beta',
-            )
-            or 'https://generativelanguage.googleapis.com/v1beta'
-        ).rstrip('/')
+        model = (model_name() or 'gemini-2.5-flash-image').strip()
+        base = gemini_base_url().rstrip('/')
         url = f'{base}/models/{model}:generateContent'
 
         parts: list[dict] = [{'text': prompt}]

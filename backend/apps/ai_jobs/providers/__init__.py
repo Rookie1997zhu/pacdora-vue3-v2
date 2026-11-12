@@ -1,5 +1,4 @@
-from django.conf import settings
-
+from apps.ai_jobs.capabilities import provider_name
 from apps.ai_jobs.providers.base import ProviderError
 from apps.ai_jobs.providers.disabled import DisabledProvider
 from apps.ai_jobs.providers.gemini_images import GeminiImagesProvider
@@ -8,7 +7,7 @@ from apps.ai_jobs.providers.test import TestProvider
 
 
 def get_provider():
-    name = (getattr(settings, 'AI_PROVIDER', 'disabled') or 'disabled').strip().lower()
+    name = provider_name()
     if name in ('', 'disabled'):
         return DisabledProvider()
     if name == 'test':
