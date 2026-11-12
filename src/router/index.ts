@@ -166,14 +166,13 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   if (!to.meta.requiresStaff) return true
   const auth = useAuthStore()
-  if (!auth.loaded) {
-    await auth.refreshMe()
-  }
+  // Always refresh for console so staff flag is not stale after role changes.
+  await auth.refreshMe()
   if (!auth.user) {
-    return { path: '/account/login', query: { next: to.fullPath } }
+    return { path: '/account/login', query: { next: to.fullPath, needStaff: '1' } }
   }
   if (!auth.user.is_staff) {
-    return { path: '/home' }
+    return { path: '/account/login', query: { next: to.fullPath, needStaff: '1' } }
   }
   return true
 })

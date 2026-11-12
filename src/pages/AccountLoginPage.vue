@@ -3,6 +3,11 @@
     <div class="auth-page">
       <form class="auth-card" @submit.prevent="onSubmit">
         <h1>{{ t('auth.loginTitle') }}</h1>
+        <p v-if="needStaff" class="hint">{{ t('auth.staffRequired') }}</p>
+        <p v-if="currentNonStaff" class="hint">
+          {{ t('auth.signedInAs', { email: auth.user?.email || '' }) }}
+          <button type="button" class="linkish" @click="onLogout">{{ t('auth.switchAccount') }}</button>
+        </p>
         <label>{{ t('auth.email') }}<input v-model="email" type="email" required autocomplete="username" /></label>
         <label>{{ t('auth.password') }}<input v-model="password" type="password" required autocomplete="current-password" /></label>
         <p v-if="error" class="bc-err">{{ error }}</p>
@@ -18,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
@@ -34,6 +39,27 @@ const password = ref('')
 const error = ref('')
 const busy = ref(false)
 
+const needStaff = computed(() => route.query.needStaff === '1')
+const currentNonStaff = computed(() => !!auth.user && !auth.user.is_staff)
+
+onMounted(async () => {
+  if (!auth.loaded) await auth.refreshMe()
+  if (auth.user?.is_staff && needStaff.value) {
+    const next = typeof route.query.next === 'string' && route.query.next.startsWith('/')
+      ? route.query.next
+      : '/console'
+    await router.replace(next)
+  }
+})
+
+async function onLogout() {
+  try {
+    await auth.logout()
+  } catch {
+    /* ignore */
+  }
+}
+
 async function onSubmit() {
   busy.value = true
   error.value = ''
@@ -42,6 +68,10 @@ async function onSubmit() {
     const next = typeof route.query.next === 'string' && route.query.next.startsWith('/')
       ? route.query.next
       : '/account/profile'
+    if (needStaff.value && !auth.user?.is_staff) {
+      error.value = t('auth.staffRequired')
+      return
+    }
     await router.push(next)
   } catch (e: unknown) {
     error.value = e instanceof ApiError ? e.message : t('auth.loginFailed')
@@ -98,5 +128,21 @@ input {
 
 .links a {
   color: var(--bc-steel);
+}
+
+.hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--bc-ink-muted);
+  line-height: 1.45;
+}
+
+.linkish {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--bc-steel);
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

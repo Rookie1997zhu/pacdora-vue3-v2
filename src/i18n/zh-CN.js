@@ -229,7 +229,10 @@ export default {
     noOrganizations:'暂无组织',
     needLogin:'请先登录',
     loginFailed:'登录失败',
-    registerFailed:'注册失败'
+    registerFailed:'注册失败',
+    staffRequired:'运维控制台需要管理员（staff）账号。请使用平台管理员登录。',
+    signedInAs:'当前已登录：{email}（非管理员）',
+    switchAccount:'退出并切换账号'
   },
   nav:{
     boxList:'盒子列表',

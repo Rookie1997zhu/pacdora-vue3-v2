@@ -229,7 +229,10 @@ export default {
     noOrganizations:'조직 없음',
     needLogin:'먼저 로그인해 주세요',
     loginFailed:'로그인 실패',
-    registerFailed:'회원가입 실패'
+    registerFailed:'회원가입 실패',
+    staffRequired:'운영 콘솔은 관리자(staff) 계정이 필요합니다. 플랫폼 관리자로 로그인하세요.',
+    signedInAs:'현재 로그인: {email} (관리자 아님)',
+    switchAccount:'로그아웃 후 계정 전환'
   },
   nav:{
     boxList:'상자 목록',
