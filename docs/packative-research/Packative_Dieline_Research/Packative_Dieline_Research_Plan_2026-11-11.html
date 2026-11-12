@@ -1,15 +1,49 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Packative Dieline Research Plan</title><style>
 :root{--ink:#203344;--muted:#647583;--line:#dde5ea;--paper:#fff;--bg:#f3f6f8;--accent:#16656a;--soft:#eaf4f3}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif}a{color:#17666f;text-underline-offset:3px}header{background:#fff;border-top:6px solid var(--accent);border-bottom:1px solid var(--line);padding:36px 6vw}header .eyebrow{font-size:12px;letter-spacing:2px;color:var(--accent);font-weight:700}header h1{font-size:30px;line-height:1.4;margin:8px 0 14px}header p{margin:0;max-width:1000px;color:var(--muted)}.layout{max-width:1420px;margin:30px auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:13px;max-height:92vh;overflow:auto;background:white;border:1px solid var(--line);border-radius:12px;padding:20px}aside a{display:block;text-decoration:none;padding:7px 0;border-bottom:1px solid #f0f3f5;color:#4d6572}aside strong{display:block;margin-bottom:12px}main{min-width:0;background:white;border:1px solid var(--line);border-radius:12px;padding:38px 46px}main>h1{font-size:28px;margin:0 0 12px;line-height:1.4}h2{font-size:24px;margin:44px 0 18px;padding-top:18px;border-top:1px solid var(--line);scroll-margin-top:20px;line-height:1.5}h3{font-size:19px;margin-top:28px}h4{font-size:17px;margin-top:22px}p{margin:14px 0}strong{color:#153844}blockquote{margin:20px 0;padding:12px 20px;background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0}blockquote p{margin:6px 0}.table-wrap{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}th,td{padding:12px 14px;text-align:left;vertical-align:top;border:1px solid var(--line)}th{background:#edf3f5;font-weight:650}tr:nth-child(even) td{background:#fafcfd}code{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;background:#f0f4f6;padding:2px 5px;border-radius:4px;word-break:break-word}pre{position:relative;background:#f5f8fa;padding:42px 20px 20px;border:1px solid var(--line);border-radius:8px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{background:none;padding:0;word-break:normal}button.copy{position:absolute;right:9px;top:8px;border:1px solid #c9d7df;background:white;border-radius:5px;padding:3px 10px;color:#45616e;cursor:pointer}ul,ol{padding-left:24px}li{margin:6px 0}.prompt-card{border:1px solid var(--line);border-radius:8px;margin:18px 0;padding:0 18px 16px}.prompt-card summary{padding:16px 0;font-weight:700;cursor:pointer}.prompt-card pre{max-height:none}footer{max-width:1420px;margin:22px auto 50px;padding:0 24px;color:var(--muted);font-size:13px}.status{display:inline-block;margin-right:10px;padding:4px 10px;background:var(--soft);border-radius:20px;font-size:12px}
+.checklist{list-style:none;padding-left:0;margin:16px 0}.checklist>li{display:flex;gap:12px;align-items:flex-start;margin:8px 0;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:#fafcfd}.checklist>li.done{background:var(--soft);border-color:#c5e0dc}.checklist>li.blocked{background:#fbf6f0;border-color:#e8d7c4}.checklist>li.open{background:#fff}.checklist input[type=checkbox]{margin-top:5px;flex:0 0 auto;width:16px;height:16px;accent-color:var(--accent)}.checklist .item{min-width:0;flex:1}.checklist .item strong{display:inline}.checklist .meta{display:block;font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55}.checklist h4{margin:22px 0 8px;font-size:16px}
 @media(max-width:1000px){.layout{grid-template-columns:1fr}aside{position:static;max-height:none}aside a{display:inline-block;margin-right:15px}main{padding:28px 24px}}
 @media(max-width:600px){header{padding:24px 20px}header h1{font-size:25px}.layout{padding:0 10px;margin-top:16px}main{padding:22px 16px}h2{font-size:21px}table{font-size:13px}body{font-size:15px}}
 @media print{body{background:white;font-size:11pt}.layout{display:block;margin:0;padding:0}aside,button.copy{display:none}main{border:0;padding:0}header{padding:15px 0}h2,h3{break-after:avoid}pre,table{font-size:9pt}details{display:block}details>*{display:block}footer{padding:0}}
-</style></head><body><header><div class="eyebrow">PACKFLOW / PARAMETRIC DIELINE RESEARCH</div><h1>Packative Studio 刀版参数逆向、数据采集与计算规则重建方案</h1><p>基于官方公开资料、现有研究报告、原始 SVG 与响应元数据的专项方案｜2026-11-11｜面向 Cursor + REA</p></header><div class="layout"><aside><strong>CONTENTS</strong><a href="#section-1">1. 结论与执行范围</a><a href="#section-2">2. 本次核查得到的事实与边界</a><a href="#section-3">3. 已发现的具体几何线索</a><a href="#section-4">4. REA 专项研究路线</a><a href="#section-5">5. 数据采集方案</a><a href="#section-6">6. 如何推导刀版计算规则</a><a href="#section-7">7. 数据模型与可导入输出</a><a href="#section-8">8. 独立原型与验收</a><a href="#section-9">9. 分阶段交付与决策点</a><a href="#section-10">10. 主要风险与停止条件</a><a href="#section-11">11. AI 提示词使用方法</a><a href="#section-12">12. 证据与参考来源</a><a href="#prompts">AI prompts</a></aside><main><h1>Packative Studio 刀版专项研究方案</h1>
-<p><strong>版本：V1.0｜研究日期：2026-11-11｜使用环境：Cursor + 已安装的 REA + 当前本地项目</strong></p>
+</style></head><body><header><div class="eyebrow">PACKFLOW / PARAMETRIC DIELINE RESEARCH</div><h1>Packative Studio 刀版参数逆向、数据采集与计算规则重建方案</h1><p>基于官方公开资料、现有研究报告、原始 SVG 与响应元数据的专项方案｜2026-11-11｜面向 Cursor + REA</p></header><div class="layout"><aside><strong>CONTENTS</strong><a href="#section-progress">0. 执行进度清单</a><a href="#section-1">1. 结论与执行范围</a><a href="#section-2">2. 本次核查得到的事实与边界</a><a href="#section-3">3. 已发现的具体几何线索</a><a href="#section-4">4. REA 专项研究路线</a><a href="#section-5">5. 数据采集方案</a><a href="#section-6">6. 如何推导刀版计算规则</a><a href="#section-7">7. 数据模型与可导入输出</a><a href="#section-8">8. 独立原型与验收</a><a href="#section-9">9. 分阶段交付与决策点</a><a href="#section-10">10. 主要风险与停止条件</a><a href="#section-11">11. AI 提示词使用方法</a><a href="#section-12">12. 证据与参考来源</a><a href="#prompts">AI prompts</a></aside><main><h1>Packative Studio 刀版专项研究方案</h1>
+<p><strong>版本：V1.1｜研究日期：2026-11-11｜进度更新：2026-11-12｜使用环境：Cursor + REA + 本地 lab</strong></p>
 <blockquote>
 <p>核心目标不是下载一批刀版图片，而是建立一条可追溯的链路：盒型与输入参数 → 真实矢量几何 → 参数变化规律 → 独立计算器 → 未参与推导的样本验收。</p>
 <p>本次交付的是研究方案与 AI 执行提示词。已核查官网及仓库中部分原始证据，并对一个 SVG 样本的坐标间距进行算术复核；未登录目标网站重新采集，未完成全部盒型或完整服务端算法恢复。</p>
+<p><span class="status">进度</span> 截至 2026-11-12：<code>productbox-crashlock</code> 结构拓扑研究主线已在隔离 lab 收口（有效 Cutting 61 + Creasing 14）；厚度/刀缝仅有未标定钩子；全量 raw-63 / 投产 / 其他盒型 / 生产接入仍未完成。详见下方清单与 <code>research/packative-dieline-lab/reports/PHASE-CLOSEOUT.md</code>。</p>
 </blockquote>
+<h2 id="section-progress">0. 执行进度清单（截至 2026-11-12）</h2>
+<p>勾选表示<strong>已在隔离 lab 落地并可复现</strong>；未勾选表示未做或明确不做/受阻。默认范围仅 <code>productbox-crashlock</code>；<code>paid_actions=false</code>；不以 EPS BoundingBox 当作刀版尺寸。</p>
+<h4>A–C 证据、离线解析与采样</h4>
+<ul class="checklist">
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>隔离 lab 工程</strong> <code>research/packative-dieline-lab/</code><span class="meta">normalize / match / prototype / validate / <code>npm run all</code></span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>离线 SVG 导入与标准化</strong><span class="meta">Cutting/Creasing、Y 翻转、单位候选；单段 cubic 保留 <code>c0/c1</code></span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>证据清单与旧结论纠正</strong><span class="meta"><code>claim-corrections.md</code>；拒绝把约 0.5 mm 经验偏移直接当作纸厚</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>crashlock 多样本矩阵 + holdout 冻结</strong><span class="meta">holdout = <code>100×80×90</code>；包络宽/高拟合门禁 passed</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>Creasing 段对应门禁</strong><span class="meta">14 条压线 correspondence passed</span></span></li>
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>在线批量补样 / 付费动作</strong><span class="meta">保持关闭；不扩大未授权访问</span></span></li>
+</ul>
+<h4>D–E crashlock 规则与原型切片</h4>
+<ul class="checklist">
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>锁底 Cutting 第一刀</strong><span class="meta"><code>lock_bottom_cutting_correspondence</code> passed（curve_approx）</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>顶翼 / 胶水外轮廓第二刀</strong><span class="meta"><code>top_flap_cutting_correspondence</code> passed（curve_approx）</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>体外框第三刀</strong><span class="meta">右外直边、微连接、fillet 区域；outline 端点门禁 passed</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>精确 cubic 圆角</strong><span class="meta">8 条 Cutting path；控制点残差门禁 + <code>curve_exact</code></span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>零长段分类（Class A / B）</strong><span class="meta">A=maxX∩bodyBottom 导出伪影；B=55 搁板坍缩；structural = raw − A</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>结构切割数门禁 61≡61</strong><span class="meta">holdout 与 <code>55×55×75</code> structural passed；原型故意不发 Class A stub</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>结构拓扑研究阶段收口</strong><span class="meta"><code>PHASE-CLOSEOUT.md</code> / <code>DELIVERY.md</code>；主线声明 complete (structural)</span></span></li>
+<li class="done"><input type="checkbox" checked disabled><span class="item"><strong>厚度 / 刀缝灵敏度钩子（首片）</strong><span class="meta"><code>thicknessMm</code>/<code>kerfMm</code> 默认 0；<code>t=k=0</code> 恒等；报告 unvalidated；系数仍 unobserved</span></span></li>
+<li class="blocked"><input type="checkbox" disabled><span class="item"><strong>完整 raw-63 / full topology 宣称</strong><span class="meta">仍 <strong>blocked</strong>：<code>raw_63_includes_export_zero_length_artifacts_not_emitted</code>（故意不伪造成 passed）</span></span></li>
+</ul>
+<h4>未做 / 后续新范围</h4>
+<ul class="checklist">
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>纸厚 / 刀缝系数标定</strong><span class="meta">样本 <code>inferred.thickness = null</code>；无变材料对照前不做拟合宣称</span></span></li>
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>顶翼 tuck inset 厚度接线</strong><span class="meta">首片钩子未扩散到 top/outline fillet</span></span></li>
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>BOXCRAFT 生产路径接入</strong><span class="meta">Vue / Django / Compose；跨出 research lab</span></span></li>
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>其他盒型</strong>（sleeve / mailer / pillow 等）</span></li>
+<li class="open"><input type="checkbox" disabled><span class="item"><strong>实物打样 / 量产公差验收</strong><span class="meta">软件几何一致 ≠ 可投产</span></span></li>
+</ul>
+<p>关键产物目录：<code>research/packative-dieline-lab/reports/</code>（含 <code>validation-report.md</code>、<code>body-outline-match.md</code>、<code>structural-cutting-match.md</code>、<code>degenerate-segments.md</code>、<code>thickness-sensitivity.md</code>、<code>PHASE-CLOSEOUT.md</code>）。</p>
 <h2 id="section-1">1. 结论与执行范围</h2>
 <p>这项工作具备明确的技术起点：你的 <code>docs/packative-research/</code> 已保存刀版研究、SVG、EPS 文件索引及编辑器响应元数据。下一阶段应从“功能介绍与整体包围盒比较”升级为“路径级解析、同变量差分与规则验证”，不是重新从截图开始。[R1][R2][R3][R4]</p>
 <p>目标分为三个可验收层次：</p>
@@ -465,36 +499,36 @@ D = G(template_version, L, W, H, material, process_options)
 <tr>
 <td>A：证据与权限审计</td>
 <td>真实文件清单、哈希、访问/用途范围、旧结论纠正清单</td>
-<td>至少一个可合法处理的向量样本</td>
+<td><strong>已完成（crashlock 范围）</strong>；至少一个可合法处理的向量样本</td>
 </tr>
 <tr>
 <td>B：离线解析</td>
 <td>标准化几何、单位校准记录、异常元素报告</td>
-<td>输入与输出对应、切折线可解释</td>
+<td><strong>已完成（crashlock）</strong>；切折线可解释，cubic 控制点可保留</td>
 </tr>
 <tr>
 <td>C：补充采样</td>
 <td>可运行采集器、真实样本库、失败与预算日志</td>
-<td>新增来源明确允许；否则离线继续</td>
+<td><strong>部分完成</strong>：离线矩阵可用；在线/付费补样保持关闭</td>
 </tr>
 <tr>
 <td>D：规则推导</td>
 <td>参数依赖、公式候选、误差、反例及适用范围</td>
-<td>足够独立变化的样本</td>
+<td><strong>部分完成</strong>：锁底/顶翼/外框/cubic/结构计数；纸厚系数仍未观测</td>
 </tr>
 <tr>
 <td>E：单盒型原型</td>
 <td>本地生成器、SVG、固定留出测试结果</td>
-<td>不依赖目标网站 API，不靠有限查表</td>
+<td><strong>结构拓扑已收口</strong>（61+14）；raw-63 full topology 故意 blocked；厚度钩 unvalidated</td>
 </tr>
 <tr>
-<td>F：独立审计</td>
+<td>F：独立审计 / 业务集成</td>
 <td>复现实验、差异报告、上线前缺口</td>
-<td>验证通过后才讨论业务集成</td>
+<td><strong>未开始生产接入</strong>；lab 内 <code>npm run all</code> 可复现</td>
 </tr>
 </tbody>
 </table></div>
-<p>不要以预计几天完成作为验收。以证据、真实文件和可复现测试完成度作为进度。</p>
+<p>不要以预计几天完成作为验收。以证据、真实文件和可复现测试完成度作为进度。勾选明细见 <a href="#section-progress">§0 执行进度清单</a>。</p>
 <h2 id="section-10">10. 主要风险与停止条件</h2>
 <p><strong>尺度或边界混淆：高优先级。</strong> 先处理 SVG transform 和单位；禁止把 PNG 画布、EPS 包围盒、切线轮廓混为一谈。</p>
 <p><strong>算法不可识别：高优先级。</strong> 固定材料、只变三围的样本无法证明纸厚影响；参数不足时明确部分识别，不声称完整恢复。</p>
@@ -658,4 +692,4 @@ E. 原始切线/压线、曲线、坐标变换、单位与面板关系能恢复�
 
 输出qa-summary.md、machine-readable-results.json、复现命令、按严重度排序的问题、已修复与未修复清单及剩余限制。对原型输出最终评级：Verified within scope、Partial、Blocked 或 Failed。缺失证据的断言必须回退，不填补为通过。
 
-本阶段仅审计隔离研究工程，未获得明确授权不修改生产应用或发布任何第三方素材。</code></pre></details></main></div><footer>本文件交付研究与执行方案及提示词，不代表已经完成全站采集、完整公式恢复或生产验证。原始第三方刀版未随包分发。</footer><script>document.querySelectorAll('pre').forEach(function(p){const b=document.createElement('button');b.className='copy';b.textContent='Copy';b.onclick=async function(){const t=p.querySelector('code').innerText;try{await navigator.clipboard.writeText(t);b.textContent='Copied';}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();b.textContent='Copied';}setTimeout(()=>b.textContent='Copy',1500)};p.appendChild(b)});</script></body></html>
+本阶段仅审计隔离研究工程，未获得明确授权不修改生产应用或发布任何第三方素材。</code></pre></details></main></div><footer>本文件交付研究与执行方案及提示词；§0 进度清单反映截至 2026-11-12 的 lab 落地情况，不代表全站采集、完整公式恢复或生产验证已完成。原始第三方刀版未随包分发。</footer><script>document.querySelectorAll('pre').forEach(function(p){const b=document.createElement('button');b.className='copy';b.textContent='Copy';b.onclick=async function(){const t=p.querySelector('code').innerText;try{await navigator.clipboard.writeText(t);b.textContent='Copied';}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();b.textContent='Copied';}setTimeout(()=>b.textContent='Copy',1500)};p.appendChild(b)});</script></body></html>
