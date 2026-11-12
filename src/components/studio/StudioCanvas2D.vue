@@ -34,8 +34,9 @@
             :config="{
               points: face.points.map((v, i) => (i % 2 === 0 ? v - knife.minX : v - knife.minY)),
               closed: true,
-              stroke: face.name === design.selectedPanelId ? '#0f6e68' : '#2028b0',
-              strokeWidth: face.name === design.selectedPanelId ? 1.2 : 0.7,
+              // Geom replay already draws official cut SVG; avoid double blue face strokes (LAB style).
+              stroke: face.name === design.selectedPanelId ? '#0f6e68' : knife.geomMode ? 'transparent' : '#2028b0',
+              strokeWidth: face.name === design.selectedPanelId ? 1.2 : knife.geomMode ? 0 : 0.7,
               fill: face.name === design.selectedPanelId ? 'rgba(15,110,104,0.12)' : 'rgba(255,255,255,0.85)',
               name: `face:${face.name}`,
             }"
@@ -114,7 +115,7 @@
             :key="'bleed-' + i"
             :config="{
               points: path.points.map((v, idx) => (idx % 2 === 0 ? v - knife.minX : v - knife.minY)),
-              closed: true,
+              closed: path.closed !== false,
               stroke: '#46ba00',
               strokeWidth: 0.9,
               opacity: 0.85,
@@ -126,7 +127,7 @@
             :key="'cut-' + i"
             :config="{
               points: path.points.map((v, idx) => (idx % 2 === 0 ? v - knife.minX : v - knife.minY)),
-              closed: true,
+              closed: path.closed === true,
               stroke: '#2028b0',
               strokeWidth: 1.1,
               opacity: 0.9,
@@ -171,6 +172,7 @@ const emptyKnife = (): StudioKnife => ({
   folds: [],
   cutPaths: [],
   bleedPaths: [],
+  geomMode: false,
 })
 
 const knife = ref<StudioKnife>(emptyKnife())
