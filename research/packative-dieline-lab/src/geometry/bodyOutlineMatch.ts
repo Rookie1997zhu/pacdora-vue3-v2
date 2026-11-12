@@ -1,15 +1,32 @@
-import { boundsFromSegs, featCost, type CompactSeg, type PairMatch } from './segmentMatch.ts'
+import { boundsFromSegs, featCost, type CompactSeg, type PairMatch, type Bounds } from './segmentMatch.ts'
 import { lineFeatures } from './lockBottomMatch.ts'
 import { bodyOutlineCuttingLines } from './bodyOutlineFeatures.ts'
 
-function asMatchableLines(segs: CompactSeg[]): CompactSeg[] {
-  return segs
+function asEndpointFeats(segs: CompactSeg[]) {
+  // Feature extraction uses p0/p1 only; keep c0/c1 on original segs for cubic residual.
+  const lines = segs
     .filter((s) => s.p0 && s.p1 && s.lengthUu > 1.5)
     .map((s) => ({
       ...s,
       kind: 'line',
       pointCount: 2,
     }))
+  return { lines, originals: segs.filter((s) => s.p0 && s.p1 && s.lengthUu > 1.5) }
+}
+
+function cubicNormErr(a: CompactSeg, b: CompactSeg, bound: Bounds | null): number | null {
+  if (!a.c0 || !a.c1 || !b.c0 || !b.c1 || !bound) return null
+  const w = bound.width || 1
+  const h = bound.height || 1
+  const n = (p: { x: number; y: number }) => ({ x: (p.x - bound.minX) / w, y: (p.y - bound.minY) / h })
+  // Undirected: try swapped control order
+  const a0 = n(a.c0)
+  const a1 = n(a.c1)
+  const b0 = n(b.c0)
+  const b1 = n(b.c1)
+  const direct = Math.hypot(a0.x - b0.x, a0.y - b0.y) + Math.hypot(a1.x - b1.x, a1.y - b1.y)
+  const swapped = Math.hypot(a0.x - b1.x, a0.y - b1.y) + Math.hypot(a1.x - b0.x, a1.y - b0.y)
+  return Math.min(direct, swapped) / 2
 }
 
 export function matchBodyOutline(
@@ -27,15 +44,19 @@ export function matchBodyOutline(
   medianEndpointErrUu: number
   medianNormPosErr: number
   maxNormPosErr: number
+  cubicPairCount: number
+  medianCubicNormErr: number
+  maxCubicNormErr: number
+  curveExact: boolean
 } {
-  // Generator is expected to pass outline-only cuts (+ creases for Y). Do not re-filter
-  // through bodyOutlineCuttingLines — fillet chords below bodyBottom would be misclassified as lock.
-  const aUse = asMatchableLines(genSegs.filter((s) => s.style === 'Cutting' && (s.lengthUu || 0) > 1.5))
-  const bSegs = asMatchableLines(bodyOutlineCuttingLines(realSegs, dims))
+  const aRaw = genSegs.filter((s) => s.style === 'Cutting' && (s.lengthUu || 0) > 1.5)
+  const bRaw = bodyOutlineCuttingLines(realSegs, dims)
+  const aPack = asEndpointFeats(aRaw)
+  const bPack = asEndpointFeats(bRaw)
 
-  const aBound = boundsFromSegs(aUse)
-  const aFeats = lineFeatures(aUse, aBound)
-  const bFeats = lineFeatures(bSegs, boundsFromSegs(bSegs))
+  const aBound = boundsFromSegs(aPack.lines)
+  const aFeats = lineFeatures(aPack.lines, aBound)
+  const bFeats = lineFeatures(bPack.lines, boundsFromSegs(bPack.lines))
   const usedB = new Set<number>()
   const usedA = new Set<number>()
   const matches: PairMatch[] = []
@@ -66,6 +87,18 @@ export function matchBodyOutline(
       bPointCount: bf.pointCount,
     })
   }
+  const cubicErrs: number[] = []
+  for (const m of matches) {
+    const ag = aPack.originals[m.aIndex]
+    const br = bPack.originals[m.bIndex]
+    if (!ag || !br) continue
+    const e = cubicNormErr(ag, br, aBound)
+    if (e != null) cubicErrs.push(e)
+  }
+  cubicErrs.sort((x, y) => x - y)
+  const medianCubicNormErr = cubicErrs.length ? cubicErrs[Math.floor(cubicErrs.length / 2)] : Infinity
+  const maxCubicNormErr = cubicErrs.length ? cubicErrs[cubicErrs.length - 1] : Infinity
+
   const unmatchedGen = aFeats.filter((_, i) => !usedA.has(i)).map((f) => f.index)
   const unmatchedReal = bFeats.filter((_, i) => !usedB.has(i)).map((f) => f.index)
   const errs = matches.map((m) => m.endpointErrUu).sort((x, y) => x - y)
@@ -82,5 +115,9 @@ export function matchBodyOutline(
     medianEndpointErrUu: errs.length ? errs[Math.floor(errs.length / 2)] : Infinity,
     medianNormPosErr: norms.length ? norms[Math.floor(norms.length / 2)] : Infinity,
     maxNormPosErr: norms.length ? norms[norms.length - 1] : Infinity,
+    cubicPairCount: cubicErrs.length,
+    medianCubicNormErr,
+    maxCubicNormErr,
+    curveExact: cubicErrs.length >= 8 && medianCubicNormErr <= 0.06,
   }
 }

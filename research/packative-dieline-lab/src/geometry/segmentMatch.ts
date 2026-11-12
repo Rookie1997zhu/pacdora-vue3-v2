@@ -7,6 +7,9 @@ export type CompactSeg = {
   p0: Pt | null
   p1: Pt | null
   pointCount: number
+  /** World-space cubic control points when kind==='path' and a single C/c was preserved. */
+  c0?: Pt | null
+  c1?: Pt | null
 }
 
 export type Bounds = { minX: number; minY: number; width: number; height: number }

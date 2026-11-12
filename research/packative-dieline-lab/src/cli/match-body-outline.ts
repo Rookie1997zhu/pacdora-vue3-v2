@@ -19,6 +19,8 @@ type NormDoc = {
 const TARGET_MATCHED = 8
 const TARGET_REAL_LINES = 11
 const NORM_LE = 0.06
+const CUBIC_LE = 0.06
+const CUBIC_PAIRS_GE = 8
 
 function loadReal(): NormDoc[] {
   if (!fs.existsSync(dataNormalized)) return []
@@ -75,17 +77,17 @@ export function runMatchBodyOutline() {
     const H = dims?.H ?? (m ? Number(m[3]) : NaN)
     if (![L, W, H].every(Number.isFinite)) continue
     const proto = generateCrashlockWithOutline({ L, W, H })
-    // Outline cuts + creases only (creases needed for body Y). Exclude lock/top cuts so
-    // big-flap fillet chords below bodyBottom are not reclassified into the lock filter.
     const outlineCuts = buildBodyOutlineSegments(proto.layout!).cutting
     const genSegs = [...outlineCuts, ...(proto.creasing || [])]
     const r = matchBodyOutline(genSegs, sample.normalized.segments, { L, W, H })
     const isHoldout = L === hL && W === hW && H === hH
     const isPressure = L === 120 && W === 90 && H === 60
-    const passRow =
+    const endpointPass =
       r.matched >= TARGET_MATCHED &&
       r.realCount >= TARGET_REAL_LINES - 3 &&
       r.medianNormPosErr <= NORM_LE
+    const cubicPass = r.cubicPairCount >= CUBIC_PAIRS_GE && r.medianCubicNormErr <= CUBIC_LE
+    const passRow = endpointPass && cubicPass
     rows.push({
       sampleId: sample.sampleId,
       L,
@@ -99,11 +101,16 @@ export function runMatchBodyOutline() {
       medianNormPosErr: r.medianNormPosErr,
       medianEndpointErrUu: r.medianEndpointErrUu,
       maxNormPosErr: r.maxNormPosErr,
+      cubicPairCount: r.cubicPairCount,
+      medianCubicNormErr: r.medianCubicNormErr,
+      maxCubicNormErr: r.maxCubicNormErr,
       unmatchedGen: r.unmatchedGen,
       unmatchedReal: r.unmatchedReal,
       passed: passRow,
-      curve_approx: true,
+      curve_exact: cubicPass,
+      curve_approx: !cubicPass,
       cutting_total_diag: proto.cutting?.length ?? 0,
+      filletsExact: Boolean(proto.filletsExact),
     })
   }
 
@@ -116,8 +123,8 @@ export function runMatchBodyOutline() {
   const out = {
     generated_at: new Date().toISOString(),
     notes: [
-      'Body-outline leftovers: right outer, L-bottom cut, micro bridge, fillet chords vs real (path→chord)',
-      'curve_approx: path fillets matched as endpoint chords',
+      'Body-outline leftovers: right outer, L-bottom cut, micro bridge, exact cubic fillets vs real',
+      'endpoint gate + cubic control-point residual gate',
       'zero_length_degenerates excluded from gate',
       'full_63_count is diagnostic only',
       `holdout_frozen=${holdoutKey}`,
@@ -127,6 +134,8 @@ export function runMatchBodyOutline() {
       require_matched_ge: TARGET_MATCHED,
       expect_real_lines_about: TARGET_REAL_LINES,
       median_norm_pos_err_le: NORM_LE,
+      cubic_pairs_ge: CUBIC_PAIRS_GE,
+      median_cubic_norm_err_le: CUBIC_LE,
       passed: gatePassed,
       holdout_row: holdout || null,
     },
@@ -137,6 +146,8 @@ export function runMatchBodyOutline() {
       holdout_matched: holdout?.matched ?? null,
       pressure_matched: pressure?.matched ?? null,
       holdout_cutting_total: holdout?.cutting_total_diag ?? null,
+      holdout_median_cubic_norm_err: holdout?.medianCubicNormErr ?? null,
+      holdout_curve_exact: holdout?.curve_exact ?? null,
     },
     rows,
     counterexamples,
@@ -150,31 +161,36 @@ export function runMatchBodyOutline() {
 ## Gate (holdout \`${holdoutKey}\`)
 - require matched ≥ **${TARGET_MATCHED}** / ~${TARGET_REAL_LINES} meaningful leftover lines
 - median norm pos err ≤ **${NORM_LE}**
+- cubic pairs ≥ **${CUBIC_PAIRS_GE}** with median cubic norm err ≤ **${CUBIC_LE}**
 - result: **${gatePassed ? 'PASSED' : 'FAILED'}**
-${holdout ? `- holdout matched=${holdout.matched}/${holdout.realCount} medianNorm=${holdout.medianNormPosErr.toFixed(4)} cuttingTotal=${holdout.cutting_total_diag}` : '- holdout sample missing'}
+${
+  holdout
+    ? `- holdout matched=${holdout.matched}/${holdout.realCount} medianNorm=${holdout.medianNormPosErr.toFixed(4)} cubicPairs=${holdout.cubicPairCount} medianCubicNorm=${Number(holdout.medianCubicNormErr).toFixed(4)} curve_exact=${holdout.curve_exact}`
+    : '- holdout sample missing'
+}
 
 ## Notes
-- Parametric outline + fillet chords (\`curve_approx\`); zero-length omitted
+- Parametric outline + **exact cubic** fillets; zero-length omitted
 - Full 63/14 topology still **not** claimed
 
 ## Rows
-| sample | role | matched | real | medianNorm | pass |
-|---|---|---:|---:|---:|---|
+| sample | role | matched | real | medianNorm | cubicPairs | medianCubic | pass |
+|---|---|---:|---:|---:|---:|---:|---|
 ${rows
   .map(
     (r) =>
-      `| ${r.L}x${r.W}x${r.H} | ${r.role} | ${r.matched} | ${r.realCount} | ${r.medianNormPosErr.toFixed(4)} | ${r.passed ? 'yes' : 'no'} |`,
+      `| ${r.L}x${r.W}x${r.H} | ${r.role} | ${r.matched} | ${r.realCount} | ${r.medianNormPosErr.toFixed(4)} | ${r.cubicPairCount} | ${Number(r.medianCubicNormErr).toFixed(4)} | ${r.passed ? 'yes' : 'no'} |`,
   )
   .join('\n')}
 
 ## Counterexamples
-${counterexamples.length ? counterexamples.map((c) => `- ${c.L}x${c.W}x${c.H}: matched=${c.matched} norm=${c.medianNormPosErr.toFixed(4)}`).join('\n') : '- none (excluding pressure row)'}
+${counterexamples.length ? counterexamples.map((c) => `- ${c.L}x${c.W}x${c.H}: matched=${c.matched} cubic=${c.cubicPairCount}/${Number(c.medianCubicNormErr).toFixed(4)}`).join('\n') : '- none (excluding pressure row)'}
 `
   fs.writeFileSync(path.join(reportsDir, 'body-outline-match.md'), md)
   console.log(
     'body-outline-match',
     `holdout=${gatePassed ? 'pass' : 'fail'}`,
-    holdout ? `${holdout.matched}/${holdout.realCount}` : 'missing',
+    holdout ? `${holdout.matched}/${holdout.realCount} cubic=${holdout.cubicPairCount}/${Number(holdout.medianCubicNormErr).toFixed(4)}` : 'missing',
     `rows=${rows.length}`,
   )
   return out

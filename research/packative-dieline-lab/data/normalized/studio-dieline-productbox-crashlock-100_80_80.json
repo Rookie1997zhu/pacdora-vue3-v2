@@ -462,7 +462,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 50.30159922429863,
+        "lengthUu": 49.62262129241049,
         "p0": {
           "x": 1101.7296000000001,
           "y": 42.51899999999989
@@ -471,12 +471,20 @@
           "x": 1076.1468000000002,
           "y": -0.0007000000000516593
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 1100.788547,
+          "y": 24.977899999999863
+        },
+        "c1": {
+          "x": 1091.2036,
+          "y": 9.047399999999925
+        }
       },
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 50.30159922429873,
+        "lengthUu": 49.62262129241055,
         "p0": {
           "x": 727.5596,
           "y": 42.51899999999989
@@ -485,7 +493,15 @@
           "x": 753.1424000000001,
           "y": -0.0007000000000516593
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 728.500653,
+          "y": 24.977899999999863
+        },
+        "c1": {
+          "x": 738.0856,
+          "y": 9.047399999999925
+        }
       },
       {
         "kind": "line",
@@ -518,7 +534,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 4.430439512769707,
+        "lengthUu": 4.335690769715923,
         "p0": {
           "x": 423.30760000000004,
           "y": 644.4089999999999
@@ -527,7 +543,15 @@
           "x": 426.85919,
           "y": 646.8958499999999
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 424.89651000000003,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 426.31576,
+          "y": 645.4027689999999
+        }
       },
       {
         "kind": "line",
@@ -546,7 +570,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 2.918049706108425,
+        "lengthUu": 2.8927263266511165,
         "p0": {
           "x": 725.6696000000001,
           "y": 644.4089999999999
@@ -555,7 +579,15 @@
           "x": 722.99707,
           "y": 645.516
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 724.6672100000001,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 723.70587,
+          "y": 644.807199
+        }
       },
       {
         "kind": "line",
@@ -602,7 +634,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 4.4304395127697855,
+        "lengthUu": 4.335690769715969,
         "p0": {
           "x": 1103.6196,
           "y": 644.4089999999999
@@ -611,7 +643,15 @@
           "x": 1107.17119,
           "y": 646.8958499999999
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 1105.20851,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 1106.62776,
+          "y": 645.4027689999999
+        }
       },
       {
         "kind": "line",
@@ -672,7 +712,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 3.2205898616272988,
+        "lengthUu": 3.186178654156167,
         "p0": {
           "x": 423.30760000000004,
           "y": 644.4089999999999
@@ -681,7 +721,15 @@
           "x": 420.41829,
           "y": 645.75199
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 422.19365000000005,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 421.13642000000004,
+          "y": 644.900412
+        }
       },
       {
         "kind": "line",
@@ -854,7 +902,7 @@
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 5.3842106260922655,
+        "lengthUu": 5.203310108085077,
         "p0": {
           "x": 725.6696000000001,
           "y": 644.4089999999999
@@ -863,12 +911,20 @@
           "x": 729.4439500000001,
           "y": 647.9907199999999
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 727.6801,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 729.33873,
+          "y": 645.9829699999999
+        }
       },
       {
         "kind": "path",
         "style": "Cutting",
-        "lengthUu": 3.2205898616272917,
+        "lengthUu": 3.186178654156167,
         "p0": {
           "x": 1103.6196,
           "y": 644.4089999999999
@@ -877,7 +933,15 @@
           "x": 1100.73029,
           "y": 645.75199
         },
-        "pointCount": 3
+        "pointCount": 3,
+        "c0": {
+          "x": 1102.50565,
+          "y": 644.4089999999999
+        },
+        "c1": {
+          "x": 1101.44842,
+          "y": 644.900412
+        }
       },
       {
         "kind": "line",
@@ -1145,14 +1209,14 @@
       }
     ],
     "notes": [
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely",
-      "path_contains_curves_sampled_coarsely"
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved",
+      "path_single_cubic_controls_preserved"
     ],
     "thickness": null
   }

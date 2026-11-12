@@ -75,31 +75,31 @@ export function runPrototype() {
       cutting: outline.cutting?.length ?? 0,
       creasing: outline.creasing?.length ?? 0,
       curve_approx: outline.curveApprox,
+      fillets_exact: outline.filletsExact,
       implemented: outline.implemented,
       gaps: outline.gaps,
     })
   }
 
-  const gapsMd = `# Prototype gaps (crashlock lock+top+outline third slice)
+  const gapsMd = `# Prototype gaps (crashlock lock+top+outline + exact cubics)
 
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
 - Parametric **14** body Creasing lines
 - Parametric lock-bottom **Cutting** (~21)
 - Parametric top dust flaps + tuck + glue (~26–29)
-- Parametric body outline: right outer, L-bottom cut, micro bridge, fillet chords (~11)
-- Cubic / path corners: **curve_approx**
+- Parametric body outline: right outer, L-bottom cut, micro bridge (~11 leftovers)
+- Body fillet corners: **exact cubic** (\`filletsExact\`; 8 \`<path C>\`)
 
 ## Not implemented (explicit)
 - Zero-length degenerate stubs (intentionally omitted)
-- Exact cubic corner paths
 - Full 63 Cutting / production claim
 
 ## Generated files
 ${results
   .map(
     (r) =>
-      `- \`${r.file}\` cuts=${r.cutting} creases=${r.creasing} widthUu=${r.widthUu.toFixed(3)} heightUu=${r.heightUu.toFixed(3)}`,
+      `- \`${r.file}\` cuts=${r.cutting} creases=${r.creasing} fillets_exact=${r.fillets_exact} widthUu=${r.widthUu.toFixed(3)} heightUu=${r.heightUu.toFixed(3)}`,
   )
   .join('\n')}
 `

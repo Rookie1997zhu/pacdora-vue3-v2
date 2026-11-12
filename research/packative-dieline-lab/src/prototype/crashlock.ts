@@ -63,6 +63,7 @@ export type PrototypeResult = {
   cutting?: CompactSeg[]
   creasing?: CompactSeg[]
   curveApprox?: boolean
+  filletsExact?: boolean
 }
 
 export function setFitCoeffs(width: FitCoeff, height: FitCoeff) {
@@ -143,6 +144,10 @@ function renderSegSvg(segs: CompactSeg[], vbW: number, vbH: number, comment: str
     .filter((s) => s.p0 && s.p1)
     .map((s) => {
       const stroke = s.style === 'Cutting' ? 'rgb(255,0,0)' : 'rgb(0,255,0)'
+      if (s.kind === 'path' && s.c0 && s.c1) {
+        const d = `M ${s.p0!.x.toFixed(3)} ${flipY(s.p0!.y).toFixed(3)} C ${s.c0.x.toFixed(3)} ${flipY(s.c0.y).toFixed(3)} ${s.c1.x.toFixed(3)} ${flipY(s.c1.y).toFixed(3)} ${s.p1!.x.toFixed(3)} ${flipY(s.p1!.y).toFixed(3)}`
+        return `<path d="${d}" fill="none" stroke="${stroke}" stroke-width="2" ev-style="${s.style}" />`
+      }
       return `<line x1="${s.p0!.x.toFixed(3)}" y1="${flipY(s.p0!.y).toFixed(3)}" x2="${s.p1!.x.toFixed(3)}" y2="${flipY(s.p1!.y).toFixed(3)}" stroke="${stroke}" stroke-width="2" ev-style="${s.style}" />`
     })
     .join('\n  ')
@@ -213,8 +218,8 @@ export function generateCrashlockWithTopFlaps(params: CrashlockParams): Prototyp
 }
 
 /**
- * Third-slice generator: lock + top + body outline (right outer, micro bridge, fillet chords).
- * Zero-length degenerates omitted; exact cubics still curve_approx. Full 63/14 not claimed.
+ * Third-slice generator: lock + top + body outline (right outer, micro bridge, exact cubic fillets).
+ * Zero-length degenerates omitted. Full 63/14 not claimed.
  */
 export function generateCrashlockWithOutline(params: CrashlockParams): PrototypeResult {
   return generateCrashlockPartialSlices(params, { includeOutline: true })
@@ -230,19 +235,23 @@ function generateCrashlockPartialSlices(
   const mmPerUuCandidate = 25.4 / 96
   const built = buildLockBottomSegments(L, W, H, undefined, { omitTopCreaseStubs: true })
   const top = buildTopFlapSegments(built.layout)
-  const outline = opts.includeOutline ? buildBodyOutlineSegments(built.layout) : { cutting: [] as CompactSeg[], curveApprox: true }
+  const outline = opts.includeOutline
+    ? buildBodyOutlineSegments(built.layout)
+    : { cutting: [] as CompactSeg[], curveApprox: true, filletsExact: false }
   const cutting = [...built.cutting, ...top.cutting, ...outline.cutting]
   const creasing = [...built.creasing, ...top.creasingExtra]
   const segs = [...cutting, ...creasing]
   const tipExtra = tipDepthForView(W) * (96 / 25.4)
   const maxX = Math.max(widthUu, built.layout.x4 + 20)
   const maxY = Math.max(heightUu, built.layout.yBodyTop + tipExtra + 40)
-  const sliceLabel = opts.includeOutline ? 'lock+top+outline THIRD SLICE' : 'lock+top SECOND SLICE'
+  const filletsExact = Boolean(opts.includeOutline && outline.filletsExact)
+  const sliceLabel = opts.includeOutline ? 'lock+top+outline+cubics' : 'lock+top SECOND SLICE'
+  const curveNote = filletsExact ? 'exact_cubic_fillets' : 'curve_approx'
   const svg = renderSegSvg(
     segs,
     maxX,
     maxY,
-    `BOXCRAFT dieline-lab ${sliceLabel}; curve_approx; not full 63/14 topology`,
+    `BOXCRAFT dieline-lab ${sliceLabel}; ${curveNote}; not full 63/14 topology`,
   )
   const implemented = [
     'outer_envelope_size_vs_LWH_fit',
@@ -251,16 +260,17 @@ function generateCrashlockPartialSlices(
     'top_dust_flap_cutting_parametric',
     'tuck_tongue_cutting_parametric',
     'glue_flap_outer_cutting_parametric',
-    'curve_approx_chord_for_cubic_corners',
   ]
   if (opts.includeOutline) {
-    implemented.push('body_outline_outer_and_fillet_chords_parametric')
+    implemented.push('body_outline_outer_edges_parametric')
+    implemented.push(filletsExact ? 'body_outline_exact_cubic_fillets' : 'body_outline_fillet_chords')
+  } else {
+    implemented.push('curve_approx_chord_for_cubic_corners')
   }
   const gaps = opts.includeOutline
     ? [
         'zero_length_degenerate_segments_omitted',
         'full_63_cutting_topology_not_claimed',
-        'exact_cubic_corners_not_modeled',
         'material_thickness_unobserved',
       ]
     : [
@@ -279,7 +289,8 @@ function generateCrashlockPartialSlices(
     layout: built.layout,
     cutting,
     creasing,
-    curveApprox: true,
+    curveApprox: !filletsExact,
+    filletsExact,
     modelWidth: GEOM_WIDTH_UU.model,
     modelHeight: GEOM_HEIGHT_UU.model,
     implemented,

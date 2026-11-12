@@ -141,12 +141,14 @@ export function runValidate() {
     const outlinePath = path.join(reportsDir, 'body-outline-match.json')
     const outline = fs.existsSync(outlinePath) ? JSON.parse(fs.readFileSync(outlinePath, 'utf8')) : null
     const outlinePass = Boolean(outline?.gate?.passed)
+    const outlineRow = outline?.gate?.holdout_row
+    const outlineCurveExact = Boolean(outlineRow?.curve_exact ?? outline?.summary?.holdout_curve_exact)
     tests.push({
       id: 'body_outline_cutting_correspondence',
       kind: 'real_sample',
       status: outline ? (outlinePass ? 'passed' : 'failed') : 'not_run',
       note: outline
-        ? `holdout=${outline.gate?.holdout}; matched=${outline.gate?.holdout_row?.matched}/${outline.gate?.holdout_row?.realCount}; medianNorm=${Number(outline.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
+        ? `holdout=${outline.gate?.holdout}; matched=${outlineRow?.matched}/${outlineRow?.realCount}; medianNorm=${Number(outlineRow?.medianNormPosErr ?? NaN).toFixed(4)}; cubicPairs=${outlineRow?.cubicPairCount ?? '?'}; medianCubicNorm=${Number(outlineRow?.medianCubicNormErr ?? NaN).toFixed(4)}; ${outlineCurveExact ? 'curve_exact' : 'endpoint_only'}`
         : 'body-outline-match.json missing — run match-body-outline',
     })
     tests.push({
@@ -154,15 +156,17 @@ export function runValidate() {
       kind: 'real_sample',
       status: 'blocked',
       reason:
-        lockPass && topPass && outlinePass
-          ? 'curve_approx_and_degenerate_segments_remain'
-          : lockPass && topPass
-            ? 'top_and_lock_partial_not_full_topology'
-            : lockPass
-              ? 'lock_bottom_partial_not_full_topology'
-              : segPass
-                ? 'lock_bottom_geometry_not_implemented'
-                : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
+        lockPass && topPass && outlinePass && outlineCurveExact
+          ? 'degenerate_segments_remain'
+          : lockPass && topPass && outlinePass
+            ? 'curve_approx_and_degenerate_segments_remain'
+            : lockPass && topPass
+              ? 'top_and_lock_partial_not_full_topology'
+              : lockPass
+                ? 'lock_bottom_partial_not_full_topology'
+                : segPass
+                  ? 'lock_bottom_geometry_not_implemented'
+                  : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
     })
   }
 
@@ -182,6 +186,8 @@ export function runValidate() {
       synTop.svg.includes('ev-style="Cutting"') &&
       synTop.svg.includes('ev-style="Creasing"') &&
       synOutline.svg.includes('ev-style="Cutting"') &&
+      /C\s/.test(synOutline.svg) &&
+      Boolean(synOutline.filletsExact) &&
       (synLock.cutting?.length || 0) >= 18 &&
       (synLock.creasing?.length || 0) === 14 &&
       (synTop.cutting?.length || 0) >= 40 &&
@@ -235,8 +241,8 @@ ${tests
 - Creasing segment correspondence: **${segGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see segment-match.md).
 - Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; curve_approx).
 - Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; curve_approx).
-- Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; curve_approx).
-- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — curve_approx / degenerates remain; not production.
+- Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; endpoint + cubic residual).
+- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — degenerates remain; not production.
 `
 
   fs.writeFileSync(path.join(reportsDir, 'validation-report.md'), reportMd)
@@ -263,8 +269,8 @@ ${tests
 
 1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
 2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
-3. Full topology still **blocked** (\`curve_approx_and_degenerate_segments_remain\` when all three partial gates pass).
-4. Optional next: exact cubic corners / drop zero-length artifacts / material thickness — still not production.
+3. Full topology still **blocked** (\`degenerate_segments_remain\` when outline curve_exact + three partial gates pass).
+4. Optional next: model zero-length stubs / material thickness — still not production.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

@@ -44,6 +44,9 @@ export function runNormalize() {
           p0: s.world[0] || null,
           p1: s.world[s.world.length - 1] || null,
           pointCount: s.world.length,
+          ...(s.cubicWorld
+            ? { c0: s.cubicWorld.c0, c1: s.cubicWorld.c1 }
+            : {}),
         })),
       },
     }

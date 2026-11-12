@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T01:42:04.722Z",
+  "generated_at": "2026-11-12T02:22:07.441Z",
   "results": [
     {
       "file": "proto-crashlock-100_80_80-outline.svg",
@@ -10,7 +10,8 @@
       "heightUu": 831.4963480000041,
       "cutting": 61,
       "creasing": 14,
-      "curve_approx": true,
+      "curve_approx": false,
+      "fillets_exact": true,
       "implemented": [
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
@@ -18,13 +19,12 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners",
-        "body_outline_outer_and_fillet_chords_parametric"
+        "body_outline_outer_edges_parametric",
+        "body_outline_exact_cubic_fillets"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
@@ -37,7 +37,8 @@
       "heightUu": 661.4176999999333,
       "cutting": 61,
       "creasing": 14,
-      "curve_approx": true,
+      "curve_approx": false,
+      "fillets_exact": true,
       "implemented": [
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
@@ -45,13 +46,12 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners",
-        "body_outline_outer_and_fillet_chords_parametric"
+        "body_outline_outer_edges_parametric",
+        "body_outline_exact_cubic_fillets"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
@@ -64,7 +64,8 @@
       "heightUu": 891.9686679998683,
       "cutting": 61,
       "creasing": 14,
-      "curve_approx": true,
+      "curve_approx": false,
+      "fillets_exact": true,
       "implemented": [
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
@@ -72,13 +73,12 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners",
-        "body_outline_outer_and_fillet_chords_parametric"
+        "body_outline_outer_edges_parametric",
+        "body_outline_exact_cubic_fillets"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
@@ -91,7 +91,8 @@
       "heightUu": 869.2913959999985,
       "cutting": 61,
       "creasing": 14,
-      "curve_approx": true,
+      "curve_approx": false,
+      "fillets_exact": true,
       "implemented": [
         "outer_envelope_size_vs_LWH_fit",
         "body_panel_creasing_14_parametric",
@@ -99,13 +100,12 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners",
-        "body_outline_outer_and_fillet_chords_parametric"
+        "body_outline_outer_edges_parametric",
+        "body_outline_exact_cubic_fillets"
       ],
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     }

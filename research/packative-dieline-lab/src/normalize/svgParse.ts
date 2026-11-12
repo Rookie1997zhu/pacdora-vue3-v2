@@ -15,6 +15,10 @@ export type Seg = {
   points: Point[] // local coords before parent transform
   world: Point[] // after parent transforms
   lengthUu: number
+  /** Local cubic controls for single-C paths (optional). */
+  cubicLocal?: { c0: Point; c1: Point } | null
+  /** World cubic controls after parent transforms (optional). */
+  cubicWorld?: { c0: Point; c1: Point } | null
 }
 
 export type Bounds = { minX: number; minY: number; maxX: number; maxY: number; width: number; height: number }
@@ -37,6 +41,7 @@ export type SvgNormalizeResult = {
       style: EvStyle
       world: Point[]
       lengthUu: number
+      cubicWorld?: { c0: Point; c1: Point } | null
     }>
     pageBounds: Bounds | null
     geometryBounds: Bounds | null
@@ -139,8 +144,13 @@ function attrs(tag: string): Record<string, string> {
   return out
 }
 
-/** Very small path subset: M/L/H/V/Z absolute+relative polyline approx (curves sampled coarsely and flagged). */
-function parsePathD(d: string): { points: Point[]; usedCurves: boolean } {
+/** Path subset: M/L/H/V/Z + single cubic C/c with structured control points. */
+function parsePathD(d: string): {
+  points: Point[]
+  usedCurves: boolean
+  cubicLocal: { c0: Point; c1: Point } | null
+  cubicCount: number
+} {
   const tokens = d.match(/[a-zA-Z]|-?\d*\.?\d+(?:e[-+]?\d+)?/g) || []
   let i = 0
   let cmd = ''
@@ -150,6 +160,8 @@ function parsePathD(d: string): { points: Point[]; usedCurves: boolean } {
   let sy = 0
   const pts: Point[] = []
   let usedCurves = false
+  let cubicLocal: { c0: Point; c1: Point } | null = null
+  let cubicCount = 0
   const push = (nx: number, ny: number) => {
     x = nx
     y = ny
@@ -182,13 +194,19 @@ function parsePathD(d: string): { points: Point[]; usedCurves: boolean } {
       push(sx, sy)
     } else if (lower === 'c') {
       usedCurves = true
-      // sample end point only + one mid sample (not sub-mm accurate for curves)
+      cubicCount++
       const x1 = (rel ? x : 0) + num()
       const y1 = (rel ? y : 0) + num()
       const x2 = (rel ? x : 0) + num()
       const y2 = (rel ? y : 0) + num()
       const x3 = (rel ? x : 0) + num()
       const y3 = (rel ? y : 0) + num()
+      // Preserve exact controls for single-cubic paths; keep a mid sample for length/legacy.
+      if (cubicCount === 1) {
+        cubicLocal = { c0: { x: x1, y: y1 }, c1: { x: x2, y: y2 } }
+      } else {
+        cubicLocal = null
+      }
       pts.push({ x: (x + x1 + x2 + x3) / 4, y: (y + y1 + y2 + y3) / 4 })
       push(x3, y3)
     } else if (lower === 'q') {
@@ -197,11 +215,10 @@ function parsePathD(d: string): { points: Point[]; usedCurves: boolean } {
       num()
       push((rel ? x : 0) + num(), (rel ? y : 0) + num())
     } else {
-      // unsupported command — skip one number if present
       if (i < tokens.length && !/[a-zA-Z]/.test(tokens[i])) i++
     }
   }
-  return { points: pts, usedCurves }
+  return { points: pts, usedCurves, cubicLocal: cubicCount === 1 ? cubicLocal : null, cubicCount }
 }
 
 function stripDangerous(svg: string) {
@@ -269,17 +286,28 @@ export function normalizeSvg(svgText: string, sourcePath: string, sampleId: stri
     } else if (/^<path\b/i.test(tok)) {
       const a = attrs(tok)
       const parsed = parsePathD(a.d || '')
-      if (parsed.usedCurves) notes.push('path_contains_curves_sampled_coarsely')
+      if (parsed.usedCurves && !parsed.cubicLocal) notes.push('path_contains_curves_sampled_coarsely')
+      if (parsed.cubicLocal) notes.push('path_single_cubic_controls_preserved')
       const mat = stack[stack.length - 1]
       const world = parsed.points.map((p) => apply(mat, p))
+      const cubicWorld = parsed.cubicLocal
+        ? { c0: apply(mat, parsed.cubicLocal.c0), c1: apply(mat, parsed.cubicLocal.c1) }
+        : null
       const style = (a['ev-style'] || 'Unknown') as EvStyle
+      // Prefer chord length p0→p1 for single cubics (stable vs coarse mid-sample polyLen)
+      const lengthUu =
+        parsed.cubicLocal && world.length >= 2
+          ? dist(world[0], world[world.length - 1])
+          : polyLen(world)
       segments.push({
         kind: 'path',
         style,
         raw: a,
         points: parsed.points,
         world,
-        lengthUu: polyLen(world),
+        lengthUu,
+        cubicLocal: parsed.cubicLocal,
+        cubicWorld,
       })
     }
   }
@@ -367,6 +395,7 @@ export function normalizeSvg(svgText: string, sourcePath: string, sampleId: stri
         style: s.style,
         world: s.world,
         lengthUu: s.lengthUu,
+        cubicWorld: s.cubicWorld ?? null,
       })),
       pageBounds,
       geometryBounds,
