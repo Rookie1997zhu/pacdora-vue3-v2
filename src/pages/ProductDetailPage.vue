@@ -4,7 +4,7 @@
       <div class="layout">
         <aside class="preview">
           <div class="slot" aria-hidden="true">
-            <img v-if="product.cover_rel" class="cover" :src="coverUrl(product.cover_rel)" :alt="" />
+            <img v-if="product.cover_rel" class="cover" :src="coverUrl(product.cover_rel)" alt="" />
             <span v-else class="box-shape" />
             <em class="badge">
               {{ product.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}

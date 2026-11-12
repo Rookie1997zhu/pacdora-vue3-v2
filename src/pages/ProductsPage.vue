@@ -13,7 +13,7 @@
         <li v-for="p in products" :key="p.id">
           <RouterLink class="card" :to="`/products/${p.slug}`">
             <div class="slot" aria-hidden="true">
-              <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" :alt="" />
+              <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" alt="" />
               <span v-else class="box-shape" />
               <em class="badge">
                 {{ p.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}
