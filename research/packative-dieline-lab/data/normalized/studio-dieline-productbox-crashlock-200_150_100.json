@@ -275,7 +275,8 @@
           "x": 2689.1296,
           "y": 608.508
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "line",
@@ -529,7 +530,8 @@
           "x": 2689.1296,
           "y": 608.508
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "path",
@@ -1186,7 +1188,10 @@
     },
     "cuttingCount": 63,
     "creasingCount": 14,
-    "unknownStyleCount": 0
+    "unknownStyleCount": 0,
+    "cuttingCountRaw": 63,
+    "cuttingZeroLength": 2,
+    "cuttingStructural": 61
   },
   "inferred": {
     "candidateMmPerUu": 0.26458333333333334,

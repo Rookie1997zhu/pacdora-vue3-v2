@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { summarizeFeatures } from '../geometry/features.ts'
+import { summarizeFeatures, ZERO_LENGTH_UU } from '../geometry/features.ts'
 import { normalizeSvg, parseProductDimsFromName } from '../normalize/svgParse.ts'
 import { dataNormalized, dataRaw, reportsDir } from '../paths.ts'
 
@@ -18,6 +18,9 @@ export function runNormalize() {
         W: parseProductDimsFromName(it.name)?.W ?? null,
         H: parseProductDimsFromName(it.name)?.H ?? null,
         cuttingCount: 0,
+        cuttingCountRaw: 0,
+        cuttingZeroLength: 0,
+        cuttingStructural: 0,
         creasingCount: 0,
         geomWidthUu: null,
         geomHeightUu: null,
@@ -32,22 +35,30 @@ export function runNormalize() {
     const dims = parseProductDimsFromName(it.name)
     const doc = normalizeSvg(text, it.abs_readonly, it.sample_id)
     const outPath = path.join(dataNormalized, `${it.sample_id}.json`)
-    // Store compact segments for size: keep lengths + style + endpoints only
+    const segments = doc.normalized.segments.map((s) => {
+      const exportArtifact = s.style === 'Cutting' && s.lengthUu < ZERO_LENGTH_UU
+      return {
+        kind: s.kind,
+        style: s.style,
+        lengthUu: s.lengthUu,
+        p0: s.world[0] || null,
+        p1: s.world[s.world.length - 1] || null,
+        pointCount: s.world.length,
+        ...(s.cubicWorld ? { c0: s.cubicWorld.c0, c1: s.cubicWorld.c1 } : {}),
+        ...(exportArtifact ? { exportArtifact: true } : {}),
+      }
+    })
+    const cuttingCountRaw = doc.normalized.cuttingCount
+    const cuttingZeroLength = segments.filter((s) => s.style === 'Cutting' && s.exportArtifact).length
+    const cuttingStructural = cuttingCountRaw - cuttingZeroLength
     const compact = {
       ...doc,
       normalized: {
         ...doc.normalized,
-        segments: doc.normalized.segments.map((s) => ({
-          kind: s.kind,
-          style: s.style,
-          lengthUu: s.lengthUu,
-          p0: s.world[0] || null,
-          p1: s.world[s.world.length - 1] || null,
-          pointCount: s.world.length,
-          ...(s.cubicWorld
-            ? { c0: s.cubicWorld.c0, c1: s.cubicWorld.c1 }
-            : {}),
-        })),
+        segments,
+        cuttingCountRaw,
+        cuttingZeroLength,
+        cuttingStructural,
       },
     }
     fs.writeFileSync(outPath, JSON.stringify(compact, null, 2))

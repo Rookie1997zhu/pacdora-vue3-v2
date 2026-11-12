@@ -81,7 +81,7 @@ export function runPrototype() {
     })
   }
 
-  const gapsMd = `# Prototype gaps (crashlock lock+top+outline + exact cubics)
+  const gapsMd = `# Prototype gaps (crashlock structural topology)
 
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
@@ -90,10 +90,11 @@ export function runPrototype() {
 - Parametric top dust flaps + tuck + glue (~26–29)
 - Parametric body outline: right outer, L-bottom cut, micro bridge (~11 leftovers)
 - Body fillet corners: **exact cubic** (\`filletsExact\`; 8 \`<path C>\`)
+- Zero-length Cutting classified as **export artifacts** (normalize \`exportArtifact\`); structural cutting = **61**
 
 ## Not implemented (explicit)
-- Zero-length degenerate stubs (intentionally omitted)
-- Full 63 Cutting / production claim
+- Emitting raw Packative zero-length stubs to fake count 63
+- Full raw-63 / production claim
 
 ## Generated files
 ${results

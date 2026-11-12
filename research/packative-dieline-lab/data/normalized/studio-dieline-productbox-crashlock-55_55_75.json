@@ -275,7 +275,8 @@
           "x": 874.9606,
           "y": 249.44899999999996
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "line",
@@ -529,7 +530,8 @@
           "x": 874.9606,
           "y": 249.44899999999996
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "path",
@@ -813,7 +815,8 @@
           "x": 149.29160000000002,
           "y": 636.851
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "line",
@@ -1025,7 +1028,8 @@
           "x": 565.0396000000001,
           "y": 636.851
         },
-        "pointCount": 2
+        "pointCount": 2,
+        "exportArtifact": true
       },
       {
         "kind": "line",
@@ -1186,7 +1190,10 @@
     },
     "cuttingCount": 63,
     "creasingCount": 14,
-    "unknownStyleCount": 0
+    "unknownStyleCount": 0,
+    "cuttingCountRaw": 63,
+    "cuttingZeroLength": 4,
+    "cuttingStructural": 59
   },
   "inferred": {
     "candidateMmPerUu": 0.26458333333333334,

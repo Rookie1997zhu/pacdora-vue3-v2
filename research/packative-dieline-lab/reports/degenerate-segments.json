@@ -1,0 +1,498 @@
+{
+  "generated_at": "2026-11-12T02:34:23.127Z",
+  "notes": [
+    "Zero-length Cutting segments are Packative SVG export artifacts",
+    "Prototype deliberately does not emit them (structural cutting = raw − zero)",
+    "Do not fake raw 63 by inserting stubs",
+    "holdout_frozen=100x80x90"
+  ],
+  "holdout_key": "100x80x90",
+  "summary": {
+    "sample_count": 11,
+    "holdout_raw": 63,
+    "holdout_zero": 2,
+    "holdout_structural": 61,
+    "holdout_zeros_at_maxX_bodyTop": false
+  },
+  "rows": [
+    {
+      "sampleId": "studio-dieline-100_80_80",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_70_80",
+      "L": 100,
+      "W": 70,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1328.4996,
+            "y": 306.14199999999994
+          },
+          "p1": {
+            "x": 1328.4996,
+            "y": 306.14199999999994
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1328.4996,
+            "y": 306.14199999999994
+          },
+          "p1": {
+            "x": 1328.4996,
+            "y": 306.14199999999994
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_70",
+      "L": 100,
+      "W": 80,
+      "H": 70,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_80",
+      "L": 100,
+      "W": 80,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "p1": {
+            "x": 1404.0896,
+            "y": 343.937
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_90_80",
+      "L": 100,
+      "W": 90,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1479.6896,
+            "y": 381.73299999999995
+          },
+          "p1": {
+            "x": 1479.6896,
+            "y": 381.73299999999995
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1479.6896,
+            "y": 381.73299999999995
+          },
+          "p1": {
+            "x": 1479.6896,
+            "y": 381.73299999999995
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-110_80_80",
+      "L": 110,
+      "W": 80,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1479.6896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1479.6896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1479.6896,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1479.6896,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
+      "L": 120,
+      "W": 90,
+      "H": 60,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1630.8696,
+            "y": 381.73199999999997
+          },
+          "p1": {
+            "x": 1630.8696,
+            "y": 381.73199999999997
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1630.8696,
+            "y": 381.73199999999997
+          },
+          "p1": {
+            "x": 1630.8696,
+            "y": 381.73199999999997
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
+      "L": 200,
+      "W": 150,
+      "H": 100,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 2689.1296,
+            "y": 608.508
+          },
+          "p1": {
+            "x": 2689.1296,
+            "y": 608.508
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 2689.1296,
+            "y": 608.508
+          },
+          "p1": {
+            "x": 2689.1296,
+            "y": 608.508
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-55_55_75",
+      "L": 55,
+      "W": 55,
+      "H": 75,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 4,
+      "cuttingStructural": 59,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 874.9606,
+            "y": 249.44899999999996
+          },
+          "p1": {
+            "x": 874.9606,
+            "y": 249.44899999999996
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 874.9606,
+            "y": 249.44899999999996
+          },
+          "p1": {
+            "x": 874.9606,
+            "y": 249.44899999999996
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 2,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 149.29160000000002,
+            "y": 636.851
+          },
+          "p1": {
+            "x": 149.29160000000002,
+            "y": 636.851
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 3,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 565.0396000000001,
+            "y": 636.851
+          },
+          "p1": {
+            "x": 565.0396000000001,
+            "y": 636.851
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-90_80_80",
+      "L": 90,
+      "W": 80,
+      "H": 80,
+      "role": "other",
+      "cuttingCountRaw": 63,
+      "cuttingZeroLength": 2,
+      "cuttingStructural": 61,
+      "zeros": [
+        {
+          "indexHint": 0,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1328.4996,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1328.4996,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        },
+        {
+          "indexHint": 1,
+          "lengthUu": 0,
+          "exportArtifact": true,
+          "p0": {
+            "x": 1328.4996,
+            "y": 343.9369999999999
+          },
+          "p1": {
+            "x": 1328.4996,
+            "y": 343.9369999999999
+          },
+          "at_maxX_bodyTop": false
+        }
+      ],
+      "allZerosAtMaxXBodyTop": false
+    }
+  ]
+}

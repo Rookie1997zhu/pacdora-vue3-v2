@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:22:29.020Z",
+  "generated_at": "2026-11-12T02:36:26.445Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -50,10 +50,16 @@
       "note": "holdout=100x80x90; matched=11/11; medianNorm=0.0007; cubicPairs=8; medianCubicNorm=0.0000; curve_exact"
     },
     {
+      "id": "structural_cutting_count_correspondence",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "holdout=100x80x90; realStructural=61; proto=61; zero=2"
+    },
+    {
       "id": "holdout_full_crashlock_topology",
       "kind": "real_sample",
       "status": "blocked",
-      "reason": "degenerate_segments_remain"
+      "reason": "raw_63_includes_export_zero_length_artifacts_not_emitted"
     },
     {
       "id": "synthetic_svg_emits_ev_style",
@@ -155,7 +161,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T02:21:29.621Z",
+    "generated_at": "2026-11-12T02:33:35.100Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,
@@ -400,6 +406,26 @@
       "curve_approx": false,
       "cutting_total_diag": 61,
       "filletsExact": true
+    }
+  },
+  "structural_cutting_match_gate": {
+    "holdout": "100x80x90",
+    "expect_proto_cutting": 61,
+    "require_real_structural_eq_proto": true,
+    "require_real_zero_ge": 1,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "realRaw": 63,
+      "realZero": 2,
+      "realStructural": 61,
+      "protoCutting": 61,
+      "passed": true,
+      "protoEmitsZeroLength": false
     }
   }
 }

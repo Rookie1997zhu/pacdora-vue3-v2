@@ -10,6 +10,8 @@ export type CompactSeg = {
   /** World-space cubic control points when kind==='path' and a single C/c was preserved. */
   c0?: Pt | null
   c1?: Pt | null
+  /** Zero-length Packative SVG export artifact (kept for audit; not structural). */
+  exportArtifact?: boolean
 }
 
 export type Bounds = { minX: number; minY: number; width: number; height: number }

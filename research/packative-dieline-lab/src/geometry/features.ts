@@ -6,6 +6,9 @@ export type FeatureSummary = {
   W: number | null
   H: number | null
   cuttingCount: number
+  cuttingCountRaw: number
+  cuttingZeroLength: number
+  cuttingStructural: number
   creasingCount: number
   geomWidthUu: number | null
   geomHeightUu: number | null
@@ -14,6 +17,9 @@ export type FeatureSummary = {
   topCreaseLengthsUu: number[]
   candidateMmPerUu: number | null
 }
+
+/** Packative export zero-length Cutting threshold (uu). */
+export const ZERO_LENGTH_UU = 1e-6
 
 export type LinearCoeff = { a: number; b: number; c: number; d: number; rmse: number; n: number }
 
@@ -39,12 +45,21 @@ export function summarizeFeatures(
     .filter((n) => n > 1)
     .sort((a, b) => b - a)
 
+  const cuttingCountRaw = doc.normalized.cuttingCount
+  const cuttingZeroLength = doc.normalized.segments.filter(
+    (s) => s.style === 'Cutting' && s.lengthUu < ZERO_LENGTH_UU,
+  ).length
+  const cuttingStructural = cuttingCountRaw - cuttingZeroLength
+
   return {
     sampleId: doc.sampleId,
     L: dims?.L ?? null,
     W: dims?.W ?? null,
     H: dims?.H ?? null,
-    cuttingCount: doc.normalized.cuttingCount,
+    cuttingCount: cuttingCountRaw,
+    cuttingCountRaw,
+    cuttingZeroLength,
+    cuttingStructural,
     creasingCount: doc.normalized.creasingCount,
     geomWidthUu: doc.normalized.geometryBounds?.width ?? null,
     geomHeightUu: doc.normalized.geometryBounds?.height ?? null,

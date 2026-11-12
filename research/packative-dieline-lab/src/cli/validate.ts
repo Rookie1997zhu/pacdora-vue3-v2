@@ -151,22 +151,36 @@ export function runValidate() {
         ? `holdout=${outline.gate?.holdout}; matched=${outlineRow?.matched}/${outlineRow?.realCount}; medianNorm=${Number(outlineRow?.medianNormPosErr ?? NaN).toFixed(4)}; cubicPairs=${outlineRow?.cubicPairCount ?? '?'}; medianCubicNorm=${Number(outlineRow?.medianCubicNormErr ?? NaN).toFixed(4)}; ${outlineCurveExact ? 'curve_exact' : 'endpoint_only'}`
         : 'body-outline-match.json missing — run match-body-outline',
     })
+    const structuralPath = path.join(reportsDir, 'structural-cutting-match.json')
+    const structural = fs.existsSync(structuralPath) ? JSON.parse(fs.readFileSync(structuralPath, 'utf8')) : null
+    const structuralPass = Boolean(structural?.gate?.passed)
+    const structuralRow = structural?.gate?.holdout_row
+    tests.push({
+      id: 'structural_cutting_count_correspondence',
+      kind: 'real_sample',
+      status: structural ? (structuralPass ? 'passed' : 'failed') : 'not_run',
+      note: structural
+        ? `holdout=${structural.gate?.holdout}; realStructural=${structuralRow?.realStructural}; proto=${structuralRow?.protoCutting}; zero=${structuralRow?.realZero}`
+        : 'structural-cutting-match.json missing — run match-structural-cutting',
+    })
     tests.push({
       id: 'holdout_full_crashlock_topology',
       kind: 'real_sample',
       status: 'blocked',
       reason:
-        lockPass && topPass && outlinePass && outlineCurveExact
-          ? 'degenerate_segments_remain'
-          : lockPass && topPass && outlinePass
-            ? 'curve_approx_and_degenerate_segments_remain'
-            : lockPass && topPass
-              ? 'top_and_lock_partial_not_full_topology'
-              : lockPass
-                ? 'lock_bottom_partial_not_full_topology'
-                : segPass
-                  ? 'lock_bottom_geometry_not_implemented'
-                  : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
+        lockPass && topPass && outlinePass && outlineCurveExact && structuralPass
+          ? 'raw_63_includes_export_zero_length_artifacts_not_emitted'
+          : lockPass && topPass && outlinePass && outlineCurveExact
+            ? 'degenerate_segments_remain'
+            : lockPass && topPass && outlinePass
+              ? 'curve_approx_and_degenerate_segments_remain'
+              : lockPass && topPass
+                ? 'top_and_lock_partial_not_full_topology'
+                : lockPass
+                  ? 'lock_bottom_partial_not_full_topology'
+                  : segPass
+                    ? 'lock_bottom_geometry_not_implemented'
+                    : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
     })
   }
 
@@ -215,6 +229,9 @@ export function runValidate() {
   const outlineGate = fs.existsSync(path.join(reportsDir, 'body-outline-match.json'))
     ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'body-outline-match.json'), 'utf8'))
     : null
+  const structuralGate = fs.existsSync(path.join(reportsDir, 'structural-cutting-match.json'))
+    ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'structural-cutting-match.json'), 'utf8'))
+    : null
 
   const reportMd = `# Validation report (phase 4)
 
@@ -242,7 +259,8 @@ ${tests
 - Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; curve_approx).
 - Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; curve_approx).
 - Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; endpoint + cubic residual).
-- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — degenerates remain; not production.
+- Structural cutting count: **${structuralGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see structural-cutting-match.md; expect 61).
+- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — raw 63 includes export artifacts not emitted; not production.
 `
 
   fs.writeFileSync(path.join(reportsDir, 'validation-report.md'), reportMd)
@@ -259,6 +277,7 @@ ${tests
         lock_bottom_match_gate: lockGate?.gate,
         top_flap_match_gate: topGate?.gate,
         body_outline_match_gate: outlineGate?.gate,
+        structural_cutting_match_gate: structuralGate?.gate,
       },
       null,
       2,
@@ -268,9 +287,9 @@ ${tests
   const next = `# Next actions
 
 1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
-2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
-3. Full topology still **blocked** (\`degenerate_segments_remain\` when outline curve_exact + three partial gates pass).
-4. Optional next: model zero-length stubs / material thickness — still not production.
+2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
+3. Full topology still **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\` when structural + curve_exact + partial gates pass).
+4. Optional next: material thickness / production packaging — still not production; do not emit fake zero-length stubs.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

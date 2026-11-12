@@ -1,36 +1,35 @@
-# 精确 cubic 圆角交付
+# 退化段（导出伪影）交付
 
 ## 范围
 
 - 仅 research lab `productbox-crashlock`
-- 外框第三刀 + 8 条 Cutting path 参数化精确 cubic
-- **不是**完整 63/14 精确复刻，**不是**可投产
+- 盘点并标注 raw Cutting 中的零长导出伪影；结构切割数门禁（有效 **61**）
+- **不是**完整 raw-63 复刻，**不是**可投产
 
 ## 实现
 
 | 项 | 状态 |
 |---|---|
-| `parsePathD` / normalize 保留 `c0/c1` | done |
-| `bodyOutlineFeatures` 精确 cubic | done |
-| SVG `<path d="M…C…">` 渲染 | done |
-| outline 端点门禁 + cubic 残差门禁 | done |
-| `body_outline_cutting_correspondence` | **passed**（endpoint + curve_exact） |
-| lock / top 门禁 | **passed**（保留；仍 curve_approx） |
-| `holdout_full_crashlock_topology` | **blocked**（`degenerate_segments_remain`） |
+| `inventory-degenerates` 盘点报告 | done |
+| normalize `exportArtifact` + structural 计数 | done |
+| `match-structural-cutting`（61==61） | done |
+| `structural_cutting_count_correspondence` | **passed** |
+| lock / top / outline / curve_exact | **passed**（保留） |
+| `holdout_full_crashlock_topology` | **blocked**（`raw_63_includes_export_zero_length_artifacts_not_emitted`） |
 
 ## Holdout
 
 - 冻结：`100×80×90`
-- 外框：matched ≥8/~11，medianNorm≤0.06，medianCubicNorm≤0.06
-- 见 `body-outline-match.md`
+- raw=63，zero=2，structural=61 ≡ proto cutting
+- 见 `degenerate-segments.md` / `structural-cutting-match.md`
 
 ## 明确未做
 
-- 零长度退化段
+- 在原型中塞零长 stub 凑满 63
 - 材料厚度
-- 完整 63 计数硬门禁 / 投产宣称
+- raw-63 / 投产宣称
 
 ## 产物
 
-- `proto-crashlock-*-outline.svg`（含 cubic path）
-- `reports/body-outline-match.json` / `.md`
+- `reports/degenerate-segments.json` / `.md`
+- `reports/structural-cutting-match.json` / `.md`
