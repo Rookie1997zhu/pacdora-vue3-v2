@@ -58,3 +58,8 @@
 .legacy-lab .outbox-error-panel .outbox-error{margin:16px}
 
 .legacy-lab .brand-logo{display:block;height:36px;width:auto}.legacy-lab .brandmark{display:none}
+.legacy-lab .packative-svg-preview{display:block;width:100%;height:100%;object-fit:contain;background:#fff}
+.legacy-lab .packative-no3d{display:grid;place-items:center;min-height:360px;background:linear-gradient(160deg,#f7f8fa,#eef2f7)}
+.legacy-lab .packative-no3d-card{max-width:320px;padding:18px 16px;border:1px dashed #c9d2e0;border-radius:12px;background:#ffffffd9;text-align:center}
+.legacy-lab .packative-no3d-card strong{display:block;margin-bottom:8px;color:#1b2738}
+.legacy-lab .packative-no3d-card p{margin:0;font-size:13px;line-height:1.45;color:#667085}

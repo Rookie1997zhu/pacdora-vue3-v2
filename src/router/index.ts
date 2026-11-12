@@ -53,6 +53,16 @@ const router = createRouter({
       component: () => import('../pages/ProductDetailPage.vue'),
     },
     {
+      path: '/library/dielines',
+      name: 'dieline-library',
+      component: () => import('../features/dieline-library/DielineLibraryListPage.vue'),
+    },
+    {
+      path: '/library/dielines/:id',
+      name: 'dieline-library-detail',
+      component: () => import('../features/dieline-library/DielineLibraryDetailPage.vue'),
+    },
+    {
       path: '/designs',
       name: 'designs',
       component: () => import('../pages/DesignsPage.vue'),

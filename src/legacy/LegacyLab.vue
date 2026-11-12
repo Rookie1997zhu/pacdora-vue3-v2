@@ -37,6 +37,13 @@ import {
   packingContentCells
 } from '../outbox.js'
 import {createKnifeScene} from '../lab/knifeScene.js'
+import {
+  searchPackativeAssets,
+  validatedBounds,
+  classifySize,
+  canEnterPackativeRow,
+  playCrashlockPrototype,
+} from '../packative/index.js'
 import brandLogoUrl from '../assets/brand/boxcraft-logo.png'
 clearPacdoraGeomCache()
 function assetUrl(path){return publicAssetUrl(path)}
@@ -63,11 +70,17 @@ const EMPTY_KNIFE=Object.freeze({
 })
 
 const screen=ref('gallery') // gallery = 盒子列表；lab = 当前编辑界面
-const boxTab=ref('owned') // owned = 已有的刀版；imported = 导入的尺寸目录
+const boxTab=ref('owned') // owned | imported | packative
 const galleryQuery=ref('')
 const thumbMap=ref({}) // templateId -> dataURL
 const proxyThumbMap=ref({}) // preset.id -> dataURL
 const geomThumbMap=ref({}) // preset.id -> 合盖 3D dataURL
+const packativeRow=ref(null)
+const packativeSvg=ref('')
+const packativeSvgUrl=ref('')
+const packativeMeta=ref(null)
+const packativeLastGood=ref({L:100,W:80,H:80})
+let packativeSizeGuard=false
 const thumbsLoading=ref(false)
 const templateId=ref(DEFAULT_TEMPLATE_ID)
 const template=computed(()=>getTemplate(templateId.value))
@@ -111,6 +124,12 @@ const galleryImported=computed(()=>searchImportedPresets(galleryQuery.value||imp
   modelOnly:modelOnlyFilter.value?'only':undefined,
   limit:120
 }))
+const galleryPackative=computed(()=>searchPackativeAssets(galleryQuery.value))
+const packativeCatalogCount=computed(()=>searchPackativeAssets('').length)
+const packativeBounds=computed(()=>validatedBounds())
+const packativeMode=computed(()=>boxTab.value==='packative'&&!!packativeRow.value)
+const packativeHoldoutLocked=computed(()=>packativeMode.value&&packativeRow.value?.validation_status==='holdout')
+const packativeSizeLocked=computed(()=>packativeHoldoutLocked.value)
 
 async function ensureThumbs(ids){
   const need=[...new Set(ids.filter(Boolean))].filter(id=>!thumbMap.value[id])
@@ -157,12 +176,13 @@ function loadGalleryThumbs(){
   if(boxTab.value==='owned'){
     const ids=galleryOwnedGroups.value.flatMap(g=>g.templates.map(t=>t.id))
     ensureThumbs(ids)
-  }else{
+  }else if(boxTab.value==='imported'){
     const list=galleryImported.value
     ensureGeomThumbs(list.filter(p=>p.hasGeometry))
     ensureThumbs(list.filter(p=>!p.modelOnly&&!p.hasGeometry).map(p=>p.templateId).filter(Boolean))
     ensureProxyThumbs(list.filter(p=>p.modelOnly))
   }
+  // packative：无缩略图生成（原型 SVG 进工位后回放）
 }
 
 function remount3D(){
@@ -196,6 +216,10 @@ function mountOutboxScene(){
 }
 function mountLabScene(){
   nextTick(()=>nextTick(()=>{
+    if(packativeMode.value){
+      disposeOutboxScene()
+      return
+    }
     if(!threeRef.value)return
     progress.value=100
     if(!renderer)init3D()
@@ -204,6 +228,7 @@ function mountLabScene(){
   }))
 }
 function enterLabFromTemplate(id){
+  clearPackativeState()
   selectTemplate(id)
   screen.value='lab'
   mountLabScene()
@@ -216,6 +241,7 @@ function showUnmappedToast(msg){
   unmappedToastTimer=setTimeout(()=>{unmappedToast.value=''},4200)
 }
 async function enterLabFromPreset(id){
+  clearPackativeState()
   const p=getPreset(id)
   if(!p)return
   if(!p.hasGeometry&&!p.templateId){
@@ -224,6 +250,74 @@ async function enterLabFromPreset(id){
   }
   if(!applyImportedSize(id))return
   if(p.hasGeometry)await refreshGeomKnife()
+  screen.value='lab'
+  mountLabScene()
+}
+function displayPackativeLabel(row){
+  void locale.value
+  if(!row)return ''
+  if(locale.value==='ko-KR')return row.title_ko||row.title_zh||row.template_id
+  return row.title_zh||row.title_ko||row.template_id
+}
+function packativeBadgeLabel(status){
+  if(status==='holdout')return t('gallery.badgeHoldout')
+  if(status==='unvalidated')return t('gallery.badgeUnvalidated')
+  return t('gallery.badgeValidated')
+}
+function packativeCardTitle(row){
+  if(row.validation_status==='holdout')return t('gallery.titlePackativeHoldout')
+  if(row.validation_status==='unvalidated')return t('gallery.titlePackativeUnvalidated')
+  return t('gallery.titlePackativeValidated')
+}
+function revokePackativeSvgUrl(){
+  if(packativeSvgUrl.value){
+    URL.revokeObjectURL(packativeSvgUrl.value)
+    packativeSvgUrl.value=''
+  }
+}
+function clearPackativeState(){
+  packativeRow.value=null
+  packativeSvg.value=''
+  packativeMeta.value=null
+  revokePackativeSvgUrl()
+}
+function setPackativeSvg(svg){
+  packativeSvg.value=svg||''
+  revokePackativeSvgUrl()
+  if(!svg)return
+  packativeSvgUrl.value=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}))
+}
+function refreshPackativeSvg(){
+  try{
+    const played=playCrashlockPrototype({L:L.value,W:W.value,H:H.value})
+    setPackativeSvg(played.svg)
+    packativeMeta.value=played
+    packativeLastGood.value={L:L.value,W:W.value,H:H.value}
+    return true
+  }catch(err){
+    showUnmappedToast(t('toast.packativePlaybackFail',{msg:err?.message||String(err)}))
+    return false
+  }
+}
+function enterLabFromPackative(row){
+  if(!row)return
+  if(!canEnterPackativeRow(row)){
+    showUnmappedToast(t('toast.packativeUnvalidated',{name:displayPackativeLabel(row)}))
+    return
+  }
+  importId.value=''
+  geomKnife.value=null
+  geomError.value=''
+  boxTab.value='packative'
+  packativeRow.value=row
+  sizeMode.value='inner'
+  outboxEnabled.value=false
+  packativeSizeGuard=true
+  L.value=Number(row.L_mm)
+  W.value=Number(row.W_mm)
+  H.value=Number(row.H_mm)
+  packativeSizeGuard=false
+  if(!refreshPackativeSvg())return
   screen.value='lab'
   mountLabScene()
 }
@@ -243,6 +337,9 @@ function backToGallery(){
   renderer?.dispose()
   renderer?.domElement?.remove()
   renderer=null;scene=null;camera=null;hinges=[];geomRig=null
+  // 保留 packativeRow 以便页签停留；SVG blob 在离开工位时可释放
+  revokePackativeSvgUrl()
+  packativeSvg.value=''
   nextTick(()=>loadGalleryThumbs())
 }
 const L=ref(315),W=ref(202),H=ref(62),thickness=ref(1.5),progress=ref(100),zoom=ref(1),bleed=ref(5)
@@ -281,7 +378,7 @@ const geomLoading=ref(false)
 const geomError=ref('')
 const pieceOptions=computed(()=>{
   void locale.value
-  if(geomMode.value)return []
+  if(geomMode.value||packativeMode.value)return []
   const ps=template.value?.pieces
   if(Array.isArray(ps)&&ps.length){
     return ps.map(p=>({...p,label:displayPieceLabel(p.id,p.label)}))
@@ -296,6 +393,13 @@ const pieceOptions=computed(()=>{
 })
 const labTitle=computed(()=>{
   void locale.value
+  if(packativeMode.value&&packativeRow.value){
+    return {
+      label:displayPackativeLabel(packativeRow.value),
+      labelEn:packativeRow.value.template_id,
+      standard:packativeHoldoutLocked.value?t('lab.packativeHoldout'):t('lab.packativeEditable')
+    }
+  }
   if(geomMode.value&&activePreset.value){
     return {
       label:displayPresetLabel(activePreset.value),
@@ -310,13 +414,24 @@ const labTitle=computed(()=>{
     standard:tpl.standard
   }
 })
-const sizeFieldDefs=computed(()=>[
-  {label:t('lab.lengthL'),key:'L'},
-  {label:t('lab.widthW'),key:'W'},
-  {label:t('lab.heightH'),key:'H'},
-  {label:t('lab.thickness'),key:'T'},
-  {label:t('lab.bleed'),key:'B'}
-])
+const sizeFieldDefs=computed(()=>{
+  const core=[
+    {label:t('lab.lengthL'),key:'L'},
+    {label:t('lab.widthW'),key:'W'},
+    {label:t('lab.heightH'),key:'H'},
+  ]
+  if(packativeMode.value)return core
+  return [
+    ...core,
+    {label:t('lab.thickness'),key:'T'},
+    {label:t('lab.bleed'),key:'B'},
+  ]
+})
+const packativeInputLimits=computed(()=>{
+  const b=packativeBounds.value
+  if(!b)return {length:[1,9999],width:[1,9999],height:[1,9999]}
+  return b
+})
 const materialLabels=computed(()=>({
   kraft:t('lab.kraft'),
   white:t('lab.white'),
@@ -359,7 +474,7 @@ const advancedDirty=ref({})
 const showAdvanced=ref(false)
 const foldStatus=ref({ok:true,issues:[]})
 const svgRef=ref(),threeRef=ref()
-const hasParamDefs=computed(()=>!geomMode.value&&Array.isArray(template.value.paramDefs)&&template.value.paramDefs.length>0)
+const hasParamDefs=computed(()=>!geomMode.value&&!packativeMode.value&&Array.isArray(template.value.paramDefs)&&template.value.paramDefs.length>0)
 const paramGroups=computed(()=>{
   const defs=template.value.paramDefs||[]
   const map=new Map()
@@ -399,6 +514,7 @@ const isFlatHeight=computed(()=>{
   return Array.isArray(lim)&&lim[0]===0&&lim[1]===0
 })
 const knife=computed(()=>{
+  if(packativeMode.value)return EMPTY_KNIFE
   if(geomMode.value){
     if(geomKnife.value)return geomKnife.value
     return EMPTY_KNIFE
@@ -436,12 +552,15 @@ const outboxGap=computed(()=>({
   width:Number(outboxGapW.value)||0,
   height:Number(outboxGapH.value)||0
 }))
-const outboxEligible=computed(()=>canBuildOutbox({
-  knife:knife.value,
-  modelOnly:isModelOnly.value,
-  flatHeight:isFlatHeight.value,
-  enabled:outboxEnabled.value
-}))
+const outboxEligible=computed(()=>{
+  if(packativeMode.value)return false
+  return canBuildOutbox({
+    knife:knife.value,
+    modelOnly:isModelOnly.value,
+    flatHeight:isFlatHeight.value,
+    enabled:outboxEnabled.value
+  })
+})
 const outboxManualLayout=computed(()=>{
   if(outboxSizingMode.value!=='grow')return null
   if(!outboxManual.value)return null
@@ -791,6 +910,7 @@ function applyCylinderSides(){
 function selectTemplate(id){
   if(id===templateId.value&&boxTab.value==='owned')return
   const d=getTemplate(id).defaults
+  clearPackativeState()
   boxTab.value='owned'
   importId.value=''
   geomKnife.value=null
@@ -865,11 +985,23 @@ function applyImportedSize(id){
   if(screen.value==='lab')nextTick(()=>{if(renderer)remount3D()})
   return true
 }
-function downloadSVG(){if(isModelOnly.value)return;saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${exportBase()}.svg`)}
-function downloadDXF(){if(isModelOnly.value)return;saveFile(toDxf(knife.value),'application/dxf',`${exportBase()}.dxf`)}
-async function downloadPDF(){if(isModelOnly.value)return;const bytes=await toPdf(knife.value);saveFile(bytes,'application/pdf',`${exportBase()}.pdf`)}
-async function downloadAI(){if(isModelOnly.value)return;const bytes=await toAi(knife.value);saveFile(bytes,'application/postscript',`${exportBase()}.ai`)}
-function downloadJSON(){if(isModelOnly.value)return;saveFile(JSON.stringify(knife.value,null,2),'application/json',`knife-v3-${exportBase()}.json`)}
+function packativeExportBase(){
+  const tid=packativeRow.value?.template_id||'packative'
+  return `${tid}-${L.value}x${W.value}x${H.value}`
+}
+function downloadSVG(){
+  if(isModelOnly.value)return
+  if(packativeMode.value){
+    if(!packativeSvg.value)return
+    saveFile(packativeSvg.value,'image/svg+xml',`${packativeExportBase()}.svg`)
+    return
+  }
+  saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${exportBase()}.svg`)
+}
+function downloadDXF(){if(isModelOnly.value||packativeMode.value)return;saveFile(toDxf(knife.value),'application/dxf',`${exportBase()}.dxf`)}
+async function downloadPDF(){if(isModelOnly.value||packativeMode.value)return;const bytes=await toPdf(knife.value);saveFile(bytes,'application/pdf',`${exportBase()}.pdf`)}
+async function downloadAI(){if(isModelOnly.value||packativeMode.value)return;const bytes=await toAi(knife.value);saveFile(bytes,'application/postscript',`${exportBase()}.ai`)}
+function downloadJSON(){if(isModelOnly.value||packativeMode.value)return;saveFile(JSON.stringify(knife.value,null,2),'application/json',`knife-v3-${exportBase()}.json`)}
 function outboxExportBase(){
   const plan=outboxPlan.value?.inner
   const size=plan?`${plan.length}x${plan.width}x${plan.height}`:`${L.value}x${W.value}x${H.value}`
@@ -895,13 +1027,31 @@ function downloadOutboxJSON(){
   if(!outboxKnife.value)return
   saveFile(JSON.stringify(outboxKnife.value,null,2),'application/json',`${outboxExportBase()}.json`)
 }
-watch([L,W,H,thickness,sizeMode,templateId],()=>{if(screen.value==='lab')syncAdvancedDefaults(false)})
+watch([L,W,H,thickness,sizeMode,templateId],()=>{
+  if(packativeMode.value)return
+  if(screen.value==='lab')syncAdvancedDefaults(false)
+})
 watch([L,W,H,thickness,material,sizeMode,fluteDirection,piece,advancedParams],()=>{
-  if(geomMode.value)return
+  if(geomMode.value||packativeMode.value)return
   if(screen.value==='lab'&&renderer)remount3D()
 })
-watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)remount3D()})
-watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value)nextTick(()=>remount3D())})
+watch([L,W,H],()=>{
+  if(!packativeMode.value||screen.value!=='lab')return
+  if(packativeSizeGuard||packativeSizeLocked.value)return
+  const status=classifySize(L.value,W.value,H.value)
+  if(status!=='validated'){
+    showUnmappedToast(t('toast.packativeOutOfBounds'))
+    packativeSizeGuard=true
+    L.value=packativeLastGood.value.L
+    W.value=packativeLastGood.value.W
+    H.value=packativeLastGood.value.H
+    packativeSizeGuard=false
+    return
+  }
+  refreshPackativeSvg()
+})
+watch(material,()=>{if(screen.value==='lab'&&renderer&&geomMode.value&&!packativeMode.value)remount3D()})
+watch(geomKnife,()=>{if(screen.value==='lab'&&renderer&&geomMode.value&&!packativeMode.value)nextTick(()=>remount3D())})
 watch(progress,()=>{
   if(screen.value!=='lab')return
   setFold()
@@ -930,6 +1080,7 @@ onMounted(()=>nextTick(()=>{
 }))
 onBeforeUnmount(()=>{
   disposeOutboxScene()
+  revokePackativeSvgUrl()
   cancelAnimationFrame(raf);observer?.disconnect();controls?.dispose();if(group)disposeTree(group);renderer?.dispose();renderer?.domElement?.remove()
 })
 </script>
@@ -944,11 +1095,11 @@ onBeforeUnmount(()=>{
     </div>
     <template v-if="screen==='lab'">
       <button type="button" class="btn" @click="backToGallery"><ArrowLeft :size="15"/> {{t('nav.boxList')}}</button>
-      <span class="demo-tag">{{geomMode?(geomLoading?t('nav.loadingGeom'):t('nav.facesOfficial',{n:knife.faces.length})):t('nav.facesConcept',{n:knife.faces.length})}}</span>
-      <button class="btn dark" :disabled="isModelOnly" @click="downloadSVG"><Download :size="15"/> {{t('nav.exportSvg')}}</button>
+      <span class="demo-tag">{{packativeMode?t('nav.facesPackative'):(geomMode?(geomLoading?t('nav.loadingGeom'):t('nav.facesOfficial',{n:knife.faces.length})):t('nav.facesConcept',{n:knife.faces.length}))}}</span>
+      <button class="btn dark" :disabled="isModelOnly||(packativeMode&&!packativeSvg)" @click="downloadSVG"><Download :size="15"/> {{packativeMode?t('lab.exportPackativeSvg'):t('nav.exportSvg')}}</button>
     </template>
     <template v-else>
-      <span class="demo-tag">{{boxTab==='imported'?t('nav.tagImported'):t('nav.tagOwned')}}</span>
+      <span class="demo-tag">{{boxTab==='packative'?t('nav.tagPackative'):(boxTab==='imported'?t('nav.tagImported'):t('nav.tagOwned'))}}</span>
     </template>
   </div>
 </header>
@@ -959,6 +1110,7 @@ onBeforeUnmount(()=>{
     <div class="box-tabs gallery-tabs">
       <button type="button" :class="['chip',{selected:boxTab==='owned'}]" @click="boxTab='owned'">{{t('gallery.tabOwned')}}</button>
       <button type="button" :class="['chip',{selected:boxTab==='imported'}]" @click="boxTab='imported'">{{t('gallery.tabImported')}}</button>
+      <button type="button" :class="['chip',{selected:boxTab==='packative'}]" @click="boxTab='packative'">{{t('gallery.tabPackative')}}</button>
     </div>
     <div class="gallery-search">
       <Search :size="16"/>
@@ -995,7 +1147,7 @@ onBeforeUnmount(()=>{
     <p v-if="!galleryOwnedGroups.length" class="gallery-empty">{{t('gallery.emptyOwned')}}</p>
   </template>
 
-  <template v-else>
+  <template v-else-if="boxTab==='imported'">
     <section class="gallery-section">
       <h2>{{t('gallery.importedHeading',{shown:galleryImported.length,total:importCategoryCount})}}</h2>
       <div class="box-grid">
@@ -1031,6 +1183,36 @@ onBeforeUnmount(()=>{
     </section>
     <p v-if="!galleryImported.length" class="gallery-empty">{{t('gallery.emptyImported')}}</p>
   </template>
+
+  <template v-else-if="boxTab==='packative'">
+    <section class="gallery-section">
+      <h2>{{t('gallery.packativeHeading',{shown:galleryPackative.length,total:packativeCatalogCount})}}</h2>
+      <div class="box-grid">
+        <button
+          v-for="row in galleryPackative"
+          :key="row.id"
+          type="button"
+          class="box-card"
+          :class="{'is-unmapped':row.validation_status==='unvalidated'}"
+          :title="packativeCardTitle(row)"
+          @click="enterLabFromPackative(row)"
+        >
+          <div class="box-cover">
+            <div class="box-cover-ph">{{displayPackativeLabel(row)}}</div>
+            <i class="box-badge" :data-kind="row.validation_status==='validated'?'closed':(row.validation_status==='holdout'?'modelOnly':'unmapped')">{{packativeBadgeLabel(row.validation_status)}}</i>
+          </div>
+          <div class="box-card-body">
+            <strong>{{displayPackativeLabel(row)}}</strong>
+            <small>{{row.template_id}} · {{t('gallery.packativeInner')}}</small>
+            <span>{{row.L_mm}}×{{row.W_mm}}×{{row.H_mm}} mm</span>
+            <em v-if="row.validation_status==='unvalidated'" class="unmap-hint">{{t('gallery.titlePackativeUnvalidated')}}</em>
+            <em v-else-if="row.validation_status==='holdout'" class="unmap-hint">{{t('gallery.titlePackativeHoldout')}}</em>
+          </div>
+        </button>
+      </div>
+    </section>
+    <p v-if="!galleryPackative.length" class="gallery-empty">{{t('gallery.emptyPackative')}}</p>
+  </template>
   <div v-if="unmappedToast" class="unmap-toast" role="status">{{unmappedToast}}</div>
 </div>
 
@@ -1046,16 +1228,20 @@ onBeforeUnmount(()=>{
   <svg v-else viewBox="0 0 180 110"><path d="M30 40L105 22L150 45L76 66Z" fill="#d9b98b" stroke="#96744a"/><path d="M30 40V75L76 100V66Z" fill="#c5a072" stroke="#96744a"/><path d="M76 66V100L150 76V45Z" fill="#b58e60" stroke="#96744a"/><path d="M30 40L15 18L90 2L105 22Z" fill="#e9cfa7" stroke="#96744a"/></svg>
 </div></div><div class="section"><div class="eyebrow">{{t('lab.parameters')}}</div><h3>{{t('lab.sizeSettings')}} <span class="unit">mm</span></h3>
 <p v-if="geomMode" class="hint">{{t('lab.sizeLocked')}}</p>
-<div class="field"><label>{{t('lab.sizeMode')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:sizeMode==='inner'}]" :disabled="geomMode" @click="sizeMode='inner'">{{t('lab.inner')}}</button><button type="button" :class="['chip',{selected:sizeMode==='outer'}]" :disabled="geomMode" @click="sizeMode='outer'">{{t('lab.outer')}}</button></div></div>
+<p v-else-if="packativeHoldoutLocked" class="hint">{{t('lab.packativeHoldout')}}</p>
+<p v-else-if="packativeMode" class="hint">{{t('lab.packativeEditable')}}</p>
+<p v-if="packativeMode&&packativeBounds" class="hint dim-meta">{{t('lab.packativeBounds',{l0:packativeBounds.length[0],l1:packativeBounds.length[1],w0:packativeBounds.width[0],w1:packativeBounds.width[1],h0:packativeBounds.height[0],h1:packativeBounds.height[1]})}}</p>
+<div class="field"><label>{{t('lab.sizeMode')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:sizeMode==='inner'}]" :disabled="geomMode||packativeMode" @click="sizeMode='inner'">{{t('lab.inner')}}</button><button type="button" :class="['chip',{selected:sizeMode==='outer'}]" :disabled="geomMode||packativeMode" @click="sizeMode='outer'">{{t('lab.outer')}}</button></div></div>
 <div v-if="pieceOptions.length" class="field"><label>{{t('lab.piece')}}</label>
   <div v-if="pieceOptions.length<=4" class="inputwrap mode-toggle"><button v-for="p in pieceOptions" :key="p.id" type="button" :class="['chip',{selected:piece===p.id}]" @click="piece=p.id">{{p.label||p.id}}</button></div>
   <div v-else class="inputwrap"><select :value="piece" @change="piece=$event.target.value"><option v-for="p in pieceOptions" :key="p.id" :value="p.id">{{p.label||p.id}}</option></select></div>
 </div>
 <p v-if="isModelOnly" class="hint model-only-hint">{{MODEL_ONLY_TEXT}}</p>
-<div class="field"><label>{{t('lab.flute')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:fluteDirection==='L'}]" :disabled="geomMode" @click="fluteDirection='L'">{{t('lab.fluteL')}}</button><button type="button" :class="['chip',{selected:fluteDirection==='W'}]" :disabled="geomMode" @click="fluteDirection='W'">{{t('lab.fluteW')}}</button></div></div>
-<div v-for="f in sizeFieldDefs" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="template.limits.length[0]" :max="template.limits.length[1]" :disabled="geomMode"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="template.limits.width[0]" :max="template.limits.width[1]" :disabled="geomMode"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="template.limits.height[0]" :max="template.limits.height[1]" :disabled="geomMode||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode"/><b>mm</b></div></div>
-<p v-if="isFlatHeight&&!geomMode" class="hint">{{t('lab.flatHint')}}</p>
-<p class="hint dim-meta" v-if="geomMode">{{t('lab.sampleSize',{l:L,w:W,h:H,extra:geomLoading?t('lab.loading'):(geomError||t('lab.facesN',{n:knife.faces.length}))})}}</p>
+<div v-if="!packativeMode" class="field"><label>{{t('lab.flute')}}</label><div class="inputwrap mode-toggle"><button type="button" :class="['chip',{selected:fluteDirection==='L'}]" :disabled="geomMode" @click="fluteDirection='L'">{{t('lab.fluteL')}}</button><button type="button" :class="['chip',{selected:fluteDirection==='W'}]" :disabled="geomMode" @click="fluteDirection='W'">{{t('lab.fluteW')}}</button></div></div>
+<div v-for="f in sizeFieldDefs" :key="f.key" class="field"><label>{{f.label}}</label><div class="inputwrap"><input v-if="f.key==='L'" v-model.number="L" type="number" :min="packativeMode?packativeInputLimits.length[0]:template.limits.length[0]" :max="packativeMode?packativeInputLimits.length[1]:template.limits.length[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='W'" v-model.number="W" type="number" :min="packativeMode?packativeInputLimits.width[0]:template.limits.width[0]" :max="packativeMode?packativeInputLimits.width[1]:template.limits.width[1]" :disabled="geomMode||packativeSizeLocked"/><input v-else-if="f.key==='H'" v-model.number="H" type="number" :min="packativeMode?packativeInputLimits.height[0]:template.limits.height[0]" :max="packativeMode?packativeInputLimits.height[1]:template.limits.height[1]" :disabled="geomMode||packativeSizeLocked||isFlatHeight"/><input v-else-if="f.key==='T'" v-model.number="thickness" type="number" min="0.5" step="0.5" :disabled="geomMode"/><input v-else v-model.number="bleed" type="number" min="0" max="20" :disabled="geomMode"/><b>mm</b></div></div>
+<p v-if="isFlatHeight&&!geomMode&&!packativeMode" class="hint">{{t('lab.flatHint')}}</p>
+<p class="hint dim-meta" v-if="packativeMode">{{t('lab.packativeMeta',{l:L,w:W,h:H,status:packativeBadgeLabel(packativeRow?.validation_status||classifySize(L,W,H))})}}</p>
+<p class="hint dim-meta" v-else-if="geomMode">{{t('lab.sampleSize',{l:L,w:W,h:H,extra:geomLoading?t('lab.loading'):(geomError||t('lab.facesN',{n:knife.faces.length}))})}}</p>
 <p class="hint dim-meta" v-else>{{t('lab.clearance',{il:knife.dimensions.inner.length,iw:knife.dimensions.inner.width,ih:knife.dimensions.inner.height,ol:knife.dimensions.outer.length,ow:knife.dimensions.outer.width,oh:knife.dimensions.outer.height})}}</p>
 <div v-if="hasParamDefs" class="advanced-params">
   <button type="button" class="adv-toggle" @click="showAdvanced=!showAdvanced">{{showAdvanced?t('lab.advCollapse',{n:template.paramDefs.length}):t('lab.advExpand',{n:template.paramDefs.length})}}</button>
@@ -1076,7 +1262,7 @@ onBeforeUnmount(()=>{
   </div>
 </div>
 </div>
-<div class="section outbox-section">
+<div v-if="!packativeMode" class="section outbox-section">
   <div class="eyebrow">{{t('outbox.title')}}</div>
   <div class="field"><label>{{t('outbox.enable')}}</label>
     <div class="inputwrap mode-toggle">
@@ -1157,9 +1343,24 @@ onBeforeUnmount(()=>{
   </template>
   <p v-else-if="outboxEnabled" class="hint">{{t('outbox.hidden')}}</p>
 </div>
-<div class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div><div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div><button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button><button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button><p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p><p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p></div></aside>
-<main><div class="panels" :class="{'model-only-lab':isModelOnly}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam')}}</h3></div><div class="pill">{{geomMode?t('lab.pillGeom'):t('lab.pillKnife')}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><svg ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div></section>
-<section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> Three.js</span></div><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></section></div>
+<div v-if="!packativeMode" class="section"><div class="eyebrow">{{t('lab.material')}}</div><div class="swatches"><button v-for="(c,name) in {kraft:'#c6a47a',white:'#f4f0e7',blue:'#8aa6c8'}" :key="name" :class="['swatch',{selected:material===name}]" @click="material=name"><i :style="{background:c}"></i>{{materialLabels[name]}}</button></div></div>
+<div class="section bottom"><div class="eyebrow">{{t('lab.export')}}</div>
+<template v-if="packativeMode">
+  <button class="btn full" :disabled="!packativeSvg" @click="downloadSVG"><Download :size="15"/> {{t('lab.exportPackativeSvg')}}</button>
+  <p class="hint">{{t('lab.exportSvgOnly')}}</p>
+  <p class="hint">{{t('lab.packativePrototypePartial')}}</p>
+</template>
+<template v-else>
+  <button class="btn full" :disabled="isModelOnly" @click="downloadJSON"><Download :size="15"/> {{t('lab.exportJson')}}</button>
+  <button class="btn full ghost" :disabled="isModelOnly" @click="downloadDXF"><Download :size="15"/> {{t('lab.exportDxf')}}</button>
+  <button class="btn full ghost" :disabled="isModelOnly" @click="downloadPDF"><Download :size="15"/> {{t('lab.exportPdf')}}</button>
+  <button class="btn full ghost" :disabled="isModelOnly" @click="downloadAI"><Download :size="15"/> {{t('lab.exportAi')}}</button>
+  <p class="hint contract-status" :class="{ok:knife.validation?.ok,warn:!knife.validation?.ok}">{{contractStatusText}} · productionReady={{knife.productionReady}} · manufacturingReady=false</p>
+  <p class="hint">{{t('lab.exportHint',{faces:knife.faces.length,folds:knife.folds.length,cuts:knife.cuts.length})}}</p>
+</template>
+</div></aside>
+<main><div class="panels" :class="{'model-only-lab':isModelOnly||packativeMode}"><section v-if="!isModelOnly" class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.dielineEditor')}}</div><h3>{{packativeMode?t('lab.dieline2dPackative'):(geomMode?t('lab.dieline2dOfficial'):t('lab.dieline2dParam'))}}</h3></div><div class="pill">{{packativeMode?t('lab.pillPackative'):(geomMode?t('lab.pillGeom'):t('lab.pillKnife'))}}</div></div><div class="canvas-area"><div class="canvas-controls"><button @click="zoom=Math.min(2,zoom+.15)"><ZoomIn :size="17"/></button><span>{{Math.round(zoom*100)}}%</span><button @click="zoom=Math.max(.4,zoom-.15)"><ZoomOut :size="17"/></button><button @click="zoom=1"><Maximize2 :size="16"/></button></div><img v-if="packativeMode" class="dieline packative-svg-preview" :src="packativeSvgUrl" alt="Packative prototype" :style="{transform:`scale(${zoom})`}"/><svg v-else ref="svgRef" class="dieline" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" :style="{transform:`scale(${zoom})`}"><path v-for="(d,i) in (showBleed?bleedPaths:[])" :key="'b'+i" :d="d" fill="none" stroke="#46ba00" stroke-width="0.9" opacity=".55"/><path v-for="(d,i) in (showCut?cutPaths:[])" :key="'c'+i" :d="d" fill="none" stroke="#2028b0" stroke-width="2"/><g v-if="showFold" stroke="#fa0000" stroke-width="1.6" stroke-dasharray="6 4"><line v-for="(f,i) in knife.folds" :key="i" :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"/></g><g v-if="showDims" fill="#667085" stroke="#667085" stroke-width="0.9" :font-size="dimFontSize" text-anchor="middle"><line v-for="dl in dimLines" :key="dl.key" :x1="dl.x1" :y1="dl.y1" :x2="dl.x2" :y2="dl.y2"/><polygon v-for="dp in dimPolys" :key="dp.key" :points="dp.points" fill="#667085" stroke="none"/><text v-for="dt in dimTexts" :key="dt.key" :x="dt.x" :y="dt.y" stroke="none" dominant-baseline="middle">{{dt.value}}</text></g></svg></div><div v-if="!packativeMode" class="legend"><label><input v-model="showCut" type="checkbox"/><i style="background:#2028b0"></i>{{t('lab.legendCut')}}</label><label><input v-model="showFold" type="checkbox"/><i style="background:#fa0000"></i>{{t('lab.legendFold')}}</label><label><input v-model="showBleed" type="checkbox"/><i style="background:#46ba00"></i>{{t('lab.legendBleed',{n:Math.round(bleedEffectiveMm),extra:BLEED_EXTRA_MM})}}</label><label><input v-model="showDims" type="checkbox"/><Eye :size="14"/>{{t('lab.legendDims')}}</label></div><p v-else class="hint">{{t('lab.packativePrototypePartial')}}</p></section>
+<section class="panel"><div class="panel-header"><div><div class="eyebrow">{{t('lab.livePreview')}}</div><h3>{{packativeMode?t('lab.no3dTitle'):t('lab.fold3d')}}</h3></div><span class="pill"><Layers3 :size="14"/> {{packativeMode?t('lab.pillPackative'):'Three.js'}}</span></div><div v-if="packativeMode" class="scene-area packative-no3d"><div class="packative-no3d-card"><strong>{{t('lab.no3dTitle')}}</strong><p>{{t('lab.no3dBody')}}</p></div></div><template v-else><div class="scene-area"><div ref="threeRef" class="three-container"></div><button class="reset-camera" @click="resetView"><RotateCcw :size="15"/> {{t('lab.resetView')}}</button><div class="scene-note">{{t('lab.sceneNote')}}</div></div><div class="fold-controls"><div class="fold-top"><strong>{{t('lab.foldProgress')}}</strong><span>{{progress}}%{{foldStageLabel?` · ${foldStageLabel}`:''}}</span></div><input v-model.number="progress" class="range" type="range" min="0" max="100" step="1"/><div class="range-labels"><span>{{t('lab.unfold0')}}</span><span>{{t('lab.close100')}}</span></div><div class="preset"><button @click="progress=0">{{t('lab.fullOpen')}}</button><button @click="progress=50">{{t('lab.halfFold')}}</button><button @click="progress=100">{{t('lab.fullClose')}}</button></div><p class="fold-status" :class="{ok:foldStatus.ok,warn:!foldStatus.ok}">{{foldStatusText}}</p></div></template></section></div>
 <div v-if="outboxEligible&&outboxError" class="panels outbox-panels">
   <section class="panel outbox-error-panel">
     <div class="panel-header">

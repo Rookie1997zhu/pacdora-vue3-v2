@@ -8,6 +8,7 @@
       <nav class="shell-nav" :aria-label="t('site.home')">
         <RouterLink to="/home">{{ t('site.home') }}</RouterLink>
         <RouterLink to="/products">{{ t('studio.products') }}</RouterLink>
+        <RouterLink to="/library/dielines">{{ t('library.nav') }}</RouterLink>
         <RouterLink to="/designs">{{ t('studio.myDesigns') }}</RouterLink>
         <RouterLink to="/cart">{{ t('cart.title') }}</RouterLink>
         <RouterLink to="/lab">{{ t('site.lab') }}</RouterLink>
