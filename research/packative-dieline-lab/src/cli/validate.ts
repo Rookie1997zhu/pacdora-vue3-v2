@@ -1,6 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { generateCrashlockPartial, generateCrashlockWithLockBottom, setFitCoeffs } from '../prototype/crashlock.ts'
+import {
+  generateCrashlockPartial,
+  generateCrashlockWithLockBottom,
+  generateCrashlockWithTopFlaps,
+  setFitCoeffs,
+} from '../prototype/crashlock.ts'
 import { dataRules, labRoot, reportsDir } from '../paths.ts'
 
 function privacyScan(root: string) {
@@ -121,21 +126,36 @@ export function runValidate() {
         ? `holdout=${lock.gate?.holdout}; matched=${lock.gate?.holdout_row?.matched}/${lock.gate?.holdout_row?.realCount}; medianNorm=${Number(lock.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
         : 'lock-bottom-match.json missing — run match-lock-bottom',
     })
+    const topPath = path.join(reportsDir, 'top-flap-match.json')
+    const top = fs.existsSync(topPath) ? JSON.parse(fs.readFileSync(topPath, 'utf8')) : null
+    const topPass = Boolean(top?.gate?.passed)
+    tests.push({
+      id: 'top_flap_cutting_correspondence',
+      kind: 'real_sample',
+      status: top ? (topPass ? 'passed' : 'failed') : 'not_run',
+      note: top
+        ? `holdout=${top.gate?.holdout}; matched=${top.gate?.holdout_row?.matched}/${top.gate?.holdout_row?.realCount}; medianNorm=${Number(top.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
+        : 'top-flap-match.json missing — run match-top-flaps',
+    })
     tests.push({
       id: 'holdout_full_crashlock_topology',
       kind: 'real_sample',
       status: 'blocked',
-      reason: lockPass
-        ? 'lock_bottom_partial_not_full_topology'
-        : segPass
-          ? 'lock_bottom_geometry_not_implemented'
-          : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
+      reason:
+        lockPass && topPass
+          ? 'top_and_lock_partial_not_full_topology'
+          : lockPass
+            ? 'lock_bottom_partial_not_full_topology'
+            : segPass
+              ? 'lock_bottom_geometry_not_implemented'
+              : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
     })
   }
 
   // synthetic unit check (explicitly separated)
   const synPartial = generateCrashlockPartial({ L: 100, W: 80, H: 80 })
   const synLock = generateCrashlockWithLockBottom({ L: 100, W: 80, H: 80 })
+  const synTop = generateCrashlockWithTopFlaps({ L: 100, W: 80, H: 80 })
   tests.push({
     id: 'synthetic_svg_emits_ev_style',
     kind: 'synthetic',
@@ -144,8 +164,12 @@ export function runValidate() {
       synPartial.svg.includes('ev-style="Creasing"') &&
       synLock.svg.includes('ev-style="Cutting"') &&
       synLock.svg.includes('ev-style="Creasing"') &&
+      synTop.svg.includes('ev-style="Cutting"') &&
+      synTop.svg.includes('ev-style="Creasing"') &&
       (synLock.cutting?.length || 0) >= 18 &&
-      (synLock.creasing?.length || 0) === 14
+      (synLock.creasing?.length || 0) === 14 &&
+      (synTop.cutting?.length || 0) >= 40 &&
+      (synTop.creasing?.length || 0) === 14
         ? 'passed'
         : 'failed',
   })
@@ -160,6 +184,9 @@ export function runValidate() {
     : null
   const lockGate = fs.existsSync(path.join(reportsDir, 'lock-bottom-match.json'))
     ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'lock-bottom-match.json'), 'utf8'))
+    : null
+  const topGate = fs.existsSync(path.join(reportsDir, 'top-flap-match.json'))
+    ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'top-flap-match.json'), 'utf8'))
     : null
 
   const reportMd = `# Validation report (phase 4)
@@ -186,7 +213,8 @@ ${tests
 - Envelope models (\`${fit.geomWidthUu?.model || '?'}\` / \`${fit.geomHeightUu?.model || '?'}\`) on frozen holdout \`${holdoutKey}\` — see \`envelope-diagnosis.md\` (linear vs interaction).
 - Creasing segment correspondence: **${segGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see segment-match.md).
 - Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; curve_approx).
-- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — partial lock slice ≠ 63/14.
+- Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; curve_approx).
+- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — partial lock+top ≠ 63/14.
 `
 
   fs.writeFileSync(path.join(reportsDir, 'validation-report.md'), reportMd)
@@ -201,6 +229,7 @@ ${tests
         ingest,
         segment_match_gate: segGate?.gate,
         lock_bottom_match_gate: lockGate?.gate,
+        top_flap_match_gate: topGate?.gate,
       },
       null,
       2,
@@ -210,9 +239,9 @@ ${tests
   const next = `# Next actions
 
 1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
-2. Lock-bottom first slice: **${lockGate?.gate?.passed ? 'gate passed' : 'gate failed / not_run'}** — see \`lock-bottom-match.md\`.
-3. Full topology still **blocked** (\`lock_bottom_partial_not_full_topology\` when partial gate passes).
-4. Next geometry slice: top dust flaps / tuck tongue / glue flap outer cuts (still not production).
+2. Lock-bottom: **${lockGate?.gate?.passed ? 'gate passed' : 'gate failed / not_run'}**; top-flap/glue: **${topGate?.gate?.passed ? 'gate passed' : 'gate failed / not_run'}**.
+3. Full topology still **blocked** (\`top_and_lock_partial_not_full_topology\` when both partial gates pass).
+4. Next geometry slice: body side outer / back top edge / bottom corner fillets (still not production).
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

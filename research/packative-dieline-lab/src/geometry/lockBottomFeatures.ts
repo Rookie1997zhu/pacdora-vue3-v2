@@ -236,6 +236,7 @@ export function buildLockBottomSegments(
   W: number,
   H: number,
   params: LockBottomParamsMm = DEFAULT_LOCK_PARAMS,
+  opts?: { omitTopCreaseStubs?: boolean },
 ): { layout: LockBottomLayoutUu; cutting: CompactSeg[]; creasing: CompactSeg[]; curveApprox: boolean } {
   const lay = layoutLockBottomUu(L, W, H, params)
   const u = UU_PER_MM
@@ -324,7 +325,7 @@ export function buildLockBottomSegments(
     C({ x: x3, y: yBodySide }, wingRInnerTop),
   ]
 
-  // --- 14 creases ---
+  // --- body creases (12 + optional 2 top stubs when top flaps not merged) ---
   const topGap = params.topGapMm * u
   const topDiag = params.topDiagMm * u
   const creasing: CompactSeg[] = [
@@ -341,10 +342,19 @@ export function buildLockBottomSegments(
     R({ x: x1 + topGap * 4, y: yBodyTop }, { x: x2 - topGap * 4, y: yBodyTop }),
     R({ x: x2 + topGap * 4, y: yBodyTop }, { x: x3 - topGap * 4, y: yBodyTop }),
     R({ x: x3 + topGap * 4, y: yBodyTop }, { x: x4, y: yBodyTop }),
-    // top dust-flap crease diagonals (approx; full tongue geometry not implemented)
-    R({ x: x1 - 21.4 * u, y: yBodyTop + 5.65 * u }, { x: x1 - 21.4 * u - topDiag / Math.SQRT2, y: yBodyTop + 5.65 * u + topDiag / Math.SQRT2 }),
-    R({ x: x3 - 21.4 * u, y: yBodyTop + 5.65 * u }, { x: x3 - 21.4 * u - topDiag / Math.SQRT2, y: yBodyTop + 5.65 * u + topDiag / Math.SQRT2 }),
   ]
+  if (!opts?.omitTopCreaseStubs) {
+    creasing.push(
+      R(
+        { x: x1 - 21.4 * u, y: yBodyTop + 5.65 * u },
+        { x: x1 - 21.4 * u - topDiag / Math.SQRT2, y: yBodyTop + 5.65 * u + topDiag / Math.SQRT2 },
+      ),
+      R(
+        { x: x3 - 21.4 * u, y: yBodyTop + 5.65 * u },
+        { x: x3 - 21.4 * u - topDiag / Math.SQRT2, y: yBodyTop + 5.65 * u + topDiag / Math.SQRT2 },
+      ),
+    )
+  }
 
   return { layout: lay, cutting, creasing, curveApprox: true }
 }

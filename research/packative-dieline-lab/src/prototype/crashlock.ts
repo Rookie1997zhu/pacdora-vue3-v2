@@ -6,6 +6,7 @@
 
 import { predLinear } from '../geometry/features.ts'
 import { buildLockBottomSegments, type LockBottomLayoutUu } from '../geometry/lockBottomFeatures.ts'
+import { buildTopFlapSegments } from '../geometry/topFlapFeatures.ts'
 import type { CompactSeg } from '../geometry/segmentMatch.ts'
 
 export type CrashlockParams = { L: number; W: number; H: number }
@@ -155,8 +156,8 @@ function renderSegSvg(segs: CompactSeg[], vbW: number, vbH: number, comment: str
 }
 
 /**
- * First-slice lock-bottom generator: outer envelope + 14 creases + ~21 lock cutting lines.
- * Cubic corners → chord approx (curve_approx). Top dust/glue tongues not reconstructed.
+ * First-slice lock-bottom generator (kept for match-lock-bottom CLI).
+ * Prefer generateCrashlockWithTopFlaps for the combined prototype.
  */
 export function generateCrashlockWithLockBottom(params: CrashlockParams): PrototypeResult {
   const { L, W, H } = params
@@ -200,4 +201,62 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
       'material_thickness_unobserved',
     ],
   }
+}
+
+/**
+ * Second-slice generator: lock bottom + top dust flaps + tuck tongues + glue outer.
+ * Cubic corners → chord approx (curve_approx). Full 63/14 still not claimed.
+ */
+export function generateCrashlockWithTopFlaps(params: CrashlockParams): PrototypeResult {
+  const { L, W, H } = params
+  const widthUu = predLinear(GEOM_WIDTH_UU, L, W, H)
+  const heightUu = predLinear(GEOM_HEIGHT_UU, L, W, H)
+  const mmPerUuCandidate = 25.4 / 96
+  const built = buildLockBottomSegments(L, W, H, undefined, { omitTopCreaseStubs: true })
+  const top = buildTopFlapSegments(built.layout)
+  const cutting = [...built.cutting, ...top.cutting]
+  const creasing = [...built.creasing, ...top.creasingExtra]
+  const segs = [...cutting, ...creasing]
+  const tipExtra = tipDepthForView(W) * (96 / 25.4)
+  const maxX = Math.max(widthUu, built.layout.x4 + 20)
+  const maxY = Math.max(heightUu, built.layout.yBodyTop + tipExtra + 40)
+  const svg = renderSegSvg(
+    segs,
+    maxX,
+    maxY,
+    'BOXCRAFT dieline-lab lock+top SECOND SLICE; curve_approx; not full 63/14 topology',
+  )
+  return {
+    params,
+    widthUu,
+    heightUu,
+    mmPerUuCandidate,
+    svg,
+    layout: built.layout,
+    cutting,
+    creasing,
+    curveApprox: true,
+    modelWidth: GEOM_WIDTH_UU.model,
+    modelHeight: GEOM_HEIGHT_UU.model,
+    implemented: [
+      'outer_envelope_size_vs_LWH_fit',
+      'body_panel_creasing_14_parametric',
+      'lock_bottom_cutting_polyline_parametric',
+      'top_dust_flap_cutting_parametric',
+      'tuck_tongue_cutting_parametric',
+      'glue_flap_outer_cutting_parametric',
+      'curve_approx_chord_for_cubic_corners',
+    ],
+    gaps: [
+      'body_side_outer_and_back_top_edge_not_closed',
+      'bottom_corner_fillet_paths_not_modeled',
+      'full_63_cutting_topology_not_claimed',
+      'exact_cubic_corners_not_modeled',
+      'material_thickness_unobserved',
+    ],
+  }
+}
+
+function tipDepthForView(W: number): number {
+  return 0.6 * W + 1
 }

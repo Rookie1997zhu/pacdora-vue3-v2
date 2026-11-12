@@ -1,36 +1,38 @@
-# 锁底几何（第一刀）交付
+# 顶翼/胶翼几何（第二刀）交付
 
 ## 范围
 
 - 仅 research lab `productbox-crashlock`
-- 参数化 L/W/H → 锁底 Cutting + 体板 14 Creasing
+- 参数化 L/W/H → 顶尘翼 + 插舌 + 胶翼外切，合并锁底第一刀
 - **不是**完整 63/14 复刻，**不是**可投产
 
 ## 实现
 
 | 项 | 状态 |
 |---|---|
-| `lockBottomFeatures.ts` 拟合（tipDepth=W/2+5，bigFlap=W+10.5 mm 等） | done |
-| `generateCrashlockWithLockBottom` | done |
-| `match-lock-bottom` 门禁（holdout ≥18/21，norm≤0.06） | done |
-| `lock_bottom_cutting_correspondence` | **passed**（holdout 21/21） |
-| `holdout_full_crashlock_topology` | **blocked**（`lock_bottom_partial_not_full_topology`） |
-| cubic 圆角 | `curve_approx`（弦/固定缺口） |
+| `topFlapFeatures.ts`（dust=`W/2`，tip=`0.6W+1` mm 等） | done |
+| `generateCrashlockWithTopFlaps` | done |
+| `match-top-flaps` 门禁（holdout ≥22/~26，norm≤0.06） | done |
+| `top_flap_cutting_correspondence` | **passed** |
+| `lock_bottom_cutting_correspondence` | **passed**（保留） |
+| `holdout_full_crashlock_topology` | **blocked**（`top_and_lock_partial_not_full_topology`） |
+| cubic 圆角 | `curve_approx` |
 
 ## Holdout
 
 - 冻结：`100×80×90`
-- 锁底匹配：21/21，medianNorm≈0.0006 → **passed**
-- 压力行 `120×90×60`：记录于 `lock-bottom-match.md`
+- 顶翼/胶翼匹配：见 `top-flap-match.md`
+- 压力行 `120×90×60`：记录于同报告
 
 ## 明确未做
 
-- 顶尘翼 / 插舌 / 胶翼外轮廓
-- 精确 cubic path
+- 体侧外框 / 背板顶边收尾
+- 底折小圆角 path
+- 精确 cubic
 - 完整 Cutting=63 拓扑宣称
 
 ## 产物
 
-- `data/normalized/prototype-svg/proto-crashlock-*-lockbottom.svg`
-- `reports/lock-bottom-match.json` / `.md`
+- `data/normalized/prototype-svg/proto-crashlock-*-topflaps.svg`
+- `reports/top-flap-match.json` / `.md`
 - `reports/gaps.md` / `next-actions.md`

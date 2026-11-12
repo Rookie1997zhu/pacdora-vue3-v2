@@ -1,6 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { generateCrashlockPartial, generateCrashlockWithLockBottom, setFitCoeffs } from '../prototype/crashlock.ts'
+import {
+  generateCrashlockPartial,
+  generateCrashlockWithLockBottom,
+  generateCrashlockWithTopFlaps,
+  setFitCoeffs,
+} from '../prototype/crashlock.ts'
 import { dataRules, labRoot, reportsDir } from '../paths.ts'
 
 export function runPrototype() {
@@ -49,35 +54,39 @@ export function runPrototype() {
   for (const p of targets) {
     const partial = generateCrashlockPartial(p)
     const lock = generateCrashlockWithLockBottom(p)
+    const top = generateCrashlockWithTopFlaps(p)
     const partialName = `proto-crashlock-${p.L}_${p.W}_${p.H}.svg`
     const lockName = `proto-crashlock-${p.L}_${p.W}_${p.H}-lockbottom.svg`
+    const topName = `proto-crashlock-${p.L}_${p.W}_${p.H}-topflaps.svg`
     fs.writeFileSync(path.join(outDir, partialName), partial.svg)
     fs.writeFileSync(path.join(outDir, lockName), lock.svg)
+    fs.writeFileSync(path.join(outDir, topName), top.svg)
     results.push({
-      file: lockName,
+      file: topName,
+      lockFile: lockName,
       partialFile: partialName,
-      widthUu: lock.widthUu,
-      heightUu: lock.heightUu,
-      lockCutting: lock.cutting?.length ?? 0,
-      creasing: lock.creasing?.length ?? 0,
-      curve_approx: lock.curveApprox,
-      implemented: lock.implemented,
-      gaps: lock.gaps,
+      widthUu: top.widthUu,
+      heightUu: top.heightUu,
+      cutting: top.cutting?.length ?? 0,
+      creasing: top.creasing?.length ?? 0,
+      curve_approx: top.curveApprox,
+      implemented: top.implemented,
+      gaps: top.gaps,
     })
   }
 
-  const gapsMd = `# Prototype gaps (crashlock lock-bottom first slice)
+  const gapsMd = `# Prototype gaps (crashlock lock+top second slice)
 
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
 - Parametric **14** body Creasing lines (panel layout glue|L|W|L|W)
-- Parametric lock-bottom **Cutting** polyline (~21 lines: side wings + center flap/hooks)
+- Parametric lock-bottom **Cutting** polyline (~21 lines)
+- Parametric top **dust flaps + tuck tongues + glue outer** (~26–29 lines)
 - Cubic corners: **curve_approx** (chord / fixed mm notches)
 
 ## Not implemented (explicit)
-- Top dust flaps / tuck tongue outer cutting
-- Glue flap outer cutting topology
-- Six small top-flap fillets
+- Body side outer / back top edge closure
+- Bottom corner fillet paths
 - Exact cubic corner paths
 - Full 63 Cutting / production claim
 
@@ -85,7 +94,7 @@ export function runPrototype() {
 ${results
   .map(
     (r) =>
-      `- \`${r.file}\` cuts=${r.lockCutting} creases=${r.creasing} widthUu=${r.widthUu.toFixed(3)} heightUu=${r.heightUu.toFixed(3)}`,
+      `- \`${r.file}\` cuts=${r.cutting} creases=${r.creasing} widthUu=${r.widthUu.toFixed(3)} heightUu=${r.heightUu.toFixed(3)}`,
   )
   .join('\n')}
 `
@@ -94,7 +103,7 @@ ${results
     path.join(reportsDir, 'prototype-run.json'),
     JSON.stringify({ generated_at: new Date().toISOString(), results }, null, 2),
   )
-  console.log('prototype', results.length, 'lockbottom svgs')
+  console.log('prototype', results.length, 'topflaps svgs')
   return results
 }
 

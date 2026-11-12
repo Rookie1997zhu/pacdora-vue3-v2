@@ -13,6 +13,7 @@
     "diff-geometry": "tsx src/cli/diff-geometry.ts",
     "match-segments": "tsx src/cli/match-segments.ts",
     "match-lock-bottom": "tsx src/cli/match-lock-bottom.ts",
+    "match-top-flaps": "tsx src/cli/match-top-flaps.ts",
     "online-collect": "tsx src/cli/online-collect.ts",
     "infer-rules": "tsx src/cli/infer-rules.ts",
     "prototype": "tsx src/cli/prototype.ts",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T00:26:03.625Z",
+  "generated_at": "2026-11-12T01:04:56.874Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -38,10 +38,16 @@
       "note": "holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx"
     },
     {
+      "id": "top_flap_cutting_correspondence",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=29/29; medianNorm=0.0045; curve_approx"
+    },
+    {
       "id": "holdout_full_crashlock_topology",
       "kind": "real_sample",
       "status": "blocked",
-      "reason": "lock_bottom_partial_not_full_topology"
+      "reason": "top_and_lock_partial_not_full_topology"
     },
     {
       "id": "synthetic_svg_emits_ev_style",
@@ -143,7 +149,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T00:25:42.144Z",
+    "generated_at": "2026-11-12T01:04:31.557Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,
@@ -326,6 +332,31 @@
       "medianNormPosErr": 0.0006296261204982382,
       "medianEndpointErrUu": 0.6151489834327596,
       "maxNormPosErr": 0.005502041119388899,
+      "unmatchedGen": [],
+      "unmatchedReal": [],
+      "passed": true,
+      "curve_approx": true
+    }
+  },
+  "top_flap_match_gate": {
+    "holdout": "100x80x90",
+    "require_matched_ge": 22,
+    "expect_real_lines_about": 26,
+    "median_norm_pos_err_le": 0.06,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "matched": 29,
+      "genCount": 29,
+      "realCount": 29,
+      "matchRate": 1,
+      "medianNormPosErr": 0.004481787932816912,
+      "medianEndpointErrUu": 6.256096014139698,
+      "maxNormPosErr": 0.2911224639536839,
       "unmatchedGen": [],
       "unmatchedReal": [],
       "passed": true,
