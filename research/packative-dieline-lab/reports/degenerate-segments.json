@@ -1,9 +1,10 @@
 {
-  "generated_at": "2026-11-12T02:34:23.127Z",
+  "generated_at": "2026-11-12T02:58:01.981Z",
   "notes": [
-    "Zero-length Cutting segments are Packative SVG export artifacts",
-    "Prototype deliberately does not emit them (structural cutting = raw − zero)",
-    "Do not fake raw 63 by inserting stubs",
+    "Class A exportArtifact: zero-length at geom maxX ∩ bodyBottom±12uu band",
+    "Class B collapsedLockShelf: other zero-length (e.g. lock kink shelf collapse on 55x55x75)",
+    "Structural cutting = raw − Class A only (Class B stays in structural count)",
+    "Prototype deliberately does not emit Class A stubs; do not fake raw 63",
     "holdout_frozen=100x80x90"
   ],
   "holdout_key": "100x80x90",
@@ -11,8 +12,18 @@
     "sample_count": 11,
     "holdout_raw": 63,
     "holdout_zero": 2,
+    "holdout_export_artifact": 2,
+    "holdout_collapsed_lock_shelf": 0,
     "holdout_structural": 61,
-    "holdout_zeros_at_maxX_bodyTop": false
+    "holdout_classA_at_maxX_bodyBottom": true,
+    "sample_55_55_75": {
+      "raw": 63,
+      "zero": 4,
+      "classA": 2,
+      "classB": 2,
+      "structural": 61,
+      "note": "collapsed_lock_shelf×2"
+    }
   },
   "rows": [
     {
@@ -23,12 +34,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.9369999999999
@@ -37,12 +55,14 @@
             "x": 1404.0896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.9369999999999
@@ -51,10 +71,10 @@
             "x": 1404.0896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_70_80",
@@ -64,12 +84,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1328.4996,
             "y": 306.14199999999994
@@ -78,12 +105,14 @@
             "x": 1328.4996,
             "y": 306.14199999999994
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1328.4996,
             "y": 306.14199999999994
@@ -92,10 +121,10 @@
             "x": 1328.4996,
             "y": 306.14199999999994
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_70",
@@ -105,12 +134,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.937
@@ -119,12 +155,14 @@
             "x": 1404.0896,
             "y": 343.937
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.937
@@ -133,10 +171,10 @@
             "x": 1404.0896,
             "y": 343.937
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_80",
@@ -146,12 +184,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.9369999999999
@@ -160,12 +205,14 @@
             "x": 1404.0896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.9369999999999
@@ -174,10 +221,10 @@
             "x": 1404.0896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
@@ -187,12 +234,19 @@
       "role": "holdout",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.937
@@ -201,12 +255,14 @@
             "x": 1404.0896,
             "y": 343.937
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1404.0896,
             "y": 343.937
@@ -215,10 +271,10 @@
             "x": 1404.0896,
             "y": 343.937
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_90_80",
@@ -228,12 +284,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1479.6896,
             "y": 381.73299999999995
@@ -242,12 +305,14 @@
             "x": 1479.6896,
             "y": 381.73299999999995
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1479.6896,
             "y": 381.73299999999995
@@ -256,10 +321,10 @@
             "x": 1479.6896,
             "y": 381.73299999999995
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-110_80_80",
@@ -269,12 +334,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1479.6896,
             "y": 343.9369999999999
@@ -283,12 +355,14 @@
             "x": 1479.6896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1479.6896,
             "y": 343.9369999999999
@@ -297,10 +371,10 @@
             "x": 1479.6896,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
@@ -310,12 +384,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1630.8696,
             "y": 381.73199999999997
@@ -324,12 +405,14 @@
             "x": 1630.8696,
             "y": 381.73199999999997
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1630.8696,
             "y": 381.73199999999997
@@ -338,10 +421,10 @@
             "x": 1630.8696,
             "y": 381.73199999999997
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
@@ -351,12 +434,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 2689.1296,
             "y": 608.508
@@ -365,12 +455,14 @@
             "x": 2689.1296,
             "y": 608.508
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 2689.1296,
             "y": 608.508
@@ -379,10 +471,10 @@
             "x": 2689.1296,
             "y": 608.508
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-55_55_75",
@@ -392,12 +484,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 4,
-      "cuttingStructural": 59,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 2,
+      "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 2,
+      "note": "collapsed_lock_shelf×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 874.9606,
             "y": 249.44899999999996
@@ -406,12 +505,14 @@
             "x": 874.9606,
             "y": 249.44899999999996
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 874.9606,
             "y": 249.44899999999996
@@ -420,12 +521,14 @@
             "x": 874.9606,
             "y": 249.44899999999996
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 2,
           "lengthUu": 0,
-          "exportArtifact": true,
+          "kind": "collapsed_lock_shelf",
+          "exportArtifact": false,
+          "collapsedLockShelf": true,
           "p0": {
             "x": 149.29160000000002,
             "y": 636.851
@@ -434,12 +537,14 @@
             "x": 149.29160000000002,
             "y": 636.851
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": false
         },
         {
           "indexHint": 3,
           "lengthUu": 0,
-          "exportArtifact": true,
+          "kind": "collapsed_lock_shelf",
+          "exportArtifact": false,
+          "collapsedLockShelf": true,
           "p0": {
             "x": 565.0396000000001,
             "y": 636.851
@@ -448,10 +553,10 @@
             "x": 565.0396000000001,
             "y": 636.851
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": false
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-90_80_80",
@@ -461,12 +566,19 @@
       "role": "other",
       "cuttingCountRaw": 63,
       "cuttingZeroLength": 2,
+      "cuttingExportArtifact": 2,
+      "cuttingCollapsedLockShelf": 0,
       "cuttingStructural": 61,
+      "classA": 2,
+      "classB": 0,
+      "note": "export_artifact×2",
       "zeros": [
         {
           "indexHint": 0,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1328.4996,
             "y": 343.9369999999999
@@ -475,12 +587,14 @@
             "x": 1328.4996,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         },
         {
           "indexHint": 1,
           "lengthUu": 0,
+          "kind": "export_artifact_maxX_bodyBottom",
           "exportArtifact": true,
+          "collapsedLockShelf": false,
           "p0": {
             "x": 1328.4996,
             "y": 343.9369999999999
@@ -489,10 +603,10 @@
             "x": 1328.4996,
             "y": 343.9369999999999
           },
-          "at_maxX_bodyTop": false
+          "at_maxX_bodyBottom": true
         }
       ],
-      "allZerosAtMaxXBodyTop": false
+      "allClassAAtMaxXBodyBottom": true
     }
   ]
 }

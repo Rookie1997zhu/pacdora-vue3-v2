@@ -1,4 +1,6 @@
 import type { SvgNormalizeResult } from '../normalize/svgParse.ts'
+import { cuttingCountBreakdown } from './degenerateClassify.ts'
+import type { CompactSeg } from './segmentMatch.ts'
 
 export type FeatureSummary = {
   sampleId: string
@@ -8,6 +10,8 @@ export type FeatureSummary = {
   cuttingCount: number
   cuttingCountRaw: number
   cuttingZeroLength: number
+  cuttingExportArtifact: number
+  cuttingCollapsedLockShelf: number
   cuttingStructural: number
   creasingCount: number
   geomWidthUu: number | null
@@ -45,21 +49,27 @@ export function summarizeFeatures(
     .filter((n) => n > 1)
     .sort((a, b) => b - a)
 
-  const cuttingCountRaw = doc.normalized.cuttingCount
-  const cuttingZeroLength = doc.normalized.segments.filter(
-    (s) => s.style === 'Cutting' && s.lengthUu < ZERO_LENGTH_UU,
-  ).length
-  const cuttingStructural = cuttingCountRaw - cuttingZeroLength
+  const compactLike: CompactSeg[] = doc.normalized.segments.map((s) => ({
+    kind: s.kind,
+    style: s.style,
+    lengthUu: s.lengthUu,
+    p0: s.world[0] || null,
+    p1: s.world[s.world.length - 1] || null,
+    pointCount: s.world.length,
+  }))
+  const bd = cuttingCountBreakdown(compactLike, doc.normalized.cuttingCount)
 
   return {
     sampleId: doc.sampleId,
     L: dims?.L ?? null,
     W: dims?.W ?? null,
     H: dims?.H ?? null,
-    cuttingCount: cuttingCountRaw,
-    cuttingCountRaw,
-    cuttingZeroLength,
-    cuttingStructural,
+    cuttingCount: bd.cuttingCountRaw,
+    cuttingCountRaw: bd.cuttingCountRaw,
+    cuttingZeroLength: bd.cuttingZeroLength,
+    cuttingExportArtifact: bd.cuttingExportArtifact,
+    cuttingCollapsedLockShelf: bd.cuttingCollapsedLockShelf,
+    cuttingStructural: bd.cuttingStructural,
     creasingCount: doc.normalized.creasingCount,
     geomWidthUu: doc.normalized.geometryBounds?.width ?? null,
     geomHeightUu: doc.normalized.geometryBounds?.height ?? null,

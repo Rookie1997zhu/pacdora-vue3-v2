@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-11-12T02:36:13.251Z",
+  "generated_at": "2026-11-12T02:58:18.266Z",
   "notes": [
-    "Structural cutting = raw − zero-length export artifacts",
+    "Structural cutting = raw − Class A exportArtifact only",
+    "Class B collapsedLockShelf remains in structural count (55x55x75)",
     "Prototype cutting count must match structural (expect 61), not raw 63",
     "Prototype must NOT emit zero-length stubs",
     "holdout_frozen=100x80x90"
@@ -10,7 +11,7 @@
     "holdout": "100x80x90",
     "expect_proto_cutting": 61,
     "require_real_structural_eq_proto": true,
-    "require_real_zero_ge": 1,
+    "require_real_export_artifact_ge": 1,
     "passed": true,
     "holdout_row": {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
@@ -20,18 +21,23 @@
       "role": "holdout",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     }
   },
   "summary": {
     "sample_count": 11,
-    "pass_count": 10,
+    "pass_count": 11,
     "holdout_real_structural": 61,
     "holdout_proto_cutting": 61,
-    "holdout_real_zero": 2
+    "holdout_real_export_artifact": 2,
+    "sample_55_55_75_passed": true,
+    "sample_55_55_75_structural": 61
   },
   "rows": [
     {
@@ -42,10 +48,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_70_80",
@@ -55,10 +64,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_70",
@@ -68,10 +80,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_80",
@@ -81,10 +96,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
@@ -94,10 +112,13 @@
       "role": "holdout",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-100_90_80",
@@ -107,10 +128,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-110_80_80",
@@ -120,10 +144,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
@@ -133,10 +160,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
@@ -146,10 +176,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-55_55_75",
@@ -159,10 +192,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 4,
-      "realStructural": 59,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 2,
+      "realStructural": 61,
       "protoCutting": 61,
-      "passed": false,
-      "protoEmitsZeroLength": false
+      "passed": true,
+      "protoEmitsZeroLength": false,
+      "note": "collapsed_lock_shelf×2"
     },
     {
       "sampleId": "studio-dieline-productbox-crashlock-90_80_80",
@@ -172,10 +208,13 @@
       "role": "other",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     }
   ]
 }

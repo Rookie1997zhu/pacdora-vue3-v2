@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:36:26.445Z",
+  "generated_at": "2026-11-12T02:58:20.230Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -53,7 +53,7 @@
       "id": "structural_cutting_count_correspondence",
       "kind": "real_sample",
       "status": "passed",
-      "note": "holdout=100x80x90; realStructural=61; proto=61; zero=2"
+      "note": "holdout=100x80x90; realStructural=61; proto=61; exportArtifact=2; collapsedLockShelf=0"
     },
     {
       "id": "holdout_full_crashlock_topology",
@@ -161,7 +161,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T02:33:35.100Z",
+    "generated_at": "2026-11-12T02:57:51.349Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,
@@ -412,7 +412,7 @@
     "holdout": "100x80x90",
     "expect_proto_cutting": 61,
     "require_real_structural_eq_proto": true,
-    "require_real_zero_ge": 1,
+    "require_real_export_artifact_ge": 1,
     "passed": true,
     "holdout_row": {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
@@ -422,10 +422,13 @@
       "role": "holdout",
       "realRaw": 63,
       "realZero": 2,
+      "realExportArtifact": 2,
+      "realCollapsedLockShelf": 0,
       "realStructural": 61,
       "protoCutting": 61,
       "passed": true,
-      "protoEmitsZeroLength": false
+      "protoEmitsZeroLength": false,
+      "note": ""
     }
   }
 }

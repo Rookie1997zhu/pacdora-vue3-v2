@@ -1,8 +1,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { ZERO_LENGTH_UU } from '../geometry/features.ts'
-import { boundsFromSegs, type CompactSeg } from '../geometry/segmentMatch.ts'
-import { inferBodyTopY } from '../geometry/topFlapFeatures.ts'
+import {
+  BODY_BOTTOM_ARTIFACT_BAND_UU,
+  classifyZeroCutting,
+  cuttingCountBreakdown,
+  isClassAMaxXBodyBottom,
+} from '../geometry/degenerateClassify.ts'
+import { type CompactSeg } from '../geometry/segmentMatch.ts'
 import { parseProductDimsFromName } from '../normalize/svgParse.ts'
 import { dataNormalized, dataRules, reportsDir } from '../paths.ts'
 
@@ -12,6 +16,8 @@ type NormDoc = {
     cuttingCount: number
     cuttingCountRaw?: number
     cuttingZeroLength?: number
+    cuttingExportArtifact?: number
+    cuttingCollapsedLockShelf?: number
     cuttingStructural?: number
     segments: CompactSeg[]
   }
@@ -32,15 +38,6 @@ function loadCrashlockDocs(): NormDoc[] {
   return out.sort((a, b) => a.sampleId.localeCompare(b.sampleId))
 }
 
-function atMaxXBodyTop(pt: { x: number; y: number }, segs: CompactSeg[]): boolean {
-  const b = boundsFromSegs(segs)
-  const bodyTopY = inferBodyTopY(segs)
-  if (!b || bodyTopY == null) return false
-  const epsX = Math.max(1, b.width * 0.002)
-  const epsY = Math.max(1, b.height * 0.002)
-  return Math.abs(pt.x - (b.minX + b.width)) <= epsX && Math.abs(pt.y - bodyTopY) <= epsY
-}
-
 export function runInventoryDegenerates() {
   const fitPath = path.join(dataRules, 'fit-coeffs.json')
   let holdoutKey = '100x80x90'
@@ -57,43 +54,58 @@ export function runInventoryDegenerates() {
     const L = dims?.L ?? (m ? Number(m[1]) : NaN)
     const W = dims?.W ?? (m ? Number(m[2]) : NaN)
     const H = dims?.H ?? (m ? Number(m[3]) : NaN)
-    const cuts = doc.normalized.segments.filter((s) => s.style === 'Cutting')
-    const zeros = cuts.filter((s) => (s.lengthUu ?? 0) < NEAR_ZERO)
-    const cuttingCountRaw = doc.normalized.cuttingCountRaw ?? cuts.length
-    const cuttingZeroLength = doc.normalized.cuttingZeroLength ?? zeros.length
-    const cuttingStructural = doc.normalized.cuttingStructural ?? cuttingCountRaw - cuttingZeroLength
+    const segs = doc.normalized.segments
+    const bd = cuttingCountBreakdown(segs, doc.normalized.cuttingCountRaw ?? doc.normalized.cuttingCount)
+    const zeros = segs.filter((s) => s.style === 'Cutting' && (s.lengthUu ?? 0) < NEAR_ZERO)
     const zeroDetails = zeros.map((s, i) => {
       const pt = s.p0 || s.p1 || { x: NaN, y: NaN }
+      const kind =
+        s.exportArtifact
+          ? 'export_artifact_maxX_bodyBottom'
+          : s.collapsedLockShelf
+            ? 'collapsed_lock_shelf'
+            : classifyZeroCutting(s, segs)
       return {
         indexHint: i,
         lengthUu: s.lengthUu,
-        exportArtifact: Boolean(s.exportArtifact || s.lengthUu < ZERO_LENGTH_UU),
+        kind,
+        exportArtifact: kind === 'export_artifact_maxX_bodyBottom',
+        collapsedLockShelf: kind === 'collapsed_lock_shelf',
         p0: s.p0,
         p1: s.p1,
-        at_maxX_bodyTop: atMaxXBodyTop(pt, doc.normalized.segments),
+        at_maxX_bodyBottom: isClassAMaxXBodyBottom(pt, segs),
       }
     })
+    const classA = zeroDetails.filter((z) => z.kind === 'export_artifact_maxX_bodyBottom').length
+    const classB = zeroDetails.filter((z) => z.kind === 'collapsed_lock_shelf').length
     rows.push({
       sampleId: doc.sampleId,
       L,
       W,
       H,
       role: L === hL && W === hW && H === hH ? 'holdout' : 'other',
-      cuttingCountRaw,
-      cuttingZeroLength,
-      cuttingStructural,
+      cuttingCountRaw: bd.cuttingCountRaw,
+      cuttingZeroLength: bd.cuttingZeroLength,
+      cuttingExportArtifact: bd.cuttingExportArtifact,
+      cuttingCollapsedLockShelf: bd.cuttingCollapsedLockShelf,
+      cuttingStructural: bd.cuttingStructural,
+      classA,
+      classB,
+      note: classB > 0 ? `collapsed_lock_shelf×${classB}` : classA > 0 ? `export_artifact×${classA}` : '',
       zeros: zeroDetails,
-      allZerosAtMaxXBodyTop: zeroDetails.length > 0 && zeroDetails.every((z) => z.at_maxX_bodyTop),
+      allClassAAtMaxXBodyBottom: classA > 0 && zeroDetails.filter((z) => z.exportArtifact).every((z) => z.at_maxX_bodyBottom),
     })
   }
 
   const holdout = rows.find((r) => r.role === 'holdout')
+  const sample55 = rows.find((r) => r.L === 55 && r.W === 55 && r.H === 75)
   const out = {
     generated_at: new Date().toISOString(),
     notes: [
-      'Zero-length Cutting segments are Packative SVG export artifacts',
-      'Prototype deliberately does not emit them (structural cutting = raw − zero)',
-      'Do not fake raw 63 by inserting stubs',
+      `Class A exportArtifact: zero-length at geom maxX ∩ bodyBottom±${BODY_BOTTOM_ARTIFACT_BAND_UU}uu band`,
+      'Class B collapsedLockShelf: other zero-length (e.g. lock kink shelf collapse on 55x55x75)',
+      'Structural cutting = raw − Class A only (Class B stays in structural count)',
+      'Prototype deliberately does not emit Class A stubs; do not fake raw 63',
       `holdout_frozen=${holdoutKey}`,
     ],
     holdout_key: holdoutKey,
@@ -101,8 +113,20 @@ export function runInventoryDegenerates() {
       sample_count: rows.length,
       holdout_raw: holdout?.cuttingCountRaw ?? null,
       holdout_zero: holdout?.cuttingZeroLength ?? null,
+      holdout_export_artifact: holdout?.cuttingExportArtifact ?? null,
+      holdout_collapsed_lock_shelf: holdout?.cuttingCollapsedLockShelf ?? null,
       holdout_structural: holdout?.cuttingStructural ?? null,
-      holdout_zeros_at_maxX_bodyTop: holdout?.allZerosAtMaxXBodyTop ?? null,
+      holdout_classA_at_maxX_bodyBottom: holdout?.allClassAAtMaxXBodyBottom ?? null,
+      sample_55_55_75: sample55
+        ? {
+            raw: sample55.cuttingCountRaw,
+            zero: sample55.cuttingZeroLength,
+            classA: sample55.classA,
+            classB: sample55.classB,
+            structural: sample55.cuttingStructural,
+            note: sample55.note,
+          }
+        : null,
     },
     rows,
   }
@@ -110,25 +134,33 @@ export function runInventoryDegenerates() {
   fs.mkdirSync(reportsDir, { recursive: true })
   fs.writeFileSync(path.join(reportsDir, 'degenerate-segments.json'), JSON.stringify(out, null, 2))
 
-  const md = `# Degenerate / export-artifact Cutting segments
+  const md = `# Degenerate Cutting segments (Class A / Class B)
 
 ## Holdout \`${holdoutKey}\`
 - raw Cutting = **${holdout?.cuttingCountRaw ?? 'n/a'}**
-- zero-length = **${holdout?.cuttingZeroLength ?? 'n/a'}**
-- structural = **${holdout?.cuttingStructural ?? 'n/a'}**
-- zeros at geom maxX ∩ body-top: **${holdout?.allZerosAtMaxXBodyTop ? 'yes' : 'no/partial'}**
+- zero-length = **${holdout?.cuttingZeroLength ?? 'n/a'}** (Class A=${holdout?.classA ?? 'n/a'}, Class B=${holdout?.classB ?? 'n/a'})
+- structural = **${holdout?.cuttingStructural ?? 'n/a'}** (= raw − Class A)
+- Class A at geom maxX ∩ bodyBottom±${BODY_BOTTOM_ARTIFACT_BAND_UU}uu: **${holdout?.allClassAAtMaxXBodyBottom ? 'yes' : 'no/partial'}**
 
 ## Classification
-- These are **export artifacts** (duplicate zero-length \`<line>\`), not structural knife paths.
-- Prototype omits them on purpose; raw 63 ≠ structural topology.
+- **Class A** \`exportArtifact\`: duplicate zero-length \`<line>\` at maxX ∩ body-bottom fold band — **not** structural
+- **Class B** \`collapsedLockShelf\`: lock kink shelf collapsed to zero (seen on \`55×55×75\`) — kept in structural count
+- Prototype omits Class A; does not emit stubs to fake raw 63
+
+## \`55×55×75\`
+${
+  sample55
+    ? `- raw=${sample55.cuttingCountRaw} zero=${sample55.cuttingZeroLength} ClassA=${sample55.classA} ClassB=${sample55.classB} structural=${sample55.cuttingStructural} (${sample55.note})`
+    : '- sample missing'
+}
 
 ## Rows
-| sample | role | raw | zero | structural | all@maxX∩bodyTop |
-|---|---|---:|---:|---:|---|
+| sample | role | raw | zero | A | B | structural | note |
+|---|---|---:|---:|---:|---:|---:|---|
 ${rows
   .map(
     (r) =>
-      `| ${Number.isFinite(r.L) ? `${r.L}x${r.W}x${r.H}` : r.sampleId} | ${r.role} | ${r.cuttingCountRaw} | ${r.cuttingZeroLength} | ${r.cuttingStructural} | ${r.allZerosAtMaxXBodyTop ? 'yes' : 'no'} |`,
+      `| ${Number.isFinite(r.L) ? `${r.L}x${r.W}x${r.H}` : r.sampleId} | ${r.role} | ${r.cuttingCountRaw} | ${r.cuttingZeroLength} | ${r.classA} | ${r.classB} | ${r.cuttingStructural} | ${r.note || '—'} |`,
   )
   .join('\n')}
 `
@@ -136,8 +168,9 @@ ${rows
   console.log(
     'inventory-degenerates',
     holdout
-      ? `holdout raw=${holdout.cuttingCountRaw} zero=${holdout.cuttingZeroLength} structural=${holdout.cuttingStructural}`
+      ? `holdout raw=${holdout.cuttingCountRaw} A=${holdout.classA} B=${holdout.classB} structural=${holdout.cuttingStructural}`
       : 'holdout missing',
+    sample55 ? `55: A=${sample55.classA} B=${sample55.classB} structural=${sample55.cuttingStructural}` : '',
     `rows=${rows.length}`,
   )
   return out

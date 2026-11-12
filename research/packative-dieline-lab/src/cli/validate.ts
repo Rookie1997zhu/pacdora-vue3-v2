@@ -160,7 +160,7 @@ export function runValidate() {
       kind: 'real_sample',
       status: structural ? (structuralPass ? 'passed' : 'failed') : 'not_run',
       note: structural
-        ? `holdout=${structural.gate?.holdout}; realStructural=${structuralRow?.realStructural}; proto=${structuralRow?.protoCutting}; zero=${structuralRow?.realZero}`
+        ? `holdout=${structural.gate?.holdout}; realStructural=${structuralRow?.realStructural}; proto=${structuralRow?.protoCutting}; exportArtifact=${structuralRow?.realExportArtifact}; collapsedLockShelf=${structuralRow?.realCollapsedLockShelf ?? 0}`
         : 'structural-cutting-match.json missing — run match-structural-cutting',
     })
     tests.push({
@@ -289,7 +289,7 @@ ${tests
 1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
 2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
 3. Full topology still **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\` when structural + curve_exact + partial gates pass).
-4. Optional next: material thickness / production packaging — still not production; do not emit fake zero-length stubs.
+4. Optional next: material thickness / BOXCRAFT production wiring — still not production; do not emit fake zero-length stubs.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

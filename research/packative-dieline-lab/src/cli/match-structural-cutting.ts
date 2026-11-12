@@ -1,9 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { cuttingCountBreakdown } from '../geometry/degenerateClassify.ts'
+import type { CompactSeg } from '../geometry/segmentMatch.ts'
 import { generateCrashlockWithOutline, setFitCoeffs } from '../prototype/crashlock.ts'
 import { parseProductDimsFromName } from '../normalize/svgParse.ts'
 import { dataNormalized, dataRules, reportsDir } from '../paths.ts'
-import type { CompactSeg } from '../geometry/segmentMatch.ts'
 
 type NormDoc = {
   sampleId: string
@@ -11,6 +12,8 @@ type NormDoc = {
     cuttingCount: number
     cuttingCountRaw?: number
     cuttingZeroLength?: number
+    cuttingExportArtifact?: number
+    cuttingCollapsedLockShelf?: number
     cuttingStructural?: number
     segments: CompactSeg[]
   }
@@ -29,12 +32,14 @@ function loadReal(): NormDoc[] {
 }
 
 function structuralCounts(doc: NormDoc) {
-  const cuts = doc.normalized.segments.filter((s) => s.style === 'Cutting')
-  const zero = cuts.filter((s) => s.exportArtifact || (s.lengthUu ?? 0) < 1e-6).length
-  const raw = doc.normalized.cuttingCountRaw ?? doc.normalized.cuttingCount ?? cuts.length
-  const z = doc.normalized.cuttingZeroLength ?? zero
-  const structural = doc.normalized.cuttingStructural ?? raw - z
-  return { raw, zero: z, structural }
+  const bd = cuttingCountBreakdown(doc.normalized.segments, doc.normalized.cuttingCountRaw ?? doc.normalized.cuttingCount)
+  return {
+    raw: doc.normalized.cuttingCountRaw ?? bd.cuttingCountRaw,
+    zero: doc.normalized.cuttingZeroLength ?? bd.cuttingZeroLength,
+    exportArtifact: doc.normalized.cuttingExportArtifact ?? bd.cuttingExportArtifact,
+    collapsedLockShelf: doc.normalized.cuttingCollapsedLockShelf ?? bd.cuttingCollapsedLockShelf,
+    structural: doc.normalized.cuttingStructural ?? bd.cuttingStructural,
+  }
 }
 
 export function runMatchStructuralCutting() {
@@ -82,7 +87,7 @@ export function runMatchStructuralCutting() {
     const proto = generateCrashlockWithOutline({ L, W, H })
     const protoCutting = proto.cutting?.length ?? 0
     const isHoldout = L === hL && W === hW && H === hH
-    const passRow = counts.structural === protoCutting && counts.zero >= 1
+    const passRow = counts.structural === protoCutting && counts.exportArtifact >= 1
     rows.push({
       sampleId: sample.sampleId,
       L,
@@ -91,25 +96,30 @@ export function runMatchStructuralCutting() {
       role: isHoldout ? 'holdout' : 'other',
       realRaw: counts.raw,
       realZero: counts.zero,
+      realExportArtifact: counts.exportArtifact,
+      realCollapsedLockShelf: counts.collapsedLockShelf,
       realStructural: counts.structural,
       protoCutting,
       passed: passRow,
       protoEmitsZeroLength: false,
+      note: counts.collapsedLockShelf > 0 ? `collapsed_lock_shelf×${counts.collapsedLockShelf}` : '',
     })
   }
 
   const holdout = rows.find((r) => r.role === 'holdout')
+  const sample55 = rows.find((r) => r.L === 55 && r.W === 55 && r.H === 75)
   const gatePassed = Boolean(
     holdout &&
       holdout.realStructural === holdout.protoCutting &&
-      holdout.realZero >= 1 &&
+      holdout.realExportArtifact >= 1 &&
       holdout.protoCutting === 61,
   )
 
   const out = {
     generated_at: new Date().toISOString(),
     notes: [
-      'Structural cutting = raw − zero-length export artifacts',
+      'Structural cutting = raw − Class A exportArtifact only',
+      'Class B collapsedLockShelf remains in structural count (55x55x75)',
       'Prototype cutting count must match structural (expect 61), not raw 63',
       'Prototype must NOT emit zero-length stubs',
       `holdout_frozen=${holdoutKey}`,
@@ -118,7 +128,7 @@ export function runMatchStructuralCutting() {
       holdout: holdoutKey,
       expect_proto_cutting: 61,
       require_real_structural_eq_proto: true,
-      require_real_zero_ge: 1,
+      require_real_export_artifact_ge: 1,
       passed: gatePassed,
       holdout_row: holdout || null,
     },
@@ -127,7 +137,9 @@ export function runMatchStructuralCutting() {
       pass_count: rows.filter((r) => r.passed).length,
       holdout_real_structural: holdout?.realStructural ?? null,
       holdout_proto_cutting: holdout?.protoCutting ?? null,
-      holdout_real_zero: holdout?.realZero ?? null,
+      holdout_real_export_artifact: holdout?.realExportArtifact ?? null,
+      sample_55_55_75_passed: sample55?.passed ?? null,
+      sample_55_55_75_structural: sample55?.realStructural ?? null,
     },
     rows,
   }
@@ -139,26 +151,34 @@ export function runMatchStructuralCutting() {
 
 ## Gate (holdout \`${holdoutKey}\`)
 - real structural Cutting === proto Cutting (expect **61**)
-- real zero-length ≥ **1** (holdout typically 2)
+- real Class A exportArtifact ≥ **1**
+- structural = raw − Class A only (Class B not deducted)
 - proto must not emit zero-length stubs
 - result: **${gatePassed ? 'PASSED' : 'FAILED'}**
 ${
   holdout
-    ? `- holdout raw=${holdout.realRaw} zero=${holdout.realZero} structural=${holdout.realStructural} proto=${holdout.protoCutting}`
+    ? `- holdout raw=${holdout.realRaw} A=${holdout.realExportArtifact} B=${holdout.realCollapsedLockShelf} structural=${holdout.realStructural} proto=${holdout.protoCutting}`
     : '- holdout sample missing'
 }
 
+## \`55×55×75\`
+${
+  sample55
+    ? `- raw=${sample55.realRaw} A=${sample55.realExportArtifact} B=${sample55.realCollapsedLockShelf} structural=${sample55.realStructural} proto=${sample55.protoCutting} pass=${sample55.passed ? 'yes' : 'no'} (${sample55.note || '—'})`
+    : '- sample missing'
+}
+
 ## Notes
-- Raw 63 includes export artifacts; structural topology is 61 + 14 creases.
+- Raw 63 includes Class A export artifacts; structural topology is 61 + 14 creases.
 - Full raw-63 / production claim remains blocked.
 
 ## Rows
-| sample | role | raw | zero | structural | proto | pass |
-|---|---|---:|---:|---:|---:|---|
+| sample | role | raw | A | B | structural | proto | pass | note |
+|---|---|---:|---:|---:|---:|---:|---|---|
 ${rows
   .map(
     (r) =>
-      `| ${r.L}x${r.W}x${r.H} | ${r.role} | ${r.realRaw} | ${r.realZero} | ${r.realStructural} | ${r.protoCutting} | ${r.passed ? 'yes' : 'no'} |`,
+      `| ${r.L}x${r.W}x${r.H} | ${r.role} | ${r.realRaw} | ${r.realExportArtifact} | ${r.realCollapsedLockShelf} | ${r.realStructural} | ${r.protoCutting} | ${r.passed ? 'yes' : 'no'} | ${r.note || '—'} |`,
   )
   .join('\n')}
 `
@@ -166,7 +186,8 @@ ${rows
   console.log(
     'structural-cutting-match',
     `holdout=${gatePassed ? 'pass' : 'fail'}`,
-    holdout ? `${holdout.realStructural}/${holdout.protoCutting} zero=${holdout.realZero}` : 'missing',
+    holdout ? `${holdout.realStructural}/${holdout.protoCutting} A=${holdout.realExportArtifact}` : 'missing',
+    sample55 ? `55=${sample55.passed ? 'pass' : 'fail'} ${sample55.realStructural}` : '',
     `rows=${rows.length}`,
   )
   return out

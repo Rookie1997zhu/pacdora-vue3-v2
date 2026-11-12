@@ -1,6 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { summarizeFeatures, ZERO_LENGTH_UU } from '../geometry/features.ts'
+import { annotateZeroKinds, cuttingCountBreakdown } from '../geometry/degenerateClassify.ts'
+import { summarizeFeatures } from '../geometry/features.ts'
+import type { CompactSeg } from '../geometry/segmentMatch.ts'
 import { normalizeSvg, parseProductDimsFromName } from '../normalize/svgParse.ts'
 import { dataNormalized, dataRaw, reportsDir } from '../paths.ts'
 
@@ -20,6 +22,8 @@ export function runNormalize() {
         cuttingCount: 0,
         cuttingCountRaw: 0,
         cuttingZeroLength: 0,
+        cuttingExportArtifact: 0,
+        cuttingCollapsedLockShelf: 0,
         cuttingStructural: 0,
         creasingCount: 0,
         geomWidthUu: null,
@@ -35,30 +39,27 @@ export function runNormalize() {
     const dims = parseProductDimsFromName(it.name)
     const doc = normalizeSvg(text, it.abs_readonly, it.sample_id)
     const outPath = path.join(dataNormalized, `${it.sample_id}.json`)
-    const segments = doc.normalized.segments.map((s) => {
-      const exportArtifact = s.style === 'Cutting' && s.lengthUu < ZERO_LENGTH_UU
-      return {
-        kind: s.kind,
-        style: s.style,
-        lengthUu: s.lengthUu,
-        p0: s.world[0] || null,
-        p1: s.world[s.world.length - 1] || null,
-        pointCount: s.world.length,
-        ...(s.cubicWorld ? { c0: s.cubicWorld.c0, c1: s.cubicWorld.c1 } : {}),
-        ...(exportArtifact ? { exportArtifact: true } : {}),
-      }
-    })
-    const cuttingCountRaw = doc.normalized.cuttingCount
-    const cuttingZeroLength = segments.filter((s) => s.style === 'Cutting' && s.exportArtifact).length
-    const cuttingStructural = cuttingCountRaw - cuttingZeroLength
+    const draft: CompactSeg[] = doc.normalized.segments.map((s) => ({
+      kind: s.kind,
+      style: s.style,
+      lengthUu: s.lengthUu,
+      p0: s.world[0] || null,
+      p1: s.world[s.world.length - 1] || null,
+      pointCount: s.world.length,
+      ...(s.cubicWorld ? { c0: s.cubicWorld.c0, c1: s.cubicWorld.c1 } : {}),
+    }))
+    const segments = annotateZeroKinds(draft)
+    const bd = cuttingCountBreakdown(segments, doc.normalized.cuttingCount)
     const compact = {
       ...doc,
       normalized: {
         ...doc.normalized,
         segments,
-        cuttingCountRaw,
-        cuttingZeroLength,
-        cuttingStructural,
+        cuttingCountRaw: bd.cuttingCountRaw,
+        cuttingZeroLength: bd.cuttingZeroLength,
+        cuttingExportArtifact: bd.cuttingExportArtifact,
+        cuttingCollapsedLockShelf: bd.cuttingCollapsedLockShelf,
+        cuttingStructural: bd.cuttingStructural,
       },
     }
     fs.writeFileSync(outPath, JSON.stringify(compact, null, 2))

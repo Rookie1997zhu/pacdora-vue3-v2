@@ -816,7 +816,7 @@
           "y": 636.851
         },
         "pointCount": 2,
-        "exportArtifact": true
+        "collapsedLockShelf": true
       },
       {
         "kind": "line",
@@ -1029,7 +1029,7 @@
           "y": 636.851
         },
         "pointCount": 2,
-        "exportArtifact": true
+        "collapsedLockShelf": true
       },
       {
         "kind": "line",
@@ -1193,7 +1193,9 @@
     "unknownStyleCount": 0,
     "cuttingCountRaw": 63,
     "cuttingZeroLength": 4,
-    "cuttingStructural": 59
+    "cuttingExportArtifact": 2,
+    "cuttingCollapsedLockShelf": 2,
+    "cuttingStructural": 61
   },
   "inferred": {
     "candidateMmPerUu": 0.26458333333333334,

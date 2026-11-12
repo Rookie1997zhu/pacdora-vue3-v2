@@ -18,7 +18,7 @@
 | lock_bottom_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx |
 | top_flap_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=29/29; medianNorm=0.0045; curve_approx |
 | body_outline_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=11/11; medianNorm=0.0007; cubicPairs=8; medianCubicNorm=0.0000; curve_exact |
-| structural_cutting_count_correspondence | real_sample | **passed** | holdout=100x80x90; realStructural=61; proto=61; zero=2 |
+| structural_cutting_count_correspondence | real_sample | **passed** | holdout=100x80x90; realStructural=61; proto=61; exportArtifact=2; collapsedLockShelf=0 |
 | holdout_full_crashlock_topology | real_sample | **blocked** | raw_63_includes_export_zero_length_artifacts_not_emitted |
 | synthetic_svg_emits_ev_style | synthetic | **passed** |  |
 

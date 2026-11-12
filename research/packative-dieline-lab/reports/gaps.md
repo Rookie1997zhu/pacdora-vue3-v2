@@ -7,10 +7,12 @@
 - Parametric top dust flaps + tuck + glue (~26–29)
 - Parametric body outline: right outer, L-bottom cut, micro bridge (~11 leftovers)
 - Body fillet corners: **exact cubic** (`filletsExact`; 8 `<path C>`)
-- Zero-length Cutting classified as **export artifacts** (normalize `exportArtifact`); structural cutting = **61**
+- Zero-length Class A = `exportArtifact` (maxX∩bodyBottom); Class B = `collapsedLockShelf` (kept in structural)
+- Structural cutting = raw − Class A only (**61**)
 
 ## Not implemented (explicit)
-- Emitting raw Packative zero-length stubs to fake count 63
+- Emitting Class A/B zero-length stubs to fake raw 63
+- Retuning lock geometry to match 55×55×75 collapsed shelves
 - Full raw-63 / production claim
 
 ## Generated files

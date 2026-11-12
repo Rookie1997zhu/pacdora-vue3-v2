@@ -1,35 +1,35 @@
-# 退化段（导出伪影）交付
+# 55 零长分类交付
 
 ## 范围
 
 - 仅 research lab `productbox-crashlock`
-- 盘点并标注 raw Cutting 中的零长导出伪影；结构切割数门禁（有效 **61**）
-- **不是**完整 raw-63 复刻，**不是**可投产
+- Class A（maxX∩bodyBottom 导出重复）vs Class B（lock 搁板坍缩）；仅 A 扣 structural
+- **不是** raw-63 复刻，**不是**可投产
 
 ## 实现
 
 | 项 | 状态 |
 |---|---|
-| `inventory-degenerates` 盘点报告 | done |
-| normalize `exportArtifact` + structural 计数 | done |
-| `match-structural-cutting`（61==61） | done |
-| `structural_cutting_count_correspondence` | **passed** |
-| lock / top / outline / curve_exact | **passed**（保留） |
+| 退化段刀 commit/push | done |
+| `degenerateClassify` Class A/B | done |
+| structural = raw − Class A | done |
+| holdout structural 61≡61 | **passed** |
+| `55×55×75` structural 61≡61 | **passed**（记账修正） |
 | `holdout_full_crashlock_topology` | **blocked**（`raw_63_includes_export_zero_length_artifacts_not_emitted`） |
 
-## Holdout
+## Holdout / 55
 
-- 冻结：`100×80×90`
-- raw=63，zero=2，structural=61 ≡ proto cutting
-- 见 `degenerate-segments.md` / `structural-cutting-match.md`
+- 冻结 holdout：`100×80×90` — raw=63，A=2，B=0，structural=61
+- `55×55×75` — raw=63，A=2，B=2，structural=61（B 不扣）
 
 ## 明确未做
 
-- 在原型中塞零长 stub 凑满 63
-- 材料厚度
+- 零长 stub 发射
+- 为 55 改通用 lock 参数
 - raw-63 / 投产宣称
 
 ## 产物
 
+- `src/geometry/degenerateClassify.ts`
 - `reports/degenerate-segments.json` / `.md`
 - `reports/structural-cutting-match.json` / `.md`

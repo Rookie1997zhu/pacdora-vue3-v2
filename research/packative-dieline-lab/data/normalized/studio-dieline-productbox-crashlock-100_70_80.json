@@ -1191,6 +1191,8 @@
     "unknownStyleCount": 0,
     "cuttingCountRaw": 63,
     "cuttingZeroLength": 2,
+    "cuttingExportArtifact": 2,
+    "cuttingCollapsedLockShelf": 0,
     "cuttingStructural": 61
   },
   "inferred": {
