@@ -17,7 +17,8 @@
 | crease_segment_correspondence | real_sample | **passed** | min_matched=14; worst_norm=0.0586; worst_uu=98.66; pairs=45 |
 | lock_bottom_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx |
 | top_flap_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=29/29; medianNorm=0.0045; curve_approx |
-| holdout_full_crashlock_topology | real_sample | **blocked** | top_and_lock_partial_not_full_topology |
+| body_outline_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=11/11; medianNorm=0.0096; curve_approx |
+| holdout_full_crashlock_topology | real_sample | **blocked** | curve_approx_and_degenerate_segments_remain |
 | synthetic_svg_emits_ev_style | synthetic | **passed** |  |
 
 ## Privacy scan
@@ -28,4 +29,5 @@
 - Creasing segment correspondence: **passed** (see segment-match.md).
 - Lock-bottom cutting correspondence: **passed** (see lock-bottom-match.md; curve_approx).
 - Top-flap / glue cutting correspondence: **passed** (see top-flap-match.md; curve_approx).
-- Full crashlock topology: **blocked** (`top_and_lock_partial_not_full_topology`) — partial lock+top ≠ 63/14.
+- Body-outline cutting correspondence: **passed** (see body-outline-match.md; curve_approx).
+- Full crashlock topology: **blocked** (`curve_approx_and_degenerate_segments_remain`) — curve_approx / degenerates remain; not production.

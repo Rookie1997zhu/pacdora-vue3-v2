@@ -1,13 +1,14 @@
 {
-  "generated_at": "2026-11-12T01:04:49.723Z",
+  "generated_at": "2026-11-12T01:42:04.722Z",
   "results": [
     {
-      "file": "proto-crashlock-100_80_80-topflaps.svg",
+      "file": "proto-crashlock-100_80_80-outline.svg",
+      "topFile": "proto-crashlock-100_80_80-topflaps.svg",
       "lockFile": "proto-crashlock-100_80_80-lockbottom.svg",
       "partialFile": "proto-crashlock-100_80_80.svg",
       "widthUu": 1404.0928711004894,
       "heightUu": 831.4963480000041,
-      "cutting": 50,
+      "cutting": 61,
       "creasing": 14,
       "curve_approx": true,
       "implemented": [
@@ -17,23 +18,24 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners"
+        "curve_approx_chord_for_cubic_corners",
+        "body_outline_outer_and_fillet_chords_parametric"
       ],
       "gaps": [
-        "body_side_outer_and_back_top_edge_not_closed",
-        "bottom_corner_fillet_paths_not_modeled",
+        "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
         "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
     {
-      "file": "proto-crashlock-55_55_75-topflaps.svg",
+      "file": "proto-crashlock-55_55_75-outline.svg",
+      "topFile": "proto-crashlock-55_55_75-topflaps.svg",
       "lockFile": "proto-crashlock-55_55_75-lockbottom.svg",
       "partialFile": "proto-crashlock-55_55_75.svg",
       "widthUu": 874.9597150404911,
       "heightUu": 661.4176999999333,
-      "cutting": 50,
+      "cutting": 61,
       "creasing": 14,
       "curve_approx": true,
       "implemented": [
@@ -43,23 +45,24 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners"
+        "curve_approx_chord_for_cubic_corners",
+        "body_outline_outer_and_fillet_chords_parametric"
       ],
       "gaps": [
-        "body_side_outer_and_back_top_edge_not_closed",
-        "bottom_corner_fillet_paths_not_modeled",
+        "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
         "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
     {
-      "file": "proto-crashlock-100_90_80-topflaps.svg",
+      "file": "proto-crashlock-100_90_80-outline.svg",
+      "topFile": "proto-crashlock-100_90_80-topflaps.svg",
       "lockFile": "proto-crashlock-100_90_80-lockbottom.svg",
       "partialFile": "proto-crashlock-100_90_80.svg",
       "widthUu": 1479.684405628576,
       "heightUu": 891.9686679998683,
-      "cutting": 50,
+      "cutting": 61,
       "creasing": 14,
       "curve_approx": true,
       "implemented": [
@@ -69,23 +72,24 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners"
+        "curve_approx_chord_for_cubic_corners",
+        "body_outline_outer_and_fillet_chords_parametric"
       ],
       "gaps": [
-        "body_side_outer_and_back_top_edge_not_closed",
-        "bottom_corner_fillet_paths_not_modeled",
+        "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
         "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
     {
-      "file": "proto-crashlock-100_80_90-topflaps.svg",
+      "file": "proto-crashlock-100_80_90-outline.svg",
+      "topFile": "proto-crashlock-100_80_90-topflaps.svg",
       "lockFile": "proto-crashlock-100_80_90-lockbottom.svg",
       "partialFile": "proto-crashlock-100_80_90.svg",
       "widthUu": 1404.091047975568,
       "heightUu": 869.2913959999985,
-      "cutting": 50,
+      "cutting": 61,
       "creasing": 14,
       "curve_approx": true,
       "implemented": [
@@ -95,11 +99,11 @@
         "top_dust_flap_cutting_parametric",
         "tuck_tongue_cutting_parametric",
         "glue_flap_outer_cutting_parametric",
-        "curve_approx_chord_for_cubic_corners"
+        "curve_approx_chord_for_cubic_corners",
+        "body_outline_outer_and_fillet_chords_parametric"
       ],
       "gaps": [
-        "body_side_outer_and_back_top_edge_not_closed",
-        "bottom_corner_fillet_paths_not_modeled",
+        "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
         "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"

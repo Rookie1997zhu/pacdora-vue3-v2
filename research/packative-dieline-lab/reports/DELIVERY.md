@@ -1,38 +1,35 @@
-# 顶翼/胶翼几何（第二刀）交付
+# 外框收尾（第三刀）交付
 
 ## 范围
 
 - 仅 research lab `productbox-crashlock`
-- 参数化 L/W/H → 顶尘翼 + 插舌 + 胶翼外切，合并锁底第一刀
-- **不是**完整 63/14 复刻，**不是**可投产
+- 右外直边 + 体板水平外切 + 微连接 + 8 条 path 圆角弦近似
+- **不是**完整 63/14 精确复刻，**不是**可投产
 
 ## 实现
 
 | 项 | 状态 |
 |---|---|
-| `topFlapFeatures.ts`（dust=`W/2`，tip=`0.6W+1` mm 等） | done |
-| `generateCrashlockWithTopFlaps` | done |
-| `match-top-flaps` 门禁（holdout ≥22/~26，norm≤0.06） | done |
-| `top_flap_cutting_correspondence` | **passed** |
-| `lock_bottom_cutting_correspondence` | **passed**（保留） |
-| `holdout_full_crashlock_topology` | **blocked**（`top_and_lock_partial_not_full_topology`） |
-| cubic 圆角 | `curve_approx` |
+| `bodyOutlineFeatures.ts` | done |
+| `generateCrashlockWithOutline` | done |
+| `match-body-outline` 门禁（≥8/~11，norm≤0.06） | done |
+| `body_outline_cutting_correspondence` | **passed** |
+| lock / top 门禁 | **passed**（保留） |
+| `holdout_full_crashlock_topology` | **blocked**（`curve_approx_and_degenerate_segments_remain`） |
 
 ## Holdout
 
 - 冻结：`100×80×90`
-- 顶翼/胶翼匹配：见 `top-flap-match.md`
-- 压力行 `120×90×60`：记录于同报告
+- 外框匹配：见 `body-outline-match.md`
 
 ## 明确未做
 
-- 体侧外框 / 背板顶边收尾
-- 底折小圆角 path
-- 精确 cubic
-- 完整 Cutting=63 拓扑宣称
+- 零长度退化段
+- 精确 cubic path
+- 材料厚度
+- 完整 63 计数硬门禁 / 投产宣称
 
 ## 产物
 
-- `data/normalized/prototype-svg/proto-crashlock-*-topflaps.svg`
-- `reports/top-flap-match.json` / `.md`
-- `reports/gaps.md` / `next-actions.md`
+- `proto-crashlock-*-outline.svg`
+- `reports/body-outline-match.json` / `.md`

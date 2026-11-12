@@ -3,6 +3,7 @@ import path from 'node:path'
 import {
   generateCrashlockPartial,
   generateCrashlockWithLockBottom,
+  generateCrashlockWithOutline,
   generateCrashlockWithTopFlaps,
   setFitCoeffs,
 } from '../prototype/crashlock.ts'
@@ -55,38 +56,42 @@ export function runPrototype() {
     const partial = generateCrashlockPartial(p)
     const lock = generateCrashlockWithLockBottom(p)
     const top = generateCrashlockWithTopFlaps(p)
+    const outline = generateCrashlockWithOutline(p)
     const partialName = `proto-crashlock-${p.L}_${p.W}_${p.H}.svg`
     const lockName = `proto-crashlock-${p.L}_${p.W}_${p.H}-lockbottom.svg`
     const topName = `proto-crashlock-${p.L}_${p.W}_${p.H}-topflaps.svg`
+    const outlineName = `proto-crashlock-${p.L}_${p.W}_${p.H}-outline.svg`
     fs.writeFileSync(path.join(outDir, partialName), partial.svg)
     fs.writeFileSync(path.join(outDir, lockName), lock.svg)
     fs.writeFileSync(path.join(outDir, topName), top.svg)
+    fs.writeFileSync(path.join(outDir, outlineName), outline.svg)
     results.push({
-      file: topName,
+      file: outlineName,
+      topFile: topName,
       lockFile: lockName,
       partialFile: partialName,
-      widthUu: top.widthUu,
-      heightUu: top.heightUu,
-      cutting: top.cutting?.length ?? 0,
-      creasing: top.creasing?.length ?? 0,
-      curve_approx: top.curveApprox,
-      implemented: top.implemented,
-      gaps: top.gaps,
+      widthUu: outline.widthUu,
+      heightUu: outline.heightUu,
+      cutting: outline.cutting?.length ?? 0,
+      creasing: outline.creasing?.length ?? 0,
+      curve_approx: outline.curveApprox,
+      implemented: outline.implemented,
+      gaps: outline.gaps,
     })
   }
 
-  const gapsMd = `# Prototype gaps (crashlock lock+top second slice)
+  const gapsMd = `# Prototype gaps (crashlock lock+top+outline third slice)
 
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
-- Parametric **14** body Creasing lines (panel layout glue|L|W|L|W)
-- Parametric lock-bottom **Cutting** polyline (~21 lines)
-- Parametric top **dust flaps + tuck tongues + glue outer** (~26–29 lines)
-- Cubic corners: **curve_approx** (chord / fixed mm notches)
+- Parametric **14** body Creasing lines
+- Parametric lock-bottom **Cutting** (~21)
+- Parametric top dust flaps + tuck + glue (~26–29)
+- Parametric body outline: right outer, L-bottom cut, micro bridge, fillet chords (~11)
+- Cubic / path corners: **curve_approx**
 
 ## Not implemented (explicit)
-- Body side outer / back top edge closure
-- Bottom corner fillet paths
+- Zero-length degenerate stubs (intentionally omitted)
 - Exact cubic corner paths
 - Full 63 Cutting / production claim
 
@@ -103,7 +108,7 @@ ${results
     path.join(reportsDir, 'prototype-run.json'),
     JSON.stringify({ generated_at: new Date().toISOString(), results }, null, 2),
   )
-  console.log('prototype', results.length, 'topflaps svgs')
+  console.log('prototype', results.length, 'outline svgs')
   return results
 }
 

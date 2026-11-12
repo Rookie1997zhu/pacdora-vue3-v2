@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T01:04:56.874Z",
+  "generated_at": "2026-11-12T01:42:14.165Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -44,10 +44,16 @@
       "note": "holdout=100x80x90; matched=29/29; medianNorm=0.0045; curve_approx"
     },
     {
+      "id": "body_outline_cutting_correspondence",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=11/11; medianNorm=0.0096; curve_approx"
+    },
+    {
       "id": "holdout_full_crashlock_topology",
       "kind": "real_sample",
       "status": "blocked",
-      "reason": "top_and_lock_partial_not_full_topology"
+      "reason": "curve_approx_and_degenerate_segments_remain"
     },
     {
       "id": "synthetic_svg_emits_ev_style",
@@ -149,7 +155,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T01:04:31.557Z",
+    "generated_at": "2026-11-12T01:41:49.300Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,
@@ -361,6 +367,32 @@
       "unmatchedReal": [],
       "passed": true,
       "curve_approx": true
+    }
+  },
+  "body_outline_match_gate": {
+    "holdout": "100x80x90",
+    "require_matched_ge": 8,
+    "expect_real_lines_about": 11,
+    "median_norm_pos_err_le": 0.06,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "matched": 11,
+      "genCount": 11,
+      "realCount": 11,
+      "matchRate": 1,
+      "medianNormPosErr": 0.009616791946694892,
+      "medianEndpointErrUu": 7.320748536232883,
+      "maxNormPosErr": 0.01248515930272014,
+      "unmatchedGen": [],
+      "unmatchedReal": [],
+      "passed": true,
+      "curve_approx": true,
+      "cutting_total_diag": 61
     }
   }
 }

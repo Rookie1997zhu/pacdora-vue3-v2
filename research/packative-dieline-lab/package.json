@@ -14,6 +14,7 @@
     "match-segments": "tsx src/cli/match-segments.ts",
     "match-lock-bottom": "tsx src/cli/match-lock-bottom.ts",
     "match-top-flaps": "tsx src/cli/match-top-flaps.ts",
+    "match-body-outline": "tsx src/cli/match-body-outline.ts",
     "online-collect": "tsx src/cli/online-collect.ts",
     "infer-rules": "tsx src/cli/infer-rules.ts",
     "prototype": "tsx src/cli/prototype.ts",

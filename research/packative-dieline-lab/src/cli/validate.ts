@@ -3,6 +3,7 @@ import path from 'node:path'
 import {
   generateCrashlockPartial,
   generateCrashlockWithLockBottom,
+  generateCrashlockWithOutline,
   generateCrashlockWithTopFlaps,
   setFitCoeffs,
 } from '../prototype/crashlock.ts'
@@ -137,18 +138,31 @@ export function runValidate() {
         ? `holdout=${top.gate?.holdout}; matched=${top.gate?.holdout_row?.matched}/${top.gate?.holdout_row?.realCount}; medianNorm=${Number(top.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
         : 'top-flap-match.json missing — run match-top-flaps',
     })
+    const outlinePath = path.join(reportsDir, 'body-outline-match.json')
+    const outline = fs.existsSync(outlinePath) ? JSON.parse(fs.readFileSync(outlinePath, 'utf8')) : null
+    const outlinePass = Boolean(outline?.gate?.passed)
+    tests.push({
+      id: 'body_outline_cutting_correspondence',
+      kind: 'real_sample',
+      status: outline ? (outlinePass ? 'passed' : 'failed') : 'not_run',
+      note: outline
+        ? `holdout=${outline.gate?.holdout}; matched=${outline.gate?.holdout_row?.matched}/${outline.gate?.holdout_row?.realCount}; medianNorm=${Number(outline.gate?.holdout_row?.medianNormPosErr ?? NaN).toFixed(4)}; curve_approx`
+        : 'body-outline-match.json missing — run match-body-outline',
+    })
     tests.push({
       id: 'holdout_full_crashlock_topology',
       kind: 'real_sample',
       status: 'blocked',
       reason:
-        lockPass && topPass
-          ? 'top_and_lock_partial_not_full_topology'
-          : lockPass
-            ? 'lock_bottom_partial_not_full_topology'
-            : segPass
-              ? 'lock_bottom_geometry_not_implemented'
-              : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
+        lockPass && topPass && outlinePass
+          ? 'curve_approx_and_degenerate_segments_remain'
+          : lockPass && topPass
+            ? 'top_and_lock_partial_not_full_topology'
+            : lockPass
+              ? 'lock_bottom_partial_not_full_topology'
+              : segPass
+                ? 'lock_bottom_geometry_not_implemented'
+                : 'blocked_until_crease_segment_correspondence_and_lock_bottom_impl',
     })
   }
 
@@ -156,6 +170,7 @@ export function runValidate() {
   const synPartial = generateCrashlockPartial({ L: 100, W: 80, H: 80 })
   const synLock = generateCrashlockWithLockBottom({ L: 100, W: 80, H: 80 })
   const synTop = generateCrashlockWithTopFlaps({ L: 100, W: 80, H: 80 })
+  const synOutline = generateCrashlockWithOutline({ L: 100, W: 80, H: 80 })
   tests.push({
     id: 'synthetic_svg_emits_ev_style',
     kind: 'synthetic',
@@ -166,10 +181,13 @@ export function runValidate() {
       synLock.svg.includes('ev-style="Creasing"') &&
       synTop.svg.includes('ev-style="Cutting"') &&
       synTop.svg.includes('ev-style="Creasing"') &&
+      synOutline.svg.includes('ev-style="Cutting"') &&
       (synLock.cutting?.length || 0) >= 18 &&
       (synLock.creasing?.length || 0) === 14 &&
       (synTop.cutting?.length || 0) >= 40 &&
-      (synTop.creasing?.length || 0) === 14
+      (synTop.creasing?.length || 0) === 14 &&
+      (synOutline.cutting?.length || 0) >= 50 &&
+      (synOutline.creasing?.length || 0) === 14
         ? 'passed'
         : 'failed',
   })
@@ -187,6 +205,9 @@ export function runValidate() {
     : null
   const topGate = fs.existsSync(path.join(reportsDir, 'top-flap-match.json'))
     ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'top-flap-match.json'), 'utf8'))
+    : null
+  const outlineGate = fs.existsSync(path.join(reportsDir, 'body-outline-match.json'))
+    ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'body-outline-match.json'), 'utf8'))
     : null
 
   const reportMd = `# Validation report (phase 4)
@@ -214,7 +235,8 @@ ${tests
 - Creasing segment correspondence: **${segGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see segment-match.md).
 - Lock-bottom cutting correspondence: **${lockGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see lock-bottom-match.md; curve_approx).
 - Top-flap / glue cutting correspondence: **${topGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see top-flap-match.md; curve_approx).
-- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — partial lock+top ≠ 63/14.
+- Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; curve_approx).
+- Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — curve_approx / degenerates remain; not production.
 `
 
   fs.writeFileSync(path.join(reportsDir, 'validation-report.md'), reportMd)
@@ -230,6 +252,7 @@ ${tests
         segment_match_gate: segGate?.gate,
         lock_bottom_match_gate: lockGate?.gate,
         top_flap_match_gate: topGate?.gate,
+        body_outline_match_gate: outlineGate?.gate,
       },
       null,
       2,
@@ -239,9 +262,9 @@ ${tests
   const next = `# Next actions
 
 1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
-2. Lock-bottom: **${lockGate?.gate?.passed ? 'gate passed' : 'gate failed / not_run'}**; top-flap/glue: **${topGate?.gate?.passed ? 'gate passed' : 'gate failed / not_run'}**.
-3. Full topology still **blocked** (\`top_and_lock_partial_not_full_topology\` when both partial gates pass).
-4. Next geometry slice: body side outer / back top edge / bottom corner fillets (still not production).
+2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
+3. Full topology still **blocked** (\`curve_approx_and_degenerate_segments_remain\` when all three partial gates pass).
+4. Optional next: exact cubic corners / drop zero-length artifacts / material thickness — still not production.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)
