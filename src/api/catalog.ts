@@ -10,6 +10,8 @@ export type ProductSummary = {
   template_key: string
   geometry_mode: 'parametric' | 'fixed_snapshot' | 'model_only'
   capabilities: Record<string, unknown>
+  cover_rel?: string
+  sort_order?: number
 }
 
 export type ParamLimits = {

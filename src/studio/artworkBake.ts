@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import type { ArtworkLayer, DesignDocumentV1 } from '../../packages/design-schema/designDocument'
 import { resolveAssetObjectUrl } from './assetUrl'
-import { buildStudioKnife, type StudioFace } from './knifeAdapter'
+import { buildStudioKnifeAsync, type StudioFace } from './knifeAdapter'
 import { buildNetRegistration, NET_MAX_EDGE_PX, NET_PX_PER_MM } from './netMasks'
 
 async function loadImage(assetId: string): Promise<HTMLImageElement> {
@@ -171,7 +171,7 @@ export async function bakeArtworkMaps(
   opts?: { side?: BakeSide },
 ): Promise<Record<string, THREE.CanvasTexture>> {
   const side: BakeSide = opts?.side || 'outside'
-  const knife = buildStudioKnife(doc)
+  const knife = await buildStudioKnifeAsync(doc)
   const registration = buildNetRegistration(knife, doc.geometry.geometryHash || '')
   const faces = Object.fromEntries(knife.faces.map((f) => [f.name, f]))
   const all = [...(doc.artwork.layers || [])]

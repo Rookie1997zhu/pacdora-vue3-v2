@@ -13,7 +13,8 @@
         <li v-for="p in products" :key="p.id">
           <RouterLink class="card" :to="`/products/${p.slug}`">
             <div class="slot" aria-hidden="true">
-              <span class="box-shape" />
+              <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" :alt="" />
+              <span v-else class="box-shape" />
               <em class="badge">
                 {{ p.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}
               </em>
@@ -35,12 +36,18 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchProducts, type ProductSummary } from '../api/catalog'
 import { ApiError } from '../api/client'
+// @ts-expect-error JS asset helper
+import { publicAssetUrl } from '../assetUrl.js'
 import AppShell from '../components/layout/AppShell.vue'
 
 const { t, locale } = useI18n()
 const products = ref<ProductSummary[]>([])
 const loading = ref(true)
 const error = ref('')
+
+function coverUrl(rel: string) {
+  return publicAssetUrl(rel)
+}
 
 onMounted(async () => {
   try {
@@ -101,6 +108,14 @@ onMounted(async () => {
   background: #fff;
   border: 1.5px solid var(--bc-ink);
   box-shadow: 10px 10px 0 -1px var(--bc-steel-soft), 10px 10px 0 0 var(--bc-steel);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  display: block;
 }
 
 .badge {

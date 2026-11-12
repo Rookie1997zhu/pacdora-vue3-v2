@@ -4,7 +4,8 @@
       <div class="layout">
         <aside class="preview">
           <div class="slot" aria-hidden="true">
-            <span class="box-shape" />
+            <img v-if="product.cover_rel" class="cover" :src="coverUrl(product.cover_rel)" :alt="" />
+            <span v-else class="box-shape" />
             <em class="badge">
               {{ product.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}
             </em>
@@ -63,8 +64,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { fetchProduct, type ProductDetail } from '../api/catalog'
 import { createDesign } from '../api/designs'
 import { ApiError } from '../api/client'
+// @ts-expect-error JS asset helper
+import { publicAssetUrl } from '../assetUrl.js'
 import AppShell from '../components/layout/AppShell.vue'
 import { useAuthStore } from '../stores/auth'
+
+function coverUrl(rel: string) {
+  return publicAssetUrl(rel)
+}
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -136,6 +143,14 @@ async function onCreate() {
   try {
     const caps = product.value.capabilities || {}
     const defaults = (caps.default_params || {}) as Record<string, unknown>
+    const advanced: Record<string, number> = {
+      ...((defaults.advanced as Record<string, number>) || {}),
+    }
+    const sourceRaw = caps.source_num ?? advanced.sourceNum
+    if (sourceRaw != null && sourceRaw !== '') {
+      const n = Number(sourceRaw)
+      if (Number.isFinite(n) && n > 0) advanced.sourceNum = Math.trunc(n)
+    }
     const content = {
       schemaVersion: 'boxcraft.design.v1' as const,
       locale: (locale.value === 'ko-KR' ? 'ko-KR' : 'zh-CN') as 'zh-CN' | 'ko-KR',
@@ -153,7 +168,7 @@ async function onCreate() {
           fluteDirection: (defaults.fluteDirection as 'L' | 'W') || 'L',
           materialId: materialId.value,
           bleedInputMm: Number(defaults.bleedInputMm ?? 3),
-          advanced: (defaults.advanced as Record<string, number>) || {},
+          advanced,
         },
         geometryHash: 'pending',
       },
@@ -222,6 +237,14 @@ async function onCreate() {
   background: #fff;
   border: 1.5px solid var(--bc-ink);
   box-shadow: 12px 12px 0 -1px #fff, 12px 12px 0 0 var(--bc-steel);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 16px;
+  display: block;
 }
 
 .badge {

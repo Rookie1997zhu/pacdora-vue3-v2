@@ -12,7 +12,7 @@ import {
   type GeneratedAssetItem,
 } from '../api/ai'
 import { ApiError } from '../api/client'
-import { buildStudioKnife } from '../studio/knifeAdapter'
+import { buildStudioKnifeAsync } from '../studio/knifeAdapter'
 import { buildNetRegistration } from '../studio/netMasks'
 import { useDesignStore } from './design'
 
@@ -93,7 +93,7 @@ export const useAiStore = defineStore('ai', () => {
           error.value = 'no_document'
           return
         }
-        const knife = buildStudioKnife(design.document)
+        const knife = await buildStudioKnifeAsync(design.document)
         const registration = buildNetRegistration(
           knife,
           design.document.geometry.geometryHash || '',
@@ -145,7 +145,7 @@ export const useAiStore = defineStore('ai', () => {
     error.value = ''
     try {
       if (isMainArea) {
-        const knife = buildStudioKnife(design.document)
+        const knife = await buildStudioKnifeAsync(design.document)
         const registration = buildNetRegistration(
           knife,
           design.document.geometry.geometryHash || '',

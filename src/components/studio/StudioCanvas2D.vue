@@ -1,5 +1,5 @@
 <template>
-  <div ref="hostRef" class="studio-canvas">
+  <div class="studio-canvas">
     <div class="canvas-toolbar">
       <div class="side-toggle" role="group" :aria-label="t('studio.editSide')">
         <button type="button" :class="{ on: design.editSide === 'outside' }" @click="design.editSide = 'outside'">
@@ -18,6 +18,7 @@
         {{ t('studio.showBleed') }}
       </label>
     </div>
+    <div ref="hostRef" class="stage-host">
     <v-stage
       v-if="ready"
       :config="stageConfig"
@@ -136,6 +137,7 @@
         <v-transformer ref="trRef" :config="{ rotateEnabled: true, boundBoxFunc: boundBox }" />
       </v-layer>
     </v-stage>
+    </div>
     <p v-if="canvasError" class="err">{{ canvasError }}</p>
   </div>
 </template>
@@ -147,7 +149,7 @@ import type { ArtworkLayer } from '../../../packages/design-schema/designDocumen
 import { useDesignStore } from '../../stores/design'
 import { resolveAssetObjectUrl } from '../../studio/assetUrl'
 import { fitViewport, type Viewport } from '../../studio/coordinates'
-import { buildStudioKnife, type StudioFace, type StudioKnife } from '../../studio/knifeAdapter'
+import { buildStudioKnifeAsync, type StudioFace, type StudioKnife } from '../../studio/knifeAdapter'
 import { buildNetRegistration } from '../../studio/netMasks'
 
 const { t } = useI18n()
@@ -171,15 +173,26 @@ const emptyKnife = (): StudioKnife => ({
   bleedPaths: [],
 })
 
-const knife = computed<StudioKnife>(() => {
-  if (!design.document) return emptyKnife()
-  try {
-    return buildStudioKnife(design.document)
-  } catch (e: unknown) {
-    canvasError.value = e instanceof Error ? e.message : 'knife failed'
-    return emptyKnife()
+const knife = ref<StudioKnife>(emptyKnife())
+let knifeLoadToken = 0
+
+async function reloadKnife() {
+  const token = ++knifeLoadToken
+  if (!design.document) {
+    knife.value = emptyKnife()
+    return
   }
-})
+  try {
+    const next = await buildStudioKnifeAsync(design.document)
+    if (token !== knifeLoadToken) return
+    knife.value = next
+    canvasError.value = ''
+  } catch (e: unknown) {
+    if (token !== knifeLoadToken) return
+    canvasError.value = e instanceof Error ? e.message : 'knife failed'
+    knife.value = emptyKnife()
+  }
+}
 
 const vp = computed<Viewport>(() => fitViewport(knife.value.widthMm, knife.value.heightMm, size.value.w, size.value.h))
 const origin = computed(() => ({ x: vp.value.offsetX, y: vp.value.offsetY }))
@@ -563,7 +576,11 @@ function attachTransformer() {
 function measure() {
   const el = hostRef.value
   if (!el) return
-  size.value = { w: Math.max(320, el.clientWidth), h: Math.max(320, el.clientHeight) }
+  // Cap height so a layout feedback loop cannot inflate Konva stage / page scroll.
+  const nextW = Math.max(1, el.clientWidth)
+  const nextH = Math.max(1, Math.min(el.clientHeight || 0, 4096))
+  if (nextW === size.value.w && nextH === size.value.h && ready.value) return
+  size.value = { w: nextW, h: nextH }
   ready.value = true
 }
 
@@ -602,20 +619,26 @@ watch(
 
 watch(
   () => [
+    design.document?.geometry.mode,
+    design.document?.geometry.templateId,
     design.document?.geometry.params.lengthMm,
     design.document?.geometry.params.widthMm,
     design.document?.geometry.params.heightMm,
-    design.document?.geometry.templateId,
+    design.document?.geometry.params.thicknessMm,
+    design.document?.geometry.params.materialId,
+    design.document?.geometry.params.advanced?.sourceNum,
   ],
   () => {
-    canvasError.value = ''
+    void reloadKnife()
   },
+  { immediate: true },
 )
 </script>
 
 <style scoped>
-.studio-canvas{position:relative;width:100%;height:100%;min-height:420px;background:#e8eef0;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-.canvas-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;background:#f4f8f8;border-bottom:1px solid #d5e0e4;z-index:2}
+.studio-canvas{position:relative;width:100%;height:100%;min-height:0;background:#e8eef0;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.canvas-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;background:#f4f8f8;border-bottom:1px solid #d5e0e4;z-index:2;flex-shrink:0}
+.stage-host{flex:1;min-height:0;position:relative;overflow:hidden}
 .side-toggle{display:inline-flex;border:1px solid #cfd8de;border-radius:8px;overflow:hidden}
 .side-toggle button{border:0;background:#fff;color:#16343c;padding:5px 10px;cursor:pointer;font-size:12px}
 .side-toggle button.on{background:#0f6e68;color:#fff}

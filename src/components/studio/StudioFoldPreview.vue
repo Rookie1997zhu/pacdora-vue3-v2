@@ -28,12 +28,11 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-// @ts-expect-error JS knife engine
-import { createKnife } from '../../knife.js'
 // @ts-expect-error JS scene
 import { createKnifeScene } from '../../lab/knifeScene.js'
 import { useDesignStore } from '../../stores/design'
 import { bakeArtworkMaps } from '../../studio/artworkBake'
+import { resolveEngineKnife } from '../../studio/knifeAdapter'
 
 const { t } = useI18n()
 const design = useDesignStore()
@@ -58,18 +57,7 @@ async function rebuildKnife() {
   if (!scene || !design.document) return
   const p = design.document.geometry.params
   try {
-    const knife = createKnife({
-      templateId: design.document.geometry.templateId,
-      length: p.lengthMm,
-      width: p.widthMm,
-      height: p.heightMm,
-      thickness: p.thicknessMm,
-      bleed: p.bleedInputMm,
-      sizeMode: p.sizeMode,
-      fluteDirection: p.fluteDirection,
-      materialId: p.materialId,
-      params: p.advanced || {},
-    })
+    const knife = await resolveEngineKnife(design.document)
     await scene.setKnife(knife, p.thicknessMm, p.materialId)
     scene.setProgress(progress.value)
     scene.setSelectedPanel(design.selectedPanelId)
@@ -134,12 +122,14 @@ watch(
 
 watch(
   () => [
+    design.document?.geometry.mode,
+    design.document?.geometry.templateId,
     design.document?.geometry.params.lengthMm,
     design.document?.geometry.params.widthMm,
     design.document?.geometry.params.heightMm,
     design.document?.geometry.params.thicknessMm,
     design.document?.geometry.params.materialId,
-    design.document?.geometry.templateId,
+    design.document?.geometry.params.advanced?.sourceNum,
   ],
   () => {
     void rebuildKnife()
