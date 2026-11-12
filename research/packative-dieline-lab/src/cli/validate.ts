@@ -261,6 +261,7 @@ ${tests
 - Body-outline cutting correspondence: **${outlineGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see body-outline-match.md; endpoint + cubic residual).
 - Structural cutting count: **${structuralGate?.gate?.passed ? 'passed' : 'failed/not_run'}** (see structural-cutting-match.md; expect 61).
 - Full crashlock topology: **blocked** (\`${tests.find((t) => t.id === 'holdout_full_crashlock_topology')?.reason || 'n/a'}\`) — raw 63 includes export artifacts not emitted; not production.
+- Research phase: **complete (structural)** — see \`PHASE-CLOSEOUT.md\` / \`DELIVERY.md\`.
 `
 
   fs.writeFileSync(path.join(reportsDir, 'validation-report.md'), reportMd)
@@ -286,10 +287,10 @@ ${tests
 
   const next = `# Next actions
 
-1. Holdout is \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
-2. Lock-bottom: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top-flap: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
-3. Full topology still **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\` when structural + curve_exact + partial gates pass).
-4. Optional next: material thickness / BOXCRAFT production wiring — still not production; do not emit fake zero-length stubs.
+1. **Lab mainline closed** (structural crashlock research). Holdout \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
+2. Gates — lock: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
+3. Full topology remains **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\`) — intentional; see \`PHASE-CLOSEOUT.md\`.
+4. Optional later (new scope): material thickness / kerf, or BOXCRAFT production wiring — still not production; do not emit fake zero-length stubs.
 5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)

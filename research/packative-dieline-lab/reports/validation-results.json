@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:58:20.230Z",
+  "generated_at": "2026-11-12T03:15:18.420Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -161,7 +161,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T02:57:51.349Z",
+    "generated_at": "2026-11-12T03:14:22.417Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,

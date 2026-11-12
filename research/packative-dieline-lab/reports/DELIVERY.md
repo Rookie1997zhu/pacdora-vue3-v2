@@ -1,35 +1,43 @@
-# 55 零长分类交付
+# Crashlock lab 阶段收口交付
 
-## 范围
+## 状态
 
-- 仅 research lab `productbox-crashlock`
-- Class A（maxX∩bodyBottom 导出重复）vs Class B（lock 搁板坍缩）；仅 A 扣 structural
-- **不是** raw-63 复刻，**不是**可投产
+**research phase complete (structural)** — 仅 lab `productbox-crashlock`；**不是**可投产；**不是** raw-63 几何等价宣称。
 
-## 实现
+## Holdout
+
+- 冻结：`100×80×90`
+- 结构切割：**61**（raw 63 − Class A×2）+ Creasing **14**
+
+## 门禁一览
 
 | 项 | 状态 |
 |---|---|
-| 退化段刀 commit/push | done |
-| `degenerateClassify` Class A/B | done |
-| structural = raw − Class A | done |
-| holdout structural 61≡61 | **passed** |
-| `55×55×75` structural 61≡61 | **passed**（记账修正） |
+| envelope width / height | **passed** |
+| crease segment correspondence | **passed** |
+| lock-bottom cutting | **passed**（curve_approx） |
+| top-flap / glue cutting | **passed**（curve_approx） |
+| body-outline + exact cubic | **passed**（curve_exact） |
+| structural cutting count (61≡61) | **passed** |
+| `55×55×75` structural（A=2,B=2） | **passed**（Class B 不扣） |
 | `holdout_full_crashlock_topology` | **blocked**（`raw_63_includes_export_zero_length_artifacts_not_emitted`） |
 
-## Holdout / 55
+## 已交付切片
 
-- 冻结 holdout：`100×80×90` — raw=63，A=2，B=0，structural=61
-- `55×55×75` — raw=63，A=2，B=2，structural=61（B 不扣）
+1. 锁底 Cutting
+2. 顶翼 / 胶水外轮廓
+3. 体外框 + 精确 cubic fillet
+4. 零长 Class A/B 分类与 structural 记账
 
-## 明确未做
+## 明确未做（后续可选）
 
-- 零长 stub 发射
-- 为 55 改通用 lock 参数
-- raw-63 / 投产宣称
+- 材料厚度 / 刀缝补偿
+- BOXCRAFT / Vue / Django 生产接线
+- 发射 Class A 零长 stub 凑 raw 63
 
-## 产物
+## 关键产物
 
-- `src/geometry/degenerateClassify.ts`
-- `reports/degenerate-segments.json` / `.md`
-- `reports/structural-cutting-match.json` / `.md`
+- `reports/PHASE-CLOSEOUT.md`
+- `reports/validation-report.md` / `validation-results.json`
+- `proto-crashlock-*-outline.svg`
+- `degenerate-segments.*` / `structural-cutting-match.*`

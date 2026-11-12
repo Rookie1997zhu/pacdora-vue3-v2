@@ -1,5 +1,8 @@
 # Prototype gaps (crashlock structural topology)
 
+## Status
+- **research phase complete (structural)** — lab only; not production
+
 ## Implemented
 - Outer envelope size from L/W/H fit (SVG user units)
 - Parametric **14** body Creasing lines
@@ -10,10 +13,10 @@
 - Zero-length Class A = `exportArtifact` (maxX∩bodyBottom); Class B = `collapsedLockShelf` (kept in structural)
 - Structural cutting = raw − Class A only (**61**)
 
-## Not implemented (explicit)
-- Emitting Class A/B zero-length stubs to fake raw 63
-- Retuning lock geometry to match 55×55×75 collapsed shelves
-- Full raw-63 / production claim
+## Not implemented (explicit / optional later)
+- Material thickness / kerf compensation
+- BOXCRAFT production wiring (Vue/Django)
+- Emitting Class A zero-length stubs to fake raw 63
 
 ## Generated files
 - `proto-crashlock-100_80_80-outline.svg` cuts=61 creases=14 fillets_exact=true widthUu=1404.093 heightUu=831.496

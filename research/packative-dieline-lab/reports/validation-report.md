@@ -33,3 +33,4 @@
 - Body-outline cutting correspondence: **passed** (see body-outline-match.md; endpoint + cubic residual).
 - Structural cutting count: **passed** (see structural-cutting-match.md; expect 61).
 - Full crashlock topology: **blocked** (`raw_63_includes_export_zero_length_artifacts_not_emitted`) — raw 63 includes export artifacts not emitted; not production.
+- Research phase: **complete (structural)** — see `PHASE-CLOSEOUT.md` / `DELIVERY.md`.
