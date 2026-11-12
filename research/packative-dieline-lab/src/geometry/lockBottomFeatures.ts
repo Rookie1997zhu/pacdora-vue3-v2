@@ -57,6 +57,28 @@ export const DEFAULT_LOCK_PARAMS: LockBottomParamsMm = {
   topGapMm: 0.86,
 }
 
+/**
+ * Research-only material hooks. Defaults t=k=0 leave params numerically identical.
+ * - thicknessMm → adds to bodyExtraHMm (competitive with empirical 0.5mm; NOT a fitted caliper rule)
+ * - kerfMm → half-adds to tipAddMm and bigAddMm (conservative single-point cutting allowance)
+ * Does not rename or replace existing empirical 0.5mm constants.
+ */
+export function applyMaterialHooks(
+  base: LockBottomParamsMm,
+  thicknessMm = 0,
+  kerfMm = 0,
+): LockBottomParamsMm {
+  const t = Number.isFinite(thicknessMm) ? thicknessMm : 0
+  const k = Number.isFinite(kerfMm) ? kerfMm : 0
+  const halfKerf = k / 2
+  return {
+    ...base,
+    bodyExtraHMm: base.bodyExtraHMm + t,
+    tipAddMm: base.tipAddMm + halfKerf,
+    bigAddMm: base.bigAddMm + halfKerf,
+  }
+}
+
 export type LockBottomLayoutUu = {
   L: number
   W: number

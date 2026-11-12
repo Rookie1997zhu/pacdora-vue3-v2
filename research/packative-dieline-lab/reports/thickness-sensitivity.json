@@ -1,0 +1,186 @@
+{
+  "generated_at": "2026-11-12T03:26:32.944Z",
+  "notes": [
+    "Research sensitivity catalog only — thickness/kerf coefficients are NOT fitted from samples",
+    "All normalized samples still have inferred.thickness = null",
+    "t=0,k=0 must match default prototype (identity)",
+    "Empirical bodyExtraHMm=0.5 competes with a hypothetical thicknessMm=0.5; equivalence is NOT proven",
+    "holdout=100x80x90"
+  ],
+  "holdout": "100x80x90",
+  "dims": {
+    "L": 100,
+    "W": 80,
+    "H": 90
+  },
+  "competitive_explanations": [
+    {
+      "claim": "bodyExtraHMm=0.5 equals paper thickness compensation",
+      "status": "rejected_unproven",
+      "note": "Existing empirical constant; do not rename to thickness. Overlaps numerically with thicknessMm=0.5 hook but is a competing explanation only."
+    },
+    {
+      "claim": "sideBottomLiftMm=0.5 equals caliper",
+      "status": "rejected_unproven",
+      "note": "Not wired to thicknessMm in this slice; remains empirical."
+    },
+    {
+      "claim": "kerfMm half-applied to tipAdd/bigAdd is production kerf",
+      "status": "unvalidated_hook",
+      "note": "Conservative single-point research hook; not validated against cutter data."
+    }
+  ],
+  "identity": {
+    "thicknessMm": 0,
+    "kerfMm": 0,
+    "cutting": 61,
+    "creasing": 14,
+    "matches_baseline_counts": true
+  },
+  "rows": [
+    {
+      "thicknessMm": 0,
+      "kerfMm": 0,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 684.0944881889765,
+      "tipDepthMm": 45,
+      "bodyExtraHMm": 0.5,
+      "tipAddMm": 5,
+      "bigAddMm": 10.5,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 0,
+      "deltaTipDepthMm": 0,
+      "hooksActive": false,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_thickness_unobserved",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    },
+    {
+      "thicknessMm": 0,
+      "kerfMm": 0.2,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 684.472440944882,
+      "tipDepthMm": 45.1,
+      "bodyExtraHMm": 0.5,
+      "tipAddMm": 5.1,
+      "bigAddMm": 10.6,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 0.37795275590553956,
+      "deltaTipDepthMm": 0.10000000000000142,
+      "hooksActive": true,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_hooks_applied_unvalidated",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    },
+    {
+      "thicknessMm": 0.5,
+      "kerfMm": 0,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 685.9842519685039,
+      "tipDepthMm": 45,
+      "bodyExtraHMm": 1,
+      "tipAddMm": 5,
+      "bigAddMm": 10.5,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 1.8897637795274704,
+      "deltaTipDepthMm": 0,
+      "hooksActive": true,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_hooks_applied_unvalidated",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    },
+    {
+      "thicknessMm": 0.5,
+      "kerfMm": 0.2,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 686.3622047244095,
+      "tipDepthMm": 45.1,
+      "bodyExtraHMm": 1,
+      "tipAddMm": 5.1,
+      "bigAddMm": 10.6,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 2.26771653543301,
+      "deltaTipDepthMm": 0.10000000000000142,
+      "hooksActive": true,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_hooks_applied_unvalidated",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    },
+    {
+      "thicknessMm": 1,
+      "kerfMm": 0,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 687.8740157480315,
+      "tipDepthMm": 45,
+      "bodyExtraHMm": 1.5,
+      "tipAddMm": 5,
+      "bigAddMm": 10.5,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 3.7795275590550546,
+      "deltaTipDepthMm": 0,
+      "hooksActive": true,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_hooks_applied_unvalidated",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    },
+    {
+      "thicknessMm": 1,
+      "kerfMm": 0.2,
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "cutting": 61,
+      "creasing": 14,
+      "yBodyTopUu": 688.2519685039371,
+      "tipDepthMm": 45.1,
+      "bodyExtraHMm": 1.5,
+      "tipAddMm": 5.1,
+      "bigAddMm": 10.6,
+      "deltaCutting": 0,
+      "deltaCreasing": 0,
+      "deltaYBodyTopUu": 4.157480314960594,
+      "deltaTipDepthMm": 0.10000000000000142,
+      "hooksActive": true,
+      "gaps": [
+        "zero_length_degenerate_segments_omitted",
+        "full_63_cutting_topology_not_claimed",
+        "material_hooks_applied_unvalidated",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
+      ]
+    }
+  ]
+}

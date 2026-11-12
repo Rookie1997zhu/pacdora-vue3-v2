@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:14:55.401Z",
+  "generated_at": "2026-11-12T03:26:28.559Z",
   "results": [
     {
       "file": "proto-crashlock-100_80_80-outline.svg",
@@ -25,7 +25,8 @@
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_thickness_unobserved"
+        "material_thickness_unobserved",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
       ]
     },
     {
@@ -52,7 +53,8 @@
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_thickness_unobserved"
+        "material_thickness_unobserved",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
       ]
     },
     {
@@ -79,7 +81,8 @@
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_thickness_unobserved"
+        "material_thickness_unobserved",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
       ]
     },
     {
@@ -106,7 +109,8 @@
       "gaps": [
         "zero_length_degenerate_segments_omitted",
         "full_63_cutting_topology_not_claimed",
-        "material_thickness_unobserved"
+        "material_thickness_unobserved",
+        "top_flap_tuck_inset_thickness_hook_not_wired"
       ]
     }
   ]

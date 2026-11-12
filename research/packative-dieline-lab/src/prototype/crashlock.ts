@@ -5,12 +5,39 @@
  */
 
 import { predLinear } from '../geometry/features.ts'
-import { buildLockBottomSegments, type LockBottomLayoutUu } from '../geometry/lockBottomFeatures.ts'
+import {
+  applyMaterialHooks,
+  buildLockBottomSegments,
+  DEFAULT_LOCK_PARAMS,
+  type LockBottomLayoutUu,
+} from '../geometry/lockBottomFeatures.ts'
 import { buildTopFlapSegments } from '../geometry/topFlapFeatures.ts'
 import { buildBodyOutlineSegments } from '../geometry/bodyOutlineFeatures.ts'
 import type { CompactSeg } from '../geometry/segmentMatch.ts'
 
-export type CrashlockParams = { L: number; W: number; H: number }
+export type CrashlockParams = {
+  L: number
+  W: number
+  H: number
+  /** Research sensitivity hook; default 0. Unobserved / unvalidated caliper. */
+  thicknessMm?: number
+  /** Research sensitivity hook; default 0. Half-applied to tip/bigAdd. */
+  kerfMm?: number
+}
+
+function materialFromParams(params: CrashlockParams) {
+  const thicknessMm = params.thicknessMm ?? 0
+  const kerfMm = params.kerfMm ?? 0
+  const lockParams = applyMaterialHooks(DEFAULT_LOCK_PARAMS, thicknessMm, kerfMm)
+  const hooksActive = thicknessMm !== 0 || kerfMm !== 0
+  return { thicknessMm, kerfMm, lockParams, hooksActive }
+}
+
+function materialGapTags(hooksActive: boolean): string[] {
+  return hooksActive
+    ? ['material_hooks_applied_unvalidated']
+    : ['material_thickness_unobserved']
+}
 
 export type FitCoeff = {
   a: number
@@ -167,10 +194,11 @@ function renderSegSvg(segs: CompactSeg[], vbW: number, vbH: number, comment: str
  */
 export function generateCrashlockWithLockBottom(params: CrashlockParams): PrototypeResult {
   const { L, W, H } = params
+  const { lockParams, hooksActive } = materialFromParams(params)
   const widthUu = predLinear(GEOM_WIDTH_UU, L, W, H)
   const heightUu = predLinear(GEOM_HEIGHT_UU, L, W, H)
   const mmPerUuCandidate = 25.4 / 96
-  const built = buildLockBottomSegments(L, W, H)
+  const built = buildLockBottomSegments(L, W, H, lockParams)
   const segs = [...built.cutting, ...built.creasing]
   const maxX = Math.max(widthUu, built.layout.x4 + 20)
   const maxY = Math.max(heightUu, built.layout.yBodyTop + built.layout.params.topDiagMm * (96 / 25.4) + 40)
@@ -197,6 +225,7 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
       'body_panel_creasing_14_parametric',
       'lock_bottom_cutting_polyline_parametric',
       'curve_approx_chord_for_cubic_corners',
+      ...(hooksActive ? ['material_hooks_thickness_kerf_unvalidated'] : []),
     ],
     gaps: [
       'top_dust_flap_and_tuck_tongue_not_reconstructed',
@@ -204,7 +233,7 @@ export function generateCrashlockWithLockBottom(params: CrashlockParams): Protot
       'six_top_flap_fillets_not_modeled',
       'full_63_cutting_topology_not_claimed',
       'exact_cubic_corners_not_modeled',
-      'material_thickness_unobserved',
+      ...materialGapTags(hooksActive),
     ],
   }
 }
@@ -230,10 +259,11 @@ function generateCrashlockPartialSlices(
   opts: { includeOutline: boolean },
 ): PrototypeResult {
   const { L, W, H } = params
+  const { lockParams, hooksActive } = materialFromParams(params)
   const widthUu = predLinear(GEOM_WIDTH_UU, L, W, H)
   const heightUu = predLinear(GEOM_HEIGHT_UU, L, W, H)
   const mmPerUuCandidate = 25.4 / 96
-  const built = buildLockBottomSegments(L, W, H, undefined, { omitTopCreaseStubs: true })
+  const built = buildLockBottomSegments(L, W, H, lockParams, { omitTopCreaseStubs: true })
   const top = buildTopFlapSegments(built.layout)
   const outline = opts.includeOutline
     ? buildBodyOutlineSegments(built.layout)
@@ -267,18 +297,20 @@ function generateCrashlockPartialSlices(
   } else {
     implemented.push('curve_approx_chord_for_cubic_corners')
   }
+  if (hooksActive) implemented.push('material_hooks_thickness_kerf_unvalidated')
   const gaps = opts.includeOutline
     ? [
         'zero_length_degenerate_segments_omitted',
         'full_63_cutting_topology_not_claimed',
-        'material_thickness_unobserved',
+        ...materialGapTags(hooksActive),
+        'top_flap_tuck_inset_thickness_hook_not_wired',
       ]
     : [
         'body_side_outer_and_back_top_edge_not_closed',
         'bottom_corner_fillet_paths_not_modeled',
         'full_63_cutting_topology_not_claimed',
         'exact_cubic_corners_not_modeled',
-        'material_thickness_unobserved',
+        ...materialGapTags(hooksActive),
       ]
   return {
     params,

@@ -212,6 +212,37 @@ export function runValidate() {
         : 'failed',
   })
 
+  const synOutlineZero = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 0, kerfMm: 0 })
+  const synOutlineBare = generateCrashlockWithOutline({ L: 100, W: 80, H: 90 })
+  const synOutlineThick = generateCrashlockWithOutline({ L: 100, W: 80, H: 90, thicknessMm: 1, kerfMm: 0.2 })
+  const segsEqual = (a?: { lengthUu: number; p0: unknown; p1: unknown }[], b?: typeof a) => {
+    if (!a || !b || a.length !== b.length) return false
+    for (let i = 0; i < a.length; i++) {
+      if (Math.abs(a[i].lengthUu - b[i].lengthUu) > 1e-9) return false
+      const ap0 = a[i].p0 as { x: number; y: number } | null
+      const bp0 = b[i].p0 as { x: number; y: number } | null
+      const ap1 = a[i].p1 as { x: number; y: number } | null
+      const bp1 = b[i].p1 as { x: number; y: number } | null
+      if (!ap0 || !bp0 || !ap1 || !bp1) return false
+      if (Math.abs(ap0.x - bp0.x) > 1e-9 || Math.abs(ap0.y - bp0.y) > 1e-9) return false
+      if (Math.abs(ap1.x - bp1.x) > 1e-9 || Math.abs(ap1.y - bp1.y) > 1e-9) return false
+    }
+    return true
+  }
+  tests.push({
+    id: 'material_hooks_identity_at_zero',
+    kind: 'synthetic',
+    status:
+      synOutlineZero.svg === synOutlineBare.svg &&
+      segsEqual(synOutlineZero.cutting, synOutlineBare.cutting) &&
+      segsEqual(synOutlineZero.creasing, synOutlineBare.creasing) &&
+      (synOutlineThick.layout?.yBodyTop ?? 0) > (synOutlineBare.layout?.yBodyTop ?? 0) &&
+      (synOutlineThick.layout?.tipDepthMm ?? 0) > (synOutlineBare.layout?.tipDepthMm ?? 0)
+        ? 'passed'
+        : 'failed',
+    note: 't=k=0 bit-identical to bare params; t>0/k>0 moves bodyExtraH/tip hooks',
+  })
+
   const online = JSON.parse(fs.readFileSync(path.join(reportsDir, 'online-collect-log.json'), 'utf8'))
   const ingest = fs.existsSync(path.join(reportsDir, 'offline-ingest-log.json'))
     ? JSON.parse(fs.readFileSync(path.join(reportsDir, 'offline-ingest-log.json'), 'utf8'))
@@ -290,8 +321,8 @@ ${tests
 1. **Lab mainline closed** (structural crashlock research). Holdout \`${holdoutKey}\`; envelope width=${tests.find((t) => t.id === 'holdout_envelope_width')?.status}; height=${tests.find((t) => t.id === 'holdout_envelope_height')?.status}.
 2. Gates — lock: **${lockGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; top: **${topGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; outline: **${outlineGate?.gate?.passed ? 'passed' : 'fail/not_run'}**; structural: **${structuralGate?.gate?.passed ? 'passed' : 'fail/not_run'}**.
 3. Full topology remains **blocked** (\`raw_63_includes_export_zero_length_artifacts_not_emitted\`) — intentional; see \`PHASE-CLOSEOUT.md\`.
-4. Optional later (new scope): material thickness / kerf, or BOXCRAFT production wiring — still not production; do not emit fake zero-length stubs.
-5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`.
+4. Thickness/kerf hooks exist as **unvalidated sensitivity** (see \`thickness-sensitivity.md\`); coefficients still unobserved. Optional later: BOXCRAFT production wiring — still not production.
+5. Do not use EPS BoundingBox as dieline size; keep \`paid_actions=false\`; do not emit fake zero-length stubs.
 `
   fs.writeFileSync(path.join(reportsDir, 'next-actions.md'), next)
   console.log('validate', tests.map((t) => `${t.id}:${t.status}`).join(', '))

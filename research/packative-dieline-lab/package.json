@@ -20,6 +20,7 @@
     "online-collect": "tsx src/cli/online-collect.ts",
     "infer-rules": "tsx src/cli/infer-rules.ts",
     "prototype": "tsx src/cli/prototype.ts",
+    "thickness-sensitivity": "tsx src/cli/thickness-sensitivity.ts",
     "validate": "tsx src/cli/validate.ts",
     "phase1": "tsx src/cli/audit.ts",
     "phase2": "tsx src/cli/run-phase2.ts",

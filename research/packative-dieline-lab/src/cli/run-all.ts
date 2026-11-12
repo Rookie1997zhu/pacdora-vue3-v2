@@ -18,6 +18,7 @@ run('match-segments.ts')
 // online-collect is opt-in via live_collection; run explicitly when resampling
 run('infer-rules.ts')
 run('prototype.ts')
+run('thickness-sensitivity.ts')
 run('match-lock-bottom.ts')
 run('match-top-flaps.ts')
 run('match-body-outline.ts')

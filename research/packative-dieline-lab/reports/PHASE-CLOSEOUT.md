@@ -26,9 +26,9 @@ Structural crashlock dieline research in this lab is **complete for the agreed s
 
 Raw SVG Cutting=63 includes Class A duplicates that are not structural knife paths. Prototype correctly emits 61. Emitting zero-length stubs would only inflate the count.
 
-## Optional follow-ups (out of this closeout)
+## Follow-ups
 
-- Material thickness / kerf compensation
+- Material thickness / kerf: **hooks exist** (`thicknessMm`/`kerfMm`, default 0) as unvalidated sensitivity — see `thickness-sensitivity.md`. Coefficients still **unobserved** (`inferred.thickness = null`).
 - Wire lab rules into BOXCRAFT production (Vue/Django) — new scope
 - Keep `paid_actions=false`; do not use EPS BoundingBox as dieline size
 
@@ -36,4 +36,5 @@ Raw SVG Cutting=63 includes Class A duplicates that are not structural knife pat
 
 - `validation-report.md` / `validation-results.json`
 - `body-outline-match.md` / `structural-cutting-match.md` / `degenerate-segments.md`
+- `thickness-sensitivity.md`
 - `gaps.md` / `DELIVERY.md`

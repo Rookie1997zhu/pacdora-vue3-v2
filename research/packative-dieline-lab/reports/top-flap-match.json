@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:15:04.262Z",
+  "generated_at": "2026-11-12T03:26:41.999Z",
   "notes": [
     "Top-flap + glue Cutting lines: generator vs real, greedy match on envelope-normalized center+dir+length",
     "curve_approx: cubic corners represented as chords",

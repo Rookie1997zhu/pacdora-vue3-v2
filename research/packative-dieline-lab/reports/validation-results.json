@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:15:18.420Z",
+  "generated_at": "2026-11-12T03:26:57.955Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
@@ -65,6 +65,12 @@
       "id": "synthetic_svg_emits_ev_style",
       "kind": "synthetic",
       "status": "passed"
+    },
+    {
+      "id": "material_hooks_identity_at_zero",
+      "kind": "synthetic",
+      "status": "passed",
+      "note": "t=k=0 bit-identical to bare params; t>0/k>0 moves bodyExtraH/tip hooks"
     }
   ],
   "privacyHits": [],
@@ -161,7 +167,7 @@
     "message": "online collect finished: 0 written, 9 GETs"
   },
   "ingest": {
-    "generated_at": "2026-11-12T03:14:22.417Z",
+    "generated_at": "2026-11-12T03:25:45.094Z",
     "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
     "scanned_files": 119,
     "inventory_count": 119,

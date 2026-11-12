@@ -95,9 +95,11 @@ export function runPrototype() {
 - Body fillet corners: **exact cubic** (\`filletsExact\`; 8 \`<path C>\`)
 - Zero-length Class A = \`exportArtifact\` (maxX∩bodyBottom); Class B = \`collapsedLockShelf\` (kept in structural)
 - Structural cutting = raw − Class A only (**61**)
+- Material hooks: optional \`thicknessMm\` / \`kerfMm\` (default 0); **unvalidated** sensitivity only
 
 ## Not implemented (explicit / optional later)
-- Material thickness / kerf compensation
+- Fitted paper-caliper / production kerf coefficients (samples still \`thickness: null\`)
+- Top-flap tuck inset thickness wiring
 - BOXCRAFT production wiring (Vue/Django)
 - Emitting Class A zero-length stubs to fake raw 63
 
