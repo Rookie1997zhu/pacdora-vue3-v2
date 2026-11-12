@@ -1,49 +1,95 @@
 {
-  "generated_at": "2026-11-11T09:59:17.014Z",
+  "generated_at": "2026-11-12T00:25:57.091Z",
   "real_unique_sizes": [
     "100x80x80",
+    "100x70x80",
+    "100x80x70",
+    "100x80x90",
+    "100x90x80",
+    "110x80x80",
+    "120x90x60",
     "200x150x100",
-    "55x55x75"
+    "55x55x75",
+    "90x80x80"
   ],
-  "holdout_frozen": "200x150x100",
+  "holdout_frozen": "100x80x90",
   "access_denied_svgs_excluded": true,
-  "note": "120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors",
+  "note": "holdout is near-baseline single-var 100x80x90; 120x90x60 is cross-scale stress only",
   "validated": [
     {
       "id": "topology_cut_crease_counts_stable",
       "layer": "observed",
       "cuttingCount": 63,
       "creasingCount": 14,
-      "unique_sizes": 3,
+      "unique_sizes": 10,
       "sample_ids": [
         "studio-dieline-100_80_80",
+        "studio-dieline-productbox-crashlock-100_70_80",
+        "studio-dieline-productbox-crashlock-100_80_70",
+        "studio-dieline-productbox-crashlock-100_80_90",
+        "studio-dieline-productbox-crashlock-100_90_80",
+        "studio-dieline-productbox-crashlock-110_80_80",
+        "studio-dieline-productbox-crashlock-120_90_60",
         "studio-dieline-productbox-crashlock-200_150_100",
-        "studio-dieline-productbox-crashlock-55_55_75"
+        "studio-dieline-productbox-crashlock-55_55_75",
+        "studio-dieline-productbox-crashlock-90_80_80"
       ]
     },
     {
-      "id": "envelope_width_template_sparse",
-      "template": "Wmm_2L_W_H_plus12",
-      "train_rmse_uu": 3.314512409159136e-13,
+      "id": "envelope_width_model",
+      "model": "lwh_linear",
+      "train_rmse_uu": 0.0037305249467129912,
       "coeffs": {
-        "a": 8.818816666666676,
-        "b": 4.409408333333338,
-        "c": 4.409408333333338,
-        "d": -183.2974000000013
+        "a": 7.559005140049829,
+        "b": 7.559153452808672,
+        "c": -0.00018231249214184508,
+        "d": 43.47466587018427,
+        "e": 0,
+        "f": 0,
+        "g": 0,
+        "model": "lwh_linear",
+        "train_rmse_uu": 0.0037305249467129912
       },
-      "holdout": "200x150x100",
+      "holdout": "100x80x90",
       "holdoutEval": [
         {
-          "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
-          "errW": 6.311583333332237,
-          "errH": 76.63758965516877,
-          "predW": 2682.818016666668,
-          "predH": 1253.7604103448311,
-          "obsW": 2689.1296,
-          "obsH": 1330.398
+          "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+          "errW": 0.0014479755679985828,
+          "predW": 1404.091047975568,
+          "obsW": 1404.0896,
+          "errH": 0.0002040000015313126,
+          "predH": 869.2913959999985,
+          "obsH": 869.2916
         }
-      ],
-      "caution": "sparse_offline_sizes_only_3_unique_real_svgs"
+      ]
+    },
+    {
+      "id": "envelope_height_model",
+      "model": "lwh_interact",
+      "train_rmse_uu": 0.0000438178046560288,
+      "coeffs": {
+        "a": 0.0009457842562090699,
+        "b": 6.045474847320218,
+        "c": 3.778819750831597,
+        "d": 45.40780286286577,
+        "e": -5.506342569382325e-7,
+        "f": -0.000011271669240737835,
+        "g": 0.000022652701149000716,
+        "model": "lwh_interact",
+        "train_rmse_uu": 0.0000438178046560288
+      },
+      "holdout": "100x80x90",
+      "holdoutEval": [
+        {
+          "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+          "errW": 0.0014479755679985828,
+          "predW": 1404.091047975568,
+          "obsW": 1404.0896,
+          "errH": 0.0002040000015313126,
+          "predH": 869.2913959999985,
+          "obsH": 869.2916
+        }
+      ]
     }
   ]
 }

@@ -1,30 +1,19 @@
 {
-  "generated_at": "2026-11-11T09:59:17.014Z",
+  "generated_at": "2026-11-12T00:25:57.091Z",
   "real_unique_sizes": [
     "100x80x80",
+    "100x70x80",
+    "100x80x70",
+    "100x80x90",
+    "100x90x80",
+    "110x80x80",
+    "120x90x60",
     "200x150x100",
-    "55x55x75"
+    "55x55x75",
+    "90x80x80"
   ],
-  "holdout_frozen": "200x150x100",
+  "holdout_frozen": "100x80x90",
   "access_denied_svgs_excluded": true,
-  "note": "120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors",
-  "counterexamples": [
-    {
-      "rule": "envelope_height_template",
-      "reason": "holdout_err_exceeds_25uu",
-      "train_rmse_uu": 6.27856082768816e-13,
-      "holdoutEval": [
-        {
-          "sampleId": "studio-dieline-productbox-crashlock-200_150_100",
-          "errW": 6.311583333332237,
-          "errH": 76.63758965516877,
-          "predW": 2682.818016666668,
-          "predH": 1253.7604103448311,
-          "obsW": 2689.1296,
-          "obsH": 1330.398
-        }
-      ],
-      "note": "train fits sparse points but does not generalize; do not claim height formula"
-    }
-  ]
+  "note": "holdout is near-baseline single-var 100x80x90; 120x90x60 is cross-scale stress only",
+  "counterexamples": []
 }

@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-11-11T16:50:00.000Z",
+  "method": "cursor_browser_cdp_plus_invoke_webrequest",
+  "credential_reuse": false,
+  "paid_actions": false,
+  "summary": "Uncached whitelist sizes remain 403/AccessDenied in browser; only previously cached sizes return SVG",
+  "checks": [
+    {
+      "key": "100x80x80",
+      "channel": "browser_cdp",
+      "result": "ok_svg_cutting_creasing",
+      "note": "control: known cached public object"
+    },
+    {
+      "key": "90x80x80",
+      "channel": "browser_cdp",
+      "result": "access_denied_xml",
+      "note": "same URL as online-collect failure"
+    },
+    {
+      "key": "110x80x80",
+      "channel": "invoke_webrequest",
+      "httpStatus": 403,
+      "result": "failed"
+    },
+    {
+      "key": "100x80x70",
+      "channel": "invoke_webrequest",
+      "httpStatus": 403,
+      "result": "failed"
+    },
+    {
+      "key": "120x90x60",
+      "channel": "invoke_webrequest",
+      "httpStatus": 403,
+      "result": "failed"
+    },
+    {
+      "key": "55x55x75",
+      "channel": "invoke_webrequest",
+      "httpStatus": 200,
+      "result": "ok_svg",
+      "note": "control: known cached"
+    }
+  ],
+  "written_to_evidence": 0
+}

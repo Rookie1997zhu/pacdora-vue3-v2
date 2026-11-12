@@ -11,11 +11,11 @@
 |---|---|---|
 | Studio SVG 含 `ev-style=Cutting\|Creasing` | `observed` | 本地 crashlock SVG 可直接读到该属性 |
 | crashlock 多尺寸 SVG 同拓扑（Cutting=63 / Creasing=14） | `needs_recheck` | 旧报告数值；由阶段 2 normalize 统计复核 |
-| `GET .../v1/editor/dieline?product&length&width&height` | `clue_not_contract` | 旧证据链路；本轮不重放；字段名见本地 meta |
-| `GET papi.../public/online/model?...&format=eps` | `clue_not_contract` | 商品页 EPS 链路线索；本轮离线不调用 |
+| `GET .../v1/editor/dieline?product&length&width&height` | `clue_not_contract` | 旧证据链路；字段名见本地 meta；本轮允许未授权观察，不复用登录 Cookie |
+| `GET papi.../public/online/model?...&format=eps` | `clue_not_contract` | 商品页 EPS 链路线索；EPS 不作刀版尺寸 |
 | meta 含 `original_svg_url` / masks / canvas_* | `observed` | 见 `studio-api-dieline-100_80_80.meta.json`（本轮直接读取） |
-| CDN 部分尺寸 403=缓存未命中 | `needs_recheck` | 禁止武断解释；本轮不在线验证 |
-| robots 禁止 `/editor/` 等 | `report_only` | 来自旧 README；本轮遵守不爬 |
+| CDN 部分尺寸 403=缓存未命中 | `needs_recheck` | 禁止武断解释；可在白名单未授权 GET 下继续观察 |
+| robots 禁止 `/editor/` 等 | `corrected` | 旧 README 记载 robots；**本 lab 研究口径允许未授权爬**（见 `config/access-scope.json`）；仍禁付费/下单/邮件 |
 | 尺寸为内部尺寸 | `report_only` | 官网宣传记载；采集时仍应逐入口核对 |
 | EngView 风格字段 ⇒ 全站 EngView | `needs_recheck` | 方案已否定外推；本轮不据此推定 provider |
 | ~0.5mm 偏移 = 纸厚补偿 | `needs_recheck` | **明确拒绝**作为已确认规则 |

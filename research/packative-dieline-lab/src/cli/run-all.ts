@@ -7,14 +7,17 @@ function run(script: string) {
   if (r.status !== 0) process.exit(r.status || 1)
 }
 
+run('rebuild-inventory.ts')
 run('audit.ts')
 run('import-offline.ts')
 run('normalize-svg.ts')
 run('sample-matrix.ts')
 run('diff-geometry.ts')
-run('online-collect.ts')
+run('match-segments.ts')
+// online-collect is opt-in via live_collection; run explicitly when resampling
 run('infer-rules.ts')
 run('prototype.ts')
+run('match-lock-bottom.ts')
 run('validate.ts')
 run('run-tests.ts')
 console.log('all phases complete')

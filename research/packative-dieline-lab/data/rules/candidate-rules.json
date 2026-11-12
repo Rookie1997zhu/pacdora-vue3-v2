@@ -1,13 +1,20 @@
 {
-  "generated_at": "2026-11-11T09:59:17.014Z",
+  "generated_at": "2026-11-12T00:25:57.091Z",
   "real_unique_sizes": [
     "100x80x80",
+    "100x70x80",
+    "100x80x70",
+    "100x80x90",
+    "100x90x80",
+    "110x80x80",
+    "120x90x60",
     "200x150x100",
-    "55x55x75"
+    "55x55x75",
+    "90x80x80"
   ],
-  "holdout_frozen": "200x150x100",
+  "holdout_frozen": "100x80x90",
   "access_denied_svgs_excluded": true,
-  "note": "120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors",
+  "note": "holdout is near-baseline single-var 100x80x90; 120x90x60 is cross-scale stress only",
   "candidates": [
     {
       "id": "css_mm_per_uu_25.4_96",
@@ -20,45 +27,78 @@
       "id": "envelope_width_Wmm_2L_W_H",
       "layer": "inferred",
       "template": "Wmm_2L_W_H",
-      "scale": 1.1666559548611077,
-      "bias": -183.29739999999606,
-      "train_rmse_uu": 7.411475059146425e-13,
-      "n": 2
+      "scale": 1.1701964276015306,
+      "bias": -172.29456570705165,
+      "train_rmse_uu": 34.74481413350775,
+      "n": 9
     },
     {
       "id": "envelope_width_Wmm_2L_W_H_plus12",
       "layer": "inferred",
       "template": "Wmm_2L_W_H_plus12",
-      "scale": 1.1666559548611124,
-      "bias": -236.21030000000133,
-      "train_rmse_uu": 3.314512409159136e-13,
-      "n": 2
+      "scale": 1.1701964276015278,
+      "bias": -225.3680414785811,
+      "train_rmse_uu": 34.744814133507774,
+      "n": 9
     },
     {
       "id": "envelope_width_Wmm_L_2W_2H",
       "layer": "inferred",
       "template": "Wmm_L_2W_2H",
-      "scale": 1.3333210912698277,
-      "bias": -712.4263999999807,
-      "train_rmse_uu": 2.6770776092500037e-12,
-      "n": 2
-    },
-    {
-      "id": "envelope_height_Wmm_2L_W_H_plus12",
-      "layer": "inferred",
-      "scale": 0.6206891436781653,
-      "bias": 315.39572068965214,
-      "rmse": 6.27856082768816e-13,
-      "tid": "Wmm_2L_W_H_plus12"
+      "scale": 1.2094762456936463,
+      "bias": -485.37184870180175,
+      "train_rmse_uu": 78.99665915223476,
+      "n": 9
     },
     {
       "id": "ols_width",
-      "fit": null,
-      "note": "needs>=4 samples; often null with sparse offline set"
+      "fit": {
+        "a": 7.559005140049829,
+        "b": 7.559153452808672,
+        "c": -0.00018231249214184508,
+        "d": 43.47466587018427,
+        "rmse": 0.0037305249467129912,
+        "n": 9
+      }
     },
     {
       "id": "ols_height",
-      "fit": null
+      "fit": {
+        "a": 0.000009617363362704467,
+        "b": 6.047267671684984,
+        "c": 3.779559679171504,
+        "d": 45.34953152210525,
+        "rmse": 0.00046757115508580445,
+        "n": 9
+      }
+    },
+    {
+      "id": "ols_width_interact",
+      "fit": {
+        "a": 7.516269599376911,
+        "b": 7.633058262895368,
+        "c": 0.02727469497239632,
+        "d": 41.49580169721202,
+        "e": 0.00003677216642512257,
+        "f": 0.0005036078444465346,
+        "g": -0.0009654434923960977,
+        "rmse": 0.001490711985033038,
+        "n": 9
+      }
+    },
+    {
+      "id": "ols_height_interact",
+      "fit": {
+        "a": 0.0009457842562090699,
+        "b": 6.045474847320218,
+        "c": 3.778819750831597,
+        "d": 45.40780286286577,
+        "e": -5.506342569382325e-7,
+        "f": -0.000011271669240737835,
+        "g": 0.000022652701149000716,
+        "rmse": 0.0000438178046560288,
+        "n": 9
+      }
     }
   ]
 }

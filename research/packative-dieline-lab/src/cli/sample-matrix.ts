@@ -2,6 +2,15 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { configDir, dataRaw, reportsDir } from '../paths.ts'
 
+function readLiveFlag() {
+  try {
+    const scope = JSON.parse(fs.readFileSync(path.join(configDir, 'access-scope.json'), 'utf8'))
+    return scope.live_collection === true
+  } catch {
+    return false
+  }
+}
+
 function key(p: { L: number; W: number; H: number }) {
   return `${p.L}x${p.W}x${p.H}`
 }
@@ -31,7 +40,7 @@ export function runSampleMatrix() {
 
   const report = {
     generated_at: new Date().toISOString(),
-    live_collection: false,
+    live_collection: readLiveFlag(),
     available_count: rows.filter((r) => r.status === 'available').length,
     missing_count: rows.filter((r) => r.status === 'missing_offline').length,
     rows,

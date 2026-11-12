@@ -1,7 +1,92 @@
 {
-  "generated_at": "2026-11-11T09:57:59.023Z",
-  "live_collection": false,
+  "generated_at": "2026-11-11T16:48:09.128Z",
+  "live_collection": true,
   "paid_actions": false,
+  "product": "productbox-crashlock",
+  "tenant_uuid_source": "local_meta_only",
+  "max_gets": 10,
+  "get_count": 9,
   "collected": 0,
-  "message": "本轮在线采集 0 条（live_collection=false）"
+  "attempts": [
+    {
+      "key": "90x80x80",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/90_80_80/dieline.svg",
+      "reason": "single_var_L",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "100x70x80",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_70_80/dieline.svg",
+      "reason": "single_var_W",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "100x80x70",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_70/dieline.svg",
+      "reason": "single_var_H",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "100x80x90",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_90/dieline.svg",
+      "reason": "single_var_H",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "110x80x80",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/110_80_80/dieline.svg",
+      "reason": "single_var_L",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "100x80x50",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_50/dieline.svg",
+      "reason": "replace_access_denied_stub",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "100x90x80",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_90_80/dieline.svg",
+      "reason": "single_var_W_skip_if_valid",
+      "status": "skipped_valid_local",
+      "path": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_90_80.svg"
+    },
+    {
+      "key": "120x90x60",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/120_90_60/dieline.svg",
+      "reason": "replace_access_denied_stub",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "300x200x150",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/300_200_150/dieline.svg",
+      "reason": "replace_access_denied_stub",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    },
+    {
+      "key": "150x110x90",
+      "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/150_110_90/dieline.svg",
+      "reason": "interaction_holdout_candidate",
+      "status": "failed",
+      "httpStatus": 403,
+      "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+    }
+  ],
+  "message": "online collect finished: 0 written, 9 GETs"
 }

@@ -1,0 +1,20 @@
+{
+  "product": "productbox-crashlock",
+  "tenant_uuid_from_local_meta": "ee4e06e4-c9b7-410f-b600-175fb1212729",
+  "cdn_template": "https://studio-cdn.packative.com/{tenant}/dielines/{product}/{L}_{W}_{H}/dieline.svg",
+  "min_interval_ms": 5000,
+  "max_gets": 10,
+  "skip_existing_valid": true,
+  "targets": [
+    { "L": 90, "W": 80, "H": 80, "priority": 1, "reason": "single_var_L" },
+    { "L": 110, "W": 80, "H": 80, "priority": 1, "reason": "single_var_L" },
+    { "L": 100, "W": 70, "H": 80, "priority": 1, "reason": "single_var_W" },
+    { "L": 100, "W": 80, "H": 70, "priority": 1, "reason": "single_var_H" },
+    { "L": 100, "W": 80, "H": 90, "priority": 1, "reason": "single_var_H" },
+    { "L": 100, "W": 80, "H": 50, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 120, "W": 90, "H": 60, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 300, "W": 200, "H": 150, "priority": 2, "reason": "replace_access_denied_stub" },
+    { "L": 100, "W": 90, "H": 80, "priority": 2, "reason": "single_var_W_skip_if_valid" },
+    { "L": 150, "W": 110, "H": 90, "priority": 3, "reason": "interaction_holdout_candidate" }
+  ]
+}

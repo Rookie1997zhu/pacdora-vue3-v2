@@ -35,10 +35,10 @@
 | `inspect_packet_capture` | TShark 检查本地抓包 |
 | `inspect_packet_fields` | 发现 TShark 协议/字段 |
 
-本轮刀版研究**默认离线**，不依赖对目标站的在线 REA 采集；REA 能力仅作环境记录。
+本轮刀版研究口径已纠正：允许未授权白名单采集（CDN dieline.svg / editor 观察）；REA 能力可辅助页面观察。
 
-## 不执行项
+## 边界（仍禁止）
 
-- 未对 packative.com `/editor/` 发起爬取或登录态采集
-- 未重放 Studio dieline API
-- 未读取或写入 Cookie / Token
+- 禁止付费导出 / 购物车下单 / 导出发信（`paid_actions=false`）
+- 禁止复用他人 Cookie / Token（`credential_reuse`）
+- 不以 EPS BoundingBox 顶替刀版尺寸

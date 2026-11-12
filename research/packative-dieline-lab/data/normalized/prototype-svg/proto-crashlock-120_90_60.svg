@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1740.781" height="833.698" viewBox="0 0 1740.781 833.698">
+<svg xmlns="http://www.w3.org/2000/svg" width="1577.185" height="929.864" viewBox="0 0 1577.185 929.864">
   <!-- BOXCRAFT dieline-lab PARTIAL prototype; not production; lock-bottom NOT implemented -->
   <g>
-  <line x1="20.000" y1="20.000" x2="1720.781" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="1720.781" y1="20.000" x2="1720.781" y2="813.698" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="1720.781" y1="813.698" x2="20.000" y2="813.698" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="20.000" y1="813.698" x2="20.000" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
-  <line x1="1153.856" y1="20.000" x2="1153.856" y2="813.698" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
-  <line x1="20.000" y1="473.540" x2="1720.781" y2="473.540" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="20.000" y1="20.000" x2="1557.185" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="1557.185" y1="20.000" x2="1557.185" y2="909.864" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="1557.185" y1="909.864" x2="20.000" y2="909.864" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="20.000" y1="909.864" x2="20.000" y2="20.000" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="965.960" y1="20.000" x2="965.960" y2="909.864" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="20.000" y1="345.215" x2="1557.185" y2="345.215" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
   </g>
 </svg>

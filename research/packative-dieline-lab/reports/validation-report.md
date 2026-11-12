@@ -1,22 +1,29 @@
 # Validation report (phase 4)
 
+## Offline ingest
+- new priority single-var OK: **6** (target ≥3)
+- note: offline_single_var_target_met
+
 ## Online collection
 - collected: **0**
-- 本轮在线采集 0 条（live_collection=false）
+- online collect finished: 0 written, 9 GETs
 
 ## Tests
 | id | kind | status | detail |
 |---|---|---|---|
-| detect_access_denied_stubs | real_sample | **passed** | excluded_non_dieline_xml stubs; count=3 |
-| holdout_envelope_width | real_sample | **passed** | err=6.312 uu |
-| holdout_envelope_height | real_sample | **failed** | err=76.638 uu |
-| holdout_full_crashlock_topology | real_sample | **not_run** | lock_bottom_geometry_not_implemented |
+| detect_access_denied_stubs | real_sample | **passed** | excluded_non_dieline_xml stubs; count=2 |
+| holdout_envelope_width | real_sample | **passed** | err=0.001 uu |
+| holdout_envelope_height | real_sample | **passed** | err=0.000 uu |
+| crease_segment_correspondence | real_sample | **passed** | min_matched=14; worst_norm=0.0586; worst_uu=98.66; pairs=45 |
+| lock_bottom_cutting_correspondence | real_sample | **passed** | holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx |
+| holdout_full_crashlock_topology | real_sample | **blocked** | lock_bottom_partial_not_full_topology |
 | synthetic_svg_emits_ev_style | synthetic | **passed** |  |
 
 ## Privacy scan
 - hits: none
 
 ## Verdict
-- Envelope width model: evaluated on frozen holdout `200x150x100` without rescaling.
-- Envelope height: may fail holdout with sparse offline sizes — see test table (do not claim).
-- Full crashlock structure: **not claimed**.
+- Envelope models (`lwh_linear` / `lwh_interact`) on frozen holdout `100x80x90` — see `envelope-diagnosis.md` (linear vs interaction).
+- Creasing segment correspondence: **passed** (see segment-match.md).
+- Lock-bottom cutting correspondence: **passed** (see lock-bottom-match.md; curve_approx).
+- Full crashlock topology: **blocked** (`lock_bottom_partial_not_full_topology`) — partial lock slice ≠ 63/14.

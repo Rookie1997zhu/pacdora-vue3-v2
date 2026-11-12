@@ -10,15 +10,18 @@ async function main() {
     process.exit(1)
   }
   const data = JSON.parse(fs.readFileSync(inv, 'utf8'))
+  const accessScope = JSON.parse(fs.readFileSync(path.join(reportsDir, '..', 'config', 'access-scope.json'), 'utf8'))
   const snap = {
     at: new Date().toISOString(),
     inventory_count: data.count,
     vector_svg_count: data.vector_svg_count,
-    access_scope: JSON.parse(fs.readFileSync(path.join(reportsDir, '..', 'config', 'access-scope.json'), 'utf8')),
+    access_scope: accessScope,
     notes: [
-      'docs/packative-research remains read-only',
-      'live_collection=false',
-      'online_collection_count=0',
+      'docs/packative-research evidence may be updated by authorized lab ingest',
+      `live_collection=${Boolean(accessScope.live_collection)}`,
+      `paid_actions=${Boolean(accessScope.paid_actions)}`,
+      `online_collection_count=${accessScope.online_collection_count ?? 0}`,
+      'research_allows_unauth_crawl_for_crashlock_whitelist',
     ],
   }
   fs.writeFileSync(path.join(reportsDir, 'phase1-audit-summary.json'), JSON.stringify(snap, null, 2))

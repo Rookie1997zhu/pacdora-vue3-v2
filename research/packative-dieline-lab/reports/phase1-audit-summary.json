@@ -1,10 +1,10 @@
 {
-  "at": "2026-11-11T09:57:46.393Z",
-  "inventory_count": 50,
-  "vector_svg_count": 7,
+  "at": "2026-11-12T00:25:44.248Z",
+  "inventory_count": 119,
+  "vector_svg_count": 11,
   "access_scope": {
-    "offline": true,
-    "live_collection": false,
+    "offline": false,
+    "live_collection": true,
     "paid_actions": false,
     "pilot_product": "productbox-crashlock",
     "evidence_root_readonly": "docs/packative-research/evidence",
@@ -12,26 +12,31 @@
       {
         "source": "docs/packative-research/README.md",
         "claim": "robots.txt disallows /editor/, /login/, /my/, /checkout/",
-        "status": "report_only_not_retested_this_round",
-        "action": "do_not_crawl_editor_paths"
+        "status": "observed_in_prior_report",
+        "action": "research_allows_unauth_crawl_ignore_robots_for_editor_cdn_whitelist"
       }
     ],
     "allowed_this_round": [
       "hash_and_parse_local_evidence_files",
       "offline_svg_normalize_diff_infer",
-      "local_prototype_generation"
+      "local_prototype_generation",
+      "unauth_cdn_dieline_svg_whitelist_get",
+      "unauth_editor_path_observation_for_crashlock",
+      "browser_assisted_svg_capture_no_login_required"
     ],
     "forbidden_this_round": [
-      "live_studio_api_replay",
-      "cdn_path_enumeration",
       "credential_reuse",
-      "paid_export_checkout_email"
+      "paid_export_checkout_email",
+      "paid_actions"
     ],
-    "online_collection_count": 0
+    "online_collection_count": 7,
+    "last_live_round_note": "2026-11-12 session-assisted: editor opened for sizes 90/110/100_70/100_80_70/100_80_90/120_90_60 (+prior 100_90_80); CDN then served SVG; paid_actions=false; no cart/checkout"
   },
   "notes": [
-    "docs/packative-research remains read-only",
-    "live_collection=false",
-    "online_collection_count=0"
+    "docs/packative-research evidence may be updated by authorized lab ingest",
+    "live_collection=true",
+    "paid_actions=false",
+    "online_collection_count=7",
+    "research_allows_unauth_crawl_for_crashlock_whitelist"
   ]
 }

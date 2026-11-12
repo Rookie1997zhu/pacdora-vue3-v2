@@ -2,36 +2,1152 @@
   "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
   "sourcePath": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-120_90_60.svg",
   "observed": {
-    "widthAttr": null,
-    "heightAttr": null,
-    "viewBox": null,
+    "widthAttr": 1633.53,
+    "heightAttr": 819.045,
+    "viewBox": [
+      -1.33333,
+      -1.33333,
+      1633.53,
+      819.045
+    ],
     "hasScript": false,
     "hasExternalHref": false,
     "elementCounts": {
-      "line": 0,
-      "path": 0,
+      "line": 69,
+      "path": 8,
       "polyline": 0,
       "polygon": 0,
       "rect": 0,
-      "g": 0,
+      "g": 1,
       "circle": 0
     },
-    "rawSegmentCount": 0
+    "rawSegmentCount": 77
   },
   "normalized": {
-    "segments": [],
-    "pageBounds": null,
-    "geometryBounds": null,
-    "cuttingCount": 0,
-    "creasingCount": 0,
+    "segments": [
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 224.88200000000006,
+        "p0": {
+          "x": 498.8976,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 498.8976,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 453.543,
+        "p0": {
+          "x": 498.8976,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 45.35459999999999,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 224.88200000000006,
+        "p0": {
+          "x": 839.0556,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 839.0556,
+          "y": 606.614
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 224.88200000000006,
+        "p0": {
+          "x": 1292.5996,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 1292.5996,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 226.77200000000005,
+        "p0": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 268.83799999999997,
+        "p0": {
+          "x": 820.1576,
+          "y": 190.86599999999999
+        },
+        "p1": {
+          "x": 551.3196,
+          "y": 190.86599999999999
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 162.38311268109135,
+        "p0": {
+          "x": 551.3196,
+          "y": 190.86599999999999
+        },
+        "p1": {
+          "x": 509.2916,
+          "y": 347.716
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 10.690040317978182,
+        "p0": {
+          "x": 509.2916,
+          "y": 347.716
+        },
+        "p1": {
+          "x": 501.73260000000005,
+          "y": 355.275
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 26.456999999999994,
+        "p0": {
+          "x": 501.73260000000005,
+          "y": 355.275
+        },
+        "p1": {
+          "x": 501.73260000000005,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 2.8350000000000364,
+        "p0": {
+          "x": 498.8976,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 501.73260000000005,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 337.323,
+        "p0": {
+          "x": 501.73260000000005,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 839.0556,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 16.035767583748562,
+        "p0": {
+          "x": 839.0556,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 827.7166,
+          "y": 370.393
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 179.68606570905825,
+        "p0": {
+          "x": 827.7166,
+          "y": 370.393
+        },
+        "p1": {
+          "x": 820.1576,
+          "y": 190.86599999999999
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 269.78,
+        "p0": {
+          "x": 1311.4996,
+          "y": 190.86599999999999
+        },
+        "p1": {
+          "x": 1581.2796,
+          "y": 190.86599999999999
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 162.38363033261697,
+        "p0": {
+          "x": 1581.2796,
+          "y": 190.86599999999999
+        },
+        "p1": {
+          "x": 1623.3096,
+          "y": 347.716
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 10.690747448144059,
+        "p0": {
+          "x": 1623.3096,
+          "y": 347.716
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 355.275
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 26.456999999999994,
+        "p0": {
+          "x": 1630.8696,
+          "y": 355.275
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 0,
+        "p0": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 338.27,
+        "p0": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1292.5996,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 16.036474706119115,
+        "p0": {
+          "x": 1292.5996,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1303.9396,
+          "y": 370.393
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 179.68610777965,
+        "p0": {
+          "x": 1303.9396,
+          "y": 370.393
+        },
+        "p1": {
+          "x": 1311.4996,
+          "y": 190.86599999999999
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 336.37799999999993,
+        "p0": {
+          "x": 1292.5996,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1292.5996,
+          "y": 45.35400000000004
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 336.37799999999993,
+        "p0": {
+          "x": 839.0556,
+          "y": 45.35400000000004
+        },
+        "p1": {
+          "x": 839.0556,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 453.544,
+        "p0": {
+          "x": 839.0556,
+          "y": 379.842
+        },
+        "p1": {
+          "x": 1292.5996,
+          "y": 379.842
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 2.8350000000000364,
+        "p0": {
+          "x": 1292.5996,
+          "y": 45.35400000000004
+        },
+        "p1": {
+          "x": 1292.5996,
+          "y": 42.519000000000005
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 34.01999999999998,
+        "p0": {
+          "x": 1292.5996,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 1258.5796,
+          "y": 42.519000000000005
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 8.504000000000019,
+        "p0": {
+          "x": 1258.5796,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 1258.5796,
+          "y": 51.023000000000025
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 2.8350000000000364,
+        "p0": {
+          "x": 839.0556,
+          "y": 45.35400000000004
+        },
+        "p1": {
+          "x": 839.0556,
+          "y": 42.519000000000005
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 34.014999999999986,
+        "p0": {
+          "x": 839.0556,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 873.0706,
+          "y": 42.519000000000005
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 8.504000000000019,
+        "p0": {
+          "x": 873.0706,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 873.0706,
+          "y": 51.023000000000025
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 385.509,
+        "p0": {
+          "x": 1258.5796,
+          "y": 45.35400000000004
+        },
+        "p1": {
+          "x": 873.0706,
+          "y": 45.35400000000004
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 50.301599224298684,
+        "p0": {
+          "x": 1290.7096,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 1265.1268,
+          "y": -0.0006999999999379725
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 50.30159922429873,
+        "p0": {
+          "x": 840.9446,
+          "y": 42.519000000000005
+        },
+        "p1": {
+          "x": 866.5274000000001,
+          "y": -0.0006999999999379725
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 398.602,
+        "p0": {
+          "x": 1265.1296,
+          "y": 0
+        },
+        "p1": {
+          "x": 866.5276,
+          "y": 0
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 0,
+        "p0": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 4.430439512769732,
+        "p0": {
+          "x": 498.8976,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 502.44919000000004,
+          "y": 609.10085
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 180.3583694710339,
+        "p0": {
+          "x": 502.44960000000003,
+          "y": 609.101
+        },
+        "p1": {
+          "x": 564.1356,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 2.918049706108384,
+        "p0": {
+          "x": 839.0556,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 836.38307,
+          "y": 607.721
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 241.6342970342786,
+        "p0": {
+          "x": 836.3826,
+          "y": 607.721
+        },
+        "p1": {
+          "x": 665.5216,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 101.38600000000008,
+        "p0": {
+          "x": 564.1356,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 665.5216,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 333.611,
+        "p0": {
+          "x": 502.17060000000004,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 835.7816,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 4.430439512769732,
+        "p0": {
+          "x": 1292.5996,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 1296.15119,
+          "y": 609.10085
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 180.3597375864414,
+        "p0": {
+          "x": 1296.1496,
+          "y": 609.101
+        },
+        "p1": {
+          "x": 1357.8396,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 240.52838203058275,
+        "p0": {
+          "x": 1630.8696,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 1460.7896,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 102.95000000000005,
+        "p0": {
+          "x": 1357.8396,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 1460.7896,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 335,
+        "p0": {
+          "x": 1295.8696,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 1630.8696,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 3.1167337655104266,
+        "p0": {
+          "x": 498.8976,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 496.08073,
+          "y": 607.8735899999999
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 34.66378862732705,
+        "p0": {
+          "x": 466.82759999999996,
+          "y": 640.574
+        },
+        "p1": {
+          "x": 491.33860000000004,
+          "y": 665.085
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 151.29273999999998,
+        "p0": {
+          "x": 491.33860000000004,
+          "y": 665.085
+        },
+        "p1": {
+          "x": 491.33860000000004,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 195.17384597647808,
+        "p0": {
+          "x": 466.82759999999996,
+          "y": 640.574
+        },
+        "p1": {
+          "x": 328.8186,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 124.72400000000005,
+        "p0": {
+          "x": 491.33860000000004,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 366.6146,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 53.45107840500135,
+        "p0": {
+          "x": 366.6146,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 328.8186,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 56.692999999999984,
+        "p0": {
+          "x": 328.8186,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 272.1256,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 15.118100000000027,
+        "p0": {
+          "x": 272.1256,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 272.1256,
+          "y": 793.7006
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 32.070219949036854,
+        "p0": {
+          "x": 272.1256,
+          "y": 793.7006
+        },
+        "p1": {
+          "x": 249.4486,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 193.2,
+        "p0": {
+          "x": 249.4486,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 56.248599999999996,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 208.15900417130072,
+        "p0": {
+          "x": 45.35459999999999,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 56.248599999999996,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 43.87514112797813,
+        "p0": {
+          "x": 496.0806,
+          "y": 607.874
+        },
+        "p1": {
+          "x": 466.82759999999996,
+          "y": 640.574
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 450.27,
+        "p0": {
+          "x": 45.35459999999999,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 495.6246,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 5.3842106260922105,
+        "p0": {
+          "x": 839.0556,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 842.82995,
+          "y": 610.1957199999999
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "path",
+        "style": "Cutting",
+        "lengthUu": 3.116733765510536,
+        "p0": {
+          "x": 1292.5996,
+          "y": 606.614
+        },
+        "p1": {
+          "x": 1289.78273,
+          "y": 607.8735899999999
+        },
+        "pointCount": 3
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 34.66308152775808,
+        "p0": {
+          "x": 1260.5296,
+          "y": 640.574
+        },
+        "p1": {
+          "x": 1285.0396,
+          "y": 665.085
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 151.29273999999998,
+        "p0": {
+          "x": 1285.0396,
+          "y": 665.085
+        },
+        "p1": {
+          "x": 1285.0396,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 195.17455308582112,
+        "p0": {
+          "x": 1260.5296,
+          "y": 640.574
+        },
+        "p1": {
+          "x": 1122.5196,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 124.72000000000003,
+        "p0": {
+          "x": 1285.0396,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 1160.3196,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 53.45390693539247,
+        "p0": {
+          "x": 1160.3196,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 1122.5196,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 56.690000000000055,
+        "p0": {
+          "x": 1122.5196,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 1065.8296,
+          "y": 778.5825
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 15.118100000000027,
+        "p0": {
+          "x": 1065.8296,
+          "y": 778.5825
+        },
+        "p1": {
+          "x": 1065.8296,
+          "y": 793.7006
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 32.07234133298664,
+        "p0": {
+          "x": 1065.8296,
+          "y": 793.7006
+        },
+        "p1": {
+          "x": 1043.1496,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 189.515,
+        "p0": {
+          "x": 1043.1496,
+          "y": 816.37774
+        },
+        "p1": {
+          "x": 853.6346,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 206.46466509896453,
+        "p0": {
+          "x": 842.8296,
+          "y": 610.196
+        },
+        "p1": {
+          "x": 853.6346,
+          "y": 816.37774
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 43.873140986257134,
+        "p0": {
+          "x": 1289.7796,
+          "y": 607.874
+        },
+        "p1": {
+          "x": 1260.5296,
+          "y": 640.574
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 447.001,
+        "p0": {
+          "x": 842.3286,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 1289.3296,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Creasing",
+        "lengthUu": 226.77200000000005,
+        "p0": {
+          "x": 45.35459999999999,
+          "y": 381.73199999999997
+        },
+        "p1": {
+          "x": 45.35459999999999,
+          "y": 608.504
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 64.14137327934287,
+        "p0": {
+          "x": 45.35459999999999,
+          "y": 608.504
+        },
+        "p1": {
+          "x": 0,
+          "y": 563.149
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 169.264,
+        "p0": {
+          "x": 0,
+          "y": 563.149
+        },
+        "p1": {
+          "x": 0,
+          "y": 393.885
+        },
+        "pointCount": 2
+      },
+      {
+        "kind": "line",
+        "style": "Cutting",
+        "lengthUu": 46.954607336873764,
+        "p0": {
+          "x": 0,
+          "y": 393.885
+        },
+        "p1": {
+          "x": 45.35459999999999,
+          "y": 381.73199999999997
+        },
+        "pointCount": 2
+      }
+    ],
+    "pageBounds": {
+      "minX": -1.33333,
+      "minY": -1.33333,
+      "maxX": 1632.19667,
+      "maxY": 817.7116699999999,
+      "width": 1633.53,
+      "height": 819.045
+    },
+    "geometryBounds": {
+      "minX": 0,
+      "minY": -0.0006999999999379725,
+      "maxX": 1630.8696,
+      "maxY": 816.37774,
+      "width": 1630.8696,
+      "height": 816.37844
+    },
+    "cuttingCount": 63,
+    "creasingCount": 14,
     "unknownStyleCount": 0
   },
   "inferred": {
     "candidateMmPerUu": 0.26458333333333334,
-    "candidateMmPerUuMethod": "css_absolute_unit_candidate_unconfirmed_by_crease_match",
-    "panelHints": [],
+    "candidateMmPerUuMethod": "crease_span_matches_LWH_within_2pct_of_css_25.4/96",
+    "panelHints": [
+      {
+        "name": "crease_near_L",
+        "lengthUu": 453.544,
+        "lengthMmCandidate": 120.00018333333333
+      },
+      {
+        "name": "crease_near_W",
+        "lengthUu": 338.27,
+        "lengthMmCandidate": 89.50060416666666
+      }
+    ],
     "notes": [
-      "unit_calibration_weak_no_crease_span_near_LWH"
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely",
+      "path_contains_curves_sampled_coarsely"
     ],
     "thickness": null
   }

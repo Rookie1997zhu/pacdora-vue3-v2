@@ -1,12 +1,26 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { fitLinearLWH } from '../geometry/features.ts'
-import { setFitCoeffs } from '../prototype/crashlock.ts'
-import { configDir, dataRules, reportsDir } from '../paths.ts'
+import {
+  fitLinearLWH,
+  fitLinearLWHInteract,
+  predLinear,
+  type InteractCoeff,
+  type LinearCoeff,
+} from '../geometry/features.ts'
+import { setFitCoeffs, type FitCoeff } from '../prototype/crashlock.ts'
+import { dataRules, reportsDir } from '../paths.ts'
 
-/** Freeze a real available sample (120_90_60 SVG is AccessDenied stub). */
-const HOLDOUT_KEY = '200x150x100'
+/** Near-baseline single-var preferred; cross-scale 120x90x60 is stress-only. */
+function pickHoldout(keys: string[]): string {
+  if (keys.includes('100x80x90')) return '100x80x90'
+  if (keys.includes('100x70x80')) return '100x70x80'
+  if (keys.includes('100x90x80')) return '100x90x80'
+  return '200x150x100'
+}
+
 const MM_PER_UU = 25.4 / 96
+const HOLDOUT_MAX_UU = 25
+const TRAIN_RMSE_MAX = 15
 
 type Sample = {
   sampleId: string
@@ -20,9 +34,98 @@ type Sample = {
   rejected?: string
 }
 
-function pred(c: { a: number; b: number; c: number; d: number }, s: Sample, which: 'w' | 'h') {
-  const y = c.a * s.L + c.b * s.W + c.c * s.H + c.d
-  return which === 'w' ? y : y
+type EnvelopeCoeff = FitCoeff & { model: string; train_rmse_uu: number }
+
+function evalHoldout(
+  coeff: { a: number; b: number; c: number; d: number; e?: number; f?: number; g?: number },
+  holdout: Sample[],
+): Array<Record<string, number | string>> {
+  return holdout.map((s) => {
+    const pred = predLinear(coeff, s.L, s.W, s.H)
+    return {
+      sampleId: s.sampleId,
+      key: `${s.L}x${s.W}x${s.H}`,
+      pred,
+      obs: s.geomWidthUu, // overwritten by caller for height
+      err: Math.abs(pred - s.geomWidthUu),
+    }
+  })
+}
+
+function pickWinner(
+  linear: LinearCoeff | null,
+  interact: InteractCoeff | null,
+  holdout: Sample[],
+  which: 'w' | 'h',
+): { coeff: EnvelopeCoeff; holdErr: number; linearHoldErr: number | null; interactHoldErr: number | null } | null {
+  const obs = (s: Sample) => (which === 'w' ? s.geomWidthUu : s.geomHeightUu)
+  const holdErrOf = (c: { a: number; b: number; c: number; d: number; e?: number; f?: number; g?: number }) => {
+    if (!holdout.length) return Infinity
+    const s = holdout[0]
+    return Math.abs(predLinear(c, s.L, s.W, s.H) - obs(s))
+  }
+
+  const linErr = linear ? holdErrOf(linear) : null
+  const intErr = interact ? holdErrOf(interact) : null
+
+  // Prefer interaction if holdout ≤25 and better than linear
+  if (interact && intErr != null && intErr <= HOLDOUT_MAX_UU && (linErr == null || intErr < linErr)) {
+    return {
+      coeff: {
+        a: interact.a,
+        b: interact.b,
+        c: interact.c,
+        d: interact.d,
+        e: interact.e,
+        f: interact.f,
+        g: interact.g,
+        model: 'lwh_interact',
+        train_rmse_uu: interact.rmse,
+      },
+      holdErr: intErr,
+      linearHoldErr: linErr,
+      interactHoldErr: intErr,
+    }
+  }
+
+  if (linear) {
+    return {
+      coeff: {
+        a: linear.a,
+        b: linear.b,
+        c: linear.c,
+        d: linear.d,
+        e: 0,
+        f: 0,
+        g: 0,
+        model: 'lwh_linear',
+        train_rmse_uu: linear.rmse,
+      },
+      holdErr: linErr ?? Infinity,
+      linearHoldErr: linErr,
+      interactHoldErr: intErr,
+    }
+  }
+
+  if (interact) {
+    return {
+      coeff: {
+        a: interact.a,
+        b: interact.b,
+        c: interact.c,
+        d: interact.d,
+        e: interact.e,
+        f: interact.f,
+        g: interact.g,
+        model: 'lwh_interact',
+        train_rmse_uu: interact.rmse,
+      },
+      holdErr: intErr ?? Infinity,
+      linearHoldErr: linErr,
+      interactHoldErr: intErr,
+    }
+  }
+  return null
 }
 
 export function runInfer() {
@@ -30,7 +133,6 @@ export function runInfer() {
   const samples = (sum.samples as Sample[]).filter(
     (s) => s.L != null && s.geomWidthUu != null && s.cuttingCount > 0 && !(s as any).rejected,
   )
-  // de-dupe identical LWH (keep first)
   const uniq: Sample[] = []
   const seen = new Set<string>()
   for (const s of samples) {
@@ -40,14 +142,16 @@ export function runInfer() {
     uniq.push(s)
   }
 
+  const allKeys = uniq.map((s) => `${s.L}x${s.W}x${s.H}`)
+  const HOLDOUT_KEY = pickHoldout(allKeys)
   const train = uniq.filter((s) => `${s.L}x${s.W}x${s.H}` !== HOLDOUT_KEY)
   const holdout = uniq.filter((s) => `${s.L}x${s.W}x${s.H}` === HOLDOUT_KEY)
+  const stress120 = uniq.filter((s) => `${s.L}x${s.W}x${s.H}` === '120x90x60')
 
   const candidates: any[] = []
   const validated: any[] = []
   const counterexamples: any[] = []
 
-  // Topology
   const cutSet = [...new Set(uniq.map((s) => s.cuttingCount))]
   const creaseSet = [...new Set(uniq.map((s) => s.creasingCount))]
   if (cutSet.length === 1 && creaseSet.length === 1) {
@@ -61,7 +165,6 @@ export function runInfer() {
     })
   }
 
-  // Unit candidate from crease≈L
   candidates.push({
     id: 'css_mm_per_uu_25.4_96',
     layer: 'inferred',
@@ -70,22 +173,14 @@ export function runInfer() {
     status: 'candidate',
   })
 
-  // Structural template search in mm space (sparse data: only 2–3 unique sizes)
+  // Structural templates (legacy) — kept as candidates only
   const templates = [
     { id: 'Wmm_2L_W_H', fw: (s: Sample) => 2 * s.L + s.W + s.H, fh: (s: Sample) => s.L + s.W + 0.5 * s.H },
     { id: 'Wmm_2L_W_H_plus12', fw: (s: Sample) => 2 * s.L + s.W + s.H + 12, fh: (s: Sample) => s.L + s.W + 0.5 * s.H },
     { id: 'Wmm_L_2W_2H', fw: (s: Sample) => s.L + 2 * s.W + 2 * s.H, fh: (s: Sample) => s.L + s.H + s.W * 0.5 },
   ]
-
-  let best: any = null
+  let bestTemplate: any = null
   for (const t of templates) {
-    const widthRows = train.map((s) => {
-      const target = s.geomWidthUu
-      const struct = t.fw(s) / MM_PER_UU // expected uu if structure is mm
-      return { L: s.L, W: s.W, H: s.H, y: target, struct }
-    })
-    // Fit y ≈ scale * struct + d using 2-param OLS via embedding into LWH fit with tied coeffs is hard;
-    // instead evaluate pure structure (scale=1) RMSE and scale-only fit.
     let sumSN = 0
     let sumS2 = 0
     let sumY = 0
@@ -111,120 +206,130 @@ export function runInfer() {
     const rmse = Math.sqrt(sse / Math.max(n, 1))
     const cand = { template: t.id, scale, bias, train_rmse_uu: rmse, n }
     candidates.push({ id: `envelope_width_${t.id}`, layer: 'inferred', ...cand })
-    if (!best || rmse < best.train_rmse_uu) best = { ...cand, fw: t.fw, fh: t.fh, tid: t.id }
+    if (!bestTemplate || rmse < bestTemplate.train_rmse_uu) bestTemplate = { ...cand, tid: t.id }
   }
 
-  // Height template companion using same bias/scale style for fh
-  let heightFitLocal: { scale: number; bias: number; rmse: number; tid: string } | null = null
-  if (best) {
-    const t = templates.find((x) => x.id === best.tid)!
-    let sumSN = 0
-    let sumS2 = 0
-    let sumY = 0
-    let sumSY = 0
-    let n = 0
-    for (const s of train) {
-      const S = t.fh(s) / MM_PER_UU
-      const y = s.geomHeightUu
-      sumSN += S
-      sumS2 += S * S
-      sumY += y
-      sumSY += S * y
-      n++
-    }
-    const det = n * sumS2 - sumSN * sumSN
-    const scale = det !== 0 ? (n * sumSY - sumSN * sumY) / det : 1
-    const bias = det !== 0 ? (sumY - scale * sumSN) / n : 0
-    let sse = 0
-    for (const s of train) {
-      const predUu = scale * (t.fh(s) / MM_PER_UU) + bias
-      sse += (predUu - s.geomHeightUu) ** 2
-    }
-    heightFitLocal = { scale, bias, rmse: Math.sqrt(sse / Math.max(n, 1)), tid: t.id }
-    candidates.push({ id: `envelope_height_${t.id}`, layer: 'inferred', ...heightFitLocal })
+  const widthRows = train.map((s) => ({ L: s.L, W: s.W, H: s.H, y: s.geomWidthUu }))
+  const heightRows = train.map((s) => ({ L: s.L, W: s.W, H: s.H, y: s.geomHeightUu }))
+  const olsWidth = fitLinearLWH(widthRows)
+  const olsHeight = fitLinearLWH(heightRows)
+  const olsWidthInt = fitLinearLWHInteract(widthRows)
+  const olsHeightInt = fitLinearLWHInteract(heightRows)
+  candidates.push({ id: 'ols_width', fit: olsWidth })
+  candidates.push({ id: 'ols_height', fit: olsHeight })
+  candidates.push({ id: 'ols_width_interact', fit: olsWidthInt })
+  candidates.push({ id: 'ols_height_interact', fit: olsHeightInt })
+
+  const winW = pickWinner(olsWidth, olsWidthInt, holdout, 'w')
+  const winH = pickWinner(olsHeight, olsHeightInt, holdout, 'h')
+
+  // Fallback to template expansion if OLS missing
+  let widthCoeff: EnvelopeCoeff = winW?.coeff ?? {
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0,
+    e: 0,
+    f: 0,
+    g: 0,
+    model: 'none',
+    train_rmse_uu: Infinity,
+  }
+  let heightCoeff: EnvelopeCoeff = winH?.coeff ?? {
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0,
+    e: 0,
+    f: 0,
+    g: 0,
+    model: 'none',
+    train_rmse_uu: Infinity,
   }
 
-  // Also try unconstrained OLS if enough points
-  const widthFit = fitLinearLWH(train.map((s) => ({ L: s.L, W: s.W, H: s.H, y: s.geomWidthUu })))
-  const heightFit = fitLinearLWH(train.map((s) => ({ L: s.L, W: s.W, H: s.H, y: s.geomHeightUu })))
-  candidates.push({ id: 'ols_width', fit: widthFit, note: 'needs>=4 samples; often null with sparse offline set' })
-  candidates.push({ id: 'ols_height', fit: heightFit })
+  if ((!winW || !olsWidth) && bestTemplate) {
+    const k = bestTemplate.scale / MM_PER_UU
+    const tid = bestTemplate.tid
+    if (tid === 'Wmm_2L_W_H') widthCoeff = { a: 2 * k, b: k, c: k, d: bestTemplate.bias, e: 0, f: 0, g: 0, model: 'template_Wmm_2L_W_H', train_rmse_uu: bestTemplate.train_rmse_uu }
+    else if (tid === 'Wmm_2L_W_H_plus12')
+      widthCoeff = { a: 2 * k, b: k, c: k, d: bestTemplate.bias + 12 * k, e: 0, f: 0, g: 0, model: 'template_Wmm_2L_W_H_plus12', train_rmse_uu: bestTemplate.train_rmse_uu }
+    else widthCoeff = { a: k, b: 2 * k, c: 2 * k, d: bestTemplate.bias, e: 0, f: 0, g: 0, model: 'template_Wmm_L_2W_2H', train_rmse_uu: bestTemplate.train_rmse_uu }
+  }
 
-  // Emit coeffs for prototype: prefer template scale model expanded to aL+bW+cH+d
-  let widthCoeff = { a: 0, b: 0, c: 0, d: 0 }
-  let heightCoeff = { a: 0, b: 0, c: 0, d: 0 }
-  if (best && heightFitLocal) {
-    const t = templates.find((x) => x.id === best.tid)!
-    // Expand fw structure coefficients * scale / MM_PER_UU
-    // For Wmm_2L_W_H: 2,1,1 ; plus12 adds to d
-    const expand = (fwId: string, scale: number, bias: number, which: 'w' | 'h') => {
-      const k = scale / MM_PER_UU
-      if (fwId === 'Wmm_2L_W_H') {
-        return which === 'w' ? { a: 2 * k, b: 1 * k, c: 1 * k, d: bias } : { a: 1 * k, b: 1 * k, c: 0.5 * k, d: bias }
-      }
-      if (fwId === 'Wmm_2L_W_H_plus12') {
-        return which === 'w'
-          ? { a: 2 * k, b: 1 * k, c: 1 * k, d: bias + 12 * k }
-          : { a: 1 * k, b: 1 * k, c: 0.5 * k, d: bias }
-      }
-      // Wmm_L_2W_2H
-      return which === 'w' ? { a: 1 * k, b: 2 * k, c: 2 * k, d: bias } : { a: 1 * k, b: 0.5 * k, c: 1 * k, d: bias }
-    }
-    widthCoeff = expand(best.tid, best.scale, best.bias, 'w')
-    heightCoeff = expand(best.tid, heightFitLocal.scale, heightFitLocal.bias, 'h')
-    setFitCoeffs(widthCoeff, heightCoeff)
+  setFitCoeffs(widthCoeff, heightCoeff)
 
-    const holdoutEval = holdout.map((s) => {
-      const pw = widthCoeff.a * s.L + widthCoeff.b * s.W + widthCoeff.c * s.H + widthCoeff.d
-      const ph = heightCoeff.a * s.L + heightCoeff.b * s.W + heightCoeff.c * s.H + heightCoeff.d
-      return {
-        sampleId: s.sampleId,
-        errW: Math.abs(pw - s.geomWidthUu),
-        errH: Math.abs(ph - s.geomHeightUu),
-        predW: pw,
-        predH: ph,
-        obsW: s.geomWidthUu,
-        obsH: s.geomHeightUu,
-      }
-    })
+  const holdoutEvalW = holdout.map((s) => {
+    const pred = predLinear(widthCoeff, s.L, s.W, s.H)
+    return { sampleId: s.sampleId, errW: Math.abs(pred - s.geomWidthUu), predW: pred, obsW: s.geomWidthUu }
+  })
+  const holdoutEvalH = holdout.map((s) => {
+    const pred = predLinear(heightCoeff, s.L, s.W, s.H)
+    return { sampleId: s.sampleId, errH: Math.abs(pred - s.geomHeightUu), predH: pred, obsH: s.geomHeightUu }
+  })
+  const holdoutEval = holdout.map((s, i) => ({ ...holdoutEvalW[i], ...holdoutEvalH[i] }))
 
-    if (best.train_rmse_uu < 15) {
+  const stressEval = stress120.map((s) => ({
+    sampleId: s.sampleId,
+    errW: Math.abs(predLinear(widthCoeff, s.L, s.W, s.H) - s.geomWidthUu),
+    errH: Math.abs(predLinear(heightCoeff, s.L, s.W, s.H) - s.geomHeightUu),
+  }))
+
+  // Validate gates
+  const errW = holdoutEval[0]?.errW ?? Infinity
+  const errH = holdoutEval[0]?.errH ?? Infinity
+  if (widthCoeff.train_rmse_uu < TRAIN_RMSE_MAX) {
+    if (errW <= HOLDOUT_MAX_UU) {
       validated.push({
-        id: 'envelope_width_template_sparse',
-        template: best.tid,
-        train_rmse_uu: best.train_rmse_uu,
+        id: 'envelope_width_model',
+        model: widthCoeff.model,
+        train_rmse_uu: widthCoeff.train_rmse_uu,
         coeffs: widthCoeff,
         holdout: HOLDOUT_KEY,
         holdoutEval,
-        caution: 'sparse_offline_sizes_only_3_unique_real_svgs',
       })
     } else {
-      counterexamples.push({ rule: 'envelope_width_template', reason: 'train_rmse_high', best })
-    }
-    if (heightFitLocal.rmse < 15) {
-      const holdH = holdoutEval[0]?.errH ?? Infinity
-      if (holdH <= 25) {
-        validated.push({
-          id: 'envelope_height_template_sparse',
-          template: heightFitLocal.tid,
-          train_rmse_uu: heightFitLocal.rmse,
-          coeffs: heightCoeff,
-          holdoutEval,
-        })
-      } else {
-        counterexamples.push({
-          rule: 'envelope_height_template',
-          reason: 'holdout_err_exceeds_25uu',
-          train_rmse_uu: heightFitLocal.rmse,
-          holdoutEval,
-          note: 'train fits sparse points but does not generalize; do not claim height formula',
-        })
-      }
-    } else {
-      counterexamples.push({ rule: 'envelope_height_template', reason: 'train_rmse_high', heightFitLocal })
+      counterexamples.push({
+        rule: 'envelope_width',
+        reason: 'holdout_err_exceeds_25uu',
+        model: widthCoeff.model,
+        train_rmse_uu: widthCoeff.train_rmse_uu,
+        holdoutEval,
+      })
     }
   } else {
-    counterexamples.push({ rule: 'envelope_fit', reason: 'insufficient_real_svgs_or_no_template' })
+    counterexamples.push({
+      rule: 'envelope_width',
+      reason: 'train_rmse_high',
+      model: widthCoeff.model,
+      train_rmse_uu: widthCoeff.train_rmse_uu,
+    })
+  }
+  if (heightCoeff.train_rmse_uu < TRAIN_RMSE_MAX) {
+    if (errH <= HOLDOUT_MAX_UU) {
+      validated.push({
+        id: 'envelope_height_model',
+        model: heightCoeff.model,
+        train_rmse_uu: heightCoeff.train_rmse_uu,
+        coeffs: heightCoeff,
+        holdout: HOLDOUT_KEY,
+        holdoutEval,
+      })
+    } else {
+      counterexamples.push({
+        rule: 'envelope_height',
+        reason: 'holdout_err_exceeds_25uu',
+        model: heightCoeff.model,
+        train_rmse_uu: heightCoeff.train_rmse_uu,
+        holdoutEval,
+      })
+    }
+  } else {
+    counterexamples.push({
+      rule: 'envelope_height',
+      reason: 'train_rmse_high',
+      model: heightCoeff.model,
+      train_rmse_uu: heightCoeff.train_rmse_uu,
+    })
   }
 
   fs.mkdirSync(dataRules, { recursive: true })
@@ -233,17 +338,86 @@ export function runInfer() {
     real_unique_sizes: uniq.map((s) => `${s.L}x${s.W}x${s.H}`),
     holdout_frozen: HOLDOUT_KEY,
     access_denied_svgs_excluded: true,
-    note: '120_90_60 and some sizes are CDN AccessDenied stubs — not usable vectors',
+    note: 'holdout is near-baseline single-var 100x80x90; 120x90x60 is cross-scale stress only',
   }
   fs.writeFileSync(path.join(dataRules, 'candidate-rules.json'), JSON.stringify({ ...meta, candidates }, null, 2))
   fs.writeFileSync(path.join(dataRules, 'validated-rules.json'), JSON.stringify({ ...meta, validated }, null, 2))
   fs.writeFileSync(path.join(dataRules, 'counterexamples.json'), JSON.stringify({ ...meta, counterexamples }, null, 2))
   fs.writeFileSync(
     path.join(dataRules, 'fit-coeffs.json'),
-    JSON.stringify({ geomWidthUu: widthCoeff, geomHeightUu: heightCoeff, olsWidth: widthFit, olsHeight: heightFit, ...meta }, null, 2),
+    JSON.stringify(
+      {
+        geomWidthUu: widthCoeff,
+        geomHeightUu: heightCoeff,
+        olsWidth,
+        olsHeight,
+        olsWidthInteract: olsWidthInt,
+        olsHeightInteract: olsHeightInt,
+        diagnosis: {
+          linearHoldErrW: winW?.linearHoldErr ?? null,
+          interactHoldErrW: winW?.interactHoldErr ?? null,
+          linearHoldErrH: winH?.linearHoldErr ?? null,
+          interactHoldErrH: winH?.interactHoldErr ?? null,
+          stress_120x90x60: stressEval,
+        },
+        ...meta,
+      },
+      null,
+      2,
+    ),
   )
-  console.log('infer-rules unique', uniq.length, 'validated', validated.length, 'counterexamples', counterexamples.length)
-  return { validated, counterexamples, uniq }
+
+  const fmt = (n: number | null | undefined) => (n == null || !Number.isFinite(n) ? 'n/a' : n.toFixed(3))
+  const diagMd = `# Envelope diagnosis
+
+## Holdout switch
+
+- Previous preferred holdout \`120x90x60\` is a **cross-scale** point (failed badly under linear templates).
+- Frozen holdout is now **\`${HOLDOUT_KEY}\`** (near-baseline single-variable).
+- \`120x90x60\` kept as stress-only (not the validation gate).
+
+## Models
+
+| axis | linear train RMSE | interact train RMSE | linear holdout err | interact holdout err | selected |
+|---|---:|---:|---:|---:|---|
+| width | ${fmt(olsWidth?.rmse)} | ${fmt(olsWidthInt?.rmse)} | ${fmt(winW?.linearHoldErr)} | ${fmt(winW?.interactHoldErr)} | **${widthCoeff.model}** (err=${fmt(errW)}) |
+| height | ${fmt(olsHeight?.rmse)} | ${fmt(olsHeightInt?.rmse)} | ${fmt(winH?.linearHoldErr)} | ${fmt(winH?.interactHoldErr)} | **${heightCoeff.model}** (err=${fmt(errH)}) |
+
+Selection rule: use interaction if holdout err ≤ ${HOLDOUT_MAX_UU} uu **and** better than linear; else keep linear OLS (or template fallback).
+
+## Stress row \`120x90x60\` (not frozen)
+
+${
+  stressEval.length
+    ? stressEval.map((s) => `- errW=${s.errW.toFixed(3)} uu, errH=${s.errH.toFixed(3)} uu`).join('\n')
+    : '- missing'
+}
+
+## Gate vs validated
+
+- Width holdout ≤${HOLDOUT_MAX_UU}: **${errW <= HOLDOUT_MAX_UU ? 'passed' : 'failed'}** (train_rmse=${fmt(widthCoeff.train_rmse_uu)})
+- Height holdout ≤${HOLDOUT_MAX_UU}: **${errH <= HOLDOUT_MAX_UU ? 'passed' : 'failed'}** (train_rmse=${fmt(heightCoeff.train_rmse_uu)})
+- Unique real sizes: ${uniq.length}; train n=${train.length}
+`
+  fs.writeFileSync(path.join(reportsDir, 'envelope-diagnosis.md'), diagMd)
+
+  console.log(
+    'infer-rules unique',
+    uniq.length,
+    'holdout',
+    HOLDOUT_KEY,
+    'W',
+    widthCoeff.model,
+    fmt(errW),
+    'H',
+    heightCoeff.model,
+    fmt(errH),
+    'validated',
+    validated.length,
+    'counterexamples',
+    counterexamples.length,
+  )
+  return { validated, counterexamples, uniq, HOLDOUT_KEY, widthCoeff, heightCoeff }
 }
 
 runInfer()

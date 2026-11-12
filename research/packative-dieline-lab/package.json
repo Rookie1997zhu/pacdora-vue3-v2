@@ -6,10 +6,13 @@
   "description": "Offline Packative dieline research lab (isolated; no production integration)",
   "scripts": {
     "audit": "tsx src/cli/audit.ts",
+    "rebuild-inventory": "tsx src/cli/rebuild-inventory.ts",
     "import-offline": "tsx src/cli/import-offline.ts",
     "normalize-svg": "tsx src/cli/normalize-svg.ts",
     "sample-matrix": "tsx src/cli/sample-matrix.ts",
     "diff-geometry": "tsx src/cli/diff-geometry.ts",
+    "match-segments": "tsx src/cli/match-segments.ts",
+    "match-lock-bottom": "tsx src/cli/match-lock-bottom.ts",
     "online-collect": "tsx src/cli/online-collect.ts",
     "infer-rules": "tsx src/cli/infer-rules.ts",
     "prototype": "tsx src/cli/prototype.ts",

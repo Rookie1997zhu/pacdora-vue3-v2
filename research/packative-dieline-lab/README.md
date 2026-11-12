@@ -1,6 +1,6 @@
 # Packative Dieline Lab（离线隔离研究）
 
-独立于 BOXCRAFT 生产业务的刀版研究工具。默认 `offline=true` / `live_collection=false` / `paid_actions=false`。
+独立于 BOXCRAFT 生产业务的刀版研究工具。研究口径：`live_collection=true` 允许未授权 CDN/editor 白名单观察；**始终** `paid_actions=false`（禁止付费导出/下单/邮件）。见 `config/access-scope.json`。
 
 ## 依赖与运行
 

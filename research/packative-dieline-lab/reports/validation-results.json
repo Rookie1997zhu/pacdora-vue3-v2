@@ -1,35 +1,47 @@
 {
-  "generated_at": "2026-11-11T09:59:31.365Z",
+  "generated_at": "2026-11-12T00:26:03.625Z",
   "tests": [
     {
       "id": "detect_access_denied_stubs",
       "kind": "real_sample",
       "status": "passed",
-      "note": "excluded_non_dieline_xml stubs; count=3"
+      "note": "excluded_non_dieline_xml stubs; count=2"
     },
     {
       "id": "holdout_envelope_width",
       "kind": "real_sample",
       "status": "passed",
-      "predicted_uu": 2682.818016666668,
-      "observed_uu": 2689.1296,
-      "abs_err_uu": 6.311583333332237,
-      "note": "fixed_scale_no_rescaling; partial_prototype_envelope_only; holdout=200x150x100"
+      "predicted_uu": 1404.091047975568,
+      "observed_uu": 1404.0896,
+      "abs_err_uu": 0.0014479755679985828,
+      "note": "model=lwh_linear; holdout=100x80x90; see envelope-diagnosis.md"
     },
     {
       "id": "holdout_envelope_height",
       "kind": "real_sample",
-      "status": "failed",
-      "predicted_uu": 1253.7604103448311,
-      "observed_uu": 1330.398,
-      "abs_err_uu": 76.63758965516877,
-      "note": "fixed_scale_no_rescaling; partial_prototype_envelope_only; holdout=200x150x100"
+      "status": "passed",
+      "predicted_uu": 869.2913959999985,
+      "observed_uu": 869.2916,
+      "abs_err_uu": 0.0002040000015313126,
+      "note": "model=lwh_interact; holdout=100x80x90; see envelope-diagnosis.md"
+    },
+    {
+      "id": "crease_segment_correspondence",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "min_matched=14; worst_norm=0.0586; worst_uu=98.66; pairs=45"
+    },
+    {
+      "id": "lock_bottom_cutting_correspondence",
+      "kind": "real_sample",
+      "status": "passed",
+      "note": "holdout=100x80x90; matched=21/21; medianNorm=0.0006; curve_approx"
     },
     {
       "id": "holdout_full_crashlock_topology",
       "kind": "real_sample",
-      "status": "not_run",
-      "reason": "lock_bottom_geometry_not_implemented"
+      "status": "blocked",
+      "reason": "lock_bottom_partial_not_full_topology"
     },
     {
       "id": "synthetic_svg_emits_ev_style",
@@ -39,10 +51,285 @@
   ],
   "privacyHits": [],
   "online": {
-    "generated_at": "2026-11-11T09:57:59.023Z",
-    "live_collection": false,
+    "generated_at": "2026-11-11T16:48:09.128Z",
+    "live_collection": true,
     "paid_actions": false,
+    "product": "productbox-crashlock",
+    "tenant_uuid_source": "local_meta_only",
+    "max_gets": 10,
+    "get_count": 9,
     "collected": 0,
-    "message": "本轮在线采集 0 条（live_collection=false）"
+    "attempts": [
+      {
+        "key": "90x80x80",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/90_80_80/dieline.svg",
+        "reason": "single_var_L",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "100x70x80",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_70_80/dieline.svg",
+        "reason": "single_var_W",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "100x80x70",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_70/dieline.svg",
+        "reason": "single_var_H",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "100x80x90",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_90/dieline.svg",
+        "reason": "single_var_H",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "110x80x80",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/110_80_80/dieline.svg",
+        "reason": "single_var_L",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "100x80x50",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_80_50/dieline.svg",
+        "reason": "replace_access_denied_stub",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "100x90x80",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/100_90_80/dieline.svg",
+        "reason": "single_var_W_skip_if_valid",
+        "status": "skipped_valid_local",
+        "path": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_90_80.svg"
+      },
+      {
+        "key": "120x90x60",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/120_90_60/dieline.svg",
+        "reason": "replace_access_denied_stub",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "300x200x150",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/300_200_150/dieline.svg",
+        "reason": "replace_access_denied_stub",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      },
+      {
+        "key": "150x110x90",
+        "url": "https://studio-cdn.packative.com/ee4e06e4-c9b7-410f-b600-175fb1212729/dielines/productbox-crashlock/150_110_90/dieline.svg",
+        "reason": "interaction_holdout_candidate",
+        "status": "failed",
+        "httpStatus": 403,
+        "detail": "forbidden_or_unauthorized_stop_retry_this_point"
+      }
+    ],
+    "message": "online collect finished: 0 written, 9 GETs"
+  },
+  "ingest": {
+    "generated_at": "2026-11-12T00:25:42.144Z",
+    "evidence_root": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence",
+    "scanned_files": 119,
+    "inventory_count": 119,
+    "vector_svg_count": 11,
+    "valid_crashlock_svg": 10,
+    "stub_svg": 2,
+    "new_priority_single_var_ok": 6,
+    "target_new_single_var": 3,
+    "sample_gap": 0,
+    "note": "offline_single_var_target_met",
+    "entries": [
+      {
+        "name": "studio-dieline-100_80_80.svg",
+        "dims": "100x80x80",
+        "product": null,
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "543e63098c45d0f8d953894fa4a0bd9c17b6b205d967e431c12d56928d56ab9b",
+        "bytes": 12243,
+        "priority_single_var": false,
+        "already_known_real": true
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_70_80.svg",
+        "dims": "100x70x80",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "78ebe324fc3ca85ab12046d5926cba74bb81c8396f4871843efb87f5a42d5f99",
+        "bytes": 12326,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_80_50.svg",
+        "dims": "100x80x50",
+        "product": "productbox-crashlock",
+        "ok": false,
+        "reason": "cdn_access_denied_stub",
+        "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+        "bytes": 111,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_80_70.svg",
+        "dims": "100x80x70",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "d7b3255e3dc19fa3c49f9a3aaf9e3f3707f171f9f9abcaccb6a94e2e98b9d10d",
+        "bytes": 12253,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_80_80.svg",
+        "dims": "100x80x80",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "543e63098c45d0f8d953894fa4a0bd9c17b6b205d967e431c12d56928d56ab9b",
+        "bytes": 12243,
+        "priority_single_var": false,
+        "already_known_real": true
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_80_90.svg",
+        "dims": "100x80x90",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "0402e8c444135af89615fb0f2455fdba11b7e0d34624dec5f1ed7355e0683d2e",
+        "bytes": 12253,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-100_90_80.svg",
+        "dims": "100x90x80",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "191aad8479775e91d07b6bc3ac6f1c8d8210920777ddd5dc3f3e0644d8ef6dc7",
+        "bytes": 12337,
+        "priority_single_var": false,
+        "already_known_real": true
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-110_80_80.svg",
+        "dims": "110x80x80",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "f102d9a7c6756a23c1b2daf3552a8929e95bc65ca88a6a30c24a2dbbf358f718",
+        "bytes": 12326,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-120_90_60.svg",
+        "dims": "120x90x60",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "614ac7ddd733245f44d65d7b42740b6b8d44c8d5285643d480d2184297f7f2c9",
+        "bytes": 12333,
+        "priority_single_var": true,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-200_150_100.svg",
+        "dims": "200x150x100",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "c6bc3adb8635dcc6fe4fbd205abb06155cc70605bd27736e72e32fc31dcdffb9",
+        "bytes": 12365,
+        "priority_single_var": false,
+        "already_known_real": true
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-300_200_150.svg",
+        "dims": "300x200x150",
+        "product": "productbox-crashlock",
+        "ok": false,
+        "reason": "cdn_access_denied_stub",
+        "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+        "bytes": 111,
+        "priority_single_var": false,
+        "already_known_real": false
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-55_55_75.svg",
+        "dims": "55x55x75",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "b90e4f24755671b9dcecd570fa0df32146108b0cd08bb90930940f25811653e4",
+        "bytes": 12250,
+        "priority_single_var": false,
+        "already_known_real": true
+      },
+      {
+        "name": "studio-dieline-productbox-crashlock-90_80_80.svg",
+        "dims": "90x80x80",
+        "product": "productbox-crashlock",
+        "ok": true,
+        "reason": "valid_cutting_creasing_svg",
+        "sha256": "c86ffe1d4629fc488d36eb69451130793de4966f68efa7dc2d3666589a409d38",
+        "bytes": 12324,
+        "priority_single_var": true,
+        "already_known_real": false
+      }
+    ]
+  },
+  "segment_match_gate": {
+    "require_matched_ge": 13,
+    "require_creasing": 14,
+    "median_norm_pos_err_le": 0.06,
+    "median_endpoint_err_uu_diagnostic": true,
+    "passed": true
+  },
+  "lock_bottom_match_gate": {
+    "holdout": "100x80x90",
+    "require_matched_ge": 18,
+    "expect_real_lines_about": 21,
+    "median_norm_pos_err_le": 0.06,
+    "passed": true,
+    "holdout_row": {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "role": "holdout",
+      "matched": 21,
+      "genCount": 21,
+      "realCount": 21,
+      "matchRate": 1,
+      "medianNormPosErr": 0.0006296261204982382,
+      "medianEndpointErrUu": 0.6151489834327596,
+      "maxNormPosErr": 0.005502041119388899,
+      "unmatchedGen": [],
+      "unmatchedReal": [],
+      "passed": true,
+      "curve_approx": true
+    }
   }
 }

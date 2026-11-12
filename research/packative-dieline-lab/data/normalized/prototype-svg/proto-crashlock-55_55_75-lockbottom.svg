@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="896.850" height="756.447" viewBox="0 0 896.850 756.447">
+  <!-- BOXCRAFT dieline-lab lock-bottom FIRST SLICE; curve_approx; not full 63/14 topology -->
+  <g>
+  <line x1="641.503" y1="756.447" x2="488.576" y2="756.447" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="461.102" y1="711.093" x2="461.102" y2="713.928" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="461.102" y1="713.928" x2="495.118" y2="713.928" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="495.118" y1="713.928" x2="495.118" y2="705.424" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="668.976" y1="713.928" x2="634.961" y2="713.928" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="634.961" y1="713.928" x2="634.961" y2="705.424" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="668.976" y1="711.093" x2="668.976" y2="713.928" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="461.102" y1="711.093" x2="461.102" y2="506.998" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="668.976" y1="506.998" x2="668.976" y2="711.093" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="287.438" y1="629.833" x2="263.622" y2="541.014" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="442.205" y1="629.833" x2="287.438" y2="629.833" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="449.764" y1="518.337" x2="442.205" y2="629.833" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="263.622" y1="541.014" x2="256.063" y2="533.455" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="256.063" y1="533.455" x2="256.063" y2="506.998" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="461.102" y1="506.998" x2="449.764" y2="518.337" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="680.315" y1="518.337" x2="687.874" y2="629.833" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="687.874" y1="629.833" x2="842.641" y2="629.833" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="842.641" y1="629.833" x2="866.457" y2="541.014" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="866.457" y1="541.014" x2="874.016" y2="533.455" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="874.016" y1="533.455" x2="874.016" y2="506.998" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="668.976" y1="506.998" x2="680.315" y2="518.337" stroke="rgb(255,0,0)" stroke-width="2" ev-style="Cutting" />
+  <line x1="634.961" y1="711.093" x2="495.118" y2="711.093" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="461.102" y1="508.888" x2="668.976" y2="508.888" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="45.354" y1="506.998" x2="45.354" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="256.063" y1="506.998" x2="461.102" y2="506.998" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="461.102" y1="506.998" x2="461.102" y2="225.424" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="876.850" y1="506.998" x2="668.976" y2="506.998" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="253.228" y1="225.424" x2="253.228" y2="506.998" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="668.976" y1="225.424" x2="668.976" y2="506.998" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="45.354" y1="223.534" x2="240.227" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="266.230" y1="223.534" x2="448.101" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="474.104" y1="223.534" x2="655.975" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="681.978" y1="223.534" x2="876.850" y2="223.534" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="172.346" y1="202.180" x2="42.568" y2="72.401" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  <line x1="588.094" y1="202.180" x2="458.316" y2="72.401" stroke="rgb(0,255,0)" stroke-width="2" ev-style="Creasing" />
+  </g>
+</svg>

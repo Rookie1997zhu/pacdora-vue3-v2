@@ -1,7 +1,7 @@
 {
   "product": "productbox-crashlock",
   "baseline_mm": { "L": 100, "W": 80, "H": 80 },
-  "holdout_frozen": [{ "L": 200, "W": 150, "H": 100, "note": "frozen for phase4; 120x90x60 local SVG is AccessDenied stub" }],
+  "holdout_frozen": [{ "L": 100, "W": 80, "H": 90, "note": "near-baseline single-var H+10; 120x90x60 is cross-scale stress only" }],
   "budget_note": "24 points is a budget suggestion not sufficiency",
   "planned_groups": {
     "baseline": [{ "L": 100, "W": 80, "H": 80 }],

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-11T09:47:48.920354+00:00",
+  "generated_at": "2026-11-12T00:25:42.142Z",
   "source_root": "docs/packative-research/evidence",
-  "count": 50,
-  "vector_svg_count": 7,
+  "count": 119,
+  "vector_svg_count": 11,
   "items": [
     {
       "path": "docs\\packative-research\\evidence\\area_mask-100_80_80.png",
@@ -12,6 +12,126 @@
       "ext": "png",
       "product": null,
       "dims_mm_guess": "100x80x80",
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-collada-adf1b71b.dae",
+      "name": "cad-collada-adf1b71b.dae",
+      "bytes": 1172802,
+      "sha256": "920916b926a80c91b24788a08931af5521e93d6df8df93a587bfbf2080dce3f0",
+      "ext": "dae",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-collada-bf9ac3b1.dae",
+      "name": "cad-collada-bf9ac3b1.dae",
+      "bytes": 1173018,
+      "sha256": "293230a52677cf0845e4d0eac55675afb485c365ca66a8b0c6079c68a530fdd0",
+      "ext": "dae",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-collada-headers.txt",
+      "name": "cad-collada-headers.txt",
+      "bytes": 794,
+      "sha256": "4d28b72783ed435b7f0ff52324dee44ceddfca164274ae8373573fee15d7e065",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-sample.dae",
+      "name": "cad-sample.dae",
+      "bytes": 46,
+      "sha256": "79ced6a01fc4bf5b2550d1bc812c481e510beb92ef36a25fa671aa51c5b8ae36",
+      "ext": "dae",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-adf-TextureResource1.png",
+      "name": "cad-tex-adf-TextureResource1.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-adf-TextureResource2.png",
+      "name": "cad-tex-adf-TextureResource2.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-adf-TextureResource3.png",
+      "name": "cad-tex-adf-TextureResource3.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-adf-TextureResource4.png",
+      "name": "cad-tex-adf-TextureResource4.png",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-bf9-TextureResource1.png",
+      "name": "cad-tex-bf9-TextureResource1.png",
+      "bytes": 35035,
+      "sha256": "9c3309c9b30aecd05b38fadea331a57814f91a1c8b9545ee5558247032c72970",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-bf9-TextureResource2.png",
+      "name": "cad-tex-bf9-TextureResource2.png",
+      "bytes": 77,
+      "sha256": "6c5610b886fdeb5126ab020f494a1b966540ea46823f373f4ae855acfeeca2de",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-bf9-TextureResource3.png",
+      "name": "cad-tex-bf9-TextureResource3.png",
+      "bytes": 34868,
+      "sha256": "97f2e8b02650791f5c57e588dc47d562034c9441c79ffeaae0b178030ae5a7f7",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\cad-tex-bf9-TextureResource4.png",
+      "name": "cad-tex-bf9-TextureResource4.png",
+      "bytes": 77,
+      "sha256": "62aefd698a15375cd9a84d7721ba3d9dced862cf4859c5f7b97d12fab6eac6b8",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
       "role": "mask_or_raster"
     },
     {
@@ -140,7 +260,7 @@
       "bytes": 78,
       "sha256": "40863d58eaa219328806917f641164a5bcd65fb6bf88b4ef1cea616c8a9cb957",
       "ext": "eps",
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x50",
       "role": "vector_eps"
     },
@@ -150,7 +270,7 @@
       "bytes": 26388,
       "sha256": "78544b9816e73a0adcb92049783682f7b8f72bc293d192a57a89231ff9362c5d",
       "ext": "eps",
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "100x80x50",
       "role": "vector_eps"
     },
@@ -160,7 +280,7 @@
       "bytes": 27234,
       "sha256": "254501849f827c4b61c6c510e6cb86ac0fedf5a744e7777d1c2dfef980c1b630",
       "ext": "eps",
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x100",
       "role": "vector_eps"
     },
@@ -170,7 +290,7 @@
       "bytes": 27728,
       "sha256": "e77b51feea13e7237c49f820e912f977d97c3b2245590e53fa1f70eeb10496ae",
       "ext": "eps",
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x50",
       "role": "vector_eps"
     },
@@ -180,7 +300,7 @@
       "bytes": 22896,
       "sha256": "187c38cb039240e423b82b96a911fe6315235a74afb02d6d599b5cd76e6287d6",
       "ext": "eps",
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "100x80x40",
       "role": "vector_eps"
     },
@@ -190,7 +310,7 @@
       "bytes": 26536,
       "sha256": "2be977886fa6d01593242555109b580b383135ba6e540662222964f1de5df905",
       "ext": "eps",
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "200x150x100",
       "role": "vector_eps"
     },
@@ -200,7 +320,7 @@
       "bytes": 21772,
       "sha256": "fa6d63b2c72d7a2ffa462770706ef80c06b63609e193f71235bf2280c8429033",
       "ext": "eps",
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "80x60x40",
       "role": "vector_eps"
     },
@@ -240,7 +360,7 @@
       "bytes": 27887,
       "sha256": "7baa256795dc7fc3aada89a149d7a9f5322629c2d0cf565f335ab932dd65d2db",
       "ext": "eps",
-      "product": "tray",
+      "product": null,
       "dims_mm_guess": "150x100x40",
       "role": "vector_eps"
     },
@@ -250,7 +370,7 @@
       "bytes": 27910,
       "sha256": "694b15938381bb20844f7ac7f1dd600ea7685dcf4c4537e3176e697a5494835d",
       "ext": "eps",
-      "product": "tray",
+      "product": null,
       "dims_mm_guess": "200x150x100",
       "role": "vector_eps"
     },
@@ -262,7 +382,7 @@
       "ext": "txt",
       "product": null,
       "dims_mm_guess": null,
-      "role": "other"
+      "role": "mask_or_raster"
     },
     {
       "path": "docs\\packative-research\\evidence\\model-crashlock-100x80x80-as-svg.bin",
@@ -282,6 +402,126 @@
       "ext": "pdf",
       "product": "productbox-crashlock",
       "dims_mm_guess": "100x80x80",
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\own-upload-cdn-copy.png",
+      "name": "own-upload-cdn-copy.png",
+      "bytes": 4423,
+      "sha256": "eba65c84c707741b0f9bb75d6fd40adc054e87f2c59cde5b481789929dda77b9",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\own-upload-pf-sample.png",
+      "name": "own-upload-pf-sample.png",
+      "bytes": 4423,
+      "sha256": "73e395c7bf18faa88fc382813bc8a51606223e2578feef3acd6d851a0c186322",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase0-google-oauth-supabase.png",
+      "name": "phase0-google-oauth-supabase.png",
+      "bytes": 35476,
+      "sha256": "2042e172bb50817671cc9b8b0179a1da1d7693ab9a2580dc2869ca6fed90efb3",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase0-login-page.png",
+      "name": "phase0-login-page.png",
+      "bytes": 54394,
+      "sha256": "5256f707fdeb6e5202a48b64352624123ffc4628d712f4c3b389b305739c67c2",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase0-mockup-studio-login-required.png",
+      "name": "phase0-mockup-studio-login-required.png",
+      "bytes": 96716,
+      "sha256": "a555cee4da306746c55d8c9fa84e2211f29cac1925ea99257d4a369ee443a755",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase0-products-catalog.png",
+      "name": "phase0-products-catalog.png",
+      "bytes": 216355,
+      "sha256": "0eed2c557e7466547b40d8d76af60d16ae11574be5baaaaa7ac6b209a80b2632",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-ai-generate-result.png",
+      "name": "phase1-ai-generate-result.png",
+      "bytes": 107006,
+      "sha256": "8eef6e7b3249a95a1f37dc9df826000806e15f149d6c6eaac8fa6bce69b176d6",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-editor-ai-panel.png",
+      "name": "phase1-editor-ai-panel.png",
+      "bytes": 60941,
+      "sha256": "45421a7ad79d9c6cec1bc7659a2474a7c9767f1a41674c66bc7f491c19961615",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-editor-login-wall.png",
+      "name": "phase1-editor-login-wall.png",
+      "bytes": 15319,
+      "sha256": "931e2d7ee15a1deb18f3120320c2c1ab2c23ba98ee647fb1eae01263a2e89fbf",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-ko-desktop-nav.png",
+      "name": "phase1-ko-desktop-nav.png",
+      "bytes": 16082,
+      "sha256": "5aefc68502ff5c8b64b38b2bfe76bc395cdbd45e20d2b986698fc26756604d4f",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-login-followup-notes.txt",
+      "name": "phase1-login-followup-notes.txt",
+      "bytes": 2396,
+      "sha256": "061ad577510e1e559a1e8f87bea42d809fe62f06a13bb8fa94e4bb14baea18cf",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase1-studio-ai-apis.txt",
+      "name": "phase1-studio-ai-apis.txt",
+      "bytes": 1099,
+      "sha256": "153c330a336ad5a79b2a4350d61a689bae49afdd14edc5bed0db033d6bc61311",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
       "role": "other"
     },
     {
@@ -305,10 +545,40 @@
       "role": "other"
     },
     {
+      "path": "docs\\packative-research\\evidence\\phase2-productbox-custom-100x80x50.png",
+      "name": "phase2-productbox-custom-100x80x50.png",
+      "bytes": 152380,
+      "sha256": "feffe796464ac6c1fa47e1e8c07e588193a6630c535aa43138bd5e03a78e1e6e",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": "100x80x50",
+      "role": "mask_or_raster"
+    },
+    {
       "path": "docs\\packative-research\\evidence\\phase3-ai-applied-to-dieline-2d.png",
       "name": "phase3-ai-applied-to-dieline-2d.png",
       "bytes": 274239,
       "sha256": "0e5a77aa966a76279884e1b92670c993ed5ef7ddb4eeab7a7b8c181108a48a7b",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area-applied.png",
+      "name": "phase3-ai-main-area-applied.png",
+      "bytes": 64039,
+      "sha256": "1525df80ebbf9c7dd2a452111b81be16b424f1890ed47719f9ebe5acdba23c84",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area-gallery.png",
+      "name": "phase3-ai-main-area-gallery.png",
+      "bytes": 27839,
+      "sha256": "968eb0586756f4b48d2047021eccd66e249901b2955cf671c83bfc5c269478b8",
       "ext": "png",
       "product": null,
       "dims_mm_guess": null,
@@ -325,12 +595,252 @@
       "role": "mask_or_raster"
     },
     {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area-result.png",
+      "name": "phase3-ai-main-area-result.png",
+      "bytes": 63876,
+      "sha256": "d50b937c2e0e291aededcc55d46f99dfb4268ee1bf8a82befd83584f26c07f7c",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area-ui.png",
+      "name": "phase3-ai-main-area-ui.png",
+      "bytes": 60359,
+      "sha256": "8b33fc10078d9eb6cca565799a6b13ba957768f6cde1872e53db6d15fd527041",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-main-area.txt",
+      "name": "phase3-ai-main-area.txt",
+      "bytes": 3120,
+      "sha256": "e0826b6fae3a3ebea84370e2281f01aff002d8cf3d38a8861d5afab5b35c2bc1",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-postprocess-actions.png",
+      "name": "phase3-ai-postprocess-actions.png",
+      "bytes": 36166,
+      "sha256": "18617b213287d40908df891bd4e05fdff2d96d80cc29ca4275a21f4b5354289e",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-postprocess-bg-remove.png",
+      "name": "phase3-ai-postprocess-bg-remove.png",
+      "bytes": 25458,
+      "sha256": "3fdc3ec4bb792e2df5da8e7c3293b7c21ce3b12072b9e4a1e61bc55e057a444d",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-postprocess-edit-ui.png",
+      "name": "phase3-ai-postprocess-edit-ui.png",
+      "bytes": 47866,
+      "sha256": "94e3da16e80619791ab42d766e1f6b45e31b4b91a1a0de1fb2346a6667b05079",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-ai-postprocess.txt",
+      "name": "phase3-ai-postprocess.txt",
+      "bytes": 2006,
+      "sha256": "6d61dd4fb345025826f004944f005e8d09ba7692452b0b344288cf0e76425a3c",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-cart-with-design.png",
+      "name": "phase3-cart-with-design.png",
+      "bytes": 113216,
+      "sha256": "eb7a43257eea81177fd34dd5234eeadbd794c697436e2377253763cbff99b5bf",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-deepen-3d-export-boxes.txt",
+      "name": "phase3-deepen-3d-export-boxes.txt",
+      "bytes": 3068,
+      "sha256": "7ffeeee9202239403d72b04d660975bee0636191d0c6f73d0aa574890dcada63",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-2d-after-apply.png",
+      "name": "phase3-editor-2d-after-apply.png",
+      "bytes": 268814,
+      "sha256": "9420893b1e370baa6646564e421d22617379e04816b461f48d3df881a17ad69b",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-2d3d-save.txt",
+      "name": "phase3-editor-2d3d-save.txt",
+      "bytes": 1411,
+      "sha256": "83b7134ab7b79961513f2d378837aec191ac44aa4c5b63733bfd59740b5d958d",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-3d-collada.png",
+      "name": "phase3-editor-3d-collada.png",
+      "bytes": 151662,
+      "sha256": "2aae3c53ea81c4d521b0fc497746a7c3e9004b2ef4dcd9341c5462724aa02e8a",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-3d-textured.png",
+      "name": "phase3-editor-3d-textured.png",
+      "bytes": 125086,
+      "sha256": "31b026cd8bb9509b6042300b93a5ed547cc2dcbaf54ccce61b1d5a67e1d46c78",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-3d-toggle.png",
+      "name": "phase3-editor-3d-toggle.png",
+      "bytes": 130786,
+      "sha256": "36b81d41ff96f8115dcccd179255d1e7c5321fbb2cbc8faae5a058e105a63236",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-3d-uv-loaded.png",
+      "name": "phase3-editor-3d-uv-loaded.png",
+      "bytes": 146012,
+      "sha256": "e65919c95710f1e35bd6fa206fca20b1f7fe79571cfd3fc8b975c0d9d3e68ba2",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-3d-with-panel-art.png",
+      "name": "phase3-editor-3d-with-panel-art.png",
+      "bytes": 146012,
+      "sha256": "e65919c95710f1e35bd6fa206fca20b1f7fe79571cfd3fc8b975c0d9d3e68ba2",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-editor-upload-panel.png",
+      "name": "phase3-editor-upload-panel.png",
+      "bytes": 184493,
+      "sha256": "a017dddab573070aa3fa4c989f22bcd1d3566cb0837c96619b294607f7d27d3f",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-gapfill-export-sizes.txt",
+      "name": "phase3-gapfill-export-sizes.txt",
+      "bytes": 1697,
+      "sha256": "58944f01af67bc075277f2388ddfb14a9414ec5d7e6336f910e4223614ac0ebf",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-illegal-size-api.txt",
+      "name": "phase3-illegal-size-api.txt",
+      "bytes": 3428,
+      "sha256": "3982844cf7a6e6f2e9745d26d626646cf773cbf957c57e063be344f39a76ce37",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-illegal-size-boundaries.txt",
+      "name": "phase3-illegal-size-boundaries.txt",
+      "bytes": 7196,
+      "sha256": "f6bc2ce5ed04f1e1f45cf42fc265e5f6d500572615e561c053fbf1b566ccc835",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-illegal-size-summary.txt",
+      "name": "phase3-illegal-size-summary.txt",
+      "bytes": 1626,
+      "sha256": "a37bc1bb3b5ba1138f81da5683844b2871bd2c63329fe0f5320270f6f34f0822",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-illegal-size-ui-length-min.png",
+      "name": "phase3-illegal-size-ui-length-min.png",
+      "bytes": 50454,
+      "sha256": "42c535cbd5d34d72113dcfaa20a8fdf3e3501401010fcc6b7ea7a34dc140e41b",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-illegal-size-ui-unsupported.png",
+      "name": "phase3-illegal-size-ui-unsupported.png",
+      "bytes": 50454,
+      "sha256": "42c535cbd5d34d72113dcfaa20a8fdf3e3501401010fcc6b7ea7a34dc140e41b",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-main-area-color-selected.png",
+      "name": "phase3-main-area-color-selected.png",
+      "bytes": 64241,
+      "sha256": "6bd27721b7a9a598dbacec9e266ba01f9df9f93e439e6b01a2bb015af85304bd",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
       "path": "docs\\packative-research\\evidence\\phase3-multibox-mailer-editor.png",
       "name": "phase3-multibox-mailer-editor.png",
       "bytes": 55160,
       "sha256": "6933fc00c9ca1477a8d12159a9526cc7be8433182c6c847ada9a0d6f37bc232c",
       "ext": "png",
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": null,
       "role": "mask_or_raster"
     },
@@ -340,7 +850,7 @@
       "bytes": 54563,
       "sha256": "d827f99351ff94a9f4e738b19e60bdf1c7f934a228d286fd76ccc810e2aa6a67",
       "ext": "png",
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": null,
       "role": "mask_or_raster"
     },
@@ -355,10 +865,90 @@
       "role": "mask_or_raster"
     },
     {
+      "path": "docs\\packative-research\\evidence\\phase3-multibox-studio.txt",
+      "name": "phase3-multibox-studio.txt",
+      "bytes": 2475,
+      "sha256": "f36e2caeebfe3d4e44b0c54d306b84718c52d24209796aa461e19dc26238684d",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-own-upload-apis.txt",
+      "name": "phase3-own-upload-apis.txt",
+      "bytes": 1310,
+      "sha256": "0f8b2d78a75dc2852c5f2d69cc3141dad649e77c9a72c756c02086edfdaa5471",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
       "path": "docs\\packative-research\\evidence\\phase3-own-upload-on-dieline.png",
       "name": "phase3-own-upload-on-dieline.png",
       "bytes": 223284,
       "sha256": "31413af8b4a1cbee8e1637369346cd7540648bd9decd907c56aee7198c2838ee",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-save-reopen-after.png",
+      "name": "phase3-save-reopen-after.png",
+      "bytes": 23179,
+      "sha256": "d283571e00db910c51a873b0e35df209c5a827d4f305f8f7241b189d7280dfa7",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-save-reopen-before.png",
+      "name": "phase3-save-reopen-before.png",
+      "bytes": 66164,
+      "sha256": "f0815d20b8e5e8616b5686a18f4830da11210cc11211b113693dc000aa1f62ee",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-save-reopen.txt",
+      "name": "phase3-save-reopen.txt",
+      "bytes": 2056,
+      "sha256": "3455329885e03c04ce18797168e37b32beb548287599dd6bdfe497d8369514dd",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-text-elements-color-save.txt",
+      "name": "phase3-text-elements-color-save.txt",
+      "bytes": 1994,
+      "sha256": "66374d85119e2ee3a4819821b3339848f7d6ec69f70c7441b9edae7eff358d43",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-text-elements-ui.png",
+      "name": "phase3-text-elements-ui.png",
+      "bytes": 26199,
+      "sha256": "f4bb9e49c7a9cee70a8c7001dd97998df78d37030c863219bb36a2364fb1b453",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\phase3-upload-panel-empty.png",
+      "name": "phase3-upload-panel-empty.png",
+      "bytes": 185837,
+      "sha256": "ddf1c5cddaac59dfbe77fdd2dedc2bb260396b21bd4e24a652c9db7f67310db4",
       "ext": "png",
       "product": null,
       "dims_mm_guess": null,
@@ -395,6 +985,46 @@
       "role": "other"
     },
     {
+      "path": "docs\\packative-research\\evidence\\rea-papi-and-xhr.txt",
+      "name": "rea-papi-and-xhr.txt",
+      "bytes": 10815,
+      "sha256": "3cfa32a2825895fc682f81145377af116f343247df10dc6803d80a5d655bd9ab",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\rea-public-hosts.txt",
+      "name": "rea-public-hosts.txt",
+      "bytes": 6952,
+      "sha256": "bfcf28d5972a99f4f8fac49d348d96c88afb938075c4f344f788119013d31459",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\rea-public-studio-summary.txt",
+      "name": "rea-public-studio-summary.txt",
+      "bytes": 13410,
+      "sha256": "0b8943e228d9381239bef08eda43db7c260902b69ed1caf18edc06d316019a1e",
+      "ext": "txt",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "other"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\savepoint-thumbnail.png",
+      "name": "savepoint-thumbnail.png",
+      "bytes": 632592,
+      "sha256": "32da648757971b6db665a6d7558e3a3c39a179b6f219f09ee7561766d787234d",
+      "ext": "png",
+      "product": null,
+      "dims_mm_guess": null,
+      "role": "mask_or_raster"
+    },
+    {
       "path": "docs\\packative-research\\evidence\\studio-api-dieline-100_80_80.meta.json",
       "name": "studio-api-dieline-100_80_80.meta.json",
       "bytes": 2020,
@@ -402,7 +1032,7 @@
       "ext": "json",
       "product": null,
       "dims_mm_guess": "100x80x80",
-      "role": "meta"
+      "role": "json_meta"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-api-dieline-overlay-ok.json",
@@ -412,7 +1042,7 @@
       "ext": "json",
       "product": null,
       "dims_mm_guess": null,
-      "role": "other"
+      "role": "json_meta"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-api-dieline-overlay-origin.json",
@@ -422,7 +1052,7 @@
       "ext": "json",
       "product": null,
       "dims_mm_guess": null,
-      "role": "other"
+      "role": "json_meta"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-100_80_80.svg",
@@ -432,7 +1062,21 @@
       "ext": "svg",
       "product": null,
       "dims_mm_guess": "100x80x80",
-      "role": "vector_svg"
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_70_80.svg",
+      "name": "studio-dieline-productbox-crashlock-100_70_80.svg",
+      "bytes": 12326,
+      "sha256": "78ebe324fc3ca85ab12046d5926cba74bb81c8396f4871843efb87f5a42d5f99",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x70x80",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_50.svg",
@@ -442,7 +1086,21 @@
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "100x80x50",
-      "role": "vector_svg"
+      "role": "cdn_access_denied_stub",
+      "svg_ok": false,
+      "svg_reason": "cdn_access_denied_stub"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_70.svg",
+      "name": "studio-dieline-productbox-crashlock-100_80_70.svg",
+      "bytes": 12253,
+      "sha256": "d7b3255e3dc19fa3c49f9a3aaf9e3f3707f171f9f9abcaccb6a94e2e98b9d10d",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x70",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_80.svg",
@@ -452,17 +1110,57 @@
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "100x80x80",
-      "role": "vector_svg"
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_90.svg",
+      "name": "studio-dieline-productbox-crashlock-100_80_90.svg",
+      "bytes": 12253,
+      "sha256": "0402e8c444135af89615fb0f2455fdba11b7e0d34624dec5f1ed7355e0683d2e",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x90",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_90_80.svg",
+      "name": "studio-dieline-productbox-crashlock-100_90_80.svg",
+      "bytes": 12337,
+      "sha256": "191aad8479775e91d07b6bc3ac6f1c8d8210920777ddd5dc3f3e0644d8ef6dc7",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x90x80",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-110_80_80.svg",
+      "name": "studio-dieline-productbox-crashlock-110_80_80.svg",
+      "bytes": 12326,
+      "sha256": "f102d9a7c6756a23c1b2daf3552a8929e95bc65ca88a6a30c24a2dbbf358f718",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "110x80x80",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-120_90_60.svg",
       "name": "studio-dieline-productbox-crashlock-120_90_60.svg",
-      "bytes": 111,
-      "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+      "bytes": 12333,
+      "sha256": "614ac7ddd733245f44d65d7b42740b6b8d44c8d5285643d480d2184297f7f2c9",
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "120x90x60",
-      "role": "vector_svg"
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-200_150_100.svg",
@@ -472,7 +1170,9 @@
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "200x150x100",
-      "role": "vector_svg"
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-300_200_150.svg",
@@ -482,7 +1182,9 @@
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "300x200x150",
-      "role": "vector_svg"
+      "role": "cdn_access_denied_stub",
+      "svg_ok": false,
+      "svg_reason": "cdn_access_denied_stub"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-55_55_75.svg",
@@ -492,7 +1194,21 @@
       "ext": "svg",
       "product": "productbox-crashlock",
       "dims_mm_guess": "55x55x75",
-      "role": "vector_svg"
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
+    },
+    {
+      "path": "docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-90_80_80.svg",
+      "name": "studio-dieline-productbox-crashlock-90_80_80.svg",
+      "bytes": 12324,
+      "sha256": "c86ffe1d4629fc488d36eb69451130793de4966f68efa7dc2d3666589a409d38",
+      "ext": "svg",
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "90x80x80",
+      "role": "vector_svg",
+      "svg_ok": true,
+      "svg_reason": "valid_cutting_creasing_svg"
     },
     {
       "path": "docs\\packative-research\\evidence\\studio-dieline-svg-headers.txt",

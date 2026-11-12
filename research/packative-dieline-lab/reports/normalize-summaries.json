@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:57:52.009Z",
+  "generated_at": "2026-11-12T00:25:48.549Z",
   "samples": [
     {
       "sampleId": "studio-dieline-100_80_80",
@@ -25,6 +25,52 @@
       "candidateMmPerUu": 0.26458333333333334
     },
     {
+      "sampleId": "studio-dieline-productbox-crashlock-100_70_80",
+      "L": 100,
+      "W": 70,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1328.4996,
+      "geomHeightUu": 771.0241,
+      "pageWidthUu": 1331.17,
+      "pageHeightUu": 773.69,
+      "topCreaseLengthsUu": [
+        377.956,
+        374.67900000000003,
+        371.40200000000004,
+        309.9200000000001,
+        302.3620000000001,
+        300.4720000000001,
+        300.4720000000001,
+        300.4720000000001
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_70",
+      "L": 100,
+      "W": 80,
+      "H": 70,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1404.0896,
+      "geomHeightUu": 793.7013,
+      "pageWidthUu": 1406.76,
+      "pageHeightUu": 796.367,
+      "topCreaseLengthsUu": [
+        377.94999999999993,
+        374.67900000000003,
+        371.40700000000004,
+        309.92499999999995,
+        300.47,
+        299.5280000000001,
+        297.19000000000005,
+        295.81600000000003
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
       "sampleId": "studio-dieline-productbox-crashlock-100_80_80",
       "L": 100,
       "W": 80,
@@ -44,6 +90,98 @@
         300.472,
         300.472,
         300.472
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_80_90",
+      "L": 100,
+      "W": 80,
+      "H": 90,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1404.0896,
+      "geomHeightUu": 869.2916,
+      "pageWidthUu": 1406.76,
+      "pageHeightUu": 871.958,
+      "topCreaseLengthsUu": [
+        377.94999999999993,
+        374.67900000000003,
+        371.40700000000004,
+        340.158,
+        338.2679999999999,
+        338.2679999999999,
+        338.2679999999999,
+        309.92499999999995
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-100_90_80",
+      "L": 100,
+      "W": 90,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1479.6896,
+      "geomHeightUu": 891.96874,
+      "pageWidthUu": 1482.35,
+      "pageHeightUu": 894.635,
+      "topCreaseLengthsUu": [
+        377.9549999999999,
+        374.67900000000003,
+        371.40199999999993,
+        338.27,
+        337.32300000000004,
+        335,
+        333.611,
+        309.919
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-110_80_80",
+      "L": 110,
+      "W": 80,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1479.6896,
+      "geomHeightUu": 831.4963,
+      "pageWidthUu": 1482.35,
+      "pageHeightUu": 834.163,
+      "topCreaseLengthsUu": [
+        415.7449999999999,
+        412.475,
+        409.2019999999999,
+        347.71899999999994,
+        302.3620000000001,
+        300.48,
+        300.472,
+        300.472
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-120_90_60",
+      "L": 120,
+      "W": 90,
+      "H": 60,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1630.8696,
+      "geomHeightUu": 816.37844,
+      "pageWidthUu": 1633.53,
+      "pageHeightUu": 819.045,
+      "topCreaseLengthsUu": [
+        453.544,
+        450.27,
+        447.001,
+        385.509,
+        338.27,
+        337.323,
+        335,
+        333.611
       ],
       "candidateMmPerUu": 0.26458333333333334
     },
@@ -90,6 +228,29 @@
         205.98400000000004,
         205.04000000000002,
         204.601
+      ],
+      "candidateMmPerUu": 0.26458333333333334
+    },
+    {
+      "sampleId": "studio-dieline-productbox-crashlock-90_80_80",
+      "L": 90,
+      "W": 80,
+      "H": 80,
+      "cuttingCount": 63,
+      "creasingCount": 14,
+      "geomWidthUu": 1328.4996,
+      "geomHeightUu": 831.4963,
+      "pageWidthUu": 1331.17,
+      "pageHeightUu": 834.163,
+      "topCreaseLengthsUu": [
+        340.15600000000006,
+        336.884,
+        333.6120000000001,
+        302.3620000000001,
+        300.472,
+        300.472,
+        300.472,
+        300.47
       ],
       "candidateMmPerUu": 0.26458333333333334
     }

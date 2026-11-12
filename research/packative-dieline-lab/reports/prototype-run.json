@@ -1,51 +1,95 @@
 {
-  "generated_at": "2026-11-11T09:59:24.954Z",
+  "generated_at": "2026-11-12T00:25:59.197Z",
   "results": [
     {
-      "file": "proto-crashlock-100_80_80.svg",
-      "widthUu": 1404.0896000000002,
-      "heightUu": 831.4963000000005,
+      "file": "proto-crashlock-100_80_80-lockbottom.svg",
+      "partialFile": "proto-crashlock-100_80_80.svg",
+      "widthUu": 1404.0928711004894,
+      "heightUu": 831.4963480000041,
+      "lockCutting": 21,
+      "creasing": 14,
+      "curve_approx": true,
       "implemented": [
-        "outer_envelope_size_vs_LWH_linear_fit",
-        "semantic_cutting_outer_rect",
-        "semantic_creasing_cross_heuristic"
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "curve_approx_chord_for_cubic_corners"
       ],
       "gaps": [
-        "auto_bottom_crashlock_flaps_not_reconstructed",
-        "glue_flap_and_dust_flap_topology_unknown",
-        "curve_segments_not_modeled",
+        "top_dust_flap_and_tuck_tongue_not_reconstructed",
+        "glue_flap_outer_cutting_not_reconstructed",
+        "six_top_flap_fillets_not_modeled",
+        "full_63_cutting_topology_not_claimed",
+        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
     {
-      "file": "proto-crashlock-55_55_75.svg",
-      "widthUu": 874.9605999999999,
-      "heightUu": 661.4176999999993,
+      "file": "proto-crashlock-55_55_75-lockbottom.svg",
+      "partialFile": "proto-crashlock-55_55_75.svg",
+      "widthUu": 874.9597150404911,
+      "heightUu": 661.4176999999333,
+      "lockCutting": 21,
+      "creasing": 14,
+      "curve_approx": true,
       "implemented": [
-        "outer_envelope_size_vs_LWH_linear_fit",
-        "semantic_cutting_outer_rect",
-        "semantic_creasing_cross_heuristic"
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "curve_approx_chord_for_cubic_corners"
       ],
       "gaps": [
-        "auto_bottom_crashlock_flaps_not_reconstructed",
-        "glue_flap_and_dust_flap_topology_unknown",
-        "curve_segments_not_modeled",
+        "top_dust_flap_and_tuck_tongue_not_reconstructed",
+        "glue_flap_outer_cutting_not_reconstructed",
+        "six_top_flap_fillets_not_modeled",
+        "full_63_cutting_topology_not_claimed",
+        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     },
     {
-      "file": "proto-crashlock-200_150_100.svg",
-      "widthUu": 2682.818016666668,
-      "heightUu": 1253.7604103448311,
+      "file": "proto-crashlock-100_90_80-lockbottom.svg",
+      "partialFile": "proto-crashlock-100_90_80.svg",
+      "widthUu": 1479.684405628576,
+      "heightUu": 891.9686679998683,
+      "lockCutting": 21,
+      "creasing": 14,
+      "curve_approx": true,
       "implemented": [
-        "outer_envelope_size_vs_LWH_linear_fit",
-        "semantic_cutting_outer_rect",
-        "semantic_creasing_cross_heuristic"
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "curve_approx_chord_for_cubic_corners"
       ],
       "gaps": [
-        "auto_bottom_crashlock_flaps_not_reconstructed",
-        "glue_flap_and_dust_flap_topology_unknown",
-        "curve_segments_not_modeled",
+        "top_dust_flap_and_tuck_tongue_not_reconstructed",
+        "glue_flap_outer_cutting_not_reconstructed",
+        "six_top_flap_fillets_not_modeled",
+        "full_63_cutting_topology_not_claimed",
+        "exact_cubic_corners_not_modeled",
+        "material_thickness_unobserved"
+      ]
+    },
+    {
+      "file": "proto-crashlock-100_80_90-lockbottom.svg",
+      "partialFile": "proto-crashlock-100_80_90.svg",
+      "widthUu": 1404.091047975568,
+      "heightUu": 869.2913959999985,
+      "lockCutting": 21,
+      "creasing": 14,
+      "curve_approx": true,
+      "implemented": [
+        "outer_envelope_size_vs_LWH_fit",
+        "body_panel_creasing_14_parametric",
+        "lock_bottom_cutting_polyline_parametric",
+        "curve_approx_chord_for_cubic_corners"
+      ],
+      "gaps": [
+        "top_dust_flap_and_tuck_tongue_not_reconstructed",
+        "glue_flap_outer_cutting_not_reconstructed",
+        "six_top_flap_fillets_not_modeled",
+        "full_63_cutting_topology_not_claimed",
+        "exact_cubic_corners_not_modeled",
         "material_thickness_unobserved"
       ]
     }

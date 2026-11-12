@@ -1,0 +1,14 @@
+{
+  "sampleId": "live-crashlock-100_80_80",
+  "product": "productbox-crashlock",
+  "length": 100,
+  "width": 80,
+  "height": 80,
+  "group": "baseline",
+  "source": "papi.public.online.model",
+  "url": "https://papi.packative.com/public/online/model?productCode=productbox-crashlock&length=100&width=80&height=80&format=eps",
+  "contentType": "application/x-eps",
+  "bytes": 20096,
+  "collected_at": "2026-11-11T16:08:38.862Z",
+  "format": "eps"
+}

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-11T09:57:50.107Z",
+  "generated_at": "2026-11-12T00:25:46.417Z",
   "source": "offline_readonly_evidence",
-  "count": 26,
+  "count": 32,
   "items": [
     {
       "sample_id": "dieline-crashlock-100x80x50",
@@ -69,7 +69,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-mailer-200x150x50.eps",
       "sha256": "40863d58eaa219328806917f641164a5bcd65fb6bf88b4ef1cea616c8a9cb957",
       "bytes": 78,
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x50",
       "import_ok": false,
       "import_reason": "not_eps_header",
@@ -81,7 +81,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-mailerbox-100x80x50.eps",
       "sha256": "78544b9816e73a0adcb92049783682f7b8f72bc293d192a57a89231ff9362c5d",
       "bytes": 26388,
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "100x80x50",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -93,7 +93,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-mailerbox-200x150x100.eps",
       "sha256": "254501849f827c4b61c6c510e6cb86ac0fedf5a744e7777d1c2dfef980c1b630",
       "bytes": 27234,
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x100",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -105,7 +105,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-mailerbox-200x150x50.eps",
       "sha256": "e77b51feea13e7237c49f820e912f977d97c3b2245590e53fa1f70eeb10496ae",
       "bytes": 27728,
-      "product": "mailerbox",
+      "product": "mailer",
       "dims_mm_guess": "200x150x50",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -117,7 +117,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-pillow-100x80x40.eps",
       "sha256": "187c38cb039240e423b82b96a911fe6315235a74afb02d6d599b5cd76e6287d6",
       "bytes": 22896,
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "100x80x40",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -129,7 +129,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-pillow-200x150x100.eps",
       "sha256": "2be977886fa6d01593242555109b580b383135ba6e540662222964f1de5df905",
       "bytes": 26536,
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "200x150x100",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -141,7 +141,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-pillow-80x60x40.eps",
       "sha256": "fa6d63b2c72d7a2ffa462770706ef80c06b63609e193f71235bf2280c8429033",
       "bytes": 21772,
-      "product": "pillowbox",
+      "product": "pillow",
       "dims_mm_guess": "80x60x40",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -177,7 +177,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-tray-150x100x40.eps",
       "sha256": "7baa256795dc7fc3aada89a149d7a9f5322629c2d0cf565f335ab932dd65d2db",
       "bytes": 27887,
-      "product": "tray",
+      "product": null,
       "dims_mm_guess": "150x100x40",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -189,7 +189,7 @@
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\dieline-tray-200x150x100.eps",
       "sha256": "694b15938381bb20844f7ac7f1dd600ea7685dcf4c4537e3176e697a5494835d",
       "bytes": 27910,
-      "product": "tray",
+      "product": null,
       "dims_mm_guess": "200x150x100",
       "import_ok": true,
       "import_reason": "eps_indexed_only",
@@ -205,7 +205,7 @@
       "dims_mm_guess": "100x80x80",
       "import_ok": true,
       "import_reason": "json_meta",
-      "role": "meta"
+      "role": "json_meta"
     },
     {
       "sample_id": "studio-api-dieline-overlay-ok",
@@ -217,7 +217,7 @@
       "dims_mm_guess": null,
       "import_ok": true,
       "import_reason": "json_meta",
-      "role": "other"
+      "role": "json_meta"
     },
     {
       "sample_id": "studio-api-dieline-overlay-origin",
@@ -229,7 +229,7 @@
       "dims_mm_guess": null,
       "import_ok": true,
       "import_reason": "json_meta",
-      "role": "other"
+      "role": "json_meta"
     },
     {
       "sample_id": "studio-dieline-100_80_80",
@@ -244,6 +244,18 @@
       "role": "vector_svg"
     },
     {
+      "sample_id": "studio-dieline-productbox-crashlock-100_70_80",
+      "name": "studio-dieline-productbox-crashlock-100_70_80.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_70_80.svg",
+      "sha256": "78ebe324fc3ca85ab12046d5926cba74bb81c8396f4871843efb87f5a42d5f99",
+      "bytes": 12326,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x70x80",
+      "import_ok": true,
+      "import_reason": "svg",
+      "role": "vector_svg"
+    },
+    {
       "sample_id": "studio-dieline-productbox-crashlock-100_80_50",
       "name": "studio-dieline-productbox-crashlock-100_80_50.svg",
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_50.svg",
@@ -253,6 +265,18 @@
       "dims_mm_guess": "100x80x50",
       "import_ok": false,
       "import_reason": "cdn_access_denied_stub_not_dieline",
+      "role": "cdn_access_denied_stub"
+    },
+    {
+      "sample_id": "studio-dieline-productbox-crashlock-100_80_70",
+      "name": "studio-dieline-productbox-crashlock-100_80_70.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_70.svg",
+      "sha256": "d7b3255e3dc19fa3c49f9a3aaf9e3f3707f171f9f9abcaccb6a94e2e98b9d10d",
+      "bytes": 12253,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x70",
+      "import_ok": true,
+      "import_reason": "svg",
       "role": "vector_svg"
     },
     {
@@ -268,15 +292,51 @@
       "role": "vector_svg"
     },
     {
+      "sample_id": "studio-dieline-productbox-crashlock-100_80_90",
+      "name": "studio-dieline-productbox-crashlock-100_80_90.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_80_90.svg",
+      "sha256": "0402e8c444135af89615fb0f2455fdba11b7e0d34624dec5f1ed7355e0683d2e",
+      "bytes": 12253,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x80x90",
+      "import_ok": true,
+      "import_reason": "svg",
+      "role": "vector_svg"
+    },
+    {
+      "sample_id": "studio-dieline-productbox-crashlock-100_90_80",
+      "name": "studio-dieline-productbox-crashlock-100_90_80.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-100_90_80.svg",
+      "sha256": "191aad8479775e91d07b6bc3ac6f1c8d8210920777ddd5dc3f3e0644d8ef6dc7",
+      "bytes": 12337,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "100x90x80",
+      "import_ok": true,
+      "import_reason": "svg",
+      "role": "vector_svg"
+    },
+    {
+      "sample_id": "studio-dieline-productbox-crashlock-110_80_80",
+      "name": "studio-dieline-productbox-crashlock-110_80_80.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-110_80_80.svg",
+      "sha256": "f102d9a7c6756a23c1b2daf3552a8929e95bc65ca88a6a30c24a2dbbf358f718",
+      "bytes": 12326,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "110x80x80",
+      "import_ok": true,
+      "import_reason": "svg",
+      "role": "vector_svg"
+    },
+    {
       "sample_id": "studio-dieline-productbox-crashlock-120_90_60",
       "name": "studio-dieline-productbox-crashlock-120_90_60.svg",
       "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-120_90_60.svg",
-      "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
-      "bytes": 111,
+      "sha256": "614ac7ddd733245f44d65d7b42740b6b8d44c8d5285643d480d2184297f7f2c9",
+      "bytes": 12333,
       "product": "productbox-crashlock",
       "dims_mm_guess": "120x90x60",
-      "import_ok": false,
-      "import_reason": "cdn_access_denied_stub_not_dieline",
+      "import_ok": true,
+      "import_reason": "svg",
       "role": "vector_svg"
     },
     {
@@ -301,7 +361,7 @@
       "dims_mm_guess": "300x200x150",
       "import_ok": false,
       "import_reason": "cdn_access_denied_stub_not_dieline",
-      "role": "vector_svg"
+      "role": "cdn_access_denied_stub"
     },
     {
       "sample_id": "studio-dieline-productbox-crashlock-55_55_75",
@@ -311,6 +371,18 @@
       "bytes": 12250,
       "product": "productbox-crashlock",
       "dims_mm_guess": "55x55x75",
+      "import_ok": true,
+      "import_reason": "svg",
+      "role": "vector_svg"
+    },
+    {
+      "sample_id": "studio-dieline-productbox-crashlock-90_80_80",
+      "name": "studio-dieline-productbox-crashlock-90_80_80.svg",
+      "abs_readonly": "C:\\Users\\ROG STRIX\\Downloads\\pacdora-vue3-v2\\pacdora-vue3-v2\\docs\\packative-research\\evidence\\studio-dieline-productbox-crashlock-90_80_80.svg",
+      "sha256": "c86ffe1d4629fc488d36eb69451130793de4966f68efa7dc2d3666589a409d38",
+      "bytes": 12324,
+      "product": "productbox-crashlock",
+      "dims_mm_guess": "90x80x80",
       "import_ok": true,
       "import_reason": "svg",
       "role": "vector_svg"

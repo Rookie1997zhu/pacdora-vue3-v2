@@ -15,6 +15,20 @@ export type FeatureSummary = {
   candidateMmPerUu: number | null
 }
 
+export type LinearCoeff = { a: number; b: number; c: number; d: number; rmse: number; n: number }
+
+export type InteractCoeff = {
+  a: number
+  b: number
+  c: number
+  d: number
+  e: number
+  f: number
+  g: number
+  rmse: number
+  n: number
+}
+
 export function summarizeFeatures(
   doc: SvgNormalizeResult,
   dims: { L: number; W: number; H: number } | null,
@@ -41,35 +55,10 @@ export function summarizeFeatures(
   }
 }
 
-/** Fit y ≈ a*L + b*W + c*H + d with ordinary least squares (4+ samples). */
-export function fitLinearLWH(
-  rows: Array<{ L: number; W: number; H: number; y: number }>,
-): { a: number; b: number; c: number; d: number; rmse: number; n: number } | null {
-  if (rows.length < 4) return null
-  // Normal equations for [L W H 1]
-  const XtX = Array.from({ length: 4 }, () => Array(4).fill(0))
-  const XtY = Array(4).fill(0)
-  for (const r of rows) {
-    const x = [r.L, r.W, r.H, 1]
-    for (let i = 0; i < 4; i++) {
-      XtY[i] += x[i] * r.y
-      for (let j = 0; j < 4; j++) XtX[i][j] += x[i] * x[j]
-    }
-  }
-  const coeff = solve4(XtX, XtY)
-  if (!coeff) return null
-  const [a, b, c, d] = coeff
-  let sse = 0
-  for (const r of rows) {
-    const pred = a * r.L + b * r.W + c * r.H + d
-    sse += (pred - r.y) ** 2
-  }
-  return { a, b, c, d, rmse: Math.sqrt(sse / rows.length), n: rows.length }
-}
-
-function solve4(A: number[][], b: number[]): number[] | null {
+/** Gaussian elimination for n×n; returns null if singular. */
+export function solveN(A: number[][], b: number[]): number[] | null {
+  const n = b.length
   const M = A.map((row, i) => [...row, b[i]])
-  const n = 4
   for (let col = 0; col < n; col++) {
     let pivot = col
     for (let r = col + 1; r < n; r++) if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r
@@ -84,4 +73,66 @@ function solve4(A: number[][], b: number[]): number[] | null {
     }
   }
   return M.map((row) => row[n])
+}
+
+/** Fit y ≈ a*L + b*W + c*H + d with ordinary least squares (4+ samples). */
+export function fitLinearLWH(
+  rows: Array<{ L: number; W: number; H: number; y: number }>,
+): LinearCoeff | null {
+  if (rows.length < 4) return null
+  const XtX = Array.from({ length: 4 }, () => Array(4).fill(0))
+  const XtY = Array(4).fill(0)
+  for (const r of rows) {
+    const x = [r.L, r.W, r.H, 1]
+    for (let i = 0; i < 4; i++) {
+      XtY[i] += x[i] * r.y
+      for (let j = 0; j < 4; j++) XtX[i][j] += x[i] * x[j]
+    }
+  }
+  const coeff = solveN(XtX, XtY)
+  if (!coeff) return null
+  const [a, b, c, d] = coeff
+  let sse = 0
+  for (const r of rows) {
+    const pred = a * r.L + b * r.W + c * r.H + d
+    sse += (pred - r.y) ** 2
+  }
+  return { a, b, c, d, rmse: Math.sqrt(sse / rows.length), n: rows.length }
+}
+
+/** Fit y ≈ aL+bW+cH + e·LW + f·LH + g·WH + d (7+ samples). */
+export function fitLinearLWHInteract(
+  rows: Array<{ L: number; W: number; H: number; y: number }>,
+): InteractCoeff | null {
+  if (rows.length < 7) return null
+  const XtX = Array.from({ length: 7 }, () => Array(7).fill(0))
+  const XtY = Array(7).fill(0)
+  for (const r of rows) {
+    const x = [r.L, r.W, r.H, 1, r.L * r.W, r.L * r.H, r.W * r.H]
+    for (let i = 0; i < 7; i++) {
+      XtY[i] += x[i] * r.y
+      for (let j = 0; j < 7; j++) XtX[i][j] += x[i] * x[j]
+    }
+  }
+  const coeff = solveN(XtX, XtY)
+  if (!coeff) return null
+  const [a, b, c, d, e, f, g] = coeff
+  let sse = 0
+  for (const r of rows) {
+    const pred = a * r.L + b * r.W + c * r.H + d + e * r.L * r.W + f * r.L * r.H + g * r.W * r.H
+    sse += (pred - r.y) ** 2
+  }
+  return { a, b, c, d, e, f, g, rmse: Math.sqrt(sse / rows.length), n: rows.length }
+}
+
+export function predLinear(
+  c: { a: number; b: number; c: number; d: number; e?: number; f?: number; g?: number },
+  L: number,
+  W: number,
+  H: number,
+): number {
+  const e = c.e ?? 0
+  const f = c.f ?? 0
+  const g = c.g ?? 0
+  return c.a * L + c.b * W + c.c * H + c.d + e * L * W + f * L * H + g * W * H
 }
