@@ -103,8 +103,14 @@
             <li v-for="item in items" :key="item.id">
               <RouterLink class="card" :to="`/library/dielines/${item.id}`">
                 <div class="slot" aria-hidden="true">
-                  <span class="box-shape" />
-                  <em class="badge">{{ t('library.fixedBadge') }}</em>
+                  <SafeSvgPreview
+                    v-if="item.has_preview && item.preview_revision_id"
+                    class="thumb"
+                    compact
+                    :revision-id="item.preview_revision_id"
+                  />
+                  <span v-else class="box-shape" />
+                  <em class="bc-badge bc-badge--overlay" data-kind="flat">{{ t('library.fixedBadge') }}</em>
                 </div>
                 <div class="meta">
                   <strong>{{ displayTitle(item) }}</strong>
@@ -133,6 +139,7 @@ import { ApiError } from '../../api/client'
 import AppShell from '../../components/layout/AppShell.vue'
 import { useAuthStore } from '../../stores/auth'
 import { fetchVariants, type VariantListFilters, type VariantSummary } from './api'
+import SafeSvgPreview from './components/SafeSvgPreview.vue'
 
 const { t, locale } = useI18n()
 const auth = useAuthStore()
@@ -303,6 +310,12 @@ onMounted(() => {
   position: relative;
   display: grid;
   place-items: center;
+  overflow: hidden;
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
 }
 
 .box-shape {
@@ -311,20 +324,6 @@ onMounted(() => {
   background: #fff;
   border: 1.5px solid var(--bc-ink);
   box-shadow: 10px 10px 0 -1px var(--bc-steel-soft), 10px 10px 0 0 var(--bc-steel);
-}
-
-.badge {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--bc-line);
-  color: var(--bc-ink);
 }
 
 .meta {

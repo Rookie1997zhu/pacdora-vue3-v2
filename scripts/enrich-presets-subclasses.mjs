@@ -1,6 +1,6 @@
 /**
  * 给 presets 打官方子类标签并生成侧栏统计。
- * 运输箱-only：无 structure_inventory 时，全部标为「运输箱」，并按名称启发式叠加 mailer/tuck/handle 等。
+ * 无 structure_inventory 时：按 categoryId（运输箱/邮寄盒）打底，再按名称启发式叠加 tuck/handle 等。
  */
 import {readFileSync,writeFileSync,existsSync} from 'node:fs'
 import {join,dirname} from 'node:path'
@@ -60,8 +60,10 @@ function parseSubclassLabels(raw){
 }
 
 function inferShippingSubs(p){
-  const text=`${p.label||''} ${p.sourceNum||''}`.toLowerCase()
-  const labels=new Set(['运输箱'])
+  const text=`${p.label||''} ${p.sourceNum||''} ${p.categoryLabel||''}`.toLowerCase()
+  const labels=new Set()
+  if(p.categoryId==='mailer')labels.add('邮寄盒')
+  else labels.add('运输箱')
   if(/mailer|邮寄|飞机|aircraft|flip.?top|翻盖/.test(text))labels.add('邮寄盒')
   if(/tuck|插舌|插口|反锁|锁底|snap.?lock|auto.?bottom/.test(text))labels.add('插口盒')
   if(/folding|折叠|配送/.test(text))labels.add('折叠盒')
@@ -100,8 +102,10 @@ let withSub=0,without=0
 for(const p of data.presets||[]){
   let subs=numToSubs[String(p.sourceNum)]||[]
   if(!subs.length)subs=inferShippingSubs(p)
-  // 运输箱目录：保证至少有 shipping
-  if(!subs.some(s=>s.id==='shipping')&&(p.categoryId==='shipping'||!p.categoryId)){
+  // 保证类目底标：运输箱 / 邮寄盒
+  if(p.categoryId==='mailer'&&!subs.some(s=>s.id==='mailer')){
+    subs=[{id:'mailer',label:'邮寄盒'},...subs]
+  }else if((p.categoryId==='shipping'||!p.categoryId)&&!subs.some(s=>s.id==='shipping')){
     subs=[{id:'shipping',label:'运输箱'},...subs]
   }
   p.subclassIds=subs.map(s=>s.id)
@@ -117,10 +121,10 @@ const subclasses=OFFICIAL_SUBCLASS_DEFS.map(d=>({
   label:d.label,
   nameKey:d.nameKey,
   count:counts[d.id]||0
-})).filter(s=>s.count>0||s.id==='shipping')
+})).filter(s=>s.count>0||s.id==='shipping'||s.id==='mailer')
 
 data.officialSubclasses=subclasses
-data.subclassNote='Shipping-only official subclasses; a preset may belong to multiple.'
+data.subclassNote='Shipping+mailer official subclasses; a preset may belong to multiple.'
 
 writeFileSync(
   presetsPath,
@@ -129,7 +133,7 @@ writeFileSync(
 
 writeFileSync(
   outDefs,
-  `/** Pacdora-aligned official box subclasses — shipping-only */\nexport const OFFICIAL_SUBCLASS_DEFS=${JSON.stringify(OFFICIAL_SUBCLASS_DEFS,null,2)}\n`
+  `/** Pacdora-aligned official box subclasses — shipping+mailer */\nexport const OFFICIAL_SUBCLASS_DEFS=${JSON.stringify(OFFICIAL_SUBCLASS_DEFS,null,2)}\n`
 )
 
 console.log(JSON.stringify({

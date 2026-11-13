@@ -15,13 +15,13 @@
             <div class="slot" aria-hidden="true">
               <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" alt="" />
               <span v-else class="box-shape" />
-              <em class="badge">
-                {{ p.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}
+              <em class="bc-badge bc-badge--overlay" :data-kind="geometryBadgeKind(p.geometry_mode)">
+                {{ geometryBadgeLabel(p.geometry_mode) }}
               </em>
             </div>
             <div class="meta">
               <strong>{{ locale === 'ko-KR' && p.name_ko ? p.name_ko : p.name }}</strong>
-              <span>{{ p.category }} · {{ p.geometry_mode }}</span>
+              <span class="bc-chip" :data-kind="categoryBadgeKind(p.category)">{{ p.category }}</span>
             </div>
           </RouterLink>
         </li>
@@ -34,7 +34,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { fetchProducts, type ProductSummary } from '../api/catalog'
+import {
+  categoryBadgeKind,
+  fetchProducts,
+  geometryBadgeKind,
+  type ProductSummary,
+} from '../api/catalog'
 import { ApiError } from '../api/client'
 // @ts-expect-error JS asset helper
 import { publicAssetUrl } from '../assetUrl.js'
@@ -47,6 +52,12 @@ const error = ref('')
 
 function coverUrl(rel: string) {
   return publicAssetUrl(rel)
+}
+
+function geometryBadgeLabel(mode: ProductSummary['geometry_mode']) {
+  if (mode === 'fixed_snapshot') return t('site.sizeLockedBadge')
+  if (mode === 'model_only') return t('site.modelOnlyBadge')
+  return t('site.customSizeBadge')
 }
 
 onMounted(async () => {
@@ -86,12 +97,38 @@ onMounted(async () => {
   border: 1px solid var(--bc-line);
   background: var(--bc-paper-elevated);
   transition: transform var(--bc-ease), border-color var(--bc-ease), box-shadow var(--bc-ease);
+  animation: card-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+.grid li:nth-child(1) .card { animation-delay: 0ms; }
+.grid li:nth-child(2) .card { animation-delay: 40ms; }
+.grid li:nth-child(3) .card { animation-delay: 80ms; }
+.grid li:nth-child(4) .card { animation-delay: 120ms; }
+.grid li:nth-child(5) .card { animation-delay: 160ms; }
+.grid li:nth-child(6) .card { animation-delay: 200ms; }
+.grid li:nth-child(n + 7) .card { animation-delay: 200ms; }
 
 .card:hover {
   transform: translateY(-3px);
   border-color: var(--bc-line-strong);
   box-shadow: var(--bc-shadow);
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
 }
 
 .slot {
@@ -118,34 +155,15 @@ onMounted(async () => {
   display: block;
 }
 
-.badge {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--bc-line);
-  color: var(--bc-ink);
-}
-
 .meta {
   padding: 14px 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .meta strong {
-  font-size: 14px;
+  font-size: var(--bc-fs-body);
   font-weight: 600;
-}
-
-.meta span {
-  font-size: 12px;
-  color: var(--bc-ink-muted);
 }
 </style>

@@ -1,0 +1,48 @@
+{
+  "templateId": "fefco-0201",
+  "dimensionBasis": "inner",
+  "qualificationStatus": "engineering_review",
+  "compensationNote": "sizeRule panelAdd/outerAdd schematic; slot=max(2,T); flapH=inner.W/2-meetGap/2 with meetGap=max(1,0.5T); free-corner fillets empirical. NOT production / NOT sample-verified.",
+  "lengthMm": [
+    200,
+    400
+  ],
+  "widthMm": [
+    150,
+    300
+  ],
+  "heightMm": [
+    100,
+    250
+  ],
+  "thicknessMm": [
+    2,
+    4
+  ],
+  "materialIds": [
+    "kraft"
+  ],
+  "fluteDirections": [
+    "L"
+  ],
+  "anchors": [
+    {
+      "lengthMm": 300,
+      "widthMm": 200,
+      "heightMm": 150,
+      "thicknessMm": 3
+    },
+    {
+      "lengthMm": 200,
+      "widthMm": 150,
+      "heightMm": 100,
+      "thicknessMm": 2
+    },
+    {
+      "lengthMm": 400,
+      "widthMm": 300,
+      "heightMm": 250,
+      "thicknessMm": 4
+    }
+  ]
+}

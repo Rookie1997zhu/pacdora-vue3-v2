@@ -208,8 +208,17 @@ const auth = useAuthStore()
 }
 
 @media (max-width: 520px) {
-  .shell-cta {
+  .shell-account {
     display: none;
+  }
+  .shell-lang button {
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+  .shell-cta {
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 12px;
   }
   .shell-nav a {
     padding: 6px 8px;

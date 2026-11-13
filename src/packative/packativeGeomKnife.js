@@ -179,6 +179,64 @@ function parseViewBoxAttr(vbRaw) {
   return viewBox.length === 4 ? viewBox : null
 }
 
+/** Parse SVG length → mm. Unitless / unknown → null (not trusted). Never assume 96dpi. */
+export function parseSvgLengthToMm(raw) {
+  const s = String(raw || '').trim()
+  if (!s) return null
+  const m = /^([+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?)\s*(mm|cm|in|pt|pc|px)?$/i.exec(s)
+  if (!m) return null
+  const v = Number(m[1])
+  if (!Number.isFinite(v)) return null
+  const u = (m[2] || '').toLowerCase()
+  if (!u) return null
+  if (u === 'mm') return v
+  if (u === 'cm') return v * 10
+  if (u === 'in') return v * 25.4
+  if (u === 'pt') return v * (25.4 / 72)
+  if (u === 'pc') return v * (25.4 / 6)
+  // px without explicit CSS absolute mapping is not trusted for engineering
+  if (u === 'px') return null
+  return null
+}
+
+/**
+ * Derive unit provenance from viewBox + physical width/height.
+ * trusted only when both width & height declare absolute units and match viewBox aspect.
+ */
+export function derivePackativeUnitProvenance({ viewBox, widthAttr, heightAttr, transform } = {}) {
+  const vb = Array.isArray(viewBox) && viewBox.length === 4 ? viewBox : null
+  const physW = parseSvgLengthToMm(widthAttr)
+  const physH = parseSvgLengthToMm(heightAttr)
+  const base = {
+    viewBox: vb,
+    widthAttr: widthAttr || null,
+    heightAttr: heightAttr || null,
+    transform: transform || null,
+    physicalWidthMm: physW,
+    physicalHeightMm: physH,
+    mmPerUnit: null,
+    unitConfidence: 'untrusted',
+    conversionLoss: [],
+  }
+  if (!vb || !(vb[2] > 0) || !(vb[3] > 0)) {
+    base.conversionLoss.push('missing_or_invalid_viewBox')
+    return base
+  }
+  if (physW == null || physH == null) {
+    base.conversionLoss.push('missing_absolute_width_or_height')
+    return base
+  }
+  const sx = physW / vb[2]
+  const sy = physH / vb[3]
+  if (!(sx > 0) || !(sy > 0) || Math.abs(sx - sy) / Math.max(sx, sy) > 0.02) {
+    base.conversionLoss.push('width_height_viewBox_scale_mismatch')
+    return base
+  }
+  base.mmPerUnit = Math.round(((sx + sy) / 2) * 1e6) / 1e6
+  base.unitConfidence = 'trusted'
+  return base
+}
+
 function attrOf(tag, name) {
   const m = new RegExp(`${name}="([^"]*)"`, 'i').exec(tag)
   return m ? m[1] : ''
@@ -186,10 +244,20 @@ function attrOf(tag, name) {
 
 /** DOMParser 不可用时（Node 校验脚本）用正则抽取 line/path */
 function parsePackativeOfficialSvgRegex(text) {
-  const vb = /viewBox="([^"]+)"/i.exec(text)
+  const root = /<svg\b[^>]*>/i.exec(text)?.[0] || ''
+  const vb = /viewBox="([^"]+)"/i.exec(root) || /viewBox="([^"]+)"/i.exec(text)
   const viewBox = parseViewBoxAttr(vb?.[1])
+  const widthAttr = attrOf(root, 'width') || null
+  const heightAttr = attrOf(root, 'height') || null
   const gm = /<g[^>]*transform="([^"]*)"/i.exec(text)
-  const t = parseSvgTransform(gm?.[1] || '')
+  const transformRaw = gm?.[1] || ''
+  const t = parseSvgTransform(transformRaw)
+  const unitProvenance = derivePackativeUnitProvenance({
+    viewBox,
+    widthAttr,
+    heightAttr,
+    transform: transformRaw || null,
+  })
   const cuts = []
   const creases = []
   const pushRole = (role, segs) => {
@@ -217,13 +285,13 @@ function parsePackativeOfficialSvgRegex(text) {
     const poly = pathDToPolyline(attrOf(tag, 'd') || '', t, { arcSegs: 10 })
     pushRole(role, polylineToSegs(poly))
   }
-  return { cuts, creases, viewBox }
+  return { cuts, creases, viewBox, widthAttr, heightAttr, unitProvenance }
 }
 
 /**
  * 解析官方 SVG → Cutting / Creasing 线段（已应用根 g 变换）。
  * @param {string} svgText
- * @returns {{ cuts: Array<{x1:number,y1:number,x2:number,y2:number}>, creases: Array<{x1:number,y1:number,x2:number,y2:number}>, viewBox: number[]|null }}
+ * @returns {{ cuts, creases, viewBox, widthAttr, heightAttr, unitProvenance }}
  */
 export function parsePackativeOfficialSvg(svgText) {
   const text = String(svgText || '')
@@ -233,8 +301,17 @@ export function parsePackativeOfficialSvg(svgText) {
   const svg = doc.querySelector('svg')
   if (!svg) throw new Error('missing svg root')
   const viewBox = parseViewBoxAttr(svg.getAttribute('viewBox'))
+  const widthAttr = svg.getAttribute('width')
+  const heightAttr = svg.getAttribute('height')
   const g = svg.querySelector('g[transform]') || svg.querySelector('g')
-  const t = parseSvgTransform(g?.getAttribute('transform') || '')
+  const transformRaw = g?.getAttribute('transform') || ''
+  const t = parseSvgTransform(transformRaw)
+  const unitProvenance = derivePackativeUnitProvenance({
+    viewBox,
+    widthAttr,
+    heightAttr,
+    transform: transformRaw || null,
+  })
   const cuts = []
   const creases = []
   const pushRole = (role, segs) => {
@@ -257,7 +334,7 @@ export function parsePackativeOfficialSvg(svgText) {
     const poly = pathDToPolyline(path.getAttribute('d') || '', t, { arcSegs: 10 })
     pushRole(role, polylineToSegs(poly))
   }
-  return { cuts, creases, viewBox }
+  return { cuts, creases, viewBox, widthAttr, heightAttr, unitProvenance }
 }
 
 /** 已有 normalized 线段（研究台）→ 同构输入 */
@@ -400,13 +477,32 @@ function segsToPathList(segs) {
 }
 
 /**
- * @param {{ cuts: any[], creases: any[], viewBox?: number[]|null }} geom
+ * @param {{ cuts: any[], creases: any[], viewBox?: number[]|null, unitProvenance?: object }} geom
  * @param {{ L:number, W:number, H:number, templateId?:string, label?:string, geomRel?:string, bleed?:number }} meta
  */
 export function knifeFromPackativeGeom(geom, meta = {}) {
-  const cuts = Array.isArray(geom?.cuts) ? geom.cuts : []
-  const creases = Array.isArray(geom?.creases) ? geom.creases : []
+  let cuts = Array.isArray(geom?.cuts) ? geom.cuts : []
+  let creases = Array.isArray(geom?.creases) ? geom.creases : []
   if (!cuts.length && !creases.length) throw new Error('packative geom has no Cutting/Creasing segments')
+
+  const provenance = geom?.unitProvenance ||
+    derivePackativeUnitProvenance({
+      viewBox: geom?.viewBox,
+      widthAttr: geom?.widthAttr,
+      heightAttr: geom?.heightAttr,
+    })
+  const unitTrusted = provenance.unitConfidence === 'trusted' && Number(provenance.mmPerUnit) > 0
+  const scale = unitTrusted ? Number(provenance.mmPerUnit) : 1
+  if (scale !== 1) {
+    const sc = (s) => ({
+      x1: s.x1 * scale,
+      y1: s.y1 * scale,
+      x2: s.x2 * scale,
+      y2: s.y2 * scale,
+    })
+    cuts = cuts.map(sc)
+    creases = creases.map(sc)
+  }
 
   const L = Number(meta.L) || 0
   const W = Number(meta.W) || 0
@@ -448,7 +544,10 @@ export function knifeFromPackativeGeom(geom, meta = {}) {
     x2: r3(s.x2),
     y2: r3(s.y2),
   }))
-  const bounds = boundsFromSegs([cutSegs, folds, bleeds], geom?.viewBox)
+  const vbScaled = Array.isArray(geom?.viewBox) && geom.viewBox.length === 4 && scale !== 1
+    ? [geom.viewBox[0] * scale, geom.viewBox[1] * scale, geom.viewBox[2] * scale, geom.viewBox[3] * scale]
+    : geom?.viewBox
+  const bounds = boundsFromSegs([cutSegs, folds, bleeds], vbScaled)
   const layers = {
     trim: { role: 'trim', color: '#2028b0', segments: cutSegs },
     crease: { role: 'crease', color: '#fa0000', dash: true, segments: folds },
@@ -457,7 +556,8 @@ export function knifeFromPackativeGeom(geom, meta = {}) {
 
   return {
     schema: 'boxcraft.knife.v3',
-    unit: 'mm',
+    // Preview may treat numbers as mm; engineering requires provenance.unitConfidence==='trusted'
+    unit: unitTrusted ? 'mm' : 'user',
     template: `packative-geom:${templateId}`,
     templateInfo: {
       id: `packative-geom:${templateId}`,
@@ -468,6 +568,17 @@ export function knifeFromPackativeGeom(geom, meta = {}) {
     },
     geomMode: true,
     fromPackativeGeom: true,
+    provenance: {
+      source: 'packative-svg',
+      lockedSample: true,
+      unitConfidence: provenance.unitConfidence || 'untrusted',
+      mmPerUnit: provenance.mmPerUnit,
+      viewBox: provenance.viewBox,
+      physicalWidthMm: provenance.physicalWidthMm,
+      physicalHeightMm: provenance.physicalHeightMm,
+      conversionLoss: provenance.conversionLoss || [],
+      engineeringExportAllowed: unitTrusted,
+    },
     dimensions: {
       length: L,
       width: W,
@@ -532,7 +643,16 @@ export function knifeFromPackativeGeom(geom, meta = {}) {
     productionReady: false,
     validation: {
       ok: true,
-      checks: [{ id: 'packative-geom', ok: true, detail: 'official Cutting/Creasing SVG playback (2D only)' }],
+      checks: [
+        { id: 'packative-geom', ok: true, detail: 'official Cutting/Creasing SVG playback (2D only)' },
+        {
+          id: 'unitConfidence',
+          ok: unitTrusted,
+          detail: unitTrusted
+            ? `trusted mmPerUnit=${provenance.mmPerUnit}`
+            : `untrusted: ${(provenance.conversionLoss || []).join(',') || 'no absolute size'}`,
+        },
+      ],
     },
   }
 }

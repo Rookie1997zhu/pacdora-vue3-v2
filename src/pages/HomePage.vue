@@ -43,30 +43,32 @@ const { t } = useI18n()
 }
 
 .hero-copy {
-  max-width: 560px;
+  max-width: 580px;
+  animation: copy-in 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .brand-logo {
   display: block;
-  width: min(100%, 360px);
+  width: min(100%, 400px);
   height: auto;
-  margin: 0 0 18px;
+  margin: 0 0 22px;
 }
 
 h1 {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-family: var(--bc-font-display);
-  font-size: clamp(22px, 3vw, 34px);
+  font-size: clamp(28px, 4.2vw, 48px);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
   color: var(--bc-ink);
 }
 
 .lead {
-  margin: 0 0 28px;
-  max-width: 42ch;
-  font-size: 16px;
+  margin: 0 0 30px;
+  max-width: 40ch;
+  font-size: 17px;
+  line-height: 1.55;
   color: var(--bc-ink-muted);
 }
 
@@ -78,17 +80,17 @@ h1 {
 
 .hero-visual {
   position: relative;
-  min-height: min(52vh, 480px);
+  min-height: min(56vh, 520px);
   border-radius: 0;
   display: grid;
   place-items: center;
-  animation: float-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: float-in 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes float-in {
+@keyframes copy-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -96,43 +98,67 @@ h1 {
   }
 }
 
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes crease-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .dieline {
   position: relative;
-  width: min(100%, 440px);
+  width: min(100%, 520px);
   aspect-ratio: 5 / 4;
-  filter: drop-shadow(0 18px 40px rgba(17, 24, 39, 0.08));
+  filter: drop-shadow(0 22px 48px rgba(36, 88, 212, 0.12));
 }
 
 .panel {
   position: absolute;
   background: #fff;
-  border: 1.5px solid var(--bc-ink);
+  border: 1.75px solid var(--bc-ink);
 }
 
 .panel.a {
-  inset: 18% 28% 18% 12%;
-  background: linear-gradient(145deg, #fff 0%, #f0f3f5 100%);
+  inset: 16% 26% 16% 10%;
+  background: linear-gradient(145deg, #fff 0%, #eef2f8 100%);
 }
 
 .panel.b {
-  inset: 18% 8% 42% 58%;
+  inset: 16% 6% 40% 56%;
   background: #f7f8fa;
   border-style: dashed;
+  border-color: var(--bc-ink-muted);
 }
 
 .panel.c {
-  inset: 58% 8% 18% 58%;
+  inset: 56% 6% 16% 56%;
   background: var(--bc-steel-soft);
   border-color: var(--bc-steel);
+  border-width: 2px;
 }
 
 .crease {
   position: absolute;
-  left: 58%;
-  top: 18%;
-  bottom: 18%;
+  left: 56%;
+  top: 16%;
+  bottom: 16%;
   width: 0;
-  border-left: 1.5px dashed var(--bc-steel);
+  border-left: 2px dashed var(--bc-steel);
+  animation: crease-pulse 3.2s ease-in-out infinite;
 }
 
 @media (max-width: 900px) {
@@ -144,6 +170,12 @@ h1 {
   .hero-visual {
     min-height: 280px;
     order: -1;
+  }
+  .dieline {
+    width: min(100%, 360px);
+  }
+  .brand-logo {
+    width: min(100%, 300px);
   }
 }
 </style>

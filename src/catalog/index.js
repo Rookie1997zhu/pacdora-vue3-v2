@@ -6,10 +6,11 @@ import {koSearchAliases,CATALOG_KO} from '../i18n/catalogKo.js'
 export const PRESET_CATALOG=data
 export const PRESETS=Object.freeze(data.presets||[])
 
-/** 粗分类 — 导入目录仅运输箱 */
+/** 粗分类 — 导入目录：运输箱 + 邮寄盒 */
 export const IMPORT_CATEGORIES=Object.freeze(
   (data.categories||[
-    {id:'shipping',label:'运输箱'}
+    {id:'shipping',label:'运输箱'},
+    {id:'mailer',label:'邮寄盒'},
   ]).map(c=>({...c,count:c.count??PRESETS.filter(p=>p.categoryId===c.id).length}))
 )
 
@@ -67,7 +68,7 @@ export function getPreset(id){
 export function searchImportedPresets(query='',{categoryId='',subclassId='',modelOnly,limit=100}={}){
   const q=String(query||'').trim().toLowerCase()
   let list=PRESETS
-  // 双保险：导入目录默认只暴露运输箱
+  // 导入目录默认运输箱；显式传 mailer 等其它类目
   const cat=categoryId||'shipping'
   list=list.filter(p=>p.categoryId===cat)
   if(subclassId==='__none__')list=list.filter(p=>!(p.subclassIds||[]).length)

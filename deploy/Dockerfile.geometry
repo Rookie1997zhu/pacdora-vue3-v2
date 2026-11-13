@@ -5,6 +5,8 @@ WORKDIR /app
 COPY services/geometry/package.json ./package.json
 RUN npm install --omit=dev
 COPY src/ ./src/
+COPY packages/geometry-schema/ ./packages/geometry-schema/
+COPY packages/crashlock-engine/ ./packages/crashlock-engine/
 COPY services/geometry/ ./services/geometry/
 WORKDIR /app/services/geometry
 ENV NODE_ENV=production

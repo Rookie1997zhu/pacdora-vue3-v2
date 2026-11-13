@@ -1,0 +1,17 @@
+{
+  "templateId": "productbox-crashlock",
+  "dimensionBasis": "inner",
+  "qualificationStatus": "engineering_review",
+  "compensationNote": "Lab parametric outline slice; thickness/kerf hooks ENABLED but unvalidated. Structural Cutting=61 Creasing=14 (raw 63 includes export zero-length artifacts — not emitted). NOT for production die cutting.",
+  "lengthMm": [55, 200],
+  "widthMm": [55, 150],
+  "heightMm": [60, 100],
+  "thicknessMm": [0.3, 1.2],
+  "materialIds": ["kraft"],
+  "fluteDirections": ["L"],
+  "anchors": [
+    { "lengthMm": 100, "widthMm": 80, "heightMm": 80, "thicknessMm": 0.6 },
+    { "lengthMm": 55, "widthMm": 55, "heightMm": 75, "thicknessMm": 0.6 },
+    { "lengthMm": 100, "widthMm": 80, "heightMm": 90, "thicknessMm": 0.6 }
+  ]
+}

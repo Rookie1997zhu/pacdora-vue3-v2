@@ -1,0 +1,17 @@
+{
+  "templateId": "mailer-parametric-demo",
+  "dimensionBasis": "inner",
+  "qualificationStatus": "engineering_review",
+  "compensationNote": "sizeRule panelAdd/outerAdd are schematic and unverified; NOT for production die cutting. Seed canExportManufacturing does not mean physical qualification.",
+  "lengthMm": [200, 450],
+  "widthMm": [120, 300],
+  "heightMm": [40, 120],
+  "thicknessMm": [1.0, 2.5],
+  "materialIds": ["kraft"],
+  "fluteDirections": ["L"],
+  "anchors": [
+    { "lengthMm": 315, "widthMm": 202, "heightMm": 62, "thicknessMm": 1.5 },
+    { "lengthMm": 300, "widthMm": 200, "heightMm": 50, "thicknessMm": 1.5 },
+    { "lengthMm": 250, "widthMm": 150, "heightMm": 40, "thicknessMm": 1.2 }
+  ]
+}

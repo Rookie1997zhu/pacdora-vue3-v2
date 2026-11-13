@@ -26,8 +26,14 @@ EXPORT_MIME = {
     'application/dxf': '.dxf',
     'application/pdf': '.pdf',
 }
+# Sample-test evidence (staff upload): raster + PDF.
+SAMPLE_MIME = {
+    **ALLOWED_MIME,
+    'application/pdf': '.pdf',
+}
 MAX_BYTES = 15 * 1024 * 1024
 MAX_EXPORT_BYTES = 40 * 1024 * 1024
+MAX_SAMPLE_BYTES = 20 * 1024 * 1024
 THUMB_MAX_EDGE = 256
 
 
@@ -272,5 +278,48 @@ def store_bytes(
         height_px=None,
         status=Asset.Status.READY,
         source=source,
+        meta=meta or {},
+    )
+
+
+@transaction.atomic
+def store_sample_bytes(
+    *,
+    organization,
+    owner,
+    data: bytes,
+    mime: str,
+    filename: str,
+    meta: dict | None = None,
+) -> Asset:
+    mime = (mime or '').strip().lower()
+    if mime not in SAMPLE_MIME:
+        raise AssetUploadError('unsupported sample evidence mime type', code='UNSUPPORTED_MIME')
+    if not data:
+        raise AssetUploadError('empty file', code='EMPTY_FILE')
+    if len(data) > MAX_SAMPLE_BYTES:
+        raise AssetUploadError('file too large', code='FILE_TOO_LARGE')
+
+    digest = hashlib.sha256(data).hexdigest()
+    asset_id = uuid.uuid4()
+    rel = Path('orgs') / str(organization.id) / 'samples' / f'{asset_id}{SAMPLE_MIME[mime]}'
+    abs_path = Path(settings.MEDIA_ROOT) / rel
+    abs_path.parent.mkdir(parents=True, exist_ok=True)
+    abs_path.write_bytes(data)
+    width_px, height_px = detect_image_size(mime, data) if mime in ALLOWED_MIME else (None, None)
+
+    return Asset.objects.create(
+        id=asset_id,
+        organization=organization,
+        owner=owner,
+        storage_key=str(rel).replace('\\', '/'),
+        original_filename=(filename or f'sample{SAMPLE_MIME[mime]}')[:255],
+        mime=mime,
+        byte_size=len(data),
+        sha256=digest,
+        width_px=width_px,
+        height_px=height_px,
+        status=Asset.Status.READY,
+        source='sample',
         meta=meta or {},
     )

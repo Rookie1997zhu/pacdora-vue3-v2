@@ -401,8 +401,38 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     bounds:{minX,minY,maxX,maxY},
     manufacturingReady:false,
     productionReady:false,
-    validation:{ok:true,checks:[{id:'pacdora-geom',ok:true,detail:'sample geometry playback'}]}
+    provenance:{
+      source:'pacdora-geom',
+      lockedSample:true,
+      unitConfidence:'trusted',
+      engineeringExportAllowed:false,
+      note:'fixed_snapshot playback — not parametric generation',
+    },
+    validation:{ok:true,checks:[{id:'pacdora-geom',ok:true,detail:'locked-sample geometry playback (not parametric)'}]}
   }
+}
+
+async function fetchGeomJson(num,meta={}){
+  const preferred=String(meta.geomPublicRel||'').replace(/^\/+/,'')
+  const candidates=[
+    preferred,
+    `mailer-geom/${num}.json`,
+    `shipping-geom/${num}.json`,
+  ].filter(Boolean)
+  let lastErr=null
+  for(const rel of candidates){
+    try{
+      const r=await fetch(publicAssetUrl(rel))
+      if(!r.ok){
+        lastErr=new Error(`geom fetch ${rel}: ${r.status}`)
+        continue
+      }
+      return await r.json()
+    }catch(err){
+      lastErr=err
+    }
+  }
+  throw lastErr||new Error(`geom fetch ${num}: not found`)
 }
 
 export async function loadPacdoraGeomKnife(sourceNum,meta={}){
@@ -410,11 +440,7 @@ export async function loadPacdoraGeomKnife(sourceNum,meta={}){
   if(!num)throw new Error('missing sourceNum')
   if(cache.has(num))return cache.get(num)
   if(inflight.has(num))return inflight.get(num)
-  const p=fetch(publicAssetUrl(`shipping-geom/${num}.json`))
-    .then(r=>{
-      if(!r.ok)throw new Error(`geom fetch ${num}: ${r.status}`)
-      return r.json()
-    })
+  const p=fetchGeomJson(num,meta)
     .then(raw=>{
       const knife=knifeFromPacdoraGeom(raw,{...meta,sourceNum:num})
       cache.set(num,knife)

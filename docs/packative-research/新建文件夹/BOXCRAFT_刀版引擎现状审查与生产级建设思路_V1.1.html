@@ -1,0 +1,99 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>BOXCRAFT 刀版引擎现状审查与生产级建设思路</title>
+<style>
+body{margin:0;background:#f2f5f7;color:#1d2933;font:15px/1.75 Arial,'Microsoft YaHei',sans-serif}
+main{max-width:1080px;margin:28px auto;background:white;padding:52px 64px;box-shadow:0 6px 28px #14253615}
+header{border-bottom:2px solid #233746;padding-bottom:25px;margin-bottom:30px}
+.kicker{color:#286184;font-size:12px;font-weight:bold;letter-spacing:2px}
+h1{font-size:32px;line-height:1.3;margin:12px 0}h2{font-size:22px;margin:38px 0 12px;border-bottom:1px solid #dce3e8;padding-bottom:8px}
+h3{font-size:17px;color:#244b66;margin:25px 0 8px}
+p{margin:8px 0}li{margin:5px 0}table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+td,th{border:1px solid #d8e0e6;padding:9px;vertical-align:top;text-align:left}th{background:#edf3f7}
+.box{padding:15px 18px;background:#edf5fa;border-left:4px solid #39749a;margin:18px 0}
+.warn{background:#fff5e3;border-color:#b98220}.risk{background:#fff0ed;border-color:#b94f43}.ok{background:#edf7f0;border-color:#43845c}
+pre{white-space:pre-wrap;word-break:break-word;background:#172631;color:#edf4f8;padding:18px;border-radius:7px;font-size:12px;line-height:1.6}
+code{background:#eef2f5;padding:2px 4px;border-radius:3px}.meta{font-size:12px;color:#61717d}
+.toc{background:#f7f9fa;padding:15px 22px;border:1px solid #dce3e8}
+footer{border-top:1px solid #dce3e8;margin-top:45px;padding-top:14px;color:#667783;font-size:12px}
+@media print{body{background:white}main{margin:0;box-shadow:none;padding:15mm}}
+</style></head><body><main><header><div class="kicker">BOXCRAFT · ENGINEERING DOCUMENT</div>
+<h1>BOXCRAFT 刀版引擎现状审查与生产级建设思路</h1><p>现有三条引擎路径的定位、源码风险、REA/采集数据利用方式，以及从实验系统走向可验证生产能力的技术判断。</p><div class="meta">版本 V1.1｜2026-11-13｜审查基线：d3c4ae1b71860f8e8e0d55464ccfc85d6e09fabf</div></header>
+
+<div class="box"><b>核心结论</b><br>不要再堆叠第四套刀版引擎，也不要推倒重写。以现有自研几何能力为主干；Pacdora、Packative 路径作为外部资产适配、研究与对照来源。先修复单位、几何验证、导出一致性和审批闭环，再逐个盒型完成真实材料打样。</div>
+<div class="toc"><b>目录</b><ol><li>审查范围与证据边界</li><li>三条引擎路径定位</li><li>关键源码风险</li><li>生产级定义</li><li>REA/爬虫数据利用</li><li>多盒型扩展</li><li>决策与优先级</li></ol></div>
+
+<div class="box warn"><b>本期范围说明：</b>本文仅讨论确定性刀版几何引擎、模板体系、材料工艺、验证、审批、版本和工程导出。自动化代理研发能力不属于本期范围，未来如有需要另行立项。</div><h2>1. 审查范围与证据边界</h2>
+<p>目标仓库：<code>https://github.com/Rookie1997zhu/pacdora-vue3-v2</code>。审查基线为 main 提交 <code>d3c4ae1b71860f8e8e0d55464ccfc85d6e09fabf</code>。检查范围包括前端刀版生成、Pacdora/Packative 适配器、研究目录、Node Geometry Service、导出模块、Django 导出审批与测试文档。</p>
+<div class="box warn"><b>重要边界：</b>本次为 GitHub 源码静态审查，没有在本地完成完整 clone、依赖安装、构建、端到端运行或真实 CAD 回读。因此本文不是本次运行验收报告。仓库已有测试报告中的 Passed 只是仓库记录，不代表本次重新执行，也不代表实物生产验证。</div>
+<p>下文将结论区分为：<b>仓库事实</b>（代码/文档可见）、<b>风险判断</b>（根据调用链推导，需测试确认）、<b>建议设计</b>（未来改造方向）。</p>
+
+<h2>2. 现有三条引擎路径的真实定位</h2>
+<table><tr><th>路径</th><th>实际实现</th><th>当前能力判断</th><th>建议定位</th></tr>
+<tr><td>Pacdora</td><td><code>pacdoraGeomKnife.js</code> 读取已有 geometry JSON，转换为面片、刀线、折线和动画数据；样本使用 locked-sample 语义。</td><td>固定规格样本适配/回放；不能据此认定已拥有 Pacdora 原生参数化算法。</td><td>外部资产适配、研究参考、对照测试。</td></tr>
+<tr><td>自研</td><td><code>src/knife.js</code> 与模板注册表计算尺寸、面板、刀线、折线；Node 服务复用同一套模块。</td><td>最接近可持续扩展的自有参数化核心，但仍有示意补偿、回退和验证边界问题。</td><td>BOXCRAFT 正式计算主干。</td></tr>
+<tr><td>Packative 主适配器</td><td><code>packativeGeomKnife.js</code> 解析已有 SVG Cutting/Creasing，转为二维刀版；部分样本锁定尺寸。</td><td>静态 SVG 几何导入，不等于完整复现 Packative 参数化引擎。</td><td>只读资产、单位/路径适配、结构对照。</td></tr>
+<tr><td>Packative 研究原型</td><td>研究目录有 crashlock 生成逻辑，如 <code>generateCrashlockWithOutline()</code>，拆分盒身、锁底和顶盖轮廓。</td><td>特定结构的参数化研究原型，不等于通用引擎或生产级。</td><td>候选盒型生成器来源，逐项验证后并入自研。</td></tr></table>
+<div class="box ok"><b>判断：</b>目前不是三套成熟引擎在竞争，而是“一套自研基础 + 两种外部资产适配路径 + 一个局部参数化研究原型”。固定样本回放不能称为任意尺寸生成。</div>
+
+<h2>3. 关键源码风险与整改要求</h2>
+<h3>3.1 Packative SVG 单位归一化</h3>
+<p>研究资料保留了候选比例 <code>25.4/96</code>，样本坐标也可观察到 SVG user unit 与毫米之间的关系。但主适配器存在把原始坐标直接标记为 mm 的风险路径。若不先处理 viewBox、width/height、单位与 transform，DXF 可能把 user unit 当作毫米。</p>
+<div class="box risk"><b>P0 修复：</b>导入时记录 sourceUnit、viewBox、physicalWidth/Height、transform chain、mmPerUnit 和换算证据。单位未知或比例冲突时允许预览，不允许工程导出。不得对所有 SVG 无条件套用 96 DPI 比例。</div>
+<h3>3.2 验证与导出参数不一致</h3>
+<p>Node Geometry Service 的验证调用和导出调用传入的参数集合不完全相同；导出侧可能额外使用 advanced params、materialId、fluteDirection。风险是检查一组参数、输出另一组参数。</p>
+<p><b>整改：</b>完整参数归一化后只生成一次不可变 GeometryDocument；验证、审批、哈希和导出均消费同一对象。</p>
+<h3>3.3 制造审批未强制几何验证</h3>
+<p>后端 <code>evaluate_manufacturing_gate()</code> 记录了几何验证结果，但最终 ok 判断存在未强制依赖 <code>validated.ok</code> 的风险。生产 gate 必须强制检查几何通过、单位可信、参数在适用域、材料工艺配置批准、导出器能力匹配及 hash 一致。</p>
+<h3>3.4 校样与工程导出混淆</h3>
+<p>现有 SVG/PDF 更偏展示校样：SVG 可能只有 viewBox，PDF 可能按页面缩放；DXF 才明确标记 physical_mm。后端不能仅凭审批快照或近似标记就将导出标为 manufacturing_ready。</p>
+<table><tr><th>校样</th><th>工程导出</th></tr><tr><td>可缩放、排版、加标注，用于沟通和视觉检查。</td><td>明确物理尺寸、单位、图层语义、几何验证、文件回读、版本和审批证据。</td></tr></table>
+<h3>3.5 静默回退和自动夹取</h3>
+<p>部分路径存在厚度夹取、未知模板默认回退、几何运算失败时使用矩形/AABB 近似等行为。它们可用于实验预览，但生产路径必须对非法输入、未知模板、布尔失败和不支持结构返回明确错误。Node API 已有拒绝未知模板的入口保护，因此问题在于底层和不同入口语义不完全统一。</p>
+<h3>3.6 曲线精度</h3>
+<p>适配器中存在 SVG arc 近似和 Bezier 固定段数采样。固定段数不能保证不同尺寸和曲率下误差一致。工程模型应保留 Line/Arc/Bezier，渲染或不支持曲线的导出格式再按 chord error 自适应离散；达到最大细分仍超差应失败。</p>
+<h3>3.7 样本范围不等于参数域验证</h3>
+<p><code>classifySize()</code> 若仅因输入落在样本 min/max 包围范围内就标为 validated，会误把未测试组合当作已验证。应区分：</p>
+<ul><li><code>sample_verified</code>：精确样本通过。</li><li><code>inferred_candidate</code>：推测范围内但未独立验证。</li><li><code>domain_qualified</code>：有验证计划与证据支持的参数域。</li></ul>
+<h3>3.8 3D 合盖不是碰撞检测</h3>
+<p>当前折叠模拟使用简化面板/包围盒逻辑，不能证明无穿透。应准确命名为闭合位置示意检查，后续再增加允许接触、胶合、锁合和干涉检查。</p>
+<h3>3.9 哈希与版本可重现性</h3>
+<p>若 geometry hash 只包含模板 ID 和部分尺寸，而不包含完整参数、材料工艺配置、生成器版本、曲线和导出配置，就不能证明输出与审批对象一致。旧版本缺失时不应静默回退到 current version。</p>
+<div class="box"><b>强制原则：</b>被验证、被审批、被导出的必须是同一个不可变几何文档；审批绑定该文档的 canonical hash。历史订单保留已批准文件，重新计算必须创建新版本并重新审批。</div>
+
+<h2>4. 生产级刀版引擎的定义</h2>
+<table><tr><th>维度</th><th>最低要求</th><th>证据</th></tr>
+<tr><td>单位与尺寸</td><td>内部单位统一 mm，坐标/原点/精度明确，输入不静默变更。</td><td>单位测试、基准尺寸、文件回读。</td></tr>
+<tr><td>几何完整性</td><td>Cut/Crease/孔洞/开口语义明确，路径按类型检查。</td><td>几何报告、黄金样本。</td></tr>
+<tr><td>结构正确性</td><td>面板、铰链、胶合、锁合、多件装配关系明确。</td><td>结构约束测试。</td></tr>
+<tr><td>材料工艺</td><td>板厚、方向、压痕、折叠、间隙、胶合、设备规则有依据。</td><td>材料工艺配置、打样数据。</td></tr>
+<tr><td>文件正确性</td><td>SVG/DXF/PDF 单位、比例、图层和曲线受控。</td><td>独立 CAD 回读、1:1 测量。</td></tr>
+<tr><td>版本可重现</td><td>生成器、参数、材料配置、导出器和审批可追溯。</td><td>不可变快照与哈希。</td></tr>
+<tr><td>生产资格</td><td>限定在模板版本、尺寸域、材料、设备和工艺条件。</td><td>实物样品、实测和工程审核。</td></tr></table>
+<div class="box warn"><b>核心认知：</b>生产资格授予“模板版本 × 结构变体 × 尺寸范围 × 材料配置 × 工艺条件 × 导出配置”，不是给整个引擎永久设置 production_ready=true。</div>
+
+<h2>5. REA / 爬虫数据的正确用法</h2>
+<p>继续研究 Packative，但从“抓更多参数”转向“推导并验证具体结构规则”。每个盒型建立证据包：</p>
+<ul><li>原始样本只读保存、来源 URL、获取日期和授权依据。</li><li>源坐标、viewBox、物理尺寸、单位换算与 transform。</li><li>结构特征：面板、胶口、锁舌、插舌、防尘翼、曲线和压痕。</li><li>规则假设：哪些量随 L/W/H/T 变化，哪些是常量，哪些存在分段边界。</li><li>生成器版本、拟合样本、独立测试样本、失败案例和误差报告。</li><li>材料、加工方式、工厂、打样结果和审核结论。</li></ul>
+<p>用于推导的样本不能同时称为独立验证样本。测试样本一旦用于修改公式，应移出最终独立测试集。整体外框拟合不能替代锁舌位置、锁底搭接、胶口、折线和装配间隙等结构规则推导。</p>
+<p>已有 crashlock 研究原型将盒身、锁底和顶盖拆分，并记录过特定留出样本的结构对照结果（如结构性裁切 61 条、压痕 14 条）。这说明研究原型有价值，不证明材料补偿、所有尺寸组合或真实设备生产已经验证。</p>
+<div class="box warn">获取到文件不等于取得商业复制、再分发或训练使用权。产品发布应使用自有设计、明确授权资料，或基于通用结构原理独立实现并保留来源审查。</div>
+
+<h2>6. 多盒型扩展：按结构家族</h2>
+<table><tr><th>家族</th><th>优先结构</th><th>复用组件</th></tr>
+<tr><td>瓦楞开槽箱</td><td>FEFCO 0201</td><td>四壁、摇盖、槽口、接舌、瓦楞方向</td></tr>
+<tr><td>折叠纸盒</td><td>插舌盒/反插舌盒</td><td>插舌、防尘翼、糊口、开窗、挂孔</td></tr>
+<tr><td>邮寄盒</td><td>翻盖邮寄盒</td><td>双层侧壁、锁舌、盖板、侧翼</td></tr>
+<tr><td>锁底盒</td><td>Crashlock</td><td>锁底组件、联动、胶合区域</td></tr>
+<tr><td>多件盒</td><td>天地盖/抽屉/内托</td><td>多坯件、配合间隙、装配约束</td></tr>
+<tr><td>异形硬盒</td><td>曲面、包覆结构</td><td>专用曲线和材料展开规则</td></tr></table>
+<p>正确架构不是一个万能公式，而是：统一几何内核 + 多个盒型生成器 + 材料工艺配置 + 独立验证器。</p>
+
+<h2>7. 决策与实施优先级</h2>
+<table><tr><th>路线</th><th>决策</th></tr>
+<tr><td>自研引擎</td><td><b>继续投入，作为正式核心。</b></td></tr>
+<tr><td>Pacdora 路径</td><td>保留适配与对照；不把样本回放当作参数化生产能力。</td></tr>
+<tr><td>Packative 路径</td><td>保留研究成果，逐个结构转化为自有生成器；补齐单位与验证证据。</td></tr>
+<tr><td>新增盒型</td><td>先暂停大规模扩张，修复可信导出链路。</td></tr>
+</table>
+<div class="box ok"><b>推荐顺序：</b>可信导出链路 → 统一 GeometryDocument → FEFCO 0201 限定条件实物验证 → 插舌盒 → 邮寄盒 → 锁底盒。</div>
+<footer>BOXCRAFT 技术文档。本文明确区分仓库审查事实、风险推断与建议设计。生产资格必须由实际测试、工艺资料、实物打样和工程审核支持。</footer></main></body></html>

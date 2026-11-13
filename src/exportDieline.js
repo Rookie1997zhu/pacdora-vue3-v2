@@ -78,18 +78,33 @@ export function toDxf(knife){
   return lines.join('\n')+'\n'
 }
 
-/** Offline SVG from layers (not DOM clone) */
-export function toSvgDieline(knife,{includeDims=true,pad}={}){
+/** Offline SVG from layers (not DOM clone).
+ * qualityTier=vector_proof：可缩放校样（仅 viewBox）。
+ * qualityTier=engineering|manufacturing：声明物理 width/height mm，与 viewBox 1:1 映射。
+ */
+export function toSvgDieline(knife,{includeDims=true,pad,qualityTier='vector_proof'}={}){
   const b=boundsOf(knife)
   const bleedPad=Number.isFinite(pad)?pad:26+Number(knife.bleedEffective??((Number(knife.bleed)||0)+10))
-  const vb=`${b.minX-bleedPad} ${b.minY-bleedPad} ${b.maxX-b.minX+2*bleedPad} ${b.maxY-b.minY+2*bleedPad}`
+  const vbX=b.minX-bleedPad,vbY=b.minY-bleedPad
+  const vbW=b.maxX-b.minX+2*bleedPad,vbH=b.maxY-b.minY+2*bleedPad
+  const vb=`${vbX} ${vbY} ${vbW} ${vbH}`
   const note=validationNote(knife)
+  const tier=String(qualityTier||'vector_proof')
+  const phys=tier==='manufacturing'||tier==='engineering'
+  const disclaimer=tier==='engineering'
+    ?`ENGINEERING CANDIDATE · COMPENSATION UNVERIFIED · NOT FOR PRODUCTION DIE · physical mm · ${note} · manufacturingReady=false`
+    :tier==='manufacturing'
+    ?`ENGINEERING SVG · physical mm · ${note} · manufacturingReady=false`
+    :`${DISCLAIMER_EN} / ${DISCLAIMER_NOTE}; PROOF ONLY; ${note}; manufacturingReady=false`
   const anns=includeDims?buildDimAnnotations(knife):[]
   const dims=anns.length?`<g id="DIMENSIONS">${dimAnnotationsToSvg(anns,{fontSize:13})}</g>`:''
+  const rootAttrs=phys
+    ?`xmlns="http://www.w3.org/2000/svg" width="${vbW}mm" height="${vbH}mm" viewBox="${vb}" fill="none"`
+    :`xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" fill="none"`
   const parts=[
     `<?xml version="1.0" encoding="UTF-8"?>`,
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" fill="none">`,
-    `<!-- ${DISCLAIMER_EN} / ${DISCLAIMER_NOTE}; ${note}; manufacturingReady=false -->`,
+    `<svg ${rootAttrs}>`,
+    `<!-- ${disclaimer} -->`,
     `<path d="${pairPath(segmentsOf(knife,'bleed'))}" stroke="${LAYER_META.bleed.color}" stroke-width="1.2" opacity="0.65"/>`,
     `<path d="${pairPath(segmentsOf(knife,'trim'))}" stroke="${LAYER_META.trim.color}" stroke-width="1.8"/>`,
     `<g stroke="${LAYER_META.crease.color}" stroke-width="1.6" stroke-dasharray="6 4">`,
@@ -108,8 +123,8 @@ function pdfSafeLabel(s){
     .replace(/[^\x20-\x7E]/g,'')
 }
 
-/** Vector proof PDF with disclaimer; returns Uint8Array */
-export async function toPdf(knife,{includeDims=true,forAi=false}={}){
+/** PDF export. vector_proof：页面缩放校样。engineering|manufacturing：标注实际 scale，不静默冒充 1:1。 */
+export async function toPdf(knife,{includeDims=true,forAi=false,qualityTier='vector_proof'}={}){
   const b=boundsOf(knife)
   const wMm=b.maxX-b.minX,hMm=b.maxY-b.minY
   const margin=36
@@ -120,20 +135,28 @@ export async function toPdf(knife,{includeDims=true,forAi=false}={}){
   const page=doc.addPage([pageW,pageH])
   const font=await doc.embedFont(StandardFonts.Helvetica)
   const fontBold=await doc.embedFont(StandardFonts.HelveticaBold)
+  const tier=String(qualityTier||'vector_proof')
+  const eng=tier==='manufacturing'||tier==='engineering'
 
   const d=knife.dimensions||{}
   const mat=knife.material?.id||'-'
   const title=`${knife.template||'mailer'} · ${d.length}x${d.width}x${d.height} mm · ${mat}`
   page.drawText(pdfSafeLabel(title),{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22)})
+
+  const drawW=pageW-margin*2,drawH=pageH-margin*2-headerH-footerH
+  const scale=Math.min(drawW/Math.max(wMm,1),drawH/Math.max(hMm,1))
+  const scaleNote=Math.abs(scale-1)<1e-6?'scale=1:1':`PROOF scale=${scale.toFixed(4)} (not 1:1 print)`
   const sub=forAi
     ?`TRIM / CREASE / BLEED · DEMO · ${validationNote(knife)} · manufacturingReady=false`
-    :`${validationNote(knife)} · manufacturingReady=false`
+    :tier==='engineering'
+      ?`ENGINEERING CANDIDATE · COMPENSATION UNVERIFIED · ${scaleNote} · ${validationNote(knife)} · manufacturingReady=false`
+    :eng
+      ?`ENGINEERING PDF · ${scaleNote} · ${validationNote(knife)} · manufacturingReady=false`
+      :`PROOF ONLY · ${scaleNote} · ${validationNote(knife)} · manufacturingReady=false`
   page.drawText(pdfSafeLabel(sub),{
     x:margin,y:pageH-44,size:8,font,color:rgb(.4,.45,.5)
   })
 
-  const drawW=pageW-margin*2,drawH=pageH-margin*2-headerH-footerH
-  const scale=Math.min(drawW/Math.max(wMm,1),drawH/Math.max(hMm,1))
   const ox=margin+(drawW-wMm*scale)/2
   const oy=margin+footerH+(drawH-hMm*scale)/2
 
@@ -181,7 +204,12 @@ export async function toPdf(knife,{includeDims=true,forAi=false}={}){
     }
   }
 
-  page.drawText(`${DISCLAIMER_EN} / manufacturingReady=false`,{
+  const foot=tier==='engineering'
+    ?`ENGINEERING CANDIDATE · NOT FOR PRODUCTION DIE · manufacturingReady=false`
+    :eng
+    ?`ENGINEERING · ${scaleNote} · manufacturingReady=false`
+    :`${DISCLAIMER_EN} / PROOF ONLY / manufacturingReady=false`
+  page.drawText(pdfSafeLabel(foot),{
     x:margin,y:18,size:9,font:fontBold,color:rgb(.75,.15,.1)
   })
 

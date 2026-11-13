@@ -1,0 +1,452 @@
+{
+  "page": "https://www.pacdora.cn/mockups/mailer-box-mockup",
+  "slug_expected": "mailer-box-mockup",
+  "ctree_hits": [
+    {
+      "path": "/盒子/邮寄盒",
+      "name": "邮寄盒",
+      "nameKey": "mailer-box",
+      "mockupNameKey": "mailer-box-mockup",
+      "count": 65,
+      "id": 317
+    }
+  ],
+  "models_total": 65,
+  "models_page1_rows": 65,
+  "sample_list": {
+    "id": 1,
+    "num": 150010,
+    "name": "翻盖礼品盒",
+    "mockupNameKey": "flip-top-boxes-mailer-mockup-150010",
+    "length": 315,
+    "width": 202,
+    "height": 62,
+    "knife_url": "https://oss.pacdora.cn/preview/dieline-150010.png"
+  },
+  "auth_code": 200,
+  "knife_probe": {
+    "code": 200,
+    "source_file": "102060.json",
+    "modeCate": {
+      "id": 1557,
+      "name": "Double carZi three-button bottom box",
+      "image": "//yun.baoxiaohe.com/admin-materials/0108c013-8e97-414a-8c97-0d6651e9a7c3.png",
+      "status": 1,
+      "sort": 102060,
+      "remarks": "Double carZi three-button bottom box",
+      "faces": "[]",
+      "cate_no": "102060",
+      "defaultSize": "[{\"length\":\"302\",\"width\":\"102\",\"height\":\"183.5\",\"remark\":\"\"}]",
+      "lengthLimit": "20,2000",
+      "widthLimit": "20,2000",
+      "heightLimit": "20,2000",
+      "code": "DoubleSafetyBuckleAndThreeBuckleButtingBox",
+      "minThickness": "0.2",
+      "price": "0.00",
+      "discount": 1,
+      "mu_price": "0.00",
+      "mu_discount": 1,
+      "min_thickness": "0.2",
+      "complex_type": 0,
+      "size_options": [],
+      "map_options": null,
+      "printExtra": [],
+      "elaborate": 0,
+      "layerList": [
+        {
+          "name": "traditional",
+          "friendlyName": "传统面纸",
+          "isGrey": false,
+          "fixedThickness": 0,
+          "minThickness": 0.2
+        }
+      ],
+      "layerGlobalSettings": null,
+      "is_enterprise": 0,
+      "openParamsStatus": 1,
+      "cate_type": 0,
+      "IsOnlyManufacture": 0,
+      "mainFace": {
+        "face": "F",
+        "side": "outside",
+        "layer": "traditional",
+        "showWatermark": true,
+        "showUploadText": true,
+        "watermarkAngle": 0,
+        "watermarkScale": 1,
+        "uploadTextAngle": 0,
+        "uploadTextScale": 1,
+        "uploadTextOffsetX": 0,
+        "uploadTextOffsetY": 0
+      },
+      "otherFaces": [
+        {
+          "faceName": "F",
+          "direction": "front",
+          "faceLayer": "traditional"
+        },
+        {
+          "faceName": "H",
+          "direction": "back",
+          "faceLayer": "traditional"
+        },
+        {
+          "faceName": "HT",
+          "direction": "top",
+          "faceLayer": "traditional"
+        },
+        {
+          "faceName": "FR",
+          "direction": "left",
+          "faceLayer": "traditional"
+        },
+        {
+          "faceName": "FL",
+          "direction": "right",
+          "faceLayer": "traditional"
+        }
+      ],
+      "displaySetting": {},
+      "advancedParamConfig": {
+        "groups": [
+          {
+            "id": "grp1",
+            "name": {
+              "de-de": "Klebelasche",
+              "en-us": "Glue flap",
+              "es-es": "Solapa de encolado",
+              "fr-fr": "Patte de collage",
+              "id-id": "Flap lem",
+              "ja-jp": "糊しろフラップ",
+              "ko-kr": "접착 플랩",
+              "pt-pt": "Aba de colagem",
+              "zh-cn": "粘口"
+            },
+            "params": [
+              {
+                "code": "G",
+                "sortOrder": 0
+              },
+              {
+                "code": "GT",
+                "sortOrder": 1
+              }
+            ],
+            "mainParam": "G",
+            "sortOrder": 0
+          },
+          {
+            "id": "tuck",
+            "name": {
+              "de-de": "Stecklasche mit Verriegelung",
+              "en-us": "Tuck flap and lock",
+              "es-es": "Solapa de cierre y bloqueo",
+              "fr-fr": "Patte de fermeture et verrouillage",
+              "id-id": "Flap selip dan pengunci",
+              "ja-jp": "差し込みロック用フラップ",
+              "ko-kr": "끼워 넣는 잠금 플랩",
+              "pt-pt": "Aba de fecho e bloqueio",
+              "zh-cn": "插舌与锁口"
+            },
+            "params": [
+              {
+                "code": "C",
+                "sortOrder": 0
+              },
+              {
+                "code": "E",
+                "sortOrder": 1
+              },
+              {
+                "code": "CR",
+                "sortOrder": 2
+              },
+              {
+                "code": "CT",
+                "sortOrder": 3
+              },
+              {
+                "code": "CX",
+                "sortOrder": 4
+              },
+              {
+                "code": "Y1",
+                "sortOrder": 5
+              },
+              {
+                "code": "Y2",
+                "sortOrder": 6
+              },
+              {
+                "code": "CR1",
+                "sortOrder": 7
+              }
+            ],
+            "mainParam": "C",
+            "sortOrder": 1
+          },
+          {
+            "id": "dust",
+            "name": {
+              "de-de": "Staublasche",
+              "en-us": "Dust flap",
+              "es-es": "Solapa antipolvo",
+              "fr-fr": "Patte anti-poussière",
+              "id-id": "Flap pelindung debu",
+              "ja-jp": "防塵フラップ",
+              "ko-kr": "먼지 방지 플랩",
+              "pt-pt": "Aba contra pó",
+              "zh-cn": "防尘翼"
+            },
+            "params": [
+              {
+                "code": "A",
+                "sortOrder": 0
+              },
+              {
+                "code": "AR",
+                "sortOrder": 1
+              },
+              {
+                "code": "ATT",
+                "sortOrder": 2
+              },
+              {
+                "code": "AX1",
+                "sortOrder": 3
+              },
+              {
+                "code": "S",
+                "sortOrder": 4
+              },
+              {
+                "code": "NX",
+                "sortOrder": 5
+              },
+              {
+                "code": "NY",
+                "sortOrder": 6
+              },
+              {
+                "code": "AX",
+                "sortOrder": 7
+              },
+              {
+                "code": "AXX",
+                "sortOrder": 8
+              },
+              {
+                "code": "AS",
+                "sortOrder": 9
+              },
+              {
+                "code": "R",
+                "sortOrder": 10
+              },
+              {
+                "code": "OF",
+                "sortOrder": 11
+              }
+            ],
+            "mainParam": "A",
+            "sortOrder": 2
+          },
+          {
+            "id": "snap",
+            "name": {
+              "de-de": "Steckboden",
+              "en-us": "Snap-lock bottom",
+              "es-es": "Fondo encajable",
+              "fr-fr": "Fond à encliquetage",
+              "id-id": "Dasar kait",
+              "ja-jp": "差し込み底",
+              "ko-kr": "끼움 바닥",
+              "pt-pt": "Fundo de encaixe",
+              "zh-cn": "扣合底"
+            },
+            "params": [
+              {
+                "code": "K1",
+                "sortOrder": 0
+              },
+              {
+                "code": "S1",
+                "sortOrder": 1
+              },
+              {
+                "code": "K3",
+                "sortOrder": 2
+              },
+              {
+                "code": "MT",
+                "sortOrder": 3
+              },
+              {
+                "code": "MR",
+                "sortOrder": 4
+              },
+              {
+                "code": "MR1",
+                "sortOrder": 5
+              },
+              {
+                "code": "BR",
+                "sortOrder": 6
+              },
+              {
+                "code": "RY",
+                "sortOrder": 7
+              }
+            ],
+            "mainParam": "K1",
+            "sortOrder": 3
+          },
+          {
+            "id": "safety-lock",
+            "name": {
+              "de-de": "Verriegelungslaschen und Schlitze",
+              "en-us": "Locking tabs and slots",
+              "es-es": "Lengüetas y ranuras de cierre",
+              "fr-fr": "Languettes et fentes de verrouillage",
+              "id-id": "Lidah dan slot pengunci",
+              "ja-jp": "ロックタブと差し込み穴",
+              "ko-kr": "잠금 탭과 슬롯",
+              "pt-pt": "Linguetas e ranhuras de fecho",
+              "zh-cn": "插脚与插孔"
+            },
+            "params": [
+              {
+                "code": "K4",
+                "sortOrder": 0
+              },
+              {
+                "code": "SW",
+                "sortOrder": 1
+              },
+              {
+                "code": "SW1",
+                "sortOrder": 2
+              },
+              {
+                "code": "F",
+                "sortOrder": 3
+              },
+              {
+                "code": "FR",
+                "sortOrder": 4
+              },
+              {
+                "code": "SD",
+                "sortOrder": 5
+              },
+              {
+                "code": "SA",
+                "sortOrder": 6
+              },
+              {
+                "code": "SP",
+                "sortOrder": 7
+              }
+            ],
+            "mainParam": "K4",
+            "sortOrder": 4
+          }
+        ],
+        "standalone": [
+          {
+            "code": "BL",
+            "sortOrder": 0,
+            "displayName": {
+              "de-de": "Beschnitt",
+              "en-us": "Bleed",
+              "es-es": "Sangrado",
+              "fr-fr": "Fond perdu",
+              "id-id": "Bleed",
+              "ja-jp": "塗り足し",
+              "ko-kr": "도련",
+              "pt-pt": "Sangria",
+              "zh-cn": "出血"
+            }
+          }
+        ],
+        "schemaVersion": 1
+      },
+      "advancedParamConfigVersion": 3,
+      "partGroup": {},
+      "appId": "",
+      "enterpriseId": "",
+      "subCode": null,
+      "canPrint": 1,
+      "dimensions": 1,
+      "edition": 1,
+      "screenshots": {
+        "top": "https://cdn.pacdora.com/mockup-generator/mockup-top-side-view-102060.png",
+        "left": "https://cdn.pacdora.com/mockup-generator/mockup-left-side-view-102060.png",
+        "right": "https://cdn.pacdora.com/mockup-generator/mockup-right-side-view-102060.png",
+        "top_anim40": "https://cdn.pacdora.com/mockup-generator/mockup-top-side-anim40-view-102060.png",
+        "left_anim40": "https://cdn.pacdora.com/mockup-generator/mockup-left-side-anim40-view-102060.png",
+        "right_anim40": "https://cdn.pacdora.com/mockup-generator/mockup-right-side-anim40-view-102060.png"
+      },
+      "showStartTime": null,
+      "showEndTime": null,
+      "manualSort": 0,
+      "listingTime": "1737013282894",
+      "mockupMultifoldScore": "0.100000",
+      "dielineMultifoldScore": "0.100000",
+      "relatedModelNo": null,
+      "create_time": "1637733013410",
+      "update_time": "1792570048233",
+      "is_delete": 0,
+      "cate_top_id": 1
+    },
+    "knifeSize": {
+      "L": 302,
+      "W": 102,
+      "H": 183.5,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "size": {
+      "L": 300,
+      "W": 100,
+      "H": 180,
+      "D": 1.5,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "outSize": {
+      "L": 303,
+      "W": 103,
+      "H": 186,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "openParams_count": 5,
+    "layers": [
+      "traditional"
+    ],
+    "has_cuts": true,
+    "cuts_len": 123,
+    "folds_len": 18
+  },
+  "apis": [
+    "GET /api/v2/models/ctree?mockup=true",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?...&mockupNameKey=mailer-box-mockup",
+    "GET /api/v2/project/knife?id={列表id}&bleed=5&export_type=model"
+  ],
+  "crawl": {
+    "api_origin": "https://www.pacdora.com",
+    "note": ".cn knife returns LOGIN_REQUIRED for experience_user; crawl used .com",
+    "models_total_com": 79,
+    "ok": 79,
+    "skip_no_geom": 0,
+    "skip_no_img": 0,
+    "svg_fallback": 1
+  }
+}

@@ -8,6 +8,11 @@ function finiteNum(n){return Number.isFinite(Number(n))}
 
 function check(id,ok,message){return {id,ok:!!ok,message}}
 
+/** 阻断项（生产 gate 必须全部 ok）；foldClosed 告警默认不在此集合 */
+export const BLOCKING_CHECK_IDS=Object.freeze([
+  'faceCount','hingeCount','faceOrder','uniqueNames','singleRoot','parents','acyclic','dimensions','layers'
+])
+
 /** 契约校验：拓扑与数值完整性决定 ok；合盖告警仅记录，不阻断 */
 export function validateKnife(knife){
   const checks=[]
@@ -70,9 +75,10 @@ export function validateKnife(knife){
   }
 
   // 门禁：拓扑+数值+layers；foldClosed 告警不阻断；fold 抛错才阻断
-  const gateIds=new Set(['faceCount','hingeCount','faceOrder','uniqueNames','singleRoot','parents','acyclic','dimensions','layers'])
+  const gateIds=new Set(BLOCKING_CHECK_IDS)
   const ok=checks.filter(c=>gateIds.has(c.id)).every(c=>c.ok)&&foldOk
-  return {ok,checks}
+  const blockingFailed=checks.filter(c=>gateIds.has(c.id)&&!c.ok).map(c=>({...c,severity:'blocking'}))
+  return {ok,checks,blockingFailed,blockingCheckIds:[...BLOCKING_CHECK_IDS]}
 }
 
 /** 两次 knife 的拓扑签名（name/parent/side）必须一致 */

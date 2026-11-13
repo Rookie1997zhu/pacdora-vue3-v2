@@ -11,8 +11,10 @@ from apps.accounts.models import User
 from apps.assets.models import Asset
 from apps.assets.services import AssetUploadError, store_bytes, store_upload
 from apps.catalog.models import TemplateApproval, TemplateVersion
+from apps.designs.models import Design
 from apps.exports.models import ExportJob
 from apps.organizations.services import ensure_personal_org
+from apps.samples.services import create_sample_test, review_sample
 
 
 def _fake_export(format_name: str, *, cut_approx=False, bleed_approx=False, quality_tier=None):
@@ -50,15 +52,18 @@ def _fake_export(format_name: str, *, cut_approx=False, bleed_approx=False, qual
     }
 
 
-def _fake_validate(*, cut_approx=False, bleed_approx=False):
+def _fake_validate(*, cut_approx=False, bleed_approx=False, ok=True, unit_trusted=True, unit_confidence=None):
+    confidence = unit_confidence or ('trusted' if unit_trusted else 'untrusted')
     return {
-        'ok': True,
-        'production_ready': True,
+        'ok': ok,
+        'production_ready': bool(ok),
         'manufacturing_ready': False,
         'cut_approx': cut_approx,
         'bleed_approx': bleed_approx,
         'cut_approx_reason': 'test' if cut_approx else None,
-        'geometry_hash': 'mailer-parametric-demo:300x200x50:T1.5:inner',
+        'geometry_hash': 'g1:testhash00000000000000000000000000000000000000000000000000000000',
+        'unit_confidence': confidence,
+        'unit_trusted': unit_trusted,
     }
 
 
@@ -92,6 +97,34 @@ class ExportJobsTests(TestCase):
         self.assertEqual(r.status_code, 201, r.content)
         return r.json()['data']
 
+    def _ensure_sample_pass_for_design(self, design_id, reviewer=None):
+        """Create a matching SampleTestRecord pass for the design's current revision dims."""
+        d = Design.objects.get(pk=design_id)
+        rev = d.current_revision
+        geom = (rev.content_json or {}).get('geometry') or {}
+        params = geom.get('params') or {}
+        reviewer = reviewer or self.u1
+        if not reviewer.is_staff:
+            reviewer.is_staff = True
+            reviewer.save(update_fields=['is_staff'])
+        rec = create_sample_test(
+            organization=d.organization,
+            user=reviewer,
+            body={
+                'template_key': geom.get('templateId'),
+                'geometry_hash': rev.geometry_hash or 'g1:test',
+                'design_revision_id': str(rev.id),
+                'length_mm': params.get('lengthMm'),
+                'width_mm': params.get('widthMm'),
+                'height_mm': params.get('heightMm'),
+                'thickness_mm': params.get('thicknessMm'),
+                'material_id': params.get('materialId') or 'kraft',
+                'flute_direction': params.get('fluteDirection') or 'L',
+                'size_mode': params.get('sizeMode') or 'inner',
+            },
+        )
+        return review_sample(record=rec, reviewer=reviewer, verdict='pass')
+
     def test_unauthenticated_rejected(self):
         r = self.client.post(
             f'/api/v1/designs/{uuid.uuid4()}/exports/',
@@ -101,7 +134,8 @@ class ExportJobsTests(TestCase):
         self.assertIn(r.status_code, (401, 403))
 
     def test_manufacturing_blocked_without_capability(self):
-        design = self._create_design(self.u1, slug='fefco-0201')
+        # lid-base has no canExportManufacturing in seed
+        design = self._create_design(self.u1, slug='lid-base')
         token = self._csrf()
         before = Asset.objects.count()
         before_jobs = ExportJob.objects.count()
@@ -122,9 +156,100 @@ class ExportJobsTests(TestCase):
 
     @patch('apps.exports.services.export_dieline')
     @patch('apps.exports.services.validate_geometry')
+    def test_manufacturing_blocked_without_sample_pass(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        design = self._create_design(self.u1, slug='fefco-0201')
+        token = self._csrf()
+        before_jobs = ExportJob.objects.count()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'svg', 'quality_tier': 'manufacturing'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        self.assertEqual(r.json()['code'], 'MANUFACTURING_BLOCKED')
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('SAMPLE', failed)
+        self.assertEqual(ExportJob.objects.count(), before_jobs)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_manufacturing_blocked_when_sample_out_of_narrow_domain(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        design = self._create_design(self.u1, slug='fefco-0201')
+        # Pass sample for a different size — must not cover this design.
+        d = Design.objects.get(pk=design['id'])
+        self.u1.is_staff = True
+        self.u1.save(update_fields=['is_staff'])
+        rec = create_sample_test(
+            organization=d.organization,
+            user=self.u1,
+            body={
+                'template_key': 'fefco-0201',
+                'geometry_hash': 'g1:other',
+                'length_mm': 200,
+                'width_mm': 150,
+                'height_mm': 100,
+                'thickness_mm': 3,
+                'material_id': 'kraft',
+            },
+        )
+        review_sample(record=rec, reviewer=self.u1, verdict='pass')
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'svg', 'quality_tier': 'manufacturing'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('SAMPLE', failed)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_manufacturing_succeeds_for_fefco_with_sample_pass(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        mock_export.side_effect = lambda payload: _fake_export(
+            payload.get('format') or 'svg',
+            quality_tier=payload.get('quality_tier'),
+        )
+        design = self._create_design(self.u1, slug='fefco-0201')
+        self._ensure_sample_pass_for_design(design['id'])
+        d = Design.objects.get(pk=design['id'])
+        revision = d.current_revision
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'manufacturing',
+                    'revision_id': str(revision.id),
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 202, r.content)
+        job = r.json()['data']
+        self.assertEqual(job['status'], 'succeeded')
+        self.assertEqual(job['quality_tier'], 'manufacturing')
+        self.assertTrue(job['preflight'].get('manufacturing_ready'))
+        self.assertTrue(job['preflight'].get('approval_id'))
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
     def test_manufacturing_blocked_when_approx(self, mock_validate, mock_export):
         mock_validate.return_value = _fake_validate(cut_approx=True)
         design = self._create_design(self.u1)
+        self._ensure_sample_pass_for_design(design['id'])
         token = self._csrf()
         before_jobs = ExportJob.objects.count()
         r = self.client.post(
@@ -151,7 +276,7 @@ class ExportJobsTests(TestCase):
         )
         design = self._create_design(self.u1)
         self.assertTrue(design.get('capabilities', {}).get('canExportManufacturing'))
-        from apps.designs.models import Design
+        self._ensure_sample_pass_for_design(design['id'])
 
         d = Design.objects.get(pk=design['id'])
         revision = d.current_revision
@@ -192,6 +317,7 @@ class ExportJobsTests(TestCase):
             template_version__template__template_key='mailer-parametric-demo'
         ).delete()
         design = self._create_design(self.u1)
+        self._ensure_sample_pass_for_design(design['id'])
         token = self._csrf()
         before_jobs = ExportJob.objects.count()
         r = self.client.post(
@@ -205,6 +331,237 @@ class ExportJobsTests(TestCase):
         self.assertEqual(r.json()['code'], 'MANUFACTURING_BLOCKED')
         failed = r.json().get('errors', {}).get('failed_checks') or []
         self.assertIn('APPROVAL', failed)
+        self.assertEqual(ExportJob.objects.count(), before_jobs)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_manufacturing_blocked_when_geometry_invalid(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate(ok=False)
+        design = self._create_design(self.u1)
+        self._ensure_sample_pass_for_design(design['id'])
+        token = self._csrf()
+        before_jobs = ExportJob.objects.count()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'pdf', 'quality_tier': 'manufacturing'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        self.assertEqual(r.json()['code'], 'MANUFACTURING_BLOCKED')
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('GEOMETRY', failed)
+        self.assertEqual(ExportJob.objects.count(), before_jobs)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_manufacturing_blocked_when_unit_untrusted(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate(unit_trusted=False, unit_confidence='untrusted')
+        design = self._create_design(self.u1)
+        self._ensure_sample_pass_for_design(design['id'])
+        token = self._csrf()
+        before_jobs = ExportJob.objects.count()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'svg', 'quality_tier': 'manufacturing'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        self.assertEqual(r.json()['code'], 'MANUFACTURING_BLOCKED')
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('UNIT_TRUSTED', failed)
+        self.assertEqual(ExportJob.objects.count(), before_jobs)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_succeeds_for_fefco_in_domain(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        mock_export.side_effect = lambda payload: _fake_export(
+            payload.get('format') or 'svg',
+            quality_tier=payload.get('quality_tier'),
+        )
+        design = self._create_design(self.u1, slug='fefco-0201')
+        from apps.designs.models import Design
+
+        d = Design.objects.get(pk=design['id'])
+        revision = d.current_revision
+        params = ((revision.content_json or {}).get('geometry') or {}).get('params') or {}
+        self.assertGreaterEqual(float(params.get('thicknessMm') or 0), 2.0)
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'engineering',
+                    'revision_id': str(revision.id),
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 202, r.content)
+        job = r.json()['data']
+        self.assertEqual(job['status'], 'succeeded')
+        self.assertEqual(job['quality_tier'], 'engineering')
+        self.assertFalse(job['preflight'].get('manufacturing_ready'))
+        self.assertEqual(job['preflight'].get('qualification_status'), 'engineering_review')
+        mock_export.assert_called()
+        export_payload = mock_export.call_args[0][0]
+        self.assertEqual(export_payload.get('quality_tier'), 'engineering')
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_succeeds_for_tuck_end_straight_in_domain(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        mock_export.side_effect = lambda payload: _fake_export(
+            payload.get('format') or 'svg',
+            quality_tier=payload.get('quality_tier'),
+        )
+        design = self._create_design(self.u1, slug='tuck-end-straight')
+        from apps.designs.models import Design
+
+        d = Design.objects.get(pk=design['id'])
+        revision = d.current_revision
+        params = ((revision.content_json or {}).get('geometry') or {}).get('params') or {}
+        self.assertLessEqual(float(params.get('thicknessMm') or 99), 1.2)
+        self.assertGreaterEqual(float(params.get('thicknessMm') or 0), 0.3)
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'engineering',
+                    'revision_id': str(revision.id),
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 202, r.content)
+        job = r.json()['data']
+        self.assertEqual(job['status'], 'succeeded')
+        self.assertEqual(job['quality_tier'], 'engineering')
+        self.assertFalse(job['preflight'].get('manufacturing_ready'))
+        self.assertEqual(job['preflight'].get('qualification_status'), 'engineering_review')
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_succeeds_for_mailer_in_domain(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        mock_export.side_effect = lambda payload: _fake_export(
+            payload.get('format') or 'svg',
+            quality_tier=payload.get('quality_tier'),
+        )
+        design = self._create_design(self.u1, slug='mailer-parametric-demo')
+        from apps.designs.models import Design
+
+        d = Design.objects.get(pk=design['id'])
+        revision = d.current_revision
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'engineering',
+                    'revision_id': str(revision.id),
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 202, r.content)
+        job = r.json()['data']
+        self.assertEqual(job['status'], 'succeeded')
+        self.assertEqual(job['quality_tier'], 'engineering')
+        self.assertFalse(job['preflight'].get('manufacturing_ready'))
+        self.assertEqual(job['preflight'].get('qualification_status'), 'engineering_review')
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_succeeds_for_crashlock_in_domain(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        mock_export.side_effect = lambda payload: _fake_export(
+            payload.get('format') or 'svg',
+            quality_tier=payload.get('quality_tier'),
+        )
+        design = self._create_design(self.u1, slug='productbox-crashlock')
+        from apps.designs.models import Design
+
+        d = Design.objects.get(pk=design['id'])
+        revision = d.current_revision
+        token = self._csrf()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'engineering',
+                    'revision_id': str(revision.id),
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 202, r.content)
+        job = r.json()['data']
+        self.assertEqual(job['status'], 'succeeded')
+        self.assertEqual(job['quality_tier'], 'engineering')
+        self.assertFalse(job['preflight'].get('manufacturing_ready'))
+        self.assertEqual(job['preflight'].get('qualification_status'), 'engineering_review')
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_blocked_outside_domain_template(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate()
+        # fefco-0427 has no engineering domain registered
+        design = self._create_design(self.u1, slug='fefco-0427')
+        token = self._csrf()
+        before_jobs = ExportJob.objects.count()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'svg', 'quality_tier': 'engineering'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        self.assertEqual(r.json()['code'], 'ENGINEERING_BLOCKED')
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('DOMAIN', failed)
+        self.assertEqual(ExportJob.objects.count(), before_jobs)
+        mock_export.assert_not_called()
+
+    @patch('apps.exports.services.export_dieline')
+    @patch('apps.exports.services.validate_geometry')
+    def test_engineering_blocked_when_geometry_invalid(self, mock_validate, mock_export):
+        mock_validate.return_value = _fake_validate(ok=False)
+        design = self._create_design(self.u1, slug='fefco-0201')
+        token = self._csrf()
+        before_jobs = ExportJob.objects.count()
+        r = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'dxf', 'quality_tier': 'engineering'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(r.status_code, 422)
+        self.assertEqual(r.json()['code'], 'ENGINEERING_BLOCKED')
+        failed = r.json().get('errors', {}).get('failed_checks') or []
+        self.assertIn('GEOMETRY', failed)
         self.assertEqual(ExportJob.objects.count(), before_jobs)
         mock_export.assert_not_called()
 

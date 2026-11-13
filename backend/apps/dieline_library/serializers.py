@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.utils import timezone
+
 from apps.dieline_library.models import (
     AcquisitionItem,
     AcquisitionJob,
@@ -8,6 +10,29 @@ from apps.dieline_library.models import (
     ImmutableRevision,
     UsageGrant,
 )
+
+
+def _list_preview_revision(variant: AssetVariant) -> ImmutableRevision | None:
+    """Pick a revision safe to thumbnail on the authenticated library list."""
+    revs = (
+        variant.revisions.select_related('usage_grant')
+        .filter(
+            preview_asset_id__isnull=False,
+            acquisition_status=ImmutableRevision.AcquisitionStatus.OK,
+        )
+        .order_by('-revision_no')
+    )
+    now = timezone.now()
+    for rev in revs:
+        grant = getattr(rev, 'usage_grant', None)
+        if not grant:
+            continue
+        if grant.valid_until and grant.valid_until < now:
+            continue
+        if grant.can_show_public_preview or grant.can_use_internally or grant.can_redistribute_files:
+            return rev
+    return None
+
 
 def grant_payload(grant: UsageGrant | None) -> dict | None:
     if not grant:
@@ -69,6 +94,9 @@ def variant_payload(variant: AssetVariant, *, with_revisions: bool = False) -> d
         'is_example': variant.is_example,
         'created_at': variant.created_at.isoformat() if variant.created_at else None,
     }
+    preview_rev = _list_preview_revision(variant)
+    data['preview_revision_id'] = str(preview_rev.id) if preview_rev else None
+    data['has_preview'] = bool(preview_rev)
     if with_revisions:
         revs = list(variant.revisions.select_related('usage_grant').order_by('-revision_no'))
         data['revisions'] = [revision_payload(r) for r in revs]

@@ -12,18 +12,24 @@ from apps.assets.services import AssetUploadError, store_bytes
 from apps.catalog.manufacturing import find_template_approval
 from apps.designs.models import Design, DesignRevision, OutboxEvent
 from apps.designs.services import DesignServiceError, resolve_template
+from apps.exports.engineering_domain import check_engineering_domain
 from apps.exports.errors import ExportJobError
 from apps.exports.models import ExportJob
 from apps.geometry_api.client import GeometryServiceError, export_dieline, validate_geometry
+from apps.samples.services import find_matching_sample_pass
 
 EXPORTER_VERSION = 'boxcraft.export.v1'
 LICENSE_NOTE = {'code': 'B-GEOM-LICENSE', 'status': 'open'}
+ENGINEERING_DISCLAIMER = (
+    'ENGINEERING CANDIDATE · COMPENSATION UNVERIFIED · NOT FOR PRODUCTION DIE'
+)
 
 __all__ = [
     'ExportJobError',
     'EXPORTER_VERSION',
     'serialize_job',
     'evaluate_manufacturing_gate',
+    'evaluate_engineering_gate',
     'create_export_job',
     'process_export_job',
 ]
@@ -120,6 +126,23 @@ def evaluate_manufacturing_gate(*, revision: DesignRevision) -> dict:
     cut_approx = bool(validated.get('cut_approx'))
     bleed_approx = bool(validated.get('bleed_approx'))
     approx_ok = not cut_approx and not bleed_approx
+    geometry_ok = bool(validated.get('ok'))
+    # Parametric native-mm defaults trusted; adapters must send unit_confidence.
+    if 'unit_trusted' in validated:
+        unit_trusted = bool(validated.get('unit_trusted'))
+    else:
+        unit_trusted = str(validated.get('unit_confidence') or 'trusted') == 'trusted'
+
+    sample = find_matching_sample_pass(
+        template_key=template_id,
+        material_id=material_id,
+        length_mm=payload.get('length_mm'),
+        width_mm=payload.get('width_mm'),
+        height_mm=payload.get('height_mm'),
+        thickness_mm=thickness_mm,
+        organization_id=revision.design.organization_id,
+    )
+    sample_ok = sample is not None
 
     checks = [
         {
@@ -131,6 +154,21 @@ def evaluate_manufacturing_gate(*, revision: DesignRevision) -> dict:
             'code': 'APPROVAL',
             'ok': approval_ok,
             'detail': str(approval.id) if approval_ok else 'NO_APPROVAL',
+        },
+        {
+            'code': 'SAMPLE',
+            'ok': sample_ok,
+            'detail': str(sample.id) if sample_ok else 'NO_SAMPLE_PASS',
+        },
+        {
+            'code': 'GEOMETRY',
+            'ok': geometry_ok,
+            'detail': 'validated.ok' if geometry_ok else 'GEOMETRY_INVALID',
+        },
+        {
+            'code': 'UNIT_TRUSTED',
+            'ok': unit_trusted,
+            'detail': validated.get('unit_confidence') or ('trusted' if unit_trusted else 'untrusted'),
         },
         {
             'code': 'APPROX',
@@ -151,6 +189,7 @@ def evaluate_manufacturing_gate(*, revision: DesignRevision) -> dict:
         'ok': ok,
         'checks': checks,
         'approval_id': str(approval.id) if approval else None,
+        'sample_test_id': str(sample.id) if sample else None,
         'template_version_id': str(version.id),
         'cut_approx': cut_approx,
         'bleed_approx': bleed_approx,
@@ -160,6 +199,107 @@ def evaluate_manufacturing_gate(*, revision: DesignRevision) -> dict:
             'ok': validated.get('ok'),
             'geometry_hash': validated.get('geometry_hash'),
             'production_ready': validated.get('production_ready'),
+            'unit_confidence': validated.get('unit_confidence'),
+            'unit_trusted': unit_trusted,
+        },
+    }
+
+
+def evaluate_engineering_gate(*, revision: DesignRevision) -> dict:
+    """Trusted dieline gate: GEOMETRY + UNIT + APPROX + DOMAIN (no CAPABILITY/APPROVAL)."""
+    payload = _geometry_payload_from_revision(revision)
+    template_id = (payload.get('template_id') or '').strip()
+    if not template_id:
+        raise ExportJobError('template_id missing on revision', code='UNKNOWN_TEMPLATE', status=400)
+
+    domain = check_engineering_domain(payload)
+    domain_ok = bool(domain.get('ok'))
+
+    validate_payload = {**payload, 'quality_tier': 'engineering', 'intent': 'engineering'}
+    try:
+        validated = validate_geometry(validate_payload)
+    except GeometryServiceError as exc:
+        # Domain rejection from geometry service maps to DOMAIN check.
+        if (exc.code or '') == 'OUT_OF_ENGINEERING_DOMAIN':
+            domain = {
+                'ok': False,
+                'code': 'OUT_OF_ENGINEERING_DOMAIN',
+                'detail': (exc.payload or {}).get('message') or str(exc),
+            }
+            domain_ok = False
+            validated = {
+                'ok': False,
+                'cut_approx': False,
+                'bleed_approx': False,
+                'unit_trusted': True,
+                'unit_confidence': 'trusted',
+                'geometry_hash': None,
+                'production_ready': False,
+            }
+        else:
+            raise ExportJobError(
+                str(exc),
+                code=exc.code or 'GEOMETRY_REJECTED',
+                status=exc.status_code if exc.status_code >= 400 else 400,
+                data={'geometry': exc.payload},
+            ) from exc
+
+    cut_approx = bool(validated.get('cut_approx'))
+    bleed_approx = bool(validated.get('bleed_approx'))
+    approx_ok = not cut_approx and not bleed_approx
+    geometry_ok = bool(validated.get('ok'))
+    if 'unit_trusted' in validated:
+        unit_trusted = bool(validated.get('unit_trusted'))
+    else:
+        unit_trusted = str(validated.get('unit_confidence') or 'trusted') == 'trusted'
+
+    checks = [
+        {
+            'code': 'GEOMETRY',
+            'ok': geometry_ok,
+            'detail': 'validated.ok' if geometry_ok else 'GEOMETRY_INVALID',
+        },
+        {
+            'code': 'UNIT_TRUSTED',
+            'ok': unit_trusted,
+            'detail': validated.get('unit_confidence') or ('trusted' if unit_trusted else 'untrusted'),
+        },
+        {
+            'code': 'APPROX',
+            'ok': approx_ok,
+            'detail': (
+                'ok'
+                if approx_ok
+                else {
+                    'cut_approx': cut_approx,
+                    'bleed_approx': bleed_approx,
+                    'cut_approx_reason': validated.get('cut_approx_reason'),
+                }
+            ),
+        },
+        {
+            'code': 'DOMAIN',
+            'ok': domain_ok,
+            'detail': domain.get('detail') if not domain_ok else domain.get('detail') or 'ok',
+        },
+    ]
+    ok = all(item['ok'] for item in checks)
+    return {
+        'ok': ok,
+        'checks': checks,
+        'cut_approx': cut_approx,
+        'bleed_approx': bleed_approx,
+        'cut_approx_reason': validated.get('cut_approx_reason'),
+        'license': dict(LICENSE_NOTE),
+        'disclaimer': ENGINEERING_DISCLAIMER,
+        'qualification_status': 'engineering_review',
+        'geometry_validate': {
+            'ok': validated.get('ok'),
+            'geometry_hash': validated.get('geometry_hash'),
+            'production_ready': validated.get('production_ready'),
+            'unit_confidence': validated.get('unit_confidence'),
+            'unit_trusted': unit_trusted,
+            'engineering_domain_ok': domain_ok,
         },
     }
 
@@ -188,9 +328,13 @@ def create_export_job(
     ):
         raise ExportJobError('format must be svg|dxf|pdf', code='VALIDATION_ERROR', status=400)
 
-    if tier not in (ExportJob.QualityTier.VECTOR_PROOF, ExportJob.QualityTier.MANUFACTURING):
+    if tier not in (
+        ExportJob.QualityTier.VECTOR_PROOF,
+        ExportJob.QualityTier.ENGINEERING,
+        ExportJob.QualityTier.MANUFACTURING,
+    ):
         raise ExportJobError(
-            'quality_tier must be vector_proof|manufacturing',
+            'quality_tier must be vector_proof|engineering|manufacturing',
             code='VALIDATION_ERROR',
             status=400,
         )
@@ -221,6 +365,25 @@ def create_export_job(
             'approval_id': gate_snapshot.get('approval_id'),
         }
         opts = {**opts, 'manufacturing_gate': gate_snapshot}
+    elif tier == ExportJob.QualityTier.ENGINEERING:
+        gate_snapshot = evaluate_engineering_gate(revision=revision)
+        if not gate_snapshot['ok']:
+            failed = [c['code'] for c in gate_snapshot['checks'] if not c['ok']]
+            raise ExportJobError(
+                'engineering exports are blocked until engineering gate passes',
+                code='ENGINEERING_BLOCKED',
+                status=422,
+                errors={'failed_checks': failed},
+                data={'checks': gate_snapshot['checks'], 'license': gate_snapshot['license']},
+            )
+        initial_preflight = {
+            'gate': gate_snapshot,
+            'license': gate_snapshot['license'],
+            'manufacturing_ready': False,
+            'disclaimer': gate_snapshot.get('disclaimer') or ENGINEERING_DISCLAIMER,
+            'qualification_status': gate_snapshot.get('qualification_status') or 'engineering_review',
+        }
+        opts = {**opts, 'engineering_gate': gate_snapshot}
 
     key = (idempotency_key or '').strip() or f'export-{uuid.uuid4()}'
     existing = ExportJob.objects.filter(organization_id=design.organization_id, idempotency_key=key).first()
@@ -303,7 +466,11 @@ def process_export_job(job_id: str) -> dict:
 
     gate_snapshot = {}
     if isinstance(job.options, dict):
-        gate_snapshot = job.options.get('manufacturing_gate') or {}
+        gate_snapshot = (
+            job.options.get('manufacturing_gate')
+            or job.options.get('engineering_gate')
+            or {}
+        )
     if not gate_snapshot and isinstance(job.preflight, dict):
         gate_snapshot = job.preflight.get('gate') or {}
 
@@ -311,6 +478,8 @@ def process_export_job(job_id: str) -> dict:
         payload = _geometry_payload_from_revision(job.input_revision)
         payload['format'] = job.format
         payload['quality_tier'] = job.quality_tier
+        if job.quality_tier == ExportJob.QualityTier.ENGINEERING:
+            payload['intent'] = 'engineering'
         result = export_dieline(payload)
         raw_b64 = result.get('content_base64') or ''
         raw = base64.b64decode(raw_b64)
@@ -319,11 +488,14 @@ def process_export_job(job_id: str) -> dict:
         geom_preflight = result.get('preflight') if isinstance(result.get('preflight'), dict) else {}
         cut_approx = bool(geom_preflight.get('cut_approx'))
         bleed_approx = bool(geom_preflight.get('bleed_approx'))
-        if job.quality_tier == ExportJob.QualityTier.MANUFACTURING and (cut_approx or bleed_approx):
+        if job.quality_tier in (
+            ExportJob.QualityTier.MANUFACTURING,
+            ExportJob.QualityTier.ENGINEERING,
+        ) and (cut_approx or bleed_approx):
             return _fail_job(
                 job_id,
                 code='APPROX_BLOCKED',
-                message='manufacturing export blocked: cutApprox/bleedApprox present',
+                message=f'{job.quality_tier} export blocked: cutApprox/bleedApprox present',
             )
         asset = store_bytes(
             organization=job.organization,
@@ -355,6 +527,9 @@ def process_export_job(job_id: str) -> dict:
         merged['manufacturing_ready'] = gate_ok and not cut_approx and not bleed_approx
     else:
         merged['manufacturing_ready'] = False
+    if job.quality_tier == ExportJob.QualityTier.ENGINEERING:
+        merged['disclaimer'] = geom_preflight.get('disclaimer') or ENGINEERING_DISCLAIMER
+        merged['qualification_status'] = 'engineering_review'
 
     with transaction.atomic():
         locked = ExportJob.objects.select_for_update().get(pk=job_id)

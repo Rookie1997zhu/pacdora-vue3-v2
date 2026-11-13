@@ -11,7 +11,7 @@ import {buildGeomRig} from '../geomRig.js'
 import {toDxf,toPdf,toAi,toSvgDieline} from '../exportDieline.js'
 import {buildDimAnnotations} from '../dimAnnotations.js'
 import {DEFAULT_TEMPLATE_ID,getTemplate} from '../templates/index.js'
-import {PRESET_CATALOG,OFFICIAL_SUBCLASSES,UNCLASSIFIED_SUBCLASS_COUNT,getPreset,searchImportedPresets,ownedGroupsWithTemplates,countModelOnly,outboxCatalogOptions} from '../catalog/index.js'
+import {IMPORT_CATEGORIES,getPreset,searchImportedPresets,ownedGroupsWithTemplates,outboxCatalogOptions} from '../catalog/index.js'
 import {renderClosedThumb,structureKind} from '../renderClosedThumb.js'
 import {renderProxyThumb} from '../renderProxyThumb.js'
 import {renderGeomClosedThumb} from '../renderGeomClosedThumb.js'
@@ -21,7 +21,6 @@ import {publicAssetUrl} from '../assetUrl.js'
 import {setLocale} from '../i18n/index.js'
 import {CATALOG_KO} from '../i18n/catalogKo.js'
 import {
-  displaySubclassLabel,
   displayOwnedGroupLabel,
   displayTemplateLabel,
   displayPresetLabel,
@@ -87,21 +86,14 @@ const thumbsLoading=ref(false)
 const templateId=ref(DEFAULT_TEMPLATE_ID)
 const template=computed(()=>getTemplate(templateId.value))
 const ownedGroups=ownedGroupsWithTemplates()
-const importSubclassId=ref('') // '' = 全部；__none__ = 未归类；__modelOnly__ = 仅 3D 样机
+const importCategoryId=ref('shipping') // shipping | mailer
 const importQuery=ref('')
 const importId=ref('')
-const modelOnlyFilter=computed(()=>importSubclassId.value==='__modelOnly__')
 const importedList=computed(()=>searchImportedPresets(importQuery.value,{
-  subclassId:modelOnlyFilter.value?'':importSubclassId.value,
-  modelOnly:modelOnlyFilter.value?'only':undefined,
-  limit:120
+  categoryId:importCategoryId.value,
+  limit:200
 }))
-const importCategoryCount=computed(()=>{
-  if(importSubclassId.value==='__modelOnly__')return countModelOnly()
-  if(!importSubclassId.value)return PRESET_CATALOG.count
-  if(importSubclassId.value==='__none__')return UNCLASSIFIED_SUBCLASS_COUNT
-  return OFFICIAL_SUBCLASSES.find(c=>c.id===importSubclassId.value)?.count||0
-})
+const importCategoryCount=computed(()=>IMPORT_CATEGORIES.find(c=>c.id===importCategoryId.value)?.count||0)
 const galleryOwnedGroups=computed(()=>{
   void locale.value
   const q=galleryQuery.value.trim().toLowerCase()
@@ -122,9 +114,8 @@ const galleryOwnedGroups=computed(()=>{
   })).filter(g=>g.templates.length)
 })
 const galleryImported=computed(()=>searchImportedPresets(galleryQuery.value||importQuery.value,{
-  subclassId:modelOnlyFilter.value?'':importSubclassId.value,
-  modelOnly:modelOnlyFilter.value?'only':undefined,
-  limit:120
+  categoryId:importCategoryId.value,
+  limit:200
 }))
 const galleryPackative=computed(()=>searchPackativeAssets(galleryQuery.value))
 const packativeCatalogCount=computed(()=>searchPackativeAssets('').length)
@@ -467,7 +458,8 @@ async function refreshGeomKnife(){
       length:p.length,
       width:p.width,
       height:p.height,
-      thickness:p.thickness
+      thickness:p.thickness,
+      geomPublicRel:p.geomPublicRel||p.geomRel||'',
     })
   }catch(err){
     console.error(err)
@@ -1082,7 +1074,7 @@ watch([outboxKnife,outboxThickness,material,outboxEnabled,outboxQty,outboxManual
 watch(outboxShowContents,()=>{
   if(screen.value==='lab')syncOutboxContents()
 })
-watch([boxTab,importSubclassId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
+watch([boxTab,importCategoryId,galleryQuery],()=>{if(screen.value==='gallery')nextTick(loadGalleryThumbs)})
 onMounted(()=>nextTick(()=>{
   syncAdvancedDefaults(true)
   // 预热纸板/纸纹贴图，列表缩略图与 Lab 共用缓存
@@ -1131,10 +1123,13 @@ onBeforeUnmount(()=>{
   </div>
 
   <div v-if="boxTab==='imported'" class="gallery-filters">
-    <button type="button" :class="['chip',{selected:!importSubclassId}]" @click="importSubclassId=''">{{t('gallery.all')}}<small>{{PRESET_CATALOG.count}}</small></button>
-    <button v-for="c in OFFICIAL_SUBCLASSES" :key="c.id" type="button" :class="['chip',{selected:importSubclassId===c.id}]" @click="importSubclassId=c.id">{{displaySubclassLabel(c.id,c.label)}}<small>{{c.count}}</small></button>
-    <button type="button" :class="['chip',{selected:importSubclassId==='__none__'}]" @click="importSubclassId='__none__'">{{t('gallery.unclassified')}}<small>{{UNCLASSIFIED_SUBCLASS_COUNT}}</small></button>
-    <button type="button" :class="['chip',{selected:importSubclassId==='__modelOnly__'}]" @click="importSubclassId='__modelOnly__'">{{t('gallery.modelOnly')}}<small>{{countModelOnly()}}</small></button>
+    <button
+      v-for="c in IMPORT_CATEGORIES"
+      :key="c.id"
+      type="button"
+      :class="['chip',{selected:importCategoryId===c.id}]"
+      @click="importCategoryId=c.id"
+    >{{c.label}} ({{c.count}})</button>
   </div>
 
   <template v-if="boxTab==='owned'">
@@ -1160,7 +1155,7 @@ onBeforeUnmount(()=>{
 
   <template v-else-if="boxTab==='imported'">
     <section class="gallery-section">
-      <h2>{{t('gallery.importedHeading',{shown:galleryImported.length,total:importCategoryCount})}}</h2>
+      <h2>{{t('gallery.importedHeading',{category:IMPORT_CATEGORIES.find(c=>c.id===importCategoryId)?.label||'',shown:galleryImported.length,total:importCategoryCount})}}</h2>
       <div class="box-grid">
         <button
           v-for="p in galleryImported"
@@ -1177,14 +1172,14 @@ onBeforeUnmount(()=>{
             <img v-else-if="p.templateId&&thumbMap[p.templateId]" :src="thumbMap[p.templateId]" :alt="displayPresetLabel(p)"/>
             <img v-else-if="p.coverRel" :src="assetUrl(p.coverRel)" :alt="displayPresetLabel(p)"/>
             <div v-else class="box-cover-ph">{{p.hasGeometry?t('gallery.coverPreview'):(p.modelOnly?t('gallery.proxyPreview'):(p.templateId?t('gallery.coverPreview'):t('gallery.unmapped')))}}</div>
-            <i v-if="p.hasGeometry||p.coverRel" class="box-badge" data-kind="closed">{{t('gallery.shipping')}}</i>
+            <i v-if="p.hasGeometry||p.coverRel" class="box-badge" data-kind="closed">{{p.categoryLabel||t('gallery.shipping')}}</i>
             <i v-else-if="p.modelOnly" class="box-badge" data-kind="modelOnly">{{t('gallery.modelOnly')}}</i>
             <i v-else-if="p.templateId" class="box-badge" :data-kind="structureKind(p.templateId).id">{{kindLabel(p.templateId)}}</i>
             <i v-else class="box-badge" data-kind="unmapped">{{t('gallery.sizeOnly')}}</i>
           </div>
           <div class="box-card-body">
             <strong>{{displayPresetLabel(p)}}</strong>
-            <small>{{displaySubclassLabel(p.subclassIds&&p.subclassIds[0],(p.subclassLabels&&p.subclassLabels[0])||p.categoryLabel||t('gallery.unclassified'))}} · {{p.sourceNum}}</small>
+            <small>{{p.categoryLabel||t('gallery.unclassified')}} · {{p.sourceNum}}</small>
             <span>{{p.length}}×{{p.width}}×{{p.height}} mm</span>
             <em v-if="!p.hasGeometry&&!p.templateId" class="unmap-hint">{{t('gallery.unmapHint')}}</em>
             <em v-else-if="p.modelOnly" class="unmap-hint">{{MODEL_ONLY_TEXT}}</em>

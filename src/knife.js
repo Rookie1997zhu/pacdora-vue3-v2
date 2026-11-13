@@ -2,8 +2,9 @@
 // 引擎：模板只给出面板矩形与补偿规则，这里统一生成裁切/压线/出血、铰链与校验。
 import polygonClipping from 'polygon-clipping'
 import {orderFaces,validateKnife} from './knifeContract.js'
-import {getTemplate} from './templates/index.js'
+import {getTemplate,TEMPLATES} from './templates/index.js'
 import {buildDepthFoldStages} from './foldStages.js'
+import {createCrashlockKnife} from './crashlock/createCrashlockKnife.js'
 const round=n=>Math.round(n*1000)/1000
 const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]]
 const key=p=>p.map(round).join(',')
@@ -867,17 +868,39 @@ function assertHingeEdgeIntact(face){
 
 /**
  * 按模板补偿规则推导三套尺寸：inner（净空）、panel（刀版面板）、outer（外廓）。
- * 外尺寸输入时先反推净空；两种输入都按模板 limits 夹取净空。
+ * 默认（预览）夹取 limits；strict/production 越限抛 OUT_OF_RANGE，不静默夹取。
  */
-export function deriveSizes(template,{length,width,height,thickness,sizeMode='inner'}={}){
+export function deriveSizes(template,{length,width,height,thickness,sizeMode='inner',strict=false}={}){
   const {defaults,limits,sizeRule}=template
-  const T=Math.max(.5,Number(thickness)||defaults.thickness)
+  const Traw=Number(thickness)
+  const T=strict
+    ?(Number.isFinite(Traw)&&Traw>0?Traw:(()=>{const e=new Error('thickness_mm must be > 0');e.code='INVALID_NUMBER';e.field='thickness_mm';throw e})())
+    :Math.max(.5,Traw||defaults.thickness)
   const mode=sizeMode==='outer'?'outer':'inner'
-  const input={length:Number(length)||defaults.length,width:Number(width)||defaults.width,height:Number(height)||defaults.height}
+  const input={
+    length:Number(length)||defaults.length,
+    width:Number(width)||defaults.width,
+    height:Number(height)||defaults.height
+  }
   const inner={},panel={},outer={}
   for(const k of DIMS){
     const raw=mode==='inner'?input[k]:input[k]-sizeRule.outerAdd[k]*T
-    inner[k]=round(clamp(raw,limits[k][0],limits[k][1]))
+    const range=limits?.[k]
+    if(Array.isArray(range)&&range.length===2){
+      if(raw<range[0]||raw>range[1]){
+        if(strict){
+          const err=new Error(`${k}_mm out of range [${range[0]}, ${range[1]}]`)
+          err.code='OUT_OF_RANGE'
+          err.field=`${k}_mm`
+          throw err
+        }
+        inner[k]=round(clamp(raw,range[0],range[1]))
+      }else{
+        inner[k]=round(raw)
+      }
+    }else{
+      inner[k]=round(raw)
+    }
     panel[k]=round(inner[k]+sizeRule.panelAdd[k]*T)
     outer[k]=round(inner[k]+sizeRule.outerAdd[k]*T)
   }
@@ -889,15 +912,44 @@ export function derivePanelSizes({templateId,...args}={}){
   return deriveSizes(getTemplate(templateId),args)
 }
 
-export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bleed=5,sizeMode='inner',fluteDirection='L',materialId='kraft',piece,lidClearance,params:paramOverrides}={}){
-  const template=getTemplate(templateId)
+export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bleed=5,sizeMode='inner',fluteDirection='L',materialId='kraft',piece,lidClearance,params:paramOverrides,strict=false,production=false}={}){
+  const strictMode=!!(strict||production)
+  const tid=String(templateId||'').trim()
+  if(strictMode){
+    if(!tid||!TEMPLATES[tid]){
+      const err=new Error('unknown template_id')
+      err.code='UNKNOWN_TEMPLATE'
+      throw err
+    }
+  }
+  if(tid==='productbox-crashlock'){
+    if(strictMode&&!TEMPLATES[tid]){
+      const err=new Error('unknown template_id')
+      err.code='UNKNOWN_TEMPLATE'
+      throw err
+    }
+    return createCrashlockKnife({
+      length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,
+      params:paramOverrides||{},
+    })
+  }
+  const template=strictMode?TEMPLATES[tid]:getTemplate(templateId)
   const bleedInput=Math.max(0,Number(bleed)||0)
   const bleedExtra=BLEED_EXTRA_MM
   const bleedEff=bleedInput+bleedExtra
   bleed=bleedEff // 几何外扩用有效出血；knife.bleed 仍写 UI 输入值
   fluteDirection=fluteDirection==='W'?'W':'L'
-  materialId=['kraft','white','blue'].includes(materialId)?materialId:'kraft'
-  const derived=deriveSizes(template,{length:L,width:W,height:H,thickness:T,sizeMode})
+  if(strictMode){
+    if(!['kraft','white','blue'].includes(materialId)){
+      const err=new Error('unknown material_id')
+      err.code='UNKNOWN_MATERIAL'
+      err.field='material_id'
+      throw err
+    }
+  }else{
+    materialId=['kraft','white','blue'].includes(materialId)?materialId:'kraft'
+  }
+  const derived=deriveSizes(template,{length:L,width:W,height:H,thickness:T,sizeMode,strict:strictMode})
   T=derived.T
   sizeMode=derived.sizeMode
   const pieceList=Array.isArray(template.pieces)&&template.pieces.length?template.pieces:null
@@ -1157,6 +1209,7 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
   const validation=validateKnife(knife)
   knife.validation=validation
   knife.productionReady=validation.ok
+  // strict/production：禁止静默夹取与未知模板回退；近似轮廓仍返回并由 manufacturing gate 的 APPROX/GEOMETRY 阻断
   return knife
 }
 export function pathsFromCuts(cuts){return cuts.map(e=>`M ${e.x1} ${e.y1} L ${e.x2} ${e.y2}`).join(' ')}

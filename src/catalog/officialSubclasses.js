@@ -1,4 +1,4 @@
-/** Pacdora-aligned official box subclasses — shipping-only */
+/** Pacdora-aligned official box subclasses — shipping+mailer */
 export const OFFICIAL_SUBCLASS_DEFS=[
   {
     "id": "shipping",

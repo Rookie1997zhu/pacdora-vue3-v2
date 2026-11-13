@@ -6,14 +6,20 @@
           <div class="slot" aria-hidden="true">
             <img v-if="product.cover_rel" class="cover" :src="coverUrl(product.cover_rel)" alt="" />
             <span v-else class="box-shape" />
-            <em class="badge">
-              {{ product.geometry_mode === 'fixed_snapshot' ? t('site.sizeLockedBadge') : t('site.customSizeBadge') }}
+            <em class="bc-badge bc-badge--overlay" :data-kind="geometryBadgeKind(product.geometry_mode)">
+              {{ geometryBadgeLabel(product.geometry_mode) }}
             </em>
           </div>
-          <p class="meta">{{ product.category }} · {{ product.geometry_mode }}</p>
+          <p class="meta">
+            <span class="bc-chip" :data-kind="categoryBadgeKind(product.category)">{{ product.category }}</span>
+          </p>
         </aside>
         <section class="detail">
-          <h1>{{ locale === 'ko-KR' && product.name_ko ? product.name_ko : product.name }}</h1>
+          <header class="bc-page-header">
+            <div>
+              <h1>{{ locale === 'ko-KR' && product.name_ko ? product.name_ko : product.name }}</h1>
+            </div>
+          </header>
           <p class="desc">{{ product.description }}</p>
 
           <form class="form" @submit.prevent="onCreate">
@@ -61,7 +67,12 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchProduct, type ProductDetail } from '../api/catalog'
+import {
+  categoryBadgeKind,
+  fetchProduct,
+  geometryBadgeKind,
+  type ProductDetail,
+} from '../api/catalog'
 import { createDesign } from '../api/designs'
 import { ApiError } from '../api/client'
 // @ts-expect-error JS asset helper
@@ -77,6 +88,12 @@ const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
+
+function geometryBadgeLabel(mode: ProductDetail['geometry_mode']) {
+  if (mode === 'fixed_snapshot') return t('site.sizeLockedBadge')
+  if (mode === 'model_only') return t('site.modelOnlyBadge')
+  return t('site.customSizeBadge')
+}
 
 const product = ref<ProductDetail | null>(null)
 const loading = ref(true)
@@ -214,6 +231,24 @@ async function onCreate() {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 28px;
   align-items: start;
+  animation: fade-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout {
+    animation: none;
+  }
 }
 
 .preview {
@@ -247,35 +282,18 @@ async function onCreate() {
   display: block;
 }
 
-.badge {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--bc-line);
-}
-
 .meta {
   margin: 12px 0 0;
-  color: var(--bc-ink-muted);
-  font-size: 13px;
 }
 
-.detail h1 {
-  margin: 0 0 10px;
-  font-family: var(--bc-font-display);
-  font-size: clamp(24px, 3vw, 34px);
-  letter-spacing: -0.02em;
+.detail .bc-page-header {
+  margin-bottom: 10px;
 }
 
 .desc {
   margin: 0 0 24px;
   color: var(--bc-ink-muted);
+  font-size: var(--bc-fs-body);
 }
 
 .form {

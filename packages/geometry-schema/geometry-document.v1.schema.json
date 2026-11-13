@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boxcraft.geometry/v1",
+  "title": "BoxcraftGeometryDocumentV1",
+  "type": "object",
+  "required": ["schema", "template", "input", "coordinateSystem", "canonicalHash"],
+  "properties": {
+    "schema": { "const": "boxcraft.geometry/v1" },
+    "template": {
+      "type": "object",
+      "required": ["templateId", "generatorId", "generatorVersion"],
+      "properties": {
+        "templateId": { "type": "string" },
+        "templateVersion": { "type": "string" },
+        "generatorId": { "type": "string" },
+        "generatorVersion": { "type": "string" }
+      }
+    },
+    "input": { "type": "object" },
+    "coordinateSystem": {
+      "type": "object",
+      "required": ["unit"],
+      "properties": {
+        "unit": { "const": "mm" }
+      }
+    },
+    "panels": { "type": "array" },
+    "paths": { "type": "object" },
+    "foldGraph": { "type": "object" },
+    "provenance": { "type": "object" },
+    "validation": { "type": "object" },
+    "meta": { "type": "object" },
+    "canonicalHash": { "type": "string", "pattern": "^g1:[0-9a-f]{64}$" }
+  }
+}

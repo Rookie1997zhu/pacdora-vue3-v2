@@ -30,6 +30,24 @@ export type ProductDetail = ProductSummary & {
   }
 }
 
+/** Badge kind shared with LAB / --bc-badge-* tokens */
+export type BadgeKind = 'telescoping' | 'openTop' | 'flat' | 'lidded' | 'special'
+
+export function geometryBadgeKind(mode: ProductSummary['geometry_mode']): BadgeKind {
+  if (mode === 'fixed_snapshot') return 'flat'
+  if (mode === 'model_only') return 'special'
+  return 'telescoping'
+}
+
+export function categoryBadgeKind(category: string): BadgeKind {
+  const key = String(category || '').toLowerCase()
+  if (key === 'shipping') return 'telescoping'
+  if (key === 'mailer') return 'openTop'
+  if (key === 'carton') return 'lidded'
+  if (key === 'tuck' || key === 'crashlock') return 'special'
+  return 'flat'
+}
+
 export async function fetchProducts() {
   const res = await apiRequest<{ items: ProductSummary[] }>('/products/')
   return res.data.items

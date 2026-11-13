@@ -81,13 +81,14 @@ img {
 }
 
 .bc-btn--primary {
-  background: var(--bc-ink);
+  background: var(--bc-steel);
   color: #fff;
-  border-color: var(--bc-ink);
+  border-color: var(--bc-steel);
 }
 
 .bc-btn--primary:hover:not(:disabled) {
-  background: #000;
+  background: var(--bc-steel-hover);
+  border-color: var(--bc-steel-hover);
 }
 
 .bc-btn--ghost {
@@ -122,9 +123,104 @@ img {
 .bc-page-header h1 {
   margin: 0;
   font-family: var(--bc-font-display);
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: var(--bc-fs-h1);
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+.bc-badge {
+  display: inline-flex;
+  align-items: center;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--bc-badge-flat-line);
+  background: var(--bc-badge-flat-bg);
+  color: var(--bc-badge-flat);
+}
+
+.bc-badge[data-kind='telescoping'] {
+  color: var(--bc-badge-telescoping);
+  border-color: var(--bc-badge-telescoping-line);
+  background: var(--bc-badge-telescoping-bg);
+}
+
+.bc-badge[data-kind='openTop'] {
+  color: var(--bc-badge-openTop);
+  border-color: var(--bc-badge-openTop-line);
+  background: var(--bc-badge-openTop-bg);
+}
+
+.bc-badge[data-kind='flat'] {
+  color: var(--bc-badge-flat);
+  border-color: var(--bc-badge-flat-line);
+  background: var(--bc-badge-flat-bg);
+}
+
+.bc-badge[data-kind='lidded'] {
+  color: var(--bc-badge-lidded);
+  border-color: var(--bc-badge-lidded-line);
+  background: var(--bc-badge-lidded-bg);
+}
+
+.bc-badge[data-kind='special'] {
+  color: var(--bc-badge-special);
+  border-color: var(--bc-badge-special-line);
+  background: var(--bc-badge-special-bg);
+}
+
+.bc-badge--overlay {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 1;
+}
+
+.bc-chip {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-size: var(--bc-fs-small);
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--bc-badge-flat-line);
+  background: var(--bc-badge-flat-bg);
+  color: var(--bc-badge-flat);
+}
+
+.bc-chip[data-kind='telescoping'] {
+  color: var(--bc-badge-telescoping);
+  border-color: var(--bc-badge-telescoping-line);
+  background: var(--bc-badge-telescoping-bg);
+}
+
+.bc-chip[data-kind='openTop'] {
+  color: var(--bc-badge-openTop);
+  border-color: var(--bc-badge-openTop-line);
+  background: var(--bc-badge-openTop-bg);
+}
+
+.bc-chip[data-kind='flat'] {
+  color: var(--bc-badge-flat);
+  border-color: var(--bc-badge-flat-line);
+  background: var(--bc-badge-flat-bg);
+}
+
+.bc-chip[data-kind='lidded'] {
+  color: var(--bc-badge-lidded);
+  border-color: var(--bc-badge-lidded-line);
+  background: var(--bc-badge-lidded-bg);
+}
+
+.bc-chip[data-kind='special'] {
+  color: var(--bc-badge-special);
+  border-color: var(--bc-badge-special-line);
+  background: var(--bc-badge-special-bg);
 }
 
 .bc-page-header p {

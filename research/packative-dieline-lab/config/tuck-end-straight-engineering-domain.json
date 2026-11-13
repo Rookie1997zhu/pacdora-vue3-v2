@@ -1,0 +1,17 @@
+{
+  "templateId": "tuck-end-straight",
+  "dimensionBasis": "inner",
+  "qualificationStatus": "engineering_review",
+  "compensationNote": "sizeRule panelAdd/outerAdd are schematic and unverified; NOT for production die cutting.",
+  "lengthMm": [50, 200],
+  "widthMm": [30, 120],
+  "heightMm": [80, 300],
+  "thicknessMm": [0.3, 1.2],
+  "materialIds": ["kraft"],
+  "fluteDirections": ["L"],
+  "anchors": [
+    { "lengthMm": 80, "widthMm": 50, "heightMm": 150, "thicknessMm": 0.5 },
+    { "lengthMm": 60, "widthMm": 40, "heightMm": 100, "thicknessMm": 0.4 },
+    { "lengthMm": 120, "widthMm": 80, "heightMm": 200, "thicknessMm": 0.8 }
+  ]
+}

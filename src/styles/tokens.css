@@ -1,4 +1,4 @@
-/* BOXCRAFT Paper Lab — design tokens (ink / steel, no Packative purple) */
+/* BOXCRAFT — Pacdora×Packative tokens (ink shell + knife blue, no brand purple) */
 :root {
   --bc-paper: #f6f7f9;
   --bc-paper-elevated: #ffffff;
@@ -7,14 +7,34 @@
   --bc-ink-faint: #8b949e;
   --bc-line: #e4e7ec;
   --bc-line-strong: #d0d5dd;
-  --bc-steel: #2a6f7a;
-  --bc-steel-soft: #e8f2f4;
-  --bc-steel-hover: #235f69;
+
+  /* Accent: Packative knife blue (variable name kept for existing consumers) */
+  --bc-steel: #2458d4;
+  --bc-steel-soft: #f0f5ff;
+  --bc-steel-hover: #1e4ab8;
+
   --bc-danger: #9a4339;
   --bc-warn: #7a5a2a;
   --bc-warn-bg: #fff4e5;
   --bc-warn-line: #e6c48a;
   --bc-ok: #1f8a4c;
+
+  /* Structure badges (shared by product shell + LegacyLab) */
+  --bc-badge-telescoping: #2458d4;
+  --bc-badge-telescoping-bg: #f0f5ff;
+  --bc-badge-telescoping-line: #c9d8f8;
+  --bc-badge-openTop: #9a6b2f;
+  --bc-badge-openTop-bg: #fff8ee;
+  --bc-badge-openTop-line: #ecd9b8;
+  --bc-badge-flat: #667085;
+  --bc-badge-flat-bg: #f5f7fa;
+  --bc-badge-flat-line: #dfe3ea;
+  --bc-badge-lidded: #1f8a4c;
+  --bc-badge-lidded-bg: #f1faf4;
+  --bc-badge-lidded-line: #bfe5cd;
+  --bc-badge-special: #9a6700;
+  --bc-badge-special-bg: #fff7e8;
+  --bc-badge-special-line: #f0d9a8;
 
   --bc-grid-dot: rgba(17, 24, 39, 0.06);
   --bc-slot: #eef1f4;
@@ -29,6 +49,11 @@
   --bc-font-display: "Sora", "Noto Sans SC", "Noto Sans KR", sans-serif;
   --bc-font-ui: "IBM Plex Sans", "Noto Sans SC", "Noto Sans KR", sans-serif;
 
+  --bc-fs-h1: clamp(24px, 3vw, 32px);
+  --bc-fs-title: 18px;
+  --bc-fs-body: 14px;
+  --bc-fs-small: 12px;
+
   --bc-space-1: 4px;
   --bc-space-2: 8px;
   --bc-space-3: 12px;
@@ -39,6 +64,6 @@
   --bc-space-8: 72px;
 
   --bc-header-h: 64px;
-  --bc-focus: 0 0 0 3px rgba(42, 111, 122, 0.35);
+  --bc-focus: 0 0 0 3px rgba(36, 88, 212, 0.35);
   --bc-ease: 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }

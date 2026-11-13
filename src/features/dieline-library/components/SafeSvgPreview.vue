@@ -1,6 +1,6 @@
 <template>
-  <div class="preview">
-    <div class="toggles">
+  <div class="preview" :class="{ compact }">
+    <div v-if="!compact" class="toggles">
       <label class="toggle">
         <input v-model="showCut" type="checkbox" :disabled="!hasCut" />
         <span>{{ t('library.layerCut') }}</span>
@@ -12,8 +12,8 @@
       <span v-if="!hasCut && !hasCrease && ready" class="hint">{{ t('library.layersUnlabeled') }}</span>
     </div>
     <div ref="host" class="host" :aria-busy="loading" />
-    <p v-if="error" class="err">{{ error }}</p>
-    <p v-else-if="loading" class="hint">{{ t('studio.loading') }}</p>
+    <p v-if="error && !compact" class="err">{{ error }}</p>
+    <p v-else-if="loading && !compact" class="hint">{{ t('studio.loading') }}</p>
   </div>
 </template>
 
@@ -22,7 +22,10 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchRevisionPreviewBlob } from '../api'
 
-const props = defineProps<{ revisionId: string | null }>()
+const props = withDefaults(
+  defineProps<{ revisionId: string | null; compact?: boolean }>(),
+  { compact: false },
+)
 
 const { t } = useI18n()
 const host = ref<HTMLElement | null>(null)
@@ -93,8 +96,9 @@ async function loadPreview(revisionId: string) {
     imported.setAttribute('role', 'img')
     imported.setAttribute('aria-label', t('library.preview'))
     imported.style.width = '100%'
-    imported.style.height = 'auto'
-    imported.style.maxHeight = '480px'
+    imported.style.height = props.compact ? '100%' : 'auto'
+    imported.style.maxHeight = props.compact ? '100%' : '480px'
+    imported.style.objectFit = 'contain'
     markLayers(imported)
     await nextTick()
     host.value?.appendChild(imported)
@@ -133,6 +137,13 @@ onBeforeUnmount(() => clearHost())
   gap: 10px;
 }
 
+.preview.compact {
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .toggles {
   display: flex;
   flex-wrap: wrap;
@@ -155,6 +166,23 @@ onBeforeUnmount(() => clearHost())
   background: var(--bc-slot);
   padding: 12px;
   overflow: auto;
+}
+
+.preview.compact .host {
+  min-height: 0;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.preview.compact .host :deep(svg) {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .hint {

@@ -45,99 +45,109 @@
       </section>
 
       <aside class="side right">
-        <h1>{{ design.name }}</h1>
-        <p class="meta">{{ design.document.geometry.templateId }} · {{ design.document.geometry.mode }} · row {{ design.rowVersion }}</p>
+        <header class="side-head">
+          <h1>{{ design.name }}</h1>
+          <p class="meta">{{ design.document.geometry.templateId }} · {{ design.document.geometry.mode }} · row {{ design.rowVersion }}</p>
+        </header>
 
-        <h2>{{ t('studio.geometry') }}</h2>
-        <div class="row">
-          <label>L<input v-model.number="lengthMm" type="number" :min="lengthMin" :max="lengthMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
-          <label>W<input v-model.number="widthMm" type="number" :min="widthMin" :max="widthMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
-          <label>H<input v-model.number="heightMm" type="number" :min="heightMin" :max="heightMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
-        </div>
-        <p v-if="!design.editableSize" class="hint">{{ t('studio.sizeLocked') }}</p>
-        <p v-else-if="design.errorCode === 'OUT_OF_RANGE'" class="hint err">{{ t('studio.outOfRange') }}</p>
-        <p v-else-if="design.document.artwork.layers.length" class="hint">{{ t('studio.sizeMigrateHint') }}</p>
-        <label>
-          {{ t('studio.material') }}
-          <select v-model="materialId" @change="onParams">
-            <option value="kraft">{{ t('lab.kraft') }}</option>
-            <option value="white">{{ t('lab.white') }}</option>
-            <option value="blue">{{ t('lab.blue') }}</option>
-          </select>
-        </label>
-        <p class="hash">geometryHash: {{ design.document.geometry.geometryHash }}</p>
-
-        <h2>{{ t('outbox.title') }}</h2>
-        <label class="check">
-          <input v-model="outboxEnabled" type="checkbox" @change="onOutbox" />
-          {{ t('outbox.enable') }}
-        </label>
-        <p v-if="outboxEnabled" class="hint outbox-on">{{ t('studio.outboxEnabledBadge') }}</p>
-        <template v-if="outboxEnabled">
+        <section class="panel-section">
+          <h2>{{ t('studio.geometry') }}</h2>
+          <div class="row">
+            <label>L<input v-model.number="lengthMm" type="number" :min="lengthMin" :max="lengthMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
+            <label>W<input v-model.number="widthMm" type="number" :min="widthMin" :max="widthMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
+            <label>H<input v-model.number="heightMm" type="number" :min="heightMin" :max="heightMax" step="0.1" :disabled="!design.editableSize" @change="onParams" /></label>
+          </div>
+          <p v-if="!design.editableSize" class="hint">{{ t('studio.sizeLocked') }}</p>
+          <p v-else-if="design.errorCode === 'OUT_OF_RANGE'" class="hint err">{{ t('studio.outOfRange') }}</p>
+          <p v-else-if="design.document.artwork.layers.length" class="hint">{{ t('studio.sizeMigrateHint') }}</p>
           <label>
-            {{ t('outbox.modeGrow') }}
-            <select v-model="outboxSizingMode" @change="onOutbox">
-              <option value="grow">{{ t('outbox.modeGrow') }}</option>
-              <option value="fixed">{{ t('outbox.modeFixed') }}</option>
+            {{ t('studio.material') }}
+            <select v-model="materialId" @change="onParams">
+              <option value="kraft">{{ t('lab.kraft') }}</option>
+              <option value="white">{{ t('lab.white') }}</option>
+              <option value="blue">{{ t('lab.blue') }}</option>
             </select>
           </label>
-          <div class="row">
-            <label>{{ t('outbox.qty') }}<input v-model.number="outboxQty" type="number" min="1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.thickness') }}<input v-model.number="outboxThickness" type="number" min="1" step="0.1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.gapL') }}<input v-model.number="gapL" type="number" min="0" step="0.1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.gapW') }}<input v-model.number="gapW" type="number" min="0" step="0.1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.gapH') }}<input v-model.number="gapH" type="number" min="0" step="0.1" @change="onOutbox" /></label>
-          </div>
-          <template v-if="outboxSizingMode === 'fixed'">
-            <p class="hint">{{ t('outbox.fixedSize') }}</p>
+          <p class="hash">geometryHash: {{ design.document.geometry.geometryHash }}</p>
+        </section>
+
+        <section class="panel-section">
+          <h2>{{ t('outbox.title') }}</h2>
+          <label class="check">
+            <input v-model="outboxEnabled" type="checkbox" @change="onOutbox" />
+            {{ t('outbox.enable') }}
+          </label>
+          <p v-if="outboxEnabled" class="hint outbox-on">{{ t('studio.outboxEnabledBadge') }}</p>
+          <template v-if="outboxEnabled">
+            <label>
+              {{ t('outbox.modeGrow') }}
+              <select v-model="outboxSizingMode" @change="onOutbox">
+                <option value="grow">{{ t('outbox.modeGrow') }}</option>
+                <option value="fixed">{{ t('outbox.modeFixed') }}</option>
+              </select>
+            </label>
             <div class="row">
-              <label>{{ t('outbox.fixedL') }}<input v-model.number="fixedL" type="number" min="1" step="0.1" @change="onOutbox" /></label>
-              <label>{{ t('outbox.fixedW') }}<input v-model.number="fixedW" type="number" min="1" step="0.1" @change="onOutbox" /></label>
-              <label>{{ t('outbox.fixedH') }}<input v-model.number="fixedH" type="number" min="1" step="0.1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.qty') }}<input v-model.number="outboxQty" type="number" min="1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.thickness') }}<input v-model.number="outboxThickness" type="number" min="1" step="0.1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.gapL') }}<input v-model.number="gapL" type="number" min="0" step="0.1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.gapW') }}<input v-model.number="gapW" type="number" min="0" step="0.1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.gapH') }}<input v-model.number="gapH" type="number" min="0" step="0.1" @change="onOutbox" /></label>
+            </div>
+            <template v-if="outboxSizingMode === 'fixed'">
+              <p class="hint">{{ t('outbox.fixedSize') }}</p>
+              <div class="row">
+                <label>{{ t('outbox.fixedL') }}<input v-model.number="fixedL" type="number" min="1" step="0.1" @change="onOutbox" /></label>
+                <label>{{ t('outbox.fixedW') }}<input v-model.number="fixedW" type="number" min="1" step="0.1" @change="onOutbox" /></label>
+                <label>{{ t('outbox.fixedH') }}<input v-model.number="fixedH" type="number" min="1" step="0.1" @change="onOutbox" /></label>
+              </div>
+            </template>
+            <label class="check">
+              <input v-model="outboxManual" type="checkbox" @change="onOutbox" />
+              {{ t('outbox.layoutManual') }}
+            </label>
+            <div v-if="outboxManual" class="row">
+              <label>{{ t('outbox.nx') }}<input v-model.number="manualNx" type="number" min="1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.ny') }}<input v-model.number="manualNy" type="number" min="1" @change="onOutbox" /></label>
+              <label>{{ t('outbox.nz') }}<input v-model.number="manualNz" type="number" min="1" @change="onOutbox" /></label>
+              <label class="check">
+                <input v-model="manualRotated" type="checkbox" @change="onOutbox" />
+                {{ t('outbox.rotated') }}
+              </label>
             </div>
           </template>
-          <label class="check">
-            <input v-model="outboxManual" type="checkbox" @change="onOutbox" />
-            {{ t('outbox.layoutManual') }}
-          </label>
-          <div v-if="outboxManual" class="row">
-            <label>{{ t('outbox.nx') }}<input v-model.number="manualNx" type="number" min="1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.ny') }}<input v-model.number="manualNy" type="number" min="1" @change="onOutbox" /></label>
-            <label>{{ t('outbox.nz') }}<input v-model.number="manualNz" type="number" min="1" @change="onOutbox" /></label>
-            <label class="check">
-              <input v-model="manualRotated" type="checkbox" @change="onOutbox" />
-              {{ t('outbox.rotated') }}
-            </label>
+        </section>
+
+        <section class="panel-section">
+          <ExportPanel />
+        </section>
+
+        <section class="panel-section">
+          <h2>{{ t('quote.title') }}</h2>
+          <p class="hint">{{ t('quote.lead') }}</p>
+          <button type="button" class="bc-btn bc-btn--primary" :disabled="quote.busy || !design.currentRevisionId" @click="onRequestQuote">
+            {{ quote.busy ? t('quote.requesting') : t('quote.request') }}
+          </button>
+          <p v-if="quote.error" class="err">{{ quoteError }}</p>
+          <div v-if="quote.current" class="quote-box">
+            <p v-if="quote.current.status === 'pending_manual'" class="hint">{{ t('quote.pendingManual') }}</p>
+            <p v-else-if="quote.current.status === 'valid'">
+              {{ t('quote.validTotal', { amount: quote.current.total_amount, currency: quote.current.currency }) }}
+            </p>
+            <p v-if="quote.current.valid_until" class="meta">{{ t('quote.validUntil', { at: quote.current.valid_until }) }}</p>
+            <p class="meta">{{ t('quote.status') }}: {{ quote.current.status }} · qty {{ quote.current.quantity }}</p>
           </div>
-        </template>
-
-        <ExportPanel />
-
-        <h2>{{ t('quote.title') }}</h2>
-        <p class="hint">{{ t('quote.lead') }}</p>
-        <button type="button" class="quote-btn" :disabled="quote.busy || !design.currentRevisionId" @click="onRequestQuote">
-          {{ quote.busy ? t('quote.requesting') : t('quote.request') }}
-        </button>
-        <p v-if="quote.error" class="err">{{ quoteError }}</p>
-        <div v-if="quote.current" class="quote-box">
-          <p v-if="quote.current.status === 'pending_manual'" class="hint">{{ t('quote.pendingManual') }}</p>
-          <p v-else-if="quote.current.status === 'valid'">
-            {{ t('quote.validTotal', { amount: quote.current.total_amount, currency: quote.current.currency }) }}
-          </p>
-          <p v-if="quote.current.valid_until" class="meta">{{ t('quote.validUntil', { at: quote.current.valid_until }) }}</p>
-          <p class="meta">{{ t('quote.status') }}: {{ quote.current.status }} · qty {{ quote.current.quantity }}</p>
-        </div>
-        <button
-          type="button"
-          class="quote-btn"
-          :disabled="cart.busy || !design.currentRevisionId"
-          @click="onAddToCart"
-        >
-          {{ cart.busy ? t('cart.adding') : t('cart.add') }}
-        </button>
-        <p v-if="cartMsg" class="hint">{{ cartMsg }}</p>
-        <p v-if="cart.error" class="err">{{ cart.error }}</p>
-        <p class="meta"><RouterLink to="/cart">{{ t('cart.title') }}</RouterLink> · <RouterLink to="/orders">{{ t('order.title') }}</RouterLink></p>
+          <button
+            type="button"
+            class="bc-btn bc-btn--primary"
+            :disabled="cart.busy || !design.currentRevisionId"
+            @click="onAddToCart"
+          >
+            {{ cart.busy ? t('cart.adding') : t('cart.add') }}
+          </button>
+          <p v-if="cartMsg" class="hint">{{ cartMsg }}</p>
+          <p v-if="cart.error" class="err">{{ cart.error }}</p>
+          <p class="meta"><RouterLink to="/cart">{{ t('cart.title') }}</RouterLink> · <RouterLink to="/orders">{{ t('order.title') }}</RouterLink></p>
+        </section>
       </aside>
     </main>
   </div>
@@ -396,7 +406,35 @@ onUnmounted(() => {
   min-height:0;
   max-height:100%;
 }
+.side.right{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 .side.left{padding:10px}
+.side-head{display:flex;flex-direction:column;gap:4px}
+.panel-section{
+  border:1px solid var(--bc-line);
+  border-radius:var(--bc-radius);
+  background:var(--bc-paper);
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  border-left:2px solid var(--bc-steel);
+  animation:section-in 420ms cubic-bezier(0.22,1,0.36,1) both;
+}
+.panel-section:nth-of-type(1){animation-delay:0ms}
+.panel-section:nth-of-type(2){animation-delay:50ms}
+.panel-section:nth-of-type(3){animation-delay:100ms}
+.panel-section:nth-of-type(4){animation-delay:150ms}
+@keyframes section-in{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .panel-section{animation:none}
+}
 .canvas-wrap{
   min-height:0;
   height:100%;
@@ -405,11 +443,11 @@ onUnmounted(() => {
   flex-direction:column;
   gap:8px;
 }
-h1{margin:0;font-size:18px;font-family:var(--bc-font-display);letter-spacing:-0.02em}
-h2{margin:14px 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--bc-ink-muted)}
-.meta,.hash{margin:0;font-size:12px;color:var(--bc-ink-muted)}
+h1{margin:0;font-size:var(--bc-fs-title);font-family:var(--bc-font-display);letter-spacing:-0.02em}
+h2{margin:0;font-size:var(--bc-fs-small);letter-spacing:.06em;text-transform:uppercase;color:var(--bc-ink-muted)}
+.meta,.hash{margin:0;font-size:var(--bc-fs-small);color:var(--bc-ink-muted)}
 .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-label{display:flex;flex-direction:column;gap:4px;font-size:12px}
+label{display:flex;flex-direction:column;gap:4px;font-size:var(--bc-fs-small)}
 .check{flex-direction:row;align-items:center;gap:8px}
 input,select{
   border:1px solid var(--bc-line-strong);
@@ -418,30 +456,20 @@ input,select{
   font:inherit;
   background:#fff;
 }
-.hint{margin:0;font-size:12px;color:var(--bc-warn)}
+.hint{margin:0;font-size:var(--bc-fs-small);color:var(--bc-warn)}
 .err{color:var(--bc-danger)}
 .banner{margin:0;background:#fff;border:1px solid #f0c2bc;border-radius:var(--bc-radius-sm);padding:8px 10px}
-.quote-btn{
-  border:0;
-  border-radius:var(--bc-radius-sm);
-  background:var(--bc-ink);
-  color:#fff;
-  padding:8px 12px;
-  cursor:pointer;
-  font:inherit;
-  font-weight:600;
-}
-.quote-btn:disabled{opacity:.55;cursor:not-allowed}
 .quote-box{
-  margin-top:8px;
+  margin-top:4px;
   padding:10px;
   border:1px solid var(--bc-line);
   border-radius:var(--bc-radius);
-  background:var(--bc-paper);
+  background:var(--bc-paper-elevated);
   display:flex;
   flex-direction:column;
   gap:6px;
 }
+.panel-section .bc-btn{width:100%;min-height:38px}
 .conflict,.draft,.adapt{
   background:var(--bc-warn-bg);
   border:1px solid var(--bc-warn-line);

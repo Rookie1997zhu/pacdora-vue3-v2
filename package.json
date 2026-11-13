@@ -19,7 +19,12 @@
     "catalog:export-shipping-seed": "node scripts/export-shipping-catalog-seed.mjs",
     "check:all": "node scripts/check-all.mjs",
     "publish:packative-geom": "node scripts/publish-packative-geom.mjs",
-    "verify:packative-geom": "node scripts/verify-packative-geom.mjs"
+    "verify:packative-geom": "node scripts/verify-packative-geom.mjs",
+    "check:fefco0201-engineering": "node scripts/check-fefco0201-engineering.mjs",
+    "check:tuck-end-straight-engineering": "node scripts/check-tuck-end-straight-engineering.mjs",
+    "check:mailer-parametric-engineering": "node scripts/check-mailer-parametric-engineering.mjs",
+    "build:crashlock-engine": "node scripts/build-crashlock-engine.mjs",
+    "check:productbox-crashlock-engineering": "node scripts/check-productbox-crashlock-engineering.mjs"
   },
   "dependencies": {
     "konva": "^10.9.1",

@@ -1,18 +1,24 @@
 # 实物打样对照清单
 
-**未完成打样前禁止投产。`manufacturingReady` 必须保持 `false`。**
+**未完成打样前禁止投产。`manufacturingReady` 必须保持 `false`（除非制造门全项通过，含 SAMPLE）。**
 
-本表用于记录物理样盒与软件黄金样例的偏差，并把补偿回写到参数或代码。当前状态：**未打样**（无实测数据）。
+本表用于人工现场记录；系统侧打样闭环见 Staff API：
 
-软件黄金样例见 `scripts/fixtures/golden.json`；一键自检：`npm run check:all`。
+- `POST /api/v1/sample-tests/` — 登记（默认 `pending`）
+- `POST /api/v1/sample-tests/{id}/evidence/` — 上传证据
+- `POST /api/v1/sample-tests/{id}/review/` — `{verdict: pass|fail}`（仅 staff）
 
-## 样例登记
+当前状态：**未打样**（无 seed pass 记录；软件闭环已就绪）。
 
-| 样例 ID | 内尺寸 L×W×H (mm) | 厚度 T | 材质 | 打样日期 | 状态 |
-|---|---|---|---|---|---|
-| default | 315×202×62 | 1.5 | kraft | — | 未打样 |
-| min | 80×70×20 | 0.5 | kraft | — | 未打样 |
-| large | 400×280×90 | 2 | white | — | 未打样 |
+软件黄金样例见 `scripts/fixtures/golden.json`；一键自检：`npm run check:all`。  
+阶段报告：`research/packative-dieline-lab/reports/phase6-fefco-sample-loop.md`。
+
+## 样例登记（现场）
+
+| 样例 ID | 模板 | 内尺寸 L×W×H (mm) | 厚度 T | 材质 | 打样日期 | 状态 |
+|---|---|---|---|---|---|---|
+| fefco-anchor | fefco-0201 | 300×200×150 | 3 | kraft | — | 未打样 |
+| mailer-default | mailer-parametric-demo | 300×200×50 | 1.5 | kraft | — | 未打样 |
 
 ## 现象对照
 
@@ -20,16 +26,11 @@
 
 | 样例 ID | 现象 | 预期 | 实测 | 建议补偿 | 回写状态 |
 |---|---|---|---|---|---|
-| default | 缺料（展开外廓不够） | 外廓≈ panel | | 调 L/W 或 panel 公式 | 未做 |
-| default | 张口（合盖缝过大） | 合盖贴合 | | 调 H / 翼宽系数 | 未做 |
-| default | 插不进（插舌过紧/过松） | tuck 可入 | | 调 tuck / 厚度 | 未做 |
-| default | 合盖干涉（穿模/顶死） | AABB 无 gap 告警 | | 调锁舌/盖翼 | 未做 |
-| default | 出血不足 | bleed 完整包裹 trim | | 调 bleed mm | 未做 |
-| min | （同上各项） | | | | 未做 |
-| large | （同上各项） | | | | 未做 |
+| fefco-anchor | 缺料 / 张口 / 合盖干涉 | 见工程域 | | 调补偿后重导 engineering | 未做 |
 
 ## 回写规则
 
-1. 先改输入参数（L/W/H/T/bleed）复测；仍偏差再改 `knife.js` 比例系数。
-2. 改几何后必须跑 `npm run check:all`。
-3. **不得**因「软件自检通过」将 `manufacturingReady` 设为 `true`；仅在完成实物打样并签字确认后另行评审。
+1. 先改输入参数（L/W/H/T/bleed）复测；仍偏差再改模板补偿。
+2. 改几何后必须跑对应 `check:*-engineering` / `npm run check:all`。
+3. **不得**因「软件自检通过」将 SampleTestRecord 标为 `pass`；仅在完成实物打样并签字后由 staff review。
+4. 一条 pass 只覆盖其窄域尺寸，不得传播到全家族。

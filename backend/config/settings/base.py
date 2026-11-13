@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'apps.designs',
     'apps.ai_jobs',
     'apps.exports',
+    'apps.samples',
     'apps.quotes',
     'apps.orders',
     'apps.dieline_library',

@@ -45,6 +45,8 @@ export type VariantSummary = {
   thickness_mm: string | null
   is_example: boolean
   created_at: string | null
+  preview_revision_id: string | null
+  has_preview: boolean
 }
 
 export type VariantDetail = VariantSummary & {

@@ -1,6 +1,5 @@
 /**
- * 从运输箱 CSV + geometry/pacdora_boxes/*.json 索引生成「导入的尺寸目录」。
- * 默认源：docs/pacdora_shipping_boxes/shipping_boxes.csv（Pacdora 运输箱页定点采集）。
+ * 从运输箱 + 邮寄盒 CSV 生成「导入的尺寸目录」。
  * 只写入 L/W/H/厚度/名称/段数等元数据；不把 Pacdora cuts/folds 坐标写进产品刀版。
  */
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs'
@@ -9,9 +8,11 @@ import {fileURLToPath} from 'node:url'
 
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 const shippingCsv=join(root,'docs','pacdora_shipping_boxes','shipping_boxes.csv')
+const mailerCsv=join(root,'docs','pacdora_mailer_boxes','mailer_boxes.csv')
 const legacyCsv=join(root,'pacdora_boxes_geom.csv')
-const csvPath=existsSync(shippingCsv)?shippingCsv:legacyCsv
-const geomDir=join(root,'geometry','pacdora_boxes')
+const shippingGeomDir=join(root,'docs','pacdora_shipping_boxes','geometry')
+const mailerGeomDir=join(root,'docs','pacdora_mailer_boxes','geometry')
+const legacyGeomDir=join(root,'geometry','pacdora_boxes')
 const outDir=join(root,'src','catalog')
 const outPath=join(outDir,'presets.js')
 const overridesJsonPath=join(outDir,'mapOverrides.json')
@@ -121,84 +122,123 @@ function materialId(name){
   return 'white'
 }
 
-/** CSV「分类」→ 稳定 id + 中文名（运输箱-only 目录） */
+/** CSV「分类」→ 稳定 id + 中文名 */
 const CATEGORY_MAP={
   '运输箱':{id:'shipping',label:'运输箱'},
   'Shipping Box':{id:'shipping',label:'运输箱'},
+  '邮寄盒':{id:'mailer',label:'邮寄盒'},
+  'Mailer Box':{id:'mailer',label:'邮寄盒'},
   'Gift Box':{id:'gift',label:'礼品盒'},
   'Display Box':{id:'display',label:'展示盒'}
 }
-function mapCategory(raw){
+function mapCategory(raw,forceId){
+  if(forceId==='shipping')return {id:'shipping',label:'运输箱'}
+  if(forceId==='mailer')return {id:'mailer',label:'邮寄盒'}
   const hit=CATEGORY_MAP[String(raw||'').trim()]
   return hit||{id:'other',label:'其他'}
 }
 
-if(!existsSync(csvPath)){
-  console.error('missing',csvPath)
+const sources=[]
+if(existsSync(shippingCsv)){
+  sources.push({
+    csvPath:shippingCsv,
+    forceCategory:'shipping',
+    geomDirs:[shippingGeomDir,legacyGeomDir],
+    coverRelPrefix:'shipping-covers',
+    geomPublicPrefix:'shipping-geom',
+  })
+}
+if(existsSync(mailerCsv)){
+  sources.push({
+    csvPath:mailerCsv,
+    forceCategory:'mailer',
+    geomDirs:[mailerGeomDir],
+    coverRelPrefix:'mailer-covers',
+    geomPublicPrefix:'mailer-geom',
+  })
+}
+if(!sources.length&&existsSync(legacyCsv)){
+  sources.push({
+    csvPath:legacyCsv,
+    forceCategory:'shipping',
+    geomDirs:[legacyGeomDir],
+    coverRelPrefix:'shipping-covers',
+    geomPublicPrefix:'shipping-geom',
+  })
+}
+if(!sources.length){
+  console.error('missing shipping/mailer/legacy CSV')
   process.exit(1)
 }
-
-const rows=parseCSV(readFileSync(csvPath,'utf8').replace(/^\uFEFF/,''))
-const h=rows[0]
-const idx=Object.fromEntries(h.map((k,i)=>[k.trim(),i]))
-const col=(r,name)=>r[idx[name]]
 
 const presets=[]
 const seen=new Set()
 let skippedDim=0,missingGeom=0,mapped=0
+const generatedFrom=[]
 
-for(const r of rows.slice(1)){
-  if(!r||r.length<8)continue
-  const num=String(col(r,'模型编号')||'').trim()
-  if(!num||seen.has(num))continue
-  seen.add(num)
+for(const src of sources){
+  generatedFrom.push(src.csvPath.replace(root,'').replace(/^[/\\]/,''))
+  const rows=parseCSV(readFileSync(src.csvPath,'utf8').replace(/^\uFEFF/,''))
+  const h=rows[0]
+  const idx=Object.fromEntries(h.map((k,i)=>[k.trim(),i]))
+  const col=(r,name)=>r[idx[name]]
 
-  const name=(col(r,'名称')||'').trim()
-  const mockup=(col(r,'mockup名称')||'').trim()
-  const innerL=Number(col(r,'内尺寸L'))
-  const innerW=Number(col(r,'内尺寸W'))
-  const innerH=Number(col(r,'内尺寸H'))
-  const knifeL=Number(col(r,'刀版长mm'))
-  const knifeW=Number(col(r,'刀版宽mm'))
-  const knifeH=Number(col(r,'刀版高mm'))
-  const L=innerL>0?innerL:knifeL
-  const W=innerW>0?innerW:knifeW
-  const H=innerH>0?innerH:knifeH
-  // StarBox 金样 W=0 → 用 L；CanCylinder 允许 H=0
-  if(L>0&&!(W>0)&&H>0)W=L
-  if(!(L>0&&W>0&&H>=0)){skippedDim++;continue}
+  for(const r of rows.slice(1)){
+    if(!r||r.length<8)continue
+    const num=String(col(r,'模型编号')||'').trim()
+    // 同号可跨类目并存（运输箱 / 邮寄盒各自保留）
+    const seenKey=`${src.forceCategory||'other'}:${num}`
+    if(!num||seen.has(seenKey))continue
+    seen.add(seenKey)
 
-  const matName=col(r,'默认材质名')||''
-  const geomRel=`geometry/pacdora_boxes/${num}.json`
-  const geomPath=join(geomDir,`${num}.json`)
-  const hasGeometry=existsSync(geomPath)
-  if(!hasGeometry)missingGeom++
+    const name=(col(r,'名称')||'').trim()
+    const mockup=(col(r,'mockup名称')||'').trim()
+    const innerL=Number(col(r,'内尺寸L'))
+    const innerW=Number(col(r,'内尺寸W'))
+    const innerH=Number(col(r,'内尺寸H'))
+    const knifeL=Number(col(r,'刀版长mm'))
+    const knifeW=Number(col(r,'刀版宽mm'))
+    const knifeH=Number(col(r,'刀版高mm'))
+    let L=innerL>0?innerL:knifeL
+    let W=innerW>0?innerW:knifeW
+    let H=innerH>0?innerH:knifeH
+    // StarBox 金样 W=0 → 用 L；CanCylinder 允许 H=0
+    if(L>0&&!(W>0)&&H>0)W=L
+    if(!(L>0&&W>0&&H>=0)){skippedDim++;continue}
 
-  const templateId=mapTemplate(name,mockup,num)
-  if(templateId)mapped++
-  const category=mapCategory(col(r,'分类'))
+    const matName=col(r,'默认材质名')||''
+    const geomPublicRel=`${src.geomPublicPrefix}/${num}.json`
+    const geomPath=src.geomDirs.map(d=>join(d,`${num}.json`)).find(p=>existsSync(p))
+    const hasGeometry=!!geomPath
+    if(!hasGeometry)missingGeom++
 
-  const label=((mockup||name).replace(/\s+mockup\s*$/i,'').replace(/\s+dieline\s*$/i,'').trim())||num
-  presets.push({
-    id:`import-${num}`,
-    sourceNum:num,
-    label,
-    categoryId:category.id,
-    categoryLabel:category.label,
-    length:Math.round(L*1000)/1000,
-    width:Math.round(W*1000)/1000,
-    height:Math.round(H*1000)/1000,
-    thickness:thicknessFromMaterial(matName),
-    materialId:materialId(matName),
-    templateId,
-    hasGeometry,
-    cutCount:Number(col(r,'切割段数'))||0,
-    foldCount:Number(col(r,'折线段数'))||0,
-    sheetW:Number(col(r,'展开宽'))||0,
-    sheetH:Number(col(r,'展开高'))||0,
-    geomRel,
-    coverRel:`shipping-covers/${num}.png`
-  })
+    const templateId=mapTemplate(name,mockup,num)
+    if(templateId)mapped++
+    const category=mapCategory(col(r,'分类'),src.forceCategory)
+
+    const label=((mockup||name).replace(/\s+mockup\s*$/i,'').replace(/\s+dieline\s*$/i,'').trim())||num
+    presets.push({
+      id:`import-${src.forceCategory||'box'}-${num}`,
+      sourceNum:num,
+      label,
+      categoryId:category.id,
+      categoryLabel:category.label,
+      length:Math.round(L*1000)/1000,
+      width:Math.round(W*1000)/1000,
+      height:Math.round(H*1000)/1000,
+      thickness:thicknessFromMaterial(matName),
+      materialId:materialId(matName),
+      templateId,
+      hasGeometry,
+      cutCount:Number(col(r,'切割段数'))||0,
+      foldCount:Number(col(r,'折线段数'))||0,
+      sheetW:Number(col(r,'展开宽'))||0,
+      sheetH:Number(col(r,'展开高'))||0,
+      geomRel:geomPublicRel,
+      geomPublicRel,
+      coverRel:`${src.coverRelPrefix}/${num}.png`
+    })
+  }
 }
 
 presets.sort((a,b)=>String(a.sourceNum).localeCompare(String(b.sourceNum),'en',{numeric:true}))
@@ -221,8 +261,8 @@ if(byCategory.other)categories.push({id:'other',label:'其他',count:byCategory.
 mkdirSync(outDir,{recursive:true})
 const payload={
   schema:'boxcraft.presets.v1',
-  note:'Imported SIZE directory only (shipping boxes). Geometry JSON under geometry/ is reference index, not production dielines. Engine always regenerates via BOXCRAFT templates.',
-  generatedFrom:[csvPath.replace(root,'').replace(/^[/\\]/,''),'geometry/pacdora_boxes'],
+  note:'Imported SIZE directory (shipping + mailer). Geometry under public/*-geom is locked-sample playback reference, not production dielines. Engine regenerates via BOXCRAFT templates when no geom.',
+  generatedFrom,
   count:presets.length,
   mapped,
   missingGeom,
@@ -239,6 +279,8 @@ console.log(JSON.stringify({
   unmapped:presets.length-mapped,
   skippedDim,
   missingGeom,
-  geomDirExists:existsSync(geomDir),
+  byCategory,
+  shippingGeomExists:existsSync(shippingGeomDir),
+  mailerGeomExists:existsSync(mailerGeomDir),
   byTemplate
 },null,2))

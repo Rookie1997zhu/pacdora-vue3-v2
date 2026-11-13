@@ -19,6 +19,7 @@ class ExportJob(models.Model):
     class QualityTier(models.TextChoices):
         PREVIEW = 'preview', 'Preview'
         VECTOR_PROOF = 'vector_proof', 'Vector proof'
+        ENGINEERING = 'engineering', 'Engineering candidate'
         MANUFACTURING = 'manufacturing', 'Manufacturing'
 
     class Status(models.TextChoices):

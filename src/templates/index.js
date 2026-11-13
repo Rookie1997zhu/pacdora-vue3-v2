@@ -1,6 +1,7 @@
 import mailerFlip from './mailerFlip.js'
 import fefco0201 from './fefco0201.js'
 import fefco0427 from './fefco0427.js'
+import productboxCrashlock from './productboxCrashlock.js'
 import tuckEndStraight from './tuckEndStraight.js'
 import tuckEndReverse from './tuckEndReverse.js'
 import autoLockBottom from './autoLockBottom.js'
@@ -23,7 +24,7 @@ import {SPEC_TEMPLATES} from './spec/index.js'
 
 export const TEMPLATES=Object.freeze(Object.fromEntries(
   [
-    mailerFlip,fefco0427,fefco0201,tuckEndStraight,tuckEndReverse,autoLockBottom,lidBase,
+    mailerFlip,fefco0427,fefco0201,productboxCrashlock,tuckEndStraight,tuckEndReverse,autoLockBottom,lidBase,
     sleeve,drawerTray,sleeveDrawer,cylinderBox,tuckWindow,mailerAircraft,hangingTuck,pizzaClamshell,
     handleBox,magneticRigid,displayPdq,zipperTuck,polygonTray,
     ...REA_TEMPLATES,
