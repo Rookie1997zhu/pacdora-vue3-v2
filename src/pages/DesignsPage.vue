@@ -31,6 +31,7 @@
             <button type="button" @click="onCopy(d.id)">{{ t('studio.copy') }}</button>
             <button v-if="tab === 'active'" type="button" @click="onArchive(d.id)">{{ t('studio.archive') }}</button>
             <button v-else type="button" @click="onRestore(d.id)">{{ t('studio.restore') }}</button>
+            <button type="button" class="danger" @click="onDelete(d.id)">{{ t('studio.delete') }}</button>
           </div>
         </li>
       </ul>
@@ -44,7 +45,7 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ApiError } from '../api/client'
-import { copyDesign, fetchDesigns, patchDesign, type DesignListItem } from '../api/designs'
+import { copyDesign, deleteDesign, fetchDesigns, patchDesign, type DesignListItem } from '../api/designs'
 import AuthThumbnail from '../components/AuthThumbnail.vue'
 import AppShell from '../components/layout/AppShell.vue'
 import { useAuthStore } from '../stores/auth'
@@ -99,6 +100,16 @@ async function onRestore(id: string) {
 async function onCopy(id: string) {
   const copied = await copyDesign(id)
   await router.push(`/designs/${copied.id}`)
+}
+
+async function onDelete(id: string) {
+  if (!window.confirm(t('studio.deleteConfirm'))) return
+  try {
+    await deleteDesign(id)
+    await load()
+  } catch (e: unknown) {
+    error.value = e instanceof ApiError ? e.message : t('studio.deleteFailed')
+  }
 }
 
 onMounted(async () => {
@@ -178,6 +189,11 @@ onMounted(async () => {
   background: #fff;
   border-radius: var(--bc-radius-sm);
   padding: 6px 10px;
+}
+
+.actions button.danger {
+  color: var(--bc-danger, #b42318);
+  border-color: color-mix(in srgb, var(--bc-danger, #b42318) 35%, var(--bc-line-strong));
 }
 
 @media (max-width: 640px) {

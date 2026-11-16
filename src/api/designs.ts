@@ -83,6 +83,11 @@ export async function copyDesign(id: string, name?: string) {
   return res.data
 }
 
+export async function deleteDesign(id: string) {
+  const res = await apiRequest(`/designs/${id}/`, { method: 'DELETE' })
+  return res.data
+}
+
 export async function saveDesignRevision(
   id: string,
   payload: { content: DesignDocumentV1; expected_row_version: number },

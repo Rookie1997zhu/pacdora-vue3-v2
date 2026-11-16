@@ -1,13 +1,18 @@
+from django.db import transaction
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.ai_jobs.models import AiJob
 from apps.catalog.models import Product
 from apps.designs.models import Design, DesignRevision, DesignViewPreference
 from apps.designs.serializers import DesignDetailSerializer, DesignListSerializer, DesignRevisionSerializer
 from apps.designs.services import DesignServiceError, copy_design, create_design, save_revision
+from apps.exports.models import ExportJob
+from apps.orders.models import CartItem, OrderItem
 from apps.organizations.permissions import org_ids_for, primary_org, require_org_membership
+from apps.quotes.models import Quote
 from config.api import fail, ok
 
 
@@ -152,6 +157,29 @@ class DesignDetailView(APIView):
                 return fail('非法状态', code='VALIDATION_ERROR', request=request)
         design.save()
         return ok(DesignDetailSerializer(design).data, request=request)
+
+    def delete(self, request, design_id):
+        design = _get_owned_design(request.user, design_id)
+        if not design:
+            return fail('无权访问设计', code='FORBIDDEN', request=request, http_status=403)
+        if OrderItem.objects.filter(design_id=design.id).exists():
+            return fail(
+                '该设计已关联订单，无法删除，请改用归档',
+                code='DESIGN_IN_USE',
+                request=request,
+                http_status=409,
+            )
+        # ExportJob/AiJob/Quote/CartItem protect DesignRevision; clear them before cascade.
+        with transaction.atomic():
+            ExportJob.objects.filter(design_id=design.id).delete()
+            AiJob.objects.filter(design_id=design.id).delete()
+            CartItem.objects.filter(design_id=design.id).delete()
+            Quote.objects.filter(design_id=design.id).delete()
+            if design.current_revision_id:
+                design.current_revision = None
+                design.save(update_fields=['current_revision', 'updated_at'])
+            design.delete()
+        return ok({}, message='已删除', request=request)
 
 
 class DesignRevisionListCreateView(APIView):
