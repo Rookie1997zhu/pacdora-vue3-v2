@@ -44,6 +44,8 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = null
       organizations.value = []
       useBillingStore().reset()
+      const { useRenderJobStore } = await import('./renderJob')
+      useRenderJobStore().reset()
       if (e && typeof e === 'object' && 'status' in e && (e as { status: number }).status === 401) {
         return
       }
@@ -54,6 +56,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function login(email: string, password: string) {
+    const { useRenderJobStore } = await import('./renderJob')
+    useRenderJobStore().reset()
     const res = await apiRequest<{ user: AuthUser }>('/auth/login/', {
       method: 'POST',
       json: { email, password },
@@ -64,6 +68,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function register(email: string, password: string, displayName: string) {
+    const { useRenderJobStore } = await import('./renderJob')
+    useRenderJobStore().reset()
     const res = await apiRequest<{ user: AuthUser }>('/auth/register/', {
       method: 'POST',
       json: { email, password, display_name: displayName },
@@ -78,6 +84,8 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
     organizations.value = []
     useBillingStore().reset()
+    const { useRenderJobStore } = await import('./renderJob')
+    useRenderJobStore().reset()
     clearCsrfCache()
   }
 

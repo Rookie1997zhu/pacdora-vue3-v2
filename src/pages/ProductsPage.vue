@@ -30,7 +30,11 @@
         </div>
       </motion.div>
 
-      <p v-if="error" class="bc-err">{{ error }}</p>
+      <div v-if="error" class="bc-empty">
+        <EmptyLordIcon :src="emptySearchIcon" />
+        <p class="bc-err">{{ error }}</p>
+        <button type="button" class="bc-btn bc-btn--ghost" @click="reload">{{ t('studio.retryLoad') }}</button>
+      </div>
       <p v-else-if="loading">{{ t('studio.loading') }}</p>
       <ul v-else-if="filtered.length" :key="filterKey" class="grid">
         <motion.li v-for="(p, i) in filtered" :key="p.id" v-bind="staggerEnterProps(i)">
@@ -49,9 +53,13 @@
           </RouterLink>
         </motion.li>
       </ul>
-      <div v-if="!loading && !error && !filtered.length" class="bc-empty">
+      <div v-else-if="!products.length" class="bc-empty">
         <EmptyLordIcon :src="emptySearchIcon" />
-        <p>{{ t('studio.loadFailed') }}</p>
+        <p>{{ t('studio.productsEmpty') }}</p>
+      </div>
+      <div v-else class="bc-empty">
+        <EmptyLordIcon :src="emptySearchIcon" />
+        <p>{{ t('studio.productsNoMatch') }}</p>
         <button v-if="query || category" type="button" class="bc-btn bc-btn--ghost" @click="clearFilters">
           {{ t('library.resetFilters') }}
         </button>
@@ -117,7 +125,9 @@ function clearFilters() {
   category.value = ''
 }
 
-onMounted(async () => {
+async function reload() {
+  loading.value = true
+  error.value = ''
   try {
     products.value = await fetchProducts()
   } catch (e: unknown) {
@@ -125,6 +135,10 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+}
+
+onMounted(() => {
+  void reload()
 })
 </script>
 

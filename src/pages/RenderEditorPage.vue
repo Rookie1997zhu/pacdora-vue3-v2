@@ -17,7 +17,13 @@
         <button type="button" class="primary" :disabled="rendering || jobStore.busy || !store.sceneId || !hasRenderable" @click="renderDialogOpen = true">
           {{ rendering || jobStore.busy ? t('render.rendering') : t('render.renderCloud') }}
         </button>
-        <button type="button" :disabled="!canDownload || jobStore.busy" @click="onDownload">{{ t('render.download') }}</button>
+        <button
+          type="button"
+          :disabled="(!canDownload && !canRerenderAfterMiss) || jobStore.busy"
+          @click="canDownload ? onDownload() : onRenderConfirm()"
+        >
+          {{ canDownload ? t('render.download') : canRerenderAfterMiss ? t('render.rerender') : t('render.download') }}
+        </button>
       </div>
     </header>
 
@@ -262,8 +268,19 @@
           <h2>{{ progressTitle }}</h2>
         </header>
         <p class="progress-msg">{{ progressMessage }}</p>
-        <div class="progress-track" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="progressPercent" role="progressbar">
-          <div class="progress-fill" :style="{ width: `${progressPercent}%` }" :class="{ indeterminate: progressIndeterminate }" />
+        <div
+          class="progress-track"
+          role="progressbar"
+          :aria-valuemin="progressHasRatio ? 0 : undefined"
+          :aria-valuemax="progressHasRatio ? 100 : undefined"
+          :aria-valuenow="progressHasRatio ? progressPercent : undefined"
+          :aria-busy="progressIndeterminate ? 'true' : undefined"
+        >
+          <div
+            class="progress-fill"
+            :style="progressHasRatio ? { width: `${progressPercent}%` } : { width: '42%' }"
+            :class="{ indeterminate: progressIndeterminate || !progressHasRatio }"
+          />
         </div>
         <p class="progress-meta">{{ progressMeta }}</p>
         <div class="progress-actions">
@@ -275,7 +292,15 @@
           >
             {{ t('render.download') }}
           </button>
-          <button v-if="progressDone || progressFailed" type="button" @click="progressOpen = false">
+          <button
+            v-else-if="progressDone && artifactExpired"
+            type="button"
+            class="primary"
+            @click="onRenderConfirm"
+          >
+            {{ t('render.rerender') }}
+          </button>
+          <button v-if="progressDone || progressFailed || artifactExpired" type="button" @click="progressOpen = false">
             {{ t('render.progressClose') }}
           </button>
         </div>
@@ -404,16 +429,7 @@ const selectedModel = computed(() =>
 )
 const selectedTemplate = computed(() => templates.value.find((x) => x.id === selectedTemplateId.value) || null)
 const hasRenderable = computed(() => store.content.models.length + store.content.props.length > 0)
-const canDownload = computed(() => {
-  if (
-    jobStore.currentJob?.status === 'succeeded' ||
-    jobStore.currentBatch?.status === 'succeeded' ||
-    jobStore.currentBatch?.status === 'partial'
-  ) {
-    return true
-  }
-  return Object.keys(jobStore.resultCache || {}).length > 0
-})
+const canDownload = computed(() => jobStore.hasDownloadableResult())
 
 const progressActive = computed(() => rendering.value || jobStore.busy)
 const renderSucceeded = computed(
@@ -422,6 +438,14 @@ const renderSucceeded = computed(
     jobStore.currentBatch?.status === 'succeeded' ||
     jobStore.currentBatch?.status === 'partial',
 )
+const artifactExpired = computed(
+  () =>
+    renderSucceeded.value &&
+    (jobStore.artifactStatus === 'missing' ||
+      jobStore.artifactStatus === 'not_ready' ||
+      jobStore.errorCode === 'ARTIFACT_EXPIRED'),
+)
+const canRerenderAfterMiss = computed(() => artifactExpired.value && !canDownload.value)
 const progressFailed = computed(() => {
   // Job already succeeded: download/ephemeral misses must not flip UI to "render failed".
   if (renderSucceeded.value) return false
@@ -432,36 +456,41 @@ const progressFailed = computed(() => {
   )
 })
 const progressDone = computed(() => !progressActive.value && renderSucceeded.value)
-const progressIndeterminate = computed(() => progressActive.value && !progressDone.value && !progressFailed.value)
+const progressIndeterminate = computed(
+  () => progressActive.value && !progressDone.value && !progressFailed.value,
+)
+/** Only batch completion ratio is a real measured percent; single-job uses stages. */
+const progressHasRatio = computed(() => {
+  if (progressFailed.value || progressDone.value) return true
+  const batch = jobStore.currentBatch
+  return !!(batch && batch.job_count > 0)
+})
 
 const progressPercent = computed(() => {
-  void progressTick.value
-  if (progressFailed.value) return 100
-  if (progressDone.value) return 100
+  if (progressFailed.value || progressDone.value) return 100
   const batch = jobStore.currentBatch
   if (batch && batch.job_count > 0) {
     const done = batch.succeeded_count + batch.failed_count
-    const base = Math.round((done / batch.job_count) * 90)
-    const status = jobStore.currentJob?.status
-    const bump = status === 'running' ? 6 : status === 'queued' ? 2 : 0
-    return Math.min(96, Math.max(8, base + bump))
+    return Math.min(100, Math.round((done / batch.job_count) * 100))
   }
-  const status = jobStore.currentJob?.status
-  if (status === 'running') return Math.min(88, 35 + progressTick.value * 2)
-  if (status === 'queued') return Math.min(40, 12 + progressTick.value)
-  if (progressActive.value) return Math.min(28, 8 + progressTick.value)
   return 0
 })
 
 const progressTitle = computed(() => {
   if (progressFailed.value) return t('render.progressFailed')
+  if (artifactExpired.value && progressDone.value) return t('render.artifactExpiredTitle')
   if (progressDone.value) return t('render.progressDone')
   return t('render.progressTitle')
 })
 
 const progressMessage = computed(() => {
   if (progressFailed.value) return jobLabel.value || t('render.progressFailedHint')
-  if (progressDone.value) return t('render.progressDoneHint')
+  if (artifactExpired.value && progressDone.value) return t('render.artifactExpiredHint')
+  if (progressDone.value) {
+    if (jobStore.downloadStatus === 'fetching') return t('render.progressFetching')
+    return t('render.progressDoneHint')
+  }
+  if (jobStore.downloadStatus === 'fetching') return t('render.progressFetching')
   const status = jobStore.currentBatch?.status || jobStore.currentJob?.status || 'queued'
   if (status === 'running') return t('render.progressRunning')
   if (status === 'queued') return t('render.progressQueued')
@@ -519,7 +548,11 @@ const batchStatusLabel = computed(() => {
 const jobLabel = computed(() => {
   if (jobStore.errorCode === 'EXPORT_QUOTA_EXCEEDED') return t('billing.quotaExceeded')
   if (jobStore.errorCode === 'RENDER_4K_DISABLED') return t('render.fourKDisabled')
-  if (jobStore.errorCode === 'RENDER_NOT_READY') return t('render.downloadNotReady')
+  if (jobStore.errorCode === 'ARTIFACT_EXPIRED') return t('render.artifactExpiredHint')
+  if (jobStore.errorCode === 'RENDER_NOT_READY') {
+    if (renderSucceeded.value) return t('render.artifactExpiredHint')
+    return t('render.downloadNotReady')
+  }
   if (jobStore.errorCode === 'RENDER_BUSY') return t('render.renderBusy')
   return jobStore.error
 })
@@ -868,13 +901,16 @@ function onDownload() {
 }
 
 async function onRenderConfirm() {
+  if (jobStore.hasUnconfirmedResults) {
+    const ok = window.confirm(t('render.confirmClearResults'))
+    if (!ok) return
+  }
+
   renderDialogOpen.value = false
   progressOpen.value = true
   rendering.value = true
   startProgressTicker()
   jobStore.reset()
-  jobStore.error = ''
-  jobStore.errorCode = ''
 
   if (!engine || !store.sceneId) {
     jobStore.error = t('render.renderStartFailed')
@@ -932,6 +968,17 @@ async function onRenderConfirm() {
 function onKeydown(ev: KeyboardEvent) {
   const mod = ev.ctrlKey || ev.metaKey
   if (!mod) return
+  const target = ev.target as HTMLElement | null
+  if (
+    target &&
+    (target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.tagName === 'SELECT' ||
+      target.isContentEditable ||
+      ev.isComposing)
+  ) {
+    return
+  }
   if (ev.key === 'z' && !ev.shiftKey) {
     ev.preventDefault()
     onUndo()

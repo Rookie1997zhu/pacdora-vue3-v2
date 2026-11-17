@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { ApiError } from '../api/client'
 import {
   renderBatchCreate,
@@ -13,6 +13,11 @@ import {
 import type { Entitlement } from '../api/billing'
 import type { RenderSceneDocumentV2 } from '../../packages/render-scene-schema/renderScene'
 import { useBillingStore } from './billing'
+
+export type ArtifactStatus = 'ready' | 'missing' | 'not_ready' | 'unknown'
+export type DownloadStatus = 'idle' | 'fetching' | 'saved_triggered' | 'failed'
+
+const CACHE_LIMIT = 8
 
 function triggerBlobDownload(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob)
@@ -41,11 +46,17 @@ export const useRenderJobStore = defineStore('renderJob', () => {
   const busy = ref(false)
   const error = ref('')
   const errorCode = ref('')
+  const artifactStatus = ref<ArtifactStatus>('unknown')
+  const downloadStatus = ref<DownloadStatus>('idle')
   /** Local cache so re-download works after server deletes ephemeral file. */
   const resultCache = ref<Record<string, CachedResult>>({})
+  /** Oldest → newest job ids for LRU eviction. */
+  const cacheOrder = ref<string[]>([])
   const inflightFetches = new Map<string, Promise<CachedResult>>()
   let pollTimer: ReturnType<typeof setTimeout> | null = null
   let pollGeneration = 0
+
+  const hasUnconfirmedResults = computed(() => Object.keys(resultCache.value).length > 0)
 
   function stopPoll() {
     pollGeneration += 1
@@ -55,7 +66,20 @@ export const useRenderJobStore = defineStore('renderJob', () => {
 
   function clearResultCache() {
     resultCache.value = {}
+    cacheOrder.value = []
     inflightFetches.clear()
+  }
+
+  function touchCacheOrder(jobId: string) {
+    cacheOrder.value = cacheOrder.value.filter((id) => id !== jobId)
+    cacheOrder.value.push(jobId)
+    while (cacheOrder.value.length > CACHE_LIMIT) {
+      const evictId = cacheOrder.value.shift()
+      if (!evictId) break
+      const next = { ...resultCache.value }
+      delete next[evictId]
+      resultCache.value = next
+    }
   }
 
   function cacheResult(jobId: string, blob: Blob, filename: string) {
@@ -63,6 +87,28 @@ export const useRenderJobStore = defineStore('renderJob', () => {
       ...resultCache.value,
       [jobId]: { blob, filename },
     }
+    touchCacheOrder(jobId)
+  }
+
+  function hasCachedResult(jobId: string | null | undefined): boolean {
+    return !!(jobId && resultCache.value[jobId])
+  }
+
+  function hasDownloadableResult(): boolean {
+    if (artifactStatus.value === 'ready') return true
+    if (currentJob.value?.id && resultCache.value[currentJob.value.id]) return true
+    const batch = currentBatch.value
+    if (batch?.job_ids?.length) {
+      return batch.job_ids.some((id) => !!resultCache.value[id])
+    }
+    return Object.keys(resultCache.value).length > 0
+  }
+
+  function markArtifactMissing(code: string = 'ARTIFACT_EXPIRED') {
+    artifactStatus.value = code === 'RENDER_NOT_READY' ? 'not_ready' : 'missing'
+    downloadStatus.value = 'failed'
+    errorCode.value = code === 'RENDER_NOT_READY' ? 'RENDER_NOT_READY' : 'ARTIFACT_EXPIRED'
+    error.value = error.value || code
   }
 
   async function pollJob(jobId: string) {
@@ -85,6 +131,8 @@ export const useRenderJobStore = defineStore('renderJob', () => {
         if (job.status === 'failed') {
           error.value = job.error_message || job.error_code || 'failed'
           errorCode.value = job.error_code || 'RENDER_FAILED'
+          artifactStatus.value = 'unknown'
+          downloadStatus.value = 'idle'
         } else if (job.status === 'succeeded') {
           await download()
         }
@@ -128,6 +176,8 @@ export const useRenderJobStore = defineStore('renderJob', () => {
         if (batch.status === 'failed') {
           error.value = batch.error_message || batch.error_code || 'failed'
           errorCode.value = batch.error_code || 'RENDER_FAILED'
+          artifactStatus.value = 'unknown'
+          downloadStatus.value = 'idle'
         }
         // Prefer a succeeded job for single-click download.
         if (batch.job_ids?.length) {
@@ -166,7 +216,9 @@ export const useRenderJobStore = defineStore('renderJob', () => {
   }) {
     error.value = ''
     errorCode.value = ''
-    clearResultCache()
+    artifactStatus.value = 'unknown'
+    downloadStatus.value = 'idle'
+    // Caller must confirm + clearResultCache / reset before starting a new job.
     busy.value = true
     currentBatch.value = null
     try {
@@ -218,7 +270,8 @@ export const useRenderJobStore = defineStore('renderJob', () => {
   }) {
     error.value = ''
     errorCode.value = ''
-    clearResultCache()
+    artifactStatus.value = 'unknown'
+    downloadStatus.value = 'idle'
     busy.value = true
     try {
       const batch = await renderBatchCreate(
@@ -261,7 +314,10 @@ export const useRenderJobStore = defineStore('renderJob', () => {
 
   async function fetchAndCacheJob(jobId: string): Promise<CachedResult> {
     const cached = resultCache.value[jobId]
-    if (cached) return cached
+    if (cached) {
+      touchCacheOrder(jobId)
+      return cached
+    }
     const pending = inflightFetches.get(jobId)
     if (pending) return pending
     const request = (async () => {
@@ -279,33 +335,41 @@ export const useRenderJobStore = defineStore('renderJob', () => {
 
   async function download() {
     if (!currentJob.value || currentJob.value.status !== 'succeeded') {
+      artifactStatus.value = 'not_ready'
+      downloadStatus.value = 'failed'
       error.value = error.value || 'render_not_ready'
       errorCode.value = errorCode.value || 'RENDER_NOT_READY'
       return
     }
     const jobId = currentJob.value.id
     busy.value = true
-    error.value = ''
-    errorCode.value = ''
+    downloadStatus.value = 'fetching'
     try {
       const { blob, filename } = await fetchAndCacheJob(jobId)
       triggerBlobDownload(blob, filename)
+      artifactStatus.value = 'ready'
+      downloadStatus.value = 'saved_triggered'
+      error.value = ''
+      errorCode.value = ''
     } catch (e: unknown) {
       // Server may have already deleted the ephemeral file after first download.
       const cached = resultCache.value[jobId]
       if (cached) {
         triggerBlobDownload(cached.blob, cached.filename)
+        artifactStatus.value = 'ready'
+        downloadStatus.value = 'saved_triggered'
         error.value = ''
         errorCode.value = ''
         return
       }
       const code = e instanceof ApiError ? e.code : 'RENDER_DOWNLOAD_FAILED'
-      // Do not overwrite a successful render with a soft download miss.
+      // Keep job succeeded; surface artifact/download failure separately.
       if (code === 'ASSET_MISSING' || code === 'RENDER_NOT_READY') {
-        error.value = ''
-        errorCode.value = ''
+        markArtifactMissing(code)
         return
       }
+      artifactStatus.value = 'unknown'
+      downloadStatus.value = 'failed'
       error.value = e instanceof Error ? e.message : 'download_failed'
       errorCode.value = code
     } finally {
@@ -321,10 +385,10 @@ export const useRenderJobStore = defineStore('renderJob', () => {
       return
     }
     busy.value = true
-    error.value = ''
-    errorCode.value = ''
+    downloadStatus.value = 'fetching'
     try {
       let downloaded = 0
+      let softMiss = false
       for (const jobId of batch.job_ids) {
         const job = await renderJobGet(jobId)
         if (job.status !== 'succeeded') continue
@@ -339,7 +403,11 @@ export const useRenderJobStore = defineStore('renderJob', () => {
             downloaded += 1
           } else {
             const code = e instanceof ApiError ? e.code : ''
-            if (code !== 'ASSET_MISSING' && code !== 'RENDER_NOT_READY') throw e
+            if (code === 'ASSET_MISSING' || code === 'RENDER_NOT_READY') {
+              softMiss = true
+            } else {
+              throw e
+            }
           }
         }
         // Small gap so browsers don't collapse multiple downloads.
@@ -347,11 +415,18 @@ export const useRenderJobStore = defineStore('renderJob', () => {
           pollTimer = id
         })
       }
-      if (!downloaded) {
-        error.value = 'render_not_ready'
-        errorCode.value = 'RENDER_NOT_READY'
+      if (downloaded) {
+        artifactStatus.value = 'ready'
+        downloadStatus.value = 'saved_triggered'
+        error.value = ''
+        errorCode.value = ''
+      } else if (softMiss) {
+        markArtifactMissing('ARTIFACT_EXPIRED')
+      } else {
+        markArtifactMissing('RENDER_NOT_READY')
       }
     } catch (e: unknown) {
+      downloadStatus.value = 'failed'
       error.value = e instanceof Error ? e.message : 'download_failed'
       errorCode.value = e instanceof ApiError ? e.code : 'RENDER_DOWNLOAD_FAILED'
     } finally {
@@ -366,6 +441,8 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     busy.value = false
     error.value = ''
     errorCode.value = ''
+    artifactStatus.value = 'unknown'
+    downloadStatus.value = 'idle'
     clearResultCache()
   }
 
@@ -375,7 +452,13 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     busy,
     error,
     errorCode,
+    artifactStatus,
+    downloadStatus,
     resultCache,
+    hasUnconfirmedResults,
+    hasCachedResult,
+    hasDownloadableResult,
+    clearResultCache,
     start,
     startBatch,
     download,

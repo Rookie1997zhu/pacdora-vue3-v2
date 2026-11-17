@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount, computed } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, computed, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
@@ -33,16 +33,27 @@ const {
 const exportRef = ref<InstanceType<typeof ExportCenter> | null>(null)
 const mobileTab = ref<'2d' | '3d'>('2d')
 const engineMismatch = ref(false)
+const exportDrawerOpen = ref(false)
+const isNarrow = ref(false)
 let debounce: ReturnType<typeof setTimeout> | null = null
 let urlTimer: ReturnType<typeof setTimeout> | null = null
+let mediaQuery: MediaQueryList | null = null
+let onNarrowChange: ((ev: MediaQueryListEvent) => void) | null = null
 
 const slug = computed(() => String(route.params.slug || ''))
 
-onMounted(async () => {
-  const loaded = await loadWorkbenchManifest(slug.value)
-  if (!loaded || !wb.loadManifest(slug.value, loaded)) {
-    // Imported boxes that are not offered for customization go back to the workbench list
-    router.replace({ name: slug.value.startsWith('import-') ? 'workbench-home' : 'products' })
+async function bootSlug(nextSlug: string, opts?: { savePrevious?: boolean }) {
+  if (opts?.savePrevious) {
+    try {
+      wb.saveDraft()
+    } catch {
+      /* ignore draft save failures when switching */
+    }
+  }
+  engineMismatch.value = false
+  const loaded = await loadWorkbenchManifest(nextSlug)
+  if (!loaded || !wb.loadManifest(nextSlug, loaded)) {
+    router.replace({ name: nextSlug.startsWith('import-') ? 'workbench-home' : 'products' })
     return
   }
   if (loaded.engineMismatch) engineMismatch.value = true
@@ -56,6 +67,25 @@ onMounted(async () => {
   }
   performance.mark('wb-open')
   await knife.recompute()
+}
+
+onMounted(async () => {
+  mediaQuery = window.matchMedia('(max-width: 960px)')
+  const syncNarrow = () => {
+    isNarrow.value = mediaQuery?.matches ?? false
+    if (!isNarrow.value) exportDrawerOpen.value = true
+    else exportDrawerOpen.value = false
+  }
+  onNarrowChange = () => syncNarrow()
+  syncNarrow()
+  mediaQuery.addEventListener('change', onNarrowChange)
+
+  await bootSlug(slug.value)
+})
+
+watch(slug, async (next, prev) => {
+  if (!next || next === prev) return
+  await bootSlug(next, { savePrevious: true })
 })
 
 const { params } = storeToRefs(wb)
@@ -86,19 +116,40 @@ watch(
   { deep: true },
 )
 
+function isEditableKeyTarget(e: KeyboardEvent) {
+  const target = e.target as HTMLElement | null
+  if (!target) return false
+  if (e.isComposing) return true
+  const tag = target.tagName
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true
+  if (target.isContentEditable) return true
+  return false
+}
+
 function onKey(e: KeyboardEvent) {
   const mod = e.ctrlKey || e.metaKey
-  if (mod && e.key.toLowerCase() === 'z') {
-    e.preventDefault()
-    if (e.shiftKey) wb.redo()
-    else wb.undo()
-  }
+  if (!(mod && e.key.toLowerCase() === 'z')) return
+  if (isEditableKeyTarget(e)) return
+  e.preventDefault()
+  if (e.shiftKey) wb.redo()
+  else wb.undo()
 }
+
+async function openExport() {
+  if (wb.manifest?.locked) return
+  exportDrawerOpen.value = true
+  await nextTick()
+  exportRef.value?.requestExport()
+}
+
 onMounted(() => window.addEventListener('keydown', onKey))
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKey)
   if (debounce) clearTimeout(debounce)
   if (urlTimer) clearTimeout(urlTimer)
+  if (mediaQuery && onNarrowChange) {
+    mediaQuery.removeEventListener('change', onNarrowChange)
+  }
   knife.dispose()
 })
 </script>
@@ -108,7 +159,7 @@ onBeforeUnmount(() => {
     <div class="wb">
       <TopBar
         :save-status="saveStatus"
-        :on-export="wb.manifest?.locked ? undefined : () => exportRef?.requestExport()"
+        :on-export="wb.manifest?.locked ? undefined : openExport"
         :locked="!!wb.manifest?.locked"
         :on-checkpoint="() => checkpoint()"
       />
@@ -116,7 +167,7 @@ onBeforeUnmount(() => {
       <p v-if="geometryDrift" class="warn">{{ t('workbench.driftBlocked') }}</p>
       <p v-if="wb.manifest?.fidelity === 'close'" class="warn soft">{{ t('workbench.fidelityCloseNote') }}</p>
       <p v-if="wb.manifest?.locked" class="warn soft">{{ t('workbench.lockedNote') }}</p>
-      <div class="layout">
+      <div class="layout" :class="{ 'with-export': !wb.manifest?.locked && exportDrawerOpen }">
         <ParamPanel class="left" />
         <div class="center">
           <div class="mobile-tabs">
@@ -130,21 +181,37 @@ onBeforeUnmount(() => {
           <div v-if="wb.manifest?.locked" class="note">
             <p>{{ t('workbench.lockedExportNote') }}</p>
           </div>
-          <ExportCenter
-            v-else
-            ref="exportRef"
-            :design-id="designId"
-            :revision-id="revisionId"
-            :export-blocked="exportBlocked"
-            :checkpoint="() => checkpoint()"
-            :ensure-design="() => ensureDesign()"
-            :login-with-claim="() => loginWithClaim()"
-          />
           <div class="note">
             <p>{{ t('workbench.guestNote') }}</p>
           </div>
         </aside>
       </div>
+
+      <div
+        v-if="!wb.manifest?.locked && isNarrow && exportDrawerOpen"
+        class="export-backdrop"
+        @click="exportDrawerOpen = false"
+      />
+      <aside
+        v-if="!wb.manifest?.locked"
+        class="export-drawer"
+        :class="{ open: exportDrawerOpen, narrow: isNarrow }"
+        :aria-hidden="!exportDrawerOpen"
+      >
+        <header v-if="isNarrow" class="export-drawer-bar">
+          <strong>{{ t('workbench.export') }}</strong>
+          <button type="button" class="ghost" @click="exportDrawerOpen = false">{{ t('workbench.closeExport') }}</button>
+        </header>
+        <ExportCenter
+          ref="exportRef"
+          :design-id="designId"
+          :revision-id="revisionId"
+          :export-blocked="exportBlocked"
+          :checkpoint="() => checkpoint()"
+          :ensure-design="() => ensureDesign()"
+          :login-with-claim="() => loginWithClaim()"
+        />
+      </aside>
     </div>
   </AppShell>
 </template>
@@ -152,13 +219,15 @@ onBeforeUnmount(() => {
 <style scoped>
 .wb{
   display:flex;flex-direction:column;gap:12px;padding:12px clamp(8px,2vw,20px) 24px;
-  min-height:calc(100vh - 64px);background:var(--bc-paper);font-family:var(--bc-font-ui)
+  min-height:calc(100vh - 64px);background:var(--bc-paper);font-family:var(--bc-font-ui);
+  position:relative;
 }
 .warn{margin:0;padding:8px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px}
 .warn.soft{background:var(--bc-warn-bg);border-color:var(--bc-warn-line);color:var(--bc-warn)}
 .layout{
   display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:12px;flex:1;min-height:0
 }
+.layout.with-export{grid-template-columns:280px minmax(0,1fr) 260px}
 .left,.right,.canvas{min-height:0}
 .center{display:flex;flex-direction:column;min-height:0}
 /* Fill the column but never grow past the viewport when the side panel is long; stay in view while it scrolls */
@@ -166,12 +235,37 @@ onBeforeUnmount(() => {
 .right{display:flex;flex-direction:column;gap:12px}
 .note{background:#fff;border:1px solid var(--bc-line);border-radius:12px;padding:12px;font-size:12px;color:var(--bc-ink-muted)}
 .mobile-tabs{display:none}
+.export-backdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:35;
+}
+.export-drawer{
+  background:#fff;border:1px solid var(--bc-line);border-radius:12px;padding:12px;
+  display:flex;flex-direction:column;gap:8px;min-height:0;
+}
+.export-drawer-bar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.export-drawer-bar .ghost{
+  height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--bc-line-strong);background:#fff;cursor:pointer;
+}
+@media (min-width: 961px){
+  .export-drawer{
+    position:fixed;top:76px;right:12px;bottom:12px;width:min(340px,34vw);
+    z-index:30;overflow:auto;box-shadow:0 8px 24px rgba(15,23,42,.08);
+  }
+  .export-drawer:not(.open){display:none}
+  .layout.with-export{margin-right:min(352px,calc(34vw + 12px))}
+}
 @media (max-width: 960px){
-  .layout{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr;margin-right:0}
   .center .canvas{position:static;height:70vh}
   .mobile-tabs{display:flex;gap:6px;margin-bottom:8px}
   .mobile-tabs button{flex:1;height:32px;border-radius:8px;border:1px solid var(--bc-line-strong);background:#fff}
   .mobile-tabs button.on{background:var(--bc-steel);color:#fff;border-color:var(--bc-steel)}
   .hideMobile{display:none !important}
+  .export-drawer.narrow{
+    position:fixed;left:0;right:0;bottom:0;top:auto;max-height:min(78vh,640px);
+    z-index:40;border-radius:16px 16px 0 0;transform:translateY(110%);
+    transition:transform .2s ease;overflow:auto;
+  }
+  .export-drawer.narrow.open{transform:translateY(0)}
 }
 </style>

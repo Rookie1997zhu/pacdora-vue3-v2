@@ -76,6 +76,21 @@ watch(
   { immediate: true },
 )
 
+function tierLabel(code: string) {
+  if (code === 'vector_proof') return t('workbench.tierVectorProof')
+  if (code === 'engineering') return t('workbench.tierEngineering')
+  return code
+}
+
+function statusLabel(code: string) {
+  if (code === 'queued') return t('workbench.statusQueued')
+  if (code === 'running') return t('workbench.statusRunning')
+  if (code === 'succeeded') return t('workbench.statusSucceeded')
+  if (code === 'failed') return t('workbench.statusFailed')
+  if (code === 'cancelled' || code === 'canceled') return t('workbench.statusCancelled')
+  return code
+}
+
 async function requestExport() {
   if (!auth.isAuthenticated) {
     gate.value = 'login'
@@ -191,7 +206,7 @@ defineExpose({ requestExport })
 
       <ul v-if="jobList.length" class="queue">
         <li v-for="j in jobList" :key="j.id">
-          <span>{{ j.format.toUpperCase() }} · {{ j.quality_tier }} · {{ j.status }}</span>
+          <span>{{ j.format.toUpperCase() }} · {{ tierLabel(j.quality_tier) }} · {{ statusLabel(j.status) }}</span>
           <span class="q-actions">
             <button v-if="j.status === 'succeeded'" type="button" @click="exportStore.downloadJob(j.id)">{{ t('workbench.downloadAgain') }}</button>
             <button v-if="j.status === 'queued'" type="button" @click="exportStore.cancel(j.id)">{{ t('workbench.cancel') }}</button>

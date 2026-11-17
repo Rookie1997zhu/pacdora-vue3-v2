@@ -9,7 +9,10 @@
         <div v-if="billing.entitlement" class="quota">
           <p>
             {{ t('billing.currentPlan') }}:
-            <strong>{{ billing.entitlement.plan }}</strong>
+            <strong>{{ planLabel(billing.entitlement.plan) }}</strong>
+            <span v-if="!isKnownPlan(billing.entitlement.plan)" class="tech">{{
+              t('billing.planUnknownDetail', { code: billing.entitlement.plan })
+            }}</span>
           </p>
           <p>
             {{ t('billing.remaining') }}:
@@ -79,6 +82,17 @@ const busy = ref(false)
 const success = ref(false)
 const error = ref('')
 
+function isKnownPlan(code: string) {
+  return code === 'free' || code === 'annual' || code === 'pay_per_use'
+}
+
+function planLabel(code: string) {
+  if (code === 'free') return t('billing.planFree')
+  if (code === 'annual') return t('billing.planAnnual')
+  if (code === 'pay_per_use') return t('billing.planPayPerUse')
+  return code
+}
+
 onMounted(async () => {
   await auth.refreshMe()
   if (!auth.isAuthenticated) {
@@ -111,6 +125,7 @@ h1{margin:0 0 8px;font-family:var(--bc-font-display);font-size:24px}
 .lead,.note{margin:0 0 10px;color:var(--bc-ink-muted);font-size:14px}
 .note{background:var(--bc-steel-soft);padding:10px 12px;border-radius:8px}
 .quota{margin:14px 0;font-size:14px}
+.tech{display:block;margin-top:4px;font-size:12px;color:var(--bc-ink-muted);font-weight:400}
 .plans{display:grid;gap:8px;margin:16px 0}
 .plan{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border:1px solid var(--bc-line-strong);border-radius:8px;background:#fff;cursor:pointer;font:inherit;text-align:left}
 .plan.on{border-color:var(--bc-ink);box-shadow:inset 0 0 0 1px var(--bc-ink)}
