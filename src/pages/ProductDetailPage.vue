@@ -1,6 +1,9 @@
 <template>
   <AppShell>
     <main v-if="product" class="wrap">
+      <p class="back">
+        <RouterLink :to="backToProducts">← {{ t('studio.products') }}</RouterLink>
+      </p>
       <div class="layout">
         <aside class="preview">
           <div class="slot" aria-hidden="true">
@@ -17,13 +20,79 @@
         <section class="detail">
           <header class="bc-page-header">
             <div>
-              <h1>{{ locale === 'ko-KR' && product.name_ko ? product.name_ko : product.name }}</h1>
+              <h1>{{ displayName }}</h1>
             </div>
           </header>
+          <div class="capability" role="list">
+            <span class="cap" role="listitem">{{ geometryBadgeLabel(product.geometry_mode) }}</span>
+            <span v-if="wbFidelityLabel" class="cap" role="listitem">{{ wbFidelityLabel }}</span>
+            <span v-if="isWorkbenchLocked" class="cap warn" role="listitem">{{ t('workbench.fidelityLocked') }}</span>
+          </div>
+          <p class="boundary">{{ t('studio.capabilityBoundaryNote') }}</p>
           <p class="desc">{{ product.description }}</p>
 
-          <form class="form" @submit.prevent="onCreate">
-            <h2>{{ t('studio.createDesign') }}</h2>
+          <div class="facts">
+            <p>
+              <strong>{{ t('studio.sizeMode') }}</strong>
+              {{ sizeModeLabel }}
+            </p>
+            <p>
+              <strong>{{ t('studio.paperStock') }}</strong>
+              {{ paperLabel(getPaperById(paperId) || resolvePaperFromParams({}), locale) }}
+              · {{ (getPaperById(paperId) || resolvePaperFromParams({})).thicknessMm }} mm
+            </p>
+            <p v-if="tierLabels">
+              <strong>{{ t('workbench.infoTiers') }}</strong>
+              {{ tierLabels }}
+            </p>
+          </div>
+
+          <details class="tech">
+            <summary>{{ t('studio.techDetails') }}</summary>
+            <dl>
+              <div>
+                <dt>slug</dt>
+                <dd>{{ product.slug }}</dd>
+              </div>
+              <div>
+                <dt>template_key</dt>
+                <dd>{{ product.template_key }}</dd>
+              </div>
+              <div>
+                <dt>engine</dt>
+                <dd>{{ product.template_version?.engine_version || '—' }}</dd>
+              </div>
+              <div>
+                <dt>template_version</dt>
+                <dd>{{ product.template_version?.version || '—' }}</dd>
+              </div>
+              <div v-if="wbManifest?.fidelity">
+                <dt>fidelity</dt>
+                <dd>{{ wbManifest.fidelity }} · {{ t('studio.fidelityNotCertification') }}</dd>
+              </div>
+            </dl>
+          </details>
+
+          <div class="cta-row">
+            <RouterLink
+              v-if="canCustomizeStructure"
+              class="bc-btn bc-btn--primary"
+              :to="{ name: 'workbench', params: { slug: product.slug } }"
+            >
+              {{ t('studio.ctaAdjustStructure') }}
+            </RouterLink>
+            <RouterLink
+              v-else-if="canViewLocked"
+              class="bc-btn bc-btn--primary"
+              :to="{ name: 'workbench', params: { slug: product.slug } }"
+            >
+              {{ t('studio.ctaViewLocked') }}
+            </RouterLink>
+            <p v-else-if="!canCreateStudio" class="hint">{{ t('studio.ctaUnavailable') }}</p>
+          </div>
+
+          <form v-if="canCreateStudio" class="form" @submit.prevent="onCreate">
+            <h2>{{ t('studio.ctaEnterStudio') }}</h2>
             <label>
               {{ t('studio.designName') }}
               <input v-model="designName" required maxlength="200" />
@@ -31,15 +100,36 @@
             <div class="row">
               <label>
                 L (mm)
-                <input v-model.number="lengthMm" type="number" :min="lengthMin" :max="lengthMax" step="0.1" :disabled="!editable" />
+                <input
+                  v-model.number="lengthMm"
+                  type="number"
+                  :min="lengthMin"
+                  :max="lengthMax"
+                  step="0.1"
+                  :disabled="!editable"
+                />
               </label>
               <label>
                 W (mm)
-                <input v-model.number="widthMm" type="number" :min="widthMin" :max="widthMax" step="0.1" :disabled="!editable" />
+                <input
+                  v-model.number="widthMm"
+                  type="number"
+                  :min="widthMin"
+                  :max="widthMax"
+                  step="0.1"
+                  :disabled="!editable"
+                />
               </label>
               <label>
                 H (mm)
-                <input v-model.number="heightMm" type="number" :min="heightMin" :max="heightMax" step="0.1" :disabled="!editable" />
+                <input
+                  v-model.number="heightMm"
+                  type="number"
+                  :min="heightMin"
+                  :max="heightMax"
+                  step="0.1"
+                  :disabled="!editable"
+                />
               </label>
             </div>
             <label>
@@ -52,14 +142,12 @@
             </label>
             <p v-if="!editable" class="hint">{{ t('studio.sizeLocked') }}</p>
             <p v-else-if="outOfRange" class="hint bc-err">{{ t('studio.outOfRange') }}</p>
+            <p v-if="isWorkbenchLocked" class="hint">{{ t('studio.lockedCreateNote') }}</p>
             <p v-if="error" class="bc-err">{{ error }}</p>
             <div class="actions">
-              <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy">{{ t('studio.createDesign') }}</button>
-              <router-link
-                v-if="showWorkbench"
-                class="bc-btn"
-                :to="{ name: 'workbench', params: { slug: product.slug } }"
-              >{{ t('workbench.customizeCta') }}</router-link>
+              <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy || isWorkbenchLocked">
+                {{ t('studio.ctaEnterStudio') }}
+              </button>
             </div>
           </form>
         </section>
@@ -114,16 +202,80 @@ const widthMm = ref(200)
 const heightMm = ref(50)
 const paperId = ref('kraft-250')
 
+const displayName = computed(() => {
+  const p = product.value
+  if (!p) return ''
+  return locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name
+})
+
 const editable = computed(() => product.value?.geometry_mode === 'parametric')
-const showWorkbench = computed(
-  () =>
-    isWorkbenchEnabled() &&
-    !!product.value &&
+
+const wbManifest = computed(() => {
+  if (!product.value || !isWorkbenchEnabled()) return null
+  return getWorkbenchManifest(product.value.slug)
+})
+
+const isWorkbenchLocked = computed(() => !!wbManifest.value?.locked)
+
+const canCustomizeStructure = computed(() => {
+  if (!isWorkbenchEnabled() || !product.value || isWorkbenchLocked.value) return false
+  if (!wbManifest.value) return false
+  return (
     product.value.geometry_mode === 'parametric' &&
     (product.value.capabilities?.workbench === true ||
       !!product.value.workbench ||
-      !!getWorkbenchManifest(product.value.slug)),
-)
+      !!wbManifest.value)
+  )
+})
+
+const canViewLocked = computed(() => isWorkbenchEnabled() && isWorkbenchLocked.value)
+
+/** Studio create: parametric or fixed that can still open a design, but not locked-only dead ends. */
+const canCreateStudio = computed(() => {
+  if (!product.value) return false
+  if (product.value.geometry_mode === 'model_only' && !canCustomizeStructure.value && !canViewLocked.value) {
+    return false
+  }
+  if (isWorkbenchLocked.value && product.value.geometry_mode !== 'parametric') {
+    // locked reference: viewing only via workbench; don't offer misleading studio create as primary path
+    return false
+  }
+  return product.value.geometry_mode === 'parametric' || product.value.geometry_mode === 'fixed_snapshot'
+})
+
+const wbFidelityLabel = computed(() => {
+  const f = wbManifest.value?.fidelity
+  if (f === 'exact') return t('workbench.fidelityExact')
+  if (f === 'close') return t('workbench.fidelityClose')
+  return ''
+})
+
+const tierLabels = computed(() => {
+  const tiers = wbManifest.value?.tiers
+  if (!tiers?.length) return ''
+  return tiers
+    .map((code) => {
+      if (code === 'vector_proof') return t('workbench.tierVectorProof')
+      if (code === 'engineering') return t('workbench.tierEngineering')
+      return code
+    })
+    .join(' · ')
+})
+
+const sizeModeLabel = computed(() => {
+  const defaults = (product.value?.capabilities?.default_params || {}) as Record<string, string>
+  const mode = defaults.sizeMode || 'inner'
+  if (mode === 'outer') return t('studio.sizeModeOuter')
+  if (mode === 'manufacturing') return t('workbench.modeMfg')
+  return t('studio.sizeModeInner')
+})
+
+const backToProducts = computed(() => {
+  const q: Record<string, string> = {}
+  if (route.query.q) q.q = String(route.query.q)
+  if (route.query.cat) q.cat = String(route.query.cat)
+  return { path: '/products', query: q }
+})
 
 const limits = computed(() => product.value?.template_version?.limits || null)
 const lengthMin = computed(() => limits.value?.length?.[0] ?? 1)
@@ -172,6 +324,10 @@ onMounted(async () => {
 
 async function onCreate() {
   if (!product.value) return
+  if (isWorkbenchLocked.value) {
+    error.value = t('studio.lockedCreateNote')
+    return
+  }
   if (!auth.isAuthenticated) {
     await router.push({ path: '/account/login', query: { next: route.fullPath } })
     return
@@ -253,6 +409,16 @@ async function onCreate() {
   padding: clamp(24px, 4vw, 40px) clamp(16px, 3vw, 28px) 80px;
 }
 
+.back {
+  margin: 0 0 12px;
+  font-size: 13px;
+}
+.back a {
+  color: var(--bc-steel);
+  text-decoration: none;
+  font-weight: 600;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -317,10 +483,99 @@ async function onCreate() {
   margin-bottom: 10px;
 }
 
+.capability {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+.cap {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bc-steel-soft);
+  color: var(--bc-steel);
+}
+
+.cap.warn {
+  background: var(--bc-warn-bg);
+  color: var(--bc-warn);
+}
+
+.boundary {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--bc-ink-faint);
+  line-height: 1.45;
+}
+
 .desc {
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   color: var(--bc-ink-muted);
   font-size: var(--bc-fs-body);
+}
+
+.facts {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--bc-line);
+  background: var(--bc-paper-elevated);
+  font-size: 13px;
+  color: var(--bc-ink-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.facts p {
+  margin: 0;
+}
+.facts strong {
+  color: var(--bc-ink);
+  margin-right: 6px;
+}
+
+.tech {
+  margin: 0 0 16px;
+  border: 1px solid var(--bc-line);
+  border-radius: 10px;
+  padding: 4px 12px 8px;
+  background: #fff;
+}
+.tech summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 0;
+}
+.tech dl {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+.tech dl > div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+}
+.tech dt {
+  color: var(--bc-ink-muted);
+  margin: 0;
+}
+.tech dd {
+  margin: 0;
+  word-break: break-all;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: center;
 }
 
 .form {

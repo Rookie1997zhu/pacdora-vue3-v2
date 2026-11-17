@@ -163,10 +163,12 @@ onBeforeUnmount(() => {
         :locked="!!wb.manifest?.locked"
         :on-checkpoint="() => checkpoint()"
       />
-      <p v-if="engineMismatch" class="warn">{{ t('workbench.engineMismatch') }}</p>
-      <p v-if="geometryDrift" class="warn">{{ t('workbench.driftBlocked') }}</p>
-      <p v-if="wb.manifest?.fidelity === 'close'" class="warn soft">{{ t('workbench.fidelityCloseNote') }}</p>
-      <p v-if="wb.manifest?.locked" class="warn soft">{{ t('workbench.lockedNote') }}</p>
+      <div class="alerts" aria-live="polite">
+        <p v-if="engineMismatch" class="warn engine">{{ t('workbench.engineMismatch') }}</p>
+        <p v-if="geometryDrift" class="warn drift">{{ t('workbench.driftBlocked') }}</p>
+        <p v-if="wb.manifest?.fidelity === 'close'" class="warn soft fidelity">{{ t('workbench.fidelityCloseNote') }}</p>
+        <p v-if="wb.manifest?.locked" class="warn soft locked">{{ t('workbench.lockedNote') }}</p>
+      </div>
       <div class="layout" :class="{ 'with-export': !wb.manifest?.locked && exportDrawerOpen }">
         <ParamPanel class="left" />
         <div class="center">
@@ -174,7 +176,14 @@ onBeforeUnmount(() => {
             <button type="button" :class="{ on: mobileTab === '2d' }" @click="mobileTab = '2d'">2D</button>
             <button type="button" :class="{ on: mobileTab === '3d' }" @click="mobileTab = '3d'">3D</button>
           </div>
-          <DielineCanvas class="canvas" :class="{ hideMobile: mobileTab !== '2d' }" />
+          <div class="canvas-wrap" :class="{ hideMobile: mobileTab !== '2d' }">
+            <div class="canvas-badge" aria-hidden="true">
+              <span>{{ slug }}</span>
+              <span v-if="wb.pieceId">· {{ wb.pieceId }}</span>
+              <span>· mm</span>
+            </div>
+            <DielineCanvas class="canvas" />
+          </div>
         </div>
         <aside class="right" :class="{ hideMobile: mobileTab !== '3d' }">
           <FoldPreview />
@@ -222,16 +231,28 @@ onBeforeUnmount(() => {
   min-height:calc(100vh - 64px);background:var(--bc-paper);font-family:var(--bc-font-ui);
   position:relative;
 }
+.alerts{display:flex;flex-direction:column;gap:6px}
 .warn{margin:0;padding:8px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px}
 .warn.soft{background:var(--bc-warn-bg);border-color:var(--bc-warn-line);color:var(--bc-warn)}
+.warn.engine{border-left:3px solid #c2410c}
+.warn.drift{border-left:3px solid #b91c1c}
+.warn.fidelity{border-left:3px solid #a16207}
+.warn.locked{border-left:3px solid #0369a1}
 .layout{
-  display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:12px;flex:1;min-height:0
+  display:grid;grid-template-columns:260px minmax(0,1fr) 260px;gap:12px;flex:1;min-height:0
 }
-.layout.with-export{grid-template-columns:280px minmax(0,1fr) 260px}
-.left,.right,.canvas{min-height:0}
+.layout.with-export{grid-template-columns:240px minmax(0,1fr) 220px}
+.left,.right,.canvas,.canvas-wrap{min-height:0}
 .center{display:flex;flex-direction:column;min-height:0}
-/* Fill the column but never grow past the viewport when the side panel is long; stay in view while it scrolls */
-.center .canvas{flex:0 1 auto;height:calc(100vh - 190px);min-height:420px;position:sticky;top:76px}
+.canvas-wrap{
+  position:sticky;top:76px;flex:0 1 auto;height:calc(100vh - 190px);min-height:420px
+}
+.canvas-badge{
+  position:absolute;z-index:2;top:8px;left:8px;padding:4px 8px;border-radius:6px;
+  background:rgba(255,255,255,.92);border:1px solid var(--bc-line);font-size:11px;color:var(--bc-ink-muted);
+  pointer-events:none;max-width:calc(100% - 16px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.center .canvas{height:100%;min-height:420px}
 .right{display:flex;flex-direction:column;gap:12px}
 .note{background:#fff;border:1px solid var(--bc-line);border-radius:12px;padding:12px;font-size:12px;color:var(--bc-ink-muted)}
 .mobile-tabs{display:none}
@@ -256,7 +277,8 @@ onBeforeUnmount(() => {
 }
 @media (max-width: 960px){
   .layout{grid-template-columns:1fr;margin-right:0}
-  .center .canvas{position:static;height:70vh}
+  .canvas-wrap{position:static;height:70vh}
+  .center .canvas{height:100%}
   .mobile-tabs{display:flex;gap:6px;margin-bottom:8px}
   .mobile-tabs button{flex:1;height:32px;border-radius:8px;border:1px solid var(--bc-line-strong);background:#fff}
   .mobile-tabs button.on{background:var(--bc-steel);color:#fff;border-color:var(--bc-steel)}

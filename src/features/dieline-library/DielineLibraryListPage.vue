@@ -5,6 +5,7 @@
         <div>
           <h1>{{ t('library.title') }}</h1>
           <p>{{ t('library.lead') }}</p>
+          <p class="source-note">{{ t('library.sourceNote') }}</p>
         </div>
       </header>
 
@@ -222,6 +223,13 @@ onMounted(() => {
   max-width: 1180px;
   margin: 0 auto;
   padding: clamp(24px, 4vw, 40px) clamp(16px, 3vw, 28px) 80px;
+}
+.source-note {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--bc-ink-faint);
 }
 
 .filters {

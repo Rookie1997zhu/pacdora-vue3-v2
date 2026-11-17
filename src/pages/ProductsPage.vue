@@ -36,9 +36,9 @@
         <button type="button" class="bc-btn bc-btn--ghost" @click="reload">{{ t('studio.retryLoad') }}</button>
       </div>
       <p v-else-if="loading">{{ t('studio.loading') }}</p>
-      <ul v-else-if="filtered.length" :key="filterKey" class="grid">
-        <motion.li v-for="(p, i) in filtered" :key="p.id" v-bind="staggerEnterProps(i)">
-          <RouterLink class="card" :to="`/products/${p.slug}`">
+      <ul v-else-if="filtered.length" class="grid">
+        <motion.li v-for="(p, i) in filtered" :key="p.id" v-bind="staggerEnterProps(Math.min(i, 11))">
+          <RouterLink class="card" :to="detailTo(p.slug)">
             <div class="slot" aria-hidden="true">
               <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" alt="" />
               <span v-else class="box-shape" />
@@ -47,8 +47,13 @@
               </em>
             </div>
             <div class="meta">
-              <strong>{{ locale === 'ko-KR' && p.name_ko ? p.name_ko : p.name }}</strong>
-              <span class="bc-chip" :data-kind="categoryBadgeKind(p.category)">{{ p.category }}</span>
+              <strong :title="displayName(p)">{{ displayName(p) }}</strong>
+              <div class="tags">
+                <span class="bc-chip" :data-kind="categoryBadgeKind(p.category)">{{ p.category }}</span>
+                <span class="bc-chip" :data-kind="geometryBadgeKind(p.geometry_mode)">{{
+                  geometryBadgeLabel(p.geometry_mode)
+                }}</span>
+              </div>
             </div>
           </RouterLink>
         </motion.li>
@@ -69,8 +74,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
 import { motion } from 'motion-v'
 import {
   categoryBadgeKind,
@@ -87,11 +93,14 @@ import AppShell from '../components/layout/AppShell.vue'
 import { enterProps, staggerEnterProps } from '../motion'
 
 const { t, locale } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const products = ref<ProductSummary[]>([])
 const loading = ref(true)
 const error = ref('')
-const query = ref('')
-const category = ref('')
+const query = ref(String(route.query.q || ''))
+const category = ref(String(route.query.cat || ''))
+let syncingFromRoute = false
 
 const categories = computed(() => {
   const set = new Set(products.value.map((p) => p.category).filter(Boolean))
@@ -108,10 +117,12 @@ const filtered = computed(() => {
   })
 })
 
-const filterKey = computed(() => `${category.value}|${query.value.trim().toLowerCase()}`)
-
 function coverUrl(rel: string) {
   return publicAssetUrl(rel)
+}
+
+function displayName(p: ProductSummary) {
+  return locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name
 }
 
 function geometryBadgeLabel(mode: ProductSummary['geometry_mode']) {
@@ -120,10 +131,42 @@ function geometryBadgeLabel(mode: ProductSummary['geometry_mode']) {
   return t('site.customSizeBadge')
 }
 
+function detailTo(slug: string) {
+  const q: Record<string, string> = {}
+  if (query.value.trim()) q.q = query.value.trim()
+  if (category.value) q.cat = category.value
+  return { path: `/products/${slug}`, query: q }
+}
+
 function clearFilters() {
   query.value = ''
   category.value = ''
 }
+
+function pushFilterQuery() {
+  if (syncingFromRoute) return
+  const next: Record<string, string> = {}
+  if (query.value.trim()) next.q = query.value.trim()
+  if (category.value) next.cat = category.value
+  const curQ = String(route.query.q || '')
+  const curCat = String(route.query.cat || '')
+  if (curQ === (next.q || '') && curCat === (next.cat || '')) return
+  void router.replace({ path: '/products', query: next })
+}
+
+watch([query, category], () => {
+  pushFilterQuery()
+})
+
+watch(
+  () => [route.query.q, route.query.cat] as const,
+  ([q, cat]) => {
+    syncingFromRoute = true
+    query.value = String(q || '')
+    category.value = String(cat || '')
+    syncingFromRoute = false
+  },
+)
 
 async function reload() {
   loading.value = true
@@ -173,8 +216,11 @@ onMounted(() => {
 
 .chips {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .chip {
@@ -187,6 +233,8 @@ onMounted(() => {
   color: var(--bc-ink-muted);
   box-shadow: inset 0 0 0 1px var(--bc-line);
   transition: background var(--bc-ease), color var(--bc-ease), box-shadow var(--bc-ease);
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .chip.on,
@@ -231,7 +279,7 @@ onMounted(() => {
 }
 
 .slot {
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   background: var(--bc-slot);
   position: relative;
   display: grid;
@@ -264,6 +312,18 @@ onMounted(() => {
 .meta strong {
   font-size: var(--bc-fs-body);
   font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.35;
+  min-height: 2.7em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .sr-only {

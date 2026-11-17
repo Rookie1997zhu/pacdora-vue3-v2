@@ -46,48 +46,55 @@ function materialLabel(p: any) {
 <template>
   <fieldset class="tab locked-fieldset" :disabled="!!wb.manifest?.locked">
     <p v-if="wb.manifest?.locked" class="hint locked-hint">{{ t('workbench.lockedPanelHint') }}</p>
-    <div class="row-head">
-      <h3>{{ t('workbench.dims') }}</h3>
-      <div class="unit-toggle" role="group" :aria-label="t('workbench.unit')">
-        <button type="button" :class="{ on: unit === 'mm' }" @click="wb.setDisplayUnit('mm')">mm</button>
-        <button type="button" :class="{ on: unit === 'in' }" @click="wb.setDisplayUnit('in')">in</button>
+    <section class="group">
+      <div class="row-head">
+        <h3>{{ t('workbench.groupSizeMode') }}</h3>
       </div>
-    </div>
-    <div class="grid">
-      <DimInput
-        :label="t('workbench.length')"
-        :model-value="wb.params.lengthMm"
-        :min="limits.length?.[0]"
-        :max="limits.length?.[1]"
-        :invalid="outOfRange('length', wb.params.lengthMm)"
-        @update:model-value="wb.setDim('lengthMm', $event)"
-      />
-      <DimInput
-        :label="t('workbench.width')"
-        :model-value="wb.params.widthMm"
-        :min="limits.width?.[0]"
-        :max="limits.width?.[1]"
-        :invalid="outOfRange('width', wb.params.widthMm)"
-        @update:model-value="wb.setDim('widthMm', $event)"
-      />
-      <DimInput
-        :label="t('workbench.height')"
-        :model-value="wb.params.heightMm"
-        :min="limits.height?.[0]"
-        :max="limits.height?.[1]"
-        :invalid="outOfRange('height', wb.params.heightMm)"
-        @update:model-value="wb.setDim('heightMm', $event)"
-      />
-    </div>
+      <div class="seg">
+        <button type="button" :class="{ on: wb.params.sizeMode === 'manufacturing' }" @click="onSizeMode('manufacturing')">{{ t('workbench.modeMfg') }}</button>
+        <button type="button" :class="{ on: wb.params.sizeMode === 'inner' }" @click="onSizeMode('inner')">{{ t('workbench.modeInner') }}</button>
+        <button type="button" :class="{ on: wb.params.sizeMode === 'outer' }" @click="onSizeMode('outer')">{{ t('workbench.modeOuter') }}</button>
+      </div>
+    </section>
 
-    <h3>{{ t('workbench.sizeMode') }}</h3>
-    <div class="seg">
-      <button type="button" :class="{ on: wb.params.sizeMode === 'manufacturing' }" @click="onSizeMode('manufacturing')">{{ t('workbench.modeMfg') }}</button>
-      <button type="button" :class="{ on: wb.params.sizeMode === 'inner' }" @click="onSizeMode('inner')">{{ t('workbench.modeInner') }}</button>
-      <button type="button" :class="{ on: wb.params.sizeMode === 'outer' }" @click="onSizeMode('outer')">{{ t('workbench.modeOuter') }}</button>
-    </div>
+    <section class="group">
+      <div class="row-head">
+        <h3>{{ t('workbench.groupOuterDims') }}</h3>
+        <div class="unit-toggle" role="group" :aria-label="t('workbench.unit')">
+          <button type="button" :class="{ on: unit === 'mm' }" @click="wb.setDisplayUnit('mm')">mm</button>
+          <button type="button" :class="{ on: unit === 'in' }" @click="wb.setDisplayUnit('in')">in</button>
+        </div>
+      </div>
+      <div class="grid">
+        <DimInput
+          :label="t('workbench.length')"
+          :model-value="wb.params.lengthMm"
+          :min="limits.length?.[0]"
+          :max="limits.length?.[1]"
+          :invalid="outOfRange('length', wb.params.lengthMm)"
+          @update:model-value="wb.setDim('lengthMm', $event)"
+        />
+        <DimInput
+          :label="t('workbench.width')"
+          :model-value="wb.params.widthMm"
+          :min="limits.width?.[0]"
+          :max="limits.width?.[1]"
+          :invalid="outOfRange('width', wb.params.widthMm)"
+          @update:model-value="wb.setDim('widthMm', $event)"
+        />
+        <DimInput
+          :label="t('workbench.height')"
+          :model-value="wb.params.heightMm"
+          :min="limits.height?.[0]"
+          :max="limits.height?.[1]"
+          :invalid="outOfRange('height', wb.params.heightMm)"
+          @update:model-value="wb.setDim('heightMm', $event)"
+        />
+      </div>
+    </section>
 
-    <h3>{{ t('workbench.material') }}</h3>
+    <section class="group">
+    <h3>{{ t('workbench.groupMaterial') }}</h3>
     <select :value="wb.params.materialId" @change="onMaterial(($event.target as HTMLSelectElement).value)">
       <option v-for="m in materials" :key="m!.id" :value="m!.id">{{ materialLabel(m) }}</option>
     </select>
@@ -119,6 +126,8 @@ function materialLabel(p: any) {
     />
 
     <p class="hint">{{ t('workbench.allowanceHint') }}</p>
+    </section>
+
     <ValidationCard />
   </fieldset>
 </template>
@@ -128,6 +137,8 @@ function materialLabel(p: any) {
 .locked-fieldset:disabled{opacity:.6}
 .locked-hint{color:var(--bc-warn);background:var(--bc-warn-bg);border:1px solid var(--bc-warn-line);border-radius:8px;padding:6px 8px;opacity:1}
 .tab{display:flex;flex-direction:column;gap:12px}
+.group{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--bc-line)}
+.group:last-of-type{border-bottom:0;padding-bottom:0}
 h3{margin:4px 0 0;font-size:13px;color:var(--bc-ink)}
 .row-head{display:flex;align-items:center;justify-content:space-between}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
