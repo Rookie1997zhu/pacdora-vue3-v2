@@ -29,6 +29,9 @@
             <span>{{ t('render.modelCount', { n: s.model_count }) }} · v{{ s.row_version }} · {{ formatTime(s.updated_at) }}</span>
           </RouterLink>
           <div class="actions">
+            <RouterLink class="bc-btn bc-btn--primary continue-edit" :to="`/render/${s.id}`">
+              {{ t('render.continueEdit') }}
+            </RouterLink>
             <button type="button" @click="onCopy(s.id)">{{ t('render.copy') }}</button>
             <button type="button" class="danger" @click="onDelete(s.id)">{{ t('render.delete') }}</button>
           </div>
@@ -168,7 +171,14 @@ onMounted(async () => {
 }
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.actions .continue-edit {
+  text-decoration: none;
+  white-space: nowrap;
 }
 .actions button {
   border: 1px solid var(--bc-line);

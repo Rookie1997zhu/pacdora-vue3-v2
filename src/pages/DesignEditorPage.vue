@@ -48,8 +48,11 @@
         <header class="side-head">
           <h1>{{ design.name }}</h1>
           <p class="meta">{{ design.document.geometry.templateId }} · {{ design.document.geometry.mode }} · row {{ design.rowVersion }}</p>
+          <p v-if="bridgeHint" class="bridge-hint">{{ bridgeHint }}</p>
         </header>
 
+        <details class="rail-block" open>
+          <summary>{{ t('studio.sectionStructurePaper') }}</summary>
         <section class="panel-section">
           <h2>{{ t('studio.geometry') }}</h2>
           <div class="row">
@@ -94,7 +97,18 @@
           <p v-if="sampleMsg" class="hint">{{ sampleMsg }}</p>
           <p class="hash">geometryHash: {{ design.document.geometry.geometryHash }}</p>
         </section>
+        </details>
 
+        <details class="rail-block" open>
+          <summary>{{ t('studio.sectionObject') }}</summary>
+          <section class="panel-section">
+            <SelectionPanel v-if="design.selectedLayer" />
+            <p v-else class="hint">{{ t('studio.sectionObjectEmpty') }}</p>
+          </section>
+        </details>
+
+        <details class="rail-block" open>
+          <summary>{{ t('studio.sectionTasks') }}</summary>
         <section class="panel-section">
           <h2>{{ t('outbox.title') }}</h2>
           <label class="check">
@@ -155,14 +169,15 @@
 
         <section class="panel-section">
           <ExportPanel />
+          <p class="hint render-bridge-note">{{ t('studio.openRendererHint') }}</p>
           <button
             type="button"
             class="bc-btn bc-btn--ghost"
             style="margin-top: 10px; width: 100%"
-            :disabled="!design.designId"
+            :disabled="!design.designId || rendererBusy"
             @click="onOpenRenderer"
           >
-            {{ t('render.openInRenderer') }}
+            {{ rendererBusy ? t('studio.openingRenderer') : t('render.openInRenderer') }}
           </button>
         </section>
 
@@ -193,6 +208,7 @@
           <p v-if="cart.error" class="err">{{ cart.error }}</p>
           <p class="meta"><RouterLink to="/cart">{{ t('cart.title') }}</RouterLink> · <RouterLink to="/orders">{{ t('order.title') }}</RouterLink></p>
         </section>
+        </details>
       </aside>
     </main>
   </div>
@@ -207,6 +223,7 @@ import { renderSceneCreate } from '../api/renderScenes'
 import { PAPER_CATALOG, getPaperById, resolvePaperFromParams } from '../catalog/paperCatalog.js'
 import { evaluatePaperRisks } from '../catalog/paperRiskRules.js'
 import ExportPanel from '../components/studio/ExportPanel.vue'
+import SelectionPanel from '../components/studio/SelectionPanel.vue'
 import StudioCanvas2D from '../components/studio/StudioCanvas2D.vue'
 import StudioFoldPreview from '../components/studio/StudioFoldPreview.vue'
 import ToolRail from '../components/studio/ToolRail.vue'
@@ -247,6 +264,8 @@ const cartMsg = ref('')
 const sampleBusy = ref(false)
 const sampleMsg = ref('')
 const viewMode = ref<'2d' | '3d'>('2d')
+const rendererBusy = ref(false)
+const bridgeHint = ref('')
 
 const lengthMm = ref(0)
 const widthMm = ref(0)
@@ -618,8 +637,26 @@ function onOutbox() {
 
 async function onOpenRenderer() {
   if (!design.designId) return
-  if (design.dirty) await design.save(true)
+  bridgeHint.value = ''
+  if (design.conflict) {
+    bridgeHint.value = t('studio.openRendererConflict')
+    return
+  }
+  rendererBusy.value = true
   try {
+    if (design.dirty) {
+      await design.save(true)
+      if (design.conflict) {
+        bridgeHint.value = t('studio.openRendererConflict')
+        return
+      }
+      if (design.dirty || design.saveStatus === 'error') {
+        bridgeHint.value = t('studio.openRendererSaveFailed')
+        return
+      }
+    }
+    const rev = design.currentRevisionId || '—'
+    bridgeHint.value = t('studio.openRendererSaved', { rev: String(rev).slice(0, 8) })
     const scene = await renderSceneCreate({
       name: `${design.name || t('render.untitled')} · 3D`,
       design_id: design.designId,
@@ -627,7 +664,9 @@ async function onOpenRenderer() {
     })
     await router.push(`/render/${scene.id}`)
   } catch (e: unknown) {
-    bootError.value = e instanceof ApiError ? e.message : t('render.createFailed')
+    bridgeHint.value = e instanceof ApiError ? e.message : t('render.createFailed')
+  } finally {
+    rendererBusy.value = false
   }
 }
 
@@ -771,6 +810,32 @@ onUnmounted(() => {
 }
 .side.left{padding:12px}
 .side-head{display:flex;flex-direction:column;gap:6px;padding-bottom:4px}
+.bridge-hint{
+  margin:0;
+  font-size:12px;
+  color:var(--bc-steel);
+  line-height:1.4;
+}
+.rail-block{
+  border:0;
+  border-radius:var(--studio-radius);
+  background:transparent;
+  padding:0;
+}
+.rail-block > summary{
+  cursor:pointer;
+  list-style:none;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--studio-ink-muted);
+  font-weight:700;
+  padding:4px 2px 8px;
+}
+.rail-block > summary::-webkit-details-marker{display:none}
+.rail-block[open] > summary{color:var(--bc-steel)}
+.rail-block .panel-section{margin-bottom:10px}
+.render-bridge-note{margin:0}
 .panel-section{
   border:0;
   border-radius:var(--studio-radius);

@@ -26,7 +26,6 @@
       <TextToolPanel v-else-if="active === 'text'" />
       <ElementsPanelPanel v-else-if="active === 'elements'" />
       <LayersPanel v-else-if="active === 'layers'" />
-      <SelectionPanel v-if="design.selectedLayer" />
     </div>
   </div>
 </template>
@@ -39,7 +38,6 @@ import { useDesignStore } from '../../stores/design'
 import AiPanel from './AiPanel.vue'
 import ElementsPanelPanel from './ElementsPanelPanel.vue'
 import LayersPanel from './LayersPanel.vue'
-import SelectionPanel from './SelectionPanel.vue'
 import TextToolPanel from './TextToolPanel.vue'
 
 const { t } = useI18n()

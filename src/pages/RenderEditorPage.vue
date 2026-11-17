@@ -1,8 +1,14 @@
 <template>
   <div class="page">
     <header class="top">
-      <RouterLink to="/render">← {{ t('render.title') }}</RouterLink>
+      <div class="top-nav">
+        <RouterLink to="/render">← {{ t('render.title') }}</RouterLink>
+        <RouterLink v-if="linkedDesignId" class="back-design" :to="`/designs/${linkedDesignId}`">
+          {{ t('render.backToDesign') }}
+        </RouterLink>
+      </div>
       <input class="name" :value="store.name" @change="onNameChange" :aria-label="t('render.sceneName')" />
+      <span class="status-chip" :data-tone="artifactChipTone">{{ artifactChipLabel }}</span>
       <div class="status">
         <span>{{ saveLabel }}</span>
         <button type="button" :disabled="store.saving || !store.dirty" @click="store.flushSave()">{{ t('render.saveNow') }}</button>
@@ -81,131 +87,145 @@
       </section>
 
       <aside class="side right">
-        <section class="panel">
-          <h2>{{ t('render.templatePanel') }}</h2>
-          <label>
-            {{ t('render.template') }}
-            <select v-model="selectedTemplateId">
-              <option value="">{{ t('render.templateNone') }}</option>
-              <option v-for="tpl in templates" :key="tpl.id" :value="tpl.id">{{ tpl.name }}</option>
-            </select>
-          </label>
-          <label v-if="selectedTemplate">
-            {{ t('render.templateBindDesign') }}
-            <select v-model="templateDesignId">
-              <option value="">{{ t('render.pickDesign') }}</option>
-              <option v-for="d in designOptions" :key="d.id" :value="d.id">{{ d.name }}</option>
-            </select>
-          </label>
-          <button type="button" :disabled="!selectedTemplateId || !templateDesignId" @click="onApplyTemplate">{{ t('render.applyTemplate') }}</button>
-        </section>
-
-        <section v-if="selectedModel" class="panel">
-          <h2>{{ t('render.modelPanel') }}</h2>
-          <label>
-            {{ t('render.material') }}
-            <select v-model="materialId" @change="onMaterial">
-              <option v-for="mid in materialIds" :key="mid" :value="mid">{{ t(`render.mat_${mid}`) }}</option>
-            </select>
-          </label>
-          <label>
-            {{ t('render.foldProgress') }}
-            <input v-model.number="foldProgress" type="range" min="0" max="100" @input="onFold" />
-            <span>{{ foldProgress }}</span>
-          </label>
-        </section>
-
-        <section class="panel">
-          <h2>{{ t('render.lightPanel') }}</h2>
-          <label>
-            {{ t('render.lightPreset') }}
-            <select v-model="lightPreset" @change="onLightPreset">
-              <option value="softbox">{{ t('render.presetSoftbox') }}</option>
-              <option value="daylight">{{ t('render.presetDaylight') }}</option>
-              <option value="warm">{{ t('render.presetWarm') }}</option>
-            </select>
-          </label>
-          <label>
-            {{ t('render.sunIntensity') }}
-            <input v-model.number="sunIntensity" type="range" min="0" max="5" step="0.05" @input="onLightManual" />
-          </label>
-          <label>
-            {{ t('render.envIntensity') }}
-            <input v-model.number="envIntensity" type="range" min="0" max="2" step="0.05" @input="onLightManual" />
-          </label>
-        </section>
-
-        <section class="panel">
-          <h2>{{ t('render.backgroundPanel') }}</h2>
-          <label>
-            {{ t('render.hdr') }}
-            <select v-model="hdrId" @change="onEnvironment">
-              <option value="">{{ t('render.hdrNone') }}</option>
-              <option v-for="e in environments" :key="e.id" :value="e.id">{{ e.name }}</option>
-            </select>
-          </label>
-          <label>
-            {{ t('render.hdrIntensity') }}
-            <input v-model.number="hdrIntensity" type="range" min="0" max="3" step="0.05" @input="onEnvironment" />
-          </label>
-          <label class="check">
-            <input v-model="hdrAsBackground" type="checkbox" @change="onEnvironment" />
-            {{ t('render.hdrAsBackground') }}
-          </label>
-          <label>
-            {{ t('render.bgType') }}
-            <select v-model="bgType" @change="onBackground">
-              <option value="solid">{{ t('render.bgSolid') }}</option>
-              <option value="gradient">{{ t('render.bgGradient') }}</option>
-            </select>
-          </label>
-          <label v-if="bgType === 'solid'">
-            {{ t('render.bgColor') }}
-            <input v-model="bgColor" type="color" @input="onBackground" />
-          </label>
-          <template v-else>
+        <details class="rail-group" open>
+          <summary>{{ t('render.groupComposition') }}</summary>
+          <section class="panel">
+            <h2>{{ t('render.templatePanel') }}</h2>
             <label>
-              {{ t('render.bgTop') }}
-              <input v-model="bgTop" type="color" @input="onBackground" />
+              {{ t('render.template') }}
+              <select v-model="selectedTemplateId">
+                <option value="">{{ t('render.templateNone') }}</option>
+                <option v-for="tpl in templates" :key="tpl.id" :value="tpl.id">{{ tpl.name }}</option>
+              </select>
+            </label>
+            <label v-if="selectedTemplate">
+              {{ t('render.templateBindDesign') }}
+              <select v-model="templateDesignId">
+                <option value="">{{ t('render.pickDesign') }}</option>
+                <option v-for="d in designOptions" :key="d.id" :value="d.id">{{ d.name }}</option>
+              </select>
+            </label>
+            <button type="button" :disabled="!selectedTemplateId || !templateDesignId" @click="onApplyTemplate">{{ t('render.applyTemplate') }}</button>
+          </section>
+          <section v-if="selectedModel" class="panel">
+            <h2>{{ t('render.modelPanel') }}</h2>
+            <label>
+              {{ t('render.foldProgress') }}
+              <input v-model.number="foldProgress" type="range" min="0" max="100" @input="onFold" />
+              <span>{{ foldProgress }}</span>
+            </label>
+          </section>
+          <section class="panel">
+            <h2>{{ t('render.viewsPanel') }}</h2>
+            <button type="button" @click="saveView">{{ t('render.saveView') }}</button>
+            <ul class="model-list">
+              <li v-for="v in store.content.views" :key="v.id">
+                <label class="check">
+                  <input v-model="batchViewIds" type="checkbox" :value="v.id" />
+                  <button type="button" class="linkish" @click="applyView(v.id)">{{ v.name }}</button>
+                </label>
+                <button type="button" class="ghost" @click="removeView(v.id)">{{ t('render.remove') }}</button>
+              </li>
+            </ul>
+          </section>
+        </details>
+
+        <details class="rail-group">
+          <summary>{{ t('render.groupMaterialLight') }}</summary>
+          <section v-if="selectedModel" class="panel">
+            <h2>{{ t('render.modelPanel') }}</h2>
+            <label>
+              {{ t('render.material') }}
+              <select v-model="materialId" @change="onMaterial">
+                <option v-for="mid in materialIds" :key="mid" :value="mid">{{ t(`render.mat_${mid}`) }}</option>
+              </select>
+            </label>
+          </section>
+          <section class="panel">
+            <h2>{{ t('render.lightPanel') }}</h2>
+            <label>
+              {{ t('render.lightPreset') }}
+              <select v-model="lightPreset" @change="onLightPreset">
+                <option value="softbox">{{ t('render.presetSoftbox') }}</option>
+                <option value="daylight">{{ t('render.presetDaylight') }}</option>
+                <option value="warm">{{ t('render.presetWarm') }}</option>
+              </select>
             </label>
             <label>
-              {{ t('render.bgBottom') }}
-              <input v-model="bgBottom" type="color" @input="onBackground" />
+              {{ t('render.sunIntensity') }}
+              <input v-model.number="sunIntensity" type="range" min="0" max="5" step="0.05" @input="onLightManual" />
             </label>
-          </template>
-          <label class="check">
-            <input v-model="groundVisible" type="checkbox" @change="onGround" />
-            {{ t('render.groundVisible') }}
-          </label>
-        </section>
+            <label>
+              {{ t('render.envIntensity') }}
+              <input v-model.number="envIntensity" type="range" min="0" max="2" step="0.05" @input="onLightManual" />
+            </label>
+          </section>
+        </details>
 
-        <section class="panel">
-          <h2>{{ t('render.viewsPanel') }}</h2>
-          <button type="button" @click="saveView">{{ t('render.saveView') }}</button>
-          <ul class="model-list">
-            <li v-for="v in store.content.views" :key="v.id">
-              <label class="check">
-                <input v-model="batchViewIds" type="checkbox" :value="v.id" />
-                <button type="button" class="linkish" @click="applyView(v.id)">{{ v.name }}</button>
+        <details class="rail-group">
+          <summary>{{ t('render.groupBackgroundEnv') }}</summary>
+          <section class="panel">
+            <h2>{{ t('render.backgroundPanel') }}</h2>
+            <label>
+              {{ t('render.hdr') }}
+              <select v-model="hdrId" @change="onEnvironment">
+                <option value="">{{ t('render.hdrNone') }}</option>
+                <option v-for="e in environments" :key="e.id" :value="e.id">{{ e.name }}</option>
+              </select>
+            </label>
+            <label>
+              {{ t('render.hdrIntensity') }}
+              <input v-model.number="hdrIntensity" type="range" min="0" max="3" step="0.05" @input="onEnvironment" />
+            </label>
+            <label class="check">
+              <input v-model="hdrAsBackground" type="checkbox" @change="onEnvironment" />
+              {{ t('render.hdrAsBackground') }}
+            </label>
+            <label>
+              {{ t('render.bgType') }}
+              <select v-model="bgType" @change="onBackground">
+                <option value="solid">{{ t('render.bgSolid') }}</option>
+                <option value="gradient">{{ t('render.bgGradient') }}</option>
+              </select>
+            </label>
+            <label v-if="bgType === 'solid'">
+              {{ t('render.bgColor') }}
+              <input v-model="bgColor" type="color" @input="onBackground" />
+            </label>
+            <template v-else>
+              <label>
+                {{ t('render.bgTop') }}
+                <input v-model="bgTop" type="color" @input="onBackground" />
               </label>
-              <button type="button" class="ghost" @click="removeView(v.id)">{{ t('render.remove') }}</button>
-            </li>
-          </ul>
-        </section>
+              <label>
+                {{ t('render.bgBottom') }}
+                <input v-model="bgBottom" type="color" @input="onBackground" />
+              </label>
+            </template>
+            <label class="check">
+              <input v-model="groundVisible" type="checkbox" @change="onGround" />
+              {{ t('render.groundVisible') }}
+            </label>
+          </section>
+        </details>
 
-        <section class="panel">
-          <h2>{{ t('render.outputPanel') }}</h2>
-          <label>
-            {{ t('render.aspect') }}
-            <select v-model="aspect" @change="onAspect">
-              <option value="1:1">1:1</option>
-              <option value="4:3">4:3</option>
-              <option value="16:9">16:9</option>
-              <option value="3:4">3:4</option>
-              <option value="9:16">9:16</option>
-            </select>
-          </label>
-        </section>
+        <details class="rail-group" open>
+          <summary>{{ t('render.groupOutput') }}</summary>
+          <section class="panel">
+            <h2>{{ t('render.outputPanel') }}</h2>
+            <label>
+              {{ t('render.aspect') }}
+              <select v-model="aspect" @change="onAspect">
+                <option value="1:1">1:1</option>
+                <option value="4:3">4:3</option>
+                <option value="16:9">16:9</option>
+                <option value="3:4">3:4</option>
+                <option value="9:16">9:16</option>
+              </select>
+            </label>
+            <p class="hint">{{ t('render.outputSizePreview', { size: outputSizeLabel }) }}</p>
+          </section>
+        </details>
       </aside>
     </main>
 
@@ -234,6 +254,29 @@
           <h2>{{ t('render.renderCloud') }}</h2>
           <button type="button" @click="renderDialogOpen = false">×</button>
         </header>
+        <dl class="confirm-summary">
+          <div>
+            <dt>{{ t('render.confirmScene') }}</dt>
+            <dd>{{ store.name || t('render.untitled') }}</dd>
+          </div>
+          <div>
+            <dt>{{ t('render.confirmViews') }}</dt>
+            <dd>{{ viewCountLabel }}</dd>
+          </div>
+          <div>
+            <dt>{{ t('render.confirmPixels') }}</dt>
+            <dd>{{ outputSizeLabel }}</dd>
+          </div>
+          <div>
+            <dt>{{ t('render.confirmFormat') }}</dt>
+            <dd>{{ renderFormat.toUpperCase() }}</dd>
+          </div>
+          <div>
+            <dt>{{ t('render.confirmQuota') }}</dt>
+            <dd>{{ quotaHint }}</dd>
+          </div>
+        </dl>
+        <p class="hint ephemeral-note">{{ t('render.confirmEphemeral') }}</p>
         <label>
           {{ t('render.resolution') }}
           <select v-model="renderRes">
@@ -347,6 +390,7 @@ import { createRenderScene } from '../render/renderScene.js'
 import { bakeArtworkMaps } from '../studio/artworkBake'
 import { resolveEngineKnife } from '../studio/knifeAdapter'
 import { useAuthStore } from '../stores/auth'
+import { useBillingStore } from '../stores/billing'
 import { useRenderJobStore } from '../stores/renderJob'
 import { useRenderSceneStore } from '../stores/renderScene'
 
@@ -354,6 +398,7 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
+const billing = useBillingStore()
 const store = useRenderSceneStore()
 const jobStore = useRenderJobStore()
 
@@ -431,6 +476,27 @@ const selectedTemplate = computed(() => templates.value.find((x) => x.id === sel
 const hasRenderable = computed(() => store.content.models.length + store.content.props.length > 0)
 const canDownload = computed(() => jobStore.hasDownloadableResult())
 
+const linkedDesignId = computed(() => store.content.models[0]?.designId || '')
+
+const outputPixels = computed(() => {
+  const ratio = ASPECT_RATIOS[aspect.value] || ASPECT_RATIOS[store.content.output.aspect] || 1
+  const width = renderRes.value === '4k' ? 3840 : 2048
+  const height = Math.max(256, Math.round(width / ratio))
+  return { width, height }
+})
+const outputSizeLabel = computed(() => `${outputPixels.value.width}×${outputPixels.value.height}`)
+const viewCount = computed(() => {
+  if (renderBatchMode.value && batchViewIds.value.length) return batchViewIds.value.length
+  return 1
+})
+const viewCountLabel = computed(() => t('render.confirmViewCount', { n: viewCount.value }))
+const quotaHint = computed(() => {
+  const ent = billing.entitlement
+  if (!ent) return t('render.confirmQuotaUnknown')
+  if (ent.unlimited) return t('render.confirmQuotaUnlimited')
+  return t('render.confirmQuotaRemaining', { n: ent.remaining ?? 0 })
+})
+
 const progressActive = computed(() => rendering.value || jobStore.busy)
 const renderSucceeded = computed(
   () =>
@@ -454,6 +520,20 @@ const progressFailed = computed(() => {
     jobStore.currentJob?.status === 'failed' ||
     jobStore.currentBatch?.status === 'failed'
   )
+})
+const artifactChipTone = computed(() => {
+  if (jobStore.busy || rendering.value) return 'busy'
+  if (artifactExpired.value) return 'expired'
+  if (canDownload.value) return 'ready'
+  if (progressFailed.value) return 'failed'
+  return 'idle'
+})
+const artifactChipLabel = computed(() => {
+  if (jobStore.busy || rendering.value) return t('render.chipBusy')
+  if (artifactExpired.value) return t('render.chipExpired')
+  if (canDownload.value) return t('render.chipReady')
+  if (progressFailed.value) return t('render.chipFailed')
+  return t('render.chipIdle')
 })
 const progressDone = computed(() => !progressActive.value && renderSucceeded.value)
 const progressIndeterminate = computed(
@@ -1002,6 +1082,7 @@ onMounted(async () => {
       renderSceneTemplateList(),
     ])
     designOptions.value = await fetchDesigns('active')
+    void billing.refresh()
     await refreshProps()
   } catch (e: unknown) {
     bootError.value = e instanceof ApiError ? e.message : t('render.loadFailed')
@@ -1065,6 +1146,49 @@ onBeforeUnmount(() => {
   background: #fff;
   border-bottom: 1px solid var(--bc-line);
 }
+.top-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.85rem;
+}
+.back-design {
+  color: var(--bc-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--bc-line);
+  background: #f4f6f8;
+  color: var(--bc-muted);
+  white-space: nowrap;
+}
+.status-chip[data-tone='ready'] {
+  background: #e8f5ee;
+  border-color: #b7dfc8;
+  color: #1f6b45;
+}
+.status-chip[data-tone='busy'] {
+  background: #eef3ff;
+  border-color: #c5d4f5;
+  color: #3557a0;
+}
+.status-chip[data-tone='expired'] {
+  background: #fff6e8;
+  border-color: #efd2a3;
+  color: #8a5a12;
+}
+.status-chip[data-tone='failed'] {
+  background: #fdeceb;
+  border-color: #f0c2bc;
+  color: #9b2c20;
+}
 .name {
   min-width: 160px;
   flex: 1;
@@ -1077,6 +1201,50 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+}
+.rail-group {
+  border: 0;
+  margin: 0 0 10px;
+  padding: 0;
+}
+.rail-group > summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--bc-muted);
+  padding: 4px 2px 8px;
+}
+.rail-group > summary::-webkit-details-marker {
+  display: none;
+}
+.rail-group[open] > summary {
+  color: var(--bc-ink);
+}
+.confirm-summary {
+  margin: 0 0 12px;
+  display: grid;
+  gap: 8px;
+}
+.confirm-summary > div {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.confirm-summary dt {
+  margin: 0;
+  color: var(--bc-muted);
+}
+.confirm-summary dd {
+  margin: 0;
+  color: var(--bc-ink);
+  font-weight: 600;
+}
+.ephemeral-note {
+  margin: 0 0 12px;
 }
 .status button,
 .xform button,
