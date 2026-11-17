@@ -5,31 +5,79 @@
         <img class="brand-logo" :src="logoUrl" alt="BOXCRAFT" width="320" height="99" />
         <h1>{{ t('site.heroTitle') }}</h1>
         <p class="lead">{{ t('site.heroLead') }}</p>
+        <p class="note">{{ t('site.heroCapabilityNote') }}</p>
         <div class="cta">
           <RouterLink class="bc-btn bc-btn--primary" to="/products">{{ t('studio.browseProducts') }}</RouterLink>
-          <RouterLink class="bc-btn bc-btn--ghost" to="/designs">{{ t('studio.myDesigns') }}</RouterLink>
+          <a class="bc-btn bc-btn--ghost" href="#how-it-works">{{ t('site.heroCtaSecondary') }}</a>
         </div>
       </div>
       <motion.div class="hero-visual" :aria-label="t('site.heroVisual')" v-bind="visualEnter">
-        <div class="hero-stage" aria-hidden="true">
-          <img class="hero-mark" :src="logoUrl" alt="" />
-          <div class="hero-panel" />
+        <div class="hero-stage">
+          <img
+            v-if="heroCover"
+            class="hero-cover"
+            :src="heroCover"
+            :alt="heroAlt"
+            width="640"
+            height="512"
+          />
+          <div v-else class="hero-fallback" aria-hidden="true">
+            <div class="hero-panel" />
+          </div>
         </div>
       </motion.div>
     </section>
 
-    <section class="features" aria-labelledby="features-heading">
-      <h2 id="features-heading" class="sr-only">{{ t('site.tagline') }}</h2>
-      <motion.article
-        v-for="(feat, i) in features"
-        :key="feat.title"
-        class="feature"
-        v-bind="staggerEnterProps(i)"
-      >
-        <h3>{{ feat.title }}</h3>
-        <p>{{ feat.body }}</p>
-      </motion.article>
+    <HomeProductStrip :items="featuredProducts" :loading="productsLoading" :error="productsError" />
+
+    <section id="how-it-works" class="how" aria-labelledby="how-heading">
+      <header>
+        <h2 id="how-heading">{{ t('site.sectionHowTitle') }}</h2>
+        <p>{{ t('site.sectionHowLead') }}</p>
+      </header>
+      <ol>
+        <li v-for="(step, i) in howSteps" :key="step.title">
+          <span class="num">{{ i + 1 }}</span>
+          <div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.body }}</p>
+          </div>
+        </li>
+      </ol>
     </section>
+
+    <section class="split" aria-labelledby="workspace-heading">
+      <div class="split-copy">
+        <h2 id="workspace-heading">{{ t('site.sectionWorkspaceTitle') }}</h2>
+        <p>{{ t('site.sectionWorkspaceLead') }}</p>
+      </div>
+      <div class="split-media" aria-hidden="true">
+        <img v-if="workspaceCover" :src="workspaceCover" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="split split--alt" aria-labelledby="render-heading">
+      <div class="split-copy">
+        <h2 id="render-heading">{{ t('site.sectionRenderTitle') }}</h2>
+        <p>{{ t('site.sectionRenderLead') }}</p>
+        <RouterLink class="bc-btn bc-btn--primary" to="/render">{{ t('site.sectionRenderCta') }}</RouterLink>
+      </div>
+      <div class="split-media" aria-hidden="true">
+        <img v-if="renderCover" :src="renderCover" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="outbox-heading">
+      <div class="band-inner">
+        <h2 id="outbox-heading">{{ t('site.sectionOutboxTitle') }}</h2>
+        <p>{{ t('site.sectionOutboxLead') }}</p>
+        <RouterLink class="bc-btn bc-btn--ghost" to="/designs">{{ t('site.sectionOutboxCta') }}</RouterLink>
+      </div>
+    </section>
+
+    <HomeBlogStrip :items="blogPosts" :loading="blogLoading" />
+
+    <HomeFaq />
 
     <section class="closing">
       <motion.div class="closing-inner" v-bind="enterProps(0.05)">
@@ -42,30 +90,96 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { motion } from 'motion-v'
 import logoUrl from '../assets/brand/boxcraft-logo.png'
 import AppShell from '../components/layout/AppShell.vue'
-import { enterProps, staggerEnterProps } from '../motion'
+import HomeProductStrip from '../components/home/HomeProductStrip.vue'
+import HomeBlogStrip from '../components/home/HomeBlogStrip.vue'
+import HomeFaq from '../components/home/HomeFaq.vue'
+import { enterProps } from '../motion'
 import { useHomeHeroGsap } from '../motion/useGsapHighlight'
+import { fetchProducts, type ProductSummary } from '../api/catalog'
+import { fetchBlogPosts, type BlogCard } from '../api/blog'
+// @ts-expect-error JS asset helper
+import { publicAssetUrl } from '../assetUrl.js'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const heroCopyEl = ref<HTMLElement | null>(null)
 useHomeHeroGsap(heroCopyEl)
 
 const visualEnter = enterProps(0.12)
 
-const features = computed(() => [
-  { title: t('site.featureSelectTitle'), body: t('site.featureSelectBody') },
-  { title: t('site.featureEditTitle'), body: t('site.featureEditBody') },
-  { title: t('site.featureExportTitle'), body: t('site.featureExportBody') },
+const products = ref<ProductSummary[]>([])
+const productsLoading = ref(true)
+const productsError = ref('')
+const blogPosts = ref<BlogCard[]>([])
+const blogLoading = ref(true)
+
+const featuredProducts = computed(() => {
+  const withCover = products.value.filter((p) => p.cover_rel)
+  const pool = withCover.length ? withCover : products.value
+  return pool.slice(0, 6)
+})
+
+const heroProduct = computed(() => featuredProducts.value[0] || null)
+const heroCover = computed(() => (heroProduct.value?.cover_rel ? publicAssetUrl(heroProduct.value.cover_rel) : ''))
+const heroAlt = computed(() => {
+  const p = heroProduct.value
+  if (!p) return t('site.heroVisual')
+  return locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name
+})
+const workspaceCover = computed(() =>
+  featuredProducts.value[1]?.cover_rel
+    ? publicAssetUrl(featuredProducts.value[1].cover_rel)
+    : heroCover.value,
+)
+const renderCover = computed(() =>
+  featuredProducts.value[2]?.cover_rel
+    ? publicAssetUrl(featuredProducts.value[2].cover_rel)
+    : heroCover.value,
+)
+
+const howSteps = computed(() => [
+  { title: t('site.howStep1Title'), body: t('site.howStep1Body') },
+  { title: t('site.howStep2Title'), body: t('site.howStep2Body') },
+  { title: t('site.howStep3Title'), body: t('site.howStep3Body') },
+  { title: t('site.howStep4Title'), body: t('site.howStep4Body') },
 ])
+
+onMounted(async () => {
+  const [prodRes, blogRes] = await Promise.allSettled([
+    fetchProducts(),
+    fetchBlogPosts({ page_size: 3, locale: locale.value }),
+  ])
+  if (prodRes.status === 'fulfilled') {
+    products.value = prodRes.value
+  } else {
+    productsError.value = prodRes.reason instanceof Error ? prodRes.reason.message : t('studio.loadFailed')
+  }
+  productsLoading.value = false
+
+  if (blogRes.status === 'fulfilled') {
+    const data = blogRes.value
+    const featured = data.featured?.length ? data.featured : []
+    const items = data.items || []
+    const merged = [...featured, ...items]
+    const seen = new Set<string>()
+    blogPosts.value = merged
+      .filter((p) => {
+        if (seen.has(p.slug)) return false
+        seen.add(p.slug)
+        return true
+      })
+      .slice(0, 3)
+  }
+  blogLoading.value = false
+})
 </script>
 
 <style scoped>
 .hero {
-  flex: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(24px, 4vw, 56px);
@@ -77,11 +191,12 @@ const features = computed(() => [
 
 .hero-copy {
   max-width: 580px;
+  order: 1;
 }
 
 .brand-logo {
   display: block;
-  width: min(100%, 400px);
+  width: min(100%, 360px);
   height: auto;
   margin: 0 0 22px;
 }
@@ -89,7 +204,7 @@ const features = computed(() => [
 h1 {
   margin: 0 0 16px;
   font-family: var(--bc-font-display);
-  font-size: clamp(28px, 4.2vw, 48px);
+  font-size: clamp(28px, 4.2vw, 46px);
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.18;
@@ -97,11 +212,19 @@ h1 {
 }
 
 .lead {
-  margin: 0 0 30px;
-  max-width: 40ch;
+  margin: 0 0 12px;
+  max-width: 42ch;
   font-size: 17px;
   line-height: 1.55;
   color: var(--bc-ink-muted);
+}
+
+.note {
+  margin: 0 0 24px;
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--bc-ink-faint);
 }
 
 .cta {
@@ -112,30 +235,37 @@ h1 {
 
 .hero-visual {
   position: relative;
-  min-height: min(56vh, 520px);
+  min-height: min(52vh, 480px);
   display: grid;
   place-items: center;
+  order: 2;
 }
 
 .hero-stage {
   position: relative;
-  width: min(100%, 480px);
+  width: min(100%, 520px);
   aspect-ratio: 5 / 4;
   border-radius: var(--bc-radius-lg);
   background:
-    radial-gradient(circle at 30% 25%, rgba(0, 104, 104, 0.12), transparent 55%),
+    radial-gradient(circle at 30% 25%, rgba(0, 104, 104, 0.1), transparent 55%),
     linear-gradient(160deg, #fff 0%, #eef6f6 100%);
   box-shadow: var(--bc-shadow);
+  overflow: hidden;
   display: grid;
   place-items: center;
-  overflow: hidden;
 }
 
-.hero-mark {
-  width: min(72%, 320px);
-  height: auto;
+.hero-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+
+.hero-fallback {
+  width: 100%;
+  height: 100%;
   position: relative;
-  z-index: 1;
 }
 
 .hero-panel {
@@ -146,35 +276,125 @@ h1 {
   background: rgba(255, 255, 255, 0.45);
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--bc-space-4);
+.how {
   max-width: 1180px;
   margin: 0 auto;
-  padding: var(--bc-space-7) clamp(16px, 4vw, 48px);
+  padding: 0 clamp(16px, 4vw, 48px) var(--bc-space-7);
 }
 
-.feature {
-  background: var(--bc-paper-elevated);
-  border-radius: var(--bc-radius-lg);
-  padding: var(--bc-space-5);
-  box-shadow: inset 0 0 0 1px var(--bc-line);
+.how header {
+  margin-bottom: 20px;
 }
 
-.feature h3 {
-  margin: 0 0 10px;
+.how h2,
+.split h2,
+.band h2,
+.closing-inner h2 {
+  margin: 0 0 8px;
   font-family: var(--bc-font-display);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--bc-ink);
+  font-size: clamp(22px, 3vw, 30px);
 }
 
-.feature p {
+.how p,
+.split p,
+.band p {
   margin: 0;
   color: var(--bc-ink-muted);
   line-height: 1.55;
   font-size: 14px;
+  max-width: 56ch;
+}
+
+.how ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.how li {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--bc-radius);
+  border: 1px solid var(--bc-line);
+  background: var(--bc-paper-elevated);
+}
+
+.how .num {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--bc-steel);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.how h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.split {
+  max-width: 1180px;
+  margin: 0 auto var(--bc-space-6);
+  padding: 0 clamp(16px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.split--alt .split-copy {
+  order: 2;
+}
+
+.split--alt .split-media {
+  order: 1;
+}
+
+.split-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.split-media {
+  aspect-ratio: 5 / 4;
+  border-radius: var(--bc-radius-lg);
+  border: 1px solid var(--bc-line);
+  background: #fff;
+  overflow: hidden;
+}
+
+.split-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.band {
+  padding: 0 clamp(16px, 4vw, 48px) var(--bc-space-6);
+}
+
+.band-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--bc-space-5);
+  border-radius: var(--bc-radius-lg);
+  border: 1px solid var(--bc-line);
+  background: var(--bc-paper-elevated);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .closing {
@@ -193,47 +413,35 @@ h1 {
   gap: 12px;
 }
 
-.closing-inner h2 {
-  margin: 0;
-  font-family: var(--bc-font-display);
-  font-size: clamp(22px, 3vw, 28px);
-  color: var(--bc-ink);
-}
-
 .closing-inner p {
   margin: 0 0 6px;
   color: var(--bc-ink-muted);
   max-width: 48ch;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-bottom: 40px;
+    padding-bottom: 36px;
+  }
+  .hero-copy {
+    order: 1;
   }
   .hero-visual {
-    min-height: 240px;
-    order: -1;
+    order: 2;
+    min-height: 220px;
   }
   .brand-logo {
-    width: min(100%, 300px);
+    width: min(100%, 280px);
   }
-  .features {
+  .how ol,
+  .split {
     grid-template-columns: 1fr;
-    padding-top: var(--bc-space-5);
+  }
+  .split--alt .split-copy,
+  .split--alt .split-media {
+    order: unset;
   }
 }
 </style>

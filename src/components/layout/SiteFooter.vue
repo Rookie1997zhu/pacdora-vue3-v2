@@ -10,16 +10,23 @@
       <nav class="cols" :aria-label="t('site.footerNav')">
         <div class="col">
           <h2>{{ t('site.footerExplore') }}</h2>
-          <RouterLink to="/products">{{ t('studio.products') }}</RouterLink>
+          <RouterLink to="/products">{{ t('site.navCatalog') }}</RouterLink>
           <RouterLink to="/library/dielines">{{ t('library.nav') }}</RouterLink>
-          <RouterLink to="/designs">{{ t('studio.myDesigns') }}</RouterLink>
+          <RouterLink to="/blog">{{ t('site.navKnowledge') }}</RouterLink>
           <RouterLink to="/cart">{{ t('cart.title') }}</RouterLink>
         </div>
         <div class="col">
+          <h2>{{ t('site.navDesignTools') }}</h2>
+          <RouterLink v-if="workbenchOn" to="/workbench">{{ t('site.navWorkbench') }}</RouterLink>
+          <RouterLink to="/designs">{{ t('site.navStudio') }}</RouterLink>
+          <RouterLink to="/render">{{ t('site.navRender') }}</RouterLink>
+          <RouterLink to="/account/upgrade">{{ t('billing.upgradeLink') }}</RouterLink>
+        </div>
+        <div class="col">
           <h2>{{ t('site.footerMore') }}</h2>
-          <RouterLink to="/blog">{{ t('site.blog') }}</RouterLink>
           <RouterLink to="/lab">{{ t('site.lab') }}</RouterLink>
           <RouterLink to="/account/profile">{{ t('site.account') }}</RouterLink>
+          <RouterLink to="/orders">{{ t('site.navOrders') }}</RouterLink>
           <RouterLink to="/legal/disclaimer">{{ t('legal.navLink') }}</RouterLink>
         </div>
       </nav>
@@ -39,8 +46,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import logoUrl from '../../assets/brand/boxcraft-logo.png'
+import { isWorkbenchEnabled } from '../../features/workbench/manifest'
 
 const { t } = useI18n()
+const workbenchOn = isWorkbenchEnabled()
 </script>
 
 <style scoped>
@@ -55,7 +64,7 @@ const { t } = useI18n()
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 0.9fr);
   gap: var(--bc-space-6);
   align-items: start;
 }
@@ -80,7 +89,7 @@ const { t } = useI18n()
 
 .cols {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--bc-space-5);
 }
 
@@ -151,6 +160,9 @@ const { t } = useI18n()
   .footer-inner {
     grid-template-columns: 1fr;
     gap: var(--bc-space-5);
+  }
+  .cols {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>
