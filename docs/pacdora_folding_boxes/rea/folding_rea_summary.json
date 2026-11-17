@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-11-17T13:32:47.674Z",
+  "target": "https://www.pacdora.cn/dielines/folding-box-dielines",
+  "category": {
+    "id": 175,
+    "name": "折叠盒",
+    "nameKey": "folding-boxes",
+    "dielineNameKey": "folding-box-dielines",
+    "mockupNameKey": "folding-box-mockups",
+    "count": 261
+  },
+  "apis": [
+    "GET /api/v2/models/ctree",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?pageSize=&current=&dielineNameKey=folding-box-dielines",
+    "GET /api/v2/project/knife?id={listId}&bleed=5&export_type=model (www.pacdora.com)"
+  ],
+  "sampleList": {
+    "id": 1,
+    "class1": "(218)(246)(70)(156)",
+    "class2": "(229)(317)(247)(175)(157)(161)(158)",
+    "class3": "",
+    "num": 150010,
+    "image": "https://oss.pacdora.cn/preview/mockup-150010.jpg",
+    "knife": "https://oss.pacdora.cn/preview/dieline-150010.png",
+    "keywords": "150010,盒子,盒子样机,邮寄盒样机,翻盖礼品盒样机,礼品盒样机,礼品盒,礼品卡盒,生日礼品盒,黑色礼品盒,圣诞礼品盒,惊喜礼品盒,巧克力礼品盒,巧克力礼盒,珠宝礼品盒,饼干礼品盒,牛肉干礼品盒,鞋盒,魔杖盒,fefco 0427,0427",
+    "modelKeywords": "150010,盒子,盒子样机,邮寄盒样机,翻盖礼品盒样机,礼品盒样机,礼品盒,礼品卡盒,生日礼品盒,黑色礼品盒,圣诞礼品盒,惊喜礼品盒,巧克力礼品盒,巧克力礼盒,珠宝礼品盒,饼干礼品盒,牛肉干礼品盒,鞋盒,魔杖盒,fefco 0427,0427",
+    "usageKeywords": "",
+    "styleKeywords": "",
+    "productKeywords": "",
+    "length": 315,
+    "width": 202,
+    "height": 62,
+    "sort": 99999999,
+    "is_enterprise": 0,
+    "use_count": 100000000,
+    "demoProjectDataUrl": "https://cloud.pacdora.com/demoProject/150010.json",
+    "nameKey": "custom-dimensions-flip-top-boxes-mailer-dieline-150010",
+    "mockupNameKey": "flip-top-boxes-mailer-mockup-150010",
+    "mockupName": "翻盖礼品盒",
+    "name": "翻盖礼品盒",
+    "create_time": "1584420637182",
+    "update_time": "1750406418940",
+    "cate_id": 1,
+    "def_science_id": 5,
+    "cate_info": {
+      "cate_no": "150010",
+      "complex_type": 0,
+      "elaborate": 0,
+      "image": "https://oss.pacdora.cn/render/20220113/150010.jpg",
+      "size_options": [],
+      "displaySetting": {},
+      "edition": 1
+    },
+    "modeSetting": [
+      {
+        "id": 30762,
+        "image": "https://oss.pacdora.cn/render/1734331792665/11352294.jpg",
+        "material": "FLUTE",
+        "suggestColor": "",
+        "coverType": ""
+      },
+      {
+        "id": 30769,
+        "image": "https://oss.pacdora.cn/render/1734332503754/11352394.jpg",
+        "material": "WHITE_BOARD",
+        "suggestColor": "",
+        "coverType": ""
+      }
+    ],
+    "liked": null,
+    "tags": [
+      "150010",
+      "盒子",
+      "盒子样机",
+      "邮寄盒样机",
+      "翻盖礼品盒样机",
+      "礼品盒样机",
+      "礼品盒",
+      "礼品卡盒",
+      "生日礼品盒",
+      "黑色礼品盒",
+      "圣诞礼品盒",
+      "惊喜礼品盒",
+      "巧克力礼品盒",
+      "巧克力礼盒",
+      "珠宝礼品盒",
+      "饼干礼品盒",
+      "牛肉干礼品盒",
+      "鞋盒",
+      "魔杖盒",
+      "fefco 0427",
+      "0427",
+      "",
+      "运输箱",
+      "邮寄盒",
+      "食品",
+      "礼盒",
+      "折叠盒",
+      "披萨包装",
+      "食品盒"
+    ],
+    "showName": "翻盖礼品盒",
+    "blankTitle": "pacdora.com|Blank White Packaging Of 盒子 盒子样机 邮寄盒样机 ",
+    "blankAlt": "Custom Dimensions 盒子 盒子样机 dieline",
+    "dielinesTitle": "pacdora.com|Dielines Of 盒子 盒子样机 邮寄盒样机 | Red and blue lines",
+    "dielinesAlt": "pacdora.com|Dielines Of 盒子 盒子样机 邮寄盒样机 | Red and blue lines",
+    "svgTitle": "pacdora.com|Template with Dimensions 盒子 盒子样机 | Packaging Design",
+    "svgAlt": "pacdora.com|Template with Dimensions 盒子 盒子样机 | Packaging Design",
+    "class2Bymodel": "折叠盒",
+    "anchorName": "折叠盒",
+    "class2Namekey": "折叠盒",
+    "class2DielineNamekey": "null",
+    "class2MockupNamekey": "folding-box-mockups",
+    "description": "当前样机为盒子，该模型属于折叠盒样机，常用于运输箱, 礼盒, 邮寄盒场景，点击“编辑”按钮，可对盒子进行在线编辑，模板、尺寸和材质可自定义修改。相关模型：折叠盒刀板、折叠盒空白样机和折叠盒样机下载。"
+  },
+  "knifeProbe": {
+    "knifeSize": {
+      "L": 315,
+      "W": 202,
+      "H": 62,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "cuts": 89,
+    "folds": 22,
+    "modeCate": {
+      "id": 1,
+      "name": "飞机盒",
+      "code": "Aircraft"
+    }
+  },
+  "notes": [
+    "pagination uses current not page",
+    "knife id is list id not num",
+    "knife on .com after experience_user"
+  ]
+}

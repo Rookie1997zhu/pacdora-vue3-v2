@@ -1,8 +1,13 @@
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
-from apps.catalog.models import Product, TemplateDefinition, TemplateVersion
-from apps.catalog.serializers import ProductDetailSerializer, ProductListSerializer, TemplateVersionSerializer
+from apps.catalog.models import MaterialProfile, Product, TemplateVersion
+from apps.catalog.serializers import (
+    MaterialProfileSerializer,
+    ProductDetailSerializer,
+    ProductListSerializer,
+    TemplateVersionSerializer,
+)
 from config.api import fail, ok
 
 
@@ -51,3 +56,16 @@ class TemplateVersionDetailView(APIView):
         if not row:
             return fail('模板版本不存在', code='NOT_FOUND', request=request, http_status=404)
         return ok(TemplateVersionSerializer(row).data, request=request)
+
+
+class MaterialProfileListView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        qs = MaterialProfile.objects.filter(is_active=True).order_by('family', 'code')
+        include_legacy = request.query_params.get('include_legacy') in ('1', 'true', 'yes')
+        if not include_legacy:
+            qs = qs.exclude(code__in=('kraft', 'white', 'blue'))
+        items = MaterialProfileSerializer(qs, many=True).data
+        return ok({'items': items, 'total': len(items)}, request=request)

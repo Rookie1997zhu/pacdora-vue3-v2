@@ -13,7 +13,7 @@ import { fetchDesign, saveDesignRevision, uploadAsset } from '../api/designs'
 import { revokeAllAssetUrls } from '../studio/assetUrl'
 import { geometryFingerprint, migrateLayers } from '../studio/artworkResize'
 import { clearDraft, loadDraft, saveDraft } from '../studio/draftRepository'
-import { buildStudioKnife } from '../studio/knifeAdapter'
+import { buildStudioKnife, buildStudioKnifeAsync } from '../studio/knifeAdapter'
 
 function newIdempotencyKey() {
   return crypto.randomUUID()
@@ -348,10 +348,27 @@ export const useDesignStore = defineStore('design', () => {
     })
   }
 
-  async function addImageLayer(file: File, panelId?: string | null) {
-    if (!document.value) return
+  async function addImageLayer(
+    file: File,
+    panelId?: string | null,
+    opts?: { fitPanel?: boolean },
+  ) {
+    if (!document.value) throw new Error('design not loaded')
     const targetPanel = requirePanel(panelId)
-    if (!targetPanel) return
+    if (!targetPanel) throw new Error('请先选择刀版面板')
+    let widthMm = 50
+    let heightMm = 50
+    let xMm = 10
+    let yMm = 10
+    if (opts?.fitPanel) {
+      const knife = await buildStudioKnifeAsync(document.value)
+      const face = knife.faces.find((f) => f.name === targetPanel)
+      if (!face) throw new Error(`panel not found: ${targetPanel}`)
+      widthMm = face.w
+      heightMm = face.h
+      xMm = 0
+      yMm = 0
+    }
     const asset = await uploadAsset(file)
     const layer: ArtworkLayer = {
       id: crypto.randomUUID(),
@@ -361,9 +378,9 @@ export const useDesignStore = defineStore('design', () => {
       panelId: targetPanel,
       pieceId: null,
       ...layerGeomMeta(),
-      transform: { xMm: 10, yMm: 10, rotationDeg: 0, scaleX: 1, scaleY: 1 },
-      widthMm: 50,
-      heightMm: 50,
+      transform: { xMm, yMm, rotationDeg: 0, scaleX: 1, scaleY: 1 },
+      widthMm,
+      heightMm,
       visible: true,
       locked: false,
       opacity: 1,
@@ -384,6 +401,7 @@ export const useDesignStore = defineStore('design', () => {
       },
     })
     selectedLayerId.value = layer.id
+    error.value = ''
   }
 
   function addTextLayer(panelId?: string | null, text?: Partial<TextStyle>) {

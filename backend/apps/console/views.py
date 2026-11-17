@@ -6,6 +6,7 @@ import requests
 from django.contrib.auth import get_user_model
 from django.db.models import Count, Q
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
@@ -26,8 +27,12 @@ from apps.console.permissions import IsStaffUser
 from apps.designs.models import Design
 from apps.dieline_library.models import AcquisitionJob, AssetVariant, ImmutableRevision, UsageGrant
 from apps.dieline_library.tasks import dispatch_acquisition_job
+from apps.exports.errors import ExportJobError
 from apps.exports.models import ExportJob
-from apps.exports.tasks import dispatch_queued_export
+from apps.exports.services import cancel_export_job, retry_export_job
+from apps.billing.errors import BillingError
+from apps.billing.models import ExportGrant
+from apps.billing.services import get_or_create_entitlement, patch_entitlement, serialize_entitlement
 from apps.orders.models import Order
 from apps.orders.services import OrderServiceError, apply_manual_quote, cancel_order, confirm_order, serialize_order
 from apps.organizations.models import Membership, Organization
@@ -158,17 +163,74 @@ class OrgListView(APIView):
         qs = Organization.objects.annotate(member_count=Count('memberships')).order_by('-created_at')
         qs = _q_search(qs, request, ['name', 'slug'])
         items, page = paginate_queryset(qs, request)
-        data = [
-            {
-                'id': str(o.id),
-                'name': o.name,
-                'slug': o.slug,
-                'member_count': o.member_count,
-                'created_at': o.created_at.isoformat(),
-            }
-            for o in items
-        ]
+        data = []
+        for o in items:
+            ent = get_or_create_entitlement(o)
+            data.append(
+                {
+                    'id': str(o.id),
+                    'name': o.name,
+                    'slug': o.slug,
+                    'member_count': o.member_count,
+                    'created_at': o.created_at.isoformat(),
+                    'entitlement': serialize_entitlement(ent),
+                }
+            )
         return ok({'items': data, 'page': page}, request=request)
+
+
+class OrgEntitlementView(APIView):
+    permission_classes = STAFF
+
+    def get(self, request, org_id):
+        org = Organization.objects.filter(pk=org_id).first()
+        if not org:
+            return fail('org not found', code='NOT_FOUND', request=request, http_status=404)
+        ent = get_or_create_entitlement(org)
+        return ok(serialize_entitlement(ent), request=request)
+
+    def patch(self, request, org_id):
+        org = Organization.objects.filter(pk=org_id).first()
+        if not org:
+            return fail('org not found', code='NOT_FOUND', request=request, http_status=404)
+        body = request.data if isinstance(request.data, dict) else {}
+        expires_raw = body.get('annual_expires_at')
+        clear_expires = False
+        expires_at = None
+        if 'annual_expires_at' in body:
+            if expires_raw in (None, ''):
+                clear_expires = True
+            else:
+                expires_at = parse_datetime(str(expires_raw))
+                if expires_at is None:
+                    return fail('invalid annual_expires_at', code='VALIDATION_ERROR', request=request)
+                if timezone.is_naive(expires_at):
+                    expires_at = timezone.make_aware(expires_at, timezone.get_current_timezone())
+        try:
+            ent = patch_entitlement(
+                organization=org,
+                plan=body.get('plan') if 'plan' in body else None,
+                annual_expires_at=expires_at,
+                clear_annual_expires=clear_expires,
+                free_export_limit=body.get('free_export_limit') if 'free_export_limit' in body else None,
+                exports_used=body.get('exports_used') if 'exports_used' in body else None,
+            )
+        except BillingError as exc:
+            return fail(str(exc), code=exc.code, errors=exc.errors, request=request, http_status=exc.status)
+        write_audit(
+            request=request,
+            action='billing.entitlement.patch',
+            target_type='organization_entitlement',
+            target_id=str(ent.id),
+            meta={
+                'organization_id': str(org.id),
+                'plan': ent.plan,
+                'annual_expires_at': ent.annual_expires_at.isoformat() if ent.annual_expires_at else None,
+                'free_export_limit': ent.free_export_limit,
+                'exports_used': ent.exports_used,
+            },
+        )
+        return ok(serialize_entitlement(ent), request=request)
 
 
 class OrgMembersView(APIView):
@@ -389,6 +451,44 @@ class DesignListView(APIView):
         return ok({'items': data, 'page': page}, request=request)
 
 
+def _serialize_console_export(job, grant=None):
+    if grant is None:
+        grant_id = (
+            job.options.get('export_grant_id')
+            if isinstance(job.options, dict)
+            else None
+        )
+        if grant_id:
+            grant = ExportGrant.objects.filter(
+                id=grant_id,
+                organization_id=job.organization_id,
+            ).first()
+    grant_data = None
+    if grant:
+        grant_data = {
+            'id': str(grant.id),
+            'reason': grant.reason,
+            'consumed_quota': grant.consumed_quota,
+            'refunded_at': grant.refunded_at.isoformat() if grant.refunded_at else None,
+        }
+    return {
+        'id': str(job.id),
+        'format': job.format,
+        'quality_tier': job.quality_tier,
+        'status': job.status,
+        'attempts': job.attempts,
+        'error_code': job.error_code,
+        'error_message': job.error_message,
+        'design_id': str(job.design_id),
+        'design_name': job.design.name if job.design_id else None,
+        'organization_id': str(job.organization_id),
+        'created_at': job.created_at.isoformat(),
+        'finished_at': job.finished_at.isoformat() if job.finished_at else None,
+        'grant': grant_data,
+        'grant_refunded_at': grant_data['refunded_at'] if grant_data else None,
+    }
+
+
 class ExportListView(APIView):
     permission_classes = STAFF
 
@@ -401,23 +501,35 @@ class ExportListView(APIView):
         if fmt:
             qs = qs.filter(format=fmt)
         items, page = paginate_queryset(qs, request)
-        data = [
-            {
-                'id': str(j.id),
-                'format': j.format,
-                'quality_tier': j.quality_tier,
-                'status': j.status,
-                'error_code': j.error_code,
-                'error_message': j.error_message,
-                'design_id': str(j.design_id),
-                'design_name': j.design.name if j.design_id else None,
-                'organization_id': str(j.organization_id),
-                'created_at': j.created_at.isoformat(),
-                'finished_at': j.finished_at.isoformat() if j.finished_at else None,
-            }
+        grant_ids = [
+            j.options.get('export_grant_id')
             for j in items
+            if isinstance(j.options, dict) and j.options.get('export_grant_id')
+        ]
+        grants = {
+            str(grant.id): grant
+            for grant in ExportGrant.objects.filter(id__in=grant_ids)
+        }
+        data = [
+            _serialize_console_export(
+                job,
+                grants.get(str(job.options.get('export_grant_id')))
+                if isinstance(job.options, dict)
+                else None,
+            )
+            for job in items
         ]
         return ok({'items': data, 'page': page}, request=request)
+
+
+class ExportDetailView(APIView):
+    permission_classes = STAFF
+
+    def get(self, request, job_id):
+        job = ExportJob.objects.select_related('organization', 'design', 'owner').filter(pk=job_id).first()
+        if not job:
+            return fail('not found', code='NOT_FOUND', request=request, http_status=404)
+        return ok(_serialize_console_export(job), request=request)
 
 
 class ExportRetryView(APIView):
@@ -427,16 +539,16 @@ class ExportRetryView(APIView):
         job = ExportJob.objects.filter(pk=job_id).first()
         if not job:
             return fail('not found', code='NOT_FOUND', request=request, http_status=404)
-        if job.status not in (ExportJob.Status.FAILED, ExportJob.Status.CANCELLED):
-            return fail('only failed/cancelled jobs can retry', code='INVALID_STATUS', request=request)
-        job.status = ExportJob.Status.QUEUED
-        job.error_code = ''
-        job.error_message = ''
-        job.finished_at = None
-        job.save(update_fields=['status', 'error_code', 'error_message', 'finished_at', 'updated_at'])
-        dispatch_queued_export.delay(str(job.id))
+        try:
+            data = retry_export_job(
+                job_id=job.id,
+                organization_id=job.organization_id,
+                user=request.user,
+            )
+        except ExportJobError as exc:
+            return fail(str(exc), code=exc.code, errors=exc.errors, request=request, http_status=exc.status)
         write_audit(request=request, action='export.retry', target_type='export_job', target_id=str(job.id))
-        return ok({'id': str(job.id), 'status': job.status}, request=request)
+        return ok(data, request=request)
 
 
 class ExportCancelView(APIView):
@@ -446,13 +558,12 @@ class ExportCancelView(APIView):
         job = ExportJob.objects.filter(pk=job_id).first()
         if not job:
             return fail('not found', code='NOT_FOUND', request=request, http_status=404)
-        if job.status in (ExportJob.Status.SUCCEEDED, ExportJob.Status.CANCELLED):
-            return fail('cannot cancel', code='INVALID_STATUS', request=request)
-        job.status = ExportJob.Status.CANCELLED
-        job.finished_at = timezone.now()
-        job.save(update_fields=['status', 'finished_at', 'updated_at'])
+        try:
+            data = cancel_export_job(job_id=job.id, organization_id=job.organization_id)
+        except ExportJobError as exc:
+            return fail(str(exc), code=exc.code, errors=exc.errors, request=request, http_status=exc.status)
         write_audit(request=request, action='export.cancel', target_type='export_job', target_id=str(job.id))
-        return ok({'id': str(job.id), 'status': job.status}, request=request)
+        return ok(data, request=request)
 
 
 class OrderListView(APIView):

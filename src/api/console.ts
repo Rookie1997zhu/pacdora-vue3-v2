@@ -34,6 +34,10 @@ export const consoleApi = {
     apiRequest(`/console/orgs/${orgId}/members/${qs(p || {})}`).then((r) => r.data),
   patchOrgMember: (orgId: string, body: Record<string, unknown>) =>
     apiRequest(`/console/orgs/${orgId}/members/`, { method: 'PATCH', json: body }).then((r) => r.data),
+  orgEntitlement: (orgId: string) =>
+    apiRequest(`/console/orgs/${orgId}/entitlement/`).then((r) => r.data),
+  patchOrgEntitlement: (orgId: string, body: Record<string, unknown>) =>
+    apiRequest(`/console/orgs/${orgId}/entitlement/`, { method: 'PATCH', json: body }).then((r) => r.data),
   products: (p?: Record<string, string | number | undefined>) => getList('/console/catalog/products/', p),
   patchProduct: (id: string, body: Record<string, unknown>) =>
     apiRequest(`/console/catalog/products/${id}/`, { method: 'PATCH', json: body }).then((r) => r.data),
@@ -79,6 +83,22 @@ export const consoleApi = {
   aiConfig: () => apiRequest('/console/ai/config/').then((r) => r.data),
   saveAiConfig: (body: Record<string, unknown>) =>
     apiRequest('/console/ai/config/', { method: 'PUT', json: body }).then((r) => r.data),
+  blogPosts: (p?: Record<string, string | number | undefined>) => getList('/console/blog/posts/', p),
+  blogPost: (id: string) => apiRequest(`/console/blog/posts/${id}/`).then((r) => r.data),
+  createBlogPost: (body: Record<string, unknown>) =>
+    apiRequest('/console/blog/posts/', { method: 'POST', json: body }).then((r) => r.data),
+  patchBlogPost: (id: string, body: Record<string, unknown>) =>
+    apiRequest(`/console/blog/posts/${id}/`, { method: 'PATCH', json: body }).then((r) => r.data),
+  deleteBlogPost: (id: string) =>
+    apiRequest(`/console/blog/posts/${id}/`, { method: 'DELETE' }).then((r) => r.data),
+  publishBlogPost: (id: string) =>
+    apiRequest(`/console/blog/posts/${id}/publish/`, { method: 'POST', json: {} }).then((r) => r.data),
+  unpublishBlogPost: (id: string) =>
+    apiRequest(`/console/blog/posts/${id}/unpublish/`, { method: 'POST', json: {} }).then((r) => r.data),
+  previewBlogPost: (id: string, locale: string) =>
+    apiRequest(`/console/blog/posts/${id}/preview/?locale=${encodeURIComponent(locale)}`).then(
+      (r) => r.data,
+    ),
   testAiConfig: () => apiRequest('/console/ai/config/test/', { method: 'POST', json: {} }).then((r) => r.data),
   audit: (p?: Record<string, string | number | undefined>) => getList('/console/audit/', p),
 }

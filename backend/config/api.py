@@ -58,6 +58,8 @@ def exception_handler(exc, context):
         code = 'NOT_FOUND'
     elif response.status_code == 409:
         code = 'CONFLICT'
+    elif response.status_code == 429:
+        code = 'RATE_LIMITED'
     response.data = {
         'code': code,
         'message': message,

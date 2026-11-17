@@ -12,7 +12,7 @@ export default {
   faceOrder:PAIR_FACE_ORDER_HOOK,
   supportsClosedCheck:true,
   defaults:{length:80,width:40,height:150,thickness:.5},
-  limits:{length:[30,400],width:[20,250],height:[40,500]},
+  limits:{length:[15,400],width:[10,250],height:[20,500]},
   sizeRule:BOARD_SIZE_RULE,
   reaRef:{
     code:'PairWithHook',

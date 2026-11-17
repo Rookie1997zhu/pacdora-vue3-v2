@@ -4,6 +4,18 @@
  */
 
 const EPS=.05
+const ARC_FIT_EPS=.025
+
+const round=n=>Math.round(Number(n)*1000)/1000
+
+/** 圆弧按弦高误差选取分段数。angleRad 默认四分之一圆。 */
+export function arcSegmentCount(radius,angleRad=Math.PI/2,tol=.04,minSegments=1){
+  const r=Math.abs(Number(radius)||0)
+  if(r<1e-9)return Math.max(1,minSegments)
+  const safeTol=Math.max(1e-4,Math.min(Math.abs(Number(tol)||.04),r))
+  const maxStep=2*Math.acos(Math.max(-1,Math.min(1,1-safeTol/r)))
+  return Math.max(1,minSegments,Math.ceil(Math.abs(angleRad)/Math.max(maxStep,1e-6)))
+}
 
 /** SVG 端点弧参数 → 圆心参数（与 SVG A 一致；large=大弧，sweep=扫掠方向） */
 export function arcCenter(x1,y1,x2,y2,rx,ry,angDeg,large,sweep){
@@ -72,6 +84,144 @@ export function arcToCubics(x1,y1,x2,y2,rx,ry,angDeg,large,sweep){
     px=qx;py=qy;t0=t1
   }
   return out
+}
+
+function circleThrough(a,b,c){
+  const ax=a[0],ay=a[1],bx=b[0],by=b[1],cx=c[0],cy=c[1]
+  const d=2*(ax*(by-cy)+bx*(cy-ay)+cx*(ay-by))
+  if(Math.abs(d)<1e-7)return null
+  const aa=ax*ax+ay*ay,bb=bx*bx+by*by,cc=cx*cx+cy*cy
+  const ux=(aa*(by-cy)+bb*(cy-ay)+cc*(ay-by))/d
+  const uy=(aa*(cx-bx)+bb*(ax-cx)+cc*(bx-ax))/d
+  const r=Math.hypot(ax-ux,ay-uy)
+  return Number.isFinite(r)&&r>.05?{cx:ux,cy:uy,r}:null
+}
+
+function signedAngle(a,b){
+  return Math.atan2(a[0]*b[1]-a[1]*b[0],a[0]*b[0]+a[1]*b[1])
+}
+
+/** 单步圆心角上限：1/4 圆弧最少 3 段（30°）可过；矩形（90°）、正八边形（45°）不算圆弧 */
+const ARC_MAX_STEP=.6
+/** 弦长一致性：均匀细分的圆弧各段等长，长方形/梯形的边不等长 */
+function chordsUniform(points,from,to){
+  const chords=[]
+  for(let i=from;i<to;i++)chords.push(Math.hypot(points[i+1][0]-points[i][0],points[i+1][1]-points[i][1]))
+  const avg=chords.reduce((sum,c)=>sum+c,0)/chords.length
+  return chords.every(c=>Math.abs(c-avg)<=Math.max(.02,avg*.2))
+}
+
+function arcRun(points,start,{fitTolerance=ARC_FIT_EPS,closed=true}={}){
+  if(start+3>=points.length)return null
+  const circle=circleThrough(points[start],points[start+1],points[start+2])
+  if(!circle)return null
+  const vectors=[]
+  for(let i=start;i<=start+3;i++){
+    const p=points[i]
+    if(Math.abs(Math.hypot(p[0]-circle.cx,p[1]-circle.cy)-circle.r)>fitTolerance)return null
+    vectors.push([p[0]-circle.cx,p[1]-circle.cy])
+  }
+  const steps=[]
+  for(let i=1;i<vectors.length;i++)steps.push(signedAngle(vectors[i-1],vectors[i]))
+  const sign=Math.sign(steps[0])
+  if(!sign||steps.some(a=>Math.sign(a)!==sign||Math.abs(a)<1e-4))return null
+  const avg=steps.reduce((sum,a)=>sum+Math.abs(a),0)/steps.length
+  if(steps.some(a=>Math.abs(Math.abs(a)-avg)>Math.max(.025,avg*.22)))return null
+  // 共圆 ≠ 圆弧：矩形四角天然共圆。要求小转角 + 等弦长才认作细分圆弧
+  if(steps.some(a=>Math.abs(a)>ARC_MAX_STEP))return null
+  if(!chordsUniform(points,start,start+3))return null
+  const chord0=Math.hypot(points[start+1][0]-points[start][0],points[start+1][1]-points[start][1])
+
+  let end=start+3
+  let prev=vectors[vectors.length-1]
+  while(end+1<points.length){
+    const p=points[end+1]
+    const radial=Math.abs(Math.hypot(p[0]-circle.cx,p[1]-circle.cy)-circle.r)
+    if(radial>fitTolerance)break
+    const next=[p[0]-circle.cx,p[1]-circle.cy]
+    const step=signedAngle(prev,next)
+    if(Math.sign(step)!==sign||Math.abs(step)<1e-4||Math.abs(Math.abs(step)-avg)>Math.max(.04,avg*.35))break
+    const q=points[end]
+    const chord=Math.hypot(p[0]-q[0],p[1]-q[1])
+    if(Math.abs(chord-chord0)>Math.max(.03,chord0*.35))break
+    prev=next
+    end++
+  }
+  const first=[points[start][0]-circle.cx,points[start][1]-circle.cy]
+  const last=[points[end][0]-circle.cx,points[end][1]-circle.cy]
+  let sweep=signedAngle(first,last)
+  if(sign>0&&sweep<0)sweep+=Math.PI*2
+  if(sign<0&&sweep>0)sweep-=Math.PI*2
+  if(Math.abs(sweep)<.08||Math.abs(sweep)>Math.PI*2-.02)return null
+  // 闭合环整圈都落在同一圆上（正多边形）：保持折线，不输出单条 A
+  if(closed&&start===0&&end===points.length-1)return null
+  return {...circle,end,large:Math.abs(sweep)>Math.PI,dir:sign>0}
+}
+
+/**
+ * 折线环重建为 M/L/A/Z 命令。仅把至少 3 条、等角且共圆的连续折线合并为 A；
+ * 无法确认的片段保持 L，避免把普通拐角误判为圆弧。
+ */
+export function pathCommandsFromLoop(points,{closed=true,fitTolerance=ARC_FIT_EPS}={}){
+  if(!Array.isArray(points)||!points.length)return []
+  const pts=points
+    .filter(p=>Array.isArray(p)&&Number.isFinite(Number(p[0]))&&Number.isFinite(Number(p[1])))
+    .map(p=>[Number(p[0]),Number(p[1])])
+  if(pts.length>=2&&Math.hypot(pts[0][0]-pts[pts.length-1][0],pts[0][1]-pts[pts.length-1][1])<1e-6)pts.pop()
+  if(!pts.length)return []
+  const out=[{mtd:'M',x:round(pts[0][0]),y:round(pts[0][1])}]
+  let i=1
+  while(i<pts.length){
+    const arc=arcRun(pts,i-1,{fitTolerance,closed})
+    if(arc){
+      const end=pts[arc.end]
+      out.push({
+        mtd:'A',rx:round(arc.r),ry:round(arc.r),ang:0,
+        arc:arc.large,dir:arc.dir,x:round(end[0]),y:round(end[1])
+      })
+      i=arc.end+1
+      continue
+    }
+    out.push({mtd:'L',x:round(pts[i][0]),y:round(pts[i][1])})
+    i++
+  }
+  if(closed)out.push({mtd:'Z'})
+  return out
+}
+
+/** 轴对齐圆角矩形的精确路径命令。 */
+export function roundedRectPathCommands(x,y,w,h,r=0){
+  const radius=Math.max(0,Math.min(Number(r)||0,Number(w)/2,Number(h)/2))
+  x=Number(x);y=Number(y);w=Number(w);h=Number(h)
+  if(radius<1e-6)return pathCommandsFromLoop([[x,y],[x+w,y],[x+w,y+h],[x,y+h]])
+  return [
+    {mtd:'M',x:round(x+radius),y:round(y)},
+    {mtd:'L',x:round(x+w-radius),y:round(y)},
+    {mtd:'A',rx:round(radius),ry:round(radius),ang:0,arc:false,dir:true,x:round(x+w),y:round(y+radius)},
+    {mtd:'L',x:round(x+w),y:round(y+h-radius)},
+    {mtd:'A',rx:round(radius),ry:round(radius),ang:0,arc:false,dir:true,x:round(x+w-radius),y:round(y+h)},
+    {mtd:'L',x:round(x+radius),y:round(y+h)},
+    {mtd:'A',rx:round(radius),ry:round(radius),ang:0,arc:false,dir:true,x:round(x),y:round(y+h-radius)},
+    {mtd:'L',x:round(x),y:round(y+radius)},
+    {mtd:'A',rx:round(radius),ry:round(radius),ang:0,arc:false,dir:true,x:round(x+radius),y:round(y)},
+    {mtd:'Z'}
+  ]
+}
+
+export function commandsToPathData(cmds){
+  const parts=[]
+  for(const c of cmds||[]){
+    if(c?.mtd==='M'||c?.mtd==='L')parts.push(`${c.mtd} ${c.x} ${c.y}`)
+    else if(c?.mtd==='A')parts.push(`A ${c.rx||0} ${c.ry||0} ${c.ang||0} ${c.arc?1:0} ${c.dir?1:0} ${c.x} ${c.y}`)
+    else if(c?.mtd==='Q')parts.push(`Q ${c.cx} ${c.cy} ${c.x} ${c.y}`)
+    else if(c?.mtd==='C')parts.push(`C ${c.cx1??c.cx} ${c.cy1??c.cy} ${c.cx2??c.cx} ${c.cy2??c.cy} ${c.x} ${c.y}`)
+    else if(c?.mtd==='Z')parts.push('Z')
+  }
+  return parts.join(' ')
+}
+
+export function flattenPaths(paths,opts){
+  return (paths||[]).map(path=>flattenCubicPath(path,opts))
 }
 
 /** 二次贝塞尔精确升阶为三次 */

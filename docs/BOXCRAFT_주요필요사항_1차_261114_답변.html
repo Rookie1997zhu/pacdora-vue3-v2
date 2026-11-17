@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOXCRAFT 주요필요사항 1차 261114 · 답변</title>
+  <style>
+    :root {
+      --paper: #f6f7f9;
+      --ink: #1b2738;
+      --muted: #5b6570;
+      --line: #e4e7ec;
+      --blue: #0070c0;
+      --blue-soft: #eef5fc;
+      --blue-line: #9dc3e6;
+      --font: "IBM Plex Sans", "Noto Sans SC", "Noto Sans KR", sans-serif;
+      --display: "Sora", "Noto Sans SC", "Noto Sans KR", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 var(--font);
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .top {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .brand { font-family: var(--display); font-weight: 700; letter-spacing: -.02em; }
+    .brand small { display: block; font-weight: 500; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang button {
+      border: 0; background: transparent; padding: 8px 14px; font: inherit; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+    }
+    .lang button.on { background: var(--blue); color: #fff; }
+    main { max-width: 860px; margin: 0 auto; padding: 28px 18px 72px; }
+    h1 { font-family: var(--display); font-size: clamp(22px, 3vw, 30px); margin: 0 0 8px; letter-spacing: -.02em; }
+    .meta { color: var(--muted); font-size: 13px; margin: 0 0 22px; }
+    .block { margin: 0 0 14px; }
+    .h { font-weight: 700; margin: 22px 0 10px; font-size: 16px; }
+    .h1s { font-size: 18px; border-left: 3px solid var(--blue); padding-left: 10px; }
+    .h2s { color: var(--blue); font-size: 15px; margin-top: 20px; }
+    .req {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 0 0 8px;
+    }
+    .ex { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
+    .ans {
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-line);
+      border-left: 3px solid var(--blue);
+      border-radius: 10px;
+      padding: 11px 14px;
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .ans .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: .02em;
+    }
+    .summary {
+      background: #fff;
+      border: 1px solid var(--blue-line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-top: 28px;
+    }
+    .summary h2 { margin: 0 0 10px; color: var(--blue); font-size: 16px; }
+    .summary ul { margin: 8px 0; padding-left: 1.2em; }
+    .summary li { margin: 6px 0; color: var(--blue); font-weight: 600; }
+    .checklist {
+      background: #fff;
+      border: 1px solid var(--blue-line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 22px 0 8px;
+    }
+    .checklist h2 { margin: 0 0 10px; color: var(--blue); font-size: 16px; }
+    .checklist .meta-line { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+    .checklist ul { list-style: none; margin: 0; padding: 0; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin: 0 0 8px; padding: 8px 10px;
+      border: 1px solid var(--line); border-radius: 8px;
+      font-size: 14px; font-weight: 600; color: var(--ink);
+    }
+    .checklist li.done { background: #f3faf6; border-color: #b7dfc4; }
+    .checklist li.open { background: #fafafa; color: var(--muted); font-weight: 500; }
+    .checklist .mark {
+      flex: 0 0 auto; width: 1.25em; text-align: center;
+      font-weight: 800; color: #1f8a4c;
+    }
+    .checklist li.open .mark { color: var(--muted); }
+    [data-lang-block] { display: none; }
+    html[lang="zh-CN"] [data-lang-block="zh"],
+    html[lang="ko-KR"] [data-lang-block="ko"] { display: block; }
+    .only-zh, .only-ko { display: none; }
+    html[lang="zh-CN"] .only-zh { display: inline; }
+    html[lang="ko-KR"] .only-ko { display: inline; }
+    footer { margin-top: 36px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">
+      BOXCRAFT
+      <small>
+        <span class="only-ko">주요필요사항 1차 261114 · 파란 답변 HTML</span>
+        <span class="only-zh">主要需求事项一稿 261114 · 蓝色答复 HTML</span>
+      </small>
+    </div>
+    <div class="lang" role="group" aria-label="language">
+      <button type="button" id="btn-ko" class="on" onclick="setLang('ko-KR')">한국어</button>
+      <button type="button" id="btn-zh" onclick="setLang('zh-CN')">中文</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- ========== KO ========== -->
+    <div data-lang-block="ko">
+      <h1>BOXCRAFT 주요필요사항 1차 · 답변</h1>
+      <p class="meta">원본 Word 답변본(<code>…_답변.docx</code>)과 동일 구조. 파란 박스가 Word의 파란색 답변입니다.</p>
+
+      <div class="block">
+        <div class="req"># 가장 중요한 점은 고객이 제품을 쉽게 이해하고, 전문 지식이 없어도 편리하게 박스를 설계할 수 있도록 만드는 것이다. (너무 복잡한 기능이 있으면 안됨)</div>
+      </div>
+
+      <div class="block">
+        <div class="req"># 웹엔지니어 혼자서 만들기에는 한계가 크므로, 이제부터는 당신과 내가 협업하여 만들어 간다.</div>
+      </div>
+
+      <p class="h h1s">26년 11월 3주에 해야 할 일</p>
+      <p class="h">1. BOXCRAFT</p>
+      <p class="h h2s">1) 내용 수정</p>
+
+      <div class="block">
+        <div class="req">- 각각의 박스에 예상 디자인을 미리 적용해 볼 수 있도록 하여, 고객이 완성된 모습을 바로 확인할 수 있게 한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />스튜디오 이미지 레이어 + <strong>예시 디자인 원클릭</strong>（Studio「예시 디자인 원클릭」）이 있습니다. 2D/3D에 바로 반영됩니다.</div>
+      </div>
+
+      <div class="block">
+        <div class="req">- 각각의 박스에 사용될 종이 재질을 선택하고 적용할 수 있게 한다.
+          <p class="ex">예: 크라프트지는 갈색의 자연스러운 느낌, 아트지는 인쇄가 선명한 매끈한 느낌으로 미리보기에 반영</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />한국 지종 카탈로그（크라프트·아트지·E/B골 등）+ Studio 선택 UI + 3D 질감 구분（white 코팅감 / blue 냉색）. 엔진은 계속 kraft/white/blue 매핑. 상용 텍스처 팩은 이후 교체 가능（<code>docs/paper_kr_catalog.md</code>）.</div>
+      </div>
+
+      <div class="block">
+        <div class="req">- 종이 두께(150g, 250g, 350g, 1골지 등)를 선택할 수 있게 한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />Studio에서 지종 선택 시 gsm/골에 맞는 thicknessMm 적용, 두께·내면/외면·골방향 UI 노출.</div>
+      </div>
+
+      <div class="block">
+        <div class="req">① 먼저 한국에서 주로 사용하는 종이 재질과 두께를 조사·분석한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 완료 ✅】</span><br />1차 표 반영: <code>src/catalog/paperCatalog.js</code> + <code>docs/paper_kr_catalog.md</code>.</div>
+      </div>
+
+      <div class="block">
+        <div class="req">② 분석 결과를 바탕으로, 종이 두께에 따라 달라지는 박스의 안쪽 크기와 바깥쪽 크기를 PACDORA처럼 함께 표시해 주는 기능을 추가한다.
+          <p class="ex">예: 안쪽 크기를 100mm로 설계해도 종이가 두꺼우면 바깥쪽 크기는 더 커지므로, 두 크기를 함께 보여준다.</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />Studio 기하 패널에서 deriveSizes 기반 <strong>안쪽·바깥쪽 L×W×H 병기</strong>.</div>
+      </div>
+
+      <p class="h h2s">2) 번역 문제</p>
+      <div class="block">
+        <div class="req">- 중국어로 제작된 사이트를 자동번역기로 번역하면 한국 검색엔진에서 검색되지 않는 문제가 있다.
+          <p class="ex">예: 추후 각 나라별 언어로 콘텐츠를 별도로 제작하고, 접속 국가에 따라 해당 언어가 자동으로 보이도록 변경해야 한다.</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />네이티브 zh-CN/ko-KR + 라우트 메타/sitemap/robots/hreflang + 접속국 헤더(CF-IPCountry)·Accept-Language·cookie 기반 자동 언어. 국가별 완전 분리 사이트는 하지 않음.</div>
+      </div>
+
+      <p class="h h2s">3) 블로그 기능 추가</p>
+      <div class="block">
+        <div class="req">- 박스의 종류와 박스별 활용 정보를 소개하는 블로그 기능을 올릴 수 있도록 한다.
+          <p class="ex">예: 화장품 박스, 선물 박스, 배송 박스의 특징과 추천 종이 재질 소개</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />Django 서버 HTML 직출 <code>/blog/</code> + Console CMS(중/한). 시드 3편(화장품·선물·운송). SPA가 아닌 서버 렌더로 검색엔진이 본문을 읽을 수 있음.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 사용자가 직접 만든 박스를 공유하고 자랑할 수 있는 기능을 추가하여 커뮤니티 활성화를 유도한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 미구현】</span><br />커뮤니티 공유는 미구현입니다. 블로그 공개 연동과 함께 설계하는 편이 안전합니다(저작권·노출 권한 필요).</div>
+      </div>
+
+      <p class="h h2s">4) 곧 추가할 기능 (가능 여부를 확인한 후에 적용)</p>
+      <div class="block">
+        <div class="req">- 제품별로 박스에 반드시 표시해야 하는 표기사항을 추가한다.
+          <p class="ex">예: KC 인증 마크 및 인증 번호 등</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜가능(확인 후)】</span><br />KC 마크·인증번호 등 ‘필수 표기 레이어/스탬프’로 넣을 수 있습니다. 표기 문구·위치 규정 리스트가 필요합니다.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 박스 도면 위에 디자인을 올리면 3D로 렌더링해 보여주는 기능을 제공한다.
+          <p class="ex">→ PDF나 .ai 업로드 시 자동 3D·전개도까지 확장</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜조사】</span><br />
+          <strong>Pacdora:</strong> “PDF/.ai 올리면 자동으로 3D+전개도 생성”은 공개 기능으로 보이지 않습니다. 있는 것은 ①템플릿 고르고 그림(로고 등) 올려 3D 보기 ②<strong>SVG/DXF</strong> 칼선 도면을 올려 접어 3D로 보기 ③작업 후 PDF/AI로 <em>내보내기</em>입니다.<br /><br />
+          <strong>Packative:</strong> 박스 고르고 디자인·AI 시안 후 3D 미리보기가 중심입니다. CAD 쪽은 <strong>DXF</strong> 칼선 가져오기를 말하고, PDF/.ai를 넣으면 자동으로 전개도+3D를 만들어 준다는 식의 공개 기능은 확인되지 않았습니다.<br /><br />
+          <strong>BOXCRAFT:</strong> “도면 위에 디자인 → 3D”는 이미 있습니다. PDF/.ai 자동 생성은 양사도 표준이 아니어서, 당분간은 이미지 업로드+기존 3D를 유지하고, 필요하면 나중에 SVG/DXF 칼선 업로드부터 검토하는 편이 맞습니다.<br /><br />
+          <strong>안정성:</strong> PDF/.ai를 임의로 넣어 자동 3D·전개도를 만들면 <em>모델이 어긋날 수 있습니다</em>. 파일에 인쇄 그림·글자·가이드가 섞여 있고, 칼선/접선·어느 면이 뚜껑인지 표준 표기가 없어 매번 안정적으로 인식하기 어렵습니다. 데모·반자동(사람이 선 종류를 지정)은 가능해도, 전자동·양산 수준 안정은 기대하기 어렵습니다. 그래서 템플릿(또는 깨끗한 SVG/DXF 칼선) 경로가 더 안전합니다.
+        </div>
+      </div>
+
+      <p class="h h2s">5) 가장 어려운 기능 추가</p>
+      <div class="block">
+        <div class="req">- 박스를 제작하면, 수량에 따른 예상 가격을 표시해 주는 기능이 필요하다.
+          <p class="ex">예: 100개 vs 1,000개 단가 비교</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜일정 조정】</span><br />동의합니다. <strong>지금은 구독제로 먼저 테스트</strong>하고 유입·사용량을 봅니다. <strong>수량별 자동 단가·장바구니·견적</strong>은 미뤄 두고, 사이트가 커진 뒤 한국 공급사와 함께 <strong>실제 종이박스 판매</strong>로 확장할 때 다시 잡겠습니다.</div>
+      </div>
+
+      <p class="h h2s">6) 아웃박스 연결 기능</p>
+      <div class="block">
+        <div class="req">- 포장박스가 만들어지면, 이를 담을 아웃박스(배송용 외부 박스)를 만드는 창으로 이어지도록 유도하는 기능이 있으면 좋다.
+          <p class="ex">예: “이 박스 10개가 들어가는 아웃박스를 만들어 보시겠습니까?”</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />Studio Outbox + 유도 카피 + 적재 매핑/충전율/한도초과 피드백（제0기 UX 보강）.</div>
+      </div>
+
+      <p class="h h2s">7) AI 적용</p>
+      <div class="block">
+        <div class="req">- AI를 적용할 수 있는지 확인한다. AI를 적용할수록 다른 박스 제작 업체들과 차별화된다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨(키 연결) ✅】</span><br />
+          Studio AI 패널（이미지 생성）+ Console/env 키 연결 경로 문서화（<code>docs/paper_kr_catalog.md</code>）. 키가 없으면 가짜 성공 없이 불가 표시.
+        </div>
+      </div>
+      <div class="block">
+        <div class="req">- 설계 중 문제가 될 수 있는 내용을 미리 알려주어, 초보자도 설계에 문제가 없도록 돕는 알림 기능이 필요하다.
+          <p class="ex">예: 아트지 250g + 고중량/고높이 → 찌그러짐 경고</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 구현됨 ✅】</span><br />
+          규칙표 <code>paperRiskRules.js</code> — 얇은 지종+높은 H 등 조합 시 Studio에 노랑/빨강 안내.
+        </div>
+      </div>
+
+      <p class="h h2s">8) 추후 공급망 추가 예정</p>
+      <div class="block">
+        <div class="req">- 이 웹사이트를 통해 한국의 파트너(인쇄소)와 연동하여, 실제 발주를 받을 수 있도록 유도한다.
+          <p class="ex">참고: 한국에서는 이미 대형 인쇄소가 시장을 선점하고 있다.</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 미구현(추후)】</span><br />지금은 구독제만 먼저. 사이트가 커지면 한국 공급사와 연동해 <strong>실물 박스 판매·발주</strong>로 확장합니다. 그때 장바구니·견적·발주 상태를 본격 붙입니다.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 인쇄소와 협의하여 아웃박스까지 함께 제공받거나, 포장재를 일괄 구매할 수 있도록 유도한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜추후】</span><br />2단계(실물 판매) 범위. 아웃박스 설계 데이터는 이미 있어, 공급사 SKU/견적만 붙이면 일괄 제공 유도 가능. 장바구니·견적은 그때 고도화.</div>
+      </div>
+
+      <p class="h h1s">2. 앞으로의 계획</p>
+      <p class="h h2s">1) MASSCONNECTED 연계</p>
+      <div class="block">
+        <div class="req">- MASSCONNECTED에서 제품의 크기가 정해지면, 포장 방법과 박스 포장에도 이 엔진을 사용할 예정이다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 미연동】</span><br />코드베이스에 MASSCONNECTED 연동 없음. 제품 L/W/H API로 박스 엔진 호출하는 계약만 정하면 연결 가능.</div>
+      </div>
+
+      <p class="h h2s">2) 판매 계획</p>
+      <div class="ans" style="margin-bottom:14px"><span class="tag">【답변｜파랑｜전략】</span><br />
+        <strong>1단계(지금):</strong> 구독제로 물 테스트 — 가입·무료 횟수·유료/연간으로 도구 사용권을 팔고 트래픽을 봅니다.<br />
+        <strong>2단계(성장 후):</strong> 한국 공급사와 협력해 <strong>실제 종이박스 판매·제작</strong> 서비스로 확장.<br />
+        <strong>후순위:</strong> 장바구니·견적(수량 단가 포함)은 2단계에 맞춰 진행하고, 지금은 구독·핵심 설계 기능에 집중합니다.
+      </div>
+      <div class="block">
+        <div class="req">- 가입하면 10번은 무료로 다운로드할 수 있다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜상태: 부분 구현 ✅】</span><br />조직별 무료 10회 + Studio/Lab 서버 차감 + 업그레이드 의사 등록 + Console 수동 연간 개통. <strong>실제 한국 PG 결제는 미구현</strong>.</div>
+      </div>
+      <div class="block">
+        <div class="req">→ 그 이후에는 5,000원(25RMB) + 부가세 500원을 지급해야 사용할 수 있다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑】</span><br />단가 모델(회당 5,000원+VAT / 연간 3,000원+VAT) 반영 가능. 결제·세금계산 정책 확정 후 적용.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 1년 구독을 하면 3,000원(15RMB) + 부가세 300원으로 이용할 수 있다. → 1년 후 사용자 증가 시 20% 인상.</div>
+        <div class="ans"><span class="tag">【답변｜파랑】</span><br />연간 구독 플랜으로 설계 가능. 1년 후 20% 인상 규칙은 설정값으로 관리.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 주변 사람을 추천하면 추천한 사람은 3개월, 추천받은 사람은 1개월의 추가 사용 기간을 받는다.
+          <p class="ex">참고: 무료만 이용할 가능성 높음. PACDORA 유료 전환 &lt;8%.</p>
+        </div>
+        <div class="ans"><span class="tag">【답변｜파랑｜가능】</span><br />추천인 +3개월 / 피추천 +1개월 쿠폰·기간 연장으로 구현 가능. 대학생 타깃 콘텐츠·블로그 쿠폰과 묶는 것을 권장.</div>
+      </div>
+      <div class="block">
+        <div class="req">- 무료 10번 중에 자신이 이 사이트로 제작한 박스를 블로그에 올려 홍보하면, 1개월 무료 이용권(쿠폰)을 발행하는 기능을 추가해야 한다.</div>
+        <div class="ans"><span class="tag">【답변｜파랑｜가능】</span><br />블로그 게시 인증 후 1개월 쿠폰 발급 가능. 블로그 모듈 또는 외부 URL 제출+검수 플로우가 선행되어야 합니다.</div>
+      </div>
+
+      <div class="checklist">
+        <h2>【제0기 · 설계 체험 보완】체크리스트 · 2026-11-16</h2>
+        <p class="meta-line">확인 위치: Studio 디자인 편집（내 디자인 → 열기）. Lab 목록이 아님.</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 예시 디자인 원클릭</li>
+          <li class="done"><span class="mark">☑</span> 한국 지종 카탈로그 + 3D 재질 미리보기</li>
+          <li class="done"><span class="mark">☑</span> 두께(gsm/골) 선택 UI</li>
+          <li class="done"><span class="mark">☑</span> 한국 지종·평량 조사표（paper_kr_catalog）</li>
+          <li class="done"><span class="mark">☑</span> 안·밖 치수 병기（PACDORA형）</li>
+          <li class="done"><span class="mark">☑</span> 초보자 위험 안내（규칙표）</li>
+          <li class="done"><span class="mark">☑</span> Outbox 유도·적재 피드백 보강</li>
+          <li class="done"><span class="mark">☑</span> AI 키 개통 경로 문서화</li>
+          <li class="open"><span class="mark">☐</span> 실제 한국 PG 결제</li>
+          <li class="open"><span class="mark">☐</span> PDF/.ai 자동 3D · KC · MASSCONNECTED · 실물 발주</li>
+        </ul>
+      </div>
+
+      <div class="checklist">
+        <h2>【제1기 · 구독제 시범】체크리스트 · 2026-11-16</h2>
+        <p class="meta-line">무료 10회 벽 + 업그레이드 의사 등록 + Console 수동 연간. 실제 결제 없음.</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 조직별 무료 내보내기 10회 한도</li>
+          <li class="done"><span class="mark">☑</span> Studio create_export_job 서버 차감（멱등 미중복）</li>
+          <li class="done"><span class="mark">☑</span> LegacyLab 내보내기 전 export-grants</li>
+          <li class="done"><span class="mark">☑</span> 업그레이드 의사 페이지（결제 없음）</li>
+          <li class="done"><span class="mark">☑</span> Console 수동 연간 개통·한도 조정</li>
+          <li class="open"><span class="mark">☐</span> Toss/KakaoPay 등 실제 PG</li>
+          <li class="open"><span class="mark">☐</span> 추천·블로그 쿠폰</li>
+        </ul>
+      </div>
+
+      <div class="checklist">
+        <h2>【콘텐츠·SEO】체크리스트 · 2026-11-16</h2>
+        <p class="meta-line">서버 HTML 블로그 + SPA 메타 + 자동 언어. 커뮤니티·전면 SSR 없음.</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 라우트 title/description/canonical/hreflang</li>
+          <li class="done"><span class="mark">☑</span> sitemap.xml · robots.txt</li>
+          <li class="done"><span class="mark">☑</span> /blog 서버 직출 + Console CMS</li>
+          <li class="done"><span class="mark">☑</span> 접속국/Accept-Language/cookie 자동 언어</li>
+          <li class="open"><span class="mark">☐</span> 커뮤니티 공유</li>
+          <li class="open"><span class="mark">☐</span> 전면 SSR/프리렌더</li>
+        </ul>
+      </div>
+
+      <div class="summary">
+        <h2>【답변｜파랑｜종합 현황】</h2>
+        <ul>
+          <li><strong>제0기 완료:</strong> 한국 지종·두께·안밖치수·예시원클릭·위험안내·Outbox UX·AI 키 안내.</li>
+          <li><strong>제1기 완료（결제 제외）:</strong> 무료 10회 벽, Lab/Studio 서버 차감, 업그레이드 의사, Console 연간 수동 개통.</li>
+          <li><strong>콘텐츠·SEO 완료:</strong> 서버 블로그 CMS, sitemap/robots, 자동 언어. 커뮤니티·SSR 제외.</li>
+          <li>구현됨(기존): 디자인 미리보기, 중/한 i18n, 아웃박스, 도면→3D, AI 생성 패널.</li>
+          <li>다음: 실제 한국 PG · 추천/쿠폰（선택）. 장바구니·견적은 후순위.</li>
+          <li>후순위: PDF/.ai 자동 3D, 커뮤니티, KC, MASSCONNECTED, 실물 판매.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== ZH ========== -->
+    <div data-lang-block="zh">
+      <h1>BOXCRAFT 主要需求事项一稿 · 答复</h1>
+      <p class="meta">与 Word 答复本（<code>…_답변.docx</code>）同结构。蓝色框 = Word 中的蓝色答复。</p>
+
+      <div class="block">
+        <div class="req"># 最重要的是：让客户轻松理解产品，没有专业知识也能方便设计盒子。（功能不能太复杂）</div>
+      </div>
+
+      <div class="block">
+        <div class="req"># 网页工程师单干局限大，从现在起你我协作推进。</div>
+      </div>
+
+      <p class="h h1s">2026年11月第3周要做的事</p>
+      <p class="h">1. BOXCRAFT</p>
+      <p class="h h2s">1）内容修改</p>
+
+      <div class="block">
+        <div class="req">- 每个盒子可预先套用设计，让客户立刻看到完成效果。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />Studio 图片图层 + <strong>一键示例设计</strong>（Studio「一键示例设计」），2D/3D 即时反映。</div>
+      </div>
+
+      <div class="block">
+        <div class="req">- 可选择并应用纸材到预览。
+          <p class="ex">例：牛皮纸自然棕；艺术纸光滑清晰印刷感</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />韩国纸种目录（牛皮/艺术纸/E·B 楞等）+ Studio 选择 + 3D 质感区分（白卡涂层感 / 蓝卡冷色）。引擎仍映射 kraft/white/blue。商用贴图包可后续替换（<code>docs/paper_kr_catalog.md</code>）。</div>
+      </div>
+
+      <div class="block">
+        <div class="req">- 可选纸厚（150g、250g、350g、一瓦楞等）。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />Studio 选纸种即带 gsm/瓦楞对应 thicknessMm；厚度、内侧/外侧基准、楞向 UI 已露出。</div>
+      </div>
+
+      <div class="block">
+        <div class="req">① 先调研、分析韩国常用纸材与厚度。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：完成 ✅】</span><br />一表落地：<code>src/catalog/paperCatalog.js</code> + <code>docs/paper_kr_catalog.md</code>。</div>
+      </div>
+
+      <div class="block">
+        <div class="req">② 按纸厚像 PACDORA 一样同时显示内侧与外侧尺寸。
+          <p class="ex">例：内侧 100mm，纸厚时外侧更大，两者一起显示。</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />Studio 几何面板：deriveSizes <strong>内侧·外侧 L×W×H 并显</strong>。</div>
+      </div>
+
+      <p class="h h2s">2）翻译问题</p>
+      <div class="block">
+        <div class="req">- 中文站自动翻译 → 韩国搜索引擎难收录。
+          <p class="ex">例：按国家做内容；按访问国自动显示语言。</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />原生 zh-CN/ko-KR + 路由元数据/sitemap/robots/hreflang + 国家头(CF-IPCountry)·Accept-Language·cookie 自动语言。不做完全分国独立站。</div>
+      </div>
+
+      <p class="h h2s">3）博客功能</p>
+      <div class="block">
+        <div class="req">- 介绍盒型与用途的博客。
+          <p class="ex">例：化妆品盒、礼品盒、运输盒与推荐纸材</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />Django 服务端直出 <code>/blog/</code> + Console CMS（中/韩）。种子 3 篇（化妆品·礼品·运输）。非 SPA，搜索引擎可读正文。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 用户分享自己做的盒子，激活社区。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：未实现】</span><br />社区分享未做。宜与博客公开联动一起设计（需版权与曝光权限）。</div>
+      </div>
+
+      <p class="h h2s">4）即将增加（先确认可行性）</p>
+      <div class="block">
+        <div class="req">- 产品必标信息（KC 标志、认证号等）。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜可行（确认后）】</span><br />可做成「必标图层/图章」。需提供文案与位置规范清单。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 刀版上放设计 → 3D；进一步上传 PDF/.ai 自动生成 3D+展开图。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜调研】</span><br />
+          <strong>Pacdora：</strong>公开能力里<strong>没有</strong>「上传 PDF/.ai → 自动生成 3D+展开图」这种一键功能。他们常见的是：①选现成盒型，再贴图看 3D；②上传<strong>SVG/DXF</strong>刀版线，自动折成 3D；③做完后把文件<strong>导出</strong>成 PDF/AI（导出≠导入自动建模）。<br /><br />
+          <strong>Packative：</strong>主流程是选盒型、做设计/AI 出图、再 3D 预览。CAD 侧宣传可导入<strong>DXF</strong>刀线；同样<strong>未见</strong>「扔进 PDF/.ai 就自动出展开图+3D」的标准卖点。<br /><br />
+          <strong>BOXCRAFT：</strong>「刀版上放设计 → 3D」我们已经有。PDF/.ai 自动生成不是两家标配，建议先维持图片上传+现有 3D；若以后要补，优先考虑 SVG/DXF 刀线上传，而不是硬啃 PDF/.ai。<br /><br />
+          <strong>稳定性：</strong>若把任意 PDF/.ai 丢进去自动生成 3D+展开图，<em>很容易出现模型错乱</em>。文件里常混有印刷图、文字、参考线；切线/折线、哪面是盖也往往没有标准标注，机器很难每次都稳定识别。演示或半自动（人工标线）可以做，但很难做到全自动、稳定投产。因此更稳妥的是走模板（或干净的 SVG/DXF 刀线）路径。
+        </div>
+      </div>
+
+      <p class="h h2s">5）最难：按数量估价</p>
+      <div class="block">
+        <div class="req">- 按数量显示预估价格（设计师对价格敏感）。
+          <p class="ex">例：100 个 vs 1,000 个单价对比</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜排期调整】</span><br />同意。<strong>现阶段先做订阅制试水</strong>，观察流量与使用量。<strong>按数量自动估价、购物车、报价</strong>先延后；等网站做大后，再与韩国供应商合作开展<strong>实体纸盒售卖/制作</strong>时一并补齐。</div>
+      </div>
+
+      <p class="h h2s">6）外箱连接</p>
+      <div class="block">
+        <div class="req">- 包装盒完成后引导做运输外箱。
+          <p class="ex">例：“要不要做能装 10 个的外箱？”</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />Studio Outbox + 引导文案 + 装箱映射/装载率/超限反馈（第 0 期 UX 补齐）。</div>
+      </div>
+
+      <p class="h h2s">7）AI</p>
+      <div class="block">
+        <div class="req">- 确认能否用 AI；用得越多越能差异化。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现（接密钥）✅】</span><br />
+          Studio AI 生图面板 + Console/env 密钥开通说明（<code>docs/paper_kr_catalog.md</code>）。无密钥时诚实显示不可用，不伪造成功。
+        </div>
+      </div>
+      <div class="block">
+        <div class="req">- 设计中提前提示风险，帮新手避坑（提示方式未定）。
+          <p class="ex">例：艺术纸 250g + 重物/过高 → 可能压瘪</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：已实现 ✅】</span><br />
+          规则表 <code>paperRiskRules.js</code>：薄纸+过高 H 等组合时 Studio 显示黄/红提示。
+        </div>
+      </div>
+
+      <p class="h h2s">8）后续供应链</p>
+      <div class="block">
+        <div class="req">- 对接韩国印刷厂，引导真实下单。
+          <p class="ex">注：韩国大型印刷厂已占市场。</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：未实现（后续）】</span><br />现在先做订阅制。网站做大后，再与韩国供应商对接<strong>实体盒售卖与发单</strong>；那时再重点做购物车、报价与发单状态。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 协商外箱与包装材一揽子供应。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜后续】</span><br />属第 2 阶段（实体销售）。外箱设计数据已有，接上供应商 SKU/报价即可；购物车与报价那时再升级。</div>
+      </div>
+
+      <p class="h h1s">2. 今后计划</p>
+      <p class="h h2s">1）MASSCONNECTED 联动</p>
+      <div class="block">
+        <div class="req">- MASSCONNECTED 产品尺寸确定后，用本引擎做包装/盒型。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：未对接】</span><br />代码库无 MASSCONNECTED 对接。约定产品 L/W/H API 调盒型引擎即可连接。</div>
+      </div>
+
+      <p class="h h2s">2）销售计划</p>
+      <div class="ans" style="margin-bottom:14px"><span class="tag">【答复｜蓝｜策略】</span><br />
+        <strong>第 1 阶段（现在）：</strong>先做订阅制试水——注册、免费次数、付费/年订，卖的是「工具使用权」，看流量与留存。<br />
+        <strong>第 2 阶段（网站起来后）：</strong>与韩国供应商合作，做<strong>实体纸盒售卖/制作</strong>服务。<br />
+        <strong>可延后：</strong>购物车、报价（含数量单价）放到第 2 阶段再重点做；现阶段集中在订阅 + 核心设计能力。
+      </div>
+      <div class="block">
+        <div class="req">- 注册后免费下载 10 次。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜状态：部分实现 ✅】</span><br />组织级免费 10 次 + Studio/Lab 服务端扣减 + 升级意向登记 + Console 手动年订。<strong>真实韩国 PG 支付尚未接入</strong>。</div>
+      </div>
+      <div class="block">
+        <div class="req">→ 之后：5,000 韩元（约 25 RMB）+ 增值税 500。</div>
+        <div class="ans"><span class="tag">【答复｜蓝】</span><br />单价模型（次费/年订）可落地。支付与税务政策确定后应用。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 年订 3,000 韩元 + VAT300；一年后用户增长可涨 20%。</div>
+        <div class="ans"><span class="tag">【答复｜蓝】</span><br />可做年订计划；涨价 20% 用配置管理。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 推荐：推荐人 +3 个月，被推荐 +1 个月。
+          <p class="ex">注：可能只用免费期；PACDORA 付费转化 &lt;8%。</p>
+        </div>
+        <div class="ans"><span class="tag">【答复｜蓝｜可行】</span><br />可用券/延长期实现。建议与大学生内容、博客券绑定。</div>
+      </div>
+      <div class="block">
+        <div class="req">- 免费 10 次内发博客宣传本站盒子 → 发 1 个月免费券。</div>
+        <div class="ans"><span class="tag">【答复｜蓝｜可行】</span><br />博客发布认证后可发券。需先有博客模块或外链提交+审核流程。</div>
+      </div>
+
+      <div class="checklist">
+        <h2>【第 0 期 · 设计体验补齐】清单勾选 · 2026-11-16</h2>
+        <p class="meta-line">查看位置：Studio 设计编辑（我的设计 → 打开）。不是 Lab 目录页。</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 一键示例设计</li>
+          <li class="done"><span class="mark">☑</span> 韩国纸种目录 + 3D 材质预览</li>
+          <li class="done"><span class="mark">☑</span> 厚度（gsm/瓦楞）选择 UI</li>
+          <li class="done"><span class="mark">☑</span> 韩国纸种·克重调研表（paper_kr_catalog）</li>
+          <li class="done"><span class="mark">☑</span> 内外尺寸并显（PACDORA 型）</li>
+          <li class="done"><span class="mark">☑</span> 新手风险提示（规则表）</li>
+          <li class="done"><span class="mark">☑</span> Outbox 引导与装箱反馈</li>
+          <li class="done"><span class="mark">☑</span> AI 密钥开通说明</li>
+          <li class="open"><span class="mark">☐</span> 真实韩国 PG 支付</li>
+          <li class="open"><span class="mark">☐</span> PDF/.ai 自动 3D · KC · MASSCONNECTED · 实体发单</li>
+        </ul>
+      </div>
+
+      <div class="checklist">
+        <h2>【第 1 期 · 订阅制试水】清单勾选 · 2026-11-16</h2>
+        <p class="meta-line">免费 10 次墙 + 升级意向登记 + Console 手动年订。无真实扣款。</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 组织级免费导出 10 次额度</li>
+          <li class="done"><span class="mark">☑</span> Studio create_export_job 服务端扣减（幂等不重复）</li>
+          <li class="done"><span class="mark">☑</span> LegacyLab 导出前 export-grants</li>
+          <li class="done"><span class="mark">☑</span> 升级意向页（无支付）</li>
+          <li class="done"><span class="mark">☑</span> Console 手动开通年订·调额度</li>
+          <li class="open"><span class="mark">☐</span> Toss/KakaoPay 等真实 PG</li>
+          <li class="open"><span class="mark">☐</span> 推荐·博客券</li>
+        </ul>
+      </div>
+
+      <div class="checklist">
+        <h2>【内容 · SEO】清单勾选 · 2026-11-16</h2>
+        <p class="meta-line">服务端 HTML 博客 + SPA 元数据 + 自动语言。无社区、无整站 SSR。</p>
+        <ul>
+          <li class="done"><span class="mark">☑</span> 路由 title/description/canonical/hreflang</li>
+          <li class="done"><span class="mark">☑</span> sitemap.xml · robots.txt</li>
+          <li class="done"><span class="mark">☑</span> /blog 服务端直出 + Console CMS</li>
+          <li class="done"><span class="mark">☑</span> 国家头/Accept-Language/cookie 自动语言</li>
+          <li class="open"><span class="mark">☐</span> 社区分享</li>
+          <li class="open"><span class="mark">☐</span> 整站 SSR/预渲染</li>
+        </ul>
+      </div>
+
+      <div class="summary">
+        <h2>【答复｜蓝｜综合现状】</h2>
+        <ul>
+          <li><strong>第 0 期已完成：</strong>韩国纸种·厚度·内外尺寸·示例一键·风险提示·Outbox UX·AI 开通说明。</li>
+          <li><strong>第 1 期已完成（除真实支付）：</strong>免费 10 次墙、Lab/Studio 服务端扣减、升级意向、Console 手动年订。</li>
+          <li><strong>内容·SEO 已完成：</strong>服务端博客 CMS、sitemap/robots、自动语言。社区与 SSR 除外。</li>
+          <li>已实现（既有）：设计预览、中/韩 i18n、外箱、刀版→3D、AI 生图面板。</li>
+          <li>下一步：真实韩国 PG · 推荐/券（可选）。购物车、报价仍后置。</li>
+          <li>后置：PDF/.ai 自动 3D、社区、KC、MASSCONNECTED、实体销售。</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <span class="only-ko">출처: BOXCRAFT 주요필요사항 1차 261114_답변.docx · 같은 폴더 HTML</span>
+      <span class="only-zh">来源：BOXCRAFT 주요필요사항 1차 261114_답변.docx · 同目录 HTML 版</span>
+    </footer>
+  </main>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.getElementById('btn-ko').classList.toggle('on', lang === 'ko-KR');
+      document.getElementById('btn-zh').classList.toggle('on', lang === 'zh-CN');
+      try { localStorage.setItem('bc-ans-lang', lang); } catch (e) {}
+    }
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('bc-ans-lang'); } catch (e) {}
+      setLang(saved === 'zh-CN' ? 'zh-CN' : 'ko-KR');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+- document:
+  - text:  刀版生成器 
+  - img
+  - link "在线设计 ":
+    - /url: ""
+  - text:   下载刀版 
+  - paragraph: 样机
+  - text: 
+  - paragraph: 基础
+  - text: 
+  - paragraph: 高级
+  - text: 
+  - paragraph: 更多
+  - text:  自定义尺寸  mm in 长度
+  - textbox: "315"
+  - text: mm 宽度
+  - textbox: "202"
+  - text: mm 高度
+  - textbox: "62"
+  - text: mm 自定义厚度 (0.2~5mm) 
+  - textbox: "1.5"
+  - text:  选择材质 
+  - img
+  - text: 瓦楞纸E(三层)  尺寸类型  制造尺寸 内尺寸 外尺寸 出血线 割线 折线 制造尺寸 315 × 202 × 62 mm 内尺寸 300 × 200 × 60 mm 外尺寸 316 × 204.5 × 63 mm
+  - img:
+    - img
+    - img
+    - text: 315 mm 62 mm 202 mm
+  - text: 展开 闭合  文件格式
+  - img
+  - text: AI 刀版
+  - img
+  - text: PDF 刀版
+  - img
+  - text: DXF 刀版
+  - img
+  - text: 3D 样机
+  - paragraph: 你将获得
+  - list:
+    - listitem: 所有模板文件都可以在几分钟内生成和下载。
+    - listitem: 所有模板文件都经过严格检查，包括尺寸、厚度和材质描述。可直接进行打印。
+    - listitem: 所有模板文件都没有水印，并可以在本地使用Adobe Illustrator进行编辑。
+  - text:       构建模型 准备材质 创建环境 即将完成 构建模型
+  - complementary "Live chat widget":
+    - button "Minimize live chat window": 
+    - img "聊天小工具"

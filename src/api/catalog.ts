@@ -20,6 +20,19 @@ export type ParamLimits = {
   height?: [number, number]
 }
 
+export type WorkbenchApiPayload = {
+  template_key: string
+  template_version: string
+  engine_version: string
+  default_params: Record<string, unknown>
+  limits: Record<string, unknown>
+  material_ids: string[]
+  engineering_domain: Record<string, unknown> | null
+  tiers: string[]
+  advanced_requires_plan?: boolean
+  server_only?: boolean
+}
+
 export type ProductDetail = ProductSummary & {
   variants: Array<{ id: string; code: string; material_id: string; min_quantity: number }>
   template_version?: {
@@ -28,6 +41,7 @@ export type ProductDetail = ProductSummary & {
     capabilities: Record<string, unknown>
     limits?: ParamLimits
   }
+  workbench?: WorkbenchApiPayload | null
 }
 
 /** Badge kind shared with LAB / --bc-badge-* tokens */

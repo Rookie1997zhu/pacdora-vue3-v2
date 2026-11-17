@@ -26,15 +26,19 @@ def ensure_personal_org(user) -> Organization:
         .first()
     )
     if existing:
-        return existing.organization
-    name = f"{user.display_name or user.email.split('@')[0]} 的工作区"
-    org = Organization.objects.create(name=name, slug=_unique_slug(f'user-{user.id.hex[:8]}'))
-    Membership.objects.create(
-        organization=org,
-        user=user,
-        role=Membership.Role.OWNER,
-        is_active=True,
-    )
+        org = existing.organization
+    else:
+        name = f"{user.display_name or user.email.split('@')[0]} 的工作区"
+        org = Organization.objects.create(name=name, slug=_unique_slug(f'user-{user.id.hex[:8]}'))
+        Membership.objects.create(
+            organization=org,
+            user=user,
+            role=Membership.Role.OWNER,
+            is_active=True,
+        )
+    from apps.billing.services import get_or_create_entitlement
+
+    get_or_create_entitlement(org)
     return org
 
 

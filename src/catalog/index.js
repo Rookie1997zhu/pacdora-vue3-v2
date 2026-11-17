@@ -6,11 +6,15 @@ import {koSearchAliases,CATALOG_KO} from '../i18n/catalogKo.js'
 export const PRESET_CATALOG=data
 export const PRESETS=Object.freeze(data.presets||[])
 
-/** 粗分类 — 导入目录：运输箱 + 邮寄盒 */
+/** 粗分类 — 导入目录：运输箱 + 邮寄盒 + 礼盒 + 方形盒 + 折叠盒 + 托盘盒 */
 export const IMPORT_CATEGORIES=Object.freeze(
   (data.categories||[
     {id:'shipping',label:'运输箱'},
     {id:'mailer',label:'邮寄盒'},
+    {id:'gift',label:'礼盒'},
+    {id:'square',label:'方形盒'},
+    {id:'folding',label:'折叠盒'},
+    {id:'tray',label:'托盘盒'},
   ]).map(c=>({...c,count:c.count??PRESETS.filter(p=>p.categoryId===c.id).length}))
 )
 

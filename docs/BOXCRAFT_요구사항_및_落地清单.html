@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOXCRAFT 주요필요사항 / 落地清单 · 261114</title>
+  <style>
+    :root {
+      --paper: #f7f8fa;
+      --ink: #1b2738;
+      --muted: #5b6570;
+      --line: #e4e7ec;
+      --blue: #2458d4;
+      --blue-soft: #f0f5ff;
+      --ok: #1f8a4c;
+      --ok-bg: #f1faf4;
+      --partial: #9a6700;
+      --partial-bg: #fff7e8;
+      --miss: #9a4339;
+      --miss-bg: #fff5f5;
+      --font: "IBM Plex Sans", "Noto Sans SC", "Noto Sans KR", sans-serif;
+      --display: "Sora", "Noto Sans SC", "Noto Sans KR", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 var(--font);
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .top {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .brand { font-family: var(--display); font-weight: 700; letter-spacing: -.02em; }
+    .brand small { display: block; font-weight: 500; color: var(--muted); font-size: 12px; }
+    .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang button {
+      border: 0; background: transparent; padding: 8px 14px; font: inherit; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+    }
+    .lang button.on { background: var(--blue); color: #fff; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tabs a {
+      text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 600;
+      padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff;
+    }
+    .tabs a:hover { border-color: var(--blue); color: var(--blue); }
+    main { max-width: 920px; margin: 0 auto; padding: 28px 18px 80px; }
+    section { margin-bottom: 40px; }
+    h1 { font-family: var(--display); font-size: clamp(22px, 3vw, 32px); margin: 0 0 10px; letter-spacing: -.02em; }
+    h2 { font-size: 18px; margin: 28px 0 12px; border-left: 3px solid var(--blue); padding-left: 10px; }
+    h3 { font-size: 15px; margin: 18px 0 8px; color: var(--blue); }
+    .lead { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+    .card {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 16px 18px; margin: 10px 0;
+    }
+    .card strong.k { color: var(--blue); }
+    ul { margin: 8px 0; padding-left: 1.2em; }
+    li { margin: 6px 0; }
+    .note {
+      background: var(--blue-soft); border: 1px solid #c9d8f8; border-radius: 10px;
+      padding: 12px 14px; color: #1e3a8a; font-size: 14px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: #fff; }
+    th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+    th { background: #f3f5f8; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .st {
+      display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+      border-radius: 999px; white-space: nowrap;
+    }
+    .st-done { background: var(--ok-bg); color: var(--ok); }
+    .st-partial { background: var(--partial-bg); color: var(--partial); }
+    .st-miss { background: var(--miss-bg); color: var(--miss); }
+    .prio { margin-top: 16px; }
+    .prio ol { margin: 8px 0; padding-left: 1.3em; }
+    [data-lang-block] { display: none; }
+    html[lang="zh-CN"] [data-lang-block="zh"],
+    html[lang="ko-KR"] [data-lang-block="ko"] { display: block; }
+    html[lang="zh-CN"] .only-zh { display: inline; }
+    html[lang="ko-KR"] .only-ko { display: inline; }
+    .only-zh, .only-ko { display: none; }
+    footer { margin-top: 48px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">
+      BOXCRAFT
+      <small>
+        <span class="only-zh">主要需求事项（一稿）+ 落地清单 · 261114</span>
+        <span class="only-ko">주요필요사항 1차 + 落地 대조표 · 261114</span>
+      </small>
+    </div>
+    <div class="tabs">
+      <a href="#req" data-jump="req">
+        <span class="only-zh">需求原文</span>
+        <span class="only-ko">요구사항</span>
+      </a>
+      <a href="#checklist" data-jump="checklist">
+        <span class="only-zh">落地清单</span>
+        <span class="only-ko">落地 체크리스트</span>
+      </a>
+    </div>
+    <div class="lang" role="group" aria-label="language">
+      <button type="button" id="btn-zh" class="on" onclick="setLang('zh-CN')">中文</button>
+      <button type="button" id="btn-ko" onclick="setLang('ko-KR')">한국어</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- ========== ZH REQ ========== -->
+    <div data-lang-block="zh">
+      <section data-sec="req">
+        <h1>BOXCRAFT 主要需求事项（一稿）</h1>
+        <p class="lead">来源：老板 Word《BOXCRAFT 주요필요사항 1차 261114》。蓝色答复已写在同目录 <code>…_답변.docx</code>。</p>
+
+        <div class="note">
+          <strong>最重要：</strong>让客户轻松理解产品，没有专业知识也能方便设计盒子（功能不能太复杂）。网页工程师单干局限大，需协作推进。
+        </div>
+
+        <h2>1. BOXCRAFT · 2026年11月第3周</h2>
+
+        <h3>1）内容修改</h3>
+        <div class="card">
+          <ul>
+            <li>每个盒子可预先套用设计，立刻看到完成效果。</li>
+            <li>可选择纸材并反映到预览（牛皮纸自然棕 / 艺术纸光滑印刷感）。</li>
+            <li>可选纸厚：150g、250g、350g、一瓦楞等。
+              <ol>
+                <li>先调研韩国常用纸材与厚度。</li>
+                <li>像 PACDORA：纸厚变化时<strong>内侧与外侧尺寸一并显示</strong>。</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h3>2）翻译 / SEO</h3>
+        <div class="card">中文站自动翻译 → 韩国搜索引擎难收录。应按国家做内容；按访问国自动显示语言（韩/日等）。</div>
+
+        <h3>3）博客</h3>
+        <div class="card">
+          <ul>
+            <li>介绍盒型与用途（化妆品盒、礼品盒、运输盒等）。</li>
+            <li>用户分享自己做的盒子，激活社区。</li>
+          </ul>
+        </div>
+
+        <h3>4）即将增加（先确认可行性）</h3>
+        <div class="card">
+          <ul>
+            <li>产品必标信息（KC 标志、认证号等）。</li>
+            <li>刀版上放设计 → 3D 渲染；进一步：上传 PDF / .ai → 自动 3D + 展开图。</li>
+          </ul>
+        </div>
+
+        <h3>5）最难：按数量估价</h3>
+        <div class="card">同款盒对比 100 个与 1,000 个单价（设计师对价格敏感）。</div>
+
+        <h3>6）外箱连接</h3>
+        <div class="card">包装盒完成后引导做可装 N 个的运输外箱（Outbox）。</div>
+
+        <h3>7）AI</h3>
+        <div class="card">确认能否用 AI；设计中提前提示风险（如艺术纸 250g 做重物/过高易瘪）。提示 UI 未定。</div>
+
+        <h3>8）供应链（后续）</h3>
+        <div class="card">对接韩国印刷厂真实下单；协商外箱与包装材一揽子供应。</div>
+
+        <h2>2. 今后计划</h2>
+        <div class="card">
+          <ul>
+            <li><strong>MASSCONNECTED：</strong>产品尺寸确定后，用本引擎做包装/盒型。</li>
+            <li><strong>销售：</strong>注册免费下载 10 次 → 之后 5,000 韩元+VAT500；年订 3,000+VAT300；一年后可涨 20%。</li>
+            <li><strong>推荐：</strong>推荐人 +3 个月，被推荐 +1 个月（注意免费党；PACDORA 付费转化 &lt;8%）。</li>
+            <li><strong>目标：</strong>方便大学生使用；免费次数内发博客宣传可发 1 个月免费券。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-sec="checklist">
+        <h1>落地对照清单</h1>
+        <p class="lead">对照当前 BOXCRAFT 代码库（Pacdora×Packative 产品站）。状态：已实现 / 部分 / 未做。</p>
+
+        <table>
+          <thead>
+            <tr><th>需求</th><th>状态</th><th>说明与下一步</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>刀版上应用设计并预览</td>
+              <td><span class="st st-done">已实现</span></td>
+              <td>Studio 图片图层 + 2D/3D。下一步：盒型示例设计一键套用。</td>
+            </tr>
+            <tr>
+              <td>纸材选择反映到预览</td>
+              <td><span class="st st-done">已实现</span></td>
+              <td>kraft / white / blue。下一步：韩国常用名称与质感预设。</td>
+            </tr>
+            <tr>
+              <td>克重/瓦楞 + 内外尺寸</td>
+              <td><span class="st st-partial">部分</span></td>
+              <td>引擎有 thickness / inner·outer；UI 缺 gsm·瓦楞与内外尺寸并显。本周优先。</td>
+            </tr>
+            <tr>
+              <td>原生中/韩（非机翻 SEO）</td>
+              <td><span class="st st-done">已实现</span></td>
+              <td>zh-CN / ko-KR 原生 i18n。缺：国家独立内容、按 IP 自动语言、韩文 SEO。</td>
+            </tr>
+            <tr>
+              <td>博客</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>无路由/CMS。可先静态页再 CMS。</td>
+            </tr>
+            <tr>
+              <td>用户分享社区</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>需权限与版权策略；宜与博客一起设计。</td>
+            </tr>
+            <tr>
+              <td>KC 等必标信息</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>可行：必标图层/图章。需法规文案清单。</td>
+            </tr>
+            <tr>
+              <td>设计→3D；PDF/AI 自动刀版</td>
+              <td><span class="st st-partial">部分</span></td>
+              <td>设计→3D 已有；PDF/.ai 导入自动刀版未做（高难）。</td>
+            </tr>
+            <tr>
+              <td>按数量估价</td>
+              <td><span class="st st-done">已实现</span></td>
+              <td>有报价请求与 Console。缺：自动价目表即时对比 100 vs 1000。</td>
+            </tr>
+            <tr>
+              <td>外箱（Outbox）引导</td>
+              <td><span class="st st-done">已实现</span></td>
+              <td>Studio Outbox 完整。优化引导文案即可。</td>
+            </tr>
+            <tr>
+              <td>AI 与设计风险提示</td>
+              <td><span class="st st-partial">部分</span></td>
+              <td>有 AI 面板；缺纸材/高度危险规则引擎与固定提示 UI。</td>
+            </tr>
+            <tr>
+              <td>印刷厂供应链下单</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>仅有通用购物车/订单，无印厂对接。</td>
+            </tr>
+            <tr>
+              <td>MASSCONNECTED 联动</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>无代码对接；可用尺寸 API 接入。</td>
+            </tr>
+            <tr>
+              <td>免费 10 次 / 订阅 / 推荐 / 博客券</td>
+              <td><span class="st st-miss">未做</span></td>
+              <td>需导出计数 + 韩国 PG + 券体系。先定支付方案。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card prio">
+          <strong>建议 11 月第 3 周优先级</strong>
+          <ol>
+            <li>调研韩国常用纸材 / 克重 / 瓦楞。</li>
+            <li>Studio 暴露厚度选择 + 内外尺寸并显（PACDORA 型）。</li>
+            <li>强化外箱完成后的引导文案。</li>
+            <li>报价：评估是否接自动价目表（需成本规则）。</li>
+            <li>AI 危险提示：先做规则表（材质×重量/高度）。</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== KO REQ ========== -->
+    <div data-lang-block="ko">
+      <section data-sec="req">
+        <h1>BOXCRAFT 주요필요사항 1차</h1>
+        <p class="lead">출처: Word 《BOXCRAFT 주요필요사항 1차 261114》. 파란 답변은 같은 폴더 <code>…_답변.docx</code>에 작성했습니다.</p>
+
+        <div class="note">
+          <strong>가장 중요:</strong> 고객이 전문 지식 없이도 쉽게 박스를 설계할 수 있어야 합니다(너무 복잡한 기능 지양). 웹엔지니어 단독 한계 → 협업으로 진행.
+        </div>
+
+        <h2>1. BOXCRAFT · 26년 11월 3주</h2>
+
+        <h3>1) 내용 수정</h3>
+        <div class="card">
+          <ul>
+            <li>박스별 예상 디자인을 미리 적용해 완성본을 바로 확인.</li>
+            <li>종이 재질 선택·미리보기 반영(크라프트/아트지 등).</li>
+            <li>종이 두께(150g, 250g, 350g, 1골지 등) 선택.
+              <ol>
+                <li>한국 상용 지종·두께 조사.</li>
+                <li>PACDORA처럼 <strong>안쪽·바깥쪽 크기 병기</strong>.</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h3>2) 번역 / SEO</h3>
+        <div class="card">자동번역 사이트는 한국 검색엔진에 약함. 국가별 콘텐츠 + 접속국 자동 언어 필요.</div>
+
+        <h3>3) 블로그</h3>
+        <div class="card">
+          <ul>
+            <li>박스 종류·활용 소개.</li>
+            <li>사용자 제작 박스 공유로 커뮤니티 활성화.</li>
+          </ul>
+        </div>
+
+        <h3>4) 곧 추가(가능 여부 확인 후)</h3>
+        <div class="card">
+          <ul>
+            <li>필수 표기(KC 마크·인증번호 등).</li>
+            <li>도면 위 디자인 → 3D; PDF/.ai 업로드 → 자동 3D·전개도.</li>
+          </ul>
+        </div>
+
+        <h3>5) 가장 어려운 기능: 수량별 예상 가격</h3>
+        <div class="card">100개 vs 1,000개 단가 비교 표시.</div>
+
+        <h3>6) 아웃박스 연결</h3>
+        <div class="card">포장박스 완료 후 배송용 아웃박스 설계로 유도.</div>
+
+        <h3>7) AI</h3>
+        <div class="card">AI 적용·차별화. 설계 위험 사전 알림(재질·높이 등). UI 미정.</div>
+
+        <h3>8) 공급망(추후)</h3>
+        <div class="card">한국 인쇄소 연동 실발주. 아웃박스·포장재 일괄 제공 유도.</div>
+
+        <h2>2. 앞으로의 계획</h2>
+        <div class="card">
+          <ul>
+            <li><strong>MASSCONNECTED:</strong> 제품 치수 확정 후 본 엔진으로 포장.</li>
+            <li><strong>판매:</strong> 가입 후 무료 10회 → 이후 5,000원+VAT; 연간 3,000+VAT; 1년 후 +20% 가능.</li>
+            <li><strong>추천:</strong> 추천인 +3개월 / 피추천 +1개월 (무료만 쓸 위험, PACDORA 전환 &lt;8%).</li>
+            <li><strong>목표:</strong> 대학생 이용. 블로그 홍보 시 1개월 쿠폰.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-sec="checklist">
+        <h1>落地 체크리스트</h1>
+        <p class="lead">현재 BOXCRAFT 코드베이스 기준. 상태: 구현됨 / 부분 / 미구현.</p>
+
+        <table>
+          <thead>
+            <tr><th>요구</th><th>상태</th><th>설명·다음 액션</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>디자인 미리보기 적용</td>
+              <td><span class="st st-done">구현됨</span></td>
+              <td>Studio 이미지 레이어 + 2D/3D. 다음: 예시 디자인 원클릭.</td>
+            </tr>
+            <tr>
+              <td>재질 선택 → 미리보기</td>
+              <td><span class="st st-done">구현됨</span></td>
+              <td>kraft/white/blue. 다음: 한국 지종명·질감 프리셋.</td>
+            </tr>
+            <tr>
+              <td>평량/골지 + 안·밖 치수</td>
+              <td><span class="st st-partial">부분</span></td>
+              <td>엔진 thickness/inner·outer 있음. UI gsm·골지·병기 부족. 이번 주 우선.</td>
+            </tr>
+            <tr>
+              <td>네이티브 중/한 i18n</td>
+              <td><span class="st st-done">구현됨</span></td>
+              <td>자동번역 아님. 국가별 콘텐츠·IP 자동언어·한 SEO는 미완.</td>
+            </tr>
+            <tr>
+              <td>블로그</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>라우트/CMS 없음. 정적 → CMS.</td>
+            </tr>
+            <tr>
+              <td>커뮤니티 공유</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>권한·저작권 정책 필요. 블로그와 함께 설계.</td>
+            </tr>
+            <tr>
+              <td>KC 등 필수 표기</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>가능: 스탬프/레이어. 문구 리스트 필요.</td>
+            </tr>
+            <tr>
+              <td>디자인→3D / PDF·AI 자동</td>
+              <td><span class="st st-partial">부분</span></td>
+              <td>3D는 됨. PDF/.ai 자동 전개도는 미구현(고난이도).</td>
+            </tr>
+            <tr>
+              <td>수량별 견적</td>
+              <td><span class="st st-done">구현됨</span></td>
+              <td>견적 요청·콘솔 있음. 자동 단가표 즉시 비교는 미완.</td>
+            </tr>
+            <tr>
+              <td>아웃박스 연결</td>
+              <td><span class="st st-done">구현됨</span></td>
+              <td>Studio Outbox 완비. 유도 카피 강화.</td>
+            </tr>
+            <tr>
+              <td>AI·설계 위험 알림</td>
+              <td><span class="st st-partial">부분</span></td>
+              <td>AI 패널 있음. 재질×높이 규칙 엔진·고정 UI 부족.</td>
+            </tr>
+            <tr>
+              <td>인쇄소 공급망</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>장바구니/주문만. 파트너 API 없음.</td>
+            </tr>
+            <tr>
+              <td>MASSCONNECTED</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>연동 코드 없음. 치수 API로 연결 가능.</td>
+            </tr>
+            <tr>
+              <td>무료10회/구독/추천/쿠폰</td>
+              <td><span class="st st-miss">미구현</span></td>
+              <td>export 카운터+한국 PG+쿠폰 필요. 결제 방식 확정 선행.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card prio">
+          <strong>11월 3주 제안 우선순위</strong>
+          <ol>
+            <li>한국 상용 지종·평량·골지 조사.</li>
+            <li>Studio 두께 UI + 안·밖 치수 병기(PACDORA형).</li>
+            <li>아웃박스 완료 유도 카피 강화.</li>
+            <li>견적 자동 단가표 가능 여부 검토(원가 규칙 필요).</li>
+            <li>AI 위험 알림: 재질×중량/높이 규칙표 먼저.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <span class="only-zh">生成自需求 Word；对照代码库现状。Word 蓝色答复文件：BOXCRAFT 주요필요사항 1차 261114_답변.docx</span>
+      <span class="only-ko">Word 요구사항 기반 · 코드베이스 대조. 파란 답변 파일: BOXCRAFT 주요필요사항 1차 261114_답변.docx</span>
+    </footer>
+  </main>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.getElementById('btn-zh').classList.toggle('on', lang === 'zh-CN');
+      document.getElementById('btn-ko').classList.toggle('on', lang === 'ko-KR');
+      try { localStorage.setItem('bc-req-lang', lang); } catch (e) {}
+    }
+    function jumpSec(name) {
+      var block = document.querySelector('[data-lang-block]:not([style*="display: none"])');
+      // visible block via CSS: pick by html lang
+      var lang = document.documentElement.lang === 'ko-KR' ? 'ko' : 'zh';
+      var sec = document.querySelector('[data-lang-block="' + lang + '"] [data-sec="' + name + '"]');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('[data-jump]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        jumpSec(a.getAttribute('data-jump'));
+      });
+    });
+    (function init() {
+      var saved = null;
+      try { saved = localStorage.getItem('bc-req-lang'); } catch (e) {}
+      setLang(saved === 'ko-KR' ? 'ko-KR' : 'zh-CN');
+    })();
+  </script>
+</body>
+</html>

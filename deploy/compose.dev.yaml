@@ -12,11 +12,17 @@ services:
     ports: ["6379:6379"]
   geometry:
     ports: ["3100:3100"]
+  render:
+    ports: ["3200:3200"]
+    environment:
+      RENDER_MOCK: ${RENDER_MOCK:-true}
   backend:
     profiles: ["full"]
   caddy:
     profiles: ["full"]
   worker:
+    profiles: ["full"]
+  render-worker:
     profiles: ["full"]
   scheduler:
     profiles: ["full"]

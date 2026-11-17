@@ -22,10 +22,21 @@ const design = useDesignStore()
 </script>
 
 <style scoped>
-.pane{display:flex;flex-direction:column;gap:8px}
-h2{margin:0;font-size:14px}
-.hint{margin:0;font-size:12px;color:#637587}
+.pane{display:flex;flex-direction:column;gap:10px}
+h2{margin:0;font-size:14px;color:var(--studio-ink, var(--bc-ink))}
+.hint{margin:0;font-size:12px;color:var(--studio-ink-muted, #64748b)}
 .actions{display:flex;flex-wrap:wrap;gap:8px}
-button{border:0;border-radius:8px;background:#0f6e68;color:#fff;padding:8px 12px;cursor:pointer;font-size:13px}
+button{
+  border:0;
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--bc-steel);
+  color:#fff;
+  padding:9px 14px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  transition:background var(--studio-ease, 160ms ease);
+}
+button:hover:not(:disabled){background:var(--bc-steel-hover)}
 button:disabled{opacity:.45;cursor:not-allowed}
 </style>

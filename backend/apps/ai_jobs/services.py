@@ -154,7 +154,13 @@ def cancel_ai_job(*, job: AiJob) -> dict:
 
 def process_ai_job(job_id: str) -> dict:
     with transaction.atomic():
-        job = AiJob.objects.select_for_update().select_related('reservation', 'owner', 'organization').get(pk=job_id)
+        # of=('self',): Postgres forbids FOR UPDATE on nullable OUTER JOIN side
+        # (reverse OneToOne reservation via select_related).
+        job = (
+            AiJob.objects.select_for_update(of=('self',))
+            .select_related('owner', 'organization')
+            .get(pk=job_id)
+        )
         if job.status == AiJob.Status.SUCCEEDED and job.result_asset_id:
             return serialize_job(job)
         if job.status in (AiJob.Status.CANCELLED, AiJob.Status.FAILED):
@@ -236,7 +242,7 @@ def process_ai_job(job_id: str) -> dict:
         raise
 
     with transaction.atomic():
-        locked = AiJob.objects.select_for_update().select_related('reservation').get(pk=job_id)
+        locked = AiJob.objects.select_for_update(of=('self',)).get(pk=job_id)
         if locked.status == AiJob.Status.CANCELLED:
             # Late result: keep cancelled, do not settle
             return serialize_job(locked)

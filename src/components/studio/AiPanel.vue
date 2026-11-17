@@ -10,8 +10,11 @@
     </label>
     <p v-if="!ai.activeCapability.enabled" class="blocked">
       {{ t('studio.aiUnavailable') }}
-      <span v-if="ai.activeCapability.reason">({{ ai.activeCapability.reason }})</span>
+      <span v-if="ai.activeCapability.reason && ai.activeCapability.reason !== 'unknown'">
+        ({{ ai.activeCapability.reason }})
+      </span>
     </p>
+    <p v-if="!ai.activeCapability.enabled" class="hint">{{ t('studio.aiAskAdmin') }}</p>
     <label>
       {{ t('studio.aiPrompt') }}
       <textarea v-model="ai.prompt" rows="3" maxlength="4000" :disabled="!ai.activeCapability.enabled || ai.busy" />
@@ -115,18 +118,89 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.ai-panel{display:flex;flex-direction:column;gap:8px}
-h2,h3{margin:0;font-size:13px;letter-spacing:.04em}
-label{display:flex;flex-direction:column;gap:4px;font-size:12px}
-textarea,select{border:1px solid #cfd8de;border-radius:8px;padding:8px 10px;font:inherit;resize:vertical}
+.ai-panel{display:flex;flex-direction:column;gap:10px}
+h2,h3{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.04em;
+  color:var(--studio-ink, var(--bc-ink));
+}
+label{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  font-size:12px;
+  font-weight:500;
+  color:var(--studio-ink, var(--bc-ink));
+}
+textarea,select{
+  border:1px solid var(--studio-border, #e2e8f0);
+  border-radius:var(--studio-radius-sm, 8px);
+  padding:9px 11px;
+  font:inherit;
+  resize:vertical;
+  background:#fff;
+  transition:border-color var(--studio-ease, 160ms ease), box-shadow var(--studio-ease, 160ms ease);
+}
+textarea:focus,select:focus{
+  outline:none;
+  border-color:var(--bc-steel);
+  box-shadow:var(--bc-focus);
+}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-button{border:0;border-radius:6px;background:var(--bc-ink,#111827);color:#fff;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600}
+button{
+  border:0;
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--bc-steel);
+  color:#fff;
+  padding:9px 14px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  transition:background var(--studio-ease, 160ms ease), opacity var(--studio-ease, 160ms ease);
+}
+button:hover:not(:disabled){background:var(--bc-steel-hover)}
+.actions button:last-child{
+  background:transparent;
+  color:var(--studio-ink, var(--bc-ink));
+  box-shadow:inset 0 0 0 1px var(--studio-border, #e2e8f0);
+}
+.actions button:last-child:hover:not(:disabled){
+  background:var(--studio-muted, #f1f5f9);
+  box-shadow:inset 0 0 0 1px var(--bc-steel);
+  color:var(--bc-steel);
+}
 button:disabled{opacity:.45;cursor:not-allowed}
-.blocked,.err{margin:0;font-size:12px;color:#9a4339}
-.hint,.job{margin:0;font-size:12px;color:#637587}
+.blocked,.err{margin:0;font-size:12px;color:var(--bc-danger)}
+.hint,.job{margin:0;font-size:12px;color:var(--studio-ink-muted, #64748b)}
 .gallery{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.gallery li{border:1px solid #d5e0e4;border-radius:10px;padding:8px 10px;background:#fff;display:flex;flex-direction:column;gap:6px}
+.gallery li{
+  border:0;
+  border-radius:var(--studio-radius-sm, 8px);
+  padding:10px 12px;
+  background:var(--studio-muted, #f1f5f9);
+  box-shadow:inset 0 0 0 1px var(--studio-border-soft, rgba(15,23,42,.06));
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.gallery li button{
+  align-self:flex-start;
+  background:transparent;
+  color:var(--bc-steel);
+  box-shadow:inset 0 0 0 1px var(--bc-steel);
+  padding:6px 10px;
+}
+.gallery li button:hover:not(:disabled){
+  background:var(--bc-steel-soft);
+}
 .meta{display:flex;flex-direction:column;gap:2px}
-.meta span{font-size:11px;color:#637587}
-.empty{color:#637587;border-style:dashed}
+.meta span{font-size:11px;color:var(--studio-ink-muted, #64748b)}
+.empty{
+  color:var(--studio-ink-muted, #64748b);
+  background:transparent;
+  box-shadow:inset 0 0 0 1px dashed var(--studio-border, #e2e8f0);
+  text-align:center;
+  padding:16px 12px;
+}
 </style>

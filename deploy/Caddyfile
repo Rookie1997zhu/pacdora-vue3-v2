@@ -19,7 +19,7 @@
         max_size 32MB
     }
 
-    @backend path /api /api/* /static /static/*
+    @backend path /api /api/* /static /static/* /sitemap.xml /robots.txt
     handle @backend {
         reverse_proxy backend:8000 {
             header_up -X-Tenant-Key

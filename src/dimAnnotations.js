@@ -88,7 +88,10 @@ function overallFromArrow(d){
       {x1:a1x,y1:a1y,x2:a2x,y2:a2y}
     ],
     polys:[leftPoly,rightPoly],
-    text:{x:mx+nx*4,y:my+ny*4,anchor:'middle',value:label}
+    text:{x:mx+nx*4,y:my+ny*4,anchor:'middle',value:label},
+    // 原始数值（mm），供调用方按自己的单位重新格式化
+    name:String(d.lineName||''),
+    valueMm:Number(d.lineLength)
   }
 }
 
@@ -99,6 +102,8 @@ function faceLabel(f){
     kind:'face',
     face:f.name,
     label:`${fmtLen(w)}×${fmtLen(h)}`,
+    wMm:w,
+    hMm:h,
     color:DIM_COLOR,
     lines:[],
     polys:[],

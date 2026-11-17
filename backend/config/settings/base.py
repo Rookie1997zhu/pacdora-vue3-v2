@@ -30,7 +30,10 @@ INSTALLED_APPS = [
     'apps.quotes',
     'apps.orders',
     'apps.dieline_library',
+    'apps.billing',
+    'apps.content',
     'apps.console',
+    'apps.render_scenes',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +81,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(os.environ.get('MEDIA_ROOT', BASE_DIR / 'media'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'boxcraft-api-throttles',
+    },
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -136,6 +146,16 @@ else:
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@boxcraft.local')
 
 GEOMETRY_URL = os.environ.get('GEOMETRY_URL', 'http://127.0.0.1:3100').rstrip('/')
+RENDER_URL = os.environ.get('RENDER_URL', 'http://127.0.0.1:3200').rstrip('/')
+RENDER_TIMEOUT_SEC = int(os.environ.get('RENDER_TIMEOUT_SEC', '600'))
+RENDER_SAMPLES_2K = int(os.environ.get('RENDER_SAMPLES_2K', '64'))
+RENDER_SAMPLES_4K = int(os.environ.get('RENDER_SAMPLES_4K', '48'))
+RENDER_ALLOW_4K = os.environ.get('RENDER_ALLOW_4K', 'true').lower() == 'true'
+RENDER_MAX_GLB_BYTES = int(os.environ.get('RENDER_MAX_GLB_BYTES', str(80 * 1024 * 1024)))
+RENDER_SCENE_SCHEMA_PATH = os.environ.get('RENDER_SCENE_SCHEMA_PATH', '')
+
+SITE_PUBLIC_URL = os.environ.get('SITE_PUBLIC_URL', 'http://localhost').rstrip('/')
+GEO_COUNTRY_HEADER = os.environ.get('GEO_COUNTRY_HEADER', 'CF-IPCountry').strip() or 'CF-IPCountry'
 
 AI_PROVIDER = os.environ.get('AI_PROVIDER', 'disabled').strip().lower()
 AI_API_KEY = os.environ.get('AI_API_KEY', '')
@@ -169,7 +189,9 @@ CELERY_TASK_ROUTES = {
     'exports.*': {'queue': 'export'},
     'ai_jobs.*': {'queue': 'ai'},
     'assets.*': {'queue': 'media'},
+    'designs.*': {'queue': 'media'},
     'dieline_library.*': {'queue': 'import'},
+    'render_scenes.*': {'queue': 'render'},
 }
 
 LOGGING = {

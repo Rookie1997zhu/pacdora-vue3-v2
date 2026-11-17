@@ -1,12 +1,19 @@
 from django.urls import path
 
 from apps.console import views
+from apps.content import console_views as blog_console
 
 urlpatterns = [
     path('console/overview/', views.OverviewView.as_view()),
+    path('console/blog/posts/', blog_console.BlogPostListCreateView.as_view()),
+    path('console/blog/posts/<uuid:post_id>/', blog_console.BlogPostDetailView.as_view()),
+    path('console/blog/posts/<uuid:post_id>/publish/', blog_console.BlogPostPublishView.as_view()),
+    path('console/blog/posts/<uuid:post_id>/unpublish/', blog_console.BlogPostUnpublishView.as_view()),
+    path('console/blog/posts/<uuid:post_id>/preview/', blog_console.BlogPostPreviewView.as_view()),
     path('console/users/', views.UserListView.as_view()),
     path('console/users/<uuid:user_id>/', views.UserPatchView.as_view()),
     path('console/orgs/', views.OrgListView.as_view()),
+    path('console/orgs/<uuid:org_id>/entitlement/', views.OrgEntitlementView.as_view()),
     path('console/orgs/<uuid:org_id>/members/', views.OrgMembersView.as_view()),
     path('console/catalog/products/', views.ProductListView.as_view()),
     path('console/catalog/products/<uuid:product_id>/', views.ProductPatchView.as_view()),
@@ -14,6 +21,7 @@ urlpatterns = [
     path('console/catalog/approvals/<uuid:approval_id>/', views.TemplateApprovalPatchView.as_view()),
     path('console/designs/', views.DesignListView.as_view()),
     path('console/exports/', views.ExportListView.as_view()),
+    path('console/exports/<uuid:job_id>/', views.ExportDetailView.as_view()),
     path('console/exports/<uuid:job_id>/retry/', views.ExportRetryView.as_view()),
     path('console/exports/<uuid:job_id>/cancel/', views.ExportCancelView.as_view()),
     path('console/orders/', views.OrderListView.as_view()),

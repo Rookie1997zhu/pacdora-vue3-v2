@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import re
 import uuid
 
 from django.conf import settings
@@ -9,6 +10,9 @@ from django.utils import timezone
 
 from apps.assets.models import AssetReference
 from apps.assets.services import AssetUploadError, store_bytes
+from apps.billing.errors import BillingError
+from apps.billing.models import ExportGrant
+from apps.billing.services import consume_export, refund_export_grant
 from apps.catalog.manufacturing import find_template_approval
 from apps.designs.models import Design, DesignRevision, OutboxEvent
 from apps.designs.services import DesignServiceError, resolve_template
@@ -23,6 +27,22 @@ LICENSE_NOTE = {'code': 'B-GEOM-LICENSE', 'status': 'open'}
 ENGINEERING_DISCLAIMER = (
     'ENGINEERING CANDIDATE · COMPENSATION UNVERIFIED · NOT FOR PRODUCTION DIE'
 )
+EXPORT_OPTION_KEYS = {
+    'showDimensions',
+    'showBleed',
+    'showFaceNames',
+    'showTitleBlock',
+    'displayUnit',
+    'locale',
+}
+BOOLEAN_EXPORT_OPTIONS = {
+    'showDimensions',
+    'showBleed',
+    'showFaceNames',
+    'showTitleBlock',
+}
+CONTROL_CHAR_RE = re.compile(r'[\x00-\x1f\x7f]')
+INVALID_FILENAME_RE = re.compile(r'[<>:"/\\|?*\x00-\x1f\x7f]+')
 
 __all__ = [
     'ExportJobError',
@@ -30,12 +50,25 @@ __all__ = [
     'serialize_job',
     'evaluate_manufacturing_gate',
     'evaluate_engineering_gate',
+    'build_export_filename',
     'create_export_job',
+    'cancel_export_job',
+    'retry_export_job',
     'process_export_job',
 ]
 
 
 def serialize_job(job: ExportJob) -> dict:
+    grant_data = None
+    grant_id = (job.options or {}).get('export_grant_id') if isinstance(job.options, dict) else None
+    if grant_id:
+        grant = ExportGrant.objects.filter(id=grant_id, organization_id=job.organization_id).first()
+        if grant:
+            grant_data = {
+                'id': str(grant.id),
+                'reason': grant.reason,
+                'refunded_at': grant.refunded_at.isoformat() if grant.refunded_at else None,
+            }
     return {
         'id': str(job.id),
         'design_id': str(job.design_id),
@@ -52,10 +85,107 @@ def serialize_job(job: ExportJob) -> dict:
         'checksum': job.checksum or None,
         'error_code': job.error_code or None,
         'error_message': job.error_message or None,
+        'attempts': job.attempts,
+        'grant': grant_data,
         'created_at': job.created_at.isoformat() if job.created_at else None,
         'updated_at': job.updated_at.isoformat() if job.updated_at else None,
         'finished_at': job.finished_at.isoformat() if job.finished_at else None,
     }
+
+
+def _validated_option_string(value, *, field: str, allowed: set[str]) -> str:
+    if not isinstance(value, str) or len(value) > 32 or CONTROL_CHAR_RE.search(value):
+        raise ExportJobError(f'options.{field} invalid', code='VALIDATION_ERROR', status=400)
+    normalized = value.strip()
+    if normalized not in allowed:
+        choices = '|'.join(sorted(allowed))
+        raise ExportJobError(
+            f'options.{field} must be {choices}',
+            code='VALIDATION_ERROR',
+            status=400,
+        )
+    return normalized
+
+
+def _normalize_export_options(options, *, tier: str) -> dict:
+    if options is None:
+        normalized = {}
+    elif not isinstance(options, dict):
+        raise ExportJobError('options must be an object', code='VALIDATION_ERROR', status=400)
+    else:
+        unknown = sorted(set(options) - EXPORT_OPTION_KEYS)
+        if unknown:
+            raise ExportJobError(
+                'unknown export options',
+                code='VALIDATION_ERROR',
+                status=400,
+                errors={'unknown_options': unknown},
+            )
+        normalized = {}
+        for key in BOOLEAN_EXPORT_OPTIONS:
+            if key not in options:
+                continue
+            if not isinstance(options[key], bool):
+                raise ExportJobError(
+                    f'options.{key} must be boolean',
+                    code='VALIDATION_ERROR',
+                    status=400,
+                )
+            normalized[key] = options[key]
+        if 'displayUnit' in options:
+            normalized['displayUnit'] = _validated_option_string(
+                options['displayUnit'],
+                field='displayUnit',
+                allowed={'mm', 'in'},
+            )
+        if 'locale' in options:
+            normalized['locale'] = _validated_option_string(
+                options['locale'],
+                field='locale',
+                allowed={'zh-CN', 'ko-KR'},
+            )
+    if tier == ExportJob.QualityTier.ENGINEERING:
+        normalized['showTitleBlock'] = True
+    return normalized
+
+
+def _safe_filename_part(value) -> str:
+    cleaned = INVALID_FILENAME_RE.sub('_', str(value or ''))
+    cleaned = re.sub(r'\s+', '_', cleaned).strip(' ._')
+    return cleaned or 'export'
+
+
+def _format_dimension(value, unit: str) -> str:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        number = 0.0
+    if unit == 'in':
+        number /= 25.4
+    return f'{number:.3f}'.rstrip('0').rstrip('.') or '0'
+
+
+def build_export_filename(job: ExportJob) -> str:
+    payload = _geometry_payload_from_revision(job.input_revision)
+    options = job.options if isinstance(job.options, dict) else {}
+    unit = options.get('displayUnit') if options.get('displayUnit') in {'mm', 'in'} else 'mm'
+    dimensions = 'x'.join(
+        _format_dimension(payload.get(field), unit)
+        for field in ('length_mm', 'width_mm', 'height_mm')
+    )
+    date_stamp = timezone.localtime(timezone.now()).strftime('%Y%m%d')
+    stem = '_'.join(
+        [
+            _safe_filename_part(job.design.name),
+            f'{dimensions}{unit}',
+            _safe_filename_part(payload.get('size_mode') or 'inner'),
+            _safe_filename_part(job.quality_tier),
+            date_stamp,
+        ]
+    )
+    extension = _safe_filename_part(job.format).lower()
+    max_stem_length = max(1, 120 - len(extension) - 1)
+    return f'{stem[:max_stem_length].rstrip(" ._")}.{extension}'
 
 
 def _resolve_revision(design: Design, revision_id: str | None) -> DesignRevision:
@@ -84,6 +214,7 @@ def _geometry_payload_from_revision(revision: DesignRevision) -> dict:
         'flute_direction': params.get('fluteDirection') or 'L',
         'material_id': params.get('materialId') or 'kraft',
         'params': params.get('advanced') or {},
+        'piece_id': geom.get('pieceId') or None,
     }
 
 
@@ -313,20 +444,21 @@ def create_export_job(
     revision_id: str | None,
     options: dict | None,
     idempotency_key: str | None,
+    reason: str = ExportGrant.Reason.STUDIO_EXPORT,
 ):
     if design.status != Design.Status.ACTIVE:
         raise ExportJobError('design archived', code='DESIGN_ARCHIVED', status=400)
 
     fmt = (format or '').strip().lower()
     tier = (quality_tier or '').strip().lower()
-    opts = options if isinstance(options, dict) else {}
 
     if fmt not in (
         ExportJob.Format.SVG,
         ExportJob.Format.DXF,
         ExportJob.Format.PDF,
+        ExportJob.Format.AI,
     ):
-        raise ExportJobError('format must be svg|dxf|pdf', code='VALIDATION_ERROR', status=400)
+        raise ExportJobError('format must be svg|dxf|pdf|ai', code='VALIDATION_ERROR', status=400)
 
     if tier not in (
         ExportJob.QualityTier.VECTOR_PROOF,
@@ -338,6 +470,12 @@ def create_export_job(
             code='VALIDATION_ERROR',
             status=400,
         )
+    opts = _normalize_export_options(options, tier=tier)
+    if reason not in (
+        ExportGrant.Reason.STUDIO_EXPORT,
+        ExportGrant.Reason.WORKBENCH_EXPORT,
+    ):
+        raise ExportJobError('invalid export reason', code='VALIDATION_ERROR', status=400)
 
     revision = _resolve_revision(design, revision_id)
     content = revision.content_json or {}
@@ -401,8 +539,40 @@ def create_export_job(
                 status=409,
             )
         return serialize_job(existing), 200, True
+    active_count = ExportJob.objects.filter(
+        organization_id=design.organization_id,
+        status__in=(ExportJob.Status.QUEUED, ExportJob.Status.RUNNING),
+    ).count()
+    if active_count >= 3:
+        raise ExportJobError(
+            'organization has too many active export jobs',
+            code='EXPORT_BUSY',
+            status=409,
+        )
 
     with transaction.atomic():
+        try:
+            grant = consume_export(
+                organization=design.organization,
+                actor=user,
+                reason=reason,
+                format=fmt,
+                meta={
+                    'design_id': str(design.id),
+                    'revision_id': str(revision.id),
+                    'quality_tier': tier,
+                },
+            )
+        except BillingError as exc:
+            raise ExportJobError(
+                str(exc),
+                code=exc.code,
+                status=exc.status,
+                errors=exc.errors,
+                data=exc.data,
+            ) from exc
+
+        job_opts = {**opts, 'export_grant_id': grant['grant_id']}
         job = ExportJob.objects.create(
             organization_id=design.organization_id,
             design=design,
@@ -416,7 +586,7 @@ def create_export_job(
             geometry_hash=revision.geometry_hash or '',
             engine_version=revision.engine_version or '',
             exporter_version=EXPORTER_VERSION,
-            options=opts,
+            options=job_opts,
             preflight=initial_preflight,
         )
         OutboxEvent.objects.create(
@@ -436,6 +606,128 @@ def create_export_job(
     return serialize_job(job), 202, False
 
 
+def cancel_export_job(*, job_id, organization_id) -> dict:
+    with transaction.atomic():
+        job = (
+            ExportJob.objects.select_for_update()
+            .select_related('organization')
+            .filter(pk=job_id, organization_id=organization_id)
+            .first()
+        )
+        if not job:
+            raise ExportJobError('export job not found', code='FORBIDDEN', status=403)
+        if job.status != ExportJob.Status.QUEUED:
+            raise ExportJobError(
+                'only queued export jobs can be cancelled',
+                code='INVALID_STATUS',
+                status=409,
+            )
+        job.status = ExportJob.Status.CANCELLED
+        job.finished_at = timezone.now()
+        job.save(update_fields=['status', 'finished_at', 'updated_at'])
+        grant_id = (
+            job.options.get('export_grant_id')
+            if isinstance(job.options, dict)
+            else None
+        )
+        if grant_id:
+            refund_export_grant(grant_id=grant_id, organization=job.organization)
+        return serialize_job(job)
+
+
+def retry_export_job(*, job_id, organization_id, user) -> dict:
+    with transaction.atomic():
+        job = (
+            ExportJob.objects.select_for_update()
+            .select_related('organization', 'design', 'input_revision')
+            .filter(pk=job_id, organization_id=organization_id)
+            .first()
+        )
+        if not job:
+            raise ExportJobError('export job not found', code='FORBIDDEN', status=403)
+        if job.status != ExportJob.Status.FAILED:
+            raise ExportJobError(
+                'only failed export jobs can be retried',
+                code='INVALID_STATUS',
+                status=409,
+            )
+        if job.attempts >= 2:
+            raise ExportJobError(
+                'export retry limit reached',
+                code='RETRY_LIMIT_REACHED',
+                status=409,
+            )
+
+        options = dict(job.options or {})
+        grant_id = options.get('export_grant_id')
+        grant = None
+        if grant_id:
+            grant = (
+                ExportGrant.objects.select_for_update()
+                .filter(id=grant_id, organization_id=job.organization_id)
+                .first()
+            )
+        refunded = bool(
+            grant
+            and (
+                grant.refunded_at
+                or (isinstance(grant.meta, dict) and grant.meta.get('refunded'))
+            )
+        )
+        if grant is None or refunded:
+            reason = grant.reason if grant else ExportGrant.Reason.STUDIO_EXPORT
+            try:
+                new_grant = consume_export(
+                    organization=job.organization,
+                    actor=user,
+                    reason=reason,
+                    format=job.format,
+                    meta={
+                        'design_id': str(job.design_id),
+                        'revision_id': str(job.input_revision_id),
+                        'quality_tier': job.quality_tier,
+                        'retry_of': str(job.id),
+                    },
+                )
+            except BillingError as exc:
+                raise ExportJobError(
+                    str(exc),
+                    code=exc.code,
+                    status=exc.status,
+                    errors=exc.errors,
+                    data=exc.data,
+                ) from exc
+            options['export_grant_id'] = new_grant['grant_id']
+
+        job.options = options
+        job.attempts += 1
+        job.status = ExportJob.Status.QUEUED
+        job.error_code = ''
+        job.error_message = ''
+        job.finished_at = None
+        job.save(
+            update_fields=[
+                'options',
+                'attempts',
+                'status',
+                'error_code',
+                'error_message',
+                'finished_at',
+                'updated_at',
+            ]
+        )
+
+    if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
+        process_export_job(str(job.id))
+        job.refresh_from_db()
+        return serialize_job(job)
+
+    from apps.exports.tasks import dispatch_queued_export
+
+    dispatch_queued_export.delay(str(job.id))
+    return serialize_job(job)
+
+
 def _fail_job(job_id: str, *, code: str, message: str) -> dict:
     with transaction.atomic():
         locked = ExportJob.objects.select_for_update().get(pk=job_id)
@@ -446,6 +738,13 @@ def _fail_job(job_id: str, *, code: str, message: str) -> dict:
         locked.error_message = str(message)[:2000]
         locked.finished_at = timezone.now()
         locked.save(update_fields=['status', 'error_code', 'error_message', 'finished_at', 'updated_at'])
+        grant_id = (
+            locked.options.get('export_grant_id')
+            if isinstance(locked.options, dict)
+            else None
+        )
+        if grant_id:
+            refund_export_grant(grant_id=grant_id, organization=locked.organization)
         return serialize_job(locked)
 
 
@@ -478,13 +777,18 @@ def process_export_job(job_id: str) -> dict:
         payload = _geometry_payload_from_revision(job.input_revision)
         payload['format'] = job.format
         payload['quality_tier'] = job.quality_tier
+        payload['options'] = {
+            key: job.options[key]
+            for key in EXPORT_OPTION_KEYS
+            if isinstance(job.options, dict) and key in job.options
+        }
         if job.quality_tier == ExportJob.QualityTier.ENGINEERING:
             payload['intent'] = 'engineering'
         result = export_dieline(payload)
         raw_b64 = result.get('content_base64') or ''
         raw = base64.b64decode(raw_b64)
         mime = result.get('mime') or ''
-        filename = result.get('filename') or f'export.{job.format}'
+        filename = build_export_filename(job)
         geom_preflight = result.get('preflight') if isinstance(result.get('preflight'), dict) else {}
         cut_approx = bool(geom_preflight.get('cut_approx'))
         bleed_approx = bool(geom_preflight.get('bleed_approx'))

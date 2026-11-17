@@ -29,11 +29,14 @@
             "widthMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
             "heightMm": { "type": "number", "minimum": 0, "maximum": 5000 },
             "thicknessMm": { "type": "number", "exclusiveMinimum": 0, "maximum": 50 },
-            "sizeMode": { "enum": ["inner", "outer"] },
+            "sizeMode": { "enum": ["inner", "outer", "manufacturing"] },
             "fluteDirection": { "enum": ["L", "W"] },
             "materialId": { "type": "string", "maxLength": 64 },
             "bleedInputMm": { "type": "number", "minimum": 0, "maximum": 50 },
-            "advanced": { "type": "object", "additionalProperties": { "type": "number" } }
+            "advanced": {
+              "type": "object",
+              "additionalProperties": { "type": ["number", "string"] }
+            }
           }
         },
         "geometryHash": { "type": "string", "maxLength": 256 }
@@ -50,6 +53,15 @@
           "maxItems": 200,
           "items": { "$ref": "#/$defs/artworkLayer" }
         }
+      }
+    },
+    "workbench": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "source": { "type": "string", "maxLength": 64 },
+        "slug": { "type": "string", "maxLength": 160 },
+        "clientEngineVersion": { "type": "string", "maxLength": 64 }
       }
     },
     "aiSettings": {

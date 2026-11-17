@@ -642,3 +642,35 @@ class AssetsDesignsTests(TestCase):
         ver = TemplateVersion.objects.get(template__template_key='mailer-parametric-demo', version='1')
         self.assertEqual(ver.limits.get('width'), [70, 1200])
         self.assertEqual(ver.limits.get('height'), [20, 600])
+
+    @patch('apps.designs.services.validate_geometry')
+    def test_revision_accepts_string_paper_id_in_advanced(self, mock_validate):
+        """Phase0 paper catalog stores paperId as string in advanced; must pass schema."""
+        mock_validate.return_value = {'geometry_hash': 'g-paper', 'ok': True}
+        token = self._login(self.u1)
+        create = self.client.post(
+            '/api/v1/designs/',
+            data=json.dumps({'name': 'Paper', 'product_slug': 'mailer-parametric-demo'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(create.status_code, 201, create.content)
+        design = create.json()['data']
+        content = design['content']
+        content['geometry']['params']['thicknessMm'] = 0.35
+        content['geometry']['params']['materialId'] = 'kraft'
+        content['geometry']['params']['advanced'] = {
+            **(content['geometry']['params'].get('advanced') or {}),
+            'paperId': 'kraft-250',
+        }
+        token = self._csrf()
+        save = self.client.post(
+            f'/api/v1/designs/{design["id"]}/revisions/',
+            data=json.dumps({'content': content, 'expected_row_version': design['row_version']}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(save.status_code, 201, save.content)
+        saved = save.json()['data']['content']
+        self.assertEqual(saved['geometry']['params']['advanced']['paperId'], 'kraft-250')

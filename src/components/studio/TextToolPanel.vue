@@ -53,12 +53,34 @@ function onAdd() {
 </script>
 
 <style scoped>
-.pane{display:flex;flex-direction:column;gap:8px}
-h2{margin:0;font-size:14px}
-.hint{margin:0;font-size:12px;color:#637587}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-label{display:flex;flex-direction:column;gap:4px;font-size:12px}
-input,select{border:1px solid #cfd8de;border-radius:8px;padding:8px 10px;font:inherit}
-button{border:0;border-radius:8px;background:#0f6e68;color:#fff;padding:8px 12px;cursor:pointer;font-size:13px}
+.pane{display:flex;flex-direction:column;gap:10px}
+h2{margin:0;font-size:14px;color:var(--studio-ink, var(--bc-ink))}
+.hint{margin:0;font-size:12px;color:var(--studio-ink-muted, #64748b)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:500;color:var(--studio-ink, var(--bc-ink))}
+input,select{
+  border:1px solid var(--studio-border, #e2e8f0);
+  border-radius:var(--studio-radius-sm, 8px);
+  padding:9px 11px;
+  font:inherit;
+  transition:border-color var(--studio-ease, 160ms ease), box-shadow var(--studio-ease, 160ms ease);
+}
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--bc-steel);
+  box-shadow:var(--bc-focus);
+}
+button{
+  border:0;
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--bc-steel);
+  color:#fff;
+  padding:9px 14px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  transition:background var(--studio-ease, 160ms ease);
+}
+button:hover:not(:disabled){background:var(--bc-steel-hover)}
 button:disabled{opacity:.45;cursor:not-allowed}
 </style>

@@ -1,7 +1,7 @@
 import { apiRequest, API_BASE, ensureCsrf, ApiError } from './client'
 
-export type ExportFormat = 'svg' | 'dxf' | 'pdf'
-export type ExportTier = 'vector_proof' | 'manufacturing'
+export type ExportFormat = 'svg' | 'dxf' | 'pdf' | 'ai'
+export type ExportTier = 'vector_proof' | 'engineering' | 'manufacturing'
 
 export type ExportJob = {
   id: string
@@ -19,9 +19,19 @@ export type ExportJob = {
   checksum: string | null
   error_code: string | null
   error_message: string | null
+  attempts?: number
   created_at: string | null
   updated_at: string | null
   finished_at: string | null
+}
+
+export type ExportOptions = {
+  showDimensions?: boolean
+  showBleed?: boolean
+  showFaceNames?: boolean
+  showTitleBlock?: boolean
+  displayUnit?: 'mm' | 'in'
+  locale?: 'zh-CN' | 'ko-KR'
 }
 
 export async function createExportJob(
@@ -30,7 +40,8 @@ export async function createExportJob(
     format: ExportFormat
     quality_tier?: ExportTier
     revision_id?: string
-    options?: Record<string, unknown>
+    options?: ExportOptions
+    source?: 'workbench' | 'studio'
   },
   idempotencyKey: string,
 ) {
@@ -41,6 +52,7 @@ export async function createExportJob(
       quality_tier: payload.quality_tier || 'vector_proof',
       revision_id: payload.revision_id,
       options: payload.options || {},
+      source: payload.source,
     },
     idempotencyKey,
   })
@@ -49,6 +61,25 @@ export async function createExportJob(
 
 export async function fetchExportJob(jobId: string) {
   const res = await apiRequest<ExportJob>(`/exports/${jobId}/`)
+  return res.data
+}
+
+export async function listExportJobs(params?: { design?: string; status?: string }) {
+  const qs = new URLSearchParams()
+  if (params?.design) qs.set('design', params.design)
+  if (params?.status) qs.set('status', params.status)
+  const q = qs.toString()
+  const res = await apiRequest<{ items: ExportJob[] }>(`/exports/${q ? `?${q}` : ''}`)
+  return res.data.items
+}
+
+export async function cancelExportJob(jobId: string) {
+  const res = await apiRequest<ExportJob>(`/exports/${jobId}/cancel/`, { method: 'POST', json: {} })
+  return res.data
+}
+
+export async function retryExportJob(jobId: string) {
+  const res = await apiRequest<ExportJob>(`/exports/${jobId}/retry/`, { method: 'POST', json: {} })
   return res.data
 }
 
@@ -71,11 +102,15 @@ export async function downloadExportJob(jobId: string): Promise<{ blob: Blob; fi
     throw new ApiError(res.status, { code, message })
   }
   const disposition = res.headers.get('Content-Disposition') || ''
-  const match = disposition.match(/filename\*?=(?:UTF-8''|")?([^\";]+)/i)
-  const filename = match ? decodeURIComponent(match[1].replace(/"/g, '')) : `export-${jobId}`
+  const star = disposition.match(/filename\*=(?:UTF-8'')?([^;]+)/i)
+  const plain = disposition.match(/filename="?([^";]+)"?/i)
+  const filename = star
+    ? decodeURIComponent(star[1].replace(/"/g, ''))
+    : plain
+      ? plain[1]
+      : `export-${jobId}`
   const blob = await res.blob()
   return { blob, filename }
 }
 
-// Re-export base for consumers that need absolute URL construction
 export { API_BASE }

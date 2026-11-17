@@ -1,0 +1,24 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "id": 183,
+      "nameKey": "tray-boxes",
+      "mockupNameKey": "tray-box-mockups",
+      "dielineNameKey": "tray-box-dielines",
+      "name": "托盘盒",
+      "superId": 70,
+      "sort": 97,
+      "icon": null,
+      "iconPandora": null,
+      "iconChuangkit": null,
+      "anchorName": "Tray Box",
+      "img": "",
+      "color": "",
+      "homeConfig": {},
+      "sortType": "hot",
+      "children": [],
+      "count": 96
+    }
+  ]
+}

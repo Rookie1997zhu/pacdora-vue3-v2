@@ -1,0 +1,56 @@
+{
+  "page": "https://www.pacdora.cn/mockups/gift-box-mockups",
+  "slug_expected": "gift-box-mockups",
+  "ctree_hits": [
+    {
+      "path": "/盒子/礼盒",
+      "name": "礼盒",
+      "nameKey": "gift-boxes",
+      "mockupNameKey": "gift-box-mockups",
+      "count": 107,
+      "id": 219
+    }
+  ],
+  "models_total_com": 157,
+  "models_total_note": ".cn ctree count=107; .com models list total=157",
+  "sample_list": {
+    "id": 1500,
+    "num": 361011,
+    "name": "Flip top magnetic gift box dieline ",
+    "mockupNameKey": "book-box-luxury-box-mockup-361011"
+  },
+  "auth_code": 200,
+  "knife_probe": {
+    "code": 200,
+    "list_id": 1500,
+    "num": 361011,
+    "modeCate_code": "BoutiqueBoxFlipCoveredMain",
+    "knifeSize": {
+      "L": 184,
+      "W": 104,
+      "H": 42.15
+    },
+    "layers_note": "multi-layer rigid gift; traditional may be absent; spider picks densest cuts layer",
+    "sample_layers": {
+      "FlipCoveredFacepaperOutside": {
+        "cuts": 26,
+        "folds": 39
+      },
+      "FlipCoveredInnerboxFacepaperOutside": {
+        "cuts": 68,
+        "folds": 29
+      },
+      "FlipCoveredShell": {
+        "cuts": 24,
+        "folds": 3
+      }
+    }
+  },
+  "apis": [
+    "GET /api/v2/models/ctree?mockup=true",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?...&mockupNameKey=gift-box-mockups",
+    "GET /api/v2/project/knife?id={list_id}&bleed=5&export_type=model"
+  ],
+  "api_origin": "https://www.pacdora.com"
+}

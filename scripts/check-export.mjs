@@ -8,14 +8,14 @@ function assertDxf(label,knife){
   assert.ok(dxf.includes('TRIM'),`${label}: TRIM layer`)
   assert.ok(dxf.includes('CREASE'),`${label}: CREASE layer`)
   assert.ok(dxf.includes('BLEED'),`${label}: BLEED layer`)
-  const entities=dxf.split('\n').filter((v,i,a)=>v==='LINE'&&a[i-1]==='0').length
-  const expected=knife.layers.trim.segments.length
-    +knife.layers.crease.segments.length
-    +knife.layers.bleed.segments.length
-  assert.ok(entities>=expected,`${label}: LINE count ${entities} >= ${expected}`)
+  assert.ok(dxf.includes('\nDIM\n'),`${label}: DIM layer`)
+  assert.ok(dxf.includes('\nTEXT\n'),`${label}: TEXT layer`)
+  const entities=dxf.split('\n').filter((v,i,a)=>['LINE','POLYLINE','ARC'].includes(v)&&a[i-1]==='0').length
+  assert.ok(entities>0,`${label}: vector entities`)
+  assert.ok(dxf.includes('\nPOLYLINE\n'),`${label}: POLYLINE entities`)
   assert.ok(dxf.includes('$INSUNITS'),`${label}: INSUNITS`)
   assert.equal(knife.manufacturingReady,false,`${label}: manufacturingReady`)
-  console.log(`ok dxf ${label} lines=${entities}`)
+  console.log(`ok dxf ${label} entities=${entities}`)
 }
 
 function assertDims(label,knife){

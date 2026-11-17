@@ -1,0 +1,1307 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BOXCRAFT 参数化刀版工作台 · 开发方案</title>
+<style>
+  :root{
+    --ink:#1e293b; --muted:#64748b; --faint:#94a3b8; --line:#e2e8f0; --line2:#cbd5e1;
+    --paper:#f8fafc; --card:#ffffff; --teal:#006868; --teal-soft:#eef6f6; --teal-line:#b7d9d9;
+    --trim:#2028b0; --crease:#fa0000; --bleed:#46ba00;
+    --warn:#7a5a2a; --warn-bg:#fff4e5; --warn-line:#e6c48a; --ok:#1f8a4c; --ok-bg:#f1faf4; --danger:#9a4339; --danger-bg:#fdf1ef;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font:15px/1.7 "IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+  header.hero{background:linear-gradient(135deg,#0b3b3b,#006868 70%,#0d7c7c);color:#fff;padding:44px clamp(16px,4vw,56px) 34px}
+  header.hero h1{margin:0 0 10px;font-size:clamp(1.5rem,2.8vw,2.1rem);letter-spacing:.01em;text-wrap:balance}
+  header.hero p{margin:0;color:#d5eaea;max-width:920px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.14);color:#eaf6f6}
+  nav.toc{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:10px clamp(16px,4vw,56px);display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+  nav.toc a{color:var(--teal);text-decoration:none;white-space:nowrap}
+  nav.toc a:hover{text-decoration:underline}
+  main{max-width:1160px;margin:0 auto;padding:28px clamp(16px,4vw,40px) 80px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin:0 0 20px}
+  h2{margin:0 0 14px;font-size:1.3rem;display:flex;align-items:baseline;gap:10px}
+  h2 .no{font-size:.8rem;color:var(--teal);background:var(--teal-soft);border:1px solid var(--teal-line);border-radius:6px;padding:1px 8px;font-variant-numeric:tabular-nums}
+  h3{margin:22px 0 8px;font-size:1.05rem}
+  h4{margin:14px 0 6px;font-size:.95rem}
+  p{margin:0 0 10px}
+  .lead{font-size:16px}
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+  .tw{overflow-x:auto;margin:8px 0 14px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--paper);font-weight:600;white-space:nowrap}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  code,pre{font-family:"JetBrains Mono","Cascadia Code",Consolas,monospace;font-size:12.5px}
+  code{background:#f1f5f9;padding:1px 5px;border-radius:4px;word-break:break-word}
+  pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:10px;overflow:auto;line-height:1.55;margin:8px 0 14px}
+  pre code{background:none;padding:0;color:inherit}
+  pre .c{color:#94a3b8}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:999px;margin-right:4px;white-space:nowrap}
+  .t-have{background:var(--ok-bg);color:var(--ok)}
+  .t-part{background:var(--warn-bg);color:var(--warn)}
+  .t-new{background:var(--teal-soft);color:var(--teal)}
+  .t-no{background:var(--danger-bg);color:var(--danger)}
+  .t-p0{background:#fde8e6;color:#9a2f22}.t-p1{background:var(--warn-bg);color:var(--warn)}.t-p2{background:#f1f5f9;color:var(--muted)}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .card{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:#fff}
+  .card h4{margin:0 0 6px;font-size:14px}
+  .card p:last-child{margin-bottom:0}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:10px 0}
+  .flow .step{flex:1 1 150px;background:var(--teal-soft);border:1px solid var(--teal-line);border-radius:10px;padding:10px 12px;font-size:13px}
+  .flow .step b{display:block;color:var(--teal);margin-bottom:2px}
+  .flow .arrow{align-self:center;color:var(--faint);font-weight:700}
+  .callout{border-left:4px solid var(--teal);background:var(--teal-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0 14px}
+  .callout.warn{border-color:#c98a2b;background:var(--warn-bg)}
+  .callout.danger{border-color:var(--danger);background:var(--danger-bg)}
+  .callout p:last-child{margin-bottom:0}
+  ul,ol{margin:0 0 10px;padding-left:22px}
+  li{margin:3px 0}
+  .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+  figure{margin:12px 0}
+  figure svg{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}
+  .kpi div{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+  .kpi b{display:block;font-size:1.35rem;color:var(--teal);font-variant-numeric:tabular-nums}
+  .kpi span{font-size:12.5px;color:var(--muted)}
+  .gantt{display:grid;grid-template-columns:190px repeat(8,1fr);gap:3px;font-size:12px;margin:10px 0;min-width:720px}
+  .gantt .h{color:var(--muted);text-align:center;padding:2px 0}
+  .gantt .l{grid-column:1;padding:5px 6px 5px 0;white-space:nowrap}
+  .gantt .b{border-radius:5px;background:var(--teal);color:#fff;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gantt .b.alt{background:#4a8f8f}.gantt .b.buf{background:#cbd5e1;color:#334155}
+  footer{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 40px;color:var(--faint);font-size:12px}
+  @media print{nav.toc{position:static}section{break-inside:avoid-page}header.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>BOXCRAFT 参数化刀版工作台 · 开发方案</h1>
+  <p>把现有 LAB 里的参数化能力，做成一个面向客户的正式页面：选盒型 → 改尺寸、厚度、材质和结构参数 → 实时看 2D 刀版和 3D 折叠 → 自动保存 → 下载 PDF / DXF / AI / SVG。方案以 Pacdora 150010 翻盖飞机盒详情页的逆向结论为参照，以本仓库现有代码为起点。</p>
+  <div class="meta">
+    <span class="chip">版本 V1.0 · 2026-11-17</span>
+    <span class="chip">范围：前端工作台 + 几何引擎补强 + 后端保存与导出</span>
+    <span class="chip">技术栈：Vue 3 · Pinia · Three.js · Django · Node 几何服务</span>
+    <span class="chip">预计 8 周 · 4 个可发布里程碑</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1">1 结论摘要</a>
+  <a href="#s2">2 目标与范围</a>
+  <a href="#s3">3 逆向结论的取舍</a>
+  <a href="#s4">4 项目现状</a>
+  <a href="#s5">5 产品设计</a>
+  <a href="#s6">6 总体架构</a>
+  <a href="#s7">7 数据契约</a>
+  <a href="#s8">8 几何引擎</a>
+  <a href="#s9">9 前端实现</a>
+  <a href="#s10">10 后端实现</a>
+  <a href="#s11">11 导出中心</a>
+  <a href="#s12">12 权限与计费</a>
+  <a href="#s13">13 测试与门禁</a>
+  <a href="#s14">14 里程碑</a>
+  <a href="#s15">15 任务拆解</a>
+  <a href="#s16">16 风险</a>
+  <a href="#s17">17 待确认</a>
+  <a href="#s18">18 附录</a>
+</nav>
+
+<main>
+
+<!-- ============================================================ 1 -->
+<section id="s1">
+  <h2><span class="no">1</span>结论摘要</h2>
+  <p class="lead">BOXCRAFT 已经有了工作台需要的大部分零件：参数化引擎 <code>src/knife.js</code>、40 多个模板、Three.js 折叠预览、导出任务、设计稿存储和配额。缺的是一个把它们组装起来、面向客户的页面，以及引擎上几处达不到“可交付刀版”的短板。所以本方案的主体是<b>组装和补强</b>，不是重写。</p>
+
+  <div class="grid2">
+    <div class="card"><h4>决策 1：几何在浏览器即时算，服务端复算后才算数</h4><p class="muted">Pacdora 每改一次尺寸要发约 7 个请求、等服务端出刀版。我们的引擎是纯 JS，浏览器和 Node 几何服务能跑同一份代码。预览在浏览器里做到“拖动即变”，保存和导出时由服务端用同版本引擎复算并核对 <code>geometryHash</code>。</p></div>
+    <div class="card"><h4>决策 2：3D 继续用 Three.js 铰链树，不做 WASM</h4><p class="muted">Pacdora 每次改尺寸要重新生成约 10MB 的 glTF（90 帧 morph target）。我们现有 <code>src/render/boxModel.js</code> 按铰链实时旋转，零传输。本期只补纸板厚度侧面、内外表面区分和分步折叠的打磨。</p></div>
+    <div class="card"><h4>决策 3：一份 knife JSON 驱动全部</h4><p class="muted">在现有 <code>boxcraft.knife.v3</code> 上做向后兼容的增量：制造尺寸模式、折线按相邻面命名、真圆弧路径、线长统计、参数分级。2D、3D、标注、报价、导出都只读这一份数据。</p></div>
+    <div class="card"><h4>决策 4：复用 Design 作为“工程”，懒创建 + 自动保存</h4><p class="muted">不新建工程表。登录用户第一次改参数时创建 Design（图稿图层为空），之后防抖保存。访客的状态放在 URL 和本地草稿里，登录后一键认领。</p></div>
+    <div class="card"><h4>决策 5：导出走现有任务，补 AI 格式和并发上限</h4><p class="muted">沿用现有导出任务与轮询，新增导出选项（标注、出血、单位、文件命名）、单组织最多 3 个进行中任务、失败重试和取消。</p></div>
+    <div class="card"><h4>决策 6：首批 5 个自研模板，按工程域分档</h4><p class="muted">FEFCO 0201、直插盒、翻盖邮寄盒、自锁底盒已有工程域，域内可导出工程候选稿；飞机盒先只开校样稿。<code>fixed_snapshot</code> 和 <code>model_only</code> 盒型不进工作台。Pacdora 的模板数据、WASM 和接口一律不调用、不拷贝。</p></div>
+  </div>
+
+  <div class="kpi">
+    <div><b>&lt; 50 ms</b><span>改参数到 2D 重绘（P95，本地计算）</span></div>
+    <div><b>&lt; 200 ms</b><span>改参数到 3D 重建完成（P95）</span></div>
+    <div><b>0 请求</b><span>访客预览所需的几何接口调用</span></div>
+    <div><b>≤ 20 s</b><span>导出任务从提交到可下载（P95）</span></div>
+  </div>
+</section>
+
+<!-- ============================================================ 2 -->
+<section id="s2">
+  <h2><span class="no">2</span>目标与范围</h2>
+  <h3>2.1 要解决的问题</h3>
+  <ul>
+    <li><b>客户没有入口。</b>参数化能力目前只在 <code>/lab</code>（<code>src/legacy/LegacyLab.vue</code>，1492 行单文件）里，界面是内部调试形态；产品详情页 <code>ProductDetailPage.vue</code> 只有一个“填 L/W/H → 创建设计”的表单，看不到刀版就得先建稿。</li>
+    <li><b>刀版和图稿编辑绑在一起。</b>只想要一张空白刀版的客户（给设计师或工厂用），现在必须进 Studio 才能导出。</li>
+    <li><b>引擎有几处硬伤</b>（见第 8 节）：没有“制造尺寸”输入模式；非严格模式下厚度被夹到 ≥0.5mm，卡纸算不对；圆弧被拆成折线，DXF 里不是真弧；没有线长统计，报价无数据可用。</li>
+  </ul>
+
+  <h3>2.2 本期交付</h3>
+  <div class="tw"><table>
+    <tr><th>编号</th><th>交付物</th><th>说明</th></tr>
+    <tr><td>D1</td><td>工作台页面 <code>/workbench/:slug</code></td><td>三栏布局：参数面板、2D 画板、3D 预览与导出；中文和韩文</td></tr>
+    <tr><td>D2</td><td>引擎增量 <code>knife v3.1</code></td><td>制造尺寸模式、薄板厚度、折线命名、真圆弧、线长统计、参数分级与约束</td></tr>
+    <tr><td>D3</td><td>访客模式</td><td>不登录可完整预览；状态写入 URL，可分享</td></tr>
+    <tr><td>D4</td><td>懒创建与自动保存</td><td>复用 Design / Revision；本地草稿兜底；缩略图</td></tr>
+    <tr><td>D5</td><td>导出中心</td><td>PDF / DXF / AI / SVG + 3D 样机图；选项、队列、重试、取消</td></tr>
+    <tr><td>D6</td><td>权限与配额接入</td><td>登录门槛、导出配额、可配置的高级参数门槛</td></tr>
+    <tr><td>D7</td><td>质量门禁</td><td>新增 <code>check:workbench</code> 系列脚本、金样回归、E2E 冒烟</td></tr>
+  </table></div>
+
+  <h3>2.3 不在本期范围</h3>
+  <ul>
+    <li>图稿编辑（图片、文字、形状、AI 生成）：仍在 Studio，工作台提供“去设计”跳转。</li>
+    <li>C++/WASM 3D 引擎、morph target 烘焙、曲面盒（CurveBox）。</li>
+    <li>在线支付：沿用现有“升级意向”流程，工作台只接入权益判断。</li>
+    <li>新增盒型模板的批量开发：本期只把首批 5 个模板做到可交付，其余模板按同一套门禁陆续接入。</li>
+    <li>对任何模板作出“可直接开模”的承诺。<code>manufacturingReady</code> 保持为 <code>false</code>，导出文件按档位带固定免责声明；生产资格取决于实物打样与证据归档，不在本期。</li>
+    <li>PDF / AI 文件导入反推刀版、KC 标识图层、MASSCONNECTED 对接。</li>
+  </ul>
+
+  <h3>2.4 成功标准</h3>
+  <div class="tw"><table>
+    <tr><th>维度</th><th>指标</th><th>验收方式</th></tr>
+    <tr><td>可用</td><td>访客从产品列表进入工作台，30 秒内完成“改尺寸 → 看 3D 合盖”</td><td>E2E 冒烟 + 人工走查</td></tr>
+    <tr><td>正确</td><td>首批 5 个模板在尺寸上下限、默认值、3 档厚度下全部通过契约校验，切线闭合、无自交</td><td><code>npm run check:all</code> 新增项</td></tr>
+    <tr><td>一致</td><td>浏览器与服务端对同一组参数算出的 <code>geometryHash</code> 100% 相同</td><td>同构回归脚本（300 组随机参数）</td></tr>
+    <tr><td>性能</td><td>见第 1 节四项指标</td><td>浏览器 Performance 标记 + 后端任务耗时日志</td></tr>
+    <tr><td>转化</td><td>工作台访客 → 注册转化率、导出点击率可统计</td><td>埋点事件（附录 18.4）</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 3 -->
+<section id="s3">
+  <h2><span class="no">3</span>逆向结论的取舍</h2>
+  <p>依据 <code>docs/pacdora-rea/Pacdora_刀版详情页_150010_逆向报告.html</code> 及同目录抓包样本（<code>knife_preview.json</code>、<code>materials_science.json</code>、<code>models_details.json</code>、<code>permissions.json</code> 等）。下表逐项说明 Pacdora 怎么做、我们是否照做、理由是什么。</p>
+  <div class="tw"><table>
+    <tr><th>主题</th><th>Pacdora 的做法</th><th>BOXCRAFT 取舍</th><th>理由</th></tr>
+    <tr><td>几何在哪算</td><td>全部在服务端；改一次尺寸约 7 个请求，每个 160–300ms</td><td><span class="tag t-part">部分采纳</span>浏览器即时算，服务端复算把关</td><td>我们的引擎是 JS，前后端可同构。即时反馈是可感知的体验优势。算法暴露在前端的顾虑见 16 节风险 R3</td></tr>
+    <tr><td>单一刀版 JSON</td><td>faces / cuts / folds / holes / bleeds / sizeArrowData / animation 一份数据驱动 2D、3D、导出</td><td><span class="tag t-have">采纳</span></td><td>现有 knife v3 方向一致，补齐缺的字段即可</td></tr>
+    <tr><td>折线命名</td><td><code>F_FT</code> = F 与 FT 之间的折线；面路径的边上也标 <code>foldline</code></td><td><span class="tag t-have">采纳</span></td><td>2D 线、3D 铰链、导出图层用同一个名字，悬停联动和排错都简单</td></tr>
+    <tr><td>折叠动画数据化</td><td>9 步 <code>animations</code>，每步若干折线同时转</td><td><span class="tag t-have">已有</span></td><td><code>knife.foldStages</code> + <code>foldStages.js</code> 已是分步数据，只需允许模板显式声明步骤</td></tr>
+    <tr><td>3D 生成</td><td><code>knife2gltf.wasm</code> 生成 glTF，预烘焙 90 个 morph target，约 10MB/次</td><td><span class="tag t-no">不采纳</span></td><td>现有 Three.js 铰链树够用且零传输；WASM 是对方自有资产，不能用也没必要仿</td></tr>
+    <tr><td>三种尺寸类型</td><td>制造 / 内 / 外，后端同时返回三套</td><td><span class="tag t-have">采纳</span></td><td>引擎已算出 inner / panel / outer 三套，只缺“以制造尺寸为输入”</td></tr>
+    <tr><td>厚度拆分</td><td><code>inless = ROUNDDOWN(2T/3)</code>，<code>outless = T − inless</code></td><td><span class="tag t-part">仅作对照</span></td><td>我们用模板级 <code>sizeRule</code>（T 的倍数）。把内缩和外扩做成材质属性可以更准，但系数必须自己打样验证，不照抄</td></tr>
+    <tr><td>结构参数分级</td><td><code>openParams</code> 分 grade 2–5，每个带 min / max；高级参数要 Pro</td><td><span class="tag t-have">采纳结构</span>门槛可配置</td><td><code>paramDefs</code> 已有 group / min / max，补 grade 和动态上下限。是否收费是商业决策（17 节 Q2）</td></tr>
+    <tr><td>线长统计</td><td><code>foldlineLength / cutlineLength</code> 随刀版返回</td><td><span class="tag t-new">采纳</span></td><td>刀模按线长计价，报价模块直接可用</td></tr>
+    <tr><td>单位</td><td>英寸只是显示层，前端换算后一律存毫米</td><td><span class="tag t-have">采纳</span></td><td>与现有 <code>lengthMm</code> 命名一致</td></tr>
+    <tr><td>保存</td><td>首次编辑自动建工程，之后每次改动整份 PUT，无保存按钮</td><td><span class="tag t-have">采纳</span>改为防抖 + 版本号</td><td>我们已有 <code>expected_row_version</code> 乐观锁和幂等键，比整份覆盖更安全</td></tr>
+    <tr><td>访客身份</td><td>下发体验用户（<code>experience_user</code>）</td><td><span class="tag t-no">不采纳</span></td><td>预览不需要服务端，访客状态放 URL 和本地即可，省掉匿名账号的清理与防刷</td></tr>
+    <tr><td>分享</td><td><code>?id=</code> 是私有工程，他人打开报 422</td><td><span class="tag t-new">做得更好</span></td><td>参数写进 URL，任何人打开都能看到同一张刀版</td></tr>
+    <tr><td>导出</td><td>服务端异步任务，2 秒轮询，最多 3 个并发，失败可重试</td><td><span class="tag t-have">采纳</span></td><td>现有导出任务模式相同，补并发上限、重试、取消</td></tr>
+    <tr><td>缩略图</td><td>前端截图后用 STS 临时凭证直传 OSS</td><td><span class="tag t-part">改为服务端生成</span></td><td>服务端从 knife 直接渲染 SVG 缩略图，不需要下发存储凭证</td></tr>
+    <tr><td>配色</td><td>切 <code>#2028b0</code> / 折 <code>#ff0000</code> / 出血 <code>#68b82e</code></td><td><span class="tag t-have">保持现状</span></td><td>我们是 <code>#2028b0</code> / <code>#fa0000</code> / <code>#46ba00</code>，同色系，不必改</td></tr>
+    <tr><td>营销文案</td><td>“经过严格检查，可直接打印”</td><td><span class="tag t-no">不采纳</span></td><td>与站点免责声明立场冲突。文案按质量档位如实标注</td></tr>
+  </table></div>
+  <div class="callout warn"><p><b>合规边界。</b>本方案参考的是架构和交互模式。Pacdora 的模板坐标数据、<code>knife2gltf.wasm</code>、接口与素材属于对方资产，工作台运行时不调用、不内置。仓库中已有的 Pacdora 几何快照（<code>geometry/pacdora_boxes/</code>、<code>public/*-geom/</code>）只用于离线金样比对，不进入工作台的模板清单。</p></div>
+</section>
+
+<!-- ============================================================ 4 -->
+<section id="s4">
+  <h2><span class="no">4</span>项目现状</h2>
+  <h3>4.1 可直接复用的资产</h3>
+  <div class="tw"><table>
+    <tr><th>能力</th><th>位置</th><th>现状</th><th>在工作台中的角色</th></tr>
+    <tr><td>参数化引擎</td><td><code>src/knife.js</code>（1215 行）<br><code>createKnife / deriveSizes / resolveParams</code></td><td><span class="tag t-have">可用</span>面矩形 + 多边形轮廓 → 并集出切线 → 偏移出血 → 铰链与分步折叠</td><td>核心，前后端同构运行</td></tr>
+    <tr><td>契约校验</td><td><code>src/knifeContract.js</code></td><td><span class="tag t-have">可用</span>9 项阻断检查 + 合盖告警</td><td>参数面板的实时校验来源</td></tr>
+    <tr><td>模板</td><td><code>src/templates/</code>（21 个自研 + <code>rea/</code> 17 个 + <code>spec/</code>）</td><td><span class="tag t-part">质量不一</span>多数为示意级；4 个有工程域定义</td><td>首批 5 个，其余逐步接入</td></tr>
+    <tr><td>工程域</td><td><code>packages/geometry-schema/domains/*.json</code></td><td><span class="tag t-have">可用</span>fefco-0201、tuck-end-straight、mailer-parametric-demo、productbox-crashlock；前后端各存一份，内容一致</td><td>决定当前参数能否导出 engineering 档</td></tr>
+    <tr><td>3D 折叠</td><td><code>src/render/boxModel.js</code>、<code>src/lab/knifeScene.js</code>、<code>src/geomRig.js</code>、<code>src/foldStages.js</code></td><td><span class="tag t-have">可用</span>铰链树、分步进度、面拾取、材质贴图</td><td>右侧 3D 预览</td></tr>
+    <tr><td>尺寸标注</td><td><code>src/dimAnnotations.js</code></td><td><span class="tag t-have">可用</span>L / W / H 与面片标注，可输出 SVG</td><td>2D 画板标注层</td></tr>
+    <tr><td>导出器</td><td><code>src/exportDieline.js</code>（<code>toDxf / toSvgDieline / toPdf / toAi</code>）</td><td><span class="tag t-part">线段级</span>DXF R12 只有 LINE；PDF 字体不支持中日韩</td><td>服务端导出的基础，需补真弧与选项</td></tr>
+    <tr><td>纸材目录</td><td><code>src/catalog/paperCatalog.js</code>、<code>paperRiskRules.js</code></td><td><span class="tag t-part">预览级</span>克重和楞型有了，但引擎只认 kraft / white / blue 三种</td><td>材质选择器，需扩展为带厚度范围和补偿的材质表</td></tr>
+    <tr><td>设计稿存储</td><td><code>src/stores/design.ts</code>、<code>src/api/designs.ts</code>、<code>packages/design-schema</code></td><td><span class="tag t-have">可用</span>Revision、乐观锁、幂等键、IndexedDB 草稿、撤销重做</td><td>工作台的“工程”</td></tr>
+    <tr><td>导出任务</td><td><code>src/stores/export.ts</code>、<code>src/api/exports.ts</code></td><td><span class="tag t-have">可用</span>svg / dxf / pdf；后端有 vector_proof、engineering、manufacturing 三档及各自门禁；1.2s 轮询。前端类型目前只声明了两档</td><td>导出中心</td></tr>
+    <tr><td>配额</td><td><code>src/stores/billing.ts</code>、<code>src/api/billing.ts</code></td><td><span class="tag t-have">可用</span>free / annual；每个组织终身 10 次免费导出，年费不限；升级走人工意向，未接支付</td><td>导出门槛</td></tr>
+    <tr><td>视觉规范</td><td><code>src/styles/tokens.css</code>、<code>AppShell.vue</code></td><td><span class="tag t-have">可用</span>teal 主色、<code>--bc-*</code> 变量、徽标样式</td><td>工作台沿用，不引入新视觉体系</td></tr>
+    <tr><td>国际化</td><td><code>src/i18n/zh-CN.js</code>、<code>ko-KR.js</code>（各 777 行）</td><td><span class="tag t-have">可用</span></td><td>新增 <code>workbench</code> 命名空间</td></tr>
+    <tr><td>质量脚本</td><td><code>scripts/check-*.mjs</code>，<code>npm run check:all</code>（11 步）</td><td><span class="tag t-have">可用</span></td><td>新增工作台相关检查</td></tr>
+  </table></div>
+
+  <h3>4.2 与目标的差距</h3>
+  <div class="tw"><table>
+    <tr><th>#</th><th>差距</th><th>证据</th><th>影响</th><th>对应章节</th></tr>
+    <tr><td>G1</td><td>没有面向客户的工作台页面</td><td>路由表只有 <code>/lab</code>（内部）和 <code>/products/:slug</code>（表单）</td><td>客户看不到参数化能力</td><td>5、9</td></tr>
+    <tr><td>G2</td><td>LAB 是 1492 行单文件，自有、导入、Packative 三类盒型逻辑混在一起</td><td><code>LegacyLab.vue</code></td><td>无法直接复用为产品页</td><td>9.2</td></tr>
+    <tr><td>G3</td><td>尺寸模式只有 inner / outer</td><td><code>deriveSizes()</code>：<code>mode = sizeMode==='outer' ? 'outer' : 'inner'</code></td><td>工厂习惯报制造尺寸，无法直接输入</td><td>8.1</td></tr>
+    <tr><td>G4</td><td>非严格模式厚度下限 0.5mm</td><td><code>Math.max(.5, Traw || defaults.thickness)</code></td><td>0.3–0.45mm 卡纸的补偿算错</td><td>8.2</td></tr>
+    <tr><td>G5</td><td>引擎材质只有三种</td><td><code>['kraft','white','blue'].includes(materialId)</code></td><td>材质只影响 3D 贴图，不影响厚度和补偿</td><td>8.2</td></tr>
+    <tr><td>G6</td><td>切线只有线段，圆角被细分为折线</td><td><code>holeLoop()</code> 的 <code>arcSeg</code>、<code>loopToCuts()</code></td><td>DXF 不是真弧，刀模厂需要重描</td><td>8.4</td></tr>
+    <tr><td>G7</td><td>出血固定额外加 10mm</td><td><code>BLEED_EXTRA_MM = 10</code>，<code>bleedEff = bleedInput + 10</code></td><td>用户填 3mm 实际画 13mm，适合看图但不适合交付</td><td>8.5</td></tr>
+    <tr><td>G8</td><td>没有线长统计</td><td>knife 中无相关字段</td><td>报价拿不到刀模线长</td><td>8.6</td></tr>
+    <tr><td>G9</td><td>参数上下限是常数，没有参数间约束</td><td><code>pdef(..., {min, max})</code>；<code>sideSlotHoles()</code> 中 <code>margin = (Wk − span) / 2</code> 可为负</td><td>极端组合会生成孔位出界的刀版</td><td>8.3</td></tr>
+    <tr><td>G10</td><td>折线没有稳定名称</td><td><code>foldsFromFaces()</code> 只输出坐标</td><td>2D 与 3D 无法按名字联动</td><td>7.2</td></tr>
+    <tr><td>G11</td><td>导出必须先有 Design 和 Revision</td><td><code>useExportStore.start()</code>：无 <code>designId</code> 直接报错</td><td>工作台需要懒创建流程</td><td>10.2</td></tr>
+    <tr><td>G12</td><td>导出格式没有 AI；没有标注、单位等选项的界面</td><td><code>ExportFormat = 'svg' | 'dxf' | 'pdf'</code></td><td>与竞品功能不齐</td><td>11</td></tr>
+    <tr><td>G13</td><td>没有英寸显示</td><td>LAB 界面单位固定为 mm</td><td>海外客户不便</td><td>9.6</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 5 -->
+<section id="s5">
+  <h2><span class="no">5</span>产品设计</h2>
+  <h3>5.1 用户路径</h3>
+  <div class="flow">
+    <div class="step"><b>① 进入</b>从 <code>/products</code> 卡片或产品详情页点“定制刀版”，进入 <code>/workbench/:slug</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>② 调参</b>改尺寸、厚度、材质、尺寸类型；需要时展开高级参数</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>③ 确认</b>看 2D 标注、拖 3D 合盖滑块、看校验提示</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>④ 保存</b>登录用户自动保存；访客复制链接或登录认领</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>⑤ 产出</b>下载刀版文件，或“去设计”进 Studio，或“加入询价”</div>
+  </div>
+
+  <h3>5.2 页面布局</h3>
+  <figure>
+    <svg viewBox="0 0 1120 600" role="img" aria-label="工作台三栏布局线框图">
+      <rect x="0" y="0" width="1120" height="600" fill="#f8fafc"/>
+      <!-- top bar -->
+      <rect x="0" y="0" width="1120" height="52" fill="#fff" stroke="#e2e8f0"/>
+      <rect x="18" y="14" width="24" height="24" rx="6" fill="#006868"/>
+      <text x="52" y="31" font-size="14" font-weight="600" fill="#1e293b">翻盖邮寄盒 · 315 × 202 × 62 mm</text>
+      <text x="330" y="31" font-size="12" fill="#1f8a4c">● 已保存</text>
+      <rect x="770" y="12" width="70" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/><text x="805" y="30" font-size="12" text-anchor="middle" fill="#1e293b">分享</text>
+      <rect x="850" y="12" width="90" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/><text x="895" y="30" font-size="12" text-anchor="middle" fill="#1e293b">去设计 ↗</text>
+      <rect x="950" y="12" width="152" height="28" rx="8" fill="#006868"/><text x="1026" y="30" font-size="12" text-anchor="middle" fill="#fff" font-weight="600">下载刀版</text>
+      <!-- left panel -->
+      <rect x="16" y="68" width="300" height="516" rx="12" fill="#fff" stroke="#e2e8f0"/>
+      <rect x="16" y="68" width="64" height="516" rx="12" fill="#f1f5f9"/>
+      <g font-size="11" text-anchor="middle" fill="#64748b">
+        <rect x="26" y="84" width="44" height="44" rx="8" fill="#eef6f6" stroke="#b7d9d9"/><text x="48" y="111" fill="#006868" font-weight="600">基础</text>
+        <text x="48" y="165">高级</text><text x="48" y="215">装箱</text><text x="48" y="265">信息</text>
+      </g>
+      <text x="96" y="96" font-size="13" font-weight="600" fill="#1e293b">尺寸</text>
+      <rect x="248" y="82" width="54" height="20" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/><text x="275" y="96" font-size="10" text-anchor="middle" fill="#64748b">mm | in</text>
+      <g font-size="11" fill="#64748b">
+        <text x="96" y="124">长 L</text><rect x="96" y="130" width="96" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="106" y="150" fill="#1e293b">315</text>
+        <text x="206" y="124">宽 W</text><rect x="206" y="130" width="96" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="216" y="150" fill="#1e293b">202</text>
+        <text x="96" y="182">高 H</text><rect x="96" y="188" width="96" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="106" y="208" fill="#1e293b">62</text>
+        <text x="206" y="208" font-size="10">范围 20–600</text>
+      </g>
+      <text x="96" y="248" font-size="13" font-weight="600" fill="#1e293b">尺寸类型</text>
+      <rect x="96" y="258" width="66" height="28" rx="6" fill="#eef6f6" stroke="#006868"/><text x="129" y="276" font-size="11" text-anchor="middle" fill="#006868">制造</text>
+      <rect x="168" y="258" width="66" height="28" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="201" y="276" font-size="11" text-anchor="middle" fill="#64748b">内</text>
+      <rect x="240" y="258" width="62" height="28" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="271" y="276" font-size="11" text-anchor="middle" fill="#64748b">外</text>
+      <text x="96" y="316" font-size="13" font-weight="600" fill="#1e293b">材质与厚度</text>
+      <rect x="96" y="326" width="206" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="106" y="346" font-size="11" fill="#1e293b">E 楞瓦楞（三层）</text>
+      <rect x="96" y="364" width="206" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="199" y="384" font-size="11" text-anchor="middle" fill="#1e293b">−   1.5 mm   +</text>
+      <text x="96" y="410" font-size="10" fill="#64748b">可选 1.1–2.0 mm · 楞向 L</text>
+      <text x="96" y="440" font-size="13" font-weight="600" fill="#1e293b">出血</text>
+      <rect x="96" y="450" width="96" height="30" rx="6" fill="#fff" stroke="#cbd5e1"/><text x="106" y="470" font-size="11" fill="#1e293b">3 mm</text>
+      <rect x="96" y="500" width="206" height="66" rx="8" fill="#fff4e5" stroke="#e6c48a"/>
+      <text x="106" y="520" font-size="11" fill="#7a5a2a" font-weight="600">校验 1 项提示</text>
+      <text x="106" y="538" font-size="10.5" fill="#7a5a2a">高度接近下限，插舌可能偏短</text>
+      <text x="106" y="554" font-size="10.5" fill="#7a5a2a">点击定位到相关面片</text>
+      <!-- canvas -->
+      <rect x="332" y="68" width="472" height="516" rx="12" fill="#fff" stroke="#e2e8f0"/>
+      <g font-size="11" fill="#64748b">
+        <line x1="348" y1="90" x2="372" y2="90" stroke="#46ba00" stroke-width="2"/><text x="378" y="94">出血</text>
+        <line x1="416" y1="90" x2="440" y2="90" stroke="#2028b0" stroke-width="2"/><text x="446" y="94">切线</text>
+        <line x1="484" y1="90" x2="508" y2="90" stroke="#fa0000" stroke-width="2" stroke-dasharray="4 3"/><text x="514" y="94">折线</text>
+        <text x="348" y="118">制造 315 × 202 × 62</text><text x="348" y="134">内 300 × 200 × 60</text><text x="348" y="150">外 316 × 204.5 × 63</text>
+        <text x="788" y="94" text-anchor="end">展开 576 × 590 mm</text>
+        <text x="788" y="110" text-anchor="end">切线 3.64 m · 折线 3.07 m</text>
+      </g>
+      <!-- dieline sketch -->
+      <g transform="translate(430,170)">
+        <path d="M60 0 H220 Q236 0 236 16 V70 H250 V110 H280 V250 H250 V300 H30 V250 H0 V110 H30 V70 H44 V16 Q44 0 60 0 Z" fill="#fbfdff" stroke="#2028b0" stroke-width="1.6"/>
+        <path d="M56 -4 H224 Q240 -4 240 14 V66 H254 V106 H284 V254 H254 V304 H26 V254 H-4 V106 H26 V66 H40 V14 Q40 -4 56 -4 Z" fill="none" stroke="#46ba00" stroke-width="1"/>
+        <g stroke="#fa0000" stroke-width="1.2" stroke-dasharray="5 3">
+          <line x1="44" y1="70" x2="236" y2="70"/><line x1="30" y1="110" x2="250" y2="110"/><line x1="30" y1="250" x2="250" y2="250"/>
+          <line x1="44" y1="110" x2="44" y2="250"/><line x1="236" y1="110" x2="236" y2="250"/><line x1="30" y1="110" x2="30" y2="250"/><line x1="250" y1="110" x2="250" y2="250"/>
+        </g>
+        <g stroke="#2563eb" stroke-width="1" fill="#2563eb" font-size="11">
+          <line x1="44" y1="215" x2="236" y2="215"/><text x="140" y="209" text-anchor="middle" stroke="none">L 315</text>
+          <line x1="170" y1="110" x2="170" y2="250"/><text x="176" y="170" stroke="none">W 202</text>
+          <line x1="110" y1="70" x2="110" y2="110"/><text x="116" y="94" stroke="none">H 62</text>
+        </g>
+        <rect x="52" y="140" width="5" height="22" rx="2" fill="#fff" stroke="#2028b0"/><rect x="52" y="196" width="5" height="22" rx="2" fill="#fff" stroke="#2028b0"/>
+        <rect x="223" y="140" width="5" height="22" rx="2" fill="#fff" stroke="#2028b0"/><rect x="223" y="196" width="5" height="22" rx="2" fill="#fff" stroke="#2028b0"/>
+      </g>
+      <rect x="478" y="536" width="180" height="36" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="568" y="559" font-size="12" text-anchor="middle" fill="#64748b">选择 · 平移 · ＋ · − · 适应 · 图层</text>
+      <!-- right -->
+      <rect x="820" y="68" width="284" height="250" rx="12" fill="#eef1f4" stroke="#e2e8f0"/>
+      <g transform="translate(900,130)">
+        <polygon points="0,40 70,20 140,40 70,62" fill="#d9b98a"/><polygon points="0,40 70,62 70,100 0,78" fill="#c9a674"/><polygon points="140,40 70,62 70,100 140,78" fill="#b8935f"/>
+      </g>
+      <text x="836" y="92" font-size="11" fill="#64748b">3D 预览</text><text x="1088" y="92" font-size="11" text-anchor="end" fill="#64748b">外 | 内 · 复位</text>
+      <rect x="836" y="272" width="252" height="30" rx="15" fill="#fff" stroke="#e2e8f0"/>
+      <text x="852" y="292" font-size="11" fill="#64748b">展开</text><line x1="888" y1="288" x2="1040" y2="288" stroke="#cbd5e1" stroke-width="3"/><circle cx="1010" cy="288" r="7" fill="#fff" stroke="#006868" stroke-width="2"/><text x="1050" y="292" font-size="11" fill="#64748b">合盖</text>
+      <rect x="820" y="334" width="284" height="250" rx="12" fill="#fff" stroke="#e2e8f0"/>
+      <text x="836" y="360" font-size="13" font-weight="600" fill="#1e293b">文件格式</text>
+      <g font-size="11" text-anchor="middle" fill="#1e293b">
+        <rect x="836" y="372" width="122" height="36" rx="8" fill="#eef6f6" stroke="#006868"/><text x="897" y="395">PDF 刀版</text>
+        <rect x="966" y="372" width="122" height="36" rx="8" fill="#fff" stroke="#cbd5e1"/><text x="1027" y="395">DXF 刀版</text>
+        <rect x="836" y="416" width="122" height="36" rx="8" fill="#fff" stroke="#cbd5e1"/><text x="897" y="439">AI 刀版</text>
+        <rect x="966" y="416" width="122" height="36" rx="8" fill="#fff" stroke="#cbd5e1"/><text x="1027" y="439">3D 样机图</text>
+      </g>
+      <text x="836" y="478" font-size="11" fill="#64748b">☑ 尺寸标注　☑ 出血线　☐ 面片名称</text>
+      <text x="836" y="498" font-size="11" fill="#64748b">质量档位：校样稿 ▾（工程候选稿需在工程域内）</text>
+      <text x="836" y="518" font-size="11" fill="#64748b">剩余免费导出 3 次</text>
+      <rect x="836" y="534" width="252" height="34" rx="8" fill="#006868"/><text x="962" y="556" font-size="12" text-anchor="middle" fill="#fff" font-weight="600">生成并下载</text>
+    </svg>
+    <figcaption>桌面端（≥1200px）三栏布局。左：参数面板，分“基础 / 高级 / 装箱 / 信息”四个页签；中：2D 画板；右上：3D 预览；右下：导出。768–1199px 时右栏收为抽屉；&lt;768px 时改为上下堆叠，2D 和 3D 用页签切换。</figcaption>
+  </figure>
+
+  <h3>5.3 功能清单</h3>
+  <div class="tw"><table>
+    <tr><th>区域</th><th>功能</th><th>行为细则</th><th>优先级</th></tr>
+    <tr><td rowspan="6">参数 · 基础</td><td>长宽高输入</td><td>数字框，支持上下键步进（0.5mm，Shift 为 5mm）；失焦或回车提交；输入过程中 150ms 防抖预览；超限时红框并显示允许范围，不静默夹取</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>单位切换</td><td>mm / in，仅影响显示与输入；英寸保留 4 位小数；内部一律毫米</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>尺寸类型</td><td>制造 / 内 / 外。切换时保持盒子实物不变，只换显示数值（即把当前三套尺寸中的另一套填进输入框）</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>材质</td><td>下拉分组（瓦楞 / 卡纸 / 牛皮）；选中后带入默认厚度、厚度范围、补偿规则、3D 贴图</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>厚度</td><td>步进器；范围取“材质范围 ∩ 模板范围”；瓦楞可选楞向 L / W</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>出血</td><td>0–10mm，默认 3mm；与“预览外扩”分离（见 8.5）</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td rowspan="3">参数 · 高级</td><td>结构参数</td><td>按 group 折叠分组；每项显示当前值、范围、是否为自动值；改动后出现“恢复自动”按钮</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>参数定位</td><td>聚焦某参数时，2D 画板高亮它影响的面片或孔位</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>全部恢复默认</td><td>二次确认后清空所有手动覆盖</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>参数 · 装箱</td><td>外箱联动</td><td>复用 <code>src/outbox.js</code>：按数量自动排布并生成 FEFCO 0201 外箱；入口保留，默认折叠</td><td><span class="tag t-p2">P2</span></td></tr>
+    <tr><td>参数 · 信息</td><td>模板说明</td><td>结构标准、质量档位、适用材质、免责声明链接、引擎版本</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td rowspan="6">2D 画板</td><td>刀版绘制</td><td>SVG 分层：出血、面片填充、切线、折线、孔、标注、高亮</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>缩放平移</td><td>滚轮缩放（以指针为中心）、空格或中键拖拽、双击适应窗口、键盘 + − 0</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>图层开关</td><td>出血 / 切线 / 折线 / 标注 / 面片名称；偏好存 <code>localStorage</code></td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>尺寸摘要</td><td>左上角同时显示制造、内、外三套尺寸；右上角显示展开尺寸和线长</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>悬停联动</td><td>悬停面片时 2D 与 3D 同时高亮，底部状态栏显示面名和宽高</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>量尺</td><td>点两点量距离，吸附到顶点和中点</td><td><span class="tag t-p2">P2</span></td></tr>
+    <tr><td rowspan="4">3D 预览</td><td>折叠滑块</td><td>0–100，按 <code>foldStages</code> 分步；显示“第 n / N 步”；播放按钮自动演示</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>视角</td><td>轨道控制、复位、内外表面切换</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>厚度表现</td><td>纸板有侧面厚度；瓦楞侧面显示楞纹贴图</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>放大</td><td>3D 可展开为大图模式，与 2D 互换主次位置</td><td><span class="tag t-p2">P2</span></td></tr>
+    <tr><td rowspan="4">顶栏</td><td>名称与保存状态</td><td>可改名；状态：未保存 / 保存中 / 已保存 / 冲突 / 离线</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>撤销重做</td><td>Ctrl+Z / Ctrl+Shift+Z，50 步</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>分享</td><td>复制带参数的链接；可选“只读”标记</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td>去设计 / 加入询价</td><td>带当前参数跳转 Studio 或询价流程</td><td><span class="tag t-p1">P1</span></td></tr>
+    <tr><td rowspan="3">导出</td><td>格式与选项</td><td>见第 11 节</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>任务队列</td><td>进行中、已完成、失败；重试和取消；完成后自动下载</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td>3D 样机图</td><td>浏览器端截图为 JPG / PNG，不占导出配额</td><td><span class="tag t-p1">P1</span></td></tr>
+  </table></div>
+
+  <h3>5.4 三种身份能做什么</h3>
+  <div class="tw"><table>
+    <tr><th>动作</th><th>访客</th><th>登录 · 免费</th><th>登录 · 年费</th></tr>
+    <tr><td>浏览刀版、改基础参数、看 3D</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>改高级结构参数</td><td>✓（默认开放，可配置）</td><td>✓</td><td>✓</td></tr>
+    <tr><td>复制分享链接</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>3D 样机图下载</td><td>带角标</td><td>带角标</td><td>无角标</td></tr>
+    <tr><td>自动保存到“我的设计”</td><td>弹登录，登录后认领当前参数</td><td>✓</td><td>✓</td></tr>
+    <tr><td>导出校样稿（vector_proof）</td><td>弹登录</td><td>扣 1 次免费配额</td><td>不限</td></tr>
+    <tr><td>导出工程候选稿（engineering）</td><td>弹登录</td><td>扣 1 次免费配额；参数须在模板工程域内</td><td>不限；参数须在模板工程域内</td></tr>
+    <tr><td>导出生产稿（manufacturing）</td><td colspan="3">本期界面不开放。后端门禁要求模板审批和实物打样通过记录，目前没有任何模板具备打样通过记录</td></tr>
+  </table></div>
+  <p class="muted small">配额沿用现有 <code>OrganizationEntitlement</code>：每个组织终身 10 次免费导出（<code>free_export_limit</code>），年费方案不限。高级参数是否收费、工程候选稿是否仅限年费，见 17 节。</p>
+
+  <h3>5.5 状态与异常</h3>
+  <div class="tw"><table>
+    <tr><th>情形</th><th>界面表现</th></tr>
+    <tr><td>参数超出范围</td><td>输入框红框 + 范围提示；画板保持上一次有效刀版，并在角上标“显示的是上一次有效结果”</td></tr>
+    <tr><td>契约校验阻断项失败</td><td>左下校验卡变红，列出失败项；导出按钮禁用并说明原因</td></tr>
+    <tr><td>合盖告警（<code>foldClosed</code>）</td><td>黄色提示，不阻断；可点击定位到相关面片</td></tr>
+    <tr><td>切线为近似轮廓（<code>meta.cutApprox</code>）</td><td>黄色提示“轮廓为近似”；该状态下只能导出校样稿</td></tr>
+    <tr><td>参数超出工程域</td><td>尺寸摘要旁显示“工程域外”徽标，悬停说明域范围；工程候选稿选项置灰，校样稿仍可导出</td></tr>
+    <tr><td>保存冲突（另一处已修改）</td><td>顶栏提示，提供“载入最新”或“另存为副本”</td></tr>
+    <tr><td>离线</td><td>继续可用（几何本地算）；改动写入本地草稿，联网后自动补存</td></tr>
+    <tr><td>WebGL 不可用</td><td>3D 区域显示说明和 2D 合盖示意图，其余功能不受影响</td></tr>
+    <tr><td>模板不支持工作台</td><td><code>fixed_snapshot / model_only</code> 的盒型不显示“定制刀版”入口；直接访问时跳回产品页</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 6 -->
+<section id="s6">
+  <h2><span class="no">6</span>总体架构</h2>
+  <figure>
+    <svg viewBox="0 0 1120 470" role="img" aria-label="工作台总体架构图">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+      <rect width="1120" height="470" fill="#fff"/>
+      <!-- browser -->
+      <rect x="16" y="16" width="640" height="438" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="32" y="40" font-size="13" font-weight="600" fill="#1e293b">浏览器</text>
+      <rect x="32" y="56" width="188" height="150" rx="10" fill="#fff" stroke="#b7d9d9"/>
+      <text x="46" y="78" font-size="12" font-weight="600" fill="#006868">界面层（Vue）</text>
+      <text x="46" y="100" font-size="11.5" fill="#475569">ParamPanel 参数面板</text><text x="46" y="118" font-size="11.5" fill="#475569">DielineCanvas 2D 画板</text><text x="46" y="136" font-size="11.5" fill="#475569">FoldPreview 3D 预览</text><text x="46" y="154" font-size="11.5" fill="#475569">ExportCenter 导出中心</text><text x="46" y="172" font-size="11.5" fill="#475569">ValidationCard 校验卡</text>
+      <rect x="244" y="56" width="188" height="150" rx="10" fill="#fff" stroke="#b7d9d9"/>
+      <text x="258" y="78" font-size="12" font-weight="600" fill="#006868">状态层（Pinia）</text>
+      <text x="258" y="100" font-size="11.5" fill="#475569">workbench：输入参数</text><text x="258" y="118" font-size="11.5" fill="#475569">knife：计算结果（只读）</text><text x="258" y="136" font-size="11.5" fill="#475569">design：保存与版本</text><text x="258" y="154" font-size="11.5" fill="#475569">export / billing：复用</text><text x="258" y="172" font-size="11.5" fill="#475569">URL ⇄ 状态 同步</text>
+      <rect x="456" y="56" width="184" height="150" rx="10" fill="#eef6f6" stroke="#006868"/>
+      <text x="470" y="78" font-size="12" font-weight="600" fill="#006868">引擎 Worker</text>
+      <text x="470" y="100" font-size="11.5" fill="#475569">createKnife()</text><text x="470" y="118" font-size="11.5" fill="#475569">validateKnife()</text><text x="470" y="136" font-size="11.5" fill="#475569">geometryHash()</text><text x="470" y="154" font-size="11.5" fill="#475569">请求序号：只认最新</text><text x="470" y="172" font-size="11.5" fill="#475569">失败回退主线程</text>
+      <line x1="220" y1="130" x2="242" y2="130" stroke="#64748b" marker-end="url(#ar)"/><line x1="432" y1="110" x2="454" y2="110" stroke="#64748b" marker-end="url(#ar)"/><line x1="456" y1="150" x2="434" y2="150" stroke="#64748b" marker-end="url(#ar)"/>
+      <rect x="32" y="230" width="296" height="96" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="46" y="252" font-size="12" font-weight="600" fill="#1e293b">2D 渲染</text>
+      <text x="46" y="274" font-size="11.5" fill="#475569">knife.paths → SVG &lt;path&gt;，分层 &lt;g&gt;</text><text x="46" y="292" font-size="11.5" fill="#475569">视口变换放在外层 &lt;g&gt;，缩放不重算路径</text><text x="46" y="310" font-size="11.5" fill="#475569">标注由 dimAnnotations 生成</text>
+      <rect x="344" y="230" width="296" height="96" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="358" y="252" font-size="12" font-weight="600" fill="#1e293b">3D 渲染</text>
+      <text x="358" y="274" font-size="11.5" fill="#475569">createKnifeScene → boxModel 铰链树</text><text x="358" y="292" font-size="11.5" fill="#475569">setKnife 重建网格，保留相机</text><text x="358" y="310" font-size="11.5" fill="#475569">setProgress 只改铰链角度</text>
+      <rect x="32" y="346" width="608" height="92" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="46" y="368" font-size="12" font-weight="600" fill="#1e293b">持久化（客户端）</text>
+      <text x="46" y="390" font-size="11.5" fill="#475569">URL 查询串：访客状态与分享　｜　IndexedDB 草稿（draftRepository）：断网与崩溃恢复　｜　localStorage：界面偏好</text>
+      <text x="46" y="410" font-size="11.5" fill="#475569">同一份 packages/geometry-engine 源码，浏览器走 Worker，服务端走 Node；engineVersion 写进每份刀版</text>
+      <text x="46" y="428" font-size="11.5" fill="#475569">→ 保证“屏幕上看到的”与“服务端导出的”是同一几何</text>
+      <!-- server -->
+      <rect x="690" y="16" width="414" height="438" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="706" y="40" font-size="13" font-weight="600" fill="#1e293b">服务端</text>
+      <rect x="706" y="56" width="382" height="118" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="720" y="78" font-size="12" font-weight="600" fill="#1e293b">Django API（/api/v1）</text>
+      <text x="720" y="100" font-size="11.5" fill="#475569">catalog：产品、模板版本、参数范围、材质</text><text x="720" y="118" font-size="11.5" fill="#475569">designs：懒创建、自动保存、缩略图</text><text x="720" y="136" font-size="11.5" fill="#475569">exports：任务、并发上限、重试与取消</text><text x="720" y="154" font-size="11.5" fill="#475569">billing：权益与配额</text>
+      <rect x="706" y="194" width="382" height="100" rx="10" fill="#eef6f6" stroke="#006868"/>
+      <text x="720" y="216" font-size="12" font-weight="600" fill="#006868">Node 几何服务（services/geometry）</text>
+      <text x="720" y="238" font-size="11.5" fill="#475569">同一引擎，strict 模式复算</text><text x="720" y="256" font-size="11.5" fill="#475569">核对 geometryHash；不一致则以服务端为准并告警</text><text x="720" y="274" font-size="11.5" fill="#475569">产出导出用矢量（SVG / DXF / PDF / AI）</text>
+      <rect x="706" y="314" width="382" height="124" rx="10" fill="#fff" stroke="#e2e8f0"/>
+      <text x="720" y="336" font-size="12" font-weight="600" fill="#1e293b">存储与后台任务</text>
+      <text x="720" y="358" font-size="11.5" fill="#475569">数据库：Design / Revision / ExportJob / Entitlement</text><text x="720" y="376" font-size="11.5" fill="#475569">对象存储：导出文件、缩略图</text><text x="720" y="394" font-size="11.5" fill="#475569">后台任务：导出、缩略图</text><text x="720" y="412" font-size="11.5" fill="#475569">审计：导出记录含参数、hash、引擎版本</text>
+      <line x1="656" y1="100" x2="704" y2="100" stroke="#64748b" marker-end="url(#ar)"/><text x="680" y="92" font-size="10.5" text-anchor="middle" fill="#64748b">保存</text>
+      <line x1="656" y1="140" x2="704" y2="140" stroke="#64748b" marker-end="url(#ar)"/><text x="680" y="132" font-size="10.5" text-anchor="middle" fill="#64748b">导出</text>
+      <line x1="897" y1="174" x2="897" y2="192" stroke="#64748b" marker-end="url(#ar)"/><line x1="897" y1="294" x2="897" y2="312" stroke="#64748b" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>数据单向流动：参数输入 → 引擎 → 只读 knife → 2D / 3D / 标注 / 校验。界面组件不直接改 knife。</figcaption>
+  </figure>
+
+  <h3>6.1 关键决策：为什么不照搬“几何全在服务端”</h3>
+  <div class="tw"><table>
+    <tr><th>方案</th><th>优点</th><th>缺点</th><th>结论</th></tr>
+    <tr><td>A. 全服务端（Pacdora 模式）</td><td>算法不出现在前端；单一事实来源</td><td>每次改动一个往返，输入有延迟；访客流量直接打到后端；离线不可用；要新建预览接口和限流</td><td>不选</td></tr>
+    <tr><td>B. 全浏览器</td><td>零延迟、零成本</td><td>导出文件可被伪造的参数或被改过的前端代码影响；无法审计</td><td>不选</td></tr>
+    <tr><td><b>C. 同构：浏览器预览 + 服务端复算</b></td><td>体验最好；导出可信；访客不耗后端；现有代码已接近这个形态</td><td>必须保证两端引擎版本一致；算法在前端可见</td><td><b>采用</b></td></tr>
+  </table></div>
+  <p>方案 C 的两个代价都有对策：版本一致靠 <code>engineVersion</code> + <code>geometryHash</code> 双重校验（10.3 节）；算法可见的问题通过“可生产级模板可标记为 <code>serverOnly</code>”保留退路——这类模板的浏览器端只拿到服务端返回的 knife，不下发生成函数（9.3 节）。首批模板不启用 <code>serverOnly</code>。</p>
+
+  <h3>6.2 一次“改长度”的完整时序</h3>
+  <div class="flow">
+    <div class="step"><b>0 ms</b>用户输入 330，<code>workbench.setDim('length', 330)</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>≈ 5 ms</b>同步预检：范围、单位换算；写入 URL（replaceState）</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>≈ 30 ms</b>Worker 返回新 knife 与校验结果，2D 重绘</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>≈ 150 ms</b>3D 在下一个空闲帧重建网格，相机不动</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>1.5 s 后</b>无新改动则保存 Revision；服务端复算核对 hash</div>
+  </div>
+</section>
+
+<!-- ============================================================ 7 -->
+<section id="s7">
+  <h2><span class="no">7</span>数据契约</h2>
+  <h3>7.1 三层数据</h3>
+  <div class="grid3">
+    <div class="card"><h4>输入：WorkbenchParams</h4><p class="muted">用户能改的全部内容。就是现有 <code>DesignDocumentV1.geometry.params</code>，只做小幅扩展。保存、分享、导出都只传这一层。</p></div>
+    <div class="card"><h4>定义：TemplateManifest</h4><p class="muted">模板自述：尺寸范围、参数定义、可用材质、质量档位。由目录接口下发，界面据此生成表单。</p></div>
+    <div class="card"><h4>输出：Knife v3.1</h4><p class="muted">引擎的计算结果，只读。任何时候都能由“输入 + 模板版本 + 引擎版本”重算得到，所以不入库，只存 hash。</p></div>
+  </div>
+
+  <h3>7.2 Knife v3 → v3.1 增量</h3>
+  <p>全部为新增字段或新增枚举值，现有读取方（Studio、LAB、导出器、<code>scripts/check-*</code>）不受影响。<code>schema</code> 保持 <code>boxcraft.knife.v3</code>，新增 <code>schemaMinor: 1</code>。</p>
+  <div class="tw"><table>
+    <tr><th>字段</th><th>变化</th><th>内容</th><th>使用方</th></tr>
+    <tr><td><code>dimensions.sizeMode</code></td><td>新增枚举值</td><td><code>'inner' | 'outer' | 'manufacturing'</code></td><td>参数面板、标注</td></tr>
+    <tr><td><code>dimensions.inner / panel / outer</code></td><td>不变</td><td>三套尺寸已存在；界面把 <code>panel</code> 称为“制造尺寸”</td><td>尺寸摘要</td></tr>
+    <tr><td><code>material</code></td><td>扩展</td><td><code>{ id, family, flute, thicknessMm, allowance: { inner, outer }, fluteDirection }</code></td><td>补偿计算、3D 贴图、导出标题栏</td></tr>
+    <tr><td><code>folds[].name</code></td><td>新增</td><td><code>'{parent}__{child}'</code>，例如 <code>base__front</code>；与 <code>hinges[]</code> 一一对应</td><td>2D / 3D 联动、DXF 实体标签</td></tr>
+    <tr><td><code>faces[].dlist[].fold</code></td><td>新增</td><td>面轮廓中落在折线上的边标注折线名</td><td>面片填充、印刷安全区</td></tr>
+    <tr><td><code>paths</code></td><td>新增</td><td><code>{ trim: Cmd[][], crease: Cmd[][], bleed: Cmd[][] }</code>，命令为 <code>M / L / A / C / Z</code>，保留真圆弧与贝塞尔</td><td>2D 渲染、导出器</td></tr>
+    <tr><td><code>layers.*.segments</code></td><td>保留</td><td>继续输出线段化结果（由 <code>paths</code> 展平得到），供旧读取方和碰撞估算使用</td><td>兼容</td></tr>
+    <tr><td><code>stats</code></td><td>新增</td><td><code>{ cutLengthMm, creaseLengthMm, sheetWidthMm, sheetHeightMm, sheetAreaM2, netAreaM2, holeCount, faceCount }</code></td><td>画板摘要、报价</td></tr>
+    <tr><td><code>paramState</code></td><td>新增</td><td>每个结构参数：<code>{ value, auto, min, max, source: 'default' | 'user', clamped }</code></td><td>高级参数面板</td></tr>
+    <tr><td><code>foldStages</code></td><td>不变</td><td>模板可通过 <code>template.foldStages(params)</code> 显式覆盖按深度自动生成的步骤</td><td>3D 分步</td></tr>
+    <tr><td><code>bleed / bleedEffective</code></td><td>语义澄清</td><td><code>bleed</code> 为交付出血；预览外扩改为 <code>meta.previewBleedExtra</code>，由调用方决定是否启用</td><td>导出器、画板</td></tr>
+    <tr><td><code>issues</code></td><td>新增</td><td><code>[{ code, severity: 'blocking' | 'warning' | 'info', message, faces?, params? }]</code>，汇总契约校验、参数约束、近似轮廓</td><td>校验卡、导出门禁</td></tr>
+    <tr><td><code>engineVersion / geometryHash</code></td><td>新增到 knife</td><td>hash 沿用现有 <code>g1:</code> 规范（见 8.8），knife 自带后便于核对</td><td>同构校验、审计</td></tr>
+  </table></div>
+
+<pre><code><span class="c">// Knife v3.1 示例（节选）：翻盖邮寄盒，制造尺寸 315×202×62，E 楞 1.5mm</span>
+{
+  "schema": "boxcraft.knife.v3", "schemaMinor": 1, "unit": "mm",
+  "template": "mailer-parametric-demo", "templateVersion": "1.2.0",
+  "engineVersion": "3.1.0", "geometryHash": "g1:9c1e…",
+  "dimensions": {
+    "sizeMode": "manufacturing", "thickness": 1.5,
+    "inner": { "length": 312, "width": 199, "height": 60.5 },
+    "panel": { "length": 315, "width": 202, "height": 62 },
+    "outer": { "length": 315, "width": 202, "height": 63.5 }
+  },
+  "material": { "id": "flute-e", "family": "corrugated", "flute": "E", "thicknessMm": 1.5,
+                "allowance": { "inner": 1.0, "outer": 0.5 }, "fluteDirection": "L" },
+  "faces":  [ { "name": "base", "x": 0, "y": 0, "w": 315, "h": 202, "parent": null,
+                "dlist": [ { "mtd": "M", "x": 0, "y": 0 },
+                           { "mtd": "L", "x": 315, "y": 0, "fold": "base__back" }, … ] }, … ],
+  "folds":  [ { "name": "base__back", "x1": 0, "y1": 0, "x2": 315, "y2": 0, "angle": 90 }, … ],
+  "paths":  { "trim":   [ [ { "mtd": "M", "x": 12, "y": 0 }, { "mtd": "A", "rx": 12, "ry": 12, "x": 0, "y": 12, "sweep": 0 }, … ] ],
+              "crease": [ … ], "bleed": [ … ] },
+  "stats":  { "cutLengthMm": 3640.2, "creaseLengthMm": 3065.0,
+              "sheetWidthMm": 576, "sheetHeightMm": 590, "sheetAreaM2": 0.3398, "netAreaM2": 0.2471 },
+  "paramState": { "N": { "value": 81, "auto": 81, "min": 13, "max": 101, "source": "default", "clamped": false } },
+  "issues": [ { "code": "FOLD_CLOSED_WARN", "severity": "warning", "message": "tuck 与 front 间隙 0.2mm", "faces": ["tuck", "front"] } ],
+  "validation": { "ok": true, "checks": [ … ] }
+}</code></pre>
+  <p class="muted small">示例中的尺寸数值仅用于说明字段形态，不代表最终补偿系数。</p>
+
+  <h3>7.3 输入层：对 DesignDocumentV1 的扩展</h3>
+<pre><code>geometry.params: {
+  lengthMm, widthMm, heightMm, thicknessMm,          <span class="c">// 不变，始终为毫米</span>
+  sizeMode: 'inner' | 'outer' | 'manufacturing',     <span class="c">// 新增 'manufacturing'</span>
+  fluteDirection: 'L' | 'W',
+  materialId: string,                                <span class="c">// 改为材质表 id，如 'flute-e'；旧值 kraft/white/blue 走映射</span>
+  bleedInputMm: number,
+  advanced: Record&lt;string, number | string&gt;          <span class="c">// 只存用户手动覆盖的结构参数；未出现的键 = 自动值</span>
+}
+<span class="c">// 新增，可选</span>
+workbench?: {
+  displayUnit: 'mm' | 'in',
+  view?: { showBleed, showTrim, showCrease, showDims, showFaceNames }
+}</code></pre>
+  <p><code>schemaVersion</code> 仍为 <code>boxcraft.design.v1</code>：新增的枚举值和可选字段对旧文档兼容。需要同步修改 <code>packages/design-schema/design-document.v1.schema.json</code> 与 <code>designDocument.ts</code>。</p>
+
+  <h3>7.4 URL 状态编码</h3>
+<pre><code>/workbench/mailer-flip?l=315&amp;w=202&amp;h=62&amp;t=1.5&amp;m=flute-e&amp;sm=dm&amp;fd=L&amp;b=3&amp;p=N:81,K:2,SP:80&amp;u=mm&amp;v=1
+                       └ 尺寸（毫米）┘  └厚度┘ └材质┘  └┬┘  └楞向┘ └出血┘ └ 仅手动覆盖的参数 ┘ └单位┘ └编码版本┘
+                                                    sm：dm 制造 / id 内 / ed 外</code></pre>
+  <ul>
+    <li>只写入与模板默认值不同的项，默认状态的 URL 保持干净，利于收录。</li>
+    <li>用 <code>history.replaceState</code> 更新，不产生历史记录；撤销重做由状态层管理。</li>
+    <li>进入页面时的优先级：<code>?design=&lt;id&gt;</code>（载入已保存工程）＞ URL 参数 ＞ 本地草稿 ＞ 模板默认值。</li>
+    <li>解析时逐项校验并夹取到合法范围，丢弃未知参数；URL 属于不可信输入，不直接进入引擎。</li>
+    <li>URL 中不放任何用户标识或个人信息。</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 8 -->
+<section id="s8">
+  <h2><span class="no">8</span>几何引擎改造</h2>
+  <p>改动集中在 <code>src/knife.js</code> 和模板定义。原则：所有改动都有开关或默认值保持旧行为，<code>npm run check:all</code> 现有 11 步全部继续通过。</p>
+
+  <h3>8.1 制造尺寸模式 <span class="tag t-p0">P0</span></h3>
+  <p>现状：<code>deriveSizes()</code> 把输入当作内尺寸或外尺寸，再推出 <code>panel</code>。新增第三种入口，把输入当作 <code>panel</code>：</p>
+<pre><code><span class="c">// deriveSizes() 内</span>
+const raw = mode === 'inner'         ? input[k]
+          : mode === 'outer'         ? input[k] - outerAdd(k)
+          : <span class="c">/* manufacturing */</span>     input[k] - panelAdd(k)
+<span class="c">// 范围校验改为对“用户输入的那一套”做，并把另外两套换算后的范围一并返回，供界面显示</span></code></pre>
+  <ul>
+    <li>模板的 <code>limits</code> 目前定义在内尺寸上。新增 <code>limitsFor(mode, T)</code> 返回当前模式下的范围，界面上的“范围 20–600”随尺寸类型变化。</li>
+    <li>切换尺寸类型时不改变盒子：界面拿 <code>knife.dimensions[inner|panel|outer]</code> 回填输入框即可，无需重算。</li>
+    <li>工作台默认尺寸类型：瓦楞类模板为“制造”，卡纸类模板为“内”。可在模板清单里配置。</li>
+    <li><b>工程域要跟着改。</b>现有工程域以内尺寸定义（<code>dimensionBasis: "inner"</code>），且校验要求 <code>size_mode</code> 与之相等。用制造或外尺寸输入时会被直接判为域外。改为：先用 <code>deriveSizes()</code> 换算出内尺寸，再与域范围比较。<code>packages/geometry-schema/engineeringDomain.mjs</code> 和 <code>backend/apps/exports/engineering_domain.py</code> 两处同步修改。</li>
+  </ul>
+
+  <h3>8.2 厚度与材质补偿 <span class="tag t-p0">P0</span></h3>
+  <p>两个问题一起解决：薄板被夹到 0.5mm；材质不参与补偿。</p>
+  <ol>
+    <li><b>去掉 0.5mm 硬下限。</b>厚度下限改由材质表给出（卡纸最薄 0.2mm 量级）。非严格模式下厚度缺失时取材质默认厚度。</li>
+    <li><b>新增材质表</b> <code>packages/geometry-engine/materialProfiles.js</code>（由现有 <code>paperCatalog.js</code> 升级而来，即《生产级刀版引擎统一化方案》里尚未落地的 MaterialProfile），每项包含：
+<pre><code>{ id: 'flute-e', family: 'corrugated', flute: 'E', labelZh: 'E 楞瓦楞（三层）', labelKo: 'E골 골판지',
+  thickness: { default: 1.5, min: 1.1, max: 2.0, step: 0.1 },
+  allowance: (T) =&gt; ({ inner: …, outer: … }),   <span class="c">// 折弯时纸厚向内、向外各占多少</span>
+  bleedDefaultMm: 5, engineMaterialId: 'kraft', calibrated: false, profileVersion: '0.1', riskTags: [] }</code></pre>
+    <code>engineMaterialId</code> 保留到 kraft / white / blue 的映射：3D 贴图、工程域 <code>materialIds</code>、<code>TemplateApproval.material_ids</code> 目前都按这三个值判断，本期不改它们的取值。</li>
+    <li><b>补偿规则二选一，逐模板迁移。</b>模板现有的 <code>sizeRule: { panelAdd, outerAdd }</code>（T 的倍数）继续有效；新写法允许用内缩和外扩表达：
+<pre><code>sizeRule: {
+  panelAdd: { length: { inner: 2 }, width: { inner: 2 }, height: { inner: 1 } },   <span class="c">// = 2×allowance.inner</span>
+  outerAdd: { length: { t: 2 },     width: { t: 3 },     height: { t: 2 } }
+}</code></pre></li>
+  </ol>
+  <div class="callout warn"><p><b>系数必须自己验证。</b>逆向报告观察到对方的拆分为 <code>inless = ROUNDDOWN(2T/3)</code>（步长 0.5 或 0.05），这只能作为对照基线。BOXCRAFT 的 <code>allowance</code> 函数和各模板的 <code>panelAdd / outerAdd</code> 需要用实际打样结果标定：每个材质族至少一组“输入内尺寸 → 折成后实测内尺寸”的数据。标定前，工作台对这些尺寸统一标注“示意补偿”。标定任务见 15 节 E-07。</p></div>
+
+  <h3>8.3 结构参数：分级、动态范围、参数间约束 <span class="tag t-p0">P0</span></h3>
+  <p>现有 <code>pdef(code, label, group, defFn, { min, max, unit })</code> 扩展为：</p>
+<pre><code>pdef('SP', '孔距', '插脚插孔', (p) =&gt; round(0.4 * p.width), {
+  grade: 2,                                   <span class="c">// 1 基础 · 2 常用 · 3 进阶 · 4 专家；界面按级别折叠</span>
+  unit: 'mm', step: 0.5,
+  min: 10,
+  max: (p, T, params) =&gt; p.width - params.SW - 2 * EDGE_MARGIN,   <span class="c">// 上下限可以是函数</span>
+  affects: ['base'],                          <span class="c">// 聚焦该参数时高亮的面片</span>
+  labelKo: '구멍 간격',
+  help: '相邻两个插孔中心的距离'
+})
+
+<span class="c">// 模板级：参数间约束，全部通过才允许导出</span>
+constraints: [
+  { code: 'SLOT_SPAN', severity: 'blocking',
+    test: ({ params: P, panel }) =&gt; (P.K - 1) * P.SP + P.SW &lt;= panel.width - 2 * EDGE_MARGIN,
+    message: '插孔总跨度超出底面宽度，请减少数量或孔距', params: ['K', 'SP', 'SW'] }
+]</code></pre>
+  <ul>
+    <li><b>解析顺序。</b><code>resolveParams()</code> 按依赖拓扑排序：先算不依赖其他参数的，再算依赖项；循环依赖在模板加载时报错（由 <code>check:templates</code> 把关）。</li>
+    <li><b>自动值与手动值。</b>未覆盖的参数随尺寸变化自动更新；已覆盖的保持用户值，超出新范围时夹取并置 <code>clamped: true</code>，界面提示“已调整为 X”。</li>
+    <li><b>离散参数。</b><code>unit: 'count'</code>（如孔数）用步进器，取整。</li>
+    <li>这直接修复 G9：<code>sideSlotHoles()</code> 中 <code>margin</code> 为负的组合会被 <code>SLOT_SPAN</code> 拦住。</li>
+  </ul>
+
+  <h3>8.4 真圆弧路径 <span class="tag t-p1">P1</span></h3>
+  <p>目标：圆角孔和倒角在 PDF / SVG / DXF 中是真正的弧，而不是 4–10 段折线。分两步走，避免动到并集与偏移算法：</p>
+  <ol>
+    <li><b>弧标记透传。</b>模板产生圆弧的地方（<code>holeLoop</code>、<code>taperRoundFlap</code> 等）在细分点上附带 <code>arc: { cx, cy, r, id }</code> 元数据。并集和去重步骤保留该元数据。</li>
+    <li><b>弧重建。</b>生成 <code>paths</code> 时，把连续且 <code>arc.id</code> 相同、端点仍在圆上的点列合并回一条 <code>A</code> 命令；被布尔运算切断的弧按剩余部分重建；无法确认的保持折线。内部计算（并集、出血偏移、碰撞）继续用折线，细分精度提高到弦高 ≤ 0.05mm。</li>
+  </ol>
+  <p>出血线的弧：偏移后的圆角半径为 <code>r + bleed</code>，同法重建。自锁底模板已有的精确三次贝塞尔（<code>src/crashlock/</code>）直接映射为 <code>C</code> 命令。</p>
+
+  <h3>8.5 出血语义 <span class="tag t-p1">P1</span></h3>
+  <p>现状是 <code>有效出血 = 用户输入 + 10mm</code>，目的是让预览里切线和出血线分得开。工作台里这会让“填 3mm 得到 13mm”。调整为：</p>
+  <ul>
+    <li><code>createKnife({ bleed, previewBleedExtra = 0 })</code>：工作台与导出传 0；LAB 和 Studio 为保持现有观感继续传 10。</li>
+    <li>画板上出血线离切线太近（屏幕距离 &lt; 3px）时，靠线宽和颜色区分，不靠改几何。</li>
+  </ul>
+
+  <h3>8.6 线长与面积统计 <span class="tag t-p0">P0</span></h3>
+  <ul>
+    <li><code>cutLengthMm</code>：全部切线（外轮廓 + 孔）长度，弧按弧长计。</li>
+    <li><code>creaseLengthMm</code>：全部折线长度。</li>
+    <li><code>sheetWidthMm × sheetHeightMm</code>：含出血的外接矩形，即最小开料尺寸；<code>netAreaM2</code>：切线围成的净面积。</li>
+    <li>报价模块（<code>backend/apps/quotes</code>）可据此估刀模费与用纸量；工作台画板右上角展示。</li>
+  </ul>
+
+  <h3>8.7 折线命名与面边标注 <span class="tag t-p0">P0</span></h3>
+  <p><code>foldsFromFaces()</code> 目前只返回线段。改为每条折线带 <code>name = '{parent}__{child}'</code>、<code>angle</code>、<code>stage</code>（在第几步折）。同时在生成 <code>faces[].dlist</code> 时，把与折线重合的边标上 <code>fold</code>。用双下划线是因为现有面名里已有驼峰和单下划线的用法，避免歧义。</p>
+
+  <h3>8.8 引擎抽包与版本 <span class="tag t-p0">P0</span></h3>
+  <ul>
+    <li>把 <code>knife.js</code>、<code>knifeContract.js</code>、<code>foldSim.js</code>、<code>foldStages.js</code>、<code>dimAnnotations.js</code>、<code>templates/</code>、<code>crashlock/</code>、<code>exportDieline.js</code> 归入 <code>packages/geometry-engine/</code>，原路径保留转发文件（<code>export * from</code>），不改任何现有 import。</li>
+    <li>包内不得引用 <code>window</code>、<code>document</code>、Vue、Three.js，保证能在 Worker 和 Node 运行。用一条 lint 规则和一个 Node 冒烟脚本守住。</li>
+    <li><code>ENGINE_VERSION</code> 常量采用语义化版本：几何结果可能变化 → 升次版本号；仅新增字段 → 升修订号。</li>
+    <li><code>geometryHash</code> 沿用现有规范，不另起一套：<code>packages/geometry-schema/geometryDocument.mjs</code> 的 <code>canonicalHash(geometryDocumentFromKnife(knife, input))</code>，前缀 <code>g1:</code>，坐标精度 0.001mm。该模块是纯 ES 模块，浏览器 Worker 可直接引用，与服务端 <code>/validate</code> 返回的 <code>geometry_hash</code> 同源。</li>
+    <li>v3.1 改变了路径内容（真圆弧、去掉预览外扩），hash 会整体变化一次。上线时把 <code>GENERATOR_VERSION</code> 从 <code>1.0.0</code> 升到 <code>1.1.0</code>；旧 Revision 保存的 hash 不回写，只在下次保存时更新。</li>
+    <li>Studio 的 <code>geometryFingerprint()</code>（<code>src/studio/artworkResize.ts</code>）是输入参数指纹，用途是判断图层要不要适配，与 <code>geometryHash</code> 不是一回事，保持不动。</li>
+  </ul>
+
+  <h3>8.9 首批模板与准入条件</h3>
+  <div class="tw"><table>
+    <tr><th>工作台 slug</th><th>模板 id</th><th>工程域（内尺寸 L × W × H，厚度）</th><th>现状</th><th>上线前要做</th></tr>
+    <tr><td><code>shipping-0201</code></td><td><code>fefco-0201</code></td><td>200–400 × 150–300 × 100–250，T 2–4</td><td>目录已有种子；圆角与闭合做过专项；有打样记录接口但无通过记录</td><td>补参数分级、约束、韩文标签</td></tr>
+    <tr><td><code>tuck-end-straight</code></td><td><code>tuck-end-straight</code></td><td>50–200 × 30–120 × 80–300，T 0.3–1.2</td><td>目录已有种子</td><td>同上；去掉 0.5mm 厚度下限后回归</td></tr>
+    <tr><td><code>mailer-flip</code></td><td><code>mailer-parametric-demo</code></td><td>200–450 × 120–300 × 40–120，T 1.0–2.5</td><td>目录已有种子；19 面矩形近似</td><td>舌片与锁扣改多边形轮廓；补结构参数</td></tr>
+    <tr><td><code>crashlock</code></td><td><code>productbox-crashlock</code></td><td>55–200 × 55–150 × 60–100，T 0.3–1.2</td><td>目录已有种子；独立生成器 <code>createCrashlockKnife</code>；厚度钩子未校准</td><td>输出对齐 v3.1 字段（paths、stats、paramState）</td></tr>
+    <tr><td><code>mailer-aircraft</code></td><td><code>rea-aircraft</code></td><td>无</td><td>18 个结构参数；有金样回归；目录无种子</td><td>新增目录种子；补约束（8.3）；先只开校样稿，工程域另行评审；模板 id 与文案去掉“REA”字样（17 节 Q5）</td></tr>
+    </table></div>
+  <p><b>准入条件</b>（写入 <code>scripts/check-workbench-templates.mjs</code>）：</p>
+  <ol>
+    <li>在尺寸下限、默认值、上限 × 厚度下限、默认值、上限共 27 个组合点上，<code>validation.ok === true</code> 且 <code>meta.cutApprox === false</code>。</li>
+    <li>每个结构参数在自身 min、max 处各生成一次，无阻断问题。</li>
+    <li>切线每个环闭合、不自交，孔全部落在所属面内。</li>
+    <li>同一输入连续两次生成，<code>assertStableTopology</code> 通过且 <code>geometryHash</code> 相同。</li>
+    <li>所有 <code>paramDefs</code> 具备 <code>label / labelKo / grade / group</code>。</li>
+  </ol>
+</section>
+
+<!-- ============================================================ 9 -->
+<section id="s9">
+  <h2><span class="no">9</span>前端实现</h2>
+  <h3>9.1 路由</h3>
+<pre><code><span class="c">// src/router/index.ts 新增</span>
+{ path: '/workbench/:slug', name: 'workbench',
+  meta: { seoKey: 'workbench' },                       <span class="c">// 可收录：访客可见、默认 URL 干净</span>
+  component: () =&gt; import('../features/workbench/WorkbenchPage.vue') }
+
+<span class="c">// 入口改动</span>
+ProductsPage 卡片 / ProductDetailPage：geometry_mode === 'parametric' 且 capabilities.workbench 为真时显示“定制刀版”
+DesignsPage：artwork.layers 为空的设计，点击进入工作台（/workbench/:slug?design=:id），否则进 Studio</code></pre>
+  <p>带 <code>?design=</code> 或带非默认参数的 URL 输出 <code>noindex</code>，只收录每个盒型的默认页。SEO 标题和描述放进 <code>src/seo/</code> 现有配置。</p>
+
+  <h3>9.2 目录结构</h3>
+<pre><code>src/features/workbench/
+├─ WorkbenchPage.vue              <span class="c"># 页面壳：布局、快捷键、离开提示</span>
+├─ stores/
+│  ├─ workbench.ts                <span class="c"># 输入参数、撤销重做、URL 同步</span>
+│  └─ knife.ts                    <span class="c"># 引擎调用、结果缓存、校验结果</span>
+├─ engine/
+│  ├─ engineClient.ts             <span class="c"># Worker 封装：序号、超时、回退</span>
+│  └─ engine.worker.ts            <span class="c"># import packages/geometry-engine</span>
+├─ components/
+│  ├─ TopBar.vue                  <span class="c"># 名称、保存状态、撤销重做、分享、去设计、下载</span>
+│  ├─ panel/
+│  │  ├─ ParamPanel.vue           <span class="c"># 页签容器</span>
+│  │  ├─ BasicTab.vue  ├─ AdvancedTab.vue  ├─ PackingTab.vue  └─ InfoTab.vue
+│  │  ├─ DimInput.vue             <span class="c"># 带单位、范围、步进的数字输入</span>
+│  │  ├─ SizeModeToggle.vue  ├─ MaterialSelect.vue  ├─ ThicknessStepper.vue
+│  │  ├─ ParamField.vue           <span class="c"># 单个结构参数：值、范围条、恢复自动</span>
+│  │  └─ ValidationCard.vue
+│  ├─ canvas/
+│  │  ├─ DielineCanvas.vue        <span class="c"># SVG 根、视口、指针事件</span>
+│  │  ├─ layers/ BleedLayer.vue  FaceLayer.vue  TrimLayer.vue  CreaseLayer.vue  DimLayer.vue  HighlightLayer.vue
+│  │  ├─ CanvasToolbar.vue  ├─ CanvasLegend.vue  └─ SizeSummary.vue
+│  ├─ preview/
+│  │  ├─ FoldPreview.vue          <span class="c"># 包装 createKnifeScene</span>
+│  │  └─ FoldSlider.vue
+│  └─ export/
+│     ├─ ExportCenter.vue  ├─ FormatPicker.vue  ├─ ExportOptions.vue  ├─ ExportQueue.vue
+│     └─ GateDialog.vue           <span class="c"># 登录、配额、升级三种门槛</span>
+├─ composables/
+│  ├─ useViewport.ts              <span class="c"># 缩放、平移、适应窗口</span>
+│  ├─ useUnit.ts                  <span class="c"># mm ⇄ in 显示换算</span>
+│  ├─ useUrlState.ts  ├─ useAutosave.ts  ├─ useHotkeys.ts
+│  └─ useHoverLink.ts             <span class="c"># 2D / 3D 悬停联动</span>
+└─ lib/
+   ├─ urlCodec.ts                 <span class="c"># 7.4 节编码，含解析校验</span>
+   ├─ pathToSvg.ts                <span class="c"># Cmd[] → d 属性</span>
+   └─ filename.ts                 <span class="c"># 导出文件命名</span></code></pre>
+  <p><b>与 LAB 的关系。</b>不改 <code>LegacyLab.vue</code>。工作台只取其中“自有模板”这条线的逻辑，重新按组件拆分；导入盒型、Packative 回放留在 LAB。工作台稳定后，再评估把 LAB 的自有模板页签指向工作台。</p>
+
+  <h3>9.3 状态设计</h3>
+<pre><code><span class="c">// stores/workbench.ts（输入，可写）</span>
+state: {
+  slug, manifest: TemplateManifest | null,
+  params: { lengthMm, widthMm, heightMm, thicknessMm, sizeMode, fluteDirection, materialId, bleedInputMm, advanced },
+  displayUnit: 'mm' | 'in',
+  view: { showBleed, showTrim, showCrease, showDims, showFaceNames },
+  hover: { face: string | null, fold: string | null, param: string | null },
+  past: Params[], future: Params[]            <span class="c">// 撤销栈，连续输入 600ms 内合并为一步</span>
+}
+actions: setDim, setSizeMode, setMaterial, setThickness, setAdvanced, resetAdvanced, undo, redo, loadFromUrl, loadFromDesign
+
+<span class="c">// stores/knife.ts（输出，只读）</span>
+state: { knife: Knife | null, lastValid: Knife | null, status: 'idle' | 'computing' | 'ok' | 'invalid' | 'error', issues: Issue[], computeMs }
+<span class="c">// watch(workbench.params) → engineClient.compute(params) → 仅当序号为最新时写入</span>
+
+<span class="c">// 复用，不改接口</span>
+useDesignStore   <span class="c">// designId、rowVersion、currentRevisionId、saveStatus、本地草稿</span>
+useExportStore   <span class="c">// 扩展为多任务队列（11.3 节）</span>
+useBillingStore  <span class="c">// entitlement、quotaExceeded</span></code></pre>
+  <p><b>serverOnly 模板的退路。</b><code>engineClient.compute()</code> 是唯一的几何入口。模板清单标记 <code>serverOnly: true</code> 时，它改为调用服务端预览接口（防抖 250ms，取消过期请求），上层组件无感知。</p>
+
+  <h3>9.4 2D 画板</h3>
+  <ul>
+    <li><b>用 SVG，不用 Canvas / Konva。</b>刀版线条数量在数百条量级，SVG 足够；矢量缩放不糊；可直接复用于缩略图和导出预览；便于无障碍和测试。Konva 继续只用于 Studio 的图稿编辑。</li>
+    <li><b>结构。</b><code>&lt;svg&gt;</code> → <code>&lt;g transform=视口&gt;</code> → 各图层 <code>&lt;g&gt;</code>。缩放平移只改外层 transform。线条使用 <code>vector-effect: non-scaling-stroke</code>，线宽不随缩放变化。</li>
+    <li><b>路径合并。</b>每个图层的同类线合并成一条 <code>&lt;path&gt;</code>（切线一条、折线一条、出血一条）；面片各自一个 <code>&lt;path&gt;</code>，用于悬停命中和填充。</li>
+    <li><b>标注。</b><code>buildDimAnnotations(knife)</code> 的结果渲染到 DimLayer；文字大小按屏幕像素固定（反向缩放）；数值经 <code>useUnit</code> 格式化。</li>
+    <li><b>视口。</b>初次和切换模板时自适应留白 8%；改参数时保持缩放比例，仅当刀版超出可视区时才重新适应，避免每次输入画面跳动。</li>
+    <li><b>配色。</b>沿用 <span class="swatch" style="background:var(--trim)"></span><code>#2028b0</code> 切线、<span class="swatch" style="background:var(--crease)"></span><code>#fa0000</code> 折线（虚线）、<span class="swatch" style="background:var(--bleed)"></span><code>#46ba00</code> 出血。线型同时用实线和虚线区分，不只靠颜色。</li>
+  </ul>
+
+  <h3>9.5 3D 预览</h3>
+  <ul>
+    <li>直接使用 <code>createKnifeScene(container, { materialId, onPanelSelect })</code>，与 Studio 的 <code>StudioFoldPreview.vue</code> 同一套 API：<code>setKnife / setProgress / setSelectedPanel / resetView / dispose</code>。</li>
+    <li><b>重建节流。</b>输入过程中 2D 立即更新，3D 等输入停顿 120ms 后再 <code>setKnife</code>；重建期间保留上一帧，不闪白。</li>
+    <li><b>进度。</b>滑块 0–100 → <code>setProgress(p / 100)</code>；步骤文字用 <code>stageIndexAt()</code>。默认停在 100（合盖）并带轻微俯角。</li>
+    <li><b>本期补强</b>（改 <code>src/render/boxModel.js</code>，Studio 同时受益）：① 面片从零厚度平面改为带侧面的薄板；② 内外表面使用不同材质（外面纸、内面里纸）；③ 瓦楞侧面用楞纹贴图，方向跟随 <code>fluteDirection</code>。</li>
+    <li><b>资源。</b>页面隐藏或 3D 区域不可见时暂停渲染循环；离开页面时 <code>dispose</code>；沿用现有“共享离屏渲染器”的做法，避免 WebGL 上下文被挤掉。</li>
+    <li><b>减少动态效果。</b>系统开启 <code>prefers-reduced-motion</code> 时，自动演示改为手动逐步。</li>
+  </ul>
+
+  <h3>9.6 单位与数值</h3>
+  <ul>
+    <li>状态层永远是毫米。<code>useUnit()</code> 提供 <code>format(mm)</code> 与 <code>parse(text)</code>；英寸显示 4 位小数，毫米显示到 0.01。</li>
+    <li>英寸输入换算后不做额外取整（13in = 330.2mm 原样保存），避免来回切换单位时数值漂移。</li>
+    <li>导出文件名与标题栏按当前显示单位输出，几何始终是毫米。</li>
+  </ul>
+
+  <h3>9.7 性能预算</h3>
+  <div class="tw"><table>
+    <tr><th>环节</th><th>预算</th><th>手段</th></tr>
+    <tr><td>首屏可交互</td><td>&lt; 2.5s（4G、中端笔记本）</td><td>路由级懒加载；Three.js 与 3D 组件延后到 2D 首绘之后再加载；先显示模板封面作占位</td></tr>
+    <tr><td>引擎单次计算</td><td>P95 &lt; 30ms</td><td>Worker；多边形并集是热点，对未变化的面片轮廓做缓存</td></tr>
+    <tr><td>2D 重绘</td><td>&lt; 16ms</td><td>路径合并；只更新 <code>d</code> 属性</td></tr>
+    <tr><td>3D 重建</td><td>P95 &lt; 150ms</td><td>拓扑不变时只更新顶点，不重建网格和材质</td></tr>
+    <tr><td>工作台路由包体</td><td>不含 Three.js ≤ 180KB gzip</td><td>不引入新的界面库；图标用现有 <code>lucide-vue-next</code></td></tr>
+  </table></div>
+
+  <h3>9.8 国际化与无障碍</h3>
+  <ul>
+    <li><code>zh-CN.js</code>、<code>ko-KR.js</code> 新增 <code>workbench</code> 命名空间（约 120 条）。参数标签来自模板的 <code>label / labelKo</code>，不放进语言文件。</li>
+    <li>所有输入有可见标签和范围说明；错误信息用 <code>aria-describedby</code> 关联；保存状态用 <code>aria-live="polite"</code> 播报。</li>
+    <li>键盘：Tab 顺序为顶栏 → 参数 → 画板工具 → 3D → 导出；画板支持方向键平移、<code>+ − 0</code> 缩放；折叠滑块为原生 <code>range</code>。</li>
+    <li>对比度沿用 <code>tokens.css</code>；焦点样式用 <code>--bc-focus</code>。</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 10 -->
+<section id="s10">
+  <h2><span class="no">10</span>后端实现</h2>
+  <h3>10.1 现状要点</h3>
+  <div class="tw"><table>
+    <tr><th>方面</th><th>现状</th><th>对工作台的含义</th></tr>
+    <tr><td>框架与鉴权</td><td>Django + DRF <code>APIView</code>；会话 Cookie + CSRF；统一返回 <code>{ code, message, data, request_id }</code></td><td>沿用，不引入新的鉴权方式</td></tr>
+    <tr><td>公开接口</td><td>只有目录（<code>/products/</code>、<code>/products/&lt;slug&gt;/</code>、<code>/templates/…/versions/…/</code>）、认证、博客、健康检查是 <code>AllowAny</code></td><td>访客预览所需的模板清单可以走目录接口；几何校验接口要登录，所以访客必须本地计算</td></tr>
+    <tr><td>保存</td><td><code>POST /designs/&lt;id&gt;/revisions/</code>：JSON Schema 校验 → 模板与范围校验 → 同步调几何服务 <code>/validate</code> → 行锁比对 <code>row_version</code> → <b>每次都新建一条 Revision</b></td><td>直接拿来做自动保存会产生大量 Revision，需要合并策略（10.4）</td></tr>
+    <tr><td>几何服务</td><td>Node <code>services/geometry/server.mjs</code>，直接 import 前端 <code>src/</code> 下的引擎；路由 <code>/validate</code>、<code>/export</code>、<code>/packing/solve</code>；仅内网可达</td><td>同构已是事实；补 AI 格式、导出选项、缩略图</td></tr>
+    <tr><td>导出</td><td><code>ExportJob</code> + Celery <code>export</code> 队列；格式 svg / dxf / pdf；三档门禁；创建时扣配额；幂等键</td><td>缺：AI 格式、用户侧列表 / 取消 / 重试、并发上限、失败退还配额</td></tr>
+    <tr><td>缩略图</td><td>设计稿预览取“第一张图片图层”的 <code>thumb_256</code></td><td>纯刀版工程没有图片图层，列表里会是空白，需要刀版缩略图</td></tr>
+    <tr><td>存储与队列</td><td>本地文件系统 <code>MEDIA_ROOT/orgs/&lt;org&gt;/…</code>；Celery + Redis；开发环境任务同步执行</td><td>沿用</td></tr>
+    <tr><td>CI</td><td>只有前端 <code>check:all</code> 和 Pages 构建；Django 测试与几何服务测试不在 CI 里</td><td>本期补上（13.5）</td></tr>
+  </table></div>
+
+  <h3>10.2 接口变更一览</h3>
+  <div class="tw"><table>
+    <tr><th>接口</th><th>变更</th><th>说明</th></tr>
+    <tr><td><code>GET /api/v1/products/&lt;slug&gt;/</code></td><td><span class="tag t-part">扩展</span></td><td>返回体增加 <code>workbench</code> 对象（见 10.3）。仅当 <code>capabilities.workbench === true</code> 时出现</td></tr>
+    <tr><td><code>GET /api/v1/material-profiles/</code></td><td><span class="tag t-new">新增</span>公开</td><td>材质表：id、中韩名称、族、楞型、厚度范围、<code>engineMaterialId</code>、是否已标定。数据源是引擎包里的 <code>materialProfiles.js</code>，由种子命令同步，保证前后端一份</td></tr>
+    <tr><td><code>POST /api/v1/designs/</code></td><td><span class="tag t-part">扩展</span></td><td>已支持传 <code>content</code>。工作台懒创建时传完整文档（<code>artwork.layers = []</code>）和 <code>client_geometry_hash</code></td></tr>
+    <tr><td><code>POST /api/v1/designs/&lt;id&gt;/revisions/</code></td><td><span class="tag t-part">扩展</span></td><td>请求体增加可选 <code>autosave: true</code> 与 <code>client_geometry_hash</code>；响应增加 <code>geometry_drift</code> 与 <code>coalesced</code></td></tr>
+    <tr><td><code>GET /api/v1/designs/&lt;id&gt;/dieline-thumbnail/</code></td><td><span class="tag t-new">新增</span></td><td>返回当前 Revision 的刀版 SVG 缩略图；未生成时 404，与现有缩略图接口行为一致</td></tr>
+    <tr><td><code>POST /api/v1/designs/&lt;id&gt;/exports/</code></td><td><span class="tag t-part">扩展</span></td><td><code>format</code> 增加 <code>ai</code>；<code>options</code> 改为白名单字段（11.2）；进行中任务达到上限时返回 409 <code>EXPORT_BUSY</code></td></tr>
+    <tr><td><code>GET /api/v1/exports/?design=&amp;status=</code></td><td><span class="tag t-new">新增</span></td><td>当前用户所在组织的导出任务列表，最多 50 条，供导出队列恢复显示</td></tr>
+    <tr><td><code>POST /api/v1/exports/&lt;id&gt;/cancel/</code></td><td><span class="tag t-new">新增</span></td><td>仅 <code>queued</code> 可取消；取消后退还配额</td></tr>
+    <tr><td><code>POST /api/v1/exports/&lt;id&gt;/retry/</code></td><td><span class="tag t-new">新增</span></td><td>仅 <code>failed</code> 可重试；复用原任务与原配额，不重复扣减。逻辑从 console 的 staff 接口下沉到服务层共用</td></tr>
+    <tr><td>几何服务 <code>POST /validate</code></td><td><span class="tag t-part">扩展</span></td><td><code>size_mode</code> 接受 <code>manufacturing</code>；返回体增加 <code>stats</code> 与 <code>issues</code></td></tr>
+    <tr><td>几何服务 <code>POST /export</code></td><td><span class="tag t-part">扩展</span></td><td><code>format</code> 增加 <code>ai</code>；接受 <code>options</code>；文件名改由 Django 侧生成</td></tr>
+    <tr><td>几何服务 <code>POST /thumbnail</code></td><td><span class="tag t-new">新增</span></td><td>输入同 <code>/validate</code>，输出只含切线与折线的精简 SVG（viewBox 归一，体积 &lt; 20KB）</td></tr>
+  </table></div>
+  <p class="muted small">不新增“预览刀版”接口。只有在启用 <code>serverOnly</code> 模板时才需要 <code>POST /api/v1/workbench/preview/</code>（公开、限流、返回完整 knife），本期只保留设计，不实现。</p>
+
+  <h3>10.3 模板清单 workbench 对象</h3>
+<pre><code><span class="c">// GET /api/v1/products/mailer-flip/ → data.workbench</span>
+{
+  "template_key": "mailer-parametric-demo", "template_version": "1.2.0", "engine_version": "3.1.0",
+  "default_params": { "lengthMm": 315, "widthMm": 202, "heightMm": 62, "thicknessMm": 1.5,
+                      "sizeMode": "manufacturing", "materialId": "flute-e", "fluteDirection": "L", "bleedInputMm": 3 },
+  "limits": { "basis": "inner", "length": [80, 1200], "width": [70, 1200], "height": [20, 600] },
+  "material_ids": ["flute-e", "flute-b", "flute-f"],
+  "engineering_domain": { "basis": "inner", "lengthMm": [200, 450], "widthMm": [120, 300], "heightMm": [40, 120],
+                          "thicknessMm": [1.0, 2.5], "status": "engineering_review" },   <span class="c">// 无工程域时为 null</span>
+  "tiers": ["vector_proof", "engineering"],
+  "advanced_requires_plan": false,
+  "server_only": false
+}</code></pre>
+  <ul>
+    <li><code>limits</code>、<code>engineering_domain</code> 取自现有 <code>TemplateVersion.limits</code> 与工程域 JSON，不另存一份。</li>
+    <li>结构参数定义（<code>paramDefs</code>）含函数，不经接口下发：浏览器从引擎包里的模板对象直接读取。接口只负责“这个产品用哪个模板、哪个版本、能做什么”。</li>
+    <li>进入页面时前端比对 <code>engine_version</code> 与打包进来的 <code>ENGINE_VERSION</code>；主次版本不一致时提示刷新页面，避免旧前端配新后端。</li>
+  </ul>
+
+  <h3>10.4 懒创建与自动保存</h3>
+  <div class="flow">
+    <div class="step"><b>访客</b>参数只在 URL 与 IndexedDB；不调用任何写接口</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>登录后首次改动</b><code>POST /designs/</code> 创建，名称默认“盒型名 L×W×H”；地址栏变为 <code>?design=&lt;id&gt;</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>后续改动</b>立即写本地草稿；停顿 3 秒后 <code>POST …/revisions/</code>（<code>autosave: true</code>）</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>关键节点</b>导出前、去设计前、页面隐藏时强制保存一次（不带 autosave）</div>
+  </div>
+  <h4>Revision 合并规则</h4>
+  <p><code>DesignRevision</code> 增加字段 <code>kind</code>：<code>checkpoint</code>（默认，现有行为）或 <code>autosave</code>。收到 <code>autosave: true</code> 的保存请求时，若同时满足以下条件，则<b>原地更新</b>当前头部 Revision，不新建：</p>
+  <ol>
+    <li>头部 Revision 的 <code>kind</code> 是 <code>autosave</code>，且创建者是当前用户；</li>
+    <li>创建时间在 10 分钟以内；</li>
+    <li>没有被 <code>ExportJob.input_revision</code>、<code>Quote.design_revision</code>、订单项或渲染场景引用。</li>
+  </ol>
+  <p>否则新建一条 <code>autosave</code> Revision。原地更新同样要比对并递增 <code>row_version</code>，同样记录幂等键。被导出或报价引用过的 Revision 永不修改，可追溯性不受影响。响应里的 <code>coalesced: true</code> 仅用于调试与统计。</p>
+  <div class="callout"><p><b>为什么不直接放宽成“每次都新建”。</b>一次调参会话常有几十次改动；每次保存还要同步调用一次几何服务。合并后，一次会话通常只留下 1–3 条 Revision，几何服务的调用量也由 3 秒防抖控制在可接受范围。</p></div>
+  <h4>访客认领</h4>
+  <p>访客点“保存”或“下载”→ 跳登录页并带 <code>next=/workbench/:slug?…当前参数…&amp;claim=1</code> → 登录或注册回来后，前端发现 <code>claim=1</code> 且已登录，立即走懒创建。全程不需要服务端保存匿名数据。</p>
+
+  <h3>10.5 浏览器与服务端一致性</h3>
+  <ol>
+    <li>前端保存时附带 <code>client_geometry_hash</code>（Worker 算出的 <code>g1:</code> hash）。</li>
+    <li>服务端 <code>apply_server_geometry</code> 照旧调用 <code>/validate</code> 得到权威 hash 并入库。</li>
+    <li>两者不同：保存仍然成功（以服务端为准），响应 <code>geometry_drift: true</code>，并写一条结构化日志（模板、版本、参数、两个 hash）。前端显示“预览与服务端结果不一致，请刷新页面”，并禁用导出直到刷新。</li>
+    <li>导出永远基于服务端重算的几何，前端传来的 knife 不参与导出。</li>
+  </ol>
+  <p>漂移率是上线后的核心健康指标，目标为 0；任何一次漂移都按缺陷处理。</p>
+
+  <h3>10.6 刀版缩略图</h3>
+  <ul>
+    <li>保存 Revision 提交后，若文档没有图片图层，则投递 Celery 任务 <code>designs.render_dieline_thumbnail</code>（<code>media</code> 队列）：调用几何服务 <code>/thumbnail</code>，结果存为 <code>AssetDerivative(kind='dieline_svg')</code>。</li>
+    <li>用 SVG 而不是位图：服务端无需引入栅格化依赖；文件由自己的服务生成，不含脚本；前端经 <code>&lt;img&gt;</code> 加载（浏览器在 img 中不执行 SVG 脚本）。响应头固定 <code>Content-Type: image/svg+xml</code> 与 <code>Content-Security-Policy: default-src 'none'</code>。</li>
+    <li>设计列表序列化增加 <code>dieline_thumbnail_ready</code>；<code>AuthThumbnail.vue</code> 在没有图片缩略图时回退到刀版缩略图。</li>
+  </ul>
+
+  <h3>10.7 数据库迁移</h3>
+  <div class="tw"><table>
+    <tr><th>应用</th><th>变更</th><th>回滚影响</th></tr>
+    <tr><td>designs</td><td><code>DesignRevision.kind</code>（char，默认 <code>checkpoint</code>，加索引）</td><td>可直接回滚，旧数据全部视为 checkpoint</td></tr>
+    <tr><td>exports</td><td><code>ExportJob.format</code> 枚举加 <code>ai</code>；新增 <code>attempts</code>（int，默认 0）</td><td>回滚前需确认无 ai 任务</td></tr>
+    <tr><td>catalog</td><td>无表结构变化；<code>seed_catalog</code> 增加飞机盒产品与各产品的 <code>capabilities.workbench</code>、<code>default_params.sizeMode</code></td><td>重跑种子即可</td></tr>
+    <tr><td>catalog</td><td>新表 <code>MaterialProfile</code>（code、names、family、flute、thickness_min / default / max、engine_material_id、calibrated、profile_version、is_active）</td><td>独立新表，可回滚</td></tr>
+    <tr><td>billing</td><td><code>ExportGrant</code> 增加 <code>refunded_at</code>（可空）</td><td>可回滚</td></tr>
+  </table></div>
+  <p>同步修改 <code>packages/design-schema/design-document.v1.schema.json</code>：<code>sizeMode</code> 枚举加 <code>manufacturing</code>，新增可选 <code>workbench</code> 对象。该 Schema 设置了 <code>additionalProperties: false</code>，所以必须先发后端、再发前端，否则新前端的保存会被旧后端拒绝。</p>
+
+  <h3>10.8 安全与边界</h3>
+  <ul>
+    <li><b>对象归属。</b>所有新增接口沿用 <code>require_org_membership</code>；列表、详情、下载、取消、重试、缩略图逐个覆盖跨组织测试。</li>
+    <li><b>输入校验在服务端。</b>尺寸范围、材质、厚度、结构参数全部由服务端 strict 模式重验；前端校验只为体验。</li>
+    <li><b>导出选项白名单。</b>未知键直接 400；字符串字段限长并过滤控制字符；文件名由服务端按规则生成，不采用客户端传入的文件名。</li>
+    <li><b>几何服务加固。</b>补请求体上限（256KB）与单次计算超时（5 秒）；保持仅内网可达。</li>
+    <li><b>限流。</b>保存接口每用户 30 次 / 分钟；导出创建每组织 10 次 / 分钟。实现方式用 Redis 计数（Celery 已依赖 Redis）。</li>
+    <li><b>不下发存储凭证。</b>缩略图与导出文件都由服务端生成并经鉴权接口下载；<code>/media</code> 继续在 Caddy 层 404。</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 11 -->
+<section id="s11">
+  <h2><span class="no">11</span>导出中心</h2>
+  <h3>11.1 格式</h3>
+  <div class="tw"><table>
+    <tr><th>格式</th><th>生成位置</th><th>规格</th><th>现状与改动</th></tr>
+    <tr><td>PDF 刀版</td><td>服务端</td><td>1:1 物理尺寸（<code>pt = mm × 72 / 25.4</code>），页面 = 含出血外接矩形 + 15mm 边距；切线、折线、出血、标注各用专色描边；角落附 100mm 比例尺与标题栏</td><td><span class="tag t-part">改</span>圆弧输出为真曲线；标题栏含模板、尺寸三态、材质、hash、档位声明</td></tr>
+    <tr><td>DXF 刀版</td><td>服务端</td><td>ASCII R12，<code>$INSUNITS = 4</code>（mm），Y 轴向上；图层 <code>TRIM / CREASE / BLEED / DIM / TEXT</code></td><td><span class="tag t-part">改</span>圆弧输出 <code>ARC</code> 实体，连续线段输出 <code>POLYLINE</code>；新增 DIM 与 TEXT 图层（可关）</td></tr>
+    <tr><td>AI 刀版</td><td>服务端</td><td>Illustrator 可直接打开的 PDF 兼容文件，扩展名 <code>.ai</code></td><td><span class="tag t-new">新</span>把 <code>toAi()</code> 接入几何服务。界面上如实说明“PDF 兼容格式，Illustrator 打开后线条按颜色分组”，不宣称是原生 AI 图层结构</td></tr>
+    <tr><td>SVG 刀版</td><td>服务端</td><td>校样稿不声明物理单位；工程候选稿 <code>width / height</code> 以 mm 声明</td><td><span class="tag t-have">沿用</span>收进“更多格式”</td></tr>
+    <tr><td>3D 样机图</td><td>浏览器</td><td>当前视角渲染为 2× 分辨率 PNG / JPG</td><td><span class="tag t-new">新</span>不建任务、不扣配额；非年费用户带角标</td></tr>
+  </table></div>
+  <p class="muted small">PDF 的中日韩文字：<code>pdf-lib</code> 自带字体不含 CJK。标题栏内容全部用 ASCII（模板英文名、数字、单位），不为此引入字体子集。若后续需要中韩文标题栏，再加 <code>@pdf-lib/fontkit</code> 嵌入 Noto 子集。</p>
+
+  <h3>11.2 档位、门禁与声明</h3>
+  <div class="tw"><table>
+    <tr><th>档位</th><th>界面名称</th><th>服务端门禁（已实现）</th><th>文件内声明（沿用现有固定文案）</th><th>工作台是否开放</th></tr>
+    <tr><td><code>vector_proof</code></td><td>校样稿</td><td>几何可生成即可</td><td><code>DEMO · NOT FOR DIE CUTTING · PROOF ONLY</code></td><td>全部首批模板</td></tr>
+    <tr><td><code>engineering</code></td><td>工程候选稿</td><td>GEOMETRY + UNIT_TRUSTED + APPROX + DOMAIN</td><td><code>ENGINEERING CANDIDATE · COMPENSATION UNVERIFIED · NOT FOR PRODUCTION DIE</code></td><td>有工程域的 4 个模板，且参数在域内</td></tr>
+    <tr><td><code>manufacturing</code></td><td>生产稿</td><td>CAPABILITY + APPROVAL + SAMPLE + GEOMETRY + UNIT_TRUSTED + APPROX</td><td><code>TEMPLATE_APPROVED · NOT A LICENSED PRODUCTION DIE</code></td><td>本期不显示</td></tr>
+  </table></div>
+  <p>界面上，档位选择器旁固定一行说明和 <code>/legal/disclaimer</code> 链接。工程域外时，“工程候选稿”置灰并显示域范围，例如“工程候选稿仅支持内尺寸 200–450 × 120–300 × 40–120mm、厚度 1.0–2.5mm”。</p>
+
+  <h4>导出选项（<code>options</code> 白名单）</h4>
+  <div class="tw"><table>
+    <tr><th>键</th><th>类型</th><th>默认</th><th>作用</th></tr>
+    <tr><td><code>showDimensions</code></td><td>bool</td><td>true</td><td>输出 L / W / H 与面片标注</td></tr>
+    <tr><td><code>showBleed</code></td><td>bool</td><td>true</td><td>输出出血线</td></tr>
+    <tr><td><code>showFaceNames</code></td><td>bool</td><td>false</td><td>在面片中心输出面名</td></tr>
+    <tr><td><code>showTitleBlock</code></td><td>bool</td><td>true</td><td>标题栏；工程候选稿强制为 true</td></tr>
+    <tr><td><code>displayUnit</code></td><td><code>mm | in</code></td><td>mm</td><td>只影响标注文字与文件名，几何始终为 mm</td></tr>
+    <tr><td><code>locale</code></td><td><code>zh-CN | ko-KR</code></td><td>当前界面语言</td><td>文件名中的盒型名称</td></tr>
+  </table></div>
+  <p>免责声明不可通过选项关闭。选项内容进入 <code>ExportJob.options</code>，并参与幂等请求体的比对。</p>
+
+  <h4>文件命名</h4>
+<pre><code>{盒型名}_{L}x{W}x{H}{单位}_{尺寸类型}_{档位}_{日期}.{扩展名}
+例：Mailer-Box_315x202x62mm_MFG_PROOF_20261117.pdf
+    우편박스_13x7.95x2.44in_MFG_ENG_20261117.dxf</code></pre>
+  <p>文件名在服务端生成，过滤 <code>\ / : * ? " &lt; &gt; |</code> 与控制字符，最长 120 字符；响应头同时给出 <code>filename</code>（ASCII 回退）与 <code>filename*</code>（UTF-8）。</p>
+
+  <h3>11.3 任务队列</h3>
+  <div class="flow">
+    <div class="step"><b>1 前置检查</b>未登录 → 登录；配额不足 → 升级弹窗；校验阻断 → 说明原因。三种情况都不发请求</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>2 强制保存</b>保证有与屏幕一致的 Revision；出现 <code>geometry_drift</code> 则中止</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>3 提交</b><code>POST …/exports/</code>，带幂等键；返回 202 与任务</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>4 轮询</b>1.2s 起步，每次 ×1.5，上限 4s；页面隐藏时暂停</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>5 完成</b>自动下载；队列里保留“再次下载”</div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>规则</th><th>实现</th></tr>
+    <tr><td>并发上限</td><td>同一组织 <code>queued + running</code> 的导出任务 ≥ 3 时，创建接口返回 409 <code>EXPORT_BUSY</code>（做法对齐现有渲染任务的 <code>RENDER_BUSY</code>）。前端提示“已有 3 个任务在生成”</td></tr>
+    <tr><td>失败退还</td><td>任务最终失败或被取消时，调用 <code>refund_export_grant</code> 退回本次扣减（渲染任务已是这样做），<code>ExportGrant.refunded_at</code> 置值，保证不重复退</td></tr>
+    <tr><td>重试</td><td>用户可对 <code>failed</code> 任务重试，最多 2 次（<code>attempts</code>）；重试不再扣配额。若已退还，则重试前重新扣减</td></tr>
+    <tr><td>取消</td><td>仅 <code>queued</code>；<code>running</code> 的任务很短（秒级），不提供中断</td></tr>
+    <tr><td>恢复</td><td>进入页面时 <code>GET /exports/?design=…</code> 恢复队列显示，刷新页面不丢任务</td></tr>
+    <tr><td>多任务</td><td><code>useExportStore</code> 的 <code>currentJob</code> 扩展为 <code>jobs: Map&lt;id, ExportJob&gt;</code>，保留 <code>currentJob</code> 计算属性以兼容 Studio 的 <code>ExportPanel.vue</code></td></tr>
+  </table></div>
+
+  <h3>11.4 错误码与界面文案</h3>
+  <div class="tw"><table>
+    <tr><th>code</th><th>HTTP</th><th>来源</th><th>界面处理</th></tr>
+    <tr><td><code>UNAUTHORIZED</code></td><td>401</td><td>现有</td><td>登录弹窗，登录后回到原操作</td></tr>
+    <tr><td><code>EXPORT_QUOTA_EXCEEDED</code></td><td>403</td><td>现有</td><td>升级弹窗，显示已用次数</td></tr>
+    <tr><td><code>EXPORT_BUSY</code></td><td>409</td><td>新增</td><td>提示等待现有任务完成</td></tr>
+    <tr><td><code>ENGINEERING_BLOCKED</code> / <code>OUT_OF_ENGINEERING_DOMAIN</code></td><td>422 / 400</td><td>现有</td><td>列出未通过的检查项；建议改用校样稿</td></tr>
+    <tr><td><code>OUT_OF_RANGE</code> / <code>INVALID_NUMBER</code></td><td>400</td><td>现有</td><td>定位到对应输入框</td></tr>
+    <tr><td><code>DESIGN_VERSION_CONFLICT</code></td><td>409</td><td>现有</td><td>“载入最新”或“另存为副本”</td></tr>
+    <tr><td><code>GEOMETRY_UNAVAILABLE</code></td><td>503</td><td>现有</td><td>“服务暂时不可用，稍后重试”；本地预览不受影响</td></tr>
+    <tr><td><code>APPROX_BLOCKED</code> / <code>GEOMETRY_APPROX</code></td><td>—</td><td>现有</td><td>说明轮廓为近似，仅可导出校样稿</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 12 -->
+<section id="s12">
+  <h2><span class="no">12</span>权限与计费</h2>
+  <h3>12.1 判定顺序</h3>
+  <div class="flow">
+    <div class="step"><b>① 是否登录</b><code>auth.user</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>② 是否有配额</b><code>entitlement.unlimited</code> 或 <code>remaining &gt; 0</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>③ 档位是否可用</b>模板 <code>tiers</code> + 工程域</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>④ 几何是否通过</b><code>issues</code> 中无 blocking</div>
+  </div>
+  <p>前端按此顺序给出第一个不满足的原因；服务端在 <code>create_export_job</code> 中独立做同样的判断（已实现），前端判断只为少发无效请求。</p>
+
+  <h3>12.2 复用与新增</h3>
+  <div class="tw"><table>
+    <tr><th>项</th><th>做法</th></tr>
+    <tr><td>权益来源</td><td><code>GET /billing/entitlement/</code>（<code>useBillingStore</code>）。工作台进入时若已登录则刷新一次，每次导出后再刷新</td></tr>
+    <tr><td>扣减时机</td><td>创建导出任务时扣 1 次（<code>consume_export(reason=STUDIO_EXPORT)</code>），新增 <code>WORKBENCH_EXPORT</code> 原因值以便统计区分</td></tr>
+    <tr><td>同一刀版换格式</td><td>默认每个任务扣 1 次。是否“同一 Revision 的多个格式只扣 1 次”见 17 节 Q4</td></tr>
+    <tr><td>升级</td><td>沿用 <code>/account/upgrade</code> 与升级意向；弹窗内直接提交意向，不跳页</td></tr>
+    <tr><td>高级参数门槛</td><td>清单字段 <code>advanced_requires_plan</code>（默认 false）。为 true 时：未付费用户可以看到参数与默认值，输入框只读并附升级入口；服务端保存时若 <code>advanced</code> 非空且无权益则拒绝。本期实现开关，默认不启用</td></tr>
+    <tr><td>3D 样机图角标</td><td>纯前端：<code>entitlement.unlimited</code> 为假时在导出图片右下角绘制 BOXCRAFT 标识</td></tr>
+  </table></div>
+  <div class="callout"><p>韩国客户需求的最高原则是“没有专业知识也能方便设计盒子”。因此“高级”页签默认折叠、基础页签即可完成全部必要操作；计费提示只在点击导出时出现，不在调参过程中打断。</p></div>
+</section>
+
+<!-- ============================================================ 13 -->
+<section id="s13">
+  <h2><span class="no">13</span>测试与质量门禁</h2>
+  <p>测试结论只使用项目约定的五种状态：Passed / Failed / Blocked / Not Run / Not Applicable。构建通过不等于功能通过，每个里程碑都要有核心业务请求的实际验证记录。</p>
+  <h3>13.1 引擎（Node 脚本，进入 <code>check:all</code>）</h3>
+  <div class="tw"><table>
+    <tr><th>脚本</th><th>内容</th><th>通过标准</th></tr>
+    <tr><td><code>check-workbench-templates.mjs</code></td><td>8.9 节五条准入条件，覆盖首批 5 个模板</td><td>全部通过；任何 blocking 问题即失败</td></tr>
+    <tr><td><code>check-size-modes.mjs</code></td><td>同一盒子分别用内、制造、外三种尺寸输入</td><td>三次得到的 knife 几何一致（hash 相同），三套尺寸互相换算闭合，误差 ≤ 0.001mm</td></tr>
+    <tr><td><code>check-param-constraints.mjs</code></td><td>每个模板随机 500 组结构参数（含越界值）</td><td>要么生成合法刀版，要么返回带 code 的 blocking 问题；不得抛未捕获异常，不得生成孔出界的刀版</td></tr>
+    <tr><td><code>check-arcs.mjs</code></td><td>圆角孔、倒角模板的 <code>paths</code></td><td>弧重建后与折线版本的最大偏差 ≤ 0.05mm；DXF 输出含 ARC 实体且可被回读解析</td></tr>
+    <tr><td><code>check-stats.mjs</code></td><td>线长与面积</td><td>与独立实现（按线段累加）的差 ≤ 0.1%；矩形基准盒的解析值完全吻合</td></tr>
+    <tr><td><code>check-isomorphic.mjs</code></td><td>300 组随机参数，分别走 Worker 打包产物与 Node 几何服务</td><td><code>geometryHash</code> 全部相同</td></tr>
+    <tr><td><code>check-engine-purity.mjs</code></td><td>在无 DOM 的 Node 环境加载引擎包</td><td>不引用 <code>window / document</code>，不 import Vue 或 Three.js</td></tr>
+    <tr><td>现有 11 步 + 4 个 <code>check:*-engineering</code></td><td>回归</td><td>全部继续通过；因 v3.1 导致的金样变化逐条评审后更新 <code>scripts/fixtures/golden.json</code></td></tr>
+  </table></div>
+
+  <h3>13.2 后端（Django TestCase）</h3>
+  <ul>
+    <li><b>自动保存合并：</b>10 分钟内连续 autosave 只有 1 条 Revision；被导出引用后再保存会新建；不同用户不合并；<code>row_version</code> 冲突仍返回 409。</li>
+    <li><b>尺寸模式：</b><code>sizeMode: manufacturing</code> 通过 Schema 校验并正确落库；工程域按换算后的内尺寸判定。</li>
+    <li><b>导出：</b>ai 格式成功；第 4 个并发任务返回 <code>EXPORT_BUSY</code>；失败与取消退还配额且只退一次；重试不重复扣减；选项白名单拒绝未知键。</li>
+    <li><b>归属：</b>列表、取消、重试、刀版缩略图的跨组织访问全部被拒。</li>
+    <li><b>目录：</b>未登录可读取 <code>workbench</code> 清单与材质表；<code>fixed_snapshot</code> 产品不返回 <code>workbench</code>。</li>
+    <li><b>漂移：</b>传入错误的 <code>client_geometry_hash</code> 时保存成功且 <code>geometry_drift: true</code>。</li>
+  </ul>
+
+  <h3>13.3 前端</h3>
+  <ul>
+    <li><b>单元（Vitest，新增开发依赖）：</b><code>urlCodec</code> 往返与恶意输入、<code>useUnit</code> 换算、<code>pathToSvg</code>、<code>filename</code>、撤销栈合并。</li>
+    <li><b>组件：</b><code>DimInput</code> 的范围与步进、<code>ParamField</code> 的自动与手动状态、<code>GateDialog</code> 三种门槛。</li>
+    <li><b>端到端（Playwright，对 compose 环境）：</b>
+      <ol>
+        <li>访客打开 <code>/workbench/mailer-flip</code> → 改长度 → 2D 标注变化 → 拖滑块到合盖 → 复制链接 → 新标签打开得到相同刀版。</li>
+        <li>访客点下载 → 注册 → 回到工作台并自动创建设计 → 导出 PDF 成功下载 → 配额减 1。</li>
+        <li>登录用户改参数 → 刷新页面 → 参数与保存状态保持 → “我的设计”中出现刀版缩略图。</li>
+        <li>配额用尽 → 导出弹升级窗且未产生任务。</li>
+        <li>切换韩文 → 界面与参数标签为韩文 → 导出文件名为韩文盒型名。</li>
+      </ol></li>
+    <li><b>视觉回归：</b>5 个模板默认参数的 2D 画板截图基线；3D 取合盖状态固定视角截图，容差放宽。</li>
+  </ul>
+
+  <h3>13.4 人工验收</h3>
+  <ul>
+    <li><b>导出回读：</b>每个模板的 PDF 在 Illustrator、DXF 在 AutoCAD（或 LibreCAD）中打开：单位为 mm、100mm 比例尺实测 100mm、图层与颜色正确、圆弧为真弧。结果登记到 <code>docs/implementation/test-evidence.md</code>。</li>
+    <li><b>打印 1:1：</b>FEFCO 0201 与翻盖邮寄盒各打印一张校样稿，手工裁折，确认能成型。这只验证“结构示意是否合理”，不等于实物打样验证。</li>
+    <li><b>浏览器：</b>Chrome、Edge、Safari 最新两个版本；一台集成显卡笔记本验证 3D 性能。</li>
+    <li><b>无障碍：</b>纯键盘完成“改尺寸 → 导出”；屏幕阅读器能读出输入框标签、范围和保存状态。</li>
+  </ul>
+
+  <h3>13.5 CI 补充</h3>
+  <p>新增工作流 <code>.github/workflows/ci.yml</code>（对 PR 与 main 触发）：① <code>npm run check:all</code>；② <code>npm --prefix services/geometry test</code>（并把 <code>geometry-document.test.mjs</code> 纳入该命令）；③ <code>python manage.py test</code>（SQLite、任务同步执行）；④ <code>vue-tsc --noEmit</code>；⑤ <code>npm run build</code>。现有 Pages 部署工作流不动。</p>
+</section>
+
+<!-- ============================================================ 14 -->
+<section id="s14">
+  <h2><span class="no">14</span>里程碑与排期</h2>
+  <p>按 2 名全职开发（1 人偏引擎与后端，1 人偏前端）估算，共 8 周，每 2 周一个可演示、可回滚的里程碑。</p>
+  <div class="tw">
+  <div class="gantt">
+    <div></div><div class="h">W1</div><div class="h">W2</div><div class="h">W3</div><div class="h">W4</div><div class="h">W5</div><div class="h">W6</div><div class="h">W7</div><div class="h">W8</div>
+    <div class="l">引擎增量 v3.1</div><div class="b" style="grid-column:2/span 3">尺寸模式 · 材质 · 参数约束 · 统计</div><div class="b alt" style="grid-column:5/span 2">真圆弧</div><div style="grid-column:7/span 2"></div>
+    <div class="l">工作台前端</div><div class="b alt" style="grid-column:2/span 1">骨架</div><div class="b" style="grid-column:3/span 2">参数面板 · 2D · 3D</div><div class="b" style="grid-column:5/span 2">保存 · 导出中心</div><div class="b alt" style="grid-column:7/span 1">门槛 · 英寸</div><div class="b buf" style="grid-column:8/span 1">打磨</div>
+    <div class="l">后端与几何服务</div><div class="b alt" style="grid-column:2/span 2">清单 · 材质表 · Schema</div><div class="b" style="grid-column:4/span 2">自动保存 · 缩略图</div><div class="b" style="grid-column:6/span 1">导出扩展</div><div class="b alt" style="grid-column:7/span 1">限流</div><div class="b buf" style="grid-column:8/span 1">缓冲</div>
+    <div class="l">测试与发布</div><div class="b alt" style="grid-column:2/span 2">check 脚本 · CI</div><div class="b alt" style="grid-column:4/span 2">同构回归</div><div class="b alt" style="grid-column:6/span 1">E2E</div><div class="b" style="grid-column:7/span 2">回读验收 · 灰度 · 发布</div>
+  </div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>里程碑</th><th>时间</th><th>可演示内容</th><th>出口标准</th></tr>
+    <tr><td><b>M1 引擎就绪</b></td><td>第 2 周末</td><td>命令行生成 5 个模板的 v3.1 knife；LAB 里可选“制造尺寸”</td><td>新增 check 脚本通过（真圆弧除外）；现有 <code>check:all</code> 全绿；引擎包可在 Node 与 Worker 加载</td></tr>
+    <tr><td><b>M2 访客预览</b></td><td>第 4 周末</td><td><code>/workbench/:slug</code> 访客可用：基础与高级参数、2D、3D、分享链接；中韩文</td><td>E2E 场景 1 通过；性能四项达标；同构回归 300 组 hash 一致。此时可对内灰度（路由不放进导航）</td></tr>
+    <tr><td><b>M3 保存与导出</b></td><td>第 6 周末</td><td>登录用户自动保存、设计列表缩略图、PDF / DXF / AI / SVG 导出、任务队列</td><td>E2E 场景 2–4 通过；后端新增测试全绿；导出回读验收完成</td></tr>
+    <tr><td><b>M4 发布</b></td><td>第 8 周末</td><td>产品页入口、英寸、门槛开关、3D 厚度表现、样机图</td><td>全部 P0 与 P1 完成；13.4 人工验收登记完毕；漂移率为 0；上线检查表通过</td></tr>
+  </table></div>
+  <h3>发布与回滚</h3>
+  <ul>
+    <li><b>顺序：</b>后端（含 Schema 与迁移）先发 → 几何服务 → 前端。原因见 10.7。</li>
+    <li><b>开关：</b>前端环境变量 <code>VITE_WORKBENCH=1</code> 控制入口是否显示；后端 <code>capabilities.workbench</code> 按产品逐个打开，可单独关闭某个模板。</li>
+    <li><b>回滚：</b>关闭入口即可让用户回到原“创建设计”流程；已创建的设计仍可在 Studio 打开（文档结构兼容）。<code>sizeMode: manufacturing</code> 的文档在旧版 Studio 中会被当作 inner，回滚前需确认旧前端对未知枚举的处理，M3 前补一条兼容测试。</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 15 -->
+<section id="s15">
+  <h2><span class="no">15</span>任务拆解</h2>
+  <p>估时单位为人日，含自测。编号前缀：E 引擎、F 前端、B 后端、X 导出、Q 质量。</p>
+  <h3>15.1 引擎（E）· 约 21 人日</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>任务</th><th>主要文件</th><th class="num">人日</th><th>依赖</th><th>完成标准</th></tr>
+    <tr><td>E-01</td><td>抽出 <code>packages/geometry-engine</code>，原路径留转发文件；定义 <code>ENGINE_VERSION</code></td><td><code>src/knife.js</code> 等 8 处、<code>deploy/Dockerfile.geometry</code></td><td class="num">2</td><td>—</td><td>现有 <code>check:all</code> 与构建不变；几何服务镜像可构建</td></tr>
+    <tr><td>E-02</td><td>制造尺寸模式；<code>limitsFor(mode, T)</code>；工程域按内尺寸判定</td><td><code>knife.js: deriveSizes</code>、<code>engineeringDomain.mjs</code>、<code>engineering_domain.py</code></td><td class="num">2</td><td>E-01</td><td><code>check-size-modes</code> 通过</td></tr>
+    <tr><td>E-03</td><td>材质表与厚度下限；<code>allowance</code>；旧材质 id 映射</td><td>新 <code>materialProfiles.js</code>、<code>paperCatalog.js</code>、<code>boardMaterial.js</code></td><td class="num">3</td><td>E-01</td><td>0.3mm 卡纸可生成；旧文档 <code>kraft</code> 仍可打开</td></tr>
+    <tr><td>E-04</td><td>参数定义扩展：grade、函数式上下限、依赖排序、<code>constraints</code>、<code>paramState</code></td><td><code>knife.js: resolveParams</code>、<code>templates/rea/shared.js: pdef</code></td><td class="num">3</td><td>E-01</td><td><code>check-param-constraints</code> 通过</td></tr>
+    <tr><td>E-05</td><td>折线命名、面边标注、<code>stats</code>、<code>issues</code> 汇总、knife 自带 hash</td><td><code>knife.js: foldsFromFaces</code>、<code>knifeContract.js</code></td><td class="num">2</td><td>E-01</td><td><code>check-stats</code> 通过；现有读取方不受影响</td></tr>
+    <tr><td>E-06</td><td>出血语义：<code>previewBleedExtra</code>；LAB 与 Studio 调用点显式传 10</td><td><code>knife.js</code>、<code>LegacyLab.vue</code>、<code>studio/knifeAdapter.ts</code></td><td class="num">1</td><td>E-01</td><td>LAB 与 Studio 观感不变；工作台出血为输入值</td></tr>
+    <tr><td>E-07</td><td>补偿系数标定准备：标定数据表格式、每个材质族的测量方法、把结果写回 <code>materialProfiles</code> 的流程</td><td><code>docs/SAMPLE_CHECKLIST.md</code>、<code>materialProfiles.js</code></td><td class="num">1</td><td>E-03</td><td>文档与空表就绪；实物测量由业务侧安排（17 节 Q7）</td></tr>
+    <tr><td>E-08</td><td>首批 5 个模板达标：分级、约束、韩文标签；邮寄盒舌片改多边形；自锁底输出对齐</td><td><code>templates/*.js</code>、<code>crashlock/createCrashlockKnife.js</code></td><td class="num">4</td><td>E-04、E-05</td><td><code>check-workbench-templates</code> 通过</td></tr>
+    <tr><td>E-09</td><td>真圆弧：弧元数据透传与重建，<code>paths</code> 输出</td><td><code>knife.js</code>、<code>geom/flattenPath.js</code></td><td class="num">3</td><td>E-05</td><td><code>check-arcs</code> 通过</td></tr>
+  </table></div>
+
+  <h3>15.2 前端（F）· 约 30 人日</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>任务</th><th>主要文件</th><th class="num">人日</th><th>依赖</th><th>完成标准</th></tr>
+    <tr><td>F-01</td><td>路由、页面壳、三栏响应式布局、i18n 命名空间</td><td><code>router/index.ts</code>、<code>WorkbenchPage.vue</code>、<code>i18n/*.js</code></td><td class="num">2</td><td>—</td><td>三个断点布局正确；中韩切换</td></tr>
+    <tr><td>F-02</td><td>引擎 Worker 与 <code>engineClient</code>（序号、超时、主线程回退）</td><td><code>engine/*</code>、<code>vite.config.js</code></td><td class="num">2</td><td>E-01</td><td>连续输入只应用最新结果；Worker 失败可回退</td></tr>
+    <tr><td>F-03</td><td><code>workbench</code> 与 <code>knife</code> 两个 store；撤销重做</td><td><code>stores/*</code></td><td class="num">2</td><td>F-02</td><td>单元测试通过</td></tr>
+    <tr><td>F-04</td><td>基础参数页签：尺寸、尺寸类型、材质、厚度、出血、校验卡</td><td><code>panel/*</code></td><td class="num">4</td><td>F-03、E-02、E-03</td><td>超限提示、范围随尺寸类型变化</td></tr>
+    <tr><td>F-05</td><td>2D 画板：分层 SVG、视口、图例、尺寸摘要、标注</td><td><code>canvas/*</code>、<code>useViewport.ts</code></td><td class="num">4</td><td>F-03</td><td>缩放平移流畅；视觉基线建立</td></tr>
+    <tr><td>F-06</td><td>3D 预览与折叠滑块；节流重建</td><td><code>preview/*</code></td><td class="num">2</td><td>F-03</td><td>重建 P95 &lt; 150ms；离开页面无泄漏</td></tr>
+    <tr><td>F-07</td><td>高级参数页签：分组、范围条、恢复自动、参数定位</td><td><code>AdvancedTab.vue</code>、<code>ParamField.vue</code></td><td class="num">3</td><td>E-04</td><td>手动与自动状态正确；约束提示可定位</td></tr>
+    <tr><td>F-08</td><td>URL 状态与分享；本地草稿；访客认领</td><td><code>urlCodec.ts</code>、<code>useUrlState.ts</code></td><td class="num">2</td><td>F-03</td><td>E2E 场景 1 通过</td></tr>
+    <tr><td>F-09</td><td>懒创建与自动保存；保存状态；冲突处理</td><td><code>useAutosave.ts</code>、<code>stores/design.ts</code></td><td class="num">3</td><td>B-03</td><td>E2E 场景 3 通过</td></tr>
+    <tr><td>F-10</td><td>悬停联动（2D ⇄ 3D ⇄ 参数）</td><td><code>useHoverLink.ts</code>、<code>knifeScene.js</code></td><td class="num">1.5</td><td>F-05、F-06、E-05</td><td>悬停面片两侧同时高亮</td></tr>
+    <tr><td>F-11</td><td>英寸显示</td><td><code>useUnit.ts</code>、<code>DimInput.vue</code></td><td class="num">1</td><td>F-04</td><td>来回切换无数值漂移</td></tr>
+    <tr><td>F-12</td><td>3D 厚度侧面、内外材质、楞纹</td><td><code>render/boxModel.js</code>、<code>boardMaterial.js</code></td><td class="num">2.5</td><td>F-06</td><td>Studio 预览不回退；低端机帧率可接受</td></tr>
+    <tr><td>F-13</td><td>入口改造：产品页、设计列表；SEO 与 noindex 规则</td><td><code>ProductDetailPage.vue</code>、<code>DesignsPage.vue</code>、<code>seo/*</code></td><td class="num">1</td><td>B-01</td><td>入口按能力位显示</td></tr>
+  </table></div>
+
+  <h3>15.3 后端（B）· 约 14 人日</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>任务</th><th>主要文件</th><th class="num">人日</th><th>依赖</th><th>完成标准</th></tr>
+    <tr><td>B-01</td><td>产品详情返回 <code>workbench</code> 清单；种子补飞机盒与能力位</td><td><code>catalog/views.py</code>、<code>seed_catalog.py</code></td><td class="num">2</td><td>—</td><td>未登录可读；固定规格产品不返回</td></tr>
+    <tr><td>B-02</td><td><code>MaterialProfile</code> 表、种子同步、公开列表接口</td><td><code>catalog/models.py</code>、新迁移与命令</td><td class="num">2</td><td>E-03</td><td>与引擎包数据一致（脚本比对）</td></tr>
+    <tr><td>B-03</td><td>Schema 与 <code>sizeMode</code> 扩展；<code>DesignRevision.kind</code>；自动保存合并；<code>geometry_drift</code></td><td><code>design-schema</code>、<code>designs/services.py: save_revision</code></td><td class="num">4</td><td>E-02</td><td>13.2 相关测试通过</td></tr>
+    <tr><td>B-04</td><td>几何服务：<code>manufacturing</code> 输入、<code>stats / issues</code>、<code>/thumbnail</code>、请求体与超时限制</td><td><code>services/geometry/server.mjs</code></td><td class="num">2</td><td>E-02、E-05</td><td>服务测试通过</td></tr>
+    <tr><td>B-05</td><td>刀版缩略图任务与接口；设计列表字段</td><td><code>designs/</code>、<code>assets/services.py</code>、<code>AuthThumbnail.vue</code></td><td class="num">2</td><td>B-04</td><td>纯刀版设计在列表中有缩略图</td></tr>
+    <tr><td>B-06</td><td>限流（保存、导出创建）</td><td><code>config/</code> 新增节流类</td><td class="num">1</td><td>—</td><td>超限返回 429 与统一错误体</td></tr>
+    <tr><td>B-07</td><td>Console 导出页显示新字段（格式 ai、attempts、退还状态）</td><td><code>console/views.py</code>、<code>ConsoleExportsPage.vue</code></td><td class="num">1</td><td>X-02</td><td>运营可查</td></tr>
+  </table></div>
+
+  <h3>15.4 导出（X）· 约 12 人日</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>任务</th><th>主要文件</th><th class="num">人日</th><th>依赖</th><th>完成标准</th></tr>
+    <tr><td>X-01</td><td>导出器支持选项、标题栏、<code>displayUnit</code>；AI 格式接入几何服务</td><td><code>exportDieline.js</code>、<code>server.mjs</code></td><td class="num">3</td><td>E-05</td><td>三种格式按选项输出</td></tr>
+    <tr><td>X-02</td><td>后端：ai 枚举、选项白名单、并发上限、退还、用户侧列表 / 取消 / 重试、文件命名</td><td><code>exports/services.py</code>、<code>views.py</code>、<code>billing/services.py</code></td><td class="num">4</td><td>—</td><td>13.2 导出测试通过</td></tr>
+    <tr><td>X-03</td><td>DXF 真弧与多段线、DIM / TEXT 图层；PDF 真曲线</td><td><code>exportDieline.js</code></td><td class="num">2</td><td>E-09</td><td>回读验收通过</td></tr>
+    <tr><td>X-04</td><td>导出中心界面：格式、档位、选项、队列、三种门槛弹窗；store 多任务</td><td><code>export/*</code>、<code>stores/export.ts</code></td><td class="num">3</td><td>X-02、F-09</td><td>E2E 场景 2、4 通过；Studio 导出面板不受影响</td></tr>
+    <tr><td>X-05</td><td>3D 样机图下载与角标</td><td><code>knifeScene.js</code>、<code>FoldPreview.vue</code></td><td class="num">1</td><td>F-06</td><td>PNG / JPG 可下载</td></tr>
+  </table></div>
+
+  <h3>15.5 质量（Q）· 约 9 人日</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>任务</th><th class="num">人日</th><th>完成标准</th></tr>
+    <tr><td>Q-01</td><td>7 个新 check 脚本并入 <code>check:all</code></td><td class="num">2</td><td>随对应 E 任务提交</td></tr>
+    <tr><td>Q-02</td><td>CI 工作流（13.5）</td><td class="num">1</td><td>PR 上自动运行</td></tr>
+    <tr><td>Q-03</td><td>Vitest 与 Playwright 搭建；5 条 E2E；视觉基线</td><td class="num">4</td><td>对 compose 环境可重复运行</td></tr>
+    <tr><td>Q-04</td><td>导出回读与 1:1 打印验收；证据登记</td><td class="num">1</td><td><code>test-evidence.md</code> 有记录</td></tr>
+    <tr><td>Q-05</td><td>埋点接入与漂移日志看板</td><td class="num">1</td><td>可按日查看漏斗与漂移次数</td></tr>
+  </table></div>
+  <p class="muted small">合计约 86 人日，2 人 8 周共 80 个工作日，缺口由第 8 周缓冲和 P2 项（量尺、装箱页签、3D 大图模式）延后来消化。</p>
+</section>
+
+<!-- ============================================================ 16 -->
+<section id="s16">
+  <h2><span class="no">16</span>风险与对策</h2>
+  <div class="tw"><table>
+    <tr><th>#</th><th>风险</th><th>可能性</th><th>影响</th><th>对策</th></tr>
+    <tr><td>R1</td><td>浏览器与服务端几何结果漂移（打包差异、浮点路径不同、前端缓存旧版本）</td><td>中</td><td>高：导出与预览不一致</td><td>同一源码同一版本号；<code>check-isomorphic</code> 进 CI；保存时比对 hash 并禁用导出；清单下发 <code>engine_version</code> 强制刷新</td></tr>
+    <tr><td>R2</td><td>真圆弧重建比预期复杂（布尔运算切断弧、偏移后弧）</td><td>中</td><td>中：DXF 仍是折线</td><td>单独排在 M1 之后（E-09），不阻塞工作台上线；无法确认的弧保持折线并把弦高压到 0.05mm；首批只保证圆角孔与倒角</td></tr>
+    <tr><td>R3</td><td>生成算法在前端可见，可被复制</td><td>高</td><td>中</td><td>首批模板为示意与工程候选级，价值在验证数据而非公式；保留 <code>serverOnly</code> 机制，取得实物验证的模板可改为服务端计算；构建产物常规压缩</td></tr>
+    <tr><td>R4</td><td>补偿系数未标定，客户把校样稿当生产稿用</td><td>中</td><td>高：实物尺寸不对</td><td>档位名称、文件内固定声明、界面“示意补偿”标注、免责页链接；生产稿档位本期不开放；E-07 准备标定流程</td></tr>
+    <tr><td>R5</td><td>自动保存导致 Revision 与几何服务调用量膨胀</td><td>中</td><td>中</td><td>3 秒防抖 + 10 分钟合并 + 限流；上线后观察每设计 Revision 数，必要时加清理任务</td></tr>
+    <tr><td>R6</td><td>飞机盒模板的公式来自对第三方样本的差分反推，授权边界不清（现有阻塞项 B-GEOM-LICENSE 仍未关闭）</td><td>中</td><td>高：合规</td><td>运行时不含任何第三方坐标数据；上线前由负责人确认该模板可否对外（Q5）；不能确认则首批改为 4 个模板，排期不受影响</td></tr>
+    <tr><td>R7</td><td>范围蔓延：把 LAB 的导入盒型、Packative 回放、外箱等一并搬入</td><td>高</td><td>中：延期</td><td>2.3 节明确不做；工作台只接受 <code>parametric</code> 且有能力位的产品；装箱页签为 P2</td></tr>
+    <tr><td>R8</td><td>去掉 0.5mm 厚度下限、出血语义调整影响现有 LAB 与 Studio</td><td>中</td><td>中</td><td>两处都通过显式参数保持旧行为；金样回归逐条评审</td></tr>
+    <tr><td>R9</td><td>Schema 发布顺序错误导致保存被拒</td><td>低</td><td>高</td><td>发布顺序写入上线检查表；后端先兼容新旧两种文档</td></tr>
+    <tr><td>R10</td><td>低端设备 3D 卡顿或 WebGL 不可用</td><td>中</td><td>低</td><td>3D 延后加载、不可见时暂停、降低像素比；不可用时退化为 2D，不影响核心流程</td></tr>
+    <tr><td>R11</td><td>工程域以 kraft、楞向 L 定义，新材质表引入后域内判定出错</td><td>中</td><td>中</td><td>材质表保留 <code>engineMaterialId</code> 映射；域判定继续用映射值；为每个模板加“默认参数必在域内”的测试</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 17 -->
+<section id="s17">
+  <h2><span class="no">17</span>待确认问题</h2>
+  <p>以下问题需要业务或负责人拍板。每项给出了建议，未答复时按建议执行，均不阻塞 M1。</p>
+  <div class="tw"><table>
+    <tr><th>#</th><th>问题</th><th>建议</th><th>最晚确认</th></tr>
+    <tr><td>Q1</td><td>路由用 <code>/workbench/:slug</code> 还是 <code>/dielines/:slug</code>？后者对搜索更友好，但容易与现有 <code>/library/dielines</code>（刀版素材库）混淆</td><td><code>/workbench/:slug</code></td><td>M2 前</td></tr>
+    <tr><td>Q2</td><td>高级结构参数是否对免费用户开放？</td><td>开放。这是相对竞品的差异点，且韩国客户强调易用；开关已预留</td><td>M4 前</td></tr>
+    <tr><td>Q3</td><td>工程候选稿是否仅限年费用户？</td><td>不限，与校样稿同样扣 1 次配额。工程域本身已是门槛</td><td>M3 前</td></tr>
+    <tr><td>Q4</td><td>同一刀版导出多种格式，扣 1 次还是按格式扣？客户需求文档写的是“每次导出 5,000 韩元”</td><td>按任务扣（现状），界面在导出前明确显示“本次将使用 1 次”</td><td>M3 前</td></tr>
+    <tr><td>Q5</td><td>飞机盒模板（<code>rea-aircraft</code>）能否对外提供？对外名称是什么？</td><td>确认授权边界后以“飞机盒 / Aircraft Mailer”上线，id 改为 <code>mailer-aircraft-v2</code>，旧 id 保留别名</td><td>M2 前</td></tr>
+    <tr><td>Q6</td><td>默认尺寸类型：瓦楞用“制造”、卡纸用“内”，是否符合韩国客户与工厂的习惯？</td><td>先按此实现，清单可逐产品调整</td><td>M2 前</td></tr>
+    <tr><td>Q7</td><td>补偿系数的实物标定由谁、何时做？需要每个材质族至少一组打样测量</td><td>与现有“FEFCO 0201 线下打样”合并安排；未完成前保持“示意补偿”标注</td><td>不阻塞本期</td></tr>
+    <tr><td>Q8</td><td>英寸显示是否进入首发？</td><td>进入（P1，1 人日）</td><td>M4 前</td></tr>
+    <tr><td>Q9</td><td>工作台稳定后，<code>/lab</code> 的“自有模板”页签是否下线并指向工作台？</td><td>发布后观察两周再决定，本期不动 LAB</td><td>发布后</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ 18 -->
+<section id="s18">
+  <h2><span class="no">18</span>附录</h2>
+  <h3>18.1 飞机盒结构参数分级（示例）</h3>
+  <p>依据现有 <code>src/templates/rea/aircraft.js</code> 的 18 个 <code>paramDefs</code>。分级为本方案建议，默认值公式为仓库现状。</p>
+  <div class="tw"><table>
+    <tr><th>级别</th><th>分组</th><th>code</th><th>含义</th><th>默认值</th><th>建议的动态约束</th></tr>
+    <tr><td rowspan="5">2 常用</td><td rowspan="2">角部折翼</td><td>N</td><td>摇盖宽</td><td>0.4 × 制造宽</td><td>上限 ≤ 制造长的一半减间隙，避免左右翼相碰</td></tr>
+    <tr><td>NX / NY</td><td>开槽厚 X / Y</td><td>3</td><td>下限 ≥ 板厚</td></tr>
+    <tr><td rowspan="3">插脚插孔</td><td>K</td><td>插孔数量</td><td>2</td><td>整数；与 SW、SP 共同受 <code>SLOT_SPAN</code> 约束</td></tr>
+    <tr><td>SW / SP</td><td>插孔长 / 孔距</td><td>0.2 × 宽 / 0.4 × 宽</td><td>(K − 1) × SP + SW ≤ 制造宽 − 2 × 边距</td></tr>
+    <tr><td>SW1 / CR</td><td>插脚下宽 / 插孔倒角</td><td>SW − 1 / 2.5</td><td>SW1 ≤ SW；CR ≤ 槽深的一半</td></tr>
+    <tr><td rowspan="2">3 进阶</td><td rowspan="2">内侧壁</td><td>SX</td><td>X 收位</td><td>厚板 1.5，薄板 0.5</td><td>—</td></tr>
+    <tr><td>DC / D2</td><td>内墙总高 / 插脚深</td><td>高 + 1.5 / DC − 3 − 0.75</td><td>D2 &lt; DC</td></tr>
+    <tr><td rowspan="2">4 专家</td><td>盒盖侧翼</td><td>M / MT / MR</td><td>侧翼宽 / 斜角 / 倒角</td><td>高 − SX / 20° / 15</td><td>MR ≤ M 的一半；斜角使翼端宽度 &gt; 0</td></tr>
+    <tr><td>前盖侧翼</td><td>TRH / TRR / R</td><td>翼高 / 倒角 / 折处倒角</td><td>高 − 8 / 13 / 1.5</td><td>TRR ≤ TRH 的一半</td></tr>
+  </table></div>
+
+  <h3>18.2 材质表初稿</h3>
+  <p>由现有 <code>paperCatalog.js</code> 与 <code>docs/paper_kr_catalog.md</code> 整理。厚度范围与补偿均为<b>待标定的初值</b>，<code>calibrated</code> 全部为 false。</p>
+  <div class="tw"><table>
+    <tr><th>id</th><th>名称</th><th>族</th><th class="num">默认厚度 mm</th><th>引擎材质</th><th>适用模板</th></tr>
+    <tr><td><code>kraft-150 / 250 / 350</code></td><td>牛皮纸 150g / 250g / 350g</td><td>kraft</td><td class="num">0.22 / 0.35 / 0.48</td><td>kraft</td><td>直插盒、自锁底盒</td></tr>
+    <tr><td><code>art-*</code></td><td>铜版 / 艺术纸各克重</td><td>art</td><td class="num">沿用现有目录值</td><td>white</td><td>直插盒、自锁底盒</td></tr>
+    <tr><td><code>flute-e</code></td><td>E 楞瓦楞</td><td>corrugated</td><td class="num">1.5</td><td>kraft</td><td>邮寄盒、飞机盒</td></tr>
+    <tr><td><code>flute-b</code></td><td>B 楞瓦楞</td><td>corrugated</td><td class="num">3.0</td><td>kraft</td><td>FEFCO 0201、邮寄盒</td></tr>
+  </table></div>
+
+  <h3>18.3 新增与变更的错误码</h3>
+  <div class="tw"><table>
+    <tr><th>code</th><th>HTTP</th><th>含义</th></tr>
+    <tr><td><code>EXPORT_BUSY</code></td><td>409</td><td>组织内进行中的导出任务已达上限</td></tr>
+    <tr><td><code>EXPORT_NOT_CANCELLABLE</code></td><td>409</td><td>任务不在 queued 状态</td></tr>
+    <tr><td><code>EXPORT_RETRY_EXHAUSTED</code></td><td>409</td><td>重试次数已用完</td></tr>
+    <tr><td><code>INVALID_EXPORT_OPTION</code></td><td>400</td><td>导出选项含未知键或非法值</td></tr>
+    <tr><td><code>PARAM_CONSTRAINT</code></td><td>400</td><td>结构参数违反模板约束；<code>errors</code> 中给出约束 code 与涉及的参数</td></tr>
+    <tr><td><code>ADVANCED_PARAMS_LOCKED</code></td><td>403</td><td>启用了高级参数门槛且用户无权益</td></tr>
+    <tr><td><code>WORKBENCH_UNSUPPORTED</code></td><td>404</td><td>该产品未开启工作台</td></tr>
+    <tr><td><code>RATE_LIMITED</code></td><td>429</td><td>保存或导出创建超过频率限制</td></tr>
+  </table></div>
+
+  <h3>18.4 埋点事件</h3>
+  <div class="tw"><table>
+    <tr><th>事件</th><th>触发</th><th>属性（不含个人信息）</th></tr>
+    <tr><td><code>wb_open</code></td><td>进入工作台</td><td>slug、来源（products / designs / share / direct）、是否登录、语言</td></tr>
+    <tr><td><code>wb_param_change</code></td><td>参数提交（合并 5 秒内的连续改动）</td><td>参数类别（dim / material / thickness / size_mode / advanced）、是否越限</td></tr>
+    <tr><td><code>wb_fold_play</code></td><td>拖动或播放折叠</td><td>slug</td></tr>
+    <tr><td><code>wb_share_copy</code></td><td>复制分享链接</td><td>slug</td></tr>
+    <tr><td><code>wb_gate_show</code></td><td>出现门槛弹窗</td><td>类型（login / quota / tier）、触发动作</td></tr>
+    <tr><td><code>wb_export_submit / _done / _fail</code></td><td>导出任务各阶段</td><td>格式、档位、耗时、错误码</td></tr>
+    <tr><td><code>wb_to_studio</code></td><td>点击“去设计”</td><td>slug</td></tr>
+    <tr><td><code>wb_geometry_drift</code></td><td>保存返回漂移</td><td>模板、引擎版本</td></tr>
+  </table></div>
+
+  <h3>18.5 术语</h3>
+  <div class="tw"><table>
+    <tr><th>术语</th><th>含义</th></tr>
+    <tr><td>内尺寸 / 制造尺寸 / 外尺寸</td><td>盒内净空 / 刀版上量到的面板尺寸（代码中的 <code>panel</code>）/ 成型后的外廓</td></tr>
+    <tr><td>knife</td><td>引擎输出的刀版数据，<code>boxcraft.knife.v3</code></td></tr>
+    <tr><td>GeometryDocument</td><td><code>boxcraft.geometry/v1</code>，用于计算 <code>g1:</code> 规范 hash 的归一化几何文档</td></tr>
+    <tr><td>工程域</td><td>一份配置，限定某模板在哪些尺寸、厚度、材质范围内可导出工程候选稿</td></tr>
+    <tr><td>productionReady / manufacturingReady</td><td>前者等于契约校验通过；后者表示可开模，目前恒为 false</td></tr>
+    <tr><td>校样稿 / 工程候选稿 / 生产稿</td><td>导出档位 <code>vector_proof / engineering / manufacturing</code></td></tr>
+    <tr><td>漂移</td><td>浏览器与服务端对同一输入算出不同的 <code>geometryHash</code></td></tr>
+  </table></div>
+
+  <h3>18.6 依据文件</h3>
+  <ul class="small">
+    <li>逆向资料：<code>docs/pacdora-rea/Pacdora_刀版详情页_150010_逆向报告.html</code>、<code>knife_preview.json</code>、<code>materials_science.json</code>、<code>models_details.json</code>、<code>permissions.json</code>、<code>loggedin_13in.png</code>；<code>docs/pacdora-rea/3d-creator/Pacdora_3D渲染器_逆向报告.html</code>；<code>docs/REA/REA严格反推/Aircraft_openParams_反推公式.md</code></li>
+    <li>既有方案：<code>docs/packative-research/新建文件夹/</code> 下的《刀版引擎现状审查与生产级建设思路 V1.1》《生产级刀版引擎统一化改造与实施开发方案 V1.1》；<code>docs/BOXCRAFT_Fullstack_Implementation_Package_2026-11-10/</code>；<code>docs/BOXCRAFT_B1_参数化结构落地方案.md</code>；<code>docs/刀版所需数据与参数.md</code>；韩国客户需求两份（261114）</li>
+    <li>前端代码：<code>src/knife.js</code>、<code>src/knifeContract.js</code>、<code>src/templates/</code>、<code>src/foldStages.js</code>、<code>src/render/boxModel.js</code>、<code>src/lab/knifeScene.js</code>、<code>src/exportDieline.js</code>、<code>src/dimAnnotations.js</code>、<code>src/catalog/paperCatalog.js</code>、<code>src/stores/{design,export,billing}.ts</code>、<code>src/api/</code>、<code>src/router/index.ts</code>、<code>src/legacy/LegacyLab.vue</code>、<code>src/styles/tokens.css</code></li>
+    <li>后端与服务：<code>backend/apps/{designs,exports,billing,catalog,geometry_api,assets,console}/</code>、<code>services/geometry/server.mjs</code>、<code>packages/{geometry-schema,design-schema,crashlock-engine}/</code>、<code>deploy/compose.yaml</code>、<code>.github/workflows/deploy-pages.yml</code></li>
+  </ul>
+  <div class="callout warn"><p><b>本文的事实与建议。</b>第 3、4、10.1 节是对逆向报告和仓库现状的陈述；其余为设计建议。文中所有性能数字是目标值，尚未测量；补偿系数与材质厚度是待标定的初值；排期基于 2 名全职开发的假设。</p></div>
+</section>
+
+
+</main>
+<footer>BOXCRAFT 内部方案 · 参数化刀版工作台 V1.0 · 2026-11-17 · 依据：docs/pacdora-rea 逆向报告与本仓库代码现状</footer>
+</body>
+</html>

@@ -5,6 +5,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 
+from apps.assets.models import Asset
 from apps.catalog.models import Product
 from apps.organizations.models import Organization
 
@@ -28,6 +29,13 @@ class Design(models.Model):
         blank=True,
         related_name='+',
     )
+    dieline_preview_asset = models.ForeignKey(
+        Asset,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='+',
+    )
     archived_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -43,9 +51,14 @@ class Design(models.Model):
 
 
 class DesignRevision(models.Model):
+    class Kind(models.TextChoices):
+        CHECKPOINT = 'checkpoint', 'Checkpoint'
+        AUTOSAVE = 'autosave', 'Autosave'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     design = models.ForeignKey(Design, on_delete=models.CASCADE, related_name='revisions')
     revision_no = models.PositiveIntegerField()
+    kind = models.CharField(max_length=20, choices=Kind.choices, default=Kind.CHECKPOINT)
     schema_version = models.CharField(max_length=40, default='boxcraft.design.v1')
     content_json = models.JSONField()
     content_hash = models.CharField(max_length=64)
@@ -65,7 +78,10 @@ class DesignRevision(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['design', 'revision_no'], name='uniq_design_revision_no'),
         ]
-        indexes = [models.Index(fields=['design', '-revision_no'])]
+        indexes = [
+            models.Index(fields=['design', '-revision_no']),
+            models.Index(fields=['kind', 'created_at']),
+        ]
 
     def __str__(self):
         return f'{self.design_id}#r{self.revision_no}'

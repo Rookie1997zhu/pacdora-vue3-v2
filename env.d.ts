@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_API_BASE: string
   readonly VITE_ROOT_HOME: string
+  readonly VITE_WORKBENCH?: string
   readonly GITHUB_PAGES?: string
 }
 
@@ -25,3 +26,12 @@ declare module 'vue-konva' {
 declare module '@/knife.js'
 declare module '../knife.js'
 declare module '../../knife.js'
+declare module '*.mjs'
+declare module '*geometry-engine*'
+declare module '*materialProfiles.js'
+declare module '*foldStages.js'
+declare module '*dimAnnotations.js'
+declare module '*knifeScene.js'
+declare module '*templates/index.js'
+declare module '*urlCodec.mjs'
+declare module '*pathToSvg.mjs'

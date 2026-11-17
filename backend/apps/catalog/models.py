@@ -113,3 +113,29 @@ class ProductVariant(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['product', 'code'], name='uniq_product_variant_code'),
         ]
+
+
+class MaterialProfile(models.Model):
+    """Synced from packages/geometry-engine/materialProfiles.js for public workbench UI."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    code = models.CharField(max_length=64, unique=True)
+    name_zh = models.CharField(max_length=120)
+    name_ko = models.CharField(max_length=120, blank=True)
+    family = models.CharField(max_length=40, default='kraft')
+    flute = models.CharField(max_length=16, blank=True)
+    thickness_min = models.DecimalField(max_digits=8, decimal_places=3, default=0)
+    thickness_default = models.DecimalField(max_digits=8, decimal_places=3, default=0)
+    thickness_max = models.DecimalField(max_digits=8, decimal_places=3, default=0)
+    engine_material_id = models.CharField(max_length=32, default='kraft')
+    calibrated = models.BooleanField(default=False)
+    profile_version = models.CharField(max_length=32, default='0.1')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        indexes = [models.Index(fields=['is_active', 'family'])]
+
+    def __str__(self):
+        return self.code

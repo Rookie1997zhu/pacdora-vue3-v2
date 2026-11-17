@@ -43,6 +43,7 @@ export const OFFICIAL_SUBCLASS_DEFS=[
   {id:'mailer',label:'邮寄盒',nameKey:'mailer-box'},
   {id:'tuck',label:'插口盒',nameKey:'tuck-end-boxes'},
   {id:'folding',label:'折叠盒',nameKey:'folding-boxes'},
+  {id:'tray',label:'托盘盒',nameKey:'tray-boxes'},
   {id:'handle',label:'带手柄的盒子',nameKey:'boxes-with-handle'},
   {id:'lid',label:'带盖盒',nameKey:'boxes-with-lid'},
   {id:'square',label:'方形盒',nameKey:'square-boxes'},
@@ -63,10 +64,16 @@ function inferShippingSubs(p){
   const text=`${p.label||''} ${p.sourceNum||''} ${p.categoryLabel||''}`.toLowerCase()
   const labels=new Set()
   if(p.categoryId==='mailer')labels.add('邮寄盒')
-  else labels.add('运输箱')
+  else if(p.categoryId==='folding')labels.add('折叠盒')
+  else if(p.categoryId==='tray')labels.add('托盘盒')
+  else if(p.categoryId==='gift'||p.categoryId==='square'){
+    // gift/square：不强制运输箱/邮寄盒子类底标；Lab 分类靠 categoryId
+    if(/square|方形/.test(text))labels.add('方形盒')
+  }else labels.add('运输箱')
   if(/mailer|邮寄|飞机|aircraft|flip.?top|翻盖/.test(text))labels.add('邮寄盒')
   if(/tuck|插舌|插口|反锁|锁底|snap.?lock|auto.?bottom/.test(text))labels.add('插口盒')
   if(/folding|折叠|配送/.test(text))labels.add('折叠盒')
+  if(/\btray\b|托盘/.test(text))labels.add('托盘盒')
   if(/handle|手柄|搬运|便携/.test(text))labels.add('带手柄的盒子')
   if(/lid|盖|zipper|拉链|撕拉/.test(text))labels.add('带盖盒')
   if(/square|方形/.test(text))labels.add('方形盒')
@@ -102,7 +109,7 @@ let withSub=0,without=0
 for(const p of data.presets||[]){
   let subs=numToSubs[String(p.sourceNum)]||[]
   if(!subs.length)subs=inferShippingSubs(p)
-  // 保证类目底标：运输箱 / 邮寄盒
+  // 保证类目底标：运输箱 / 邮寄盒（礼盒不依赖子类芯片，Lab 只看 categoryId）
   if(p.categoryId==='mailer'&&!subs.some(s=>s.id==='mailer')){
     subs=[{id:'mailer',label:'邮寄盒'},...subs]
   }else if((p.categoryId==='shipping'||!p.categoryId)&&!subs.some(s=>s.id==='shipping')){

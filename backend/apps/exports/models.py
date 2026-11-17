@@ -15,6 +15,7 @@ class ExportJob(models.Model):
         SVG = 'svg', 'SVG'
         DXF = 'dxf', 'DXF'
         PDF = 'pdf', 'PDF'
+        AI = 'ai', 'AI'
 
     class QualityTier(models.TextChoices):
         PREVIEW = 'preview', 'Preview'
@@ -58,6 +59,7 @@ class ExportJob(models.Model):
     checksum = models.CharField(max_length=64, blank=True)
     error_code = models.CharField(max_length=64, blank=True)
     error_message = models.TextField(blank=True)
+    attempts = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     finished_at = models.DateTimeField(null=True, blank=True)

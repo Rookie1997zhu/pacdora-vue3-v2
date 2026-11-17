@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-11-17T13:32:47.675Z",
+  "target": "https://www.pacdora.cn/dielines/tray-box-dielines",
+  "category": {
+    "id": 183,
+    "name": "托盘盒",
+    "nameKey": "tray-boxes",
+    "dielineNameKey": "tray-box-dielines",
+    "mockupNameKey": "tray-box-mockups",
+    "count": 96
+  },
+  "apis": [
+    "GET /api/v2/models/ctree",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?pageSize=&current=&dielineNameKey=tray-box-dielines",
+    "GET /api/v2/project/knife?id={listId}&bleed=5&export_type=model (www.pacdora.com)"
+  ],
+  "sampleList": {
+    "id": 3872,
+    "class1": "(70)(218)",
+    "class2": "(183)(226)",
+    "class3": "",
+    "num": 128024,
+    "image": "https://oss.pacdora.cn/render/1751963448210/12518540.png",
+    "knife": "https://oss.pacdora.cn/preview/dieline-128024.png",
+    "keywords": "128024,包装,抽屉盒,托盘盒,储物盒,礼品盒,套盒,日常生活,纸张,套盒,套,矩形,火柴,滑动,衬衫插锁套盒",
+    "modelKeywords": "128024,包装,抽屉盒,托盘盒,储物盒,礼品盒,套盒,日常生活,纸张,套盒,套,矩形,火柴,滑动,衬衫插锁套盒",
+    "usageKeywords": "",
+    "styleKeywords": "",
+    "productKeywords": "",
+    "length": 200.6,
+    "width": 110.6,
+    "height": 50.6,
+    "sort": 1280,
+    "is_enterprise": 0,
+    "use_count": 3580,
+    "demoProjectDataUrl": null,
+    "nameKey": "custom-dimensions-packaging-drawer-box-dieline-128024",
+    "mockupNameKey": "packaging-drawer-box-tray-box-mockup-128024",
+    "mockupName": "包装抽屉盒托盘盒 128024",
+    "name": "自定义尺寸包装抽屉盒 128024",
+    "create_time": "1668578750593",
+    "update_time": "1698741613592",
+    "cate_id": 3928,
+    "def_science_id": 8,
+    "cate_info": {
+      "cate_no": "128024",
+      "complex_type": 0,
+      "elaborate": 0,
+      "image": "https://oss.pacdora.cn/render/20221117/37212430001.png",
+      "size_options": [],
+      "displaySetting": {},
+      "edition": 1
+    },
+    "modeSetting": [
+      {
+        "id": 64973,
+        "image": "https://oss.pacdora.cn/render/1751961803889/12518306.png",
+        "material": "WHITE_BOARD",
+        "suggestColor": "",
+        "coverType": ""
+      }
+    ],
+    "liked": null,
+    "tags": [
+      "128024",
+      "包装",
+      "抽屉盒",
+      "托盘盒",
+      "储物盒",
+      "礼品盒",
+      "套盒",
+      "日常生活",
+      "纸张",
+      "套",
+      "矩形",
+      "火柴",
+      "滑动",
+      "衬衫插锁套盒",
+      "",
+      "食品",
+      "套筒与托盘盒",
+      "多边形盒",
+      "折叠盒"
+    ],
+    "showName": "自定义尺寸包装抽屉盒 128024",
+    "blankTitle": "pacdora.com|Blank White Packaging Of 包装 抽屉盒 托盘盒 ",
+    "blankAlt": "Custom Dimensions 包装 抽屉盒 dieline",
+    "dielinesTitle": "pacdora.com|Dielines Of 包装 抽屉盒 托盘盒 | Red and blue lines",
+    "dielinesAlt": "pacdora.com|Dielines Of 包装 抽屉盒 托盘盒 | Red and blue lines",
+    "svgTitle": "pacdora.com|Template with Dimensions 包装 抽屉盒 | Packaging Design",
+    "svgAlt": "pacdora.com|Template with Dimensions 包装 抽屉盒 | Packaging Design",
+    "class2Bymodel": "托盘盒",
+    "anchorName": "托盘盒",
+    "class2Namekey": "托盘盒",
+    "class2DielineNamekey": "tray-box-dielines",
+    "class2MockupNamekey": "tray-box-mockups",
+    "description": "pacdora样机频道提供样机在线设计创作，点击“编辑”按钮，可对包装进行在线编辑，模板、尺寸和材质可自定义修改，可自主添加修改文字图片及背景颜色，并支持导出 PDF/AI/DXF 高清印刷设计源文件及3D效果预览及分享。\n        本样机属于托盘盒样机，盒型编号是：128024。\n        你可能还对托盘盒刀板、托盘盒空白样机和托盘盒样机感兴趣。"
+  },
+  "knifeProbe": {
+    "knifeSize": {
+      "L": 200.6,
+      "W": 110.6,
+      "H": 50.6,
+      "D": 0,
+      "id": 0,
+      "ed": 0,
+      "like": null
+    },
+    "cuts": 155,
+    "folds": 39,
+    "modeCate": {
+      "id": 3928,
+      "name": "抽屉盒",
+      "code": "DrawerBox"
+    }
+  },
+  "notes": [
+    "pagination uses current not page",
+    "knife id is list id not num",
+    "knife on .com after experience_user"
+  ]
+}

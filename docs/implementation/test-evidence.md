@@ -257,3 +257,15 @@
 | P72-approval | 无 TemplateApproval → 422 | 同上 | **Passed** | failed_checks 含 APPROVAL |
 | P72-ok | gate 通过 → manufacturing succeeded | 同上（mock validate/export） | **Passed** | manufacturing_ready + license open |
 | P72-ui | ExportPanel 制造档 + check:all | `npm run check:all` | **Passed** | 能力驱动按钮 |
+
+## E-09 / X-03 — 真圆弧与曲线导出（2026-11-17）
+
+| ID | 场景 | 命令 / 方法 | 结果 | 证据 |
+|----|------|-------------|------|------|
+| E09-arcs | 圆角孔、倒角模板路径重建 | `npm run check:arcs` | **Passed** | 圆角孔最大偏差 `0.0323mm`；倒角模板 `0.0000mm`，均 ≤ `0.05mm`；PDF 内容流含贝塞尔 `c` 操作符 |
+| X03-dxf-readback | DXF 本地分组码回读 | `npm run check:arcs` | **Passed** | 解析到 8 个 `ARC`；圆心、半径、起止角均为有限数；同时含 `POLYLINE`、`DIM`、`TEXT` 图层实体 |
+| X03-options | 关闭尺寸、面名、标题栏 | `npm run check:arcs` | **Passed** | 关闭后回读无 `DIM` / `TEXT` 实体 |
+| X03-export | SVG / DXF / PDF / AI 回归 | `npm run check:export` | **Passed** | 四种格式均生成；PDF / AI 为有效 `%PDF-` 文件 |
+| E09-regression | 全量几何与工作台脚本 | `npm run check:all` | **Passed** | 含新增 `check-arcs.mjs`；最终输出 `check-all: all passed` |
+| X03-build | 前端生产构建 | `npm run build` | **Passed** | Vite 构建 exit 0 |
+| X03-external-readback | AutoCAD / Illustrator / Acrobat 人工回读 | 未执行 | **Not Run** | 当前仅完成本地 DXF 解析和 PDF 文件头/字节回读，需发布前人工打开确认图层与视觉 |

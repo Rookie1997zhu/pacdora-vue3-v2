@@ -40,6 +40,7 @@ const items = [
   { to: '/console/dielines', label: 'console.nav.dielines' },
   { to: '/console/assets', label: 'console.nav.assets' },
   { to: '/console/ai', label: 'console.nav.ai' },
+  { to: '/console/blog', label: 'console.nav.blog' },
   { to: '/console/audit', label: 'console.nav.audit' },
 ]
 

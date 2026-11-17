@@ -11,6 +11,8 @@ import {faceSignature} from '../src/templates/spec/specTemplate.js'
 import {resolveStructureTemplate} from '../src/catalog/structureCodeTemplates.js'
 import {REA_TEMPLATES} from '../src/templates/rea/index.js'
 import {pickCompileLayer} from './lib/pickCompileLayer.mjs'
+import {createGeomResolver,legacyGeomFile} from './lib/presetGeom.mjs'
+import {measure,sampleInput,presetParams,acceptable,scoreOf} from './check-pacdora-fidelity.mjs'
 
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 const presetsPath=join(root,'src','catalog','presets.js')
@@ -19,6 +21,8 @@ const outDir=join(root,'未映射名单')
 mkdirSync(outDir,{recursive:true})
 
 const FAMILY_TEMPLATE_IDS=new Set(['cylinder-box','sleeve-drawer','rea-flat-sheet'])
+/** 编号 → 几何文件；读入预设后初始化 */
+let geomFileOf=()=>null
 const REA_BY_ID=Object.fromEntries(REA_TEMPLATES.map(t=>[t.id,t]))
 
 /** code → [specs]；同时按完整 spec.code 索引 */
@@ -32,8 +36,8 @@ for(const s of specData?.specs||[]){
 }
 
 function geometrySignature(num){
-  const file=join(geomDir,`${num}.json`)
-  if(!existsSync(file))return null
+  const file=geomFileOf(num)
+  if(!file)return null
   try{
     const j=JSON.parse(readFileSync(file,'utf8'))
     const ly=pickCompileLayer(j)
@@ -46,8 +50,8 @@ function geometrySignature(num){
 }
 
 function sampleFaceCount(num){
-  const file=join(geomDir,`${num}.json`)
-  if(!existsSync(file))return 0
+  const file=geomFileOf(num)
+  if(!file)return 0
   try{
     const j=JSON.parse(readFileSync(file,'utf8'))
     return (pickCompileLayer(j)?.faces||[]).length
@@ -115,6 +119,7 @@ function mountSigOk(sourceNum,spec,sampleSig){
 
 const raw=readFileSync(presetsPath,'utf8')
 const data=JSON.parse(raw.replace(/^\/\*\*[\s\S]*?\*\/\s*export\s+default\s+/,'').trim())
+geomFileOf=createGeomResolver(root,data.presets)
 const rows=[]
 let applied=0,takeover=0,restored=0
 
@@ -125,6 +130,29 @@ for(const p of data.presets||[]){
   delete p.templateSource
   delete p.specFrom
   restored++
+}
+
+/**
+ * 吻合度把关：规格在金样尺寸下必须结构对得上（acceptable），且比当前模板更接近金样，才接管。
+ * @returns {null|string} null=可接管；否则为不接管的原因
+ */
+function fidelityVeto(p,spec){
+  const file=geomFileOf(p.sourceNum)
+  if(!file)return null
+  let geom
+  try{geom=JSON.parse(readFileSync(file,'utf8'))}catch{return null}
+  const mSpec=measure(`spec-${spec.code}`,geom,sampleInput(geom))
+  if(!acceptable(mSpec)){
+    // 早期全库样本（geometry/pacdora_boxes）里没有其它模板可用的条目沿用原行为，不因把关而变成未挂载
+    if(!p.templateId&&existsSync(legacyGeomFile(root,p.sourceNum)))return null
+    return 'fidelity-reject'
+  }
+  if(!p.templateId)return null
+  const mCur=measure(p.templateId,geom,{
+    length:p.length,width:p.width,height:p.height,thickness:p.thickness||.5,
+    params:presetParams(p),
+  })
+  return scoreOf(mSpec)<scoreOf(mCur)?null:'fidelity-keep-current'
 }
 
 const restoreOnly=process.argv.includes('--restore')
@@ -145,9 +173,16 @@ for(const p of restoreOnly?[]:data.presets||[]){
   if(exact){
     const sn=sampleFaceCount(p.sourceNum)
     const rn=reaFaceCount(exact)
-    if(!faceCountMismatch(rn,sn))continue
+    // 面数失配，或该样本有自己的规格（精确模板吻合度不达标时才会编出）才考虑接管
+    const ownSpec=String(spec.sampleNum)===String(p.sourceNum)
+    if(!faceCountMismatch(rn,sn)&&!ownSpec)continue
     if(!mountSigOk(p.sourceNum,spec,sig)){
       rows.push([p.sourceNum,code,p.templateId||'',`spec-${spec.code}`,'takeover-sig-mismatch'])
+      continue
+    }
+    const vetoT=fidelityVeto(p,spec)
+    if(vetoT){
+      rows.push([p.sourceNum,code,p.templateId||'',`spec-${spec.code}`,vetoT])
       continue
     }
     const from=p.templateId
@@ -162,6 +197,11 @@ for(const p of restoreOnly?[]:data.presets||[]){
 
   if(!mountSigOk(p.sourceNum,spec,sig)){
     rows.push([p.sourceNum,code,p.templateId||'',`spec-${spec.code}`,'signature-mismatch'])
+    continue
+  }
+  const veto=fidelityVeto(p,spec)
+  if(veto){
+    rows.push([p.sourceNum,code,p.templateId||'',`spec-${spec.code}`,veto])
     continue
   }
   const from=p.templateId

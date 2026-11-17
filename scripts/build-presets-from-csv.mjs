@@ -1,5 +1,5 @@
 /**
- * 从运输箱 + 邮寄盒 CSV 生成「导入的尺寸目录」。
+ * 从运输箱 + 邮寄盒 + 礼盒 + 方形盒 + 折叠盒 + 托盘盒 CSV 生成「导入的尺寸目录」。
  * 只写入 L/W/H/厚度/名称/段数等元数据；不把 Pacdora cuts/folds 坐标写进产品刀版。
  */
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs'
@@ -9,9 +9,17 @@ import {fileURLToPath} from 'node:url'
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 const shippingCsv=join(root,'docs','pacdora_shipping_boxes','shipping_boxes.csv')
 const mailerCsv=join(root,'docs','pacdora_mailer_boxes','mailer_boxes.csv')
+const giftCsv=join(root,'docs','pacdora_gift_boxes','gift_boxes.csv')
+const squareCsv=join(root,'docs','pacdora_square_boxes','square_boxes.csv')
+const foldingCsv=join(root,'docs','pacdora_folding_boxes','folding_boxes.csv')
+const trayCsv=join(root,'docs','pacdora_tray_boxes','tray_boxes.csv')
 const legacyCsv=join(root,'pacdora_boxes_geom.csv')
 const shippingGeomDir=join(root,'docs','pacdora_shipping_boxes','geometry')
 const mailerGeomDir=join(root,'docs','pacdora_mailer_boxes','geometry')
+const giftGeomDir=join(root,'docs','pacdora_gift_boxes','geometry')
+const squareGeomDir=join(root,'docs','pacdora_square_boxes','geometry')
+const foldingGeomDir=join(root,'docs','pacdora_folding_boxes','geometry')
+const trayGeomDir=join(root,'docs','pacdora_tray_boxes','geometry')
 const legacyGeomDir=join(root,'geometry','pacdora_boxes')
 const outDir=join(root,'src','catalog')
 const outPath=join(outDir,'presets.js')
@@ -128,12 +136,23 @@ const CATEGORY_MAP={
   'Shipping Box':{id:'shipping',label:'运输箱'},
   '邮寄盒':{id:'mailer',label:'邮寄盒'},
   'Mailer Box':{id:'mailer',label:'邮寄盒'},
-  'Gift Box':{id:'gift',label:'礼品盒'},
+  '礼盒':{id:'gift',label:'礼盒'},
+  'Gift Box':{id:'gift',label:'礼盒'},
+  '方形盒':{id:'square',label:'方形盒'},
+  'Square Box':{id:'square',label:'方形盒'},
+  '折叠盒':{id:'folding',label:'折叠盒'},
+  'Folding Box':{id:'folding',label:'折叠盒'},
+  '托盘盒':{id:'tray',label:'托盘盒'},
+  'Tray Box':{id:'tray',label:'托盘盒'},
   'Display Box':{id:'display',label:'展示盒'}
 }
 function mapCategory(raw,forceId){
   if(forceId==='shipping')return {id:'shipping',label:'运输箱'}
   if(forceId==='mailer')return {id:'mailer',label:'邮寄盒'}
+  if(forceId==='gift')return {id:'gift',label:'礼盒'}
+  if(forceId==='square')return {id:'square',label:'方形盒'}
+  if(forceId==='folding')return {id:'folding',label:'折叠盒'}
+  if(forceId==='tray')return {id:'tray',label:'托盘盒'}
   const hit=CATEGORY_MAP[String(raw||'').trim()]
   return hit||{id:'other',label:'其他'}
 }
@@ -157,6 +176,42 @@ if(existsSync(mailerCsv)){
     geomPublicPrefix:'mailer-geom',
   })
 }
+if(existsSync(giftCsv)){
+  sources.push({
+    csvPath:giftCsv,
+    forceCategory:'gift',
+    geomDirs:[giftGeomDir],
+    coverRelPrefix:'gift-covers',
+    geomPublicPrefix:'gift-geom',
+  })
+}
+if(existsSync(squareCsv)){
+  sources.push({
+    csvPath:squareCsv,
+    forceCategory:'square',
+    geomDirs:[squareGeomDir],
+    coverRelPrefix:'square-covers',
+    geomPublicPrefix:'square-geom',
+  })
+}
+if(existsSync(foldingCsv)){
+  sources.push({
+    csvPath:foldingCsv,
+    forceCategory:'folding',
+    geomDirs:[foldingGeomDir],
+    coverRelPrefix:'folding-covers',
+    geomPublicPrefix:'folding-geom',
+  })
+}
+if(existsSync(trayCsv)){
+  sources.push({
+    csvPath:trayCsv,
+    forceCategory:'tray',
+    geomDirs:[trayGeomDir],
+    coverRelPrefix:'tray-covers',
+    geomPublicPrefix:'tray-geom',
+  })
+}
 if(!sources.length&&existsSync(legacyCsv)){
   sources.push({
     csvPath:legacyCsv,
@@ -167,7 +222,7 @@ if(!sources.length&&existsSync(legacyCsv)){
   })
 }
 if(!sources.length){
-  console.error('missing shipping/mailer/legacy CSV')
+  console.error('missing shipping/mailer/gift/square/folding/tray/legacy CSV')
   process.exit(1)
 }
 
@@ -261,7 +316,7 @@ if(byCategory.other)categories.push({id:'other',label:'其他',count:byCategory.
 mkdirSync(outDir,{recursive:true})
 const payload={
   schema:'boxcraft.presets.v1',
-  note:'Imported SIZE directory (shipping + mailer). Geometry under public/*-geom is locked-sample playback reference, not production dielines. Engine regenerates via BOXCRAFT templates when no geom.',
+  note:'Imported SIZE directory (shipping + mailer + gift + square + folding + tray). Geometry under public/*-geom is locked-sample playback reference, not production dielines. Engine regenerates via BOXCRAFT templates when no geom.',
   generatedFrom,
   count:presets.length,
   mapped,
@@ -282,5 +337,9 @@ console.log(JSON.stringify({
   byCategory,
   shippingGeomExists:existsSync(shippingGeomDir),
   mailerGeomExists:existsSync(mailerGeomDir),
+  giftGeomExists:existsSync(giftGeomDir),
+  squareGeomExists:existsSync(squareGeomDir),
+  foldingGeomExists:existsSync(foldingGeomDir),
+  trayGeomExists:existsSync(trayGeomDir),
   byTemplate
 },null,2))

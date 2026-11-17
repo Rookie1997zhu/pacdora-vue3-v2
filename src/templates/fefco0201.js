@@ -1,5 +1,6 @@
 // FEFCO 0201 开槽纸箱（RSC）：四片墙板一字排开 + 接舌，上下各四片等高摇盖，外摇盖在中线对接。
 // 补偿/缝宽/摇盖高度为经验默认（kraft、工程域 T∈[2,4]），未实物打样校准，不得宣称 production die。
+import {arcSegmentCount} from '../geom/flattenPath.js'
 
 const round = (n) => Math.round(n * 1000) / 1000
 
@@ -40,9 +41,10 @@ export function fefco0201FilletedOutline(w, h, r, hingeSide, arcSeg = 3) {
   }
   rad = round(rad)
   const pts = []
+  const segments=arcSegmentCount(rad,Math.PI/2,.04,arcSeg)
   const arc = (cx, cy, a0, a1) => {
-    for (let i = 0; i <= arcSeg; i++) {
-      const u = a0 + (a1 - a0) * (i / arcSeg)
+    for (let i = 0; i <= segments; i++) {
+      const u = a0 + (a1 - a0) * (i / segments)
       pts.push([round(cx + rad * Math.cos(u)), round(cy + rad * Math.sin(u))])
     }
   }

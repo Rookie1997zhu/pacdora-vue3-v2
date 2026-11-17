@@ -43,17 +43,24 @@
               </label>
             </div>
             <label>
-              {{ t('studio.material') }}
-              <select v-model="materialId">
-                <option value="kraft">{{ t('lab.kraft') }}</option>
-                <option value="white">{{ t('lab.white') }}</option>
-                <option value="blue">{{ t('lab.blue') }}</option>
+              {{ t('studio.paperStock') }}
+              <select v-model="paperId">
+                <option v-for="p in PAPER_CATALOG" :key="p.id" :value="p.id">
+                  {{ paperLabel(p, locale) }}
+                </option>
               </select>
             </label>
             <p v-if="!editable" class="hint">{{ t('studio.sizeLocked') }}</p>
             <p v-else-if="outOfRange" class="hint bc-err">{{ t('studio.outOfRange') }}</p>
             <p v-if="error" class="bc-err">{{ error }}</p>
-            <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy">{{ t('studio.createDesign') }}</button>
+            <div class="actions">
+              <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy">{{ t('studio.createDesign') }}</button>
+              <router-link
+                v-if="showWorkbench"
+                class="bc-btn"
+                :to="{ name: 'workbench', params: { slug: product.slug } }"
+              >{{ t('workbench.customizeCta') }}</router-link>
+            </div>
           </form>
         </section>
       </div>
@@ -77,8 +84,10 @@ import { createDesign } from '../api/designs'
 import { ApiError } from '../api/client'
 // @ts-expect-error JS asset helper
 import { publicAssetUrl } from '../assetUrl.js'
+import { PAPER_CATALOG, getPaperById, paperLabel, resolvePaperFromParams } from '../catalog/paperCatalog.js'
 import AppShell from '../components/layout/AppShell.vue'
 import { useAuthStore } from '../stores/auth'
+import { getWorkbenchManifest, isWorkbenchEnabled } from '../features/workbench/manifest'
 
 function coverUrl(rel: string) {
   return publicAssetUrl(rel)
@@ -103,9 +112,18 @@ const designName = ref('')
 const lengthMm = ref(300)
 const widthMm = ref(200)
 const heightMm = ref(50)
-const materialId = ref('kraft')
+const paperId = ref('kraft-250')
 
 const editable = computed(() => product.value?.geometry_mode === 'parametric')
+const showWorkbench = computed(
+  () =>
+    isWorkbenchEnabled() &&
+    !!product.value &&
+    product.value.geometry_mode === 'parametric' &&
+    (product.value.capabilities?.workbench === true ||
+      !!product.value.workbench ||
+      !!getWorkbenchManifest(product.value.slug)),
+)
 
 const limits = computed(() => product.value?.template_version?.limits || null)
 const lengthMin = computed(() => limits.value?.length?.[0] ?? 1)
@@ -137,7 +155,14 @@ onMounted(async () => {
     if (typeof defaults.lengthMm === 'number') lengthMm.value = defaults.lengthMm
     if (typeof defaults.widthMm === 'number') widthMm.value = defaults.widthMm
     if (typeof defaults.heightMm === 'number') heightMm.value = defaults.heightMm
-    if (typeof defaults.materialId === 'string') materialId.value = defaults.materialId
+    if (typeof defaults.materialId === 'string' || typeof defaults.thicknessMm === 'number') {
+      const resolved = resolvePaperFromParams({
+        materialId: typeof defaults.materialId === 'string' ? defaults.materialId : undefined,
+        thicknessMm: typeof defaults.thicknessMm === 'number' ? defaults.thicknessMm : undefined,
+        advanced: (defaults.advanced as Record<string, unknown>) || {},
+      })
+      paperId.value = resolved.id
+    }
   } catch (e: unknown) {
     error.value = e instanceof ApiError ? e.message : t('studio.loadFailed')
   } finally {
@@ -160,8 +185,10 @@ async function onCreate() {
   try {
     const caps = product.value.capabilities || {}
     const defaults = (caps.default_params || {}) as Record<string, unknown>
-    const advanced: Record<string, number> = {
-      ...((defaults.advanced as Record<string, number>) || {}),
+    const paper = getPaperById(paperId.value) || resolvePaperFromParams({})
+    const advanced: Record<string, number | string> = {
+      ...((defaults.advanced as Record<string, number | string>) || {}),
+      paperId: paper.id,
     }
     const sourceRaw = caps.source_num ?? advanced.sourceNum
     if (sourceRaw != null && sourceRaw !== '') {
@@ -180,10 +207,10 @@ async function onCreate() {
           lengthMm: lengthMm.value,
           widthMm: widthMm.value,
           heightMm: heightMm.value,
-          thicknessMm: Number(defaults.thicknessMm ?? 1.5),
+          thicknessMm: paper.thicknessMm,
           sizeMode: (defaults.sizeMode as 'inner' | 'outer') || 'inner',
           fluteDirection: (defaults.fluteDirection as 'L' | 'W') || 'L',
-          materialId: materialId.value,
+          materialId: paper.mapMaterialId,
           bleedInputMm: Number(defaults.bleedInputMm ?? 3),
           advanced,
         },
@@ -309,6 +336,13 @@ async function onCreate() {
 .form h2 {
   margin: 0;
   font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
 }
 
 label {

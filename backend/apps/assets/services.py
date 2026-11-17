@@ -26,6 +26,14 @@ EXPORT_MIME = {
     'application/dxf': '.dxf',
     'application/pdf': '.pdf',
 }
+RENDER_RESULT_MIME = {
+    'image/png': '.png',
+    'image/jpeg': '.jpg',
+}
+RENDER_INPUT_MIME = {
+    'model/gltf-binary': '.glb',
+    'application/octet-stream': '.glb',
+}
 # Sample-test evidence (staff upload): raster + PDF.
 SAMPLE_MIME = {
     **ALLOWED_MIME,
@@ -249,18 +257,24 @@ def store_bytes(
     filename: str,
     source: str = 'export',
     meta: dict | None = None,
+    allowed_mimes: dict | None = None,
+    subdir: str = 'exports',
+    max_bytes: int | None = None,
 ) -> Asset:
     mime = (mime or '').strip().lower()
-    if mime not in EXPORT_MIME:
+    mime_map = allowed_mimes or EXPORT_MIME
+    if mime not in mime_map:
         raise AssetUploadError('unsupported export mime type', code='UNSUPPORTED_MIME')
     if not data:
         raise AssetUploadError('empty file', code='EMPTY_FILE')
-    if len(data) > MAX_EXPORT_BYTES:
+    limit = MAX_EXPORT_BYTES if max_bytes is None else int(max_bytes)
+    if len(data) > limit:
         raise AssetUploadError('file too large', code='FILE_TOO_LARGE')
 
     digest = hashlib.sha256(data).hexdigest()
+    width, height = detect_image_size(mime, data) if mime.startswith('image/') else (None, None)
     asset_id = uuid.uuid4()
-    rel = Path('orgs') / str(organization.id) / 'exports' / f'{asset_id}{EXPORT_MIME[mime]}'
+    rel = Path('orgs') / str(organization.id) / subdir / f'{asset_id}{mime_map[mime]}'
     abs_path = Path(settings.MEDIA_ROOT) / rel
     abs_path.parent.mkdir(parents=True, exist_ok=True)
     abs_path.write_bytes(data)
@@ -270,15 +284,86 @@ def store_bytes(
         organization=organization,
         owner=owner,
         storage_key=str(rel).replace('\\', '/'),
-        original_filename=(filename or f'export{EXPORT_MIME[mime]}')[:255],
+        original_filename=(filename or f'export{mime_map[mime]}')[:255],
         mime=mime,
         byte_size=len(data),
         sha256=digest,
-        width_px=None,
-        height_px=None,
+        width_px=width,
+        height_px=height,
         status=Asset.Status.READY,
         source=source,
         meta=meta or {},
+    )
+
+
+def store_render_result(*, organization, owner, data: bytes, mime: str, filename: str, meta: dict | None = None) -> Asset:
+    return store_bytes(
+        organization=organization,
+        owner=owner,
+        data=data,
+        mime=mime,
+        filename=filename,
+        source='render',
+        meta=meta,
+        allowed_mimes=RENDER_RESULT_MIME,
+        subdir='renders',
+        max_bytes=MAX_EXPORT_BYTES,
+    )
+
+
+def store_render_input(*, organization, owner, data: bytes, filename: str = 'scene.glb', meta: dict | None = None) -> Asset:
+    return store_bytes(
+        organization=organization,
+        owner=owner,
+        data=data,
+        mime='model/gltf-binary',
+        filename=filename,
+        source='render_input',
+        meta=meta,
+        allowed_mimes=RENDER_INPUT_MIME,
+        subdir='render_inputs',
+        max_bytes=int(getattr(settings, 'RENDER_MAX_GLB_BYTES', 80 * 1024 * 1024)),
+    )
+
+
+PROP_GLB_MIME = {
+    'model/gltf-binary': '.glb',
+    'application/octet-stream': '.glb',
+}
+RENDER_HDR_MIME = {
+    'image/vnd.radiance': '.hdr',
+    'application/octet-stream': '.hdr',
+}
+MAX_HDR_BYTES = 30 * 1024 * 1024
+
+
+def store_prop_glb(*, organization, owner, data: bytes, filename: str = 'prop.glb', meta: dict | None = None) -> Asset:
+    return store_bytes(
+        organization=organization,
+        owner=owner,
+        data=data,
+        mime='model/gltf-binary',
+        filename=filename,
+        source='render_prop',
+        meta=meta,
+        allowed_mimes=PROP_GLB_MIME,
+        subdir='render_props',
+        max_bytes=int(getattr(settings, 'RENDER_MAX_GLB_BYTES', 80 * 1024 * 1024)),
+    )
+
+
+def store_render_hdr(*, organization, owner, data: bytes, filename: str = 'env.hdr', meta: dict | None = None) -> Asset:
+    return store_bytes(
+        organization=organization,
+        owner=owner,
+        data=data,
+        mime='image/vnd.radiance',
+        filename=filename,
+        source='render_hdr',
+        meta=meta,
+        allowed_mimes=RENDER_HDR_MIME,
+        subdir='render_hdr',
+        max_bytes=MAX_HDR_BYTES,
     )
 
 

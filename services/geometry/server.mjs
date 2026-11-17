@@ -9,7 +9,9 @@ const geomSchemaRoot = join(repoRoot, 'packages', 'geometry-schema')
 
 const {createKnife} = await import(pathToFileURL(join(srcRoot, 'knife.js')).href)
 const {TEMPLATES} = await import(pathToFileURL(join(srcRoot, 'templates', 'index.js')).href)
-const {toDxf, toSvgDieline, toPdf} = await import(pathToFileURL(join(srcRoot, 'exportDieline.js')).href)
+const {toDxf, toSvgDieline, toPdf, toAi} = await import(
+  pathToFileURL(join(srcRoot, 'exportDieline.js')).href
+)
 const {
   geometryDocumentFromKnife,
   isTrustedUnit,
@@ -31,12 +33,31 @@ const {
 
 const PORT = Number(process.env.PORT || 3100)
 const HOST = process.env.HOST || '0.0.0.0'
+const MAX_BODY_BYTES = 256 * 1024
+const GEOMETRY_TIMEOUT_MS = 5_000
 
 function readJson(req) {
   return new Promise((resolve, reject) => {
     const chunks = []
-    req.on('data', (c) => chunks.push(c))
+    let totalBytes = 0
+    let settled = false
+    req.on('data', (chunk) => {
+      if (settled) return
+      totalBytes += chunk.length
+      if (totalBytes > MAX_BODY_BYTES) {
+        settled = true
+        chunks.length = 0
+        const err = new Error('request body exceeds 256KB')
+        err.code = 'BODY_TOO_LARGE'
+        err.status = 413
+        reject(err)
+        return
+      }
+      chunks.push(chunk)
+    })
     req.on('end', () => {
+      if (settled) return
+      settled = true
       try {
         const raw = Buffer.concat(chunks).toString('utf8') || '{}'
         resolve(JSON.parse(raw))
@@ -45,6 +66,21 @@ function readJson(req) {
       }
     })
     req.on('error', reject)
+  })
+}
+
+function withGeometryTimeout(operation) {
+  let timeoutId
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => {
+      const err = new Error('geometry calculation timed out')
+      err.code = 'GEOMETRY_TIMEOUT'
+      err.status = 504
+      reject(err)
+    }, GEOMETRY_TIMEOUT_MS)
+  })
+  return Promise.race([Promise.resolve().then(operation), timeout]).finally(() => {
+    clearTimeout(timeoutId)
   })
 }
 
@@ -82,14 +118,26 @@ function normalizeGeometryInput(body) {
   const thicknessMm = requireNumber('thickness_mm', body.thickness_mm ?? body.thicknessMm ?? 1.5)
   const bleedMm = requireNumber('bleed_mm', body.bleed_mm ?? body.bleedMm ?? 3)
   const sizeMode = body.size_mode || body.sizeMode || 'inner'
-  if (sizeMode !== 'inner' && sizeMode !== 'outer') {
-    const err = new Error('size_mode must be inner|outer')
+  if (!['inner', 'outer', 'manufacturing'].includes(sizeMode)) {
+    const err = new Error('size_mode must be inner|outer|manufacturing')
     err.code = 'INVALID_SIZE_MODE'
     throw err
   }
   const fluteDirection = body.flute_direction || body.fluteDirection || 'L'
   const materialId = body.material_id || body.materialId || 'kraft'
   const params = body.params && typeof body.params === 'object' ? body.params : {}
+  // Multi-piece templates (lid + base, inserts…): which piece to generate. Unknown ids are rejected.
+  const pieceRaw = body.piece_id ?? body.pieceId ?? null
+  const pieceId = pieceRaw == null || pieceRaw === '' ? null : String(pieceRaw)
+  if (pieceId != null) {
+    const pieces = Array.isArray(TEMPLATES[templateId].pieces) ? TEMPLATES[templateId].pieces : []
+    if (!pieces.some((p) => p.id === pieceId)) {
+      const err = new Error('unknown piece_id')
+      err.code = 'UNKNOWN_PIECE'
+      err.field = 'piece_id'
+      throw err
+    }
+  }
   const unitConfidence = String(body.unit_confidence || body.unitConfidence || 'trusted')
   const template = TEMPLATES[templateId]
   const limits = template.limits || {}
@@ -119,6 +167,7 @@ function normalizeGeometryInput(body) {
     fluteDirection,
     materialId,
     params,
+    pieceId,
     unitConfidence,
     source: body.source || 'parametric',
     lockedSample: !!body.locked_sample || !!body.lockedSample,
@@ -144,6 +193,7 @@ function generateOnce(input) {
     fluteDirection: input.fluteDirection,
     materialId: input.materialId,
     params: input.params,
+    piece: input.pieceId || undefined,
     strict: true,
   })
   if (knife.template !== input.templateId) {
@@ -194,6 +244,8 @@ function validateGeometry(body) {
     sheet_mm: knife.sheet || null,
     dimensions: knife.dimensions || null,
     validation: knife.validation || null,
+    stats: knife.stats ?? null,
+    issues: knife.issues ?? null,
     geometry_hash: doc.canonicalHash,
     unit_confidence: doc.provenance?.unitConfidence || input.unitConfidence,
     unit_trusted: isTrustedUnit(doc.provenance?.unitConfidence || input.unitConfidence),
@@ -260,8 +312,8 @@ function solvePacking(body) {
 
 async function exportDieline(body) {
   const format = String(body.format || '').trim().toLowerCase()
-  if (!['svg', 'dxf', 'pdf'].includes(format)) {
-    const err = new Error('format must be svg|dxf|pdf')
+  if (!['svg', 'dxf', 'pdf', 'ai'].includes(format)) {
+    const err = new Error('format must be svg|dxf|pdf|ai')
     err.code = 'INVALID_FORMAT'
     throw err
   }
@@ -296,7 +348,12 @@ async function exportDieline(body) {
     }
   }
   const base = `${input.templateId}-${input.lengthMm}x${input.widthMm}x${input.heightMm}`
-  const exportOpts = {qualityTier: qualityTier || 'vector_proof'}
+  const options = normalizeExportOptions(body.options)
+  const exportOpts = {
+    qualityTier: qualityTier || 'vector_proof',
+    includeDims: options.showDimensions ?? true,
+    ...options,
+  }
   let mime
   let filename
   let bytes
@@ -312,12 +369,18 @@ async function exportDieline(body) {
   } else if (format === 'dxf') {
     mime = 'application/dxf'
     filename = `${base}.dxf`
-    bytes = Buffer.from(toDxf(knife), 'utf8')
+    bytes = Buffer.from(toDxf(knife, exportOpts), 'utf8')
     physicalMm = true
-  } else {
+  } else if (format === 'pdf') {
     mime = 'application/pdf'
     filename = `${base}.pdf`
     const u8 = await toPdf(knife, exportOpts)
+    bytes = Buffer.from(u8)
+    physicalMm = false
+  } else {
+    mime = 'application/pdf'
+    filename = `${base}.ai`
+    const u8 = await toAi(knife, exportOpts)
     bytes = Buffer.from(u8)
     physicalMm = false
   }
@@ -352,6 +415,96 @@ async function exportDieline(body) {
   }
 }
 
+function normalizeExportOptions(rawOptions) {
+  if (!rawOptions || typeof rawOptions !== 'object' || Array.isArray(rawOptions)) return {}
+  const options = {}
+  for (const key of ['showDimensions', 'showBleed', 'showFaceNames', 'showTitleBlock']) {
+    if (!(key in rawOptions)) continue
+    if (typeof rawOptions[key] !== 'boolean') {
+      const err = new Error(`options.${key} must be boolean`)
+      err.code = 'INVALID_EXPORT_OPTION'
+      err.field = `options.${key}`
+      throw err
+    }
+    options[key] = rawOptions[key]
+  }
+  if ('displayUnit' in rawOptions) {
+    if (!['mm', 'in'].includes(rawOptions.displayUnit)) {
+      const err = new Error('options.displayUnit must be mm|in')
+      err.code = 'INVALID_EXPORT_OPTION'
+      err.field = 'options.displayUnit'
+      throw err
+    }
+    options.displayUnit = rawOptions.displayUnit
+  }
+  if ('locale' in rawOptions) {
+    if (!['zh-CN', 'ko-KR'].includes(rawOptions.locale)) {
+      const err = new Error('options.locale must be zh-CN|ko-KR')
+      err.code = 'INVALID_EXPORT_OPTION'
+      err.field = 'options.locale'
+      throw err
+    }
+    options.locale = rawOptions.locale
+  }
+  return options
+}
+
+function compactNumber(value) {
+  const rounded = Math.round(value * 1000) / 1000
+  return Object.is(rounded, -0) ? '0' : String(rounded)
+}
+
+function thumbnailPath(segments, minX, minY) {
+  return segments
+    .map(
+      ({x1, y1, x2, y2}) =>
+        `M${compactNumber(x1 - minX)} ${compactNumber(y1 - minY)}L${compactNumber(
+          x2 - minX,
+        )} ${compactNumber(y2 - minY)}`,
+    )
+    .join('')
+}
+
+function renderThumbnailSvg(knife) {
+  const trim = Array.isArray(knife?.layers?.trim?.segments) ? knife.layers.trim.segments : []
+  const crease = Array.isArray(knife?.layers?.crease?.segments) ? knife.layers.crease.segments : []
+  const segments = [...trim, ...crease]
+  if (!segments.length) {
+    const err = new Error('thumbnail geometry has no trim or crease segments')
+    err.code = 'GEOMETRY_INVALID'
+    throw err
+  }
+  const xs = segments.flatMap(({x1, x2}) => [x1, x2])
+  const ys = segments.flatMap(({y1, y2}) => [y1, y2])
+  if (![...xs, ...ys].every(Number.isFinite)) {
+    const err = new Error('thumbnail geometry contains invalid coordinates')
+    err.code = 'GEOMETRY_INVALID'
+    throw err
+  }
+  const minX = Math.min(...xs)
+  const minY = Math.min(...ys)
+  const width = Math.max(0, Math.max(...xs) - minX)
+  const height = Math.max(0, Math.max(...ys) - minY)
+  const trimPath = thumbnailPath(trim, minX, minY)
+  const creasePath = thumbnailPath(crease, minX, minY)
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${compactNumber(
+    width,
+  )} ${compactNumber(
+    height,
+  )}" fill="none"><path id="trim" d="${trimPath}" stroke="#2028b0"/><path id="crease" d="${creasePath}" stroke="#fa0000" stroke-dasharray="6 4"/></svg>`
+}
+
+function thumbnailGeometry(body) {
+  const input = normalizeGeometryInput(body)
+  const {knife} = generateOnce(input)
+  const svg = renderThumbnailSvg(knife)
+  return {
+    svg,
+    mime: 'image/svg+xml',
+    byte_length: Buffer.byteLength(svg),
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     if (req.method === 'GET' && req.url === '/health') {
@@ -359,7 +512,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/validate') {
       const body = await readJson(req)
-      const data = validateGeometry(body)
+      const data = await withGeometryTimeout(() => validateGeometry(body))
       return send(res, 200, {code: 'OK', data})
     }
     if (req.method === 'POST' && req.url === '/packing/solve') {
@@ -369,12 +522,17 @@ const server = http.createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/export') {
       const body = await readJson(req)
-      const data = await exportDieline(body)
+      const data = await withGeometryTimeout(() => exportDieline(body))
+      return send(res, 200, {code: 'OK', data})
+    }
+    if (req.method === 'POST' && req.url === '/thumbnail') {
+      const body = await readJson(req)
+      const data = await withGeometryTimeout(() => thumbnailGeometry(body))
       return send(res, 200, {code: 'OK', data})
     }
     return send(res, 404, {code: 'NOT_FOUND', message: 'not found'})
   } catch (e) {
-    const status = 400
+    const status = e.status || 400
     return send(res, status, {
       code: e.code || 'ERROR',
       message: e.message || 'error',

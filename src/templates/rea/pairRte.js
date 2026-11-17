@@ -12,7 +12,7 @@ export default {
   faceOrder:PAIR_FACE_ORDER,
   supportsClosedCheck:true,
   defaults:{length:120,width:60,height:160,thickness:.5},
-  limits:{length:[40,500],width:[25,350],height:[40,600]},
+  limits:{length:[15,500],width:[10,350],height:[15,600]},
   sizeRule:BOARD_SIZE_RULE,
   reaRef:{
     code:'Pair',

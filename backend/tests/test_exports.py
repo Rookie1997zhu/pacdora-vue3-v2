@@ -10,6 +10,8 @@ from django.test import Client, TestCase, override_settings
 from apps.accounts.models import User
 from apps.assets.models import Asset
 from apps.assets.services import AssetUploadError, store_bytes, store_upload
+from apps.billing.models import ExportGrant, OrganizationEntitlement
+from apps.billing.services import consume_export, refund_export_grant
 from apps.catalog.models import TemplateApproval, TemplateVersion
 from apps.designs.models import Design
 from apps.exports.models import ExportJob
@@ -88,14 +90,35 @@ class ExportJobsTests(TestCase):
 
     def _create_design(self, user, slug='mailer-parametric-demo'):
         token = self._login(user)
-        r = self.client.post(
-            '/api/v1/designs/',
-            data=json.dumps({'name': 'Export Design', 'product_slug': slug}),
-            content_type='application/json',
-            HTTP_X_CSRFTOKEN=token,
-        )
+        with (
+            patch('apps.designs.services.validate_geometry', return_value=_fake_validate()),
+            patch(
+                'apps.designs.tasks.render_thumbnail',
+                return_value={'svg': '<svg xmlns="http://www.w3.org/2000/svg"/>'},
+            ),
+        ):
+            r = self.client.post(
+                '/api/v1/designs/',
+                data=json.dumps({'name': 'Export Design', 'product_slug': slug}),
+                content_type='application/json',
+                HTTP_X_CSRFTOKEN=token,
+            )
         self.assertEqual(r.status_code, 201, r.content)
-        return r.json()['data']
+        data = r.json()['data']
+        design = Design.objects.select_related('current_revision').get(pk=data['id'])
+        revision = design.current_revision
+        content = dict(revision.content_json or {})
+        geometry = dict(content.get('geometry') or {})
+        params = dict(geometry.get('params') or {})
+        # Export gate fixtures target the registered engineering domains, while
+        # the live catalog may default to manufacturing basis/paper profile IDs.
+        params['sizeMode'] = 'inner'
+        params['materialId'] = 'kraft'
+        geometry['params'] = params
+        content['geometry'] = geometry
+        revision.content_json = content
+        revision.save(update_fields=['content_json'])
+        return data
 
     def _ensure_sample_pass_for_design(self, design_id, reviewer=None):
         """Create a matching SampleTestRecord pass for the design's current revision dims."""
@@ -124,6 +147,21 @@ class ExportJobsTests(TestCase):
             },
         )
         return review_sample(record=rec, reviewer=reviewer, verdict='pass')
+
+    def _create_job(self, design_id, *, status=ExportJob.Status.QUEUED, grant_id=None):
+        design = Design.objects.get(pk=design_id)
+        options = {'export_grant_id': str(grant_id)} if grant_id else {}
+        return ExportJob.objects.create(
+            organization=design.organization,
+            design=design,
+            input_revision=design.current_revision,
+            owner=design.owner,
+            format=ExportJob.Format.SVG,
+            quality_tier=ExportJob.QualityTier.VECTOR_PROOF,
+            status=status,
+            idempotency_key=str(uuid.uuid4()),
+            options=options,
+        )
 
     def test_unauthenticated_rejected(self):
         r = self.client.post(
@@ -630,6 +668,131 @@ class ExportJobsTests(TestCase):
             self.assertEqual(replay.json()['data']['id'], job['id'])
 
     @patch('apps.exports.services.export_dieline')
+    def test_ai_format_and_server_filename(self, mock_export):
+        mock_export.side_effect = lambda payload: _fake_export(payload.get('format') or 'ai')
+        design = self._create_design(self.u1)
+        token = self._csrf()
+        response = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'ai',
+                    'quality_tier': 'vector_proof',
+                    'options': {'displayUnit': 'in', 'locale': 'zh-CN'},
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(response.status_code, 202, response.content)
+        job = response.json()['data']
+        self.assertEqual(job['format'], 'ai')
+        download = self.client.get(f'/api/v1/exports/{job["id"]}/download/')
+        self.assertEqual(download.status_code, 200)
+        disposition = download['Content-Disposition']
+        self.assertIn('filename="', disposition)
+        self.assertIn("filename*=UTF-8''", disposition)
+        self.assertIn('.ai', disposition)
+        export_payload = mock_export.call_args[0][0]
+        self.assertEqual(export_payload['options']['displayUnit'], 'in')
+
+    def test_unknown_export_option_rejected(self):
+        design = self._create_design(self.u1)
+        token = self._csrf()
+        response = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps(
+                {
+                    'format': 'svg',
+                    'quality_tier': 'vector_proof',
+                    'options': {'unknownOption': True},
+                }
+            ),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()['code'], 'VALIDATION_ERROR')
+        self.assertEqual(response.json()['errors']['unknown_options'], ['unknownOption'])
+
+    def test_export_busy_when_org_has_three_active_jobs(self):
+        design = self._create_design(self.u1)
+        for _ in range(3):
+            self._create_job(design['id'])
+        token = self._csrf()
+        response = self.client.post(
+            f'/api/v1/designs/{design["id"]}/exports/',
+            data=json.dumps({'format': 'svg', 'quality_tier': 'vector_proof'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_IDEMPOTENCY_KEY=str(uuid.uuid4()),
+        )
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['code'], 'EXPORT_BUSY')
+
+    def test_cancel_queued_job_refunds_grant(self):
+        design_data = self._create_design(self.u1)
+        design = Design.objects.get(pk=design_data['id'])
+        grant_data = consume_export(
+            organization=design.organization,
+            actor=self.u1,
+            format='svg',
+        )
+        job = self._create_job(design.id, grant_id=grant_data['grant_id'])
+        token = self._csrf()
+        response = self.client.post(
+            f'/api/v1/exports/{job.id}/cancel/',
+            data='{}',
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        job.refresh_from_db()
+        grant = ExportGrant.objects.get(pk=grant_data['grant_id'])
+        entitlement = OrganizationEntitlement.objects.get(organization=design.organization)
+        self.assertEqual(job.status, ExportJob.Status.CANCELLED)
+        self.assertEqual(entitlement.exports_used, 0)
+        self.assertTrue(grant.meta.get('refunded'))
+        self.assertIsNotNone(grant.refunded_at)
+
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=False)
+    @patch('apps.exports.tasks.dispatch_queued_export.delay')
+    def test_retry_failed_job_recharges_refunded_grant(self, mock_delay):
+        design_data = self._create_design(self.u1)
+        design = Design.objects.get(pk=design_data['id'])
+        grant_data = consume_export(
+            organization=design.organization,
+            actor=self.u1,
+            reason=ExportGrant.Reason.WORKBENCH_EXPORT,
+            format='svg',
+        )
+        refund_export_grant(grant_id=grant_data['grant_id'], organization=design.organization)
+        job = self._create_job(
+            design.id,
+            status=ExportJob.Status.FAILED,
+            grant_id=grant_data['grant_id'],
+        )
+        token = self._csrf()
+        response = self.client.post(
+            f'/api/v1/exports/{job.id}/retry/',
+            data='{}',
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        job.refresh_from_db()
+        entitlement = OrganizationEntitlement.objects.get(organization=design.organization)
+        self.assertEqual(job.status, ExportJob.Status.QUEUED)
+        self.assertEqual(job.attempts, 1)
+        self.assertEqual(entitlement.exports_used, 1)
+        self.assertNotEqual(job.options['export_grant_id'], grant_data['grant_id'])
+        replacement = ExportGrant.objects.get(pk=job.options['export_grant_id'])
+        self.assertEqual(replacement.reason, ExportGrant.Reason.WORKBENCH_EXPORT)
+        mock_delay.assert_called_once_with(str(job.id))
+
+    @patch('apps.exports.services.export_dieline')
     def test_idempotency_conflict(self, mock_export):
         mock_export.side_effect = lambda payload: _fake_export(payload.get('format') or 'svg')
         design = self._create_design(self.u1)
@@ -673,6 +836,23 @@ class ExportJobsTests(TestCase):
         self.assertEqual(g.status_code, 403)
         d = self.client.get(f'/api/v1/exports/{job_id}/download/')
         self.assertEqual(d.status_code, 403)
+        cancel = self.client.post(
+            f'/api/v1/exports/{job_id}/cancel/',
+            data='{}',
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=self._csrf(),
+        )
+        self.assertEqual(cancel.status_code, 403)
+        retry = self.client.post(
+            f'/api/v1/exports/{job_id}/retry/',
+            data='{}',
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=self._csrf(),
+        )
+        self.assertEqual(retry.status_code, 403)
+        listed = self.client.get('/api/v1/exports/')
+        listed_ids = {item['id'] for item in listed.json()['data']['items']}
+        self.assertNotIn(job_id, listed_ids)
 
     def test_user_upload_still_rejects_export_mime(self):
         self._login(self.u1)

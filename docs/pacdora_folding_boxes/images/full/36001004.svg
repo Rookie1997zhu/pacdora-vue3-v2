@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="394.5" height="384.5" viewBox="0 0 394.5 384.5">
+<!-- layer=BoutiqueboxBottomFacepaper -->
+<path d="M 82 82 L 79.5 79.5 L 67 79.5 L 67 22 L 80 20 L 82 21.5 A 1.5 1.5 0 0 1 83.5 20 L 83.5 0 L 311 0 L 311 20 A 1.5 1.5 0 0 1 312.5 21.5 L 314.5 20 L 327.5 22 L 327.5 79.5 L 315 79.5 L 312.5 82 L 313 82.5 L 372.5 82.5 L 373 82.5 A 1.5 1.5 0 0 1 374.5 84 L 394.5 84 L 394.5 300.5 L 374.5 300.5 A 1.5 1.5 0 0 1 373 302 L 372.5 302 L 313 302 L 312.5 302.5 L 315 305 L 327.5 305 L 327.5 362.5 L 314.5 364.5 L 312.5 363 A 1.5 1.5 0 0 1 311 364.5 L 311 384.5 L 83.5 384.5 L 83.5 364.5 A 1.5 1.5 0 0 1 82 363 L 80 364.5 L 67 362.5 L 67 305 L 79.5 305 L 82 302.5 L 81.5 302 L 22 302 L 21.5 302 A 1.5 1.5 0 0 1 20 300.5 L 0 300.5 L 0 84 L 20 84 A 1.5 1.5 0 0 1 21.5 82.5 L 22 82.5 L 81.5 82.5 L 82 82 Z" fill="none" stroke="#2028b0" stroke-width="1.2"/>
+<line x1="82" y1="82" x2="312.5" y2="82" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="82" x2="312.5" y2="302.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="302.5" x2="82" y2="302.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="302.5" x2="82" y2="82" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="372.5" y1="82.5" x2="372.5" y2="302" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="374.5" y1="84" x2="374.5" y2="300.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="22" y1="302" x2="22" y2="82.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="20" y1="300.5" x2="20" y2="84" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="82" x2="82" y2="22" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="22" x2="312.5" y2="22" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="22" x2="312.5" y2="82" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="67" y1="22" x2="82" y2="22" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="22" x2="327.5" y2="22" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="83.5" y1="20" x2="311" y2="20" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="302.5" x2="312.5" y2="362.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="362.5" x2="82" y2="362.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="362.5" x2="82" y2="302.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="362.5" x2="67" y2="362.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="327.5" y1="362.5" x2="312.5" y2="362.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="311" y1="364.5" x2="83.5" y2="364.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="22" x2="82" y2="21.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="22" x2="312.5" y2="21.5" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="82" y1="362.5" x2="82" y2="363" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="312.5" y1="362.5" x2="312.5" y2="363" stroke="#fa0000" stroke-width="1" stroke-dasharray="4 3"/>
+</svg>

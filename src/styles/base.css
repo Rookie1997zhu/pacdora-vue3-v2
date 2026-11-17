@@ -80,6 +80,10 @@ img {
   cursor: not-allowed;
 }
 
+.bc-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
 .bc-btn--primary {
   background: var(--bc-steel);
   color: #fff;
@@ -98,7 +102,8 @@ img {
 }
 
 .bc-btn--ghost:hover:not(:disabled) {
-  border-color: var(--bc-ink);
+  border-color: var(--bc-steel);
+  color: var(--bc-steel);
 }
 
 .bc-btn--steel {
@@ -230,14 +235,31 @@ img {
 }
 
 .bc-empty {
-  padding: var(--bc-space-6);
+  padding: var(--bc-space-7) var(--bc-space-5);
   color: var(--bc-ink-muted);
-  border: 1px dashed var(--bc-line-strong);
-  border-radius: var(--bc-radius);
+  border: 0;
+  border-radius: var(--bc-radius-lg);
   background: var(--bc-paper-elevated);
+  box-shadow: inset 0 0 0 1px var(--bc-line);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bc-space-4);
+}
+
+.bc-empty p {
+  margin: 0;
+  max-width: 36ch;
+  line-height: 1.5;
 }
 
 .bc-err {
   color: var(--bc-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-btn:hover:not(:disabled) {
+    transform: none;
+  }
 }

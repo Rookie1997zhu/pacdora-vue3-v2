@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boxcraft.local/schemas/render-scene.v1.schema.json",
+  "title": "boxcraft.render_scene.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "camera", "light", "background", "ground", "output", "models"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "boxcraft.render_scene.v1"
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "target", "fov"],
+      "properties": {
+        "position": { "$ref": "#/$defs/vec3" },
+        "target": { "$ref": "#/$defs/vec3" },
+        "fov": { "type": "number", "minimum": 10, "maximum": 90 }
+      }
+    },
+    "light": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preset", "sunPhi", "sunTheta", "sunIntensity", "envIntensity"],
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": ["softbox", "daylight", "warm"]
+        },
+        "sunPhi": { "type": "number", "minimum": 0, "maximum": 180 },
+        "sunTheta": { "type": "number", "minimum": 0, "maximum": 360 },
+        "sunIntensity": { "type": "number", "minimum": 0, "maximum": 10 },
+        "envIntensity": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    },
+    "background": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "color", "gradient"],
+      "properties": {
+        "type": { "type": "string", "enum": ["solid", "gradient"] },
+        "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "gradient": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["top", "bottom"],
+          "properties": {
+            "top": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+            "bottom": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+          }
+        }
+      }
+    },
+    "ground": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["visible", "shadowIntensity"],
+      "properties": {
+        "visible": { "type": "boolean" },
+        "shadowIntensity": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aspect"],
+      "properties": {
+        "aspect": {
+          "type": "string",
+          "enum": ["1:1", "4:3", "16:9", "3:4", "9:16"]
+        }
+      }
+    },
+    "models": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/model" }
+    }
+  },
+  "$defs": {
+    "vec3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "designId",
+        "revisionId",
+        "position",
+        "rotation",
+        "scale",
+        "foldProgress",
+        "materialId"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "designId": { "type": "string", "format": "uuid" },
+        "revisionId": { "type": ["string", "null"], "format": "uuid" },
+        "name": { "type": "string", "maxLength": 200 },
+        "position": { "$ref": "#/$defs/vec3" },
+        "rotation": { "$ref": "#/$defs/vec3" },
+        "scale": { "type": "number", "minimum": 0.01, "maximum": 10 },
+        "foldProgress": { "type": "number", "minimum": 0, "maximum": 100 },
+        "materialId": { "type": "string", "minLength": 1, "maxLength": 64 }
+      }
+    }
+  }
+}

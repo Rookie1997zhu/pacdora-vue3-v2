@@ -58,30 +58,30 @@
             <span>{{ t('library.filterRights') }}</span>
             <select v-model="filters.rights_status">
               <option value="">{{ t('library.any') }}</option>
-              <option value="granted">granted</option>
-              <option value="pending">pending</option>
-              <option value="denied">denied</option>
-              <option value="expired">expired</option>
+              <option value="granted">{{ t('library.rightsGranted') }}</option>
+              <option value="pending">{{ t('library.rightsPending') }}</option>
+              <option value="denied">{{ t('library.rightsDenied') }}</option>
+              <option value="expired">{{ t('library.rightsExpired') }}</option>
             </select>
           </label>
           <label>
             <span>{{ t('library.filterAcquisition') }}</span>
             <select v-model="filters.acquisition_status">
               <option value="">{{ t('library.any') }}</option>
-              <option value="ok">ok</option>
-              <option value="needs_review">needs_review</option>
-              <option value="failed">failed</option>
-              <option value="unprocessed">unprocessed</option>
+              <option value="ok">{{ t('library.acqOk') }}</option>
+              <option value="needs_review">{{ t('library.acqNeedsReview') }}</option>
+              <option value="failed">{{ t('library.acqFailed') }}</option>
+              <option value="unprocessed">{{ t('library.acqUnprocessed') }}</option>
             </select>
           </label>
           <label>
             <span>{{ t('library.filterManufacturing') }}</span>
             <select v-model="filters.manufacturing_status">
               <option value="">{{ t('library.any') }}</option>
-              <option value="reference_only">reference_only</option>
-              <option value="unverified">unverified</option>
-              <option value="sample_ok">sample_ok</option>
-              <option value="production_ok">production_ok</option>
+              <option value="reference_only">{{ t('library.mfgReferenceOnly') }}</option>
+              <option value="unverified">{{ t('library.mfgUnverified') }}</option>
+              <option value="sample_ok">{{ t('library.mfgSampleOk') }}</option>
+              <option value="production_ok">{{ t('library.mfgProductionOk') }}</option>
             </select>
           </label>
           <div class="filter-actions">
@@ -124,6 +124,7 @@
           <div v-else class="bc-empty">
             <p v-if="inventoryCount === 0">{{ t('library.emptyInventory') }}</p>
             <p v-else>{{ t('library.emptyFilter') }}</p>
+            <RouterLink class="bc-btn bc-btn--primary" to="/products">{{ t('site.emptyBrowseProducts') }}</RouterLink>
           </div>
         </template>
       </template>

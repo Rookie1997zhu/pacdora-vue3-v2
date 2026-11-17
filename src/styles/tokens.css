@@ -1,17 +1,17 @@
-/* BOXCRAFT — Pacdora×Packative tokens (ink shell + knife blue, no brand purple) */
+/* BOXCRAFT — Logo teal accent + slate structure (no brand purple) */
 :root {
-  --bc-paper: #f6f7f9;
+  --bc-paper: #f8fafc;
   --bc-paper-elevated: #ffffff;
-  --bc-ink: #111827;
-  --bc-ink-muted: #5b6570;
-  --bc-ink-faint: #8b949e;
-  --bc-line: #e4e7ec;
-  --bc-line-strong: #d0d5dd;
+  --bc-ink: #1e293b;
+  --bc-ink-muted: #64748b;
+  --bc-ink-faint: #94a3b8;
+  --bc-line: #e2e8f0;
+  --bc-line-strong: #cbd5e1;
 
-  /* Accent: Packative knife blue (variable name kept for existing consumers) */
-  --bc-steel: #2458d4;
-  --bc-steel-soft: #f0f5ff;
-  --bc-steel-hover: #1e4ab8;
+  /* Accent: BOXCRAFT logo teal (variable name kept for existing consumers) */
+  --bc-steel: #006868;
+  --bc-steel-soft: #eef6f6;
+  --bc-steel-hover: #005555;
 
   --bc-danger: #9a4339;
   --bc-warn: #7a5a2a;
@@ -20,15 +20,15 @@
   --bc-ok: #1f8a4c;
 
   /* Structure badges (shared by product shell + LegacyLab) */
-  --bc-badge-telescoping: #2458d4;
-  --bc-badge-telescoping-bg: #f0f5ff;
-  --bc-badge-telescoping-line: #c9d8f8;
+  --bc-badge-telescoping: #006868;
+  --bc-badge-telescoping-bg: #eef6f6;
+  --bc-badge-telescoping-line: #b7d9d9;
   --bc-badge-openTop: #9a6b2f;
   --bc-badge-openTop-bg: #fff8ee;
   --bc-badge-openTop-line: #ecd9b8;
-  --bc-badge-flat: #667085;
-  --bc-badge-flat-bg: #f5f7fa;
-  --bc-badge-flat-line: #dfe3ea;
+  --bc-badge-flat: #64748b;
+  --bc-badge-flat-bg: #f1f5f9;
+  --bc-badge-flat-line: #e2e8f0;
   --bc-badge-lidded: #1f8a4c;
   --bc-badge-lidded-bg: #f1faf4;
   --bc-badge-lidded-line: #bfe5cd;
@@ -36,15 +36,15 @@
   --bc-badge-special-bg: #fff7e8;
   --bc-badge-special-line: #f0d9a8;
 
-  --bc-grid-dot: rgba(17, 24, 39, 0.06);
-  --bc-slot: #eef1f4;
+  --bc-grid-dot: rgba(30, 41, 59, 0.05);
+  --bc-slot: #f1f5f9;
 
-  --bc-radius-sm: 6px;
+  --bc-radius-sm: 8px;
   --bc-radius: 10px;
   --bc-radius-lg: 14px;
 
-  --bc-shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.04);
-  --bc-shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+  --bc-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --bc-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 
   --bc-font-display: "Sora", "Noto Sans SC", "Noto Sans KR", sans-serif;
   --bc-font-ui: "IBM Plex Sans", "Noto Sans SC", "Noto Sans KR", sans-serif;
@@ -64,6 +64,6 @@
   --bc-space-8: 72px;
 
   --bc-header-h: 64px;
-  --bc-focus: 0 0 0 3px rgba(36, 88, 212, 0.35);
+  --bc-focus: 0 0 0 3px rgba(0, 104, 104, 0.28);
   --bc-ease: 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }

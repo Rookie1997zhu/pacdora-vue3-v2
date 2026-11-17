@@ -21,6 +21,11 @@ export const OFFICIAL_SUBCLASS_DEFS=[
     "nameKey": "folding-boxes"
   },
   {
+    "id": "tray",
+    "label": "托盘盒",
+    "nameKey": "tray-boxes"
+  },
+  {
     "id": "handle",
     "label": "带手柄的盒子",
     "nameKey": "boxes-with-handle"

@@ -1,13 +1,17 @@
 from rest_framework import serializers
 
+from apps.assets.models import AssetDerivative
 from apps.assets.preview import preview_fields_for_content
 from apps.designs.models import Design, DesignRevision
+from apps.designs.tasks import DIELINE_KIND
 
 
 class DesignListSerializer(serializers.ModelSerializer):
     product_slug = serializers.CharField(source='product.slug', read_only=True, allow_null=True)
     preview_asset_id = serializers.SerializerMethodField()
     thumbnail_ready = serializers.SerializerMethodField()
+    dieline_thumbnail_ready = serializers.SerializerMethodField()
+    dieline_preview_asset_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Design
@@ -20,6 +24,8 @@ class DesignListSerializer(serializers.ModelSerializer):
             'current_revision_id',
             'preview_asset_id',
             'thumbnail_ready',
+            'dieline_thumbnail_ready',
+            'dieline_preview_asset_id',
             'updated_at',
             'created_at',
         )
@@ -39,6 +45,14 @@ class DesignListSerializer(serializers.ModelSerializer):
 
     def get_thumbnail_ready(self, obj):
         return self._preview(obj)['thumbnail_ready']
+
+    def get_dieline_preview_asset_id(self, obj):
+        return str(obj.dieline_preview_asset_id) if obj.dieline_preview_asset_id else None
+
+    def get_dieline_thumbnail_ready(self, obj):
+        if not obj.dieline_preview_asset_id:
+            return False
+        return AssetDerivative.objects.filter(asset_id=obj.dieline_preview_asset_id, kind=DIELINE_KIND).exists()
 
 
 class DesignDetailSerializer(DesignListSerializer):

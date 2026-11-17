@@ -42,11 +42,11 @@ export interface DesignDocumentV1 {
       widthMm: number
       heightMm: number
       thicknessMm: number
-      sizeMode: 'inner' | 'outer'
+      sizeMode: 'inner' | 'outer' | 'manufacturing'
       fluteDirection: 'L' | 'W'
       materialId: string
       bleedInputMm: number
-      advanced: Record<string, number>
+      advanced: Record<string, number | string>
     }
     geometryHash: string
   }
@@ -54,6 +54,11 @@ export interface DesignDocumentV1 {
     backgroundColor: string | null
     layers: ArtworkLayer[]
   }
+  workbench?: {
+    source?: string
+    slug?: string
+    clientEngineVersion?: string
+  } | null
   aiSettings?: {
     mode: 'image' | 'main_area'
     prompt: string

@@ -1,10 +1,33 @@
+import {arcSegmentCount} from '../../geom/flattenPath.js'
+
 /** REA 参数化模板公共件：参数定义、管式骨架、孔布局、合盖盒示意 */
 
 export const round=n=>Math.round(n*1000)/1000
 export const clamp=(n,a,b)=>Math.min(b,Math.max(a,n))
 
-export function pdef(code,label,group,defFn,{min=0,max=2000,unit='mm'}={}){
-  return {code,label,group,default:defFn,min,max,unit}
+/**
+ * @param {string} code
+ * @param {string} label
+ * @param {string} group
+ * @param {(panel:object,T:number,params?:object)=>number} defFn
+ * @param {object} [opts]
+ * @param {number|((panel:object,T:number,params:object)=>number)} [opts.min]
+ * @param {number|((panel:object,T:number,params:object)=>number)} [opts.max]
+ * @param {string} [opts.unit]
+ * @param {number} [opts.grade] 1 基础 · 2 常用 · 3 进阶 · 4 专家
+ * @param {number} [opts.step]
+ * @param {string} [opts.labelKo]
+ * @param {string} [opts.help]
+ * @param {string[]} [opts.affects] 聚焦时高亮的面片
+ * @param {string[]} [opts.dependsOn] 依赖的其他参数 code（可选，缺省从 max/min 闭包推断不了时显式声明）
+ */
+export function pdef(code,label,group,defFn,{
+  min=0,max=2000,unit='mm',grade=2,step,labelKo,help,affects,dependsOn,
+}={}){
+  return {
+    code,label,group,default:defFn,min,max,unit,
+    grade,step,labelKo:labelKo||label,help,affects,dependsOn,
+  }
 }
 
 /** 左右对称孔行（Aircraft 底面插孔） */
@@ -186,8 +209,9 @@ export const FLAT_SIZE_RULE=Object.freeze({
 
 function arcPts(cx,cy,r,a0,a1,seg=4){
   const pts=[]
-  for(let i=0;i<=seg;i++){
-    const t=a0+(a1-a0)*(i/seg)
+  const count=arcSegmentCount(r,a1-a0,.04,seg)
+  for(let i=0;i<=count;i++){
+    const t=a0+(a1-a0)*(i/count)
     pts.push([round(cx+r*Math.cos(t)),round(cy+r*Math.sin(t))])
   }
   return pts

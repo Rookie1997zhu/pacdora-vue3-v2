@@ -8,10 +8,12 @@
       <nav class="shell-nav" :aria-label="t('site.home')">
         <RouterLink to="/home">{{ t('site.home') }}</RouterLink>
         <RouterLink to="/products">{{ t('studio.products') }}</RouterLink>
+        <RouterLink v-if="workbenchOn" to="/workbench">{{ t('workbench.nav') }}</RouterLink>
         <RouterLink to="/library/dielines">{{ t('library.nav') }}</RouterLink>
         <RouterLink to="/designs">{{ t('studio.myDesigns') }}</RouterLink>
+        <RouterLink to="/render">{{ t('render.nav') }}</RouterLink>
+        <RouterLink to="/blog">{{ t('site.blog') }}</RouterLink>
         <RouterLink to="/cart">{{ t('cart.title') }}</RouterLink>
-        <RouterLink to="/lab">{{ t('site.lab') }}</RouterLink>
       </nav>
       <div class="shell-actions">
         <div class="shell-lang" role="group" :aria-label="t('lang.zh') + ' / ' + t('lang.ko')">
@@ -19,13 +21,20 @@
           <button type="button" :class="{ on: locale === 'ko-KR' }" @click="setLocale('ko-KR')">{{ t('lang.ko') }}</button>
         </div>
         <RouterLink v-if="!auth.isAuthenticated" class="shell-account" to="/account/login">{{ t('site.login') }}</RouterLink>
-        <RouterLink v-else class="shell-account" to="/account/profile">{{ t('site.account') }}</RouterLink>
+        <template v-else>
+          <RouterLink class="shell-quota" to="/account/upgrade" :title="t('billing.remaining')">
+            {{ t('billing.exportsShort') }}
+            {{ billing.entitlement?.unlimited ? t('billing.unlimited') : (billing.entitlement?.remaining ?? '—') }}
+          </RouterLink>
+          <RouterLink class="shell-account" to="/account/profile">{{ t('site.account') }}</RouterLink>
+        </template>
         <RouterLink class="bc-btn bc-btn--primary shell-cta" to="/products">{{ t('studio.browseProducts') }}</RouterLink>
       </div>
     </header>
     <div class="shell-body">
       <slot />
     </div>
+    <SiteFooter />
   </div>
 </template>
 
@@ -34,11 +43,16 @@ import { useI18n } from 'vue-i18n'
 import logoUrl from '../../assets/brand/boxcraft-logo.png'
 import { setLocale } from '../../i18n/index.js'
 import { useAuthStore } from '../../stores/auth'
+import { useBillingStore } from '../../stores/billing'
+import { isWorkbenchEnabled } from '../../features/workbench/manifest'
+import SiteFooter from './SiteFooter.vue'
 
 defineProps<{ flush?: boolean }>()
 
 const { t, locale } = useI18n()
 const auth = useAuthStore()
+const billing = useBillingStore()
+const workbenchOn = isWorkbenchEnabled()
 </script>
 
 <style scoped>
@@ -77,6 +91,12 @@ const auth = useAuthStore()
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .shell-header {
+    animation: none;
+  }
+}
+
 .shell-brand {
   display: flex;
   align-items: center;
@@ -112,7 +132,7 @@ const auth = useAuthStore()
 .shell-nav a {
   text-decoration: none;
   color: var(--bc-ink-muted);
-  padding: 8px 10px;
+  padding: 8px 12px;
   border-radius: var(--bc-radius-sm);
   white-space: nowrap;
   font-size: 13px;
@@ -122,7 +142,7 @@ const auth = useAuthStore()
 
 .shell-nav a:hover,
 .shell-nav a.router-link-active {
-  color: var(--bc-ink);
+  color: var(--bc-steel);
   background: var(--bc-steel-soft);
 }
 
@@ -138,6 +158,7 @@ const auth = useAuthStore()
   border: 1px solid var(--bc-line);
   border-radius: var(--bc-radius-sm);
   overflow: hidden;
+  background: var(--bc-paper-elevated);
 }
 
 .shell-lang button {
@@ -147,14 +168,16 @@ const auth = useAuthStore()
   padding: 6px 9px;
   font-size: 12px;
   font-weight: 600;
+  transition: background var(--bc-ease), color var(--bc-ease);
 }
 
 .shell-lang button.on {
-  background: var(--bc-ink);
+  background: var(--bc-steel);
   color: #fff;
 }
 
-.shell-account {
+.shell-account,
+.shell-quota {
   text-decoration: none;
   color: var(--bc-ink);
   font-size: 13px;
@@ -162,11 +185,16 @@ const auth = useAuthStore()
   padding: 6px 4px;
 }
 
+.shell-quota {
+  color: var(--bc-ink-muted);
+  white-space: nowrap;
+}
+
 .shell-cta {
   min-height: 36px;
   padding: 0 14px;
   font-size: 13px;
-  border-radius: 999px;
+  border-radius: var(--bc-radius-sm);
 }
 
 .shell-body {

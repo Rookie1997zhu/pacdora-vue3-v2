@@ -1,0 +1,1470 @@
+{
+  "dielineCats": [
+    {
+      "id": 161,
+      "name": "礼盒",
+      "count": 648,
+      "dielineNameKey": "gift-box-dielines",
+      "mockupNameKey": "gift-box-mockups"
+    },
+    {
+      "id": 340,
+      "name": "DIY盒子",
+      "count": 63,
+      "dielineNameKey": "diy-box-template",
+      "mockupNameKey": ""
+    },
+    {
+      "id": 157,
+      "name": "运输箱",
+      "count": 347,
+      "dielineNameKey": "shipping-box-dielines",
+      "mockupNameKey": "shipping-box-mockups"
+    },
+    {
+      "id": 158,
+      "name": "邮寄盒",
+      "count": 269,
+      "dielineNameKey": "mailer-box-dielines",
+      "mockupNameKey": "mailer-box-mockups"
+    },
+    {
+      "id": 159,
+      "name": "食品",
+      "count": 1443,
+      "dielineNameKey": "food-box-dielines",
+      "mockupNameKey": "food-packaging-mockups"
+    },
+    {
+      "id": 198,
+      "name": "服装",
+      "count": 126,
+      "dielineNameKey": "clothing-packaging-dielines",
+      "mockupNameKey": "clothing-packaging-mockups"
+    },
+    {
+      "id": 168,
+      "name": "玩具",
+      "count": 240,
+      "dielineNameKey": "toy-packaging-dielines",
+      "mockupNameKey": "toy-packaging-mockups"
+    },
+    {
+      "id": 199,
+      "name": "咖啡",
+      "count": 158,
+      "dielineNameKey": "coffee-packaging-dielines",
+      "mockupNameKey": "coffee-packaging-mockups"
+    },
+    {
+      "id": 170,
+      "name": "烟草",
+      "count": 7,
+      "dielineNameKey": "tobacco-product-packaging-dielines",
+      "mockupNameKey": "cigarette-pack-mockups"
+    },
+    {
+      "id": 165,
+      "name": "个人护理",
+      "count": 820,
+      "dielineNameKey": "personal-care-packaging-dielines",
+      "mockupNameKey": "personal-care-packaging-mockups"
+    },
+    {
+      "id": 163,
+      "name": "饮料",
+      "count": 594,
+      "dielineNameKey": "beverage-packaging-dielines",
+      "mockupNameKey": "beverage-packaging-mockups"
+    },
+    {
+      "id": 173,
+      "name": "办公室",
+      "count": 186,
+      "dielineNameKey": "office-product-packaging-dielines",
+      "mockupNameKey": "office-product-packaging-mockups"
+    },
+    {
+      "id": 316,
+      "name": "芭比盒",
+      "count": 16,
+      "dielineNameKey": "barbie-box-templates",
+      "mockupNameKey": ""
+    },
+    {
+      "id": 160,
+      "name": "糖果",
+      "count": 231,
+      "dielineNameKey": "candy-box-dielines",
+      "mockupNameKey": "candy-packaging-mockups"
+    },
+    {
+      "id": 166,
+      "name": "药品",
+      "count": 375,
+      "dielineNameKey": "medicine-packaging-dielines",
+      "mockupNameKey": "medicine-box-mockups"
+    },
+    {
+      "id": 162,
+      "name": "酒精",
+      "count": 621,
+      "dielineNameKey": "alcohol-packaging-dielines",
+      "mockupNameKey": "alcohol-bottle-mockups"
+    },
+    {
+      "id": 164,
+      "name": "牛奶和酸奶",
+      "count": 177,
+      "dielineNameKey": "milk-yogurt-packaging-dielines",
+      "mockupNameKey": "milk-packaging-mockups"
+    },
+    {
+      "id": 169,
+      "name": "宠物",
+      "count": 12,
+      "dielineNameKey": "pet-product-packaging-dielines",
+      "mockupNameKey": "pet-food-packaging-mockups"
+    }
+  ],
+  "mockupTop": [
+    {
+      "id": 218,
+      "name": "盒子",
+      "count": "1329",
+      "mockupNameKey": "box-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 296,
+          "name": "方形盒",
+          "count": 47,
+          "mockupNameKey": "square-box-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 219,
+          "name": "礼盒",
+          "count": 107,
+          "mockupNameKey": "gift-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 317,
+          "name": "邮寄盒",
+          "count": 65,
+          "mockupNameKey": "mailer-box-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 220,
+          "name": "运输箱",
+          "count": 47,
+          "mockupNameKey": "mailing-and-shipping-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 351,
+          "name": "产品盒",
+          "count": 26,
+          "mockupNameKey": "product-box-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 352,
+          "name": "食品盒",
+          "count": 41,
+          "mockupNameKey": "food-box-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 221,
+          "name": "展示盒",
+          "count": 154,
+          "mockupNameKey": "display-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 229,
+          "name": "折叠盒",
+          "count": 231,
+          "mockupNameKey": "folding-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 226,
+          "name": "套筒与托盘盒",
+          "count": 110,
+          "mockupNameKey": "sleeve-and-tray-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 222,
+          "name": "带窗的盒子",
+          "count": 99,
+          "mockupNameKey": "box-with-window-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 223,
+          "name": "带手柄的盒子",
+          "count": 156,
+          "mockupNameKey": "box-with-handle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 224,
+          "name": "带盖盒",
+          "count": 75,
+          "mockupNameKey": "box-with-lid-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 225,
+          "name": "挂盒",
+          "count": 73,
+          "mockupNameKey": "hanging-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 228,
+          "name": "插口盒",
+          "count": 320,
+          "mockupNameKey": "tuck-end-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 227,
+          "name": "多边形盒",
+          "count": 176,
+          "mockupNameKey": "polygonal-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 230,
+          "name": "塑料盒",
+          "count": 63,
+          "mockupNameKey": "plastic-box-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 231,
+          "name": "其他",
+          "count": 78,
+          "mockupNameKey": "other-box-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "name": "瓶子",
+      "count": "1594",
+      "mockupNameKey": "bottle-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 310,
+          "name": "水瓶",
+          "count": 171,
+          "mockupNameKey": "water-bottle-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 233,
+          "name": "饮料瓶",
+          "count": 218,
+          "mockupNameKey": "beverage-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 234,
+          "name": "酒瓶",
+          "count": 81,
+          "mockupNameKey": "wine-and-liquor-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 235,
+          "name": "啤酒瓶",
+          "count": 82,
+          "mockupNameKey": "beer-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 343,
+          "name": "香水瓶",
+          "count": 77,
+          "mockupNameKey": "perfume-bottle-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 237,
+          "name": "洗发水瓶",
+          "count": 313,
+          "mockupNameKey": "personal-care-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 236,
+          "name": "化妆品瓶",
+          "count": 313,
+          "mockupNameKey": "cosmetic-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 342,
+          "name": "油瓶",
+          "count": 77,
+          "mockupNameKey": "oil-bottle-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 238,
+          "name": "保健品瓶",
+          "count": 155,
+          "mockupNameKey": "medicine-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 344,
+          "name": "酱汁瓶",
+          "count": 70,
+          "mockupNameKey": "sauce-bottle-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 241,
+          "name": "喷雾瓶",
+          "count": 164,
+          "mockupNameKey": "spray-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 240,
+          "name": "滴管瓶",
+          "count": 115,
+          "mockupNameKey": "dropper-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 239,
+          "name": "泵瓶",
+          "count": 224,
+          "mockupNameKey": "pump-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 242,
+          "name": "玻璃瓶",
+          "count": 583,
+          "mockupNameKey": "glass-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 243,
+          "name": "塑料瓶",
+          "count": 860,
+          "mockupNameKey": "plastic-bottle-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 244,
+          "name": "油桶",
+          "count": 45,
+          "mockupNameKey": "jug-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 246,
+      "name": "食品包装",
+      "count": "378",
+      "mockupNameKey": "food-packaging-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 247,
+          "name": "披萨包装",
+          "count": 67,
+          "mockupNameKey": "pizza-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 248,
+          "name": "蛋糕盒",
+          "count": 32,
+          "mockupNameKey": "cake-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 249,
+          "name": "饼干盒",
+          "count": 39,
+          "mockupNameKey": "cookie-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 250,
+          "name": "巧克力棒",
+          "count": 58,
+          "mockupNameKey": "chocolate-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 251,
+          "name": "咖啡袋",
+          "count": 103,
+          "mockupNameKey": "coffee-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 252,
+          "name": "茶盒",
+          "count": 109,
+          "mockupNameKey": "tea-packaging-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 253,
+          "name": "冰淇淋",
+          "count": 48,
+          "mockupNameKey": "ice-cream-packaging-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 254,
+      "name": "袋子 & 小袋 & 包装袋",
+      "count": "777",
+      "mockupNameKey": "pouch-and-sachet-and-bag--mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 255,
+          "name": "袋子",
+          "count": 365,
+          "mockupNameKey": "pouch-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 256,
+          "name": "小袋",
+          "count": 230,
+          "mockupNameKey": "sachet-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 257,
+          "name": "购物袋",
+          "count": 102,
+          "mockupNameKey": "shopping-bag-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 313,
+          "name": "手提袋",
+          "count": 28,
+          "mockupNameKey": "tote-bag-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 258,
+          "name": "纸袋",
+          "count": 68,
+          "mockupNameKey": "paper-bag-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 259,
+          "name": "塑料袋",
+          "count": 94,
+          "mockupNameKey": "plastic-bag-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 261,
+      "name": "罐",
+      "count": "655",
+      "mockupNameKey": "can-and-jar-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 314,
+          "name": "易拉罐",
+          "count": 64,
+          "mockupNameKey": "can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 327,
+          "name": "啤酒罐",
+          "count": 62,
+          "mockupNameKey": "beer-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 328,
+          "name": "能量饮料",
+          "count": 55,
+          "mockupNameKey": "energy-drink-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 329,
+          "name": "果汁罐",
+          "count": 63,
+          "mockupNameKey": "juice-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 334,
+          "name": "铝罐",
+          "count": 55,
+          "mockupNameKey": "aluminum-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 337,
+          "name": "食品罐",
+          "count": 44,
+          "mockupNameKey": "food-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 332,
+          "name": "油罐",
+          "count": 40,
+          "mockupNameKey": "oil-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 333,
+          "name": "咖啡罐",
+          "count": 25,
+          "mockupNameKey": "coffee-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 336,
+          "name": "喷雾罐",
+          "count": 44,
+          "mockupNameKey": "spray-can-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 335,
+          "name": "保温杯套",
+          "count": 23,
+          "mockupNameKey": "koozie-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 266,
+          "name": "锡罐",
+          "count": 320,
+          "mockupNameKey": "tin-can-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 331,
+      "name": "罐子",
+      "count": "189",
+      "mockupNameKey": "jar-mockup",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 263,
+          "name": "玻璃罐",
+          "count": 70,
+          "mockupNameKey": "glass-jar-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 262,
+          "name": "塑料罐",
+          "count": 92,
+          "mockupNameKey": "plastic-jar-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 264,
+          "name": "化妆品罐",
+          "count": 73,
+          "mockupNameKey": "cosmetic-jar-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 265,
+          "name": "果酱罐",
+          "count": 33,
+          "mockupNameKey": "jam-jar-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 268,
+      "name": "管",
+      "count": "108",
+      "mockupNameKey": "tube-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 269,
+          "name": "化妆品软管",
+          "count": 84,
+          "mockupNameKey": "cosmetic-tube-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 270,
+          "name": "其他",
+          "count": 23,
+          "mockupNameKey": "tube-other-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 271,
+      "name": "容器 & 杯子 & 碗",
+      "count": "301",
+      "mockupNameKey": "container-cup-bowl-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 309,
+          "name": "马克杯",
+          "count": 26,
+          "mockupNameKey": "mug-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 323,
+          "name": "保温杯",
+          "count": 56,
+          "mockupNameKey": "tumbler-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 272,
+          "name": "食品容器",
+          "count": 99,
+          "mockupNameKey": "food-container-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 273,
+          "name": "杯子",
+          "count": 119,
+          "mockupNameKey": "cup-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 274,
+          "name": "碗",
+          "count": 33,
+          "mockupNameKey": "bowl-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 315,
+      "name": "服装",
+      "count": "156",
+      "mockupNameKey": "apparel-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 293,
+          "name": "T恤",
+          "count": 39,
+          "mockupNameKey": "t-shirts-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 326,
+          "name": "黑色T恤 ",
+          "count": 39,
+          "mockupNameKey": "black-t-shirt-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 295,
+          "name": "连帽衫",
+          "count": 14,
+          "mockupNameKey": "hoodies-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 311,
+          "name": "Polo衫",
+          "count": 17,
+          "mockupNameKey": "polo-shirt-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 312,
+          "name": "帽子",
+          "count": 26,
+          "mockupNameKey": "hat-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 325,
+          "name": "运动裤",
+          "count": 17,
+          "mockupNameKey": "sweatpants-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 346,
+          "name": "短裤",
+          "count": 28,
+          "mockupNameKey": "shorts-mockup",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 319,
+      "name": "设备",
+      "count": "81",
+      "mockupNameKey": "device-mockup",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 294,
+          "name": "iPhone",
+          "count": 25,
+          "mockupNameKey": "iphone-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 320,
+          "name": "笔记本电脑",
+          "count": 16,
+          "mockupNameKey": "laptop-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 321,
+          "name": "iPad",
+          "count": 11,
+          "mockupNameKey": "ipad-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 322,
+          "name": "Apple Watch",
+          "count": 29,
+          "mockupNameKey": "apple-watch-mockup",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 338,
+      "name": "印刷品",
+      "count": "437",
+      "mockupNameKey": "print-mockup",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 292,
+          "name": "书",
+          "count": 110,
+          "mockupNameKey": "book-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 306,
+          "name": "杂志",
+          "count": 29,
+          "mockupNameKey": "magazine-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 348,
+          "name": "宣传册",
+          "count": 36,
+          "mockupNameKey": "brochure-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 276,
+          "name": "卡片",
+          "count": 135,
+          "mockupNameKey": "card-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 277,
+          "name": "信封",
+          "count": 66,
+          "mockupNameKey": "envelope-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 339,
+          "name": "笔记本",
+          "count": 72,
+          "mockupNameKey": "notebook-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 278,
+          "name": "文件夹",
+          "count": 63,
+          "mockupNameKey": "file-pocket-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    },
+    {
+      "id": 275,
+      "name": "其他",
+      "count": "333",
+      "mockupNameKey": "other-cup-mockups",
+      "dielineNameKey": null,
+      "children": [
+        {
+          "id": 318,
+          "name": "挂绳",
+          "count": 47,
+          "mockupNameKey": "lanyard-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 324,
+          "name": "横幅",
+          "count": 32,
+          "mockupNameKey": "banner-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 345,
+          "name": "旗帜",
+          "count": 53,
+          "mockupNameKey": "flag-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 330,
+          "name": "框架",
+          "count": 46,
+          "mockupNameKey": "frame-mockup",
+          "dielineNameKey": null
+        },
+        {
+          "id": 279,
+          "name": "桶与桶",
+          "count": 16,
+          "mockupNameKey": "barrel-bucket-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 280,
+          "name": "插入",
+          "count": 64,
+          "mockupNameKey": "insert-mockups",
+          "dielineNameKey": null
+        },
+        {
+          "id": 282,
+          "name": "其他",
+          "count": 49,
+          "mockupNameKey": "other-mockups",
+          "dielineNameKey": null
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "name": "礼盒",
+      "dielineNameKey": "gift-box-dielines",
+      "mockupNameKey": "gift-box-mockups",
+      "catCount": 648,
+      "dielineFetched": 700,
+      "mockupFetched": 200,
+      "dielineApiTotal": 648,
+      "mockupApiTotal": 107,
+      "intersection": 30,
+      "onlyDieline": 70,
+      "onlyMockup": 70,
+      "sampleInter": [
+        "102010",
+        "112060",
+        "36021001",
+        "112031",
+        "36018004",
+        "36601205",
+        "36208001",
+        "36101102"
+      ],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "160010",
+        "100013",
+        "150011",
+        "112320",
+        "100030",
+        "152030"
+      ],
+      "sampleOnlyM": [
+        "160160",
+        "361011",
+        "362080",
+        "156410",
+        "161012",
+        "361010",
+        "121111",
+        "362081"
+      ],
+      "dielineKnifeRatio": "693/700",
+      "mockupKnifeRatio": "194/200"
+    },
+    {
+      "name": "运输箱",
+      "dielineNameKey": "shipping-box-dielines",
+      "mockupNameKey": "shipping-box-mockups",
+      "catCount": 347,
+      "dielineFetched": 400,
+      "mockupFetched": 0,
+      "dielineApiTotal": 347,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "200010",
+        "102010",
+        "100013",
+        "150011",
+        "100030",
+        "152030"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "400/400",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "邮寄盒",
+      "dielineNameKey": "mailer-box-dielines",
+      "mockupNameKey": "mailer-box-mockups",
+      "catCount": 269,
+      "dielineFetched": 300,
+      "mockupFetched": 0,
+      "dielineApiTotal": 269,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "102010",
+        "100013",
+        "150011",
+        "100030",
+        "102615",
+        "102040"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "300/300",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "食品",
+      "dielineNameKey": "food-box-dielines",
+      "mockupNameKey": "food-packaging-mockups",
+      "catCount": 1443,
+      "dielineFetched": 1500,
+      "mockupFetched": 400,
+      "dielineApiTotal": 1443,
+      "mockupApiTotal": 378,
+      "intersection": 4,
+      "onlyDieline": 96,
+      "onlyMockup": 96,
+      "sampleInter": [
+        "102010",
+        "112060",
+        "112031",
+        "180280"
+      ],
+      "sampleOnlyD": [
+        "100010",
+        "100013",
+        "112320",
+        "100030",
+        "102040",
+        "160011",
+        "102020",
+        "100103"
+      ],
+      "sampleOnlyM": [
+        "150010",
+        "156210",
+        "150011",
+        "152020",
+        "150012",
+        "150020",
+        "151010",
+        "112030"
+      ],
+      "dielineKnifeRatio": "1455/1500",
+      "mockupKnifeRatio": "400/400"
+    },
+    {
+      "name": "服装",
+      "dielineNameKey": "clothing-packaging-dielines",
+      "mockupNameKey": "clothing-packaging-mockups",
+      "catCount": 126,
+      "dielineFetched": 200,
+      "mockupFetched": 0,
+      "dielineApiTotal": 126,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "700011",
+        "70001101",
+        "700010",
+        "70001001",
+        "705038",
+        "705037",
+        "705035",
+        "705011"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "198/200",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "玩具",
+      "dielineNameKey": "toy-packaging-dielines",
+      "mockupNameKey": "toy-packaging-mockups",
+      "catCount": 240,
+      "dielineFetched": 300,
+      "mockupFetched": 0,
+      "dielineApiTotal": 240,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "102010",
+        "102615",
+        "102040",
+        "160011",
+        "102020",
+        "160020",
+        "103012",
+        "102012"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "297/300",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "咖啡",
+      "dielineNameKey": "coffee-packaging-dielines",
+      "mockupNameKey": "coffee-packaging-mockups",
+      "catCount": 158,
+      "dielineFetched": 200,
+      "mockupFetched": 200,
+      "dielineApiTotal": 158,
+      "mockupApiTotal": 103,
+      "intersection": 18,
+      "onlyDieline": 82,
+      "onlyMockup": 82,
+      "sampleInter": [
+        "500790",
+        "605300",
+        "605320",
+        "605321",
+        "605322",
+        "605310",
+        "605311",
+        "601320"
+      ],
+      "sampleOnlyD": [
+        "310320",
+        "150233",
+        "116013",
+        "112044",
+        "102281",
+        "511210",
+        "511100",
+        "521010"
+      ],
+      "sampleOnlyM": [
+        "102010",
+        "600880",
+        "509380",
+        "605301",
+        "509360",
+        "600420",
+        "602710",
+        "602300"
+      ],
+      "dielineKnifeRatio": "200/200",
+      "mockupKnifeRatio": "200/200"
+    },
+    {
+      "name": "烟草",
+      "dielineNameKey": "tobacco-product-packaging-dielines",
+      "mockupNameKey": "cigarette-pack-mockups",
+      "catCount": 7,
+      "dielineFetched": 7,
+      "mockupFetched": 0,
+      "dielineApiTotal": 7,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 7,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "112820",
+        "112401",
+        "110802",
+        "108020",
+        "106016",
+        "105040",
+        "100031"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "7/7",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "个人护理",
+      "dielineNameKey": "personal-care-packaging-dielines",
+      "mockupNameKey": "personal-care-packaging-mockups",
+      "catCount": 820,
+      "dielineFetched": 900,
+      "mockupFetched": 0,
+      "dielineApiTotal": 820,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "102615",
+        "102040",
+        "175070",
+        "102050",
+        "360180",
+        "360120",
+        "360011",
+        "360010"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "900/900",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "饮料",
+      "dielineNameKey": "beverage-packaging-dielines",
+      "mockupNameKey": "beverage-packaging-mockups",
+      "catCount": 594,
+      "dielineFetched": 600,
+      "mockupFetched": 0,
+      "dielineApiTotal": 594,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "183060",
+        "102090",
+        "362111",
+        "362110",
+        "310430",
+        "310320",
+        "310300",
+        "310014"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "600/600",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "办公室",
+      "dielineNameKey": "office-product-packaging-dielines",
+      "mockupNameKey": "office-product-packaging-mockups",
+      "catCount": 186,
+      "dielineFetched": 200,
+      "mockupFetched": 0,
+      "dielineApiTotal": 186,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "103013",
+        "171500",
+        "100242",
+        "106030",
+        "171490",
+        "101433",
+        "101524",
+        "180201"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "200/200",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "糖果",
+      "dielineNameKey": "candy-box-dielines",
+      "mockupNameKey": "candy-packaging-mockups",
+      "catCount": 231,
+      "dielineFetched": 300,
+      "mockupFetched": 0,
+      "dielineApiTotal": 231,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 98,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "112060",
+        "112031",
+        "188300",
+        "188310",
+        "188270",
+        "110090",
+        "112030",
+        "16101204"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "288/300",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "药品",
+      "dielineNameKey": "medicine-packaging-dielines",
+      "mockupNameKey": "medicine-box-mockups",
+      "catCount": 375,
+      "dielineFetched": 400,
+      "mockupFetched": 0,
+      "dielineApiTotal": 375,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "20001002",
+        "17031101",
+        "10002004",
+        "10002003",
+        "10001006",
+        "10001005",
+        "10001004",
+        "310430"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "384/400",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "酒精",
+      "dielineNameKey": "alcohol-packaging-dielines",
+      "mockupNameKey": "alcohol-bottle-mockups",
+      "catCount": 621,
+      "dielineFetched": 700,
+      "mockupFetched": 0,
+      "dielineApiTotal": 621,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "102615",
+        "102040",
+        "160011",
+        "160020",
+        "183060",
+        "102050",
+        "362111",
+        "362110"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "700/700",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "牛奶和酸奶",
+      "dielineNameKey": "milk-yogurt-packaging-dielines",
+      "mockupNameKey": "milk-packaging-mockups",
+      "catCount": 177,
+      "dielineFetched": 200,
+      "mockupFetched": 0,
+      "dielineApiTotal": 177,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 99,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "175070",
+        "310430",
+        "310011",
+        "204030",
+        "116016",
+        "103090",
+        "102670",
+        "511100"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "200/200",
+      "mockupKnifeRatio": "0/0"
+    },
+    {
+      "name": "宠物",
+      "dielineNameKey": "pet-product-packaging-dielines",
+      "mockupNameKey": "pet-food-packaging-mockups",
+      "catCount": 12,
+      "dielineFetched": 12,
+      "mockupFetched": 0,
+      "dielineApiTotal": 12,
+      "mockupApiTotal": 0,
+      "intersection": 0,
+      "onlyDieline": 11,
+      "onlyMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "505320",
+        "603760",
+        "602300",
+        "601060",
+        "511560",
+        "510701",
+        "505952",
+        "505951"
+      ],
+      "sampleOnlyM": [],
+      "dielineKnifeRatio": "12/12",
+      "mockupKnifeRatio": "0/0"
+    }
+  ],
+  "sample_服装": {
+    "key": "t-shirts-mockups",
+    "total": 39,
+    "n": 39,
+    "knife": 39,
+    "both": 39,
+    "sample": [
+      {
+        "num": 700011,
+        "name": "超大号T恤",
+        "knife": true,
+        "nameKey": "oversize-t-shirt-mockup-700011",
+        "mockupNameKey": "oversize-t-shirt-mockup-700011"
+      },
+      {
+        "num": 700006,
+        "name": "T恤",
+        "knife": true,
+        "nameKey": "t-shirt-dieline-700006",
+        "mockupNameKey": "t-shirt-mockup-700006"
+      },
+      {
+        "num": 705000,
+        "name": "背心样机",
+        "knife": true,
+        "nameKey": "tank-top-mockup-705000",
+        "mockupNameKey": "tank-top-mockup-705000"
+      },
+      {
+        "num": 701049,
+        "name": "Raglan t-shirt ",
+        "knife": true,
+        "nameKey": "raglan-t-shirt-dieline-701049",
+        "mockupNameKey": "raglan-t-shirt-mockup-701049"
+      },
+      {
+        "num": 700010,
+        "name": "落肩T恤",
+        "knife": true,
+        "nameKey": "drop-shoulder-tshirt-dieline-700010",
+        "mockupNameKey": "drop-shoulder-tshirt-mockup-700010"
+      }
+    ]
+  },
+  "sample_设备": {
+    "key": "iphone-mockups",
+    "total": 25,
+    "n": 25,
+    "knife": 25,
+    "both": 25,
+    "sample": [
+      {
+        "num": 801260,
+        "name": "iPhone 16 ",
+        "knife": true,
+        "nameKey": "iphone-16-dieline-801260",
+        "mockupNameKey": "iphone-16-mockup-801260"
+      },
+      {
+        "num": 801270,
+        "name": "iPhone 16 Plus ",
+        "knife": true,
+        "nameKey": "iphone-16-plus-dieline-801270",
+        "mockupNameKey": "iphone-16-plus-mockup-801270"
+      },
+      {
+        "num": 801230,
+        "name": "iPhone 16 Pro ",
+        "knife": true,
+        "nameKey": "iphone-16-pro-dieline-801230",
+        "mockupNameKey": "iphone-16-pro-mockup-801230"
+      },
+      {
+        "num": 801250,
+        "name": "iPhone 16 Pro Max ",
+        "knife": true,
+        "nameKey": "iphone-16-pro-max-dieline-801250",
+        "mockupNameKey": "iphone-16-pro-max-mockup-801250"
+      },
+      {
+        "num": 801050,
+        "name": "iPhone 15 ",
+        "knife": true,
+        "nameKey": "custom-dimensions-iphone-15-dieline-801050",
+        "mockupNameKey": "iphone-15-mockup-801050"
+      }
+    ]
+  },
+  "overallSample": {
+    "n": 1000,
+    "knife": 1000,
+    "bothKeys": 1000,
+    "noMockupKey": 0,
+    "noDielineKey": 0,
+    "noKnife": 0
+  }
+}

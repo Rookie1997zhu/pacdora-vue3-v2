@@ -8,6 +8,7 @@ const steps=[
   'check-fold.mjs',
   'check-contract.mjs',
   'check-export.mjs',
+  'check-arcs.mjs',
   'check-golden.mjs',
   'check-templates.mjs',
   'check-rea-golden.mjs',
@@ -15,6 +16,14 @@ const steps=[
   'check-geom-assembly.mjs',
   'check-outbox.mjs',
   'check-net-masks.mjs',
+  'check-engine-purity.mjs',
+  'check-size-modes.mjs',
+  'check-stats.mjs',
+  'check-param-constraints.mjs',
+  'check-workbench-templates.mjs',
+  'check-workbench-url.mjs',
+  'check-spec-chunks.mjs',
+  'check-fold3d.mjs',
 ]
 
 for(const file of steps){

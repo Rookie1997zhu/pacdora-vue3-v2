@@ -14,12 +14,14 @@
     <p v-if="msg" class="msg">{{ msg }}</p>
     <table>
       <thead>
-        <tr><th>format</th><th>status</th><th>design</th><th>error</th><th>created</th><th></th></tr>
+        <tr><th>format</th><th>status</th><th>attempts</th><th>grant refunded</th><th>design</th><th>error</th><th>created</th><th></th></tr>
       </thead>
       <tbody>
         <tr v-for="j in items" :key="j.id">
           <td>{{ j.format }}</td>
           <td>{{ j.status }}</td>
+          <td>{{ j.attempts }}</td>
+          <td>{{ j.grant_refunded_at || '—' }}</td>
           <td>{{ j.design_name }}</td>
           <td class="err">{{ j.error_code }} {{ j.error_message }}</td>
           <td>{{ j.created_at }}</td>

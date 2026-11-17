@@ -1,13 +1,24 @@
 /**
- * ambientCG 纸板/纸纹 PBR：kraft=Cardboard002，white/blue=Paper001+色调。
+ * ambientCG 纸板/纸纹 PBR：
+ * - kraft / 瓦楞感：Cardboard002
+ * - white（白卡/艺术纸涂层感）：Paper001 + 高亮低粗糙
+ * - blue：Paper001 + 冷色 tint、略粗颗粒
  * ExtrudeGeometry UV 单位为 mm，用 texture.repeat=1/tileMm 平铺。
  */
 import * as THREE from 'three'
 import {publicAssetUrl} from './assetUrl.js'
 
-const FALLBACK={kraft:0xc6a47a,white:0xf4f0e7,blue:0x8aa6c8}
+const FALLBACK={
+  kraft:0xc6a47a,
+  white:0xf7f4ec,
+  blue:0x7e9bbd,
+  matte_white:0xf4f2ec,
+  glossy_white:0xffffff,
+  kraft_dark:0x8b6844,
+  black:0x222222
+}
 
-/** @type {Record<string,{dir:string,prefix:string,tint:number,roughness:number,tileMm:number,normalScale:number}>} */
+/** @type {Record<string,{dir:string,prefix:string,tint:number,roughness:number,tileMm:number,normalScale:number,metalness?:number}>} */
 const SPECS={
   kraft:{
     dir:'Cardboard002_1K-JPG',
@@ -20,20 +31,58 @@ const SPECS={
   white:{
     dir:'Paper001_1K-JPG',
     prefix:'Paper001_1K-JPG',
-    tint:0xf4f0e7,
-    roughness:.88,
-    tileMm:100,
-    normalScale:.35
+    tint:0xfffdf8,
+    roughness:.62,
+    tileMm:85,
+    normalScale:.22,
+    metalness:.02
   },
   blue:{
     dir:'Paper001_1K-JPG',
     prefix:'Paper001_1K-JPG',
     tint:0x8aa6c8,
+    roughness:.84,
+    tileMm:110,
+    normalScale:.4
+  },
+  matte_white:{
+    dir:'Paper001_1K-JPG',
+    prefix:'Paper001_1K-JPG',
+    tint:0xf2f0ea,
     roughness:.88,
+    tileMm:90,
+    normalScale:.18,
+    metalness:0
+  },
+  glossy_white:{
+    dir:'Paper001_1K-JPG',
+    prefix:'Paper001_1K-JPG',
+    tint:0xffffff,
+    roughness:.28,
+    tileMm:80,
+    normalScale:.12,
+    metalness:.08
+  },
+  kraft_dark:{
+    dir:'Cardboard002_1K-JPG',
+    prefix:'Cardboard002_1K-JPG',
+    tint:0xb8895c,
+    roughness:.95,
+    tileMm:140,
+    normalScale:.6
+  },
+  black:{
+    dir:'Paper001_1K-JPG',
+    prefix:'Paper001_1K-JPG',
+    tint:0x2a2a2a,
+    roughness:.55,
     tileMm:100,
-    normalScale:.35
+    normalScale:.2,
+    metalness:.05
   }
 }
+
+export const BOARD_MATERIAL_IDS=Object.keys(SPECS)
 
 const loader=new THREE.TextureLoader()
 /** @type {Map<string,Promise<{map:THREE.Texture,normalMap:THREE.Texture,roughnessMap:THREE.Texture}>>} */
@@ -113,7 +162,7 @@ export function createBoardMaterial(materialId='kraft',{flatShading=false}={}){
       color:FALLBACK[id]??FALLBACK.kraft,
       side:THREE.DoubleSide,
       roughness:s.roughness,
-      metalness:0,
+      metalness:s.metalness||0,
       flatShading
     })
   }
@@ -124,7 +173,7 @@ export function createBoardMaterial(materialId='kraft',{flatShading=false}={}){
     normalScale:new THREE.Vector2(s.normalScale,s.normalScale),
     roughnessMap:maps.roughnessMap,
     roughness:s.roughness,
-    metalness:0,
+    metalness:s.metalness||0,
     side:THREE.DoubleSide,
     flatShading
   })

@@ -98,7 +98,17 @@ class MeView(APIView):
             }
             for m in memberships
         ]
-        return ok({'user': user_payload(request.user), 'organizations': orgs}, request=request)
+        from apps.billing.services import entitlement_for_user, serialize_entitlement
+
+        entitlement = serialize_entitlement(entitlement_for_user(request.user))
+        return ok(
+            {
+                'user': user_payload(request.user),
+                'organizations': orgs,
+                'entitlement': entitlement,
+            },
+            request=request,
+        )
 
 
 @method_decorator(csrf_protect, name='dispatch')

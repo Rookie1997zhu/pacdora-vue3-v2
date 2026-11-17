@@ -10,9 +10,10 @@ const FACE_ORDER=Object.freeze([
 
 export default {
   id:'rea-aircraft',
-  label:'REA 飞机盒',
-  labelEn:'REA Aircraft Mailer',
-  standard:'Aircraft · REA',
+  label:'飞机盒',
+  labelEn:'Aircraft Mailer',
+  labelKo:'비행기박스',
+  standard:'Aircraft Mailer',
   root:'base',
   faceOrder:FACE_ORDER,
   supportsClosedCheck:true,
@@ -29,24 +30,72 @@ export default {
     }
   },
   paramDefs:[
-    pdef('N','摇盖宽','角部折翼',(p)=>round(0.4*p.width),{min:10,max:200}),
-    pdef('NX','开槽厚 X','角部折翼',()=>3,{min:0,max:10}),
-    pdef('NY','开槽厚 Y','角部折翼',()=>3,{min:0,max:10}),
-    pdef('K','插孔数量','插脚插孔',()=>2,{min:1,max:4}),
-    pdef('SW','插孔长','插脚插孔',(p)=>round(0.2*p.width),{min:5,max:120}),
-    pdef('SP','孔距','插脚插孔',(p)=>round(0.4*p.width),{min:10,max:200}),
-    pdef('SW1','插脚下宽','插脚插孔',(p)=>round(0.2*p.width-1),{min:4,max:120}),
-    pdef('CR','插孔倒角','插脚插孔',()=>2.5,{min:0,max:10}),
-    pdef('SX','X 收位','内侧壁',(p,T)=>T>=1?1.5:0.5,{min:0,max:10}),
-    pdef('M','侧翼宽','盒盖侧翼',(p,T)=>round(p.height-(T>=1?1.5:0.5)),{min:5,max:200}),
-    pdef('DC','内墙总高','内侧壁',(p)=>round(p.height+1.5),{min:10,max:250}),
-    pdef('D2','插脚深','内侧壁',(p)=>round(p.height+1.5-3-0.75),{min:5,max:200}),
-    pdef('MT','侧翼斜角','盒盖侧翼',()=>20,{min:0,max:45,unit:'°'}),
-    pdef('MR','侧翼倒角','盒盖侧翼',()=>15,{min:0,max:40}),
-    pdef('TRH','前盖翼高','前盖侧翼',(p)=>round(p.height-8),{min:5,max:200}),
-    pdef('TRR','前盖倒角','前盖侧翼',()=>13,{min:0,max:40}),
-    pdef('R','OF 倒角','倒角',()=>1.5,{min:0,max:10}),
-    pdef('bleedSlot','槽深','插脚插孔',()=>5,{min:2,max:12})
+    pdef('N','摇盖宽','角部折翼',(p)=>round(0.4*p.width),{
+      grade:2,labelKo:'덮개 날개 폭',min:10,
+      max:(p)=>round(p.length/2-2),affects:['dustLeft','dustRight'],
+    }),
+    pdef('NX','开槽厚 X','角部折翼',()=>3,{grade:2,labelKo:'홈 두께 X',min:0,max:10}),
+    pdef('NY','开槽厚 Y','角部折翼',()=>3,{grade:2,labelKo:'홈 두께 Y',min:0,max:10}),
+    pdef('K','插孔数量','插脚插孔',()=>2,{
+      grade:2,labelKo:'구멍 수',min:1,max:4,unit:'count',step:1,affects:['base'],
+    }),
+    pdef('SW','插孔长','插脚插孔',(p)=>round(0.2*p.width),{
+      grade:2,labelKo:'구멍 길이',min:5,max:120,affects:['base'],
+    }),
+    pdef('SP','孔距','插脚插孔',(p)=>round(0.4*p.width),{
+      grade:2,labelKo:'구멍 간격',min:10,
+      max:(p,_T,params)=>round(p.width-(params?.SW||0)-4),
+      dependsOn:['SW'],affects:['base'],
+    }),
+    pdef('SW1','插脚下宽','插脚插孔',(p)=>round(0.2*p.width-1),{
+      grade:2,labelKo:'삽입부 하단폭',min:4,max:120,dependsOn:['SW'],
+    }),
+    pdef('CR','插孔倒角','插脚插孔',()=>2.5,{grade:2,labelKo:'구멍 모따기',min:0,max:10}),
+    pdef('SX','X 收位','内侧壁',(p,T)=>T>=1?1.5:0.5,{grade:3,labelKo:'X 수축',min:0,max:10}),
+    pdef('M','侧翼宽','盒盖侧翼',(p,T)=>round(p.height-(T>=1?1.5:0.5)),{
+      grade:4,labelKo:'측익 폭',min:5,max:200,affects:['lidLeft','lidRight'],
+    }),
+    pdef('DC','内墙总高','内侧壁',(p)=>round(p.height+1.5),{
+      grade:3,labelKo:'내벽 높이',min:10,max:250,affects:['innerLeft','innerRight'],
+    }),
+    pdef('D2','插脚深','内侧壁',(p)=>round(p.height+1.5-3-0.75),{
+      grade:3,labelKo:'삽입 깊이',min:5,max:200,dependsOn:['DC'],
+    }),
+    pdef('MT','侧翼斜角','盒盖侧翼',()=>20,{grade:4,labelKo:'측익 각도',min:0,max:45,unit:'°'}),
+    pdef('MR','侧翼倒角','盒盖侧翼',()=>15,{grade:4,labelKo:'측익 모따기',min:0,max:40}),
+    pdef('TRH','前盖翼高','前盖侧翼',(p)=>round(p.height-8),{
+      grade:4,labelKo:'전면 날개 높이',min:5,max:200,affects:['lidFrontLeft','lidFrontRight'],
+    }),
+    pdef('TRR','前盖倒角','前盖侧翼',()=>13,{grade:4,labelKo:'전면 모따기',min:0,max:40}),
+    pdef('R','OF 倒角','倒角',()=>1.5,{grade:4,labelKo:'모따기 R',min:0,max:10}),
+    pdef('bleedSlot','槽深','插脚插孔',()=>5,{grade:2,labelKo:'홈 깊이',min:2,max:12}),
+  ],
+  constraints:[
+    {
+      code:'SLOT_SPAN',
+      severity:'blocking',
+      params:['K','SP','SW'],
+      message:'插孔总跨度超出底面宽度，请减少数量或孔距',
+      test:({params:P,panel})=>{
+        const EDGE=2
+        const k=Math.max(1,Math.round(P.K)||1)
+        return (k-1)*P.SP+P.SW<=panel.width-2*EDGE
+      },
+    },
+    {
+      code:'SW1_LE_SW',
+      severity:'warning',
+      params:['SW1','SW'],
+      message:'插脚下宽不宜大于插孔长',
+      test:({params:P})=>P.SW1<=P.SW+1e-6,
+    },
+    {
+      code:'D2_LT_DC',
+      severity:'warning',
+      params:['D2','DC'],
+      message:'插脚深应小于内墙总高',
+      test:({params:P})=>P.D2<P.DC,
+    },
   ],
   hingeAngles:{lid:88,lidFront:88,rearFlap:85,lidLeft:85,lidRight:85},
   closedCheck:{

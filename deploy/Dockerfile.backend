@@ -14,10 +14,16 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends libpq5; \
     rm -rf /var/lib/apt/lists/*
 COPY backend/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir \
+    -i https://mirrors.aliyun.com/pypi/simple/ \
+    --trusted-host mirrors.aliyun.com \
+    --default-timeout=120 \
+    -r /app/requirements.txt
 COPY backend/ /app/
 # Schema lives at repo packages/; Compose BASE_DIR=/app → SCHEMA_PATH=/packages/...
 COPY packages/design-schema/ /packages/design-schema/
+COPY packages/render-scene-schema/ /packages/render-scene-schema/
+COPY packages/geometry-engine/ /packages/geometry-engine/
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 RUN python manage.py collectstatic --noinput || true
 EXPOSE 8000

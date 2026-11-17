@@ -6,7 +6,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 ARG VITE_API_BASE=/api/v1
+ARG VITE_WORKBENCH=1
 ENV VITE_API_BASE=${VITE_API_BASE}
+ENV VITE_WORKBENCH=${VITE_WORKBENCH}
 ENV GITHUB_PAGES=0
 ENV VITE_ROOT_HOME=0
 RUN npm run build && test -f /app/dist/index.html

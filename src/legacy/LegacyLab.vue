@@ -1,6 +1,7 @@
 <script setup>
 import {ref,computed,watch,onMounted,onBeforeUnmount,nextTick} from 'vue'
 import {useI18n} from 'vue-i18n'
+import {useRouter} from 'vue-router'
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import {Box,Download,RotateCcw,ZoomIn,ZoomOut,Eye,Layers3,Maximize2,ArrowLeft,Search} from 'lucide-vue-next'
@@ -11,6 +12,7 @@ import {buildGeomRig} from '../geomRig.js'
 import {toDxf,toPdf,toAi,toSvgDieline} from '../exportDieline.js'
 import {buildDimAnnotations} from '../dimAnnotations.js'
 import {DEFAULT_TEMPLATE_ID,getTemplate} from '../templates/index.js'
+import {ensureTemplate} from '../templates/lazy.js'
 import {IMPORT_CATEGORIES,getPreset,searchImportedPresets,ownedGroupsWithTemplates,outboxCatalogOptions} from '../catalog/index.js'
 import {renderClosedThumb,structureKind} from '../renderClosedThumb.js'
 import {renderProxyThumb} from '../renderProxyThumb.js'
@@ -45,9 +47,15 @@ import {
   clearPackativeGeomCache,
 } from '../packative/index.js'
 import brandLogoUrl from '../assets/brand/boxcraft-logo.png'
+import {ApiError} from '../api/client'
+import {useAuthStore} from '../stores/auth'
+import {useBillingStore} from '../stores/billing'
 clearPacdoraGeomCache()
 clearPackativeGeomCache()
 function assetUrl(path){return publicAssetUrl(path)}
+const auth=useAuthStore()
+const billing=useBillingStore()
+const router=useRouter()
 
 const {t,locale}=useI18n()
 function switchLocale(code){setLocale(code)}
@@ -243,6 +251,8 @@ async function enterLabFromPreset(id){
     showUnmappedToast(t('toast.sizeOnly',{name:displayPresetLabel(p)||p.sourceNum}))
     return
   }
+  // 结构规格模板按需加载：先注册，后续同步的 getTemplate / createKnife 才拿得到
+  if(p.templateId)await ensureTemplate(p.templateId)
   if(!applyImportedSize(id))return
   if(p.hasGeometry)await refreshGeomKnife()
   screen.value='lab'
@@ -533,7 +543,8 @@ const knife=computed(()=>{
     length:L.value,width:W.value,height:isFlatHeight.value?0:H.value,thickness:thickness.value,bleed:bleed.value,
     sizeMode:sizeMode.value,fluteDirection:fluteDirection.value,materialId:material.value,
     piece:piece.value,
-    params:hasParamDefs.value?advancedParams.value:undefined
+    params:hasParamDefs.value?advancedParams.value:undefined,
+    previewBleedExtra:10,
   })
 })
 const cutPath=computed(()=>knife.value.cutPath)
@@ -902,6 +913,26 @@ function resetView(){
   }
 }
 function saveFile(content,type,name){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+async function ensureExportGrant(format){
+  if(!auth.loaded)await auth.refreshMe()
+  if(!auth.isAuthenticated){
+    showUnmappedToast(t('billing.loginToLabExport'))
+    router.push({path:'/account/login',query:{next:router.currentRoute.value.fullPath}})
+    return false
+  }
+  try{
+    await billing.grantForLabExport(format)
+    return true
+  }catch(e){
+    if(e instanceof ApiError&&e.code==='EXPORT_QUOTA_EXCEEDED'){
+      showUnmappedToast(t('billing.quotaExceeded'))
+      router.push('/account/upgrade')
+      return false
+    }
+    showUnmappedToast(e instanceof ApiError?e.message:t('billing.grantFailed'))
+    return false
+  }
+}
 function exportBase(){return `${knife.value.template}-${L.value}x${W.value}x${H.value}`}
 /** 椭圆近似周长 → 圆筒边数 24–48 */
 function sidesFromSize(len,wid){
@@ -998,19 +1029,38 @@ function packativeExportBase(){
   const tid=packativeRow.value?.template_id||'packative'
   return `${tid}-${L.value}x${W.value}x${H.value}`
 }
-function downloadSVG(){
+async function downloadSVG(){
   if(isModelOnly.value)return
+  if(packativeMode.value&&!packativeHasGeom.value)return
+  if(!(await ensureExportGrant('svg')))return
   if(packativeMode.value){
-    if(!packativeHasGeom.value)return
     saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${packativeExportBase()}.svg`)
     return
   }
   saveFile(toSvgDieline(knife.value,{includeDims:showDims.value}),'image/svg+xml',`${exportBase()}.svg`)
 }
-function downloadDXF(){if(isModelOnly.value||packativeMode.value)return;saveFile(toDxf(knife.value),'application/dxf',`${exportBase()}.dxf`)}
-async function downloadPDF(){if(isModelOnly.value||packativeMode.value)return;const bytes=await toPdf(knife.value);saveFile(bytes,'application/pdf',`${exportBase()}.pdf`)}
-async function downloadAI(){if(isModelOnly.value||packativeMode.value)return;const bytes=await toAi(knife.value);saveFile(bytes,'application/postscript',`${exportBase()}.ai`)}
-function downloadJSON(){if(isModelOnly.value||packativeMode.value)return;saveFile(JSON.stringify(knife.value,null,2),'application/json',`knife-v3-${exportBase()}.json`)}
+async function downloadDXF(){
+  if(isModelOnly.value||packativeMode.value)return
+  if(!(await ensureExportGrant('dxf')))return
+  saveFile(toDxf(knife.value),'application/dxf',`${exportBase()}.dxf`)
+}
+async function downloadPDF(){
+  if(isModelOnly.value||packativeMode.value)return
+  if(!(await ensureExportGrant('pdf')))return
+  const bytes=await toPdf(knife.value)
+  saveFile(bytes,'application/pdf',`${exportBase()}.pdf`)
+}
+async function downloadAI(){
+  if(isModelOnly.value||packativeMode.value)return
+  if(!(await ensureExportGrant('ai')))return
+  const bytes=await toAi(knife.value)
+  saveFile(bytes,'application/postscript',`${exportBase()}.ai`)
+}
+async function downloadJSON(){
+  if(isModelOnly.value||packativeMode.value)return
+  if(!(await ensureExportGrant('json')))return
+  saveFile(JSON.stringify(knife.value,null,2),'application/json',`knife-v3-${exportBase()}.json`)
+}
 function outboxExportBase(){
   const plan=outboxPlan.value?.inner
   const size=plan?`${plan.length}x${plan.width}x${plan.height}`:`${L.value}x${W.value}x${H.value}`
@@ -1019,21 +1069,25 @@ function outboxExportBase(){
   const modeTag=outboxSizingMode.value==='fixed'?'-fixed':''
   return `outbox-${OUTBOX_TEMPLATE_ID}-${size}${layout}${modeTag}`
 }
-function downloadOutboxSVG(){
+async function downloadOutboxSVG(){
   if(!outboxKnife.value)return
+  if(!(await ensureExportGrant('svg')))return
   saveFile(toSvgDieline(outboxKnife.value,{includeDims:showDims.value}),'image/svg+xml',`${outboxExportBase()}.svg`)
 }
-function downloadOutboxDXF(){
+async function downloadOutboxDXF(){
   if(!outboxKnife.value)return
+  if(!(await ensureExportGrant('dxf')))return
   saveFile(toDxf(outboxKnife.value),'application/dxf',`${outboxExportBase()}.dxf`)
 }
 async function downloadOutboxPDF(){
   if(!outboxKnife.value)return
+  if(!(await ensureExportGrant('pdf')))return
   const bytes=await toPdf(outboxKnife.value)
   saveFile(bytes,'application/pdf',`${outboxExportBase()}.pdf`)
 }
-function downloadOutboxJSON(){
+async function downloadOutboxJSON(){
   if(!outboxKnife.value)return
+  if(!(await ensureExportGrant('json')))return
   saveFile(JSON.stringify(outboxKnife.value,null,2),'application/json',`${outboxExportBase()}.json`)
 }
 watch([L,W,H,thickness,sizeMode,templateId],()=>{

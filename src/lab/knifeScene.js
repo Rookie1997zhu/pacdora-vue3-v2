@@ -1,64 +1,10 @@
 /**
  * 可复用 Knife 3D 折叠场景（供 OUTBOX 等第二场景使用；不依赖 Vue）
+ * Mesh 构建委托给 src/render/boxModel.js
  */
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
-import {neutralMeshOffset,foldRotation} from '../foldSim.js'
-import {anglesAtProgress} from '../foldStages.js'
-import {buildGeomRig} from '../geomRig.js'
-import {ensureBoardPack,createBoardMaterial} from '../boardMaterial.js'
-
-function disposeTree(node){
-  node.traverse(o=>{
-    o.geometry?.dispose()
-    if(o.material){
-      const ms=Array.isArray(o.material)?o.material:[o.material]
-      ms.forEach(m=>m.dispose())
-    }
-  })
-}
-
-function makePanelMesh(f,faceHoles,thickness,materialId){
-  const T=Number(thickness)
-  const shape=new THREE.Shape()
-  const cx=f.x+f.w/2,cy=f.y+f.h/2
-  if(Array.isArray(f.outline)&&f.outline.length>=3){
-    f.outline.forEach((p,i)=>{
-      const x=p[0]-cx,y=-(p[1]-cy)
-      if(i)shape.lineTo(x,y); else shape.moveTo(x,y)
-    })
-    shape.closePath()
-  }else{
-    shape.moveTo(-f.w/2,-f.h/2);shape.lineTo(f.w/2,-f.h/2);shape.lineTo(f.w/2,f.h/2);shape.lineTo(-f.w/2,f.h/2);shape.closePath()
-  }
-  for(const hole of faceHoles){
-    const loop=Array.isArray(hole.loop)&&hole.loop.length>=3
-      ?hole.loop
-      :[[hole.x,hole.y],[hole.x+hole.w,hole.y],[hole.x+hole.w,hole.y+hole.h],[hole.x,hole.y+hole.h]]
-    const path=new THREE.Path()
-    loop.forEach((p,i)=>{
-      const x=p[0]-cx,y=-(p[1]-cy)
-      if(i)path.lineTo(x,y); else path.moveTo(x,y)
-    })
-    path.closePath()
-    shape.holes.push(path)
-  }
-  const geo=new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:false})
-  const mat=createBoardMaterial(materialId,{flatShading:!f.smooth})
-  const mesh=new THREE.Mesh(geo,mat)
-  mesh.name=f.name
-  mesh.userData.pickablePanel=true
-  mesh.userData.faceW=f.w
-  mesh.userData.faceH=f.h
-  mesh.userData.boardMap=mat.map||null
-  mesh.userData.boardRepeat=mat.map?mat.map.repeat.clone():null
-  mesh.userData.boardOffset=mat.map?mat.map.offset.clone():null
-  mesh.userData.boardWrapS=mat.map?mat.map.wrapS:null
-  mesh.userData.boardWrapT=mat.map?mat.map.wrapT:null
-  const off=neutralMeshOffset(T)
-  mesh.position.z=off.z
-  return mesh
-}
+import {createBoxModel, disposeTree} from '../render/boxModel.js'
 
 /**
  * @param {HTMLElement} container
@@ -82,15 +28,11 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   controls.minDistance=100
   controls.maxDistance=2500
 
-  let group=null
-  let contentsGroup=null
-  let hinges=[]
-  let geomRig=null
+  const boxModel=createBoxModel({materialId})
+  scene.add(boxModel.root)
+
   let knife=null
-  let thickness=3
   let progress=1
-  let mid=materialId
-  let buildToken=0
   let raf=0
   let disposed=false
   let fittedOnce=false
@@ -98,10 +40,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   let selectedPanel=null
   /** @type {{cells:Array,boxSize:{length:number,width:number,height:number},outerSize?:{length:number,width:number,height:number}|null,materialId?:string}|null} */
   let contentsDesc=null
-  /** @type {Record<string, THREE.Texture|null>} */
-  let artworkMaps={}
-  /** @type {Set<THREE.Texture>} */
-  const ownedArtworkTextures=new Set()
+  let contentsGroup=null
   const raycaster=new THREE.Raycaster()
   const pointerNdc=new THREE.Vector2()
   /** @type {{x:number,y:number}|null} */
@@ -109,6 +48,10 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   const CLICK_PX=4
   const SELECT_EMISSIVE=new THREE.Color(0x0f6e68)
   const SELECT_INTENSITY=0.28
+
+  function meshGroup(){
+    return boxModel.getMeshRoot()
+  }
 
   function clearContents(){
     if(contentsGroup){
@@ -153,6 +96,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
 
   /** 只用侧墙（不含摇盖）算闭合箱体，避免摇盖撑大包围盒导致内容物中心偏移、穿出箱体 */
   function bodyBoxFromWalls(){
+    const group=meshGroup()
     if(!group)return null
     const wallNames=new Set(['front','back','left','right'])
     const box=new THREE.Box3()
@@ -168,6 +112,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
 
   /** 显示装箱时让外箱半透明，闭合也能看见内盒；关闭装箱时恢复不透明 */
   function setOutboxGhost(enabled){
+    const group=meshGroup()
     if(!group)return
     group.traverse(o=>{
       if(!o.isMesh||!o.material)return
@@ -192,14 +137,15 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
 
   function placeContents(){
     clearContents()
+    const group=meshGroup()
     if(!contentsDesc?.cells?.length||!group||!scene||disposed)return
     const saved=progress
     progress=1
-    applyFold()
+    boxModel.setProgress(100)
     group.updateMatrixWorld(true)
     const box=bodyBoxFromWalls()||new THREE.Box3().setFromObject(group)
     progress=saved
-    applyFold()
+    boxModel.setProgress(progress*100)
     if(box.isEmpty())return
     const size=box.getSize(new THREE.Vector3())
     const center=box.getCenter(new THREE.Vector3())
@@ -274,66 +220,6 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     setOutboxGhost(true)
   }
 
-  function disposeOwnedArtwork(){
-    for(const tex of ownedArtworkTextures){
-      try{tex.dispose()}catch{/* ignore */}
-    }
-    ownedArtworkTextures.clear()
-  }
-
-  function applyArtworkToMesh(mesh,tex){
-    if(!mesh?.material)return
-    const mat=mesh.material
-    const w=Math.max(Number(mesh.userData.faceW)||1,1e-6)
-    const h=Math.max(Number(mesh.userData.faceH)||1,1e-6)
-    if(tex){
-      tex.colorSpace=THREE.SRGBColorSpace
-      tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping
-      tex.repeat.set(1/w,1/h)
-      tex.offset.set(0.5,0.5)
-      tex.needsUpdate=true
-      mat.map=tex
-      mat.needsUpdate=true
-    }else{
-      mat.map=mesh.userData.boardMap||null
-      if(mat.map&&mesh.userData.boardRepeat){
-        mat.map.repeat.copy(mesh.userData.boardRepeat)
-        if(mesh.userData.boardOffset)mat.map.offset.copy(mesh.userData.boardOffset)
-        if(mesh.userData.boardWrapS!=null)mat.map.wrapS=mesh.userData.boardWrapS
-        if(mesh.userData.boardWrapT!=null)mat.map.wrapT=mesh.userData.boardWrapT
-        mat.map.needsUpdate=true
-      }
-      mat.needsUpdate=true
-    }
-  }
-
-  function applyArtworkMaps(){
-    if(!group&&!geomRig)return
-    const root=geomRig?.root||group
-    if(!root)return
-    root.traverse(obj=>{
-      if(!obj.isMesh||!obj.name)return
-      const key=obj.name
-      if(Object.prototype.hasOwnProperty.call(artworkMaps,key)){
-        applyArtworkToMesh(obj,artworkMaps[key]||null)
-      }else{
-        applyArtworkToMesh(obj,null)
-      }
-    })
-    applySelectedHighlight()
-  }
-
-  function collectPickableMeshes(){
-    /** @type {THREE.Mesh[]} */
-    const meshes=[]
-    const root=geomRig?.root||group
-    if(!root)return meshes
-    root.traverse(obj=>{
-      if(obj.isMesh&&obj.userData?.pickablePanel&&obj.name)meshes.push(obj)
-    })
-    return meshes
-  }
-
   function setMeshSelectStyle(mesh,on){
     if(!mesh?.material)return
     const mats=Array.isArray(mesh.material)?mesh.material:[mesh.material]
@@ -351,7 +237,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   }
 
   function applySelectedHighlight(){
-    for(const mesh of collectPickableMeshes()){
+    for(const mesh of boxModel.collectPickableMeshes()){
       setMeshSelectStyle(mesh,!!selectedPanel&&mesh.name===selectedPanel)
     }
   }
@@ -368,7 +254,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     pointerNdc.x=((clientX-rect.left)/rect.width)*2-1
     pointerNdc.y=-((clientY-rect.top)/rect.height)*2+1
     raycaster.setFromCamera(pointerNdc,camera)
-    const hits=raycaster.intersectObjects(collectPickableMeshes(),false)
+    const hits=raycaster.intersectObjects(boxModel.collectPickableMeshes(),false)
     const hit=hits.find(h=>h.object?.userData?.pickablePanel&&h.object.name)
     return hit?.object?.name||null
   }
@@ -395,39 +281,9 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     pointerDown=null
   }
 
-  function applyFold(){
-    const p01=Math.max(0,Math.min(1,Number(progress)))
-    if(geomRig){geomRig.apply(p01);return}
-    if(!hinges.length)return
-    const stages=knife?.foldStages
-    const staged=Array.isArray(stages)&&stages.length>0
-    const angMap=staged?anglesAtProgress(stages,p01):null
-    const stagedKids=staged?new Set(stages.flatMap(st=>(st||[]).map(s=>s.child))):null
-    const s=p01*p01*(3-2*p01)
-    for(const h of hinges){
-      let v
-      if(staged){
-        if(angMap.has(h.name))v=angMap.get(h.name)
-        else if(stagedKids.has(h.name))v=0
-        else v=s*h.angle
-      }else{
-        v=s*h.angle
-      }
-      if(h.axis){
-        const q=new THREE.Quaternion().setFromAxisAngle(
-          new THREE.Vector3(h.axis.x,h.axis.y,h.axis.z).normalize(),
-          v
-        )
-        h.anchor.setRotationFromQuaternion(q)
-      }else{
-        const r=foldRotation(h.side,v)
-        h.anchor.rotation.set(r.x,r.y,r.z)
-      }
-    }
-  }
-
   function resetView(){
     if(!camera||!scene)return
+    const group=meshGroup()
     if(group)group.updateMatrixWorld(true)
     const box=group?new THREE.Box3().setFromObject(group):new THREE.Box3()
     const center=new THREE.Vector3()
@@ -451,95 +307,6 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       controls.maxDistance=Math.max(2500,dist*4)
       controls.update()
     }
-  }
-
-  async function rebuild(){
-    if(!scene||disposed)return
-    const token=++buildToken
-    try{await ensureBoardPack(mid)}catch{/* solid */}
-    if(token!==buildToken||!scene||disposed)return
-    clearContents()
-    if(group){scene.remove(group);disposeTree(group)}
-    group=new THREE.Group()
-    scene.add(group)
-    hinges=[]
-    geomRig=null
-    const faces=knife?.faces||[]
-    if(!faces.length){applyFold();controls?.update();return}
-    const byName=Object.fromEntries(faces.map(f=>[f.name,f]))
-    const world=new Map()
-    const holesByFace=new Map()
-    for(const h of knife.holes||[]){
-      if(!h?.face)continue
-      if(!holesByFace.has(h.face))holesByFace.set(h.face,[])
-      holesByFace.get(h.face).push(h)
-    }
-    const zOff=neutralMeshOffset(thickness).z
-    const panelMesh=f=>makePanelMesh(f,holesByFace.get(f.name)||[],thickness,mid)
-    if(knife.geomMode){
-      geomRig=buildGeomRig(knife,{makeMesh:panelMesh,zOff})
-      group.add(geomRig.root)
-      applyFold()
-      applyArtworkMaps()
-      placeContents()
-      controls?.update();resetView()
-      return
-    }
-    function attach(name){
-      if(world.has(name))return world.get(name)
-      const f=byName[name]
-      if(!f)return null
-      const mesh=panelMesh(f)
-      let anchor
-      if(!f.parent){
-        anchor=new THREE.Group()
-        group.add(anchor)
-        anchor.add(mesh)
-        world.set(name,{anchor,mesh})
-        return world.get(name)
-      }
-      const p=byName[f.parent]
-      if(!p){
-        anchor=new THREE.Group();group.add(anchor)
-        anchor.add(mesh);world.set(name,{anchor,mesh});return world.get(name)
-      }
-      const parent=attach(f.parent)
-      if(!parent)return null
-      const side=f.side
-      anchor=new THREE.Group()
-      const dx=(f.x+f.w/2)-(p.x+p.w/2),dy=-((f.y+f.h/2)-(p.y+p.h/2))
-      const hingeRec=(knife.hinges||[]).find(h=>h.child===name)
-      let hx=0,hy=0,axis=null
-      if(Array.isArray(f.hingeLine)&&f.hingeLine.length===2){
-        const [[ax,ay],[bx,by]]=f.hingeLine
-        const mx=(ax+bx)/2,my=(ay+by)/2
-        const pcx=p.x+p.w/2,pcy=p.y+p.h/2
-        hx=mx-pcx; hy=-(my-pcy)
-        const dirX=bx-ax,dirY=-(by-ay)
-        const len=Math.hypot(dirX,dirY)||1
-        axis={x:dirX/len,y:dirY/len,z:0}
-      }else{
-        if(side==='top')hy=p.h/2
-        if(side==='bottom')hy=-p.h/2
-        if(side==='left')hx=-p.w/2
-        if(side==='right')hx=p.w/2
-      }
-      anchor.position.set(hx,hy,0)
-      parent.mesh.add(anchor)
-      mesh.position.set(dx-hx,dy-hy,zOff)
-      anchor.add(mesh)
-      const deg=Number.isFinite(hingeRec?.angle)?hingeRec.angle:-90
-      hinges.push({anchor,side,axis,name,angle:deg*Math.PI/180})
-      world.set(name,{anchor,mesh})
-      return world.get(name)
-    }
-    faces.forEach(f=>attach(f.name))
-    applyFold()
-    applyArtworkMaps()
-    placeContents()
-    controls?.update()
-    resetView()
-    applySelectedHighlight()
   }
 
   function resize(){
@@ -575,25 +342,31 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   return {
     async setKnife(nextKnife,nextThickness,nextMaterialId){
       knife=nextKnife
-      thickness=Number(nextThickness)||3
-      if(nextMaterialId)mid=nextMaterialId
       fittedOnce=false
-      await rebuild()
+      clearContents()
+      await boxModel.setKnife(nextKnife,nextThickness,nextMaterialId)
+      placeContents()
+      applySelectedHighlight()
+      controls?.update()
+      resetView()
     },
     setProgress(pct){
       progress=Math.max(0,Math.min(1,Number(pct)/100))
-      applyFold()
+      boxModel.setProgress(pct)
     },
     setMaterial(id){
-      mid=id||mid
-      return rebuild()
+      return boxModel.setMaterial(id).then(()=>{
+        placeContents()
+        applySelectedHighlight()
+        resetView()
+      })
     },
     /**
      * @param {{cells:Array,boxSize:{length:number,width:number,height:number},outerSize?:object,materialId?:string}|null} desc
      */
     setContents(desc){
       contentsDesc=desc
-      if(!group){
+      if(!meshGroup()){
         if(!desc)clearContents()
         return
       }
@@ -604,16 +377,8 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
      * @param {{takeOwnership?:boolean}} [opts] when true, scene disposes previous owned textures
      */
     setArtworkMaps(maps,opts={}){
-      if(opts.takeOwnership!==false){
-        disposeOwnedArtwork()
-        if(maps){
-          for(const tex of Object.values(maps)){
-            if(tex)ownedArtworkTextures.add(tex)
-          }
-        }
-      }
-      artworkMaps=maps&&typeof maps==='object'?{...maps}:{}
-      applyArtworkMaps()
+      boxModel.setArtworkMaps(maps,opts)
+      applySelectedHighlight()
     },
     setSelectedPanel,
     resetView,
@@ -627,14 +392,12 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       canvas.removeEventListener('pointerleave',onPointerCancel)
       controls?.dispose();controls=null
       clearContents()
-      setOutboxGhost(false)
-      disposeOwnedArtwork()
-      artworkMaps={}
       selectedPanel=null
-      if(group){scene?.remove(group);disposeTree(group);group=null}
+      boxModel.dispose()
+      scene?.remove(boxModel.root)
       renderer?.dispose()
       renderer?.domElement?.remove()
-      renderer=null;scene=null;camera=null;hinges=[];geomRig=null;knife=null;contentsDesc=null
+      renderer=null;scene=null;camera=null;knife=null;contentsDesc=null
     }
   }
 }

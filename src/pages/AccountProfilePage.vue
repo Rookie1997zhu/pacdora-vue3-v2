@@ -6,6 +6,16 @@
         <template v-if="auth.isAuthenticated">
           <p><strong>{{ t('auth.email') }}:</strong> {{ auth.user?.email }}</p>
           <p><strong>{{ t('auth.displayName') }}:</strong> {{ auth.user?.display_name }}</p>
+          <div class="quota" v-if="billing.entitlement">
+            <h2>{{ t('billing.entitlementTitle') }}</h2>
+            <p>
+              {{ t('billing.plan') }}: <strong>{{ billing.entitlement.plan }}</strong>
+              ·
+              {{ t('billing.remaining') }}:
+              <strong>{{ billing.entitlement.unlimited ? t('billing.unlimited') : billing.entitlement.remaining }}</strong>
+            </p>
+            <RouterLink class="bc-btn" to="/account/upgrade">{{ t('billing.upgradeLink') }}</RouterLink>
+          </div>
           <div class="orgs">
             <h2>{{ t('auth.organizations') }}</h2>
             <ul>
@@ -35,13 +45,16 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import AppShell from '../components/layout/AppShell.vue'
 import { useAuthStore } from '../stores/auth'
+import { useBillingStore } from '../stores/billing'
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const billing = useBillingStore()
 const router = useRouter()
 
-onMounted(() => {
-  auth.refreshMe()
+onMounted(async () => {
+  await auth.refreshMe()
+  if (auth.isAuthenticated) await billing.refresh()
 })
 
 async function onLogout() {
@@ -74,6 +87,15 @@ async function onLogout() {
 .auth-card h2 {
   margin: 16px 0 8px;
   font-size: 16px;
+}
+
+.quota {
+  margin: 12px 0;
+}
+
+.quota .bc-btn {
+  display: inline-flex;
+  margin-top: 8px;
 }
 
 .links {

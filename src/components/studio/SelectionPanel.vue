@@ -241,13 +241,56 @@ function onAnchor(key: 'x' | 'y', ev: Event) {
 </script>
 
 <style scoped>
-.selection{display:flex;flex-direction:column;gap:8px;padding-top:8px;border-top:1px solid #e2e8eb}
-h2,h3{margin:0;font-size:13px;letter-spacing:.04em}
-.meta,.hint{margin:0;font-size:12px;color:#637587}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-label{display:flex;flex-direction:column;gap:4px;font-size:12px}
-input,select{border:1px solid #cfd8de;border-radius:8px;padding:8px 10px;font:inherit}
+.selection{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding-top:12px;
+  margin-top:4px;
+  border-top:1px solid var(--studio-border, #e2e8f0);
+}
+h2,h3{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.04em;
+  color:var(--studio-ink, var(--bc-ink));
+}
+.meta,.hint{margin:0;font-size:12px;color:var(--studio-ink-muted, #64748b)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:500;color:var(--studio-ink, var(--bc-ink))}
+input,select{
+  border:1px solid var(--studio-border, #e2e8f0);
+  border-radius:var(--studio-radius-sm, 8px);
+  padding:9px 11px;
+  font:inherit;
+  transition:border-color var(--studio-ease, 160ms ease), box-shadow var(--studio-ease, 160ms ease);
+}
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--bc-steel);
+  box-shadow:var(--bc-focus);
+}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-button{border:0;border-radius:8px;background:#0f6e68;color:#fff;padding:7px 10px;cursor:pointer;font-size:12px}
-button.ghost{background:#fff;color:#16343c;border:1px solid #cfd8de}
+button{
+  border:0;
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--bc-steel);
+  color:#fff;
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  transition:background var(--studio-ease, 160ms ease);
+}
+button:hover:not(:disabled){background:var(--bc-steel-hover)}
+button.ghost{
+  background:transparent;
+  color:var(--studio-ink, var(--bc-ink));
+  box-shadow:inset 0 0 0 1px var(--studio-border, #e2e8f0);
+}
+button.ghost:hover:not(:disabled){
+  color:var(--bc-steel);
+  box-shadow:inset 0 0 0 1px var(--bc-steel);
+  background:var(--bc-steel-soft);
+}
 </style>

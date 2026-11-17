@@ -1,5 +1,7 @@
 /**
  * 按结构 code 把导入尺寸挂到 rea-* 模板；可 --prefixes 启用前缀族。
+ * 结构 code 取自预设 structureCode（backfill-structure-codes.mjs 从采集几何回填）；
+ * structure_inventory 明细表存在时作为补充来源，不存在也可运行。
  */
 import {readFileSync,writeFileSync,existsSync} from 'node:fs'
 import {join,dirname} from 'node:path'
@@ -40,14 +42,16 @@ function loadCsv(path){
   })
 }
 
-if(!existsSync(presetsPath)||!existsSync(detailPath)){
-  console.error('missing presets or structure detail')
+if(!existsSync(presetsPath)){
+  console.error('missing presets')
   process.exit(1)
 }
+const hasDetail=existsSync(detailPath)
+if(!hasDetail)console.warn('structure_inventory detail missing — using presets[].structureCode only')
 
 const numToCode={}
 const codeHits={}
-for(const r of loadCsv(detailPath)){
+for(const r of (hasDetail?loadCsv(detailPath):[])){
   const num=String(r['模型编号']||'')
   const code=String(r['结构code']||'').trim()
   if(!num||!code)continue
@@ -60,6 +64,7 @@ const data=JSON.parse(raw.replace(/^\/\*\*[\s\S]*?\*\/\s*export\s+default\s+/,''
 
 let applied=0,already=0,skipped=0
 const byTpl={}
+const byCategory={}
 const prefixPreview={}
 
 for(const p of data.presets||[]){
@@ -81,21 +86,24 @@ for(const p of data.presets||[]){
   p.templateSource='structure-code'
   applied++
   byTpl[tid]=(byTpl[tid]||0)+1
+  const cat=p.categoryId||'(none)'
+  byCategory[cat]=(byCategory[cat]||0)+1
 }
+const appliedByCategory=byCategory
 
-const byTemplate={},byCategory={}
+const byTemplate={},countByCategory={}
 let mapped=0
 for(const p of data.presets||[]){
   const k=p.templateId||'unmapped'
   if(p.templateId)mapped++
   byTemplate[k]=(byTemplate[k]||0)+1
-  byCategory[p.categoryId]=(byCategory[p.categoryId]||0)+1
+  countByCategory[p.categoryId]=(countByCategory[p.categoryId]||0)+1
 }
 data.mapped=mapped
 data.byTemplate=byTemplate
-data.byCategory=byCategory
+data.byCategory=countByCategory
 if(Array.isArray(data.categories)){
-  data.categories=data.categories.map(c=>({...c,count:byCategory[c.id]||0}))
+  data.categories=data.categories.map(c=>({...c,count:countByCategory[c.id]||0}))
 }
 
 writeFileSync(
@@ -110,6 +118,7 @@ console.log(JSON.stringify({
   skipped,
   mapped:data.mapped,
   byTpl,
+  appliedByCategory,
   exactCodes:Object.keys(STRUCTURE_CODE_EXACT).length,
   prefixPreviewTop:Object.entries(prefixPreview).sort((a,b)=>b[1]-a[1]).slice(0,15)
 },null,2))

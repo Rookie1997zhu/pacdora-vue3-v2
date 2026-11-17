@@ -69,35 +69,71 @@ async function onFile(ev: Event) {
 </script>
 
 <style scoped>
-.tool-rail{display:flex;flex-direction:column;gap:10px;height:100%;min-height:0}
+.tool-rail{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  height:100%;
+  min-height:0;
+}
 .tabs{
   display:flex;
   flex-direction:column;
-  gap:4px;
-  padding-bottom:8px;
-  border-bottom:1px solid var(--bc-line);
+  gap:2px;
+  padding:4px;
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--studio-muted, #f1f5f9);
+  border:0;
 }
 .tabs button{
-  border:1px solid transparent;
+  border:0;
   background:transparent;
-  border-radius:var(--bc-radius-sm);
-  padding:8px 10px;
-  font-size:12px;
-  font-weight:600;
+  border-radius:6px;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:500;
   cursor:pointer;
-  color:var(--bc-ink-muted);
+  color:var(--studio-ink-muted, var(--bc-ink-muted));
   text-align:left;
+  transition:background var(--studio-ease, 160ms ease), color var(--studio-ease, 160ms ease);
 }
-.tabs button:hover{background:var(--bc-paper);color:var(--bc-ink)}
+.tabs button:hover{
+  background:rgba(255,255,255,.7);
+  color:var(--studio-ink, var(--bc-ink));
+}
 .tabs button.on{
-  background:var(--bc-steel-soft);
-  border-color:transparent;
+  background:var(--studio-card-bg, #fff);
   color:var(--bc-steel);
+  font-weight:600;
+  box-shadow:0 1px 2px rgba(15,23,42,.06);
 }
-.body{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:12px}
-.pane{display:flex;flex-direction:column;gap:8px}
-h2{margin:0;font-size:14px;font-family:var(--bc-font-display)}
-.hint{margin:0;font-size:12px;color:var(--bc-ink-muted)}
-.upload{display:flex;flex-direction:column;gap:6px;font-size:13px}
-.upload input{font:inherit}
+.tabs button:focus-visible{
+  outline:none;
+  box-shadow:var(--bc-focus);
+}
+.body{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding-top:2px;
+}
+.pane{display:flex;flex-direction:column;gap:10px}
+h2{
+  margin:0;
+  font-size:14px;
+  font-family:var(--bc-font-display);
+  color:var(--studio-ink, var(--bc-ink));
+}
+.hint{margin:0;font-size:12px;color:var(--studio-ink-muted, var(--bc-ink-muted))}
+.upload{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--studio-ink, var(--bc-ink));font-weight:500}
+.upload input{
+  font:inherit;
+  padding:8px;
+  border:1px dashed var(--studio-border, #e2e8f0);
+  border-radius:var(--studio-radius-sm, 8px);
+  background:var(--studio-card-bg, #fff);
+}
 </style>

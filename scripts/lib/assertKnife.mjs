@@ -23,18 +23,30 @@ function hingeEdge(child){
 export function assertKnife(t,label,k){
   const tag=`${t.id}/${label}`
   assert.equal(k.template,t.id,`${tag}: template id`)
+  assert.equal(k.validation.ok,true,`${tag}: validation ${JSON.stringify(k.validation.checks.filter(c=>!c.ok))}`)
+  assert.equal(k.manufacturingReady,false,`${tag}: manufacturingReady`)
+  // Crashlock lab path: segment-only knife (no face tree). Dedicated engineering check covers it.
+  const crashlockGeom=!!(k.geomMode||k.fromCrashlockLab||k.meta?.fromCrashlockLab)
+  if(crashlockGeom){
+    assert.ok((k.folds?.length||0)>0,`${tag}: crashlock folds`)
+    assert.ok((k.cuts?.length||0)>0,`${tag}: crashlock cuts`)
+    const dxf=toDxf(k)
+    assert.ok(dxf.includes('TRIM')&&dxf.includes('CREASE')&&dxf.includes('BLEED'),`${tag}: DXF layers`)
+    return
+  }
   if(t.supportsClosedCheck!==false){
     assert.ok(t.closedCheck?.buildBoxes&&t.closedCheck?.pairs,`${tag}: closedCheck`)
     assert.equal(k.topology.supportsClosedCheck,true,`${tag}: supportsClosedCheck`)
   }
-  assert.equal(k.validation.ok,true,`${tag}: validation ${JSON.stringify(k.validation.checks.filter(c=>!c.ok))}`)
-  assert.equal(k.manufacturingReady,false,`${tag}: manufacturingReady`)
   if(label==='default'&&t.supportsClosedCheck!==false){
     const closed=estimateClosedCollisions(k,t.defaults.thickness)
     assert.notEqual(closed.skipped,true,`${tag}: closed not skipped`)
     assert.equal(closed.ok,true,`${tag}: closed ok ${JSON.stringify(closed.issues)}`)
   }
-  const faceOrder=k.topology.faceOrder||(typeof t.faceOrder==='function'?t.faceOrder(k.params||{}):t.faceOrder)
+  const topoOrder=k.topology?.faceOrder
+  const faceOrder=(Array.isArray(topoOrder)&&topoOrder.length
+    ?topoOrder
+    :(typeof t.faceOrder==='function'?t.faceOrder(k.params||{}):t.faceOrder))||[]
   assert.equal(k.faces.length,faceOrder.length,`${tag}: faceCount`)
   assert.equal(k.hinges.length,faceOrder.length-1,`${tag}: hingeCount`)
   assert.equal(k.faces.find(f=>!f.parent)?.name,k.topology?.root||t.root,`${tag}: root`)

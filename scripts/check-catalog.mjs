@@ -11,7 +11,7 @@ const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 
 assert.ok(PRESET_CATALOG.count>0,'catalog count')
 assert.equal(PRESETS.length,PRESET_CATALOG.count)
-assert.equal(PRESETS.length,47,'shipping-only catalog size')
+assert.ok(PRESETS.length>=47,`catalog size ${PRESETS.length} >= 47`)
 const blob=JSON.stringify(PRESET_CATALOG)
 assert.ok(!blob.includes('cdn.pacdora.com'),'no pacdora CDN')
 assert.ok(!blob.includes('mockup-detail'),'no pacdora detail links')
@@ -25,7 +25,7 @@ for(const p of PRESETS){
   assert.ok(flat?p.height>=0:p.height>0,`${p.id} height`)
   assert.ok(!ids.has(p.id),`dup ${p.id}`)
   ids.add(p.id)
-  assert.equal(p.categoryId,'shipping',`${p.id} must be shipping`)
+  assert.ok(p.categoryId,`${p.id} must have categoryId`)
   if(p.templateId){
     assert.ok(TEMPLATES[p.templateId],`bad template ${p.templateId}`)
     mapped++
@@ -34,14 +34,15 @@ for(const p of PRESETS){
     withGeom++
     assert.ok(
       existsSync(join(root,'public','shipping-geom',`${p.sourceNum}.json`))
-      ||existsSync(join(root,'geometry','pacdora_boxes',`${p.sourceNum}.json`)),
+      ||existsSync(join(root,'geometry','pacdora_boxes',`${p.sourceNum}.json`))
+      ||existsSync(join(root,'public',`${p.categoryId||'shipping'}-geom`,`${p.sourceNum}.json`)),
       `geom missing ${p.sourceNum}`
     )
   }
 }
 
 assert.ok(mapped>0,'some mapped')
-assert.equal(withGeom,47,'all shipping presets have geometry')
+assert.ok(withGeom>=47,`geometry presets ${withGeom} >= 47`)
 
 // modelOnly 必须挂平板示意（无真实刀版）
 let modelOnlyN=0
@@ -52,9 +53,8 @@ for(const p of PRESETS){
 }
 assert.ok(searchImportedPresets('200010',{limit:5}).length>=1,'search works')
 assert.ok(PRESETS.every(p=>p.categoryId&&p.categoryLabel),'each preset has category')
-const shipping=searchImportedPresets('',{categoryId:'shipping',limit:120})
-assert.ok(shipping.length===47&&shipping.every(p=>p.categoryId==='shipping'),'shipping filter')
-assert.equal(searchImportedPresets('',{categoryId:'gift',limit:5}).length,0,'no gift presets')
+const shipping=searchImportedPresets('',{categoryId:'shipping',limit:500})
+assert.ok(shipping.length>=47&&shipping.every(p=>p.categoryId==='shipping'),'shipping filter')
 
 assert.ok(OFFICIAL_SUBCLASSES.some(c=>c.id==='shipping'),'shipping subclass present')
 assert.ok(OFFICIAL_SUBCLASSES.length>=3,'shipping-related subclasses')
@@ -69,15 +69,15 @@ for(const p of PRESETS){
   if(!p.templateId)continue
   // structure-code / structure-spec / 手工示意挂载：允许偏离子类启发式白名单
   if(p.templateSource==='structure-code'||p.templateSource==='structure-spec'||p.templateSource==='structure-spec-takeover'||p.templateSource==='map-override-manual')continue
-  const ids=(p.subclassIds||[]).filter(id=>{
+  const subIds=(p.subclassIds||[]).filter(id=>{
     const exp=EXPECTED[id]
     return Array.isArray(exp)&&exp.length>0
   })
-  if(!ids.length)continue
-  if(!templateFitsAnySubclass(p.templateId,ids)){
+  if(!subIds.length)continue
+  if(!templateFitsAnySubclass(p.templateId,subIds)){
     subclassMismatch++
     if(subclassMismatch<=5){
-      console.warn(`subclass mismatch sample: ${p.sourceNum} ${p.templateId} ids=${ids.join(',')}`)
+      console.warn(`subclass mismatch sample: ${p.sourceNum} ${p.templateId} ids=${subIds.join(',')}`)
     }
   }
 }

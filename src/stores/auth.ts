@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { apiRequest, clearCsrfCache, ensureCsrf } from '../api/client'
+import type { Entitlement } from '../api/billing'
+import { useBillingStore } from './billing'
 
 export type AuthUser = {
   id: string
@@ -28,12 +30,20 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
     try {
       await ensureCsrf()
-      const me = await apiRequest<{ user: AuthUser; organizations: Organization[] }>('/me/')
+      const me = await apiRequest<{
+        user: AuthUser
+        organizations: Organization[]
+        entitlement?: Entitlement
+      }>('/me/')
       user.value = me.data.user
       organizations.value = me.data.organizations || []
+      if (me.data.entitlement) {
+        useBillingStore().applyEntitlement(me.data.entitlement)
+      }
     } catch (e: unknown) {
       user.value = null
       organizations.value = []
+      useBillingStore().reset()
       if (e && typeof e === 'object' && 'status' in e && (e as { status: number }).status === 401) {
         return
       }
@@ -67,6 +77,7 @@ export const useAuthStore = defineStore('auth', () => {
     await apiRequest('/auth/logout/', { method: 'POST', json: {} })
     user.value = null
     organizations.value = []
+    useBillingStore().reset()
     clearCsrfCache()
   }
 

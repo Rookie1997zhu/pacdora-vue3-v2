@@ -59,3 +59,7 @@ def export_dieline(payload: dict) -> dict:
             payload=data,
         )
     return data.get('data', data)
+
+
+def render_thumbnail(payload: dict) -> dict:
+    return _post('/thumbnail', payload)

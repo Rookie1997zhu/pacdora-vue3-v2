@@ -3,6 +3,7 @@ from django.urls import path
 from apps.designs.views import (
     DesignCopyView,
     DesignDetailView,
+    DesignDielineThumbnailView,
     DesignListCreateView,
     DesignRevisionListCreateView,
     DesignViewPreferenceView,
@@ -15,5 +16,6 @@ urlpatterns = [
     path('designs/<uuid:design_id>/revisions/', DesignRevisionListCreateView.as_view()),
     path('designs/<uuid:design_id>/copy/', DesignCopyView.as_view()),
     path('designs/<uuid:design_id>/view-preference/', DesignViewPreferenceView.as_view()),
+    path('designs/<uuid:design_id>/dieline-thumbnail/', DesignDielineThumbnailView.as_view()),
     path('revisions/<uuid:revision_id>/', RevisionDetailView.as_view()),
 ]

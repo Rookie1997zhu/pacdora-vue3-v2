@@ -40,7 +40,10 @@
             </div>
           </li>
         </ul>
-        <div v-if="!cart.cart.items.length" class="bc-empty">{{ t('cart.empty') }}</div>
+        <div v-if="!cart.cart.items.length" class="bc-empty">
+          <p>{{ t('cart.empty') }}</p>
+          <RouterLink class="bc-btn bc-btn--primary" to="/products">{{ t('site.emptyBrowseProducts') }}</RouterLink>
+        </div>
         <p v-if="order.error" class="bc-err">{{ order.error }}</p>
         <button
           type="button"

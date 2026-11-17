@@ -282,6 +282,10 @@ export function createSpecTemplate(spec){
       const minX=Math.min(...out.map(r=>r.x)),minY=Math.min(...out.map(r=>r.y))
       const dx=round(MARGIN-minX),dy=round(MARGIN-minY)
       const holes=[]
+      const slits=[]
+      /** 3D 折叠配方（来自金样动画）：面名 → {parent,hingeLine,angle,axisVec} */
+      const fold3dFaces={}
+      let hasFold3d=false
       const faces=out.map(({f,x,y,w,h})=>{
         // 内部折 / 斜铰链：side 置空，用 hingeLine
         const useHl=!!(f.f||(f.hl&&!f.s))
@@ -311,19 +315,62 @@ export function createSpecTemplate(spec){
           const hole=expandHole(hs,fx,fy,w,h,absOl)
           if(hole)holes.push({...hole,face:f.n})
         }
+        if(f.fr){
+          hasFold3d=true
+          const rec={parent:f.fr.p||null}
+          if(Number.isFinite(f.fr.a))rec.angle=f.fr.a
+          if(Array.isArray(f.fr.h)&&f.fr.h.length===2){
+            rec.hingeLine=f.fr.h.map(([u,v])=>[round(fx+Number(u)*w),round(fy+Number(v)*h)])
+          }
+          if(Array.isArray(f.fr.v))rec.axisVec={x:f.fr.v[0],y:f.fr.v[1],z:f.fr.v[2]}
+          fold3dFaces[f.n]=rec
+        }
+        // 附加切线：面 bbox 内 UV 折线 → 绝对坐标（随面片尺寸缩放）
+        for(const sl of f.sl||[]){
+          if(!Array.isArray(sl)||sl.length<2)continue
+          slits.push({face:f.n,points:sl.map(([u,v])=>[round(fx+Number(u)*w),round(fy+Number(v)*h)])})
+        }
         return Object.keys(shape).length?[...tuple,shape]:tuple
       })
       const r=rects.get(activeRoot)||rects.get(out[0].f.n)
       const rx=r.x+dx,ry=r.y+dy
-      const arrows={
-        length:[{x:rx,y:ry+r.h*.3},{x:rx+r.w,y:ry+r.h*.3}],
-        width:[{x:rx+r.w*.7,y:ry},{x:rx+r.w*.7,y:ry+r.h}],
-        height:[{x:rx+r.w*.5,y:ry},{x:rx+r.w*.5,y:ry+r.h}]
+      // 总尺寸标注线：落在边长表达式确实等于该尺寸（k≈1、常数最小）的面片边上。
+      // 根面片不一定是 长×宽（管式盒的根是 长×高 的墙板），不能把三条线都画在根面片上。
+      const spanFor=(dim,frac)=>{
+        let best=null
+        for(const o of out){
+          for(const axis of ['w','h']){
+            const e=o.f[axis]
+            if(!e||e.t!==dim||Math.abs((Number(e.k)||0)-1)>.05)continue
+            // 常数越小越接近真实尺寸；同等时优先根面片，再取面积大的
+            const score=Math.abs(Number(e.c)||0)*1000-(o.f.n===activeRoot?500:0)-Math.min(400,o.w*o.h/1000)
+            if(!best||score<best.score)best={o,axis,score}
+          }
+        }
+        if(!best)return null
+        const {o,axis}=best
+        const x=o.x+dx,y=o.y+dy
+        return axis==='w'
+          ?[{x,y:y+o.h*frac},{x:x+o.w,y:y+o.h*frac}]
+          :[{x:x+o.w*frac,y},{x:x+o.w*frac,y:y+o.h}]
       }
+      // 找不到对应面片的方向不给标注线（knife 会跳过），避免画出与数值不符的线
+      const arrows={}
+      const spanL=spanFor('L',.3),spanW=spanFor('W',.7),spanH=spanFor('H',.5)
+      if(spanL)arrows.length=spanL
+      if(spanW)arrows.width=spanW
+      if(spanH)arrows.height=spanH
       return {
         faces,
         arrows,
         holes,
+        slits,
+        fold3d:hasFold3d?{
+          faces:fold3dFaces,
+          stages:(spec.fs||[]).map(stage=>stage.map(s=>s.c
+            ?{child:s.c,rotate:s.r}
+            :{face:s.f,move:{x:s.m[0],y:s.m[1],z:s.m[2]}}))
+        }:undefined,
         faceOrder:out.map(o=>o.f.n),
         root:activeRoot,
         piece:pieceId||undefined

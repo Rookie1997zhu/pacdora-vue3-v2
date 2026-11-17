@@ -20,6 +20,8 @@
           <AuthThumbnail
             :asset-id="d.preview_asset_id"
             :ready="Boolean(d.thumbnail_ready)"
+            :design-id="d.id"
+            :dieline-ready="Boolean(d.dieline_thumbnail_ready)"
             :alt="d.name"
             :placeholder="t('studio.previewPlaceholder')"
           />
@@ -35,7 +37,11 @@
           </div>
         </li>
       </ul>
-      <div v-if="auth.isAuthenticated && !loading && !error && !items.length" class="bc-empty">{{ t('studio.emptyDesigns') }}</div>
+      <div v-if="auth.isAuthenticated && !loading && !error && !items.length" class="bc-empty">
+        <EmptyLordIcon :src="emptyBoxIcon" />
+        <p>{{ t('studio.emptyDesigns') }}</p>
+        <RouterLink class="bc-btn bc-btn--primary" to="/products">{{ t('site.emptyBrowseProducts') }}</RouterLink>
+      </div>
     </main>
   </AppShell>
 </template>
@@ -46,7 +52,9 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ApiError } from '../api/client'
 import { copyDesign, deleteDesign, fetchDesigns, patchDesign, type DesignListItem } from '../api/designs'
+import emptyBoxIcon from '../assets/icons/empty-box.json?url'
 import AuthThumbnail from '../components/AuthThumbnail.vue'
+import EmptyLordIcon from '../components/motion/EmptyLordIcon.vue'
 import AppShell from '../components/layout/AppShell.vue'
 import { useAuthStore } from '../stores/auth'
 

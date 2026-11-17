@@ -1,0 +1,318 @@
+{
+  "conclusion": "Dielines and mockups share one model catalog (same num). Entry routes differ by dielineNameKey vs mockupNameKey; category trees differ (By Uses vs product form). Overlap is partial at category level.",
+  "pairs": [
+    {
+      "name": "礼盒",
+      "dKey": "gift-box-dielines",
+      "mKey": "gift-box-mockups",
+      "dielineTotal": 648,
+      "dielineUnique": 100,
+      "mockupTotal": 107,
+      "mockupUnique": 100,
+      "intersection": 30,
+      "onlyDieline": 70,
+      "onlyMockup": 70,
+      "overlapPctOfDieline": 30,
+      "overlapPctOfMockup": 30,
+      "sampleInter": [
+        {
+          "num": "102010",
+          "name": "插口式邮寄盒包装",
+          "nameKey": "custom-dimensions-tuck-end-boxes-auto-bottome-snap-lock-dieline-102010",
+          "mockupNameKey": "tuck-end-boxes-auto-bottome-snap-lock-mockup-102010"
+        },
+        {
+          "num": "112060",
+          "name": "圣诞水果礼盒包装",
+          "nameKey": "custom-dimensions-tuck-end-box-variations-heart-shaped-dieline-112060",
+          "mockupNameKey": "tuck-end-box-variations-heart-shaped-mockup-112060"
+        },
+        {
+          "num": "36021001",
+          "name": "抽屉式礼盒",
+          "nameKey": "drawer-gift-box-dieline--36021001",
+          "mockupNameKey": "drawer-gift-box-mockup-36021001"
+        },
+        {
+          "num": "112031",
+          "name": "平安夜礼品盒包装",
+          "nameKey": "custom-dimensions-tuck-end-box-variations-polygonal-button-bottom-dieline-112031",
+          "mockupNameKey": "tuck-end-box-variations-polygonal-button-bottom-mockup-112031"
+        },
+        {
+          "num": "36018004",
+          "name": "珠宝礼盒",
+          "nameKey": "jewelry-gift-box-dieline-36018004",
+          "mockupNameKey": "jewelry-gift-box-mockup-36018004"
+        },
+        {
+          "num": "36601205",
+          "name": "华丽的礼品盒",
+          "nameKey": "gorgeous-gift-box-dieline-36601205",
+          "mockupNameKey": "gorgeous-gift-box-mockup-36601205"
+        },
+        {
+          "num": "36208001",
+          "name": "奢华珠宝礼盒",
+          "nameKey": "luxury-jewelry-gift-box-dieline-36208001",
+          "mockupNameKey": "luxury-jewelry-gift-box-mockup-36208001"
+        },
+        {
+          "num": "36101102",
+          "name": "磁性礼品盒",
+          "nameKey": "magnetic-gift-box-dieline-36101102",
+          "mockupNameKey": "magnetic-gift-box-mockup-36101102"
+        }
+      ],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "160010",
+        "100013",
+        "150011",
+        "112320",
+        "100030",
+        "152030"
+      ],
+      "sampleOnlyM": [
+        "160160",
+        "361011",
+        "362080",
+        "156410",
+        "161012",
+        "361010",
+        "121111",
+        "362081"
+      ]
+    },
+    {
+      "name": "运输箱",
+      "dKey": "shipping-box-dielines",
+      "mKey": "shipping-box-mockups",
+      "dielineTotal": 347,
+      "dielineUnique": 100,
+      "mockupTotal": 0,
+      "mockupUnique": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "overlapPctOfDieline": 0,
+      "overlapPctOfMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "200010",
+        "102010",
+        "100013",
+        "150011",
+        "100030",
+        "152030"
+      ],
+      "sampleOnlyM": []
+    },
+    {
+      "name": "邮寄盒",
+      "dKey": "mailer-box-dielines",
+      "mKey": "mailer-box-mockups",
+      "dielineTotal": 269,
+      "dielineUnique": 100,
+      "mockupTotal": 0,
+      "mockupUnique": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "overlapPctOfDieline": 0,
+      "overlapPctOfMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "100010",
+        "150010",
+        "102010",
+        "100013",
+        "150011",
+        "100030",
+        "102615",
+        "102040"
+      ],
+      "sampleOnlyM": []
+    },
+    {
+      "name": "食品",
+      "dKey": "food-box-dielines",
+      "mKey": "food-packaging-mockups",
+      "dielineTotal": 1443,
+      "dielineUnique": 100,
+      "mockupTotal": 378,
+      "mockupUnique": 100,
+      "intersection": 4,
+      "onlyDieline": 96,
+      "onlyMockup": 96,
+      "overlapPctOfDieline": 4,
+      "overlapPctOfMockup": 4,
+      "sampleInter": [
+        {
+          "num": "102010",
+          "name": "插口式邮寄盒包装",
+          "nameKey": "custom-dimensions-tuck-end-boxes-auto-bottome-snap-lock-dieline-102010",
+          "mockupNameKey": "tuck-end-boxes-auto-bottome-snap-lock-mockup-102010"
+        },
+        {
+          "num": "112060",
+          "name": "圣诞水果礼盒包装",
+          "nameKey": "custom-dimensions-tuck-end-box-variations-heart-shaped-dieline-112060",
+          "mockupNameKey": "tuck-end-box-variations-heart-shaped-mockup-112060"
+        },
+        {
+          "num": "112031",
+          "name": "平安夜礼品盒包装",
+          "nameKey": "custom-dimensions-tuck-end-box-variations-polygonal-button-bottom-dieline-112031",
+          "mockupNameKey": "tuck-end-box-variations-polygonal-button-bottom-mockup-112031"
+        },
+        {
+          "num": "180280",
+          "name": "自定义尺寸多边形盒子三角形180280",
+          "nameKey": "custom-dimensions-polygonal-boxes-triangle-dieline-180280",
+          "mockupNameKey": "polygonal-boxes-triangle-mockup-180280"
+        }
+      ],
+      "sampleOnlyD": [
+        "100010",
+        "100013",
+        "112320",
+        "100030",
+        "102040",
+        "160011",
+        "102020",
+        "100103"
+      ],
+      "sampleOnlyM": [
+        "150010",
+        "156210",
+        "150011",
+        "152020",
+        "150012",
+        "150020",
+        "151010",
+        "112030"
+      ]
+    },
+    {
+      "name": "咖啡",
+      "dKey": "coffee-packaging-dielines",
+      "mKey": "coffee-packaging-mockups",
+      "dielineTotal": 158,
+      "dielineUnique": 100,
+      "mockupTotal": 103,
+      "mockupUnique": 100,
+      "intersection": 18,
+      "onlyDieline": 82,
+      "onlyMockup": 82,
+      "overlapPctOfDieline": 18,
+      "overlapPctOfMockup": 18,
+      "sampleInter": [
+        {
+          "num": "500790",
+          "name": "瓶子纸杯 500790",
+          "nameKey": "bottles-paper-cups-dieline-500790",
+          "mockupNameKey": "bottles-paper-cups-mockup-500790"
+        },
+        {
+          "num": "605300",
+          "name": "长条袋",
+          "nameKey": "custom-dimensions-chocolate-bar-wrapper-mylar-bag-dieline-605300",
+          "mockupNameKey": "chocolate-bar-wrapper-mylar-bag-mockup-605300"
+        },
+        {
+          "num": "605320",
+          "name": "咖啡小袋 605320",
+          "nameKey": "custom-dimensions-sachets-plastic-sachets-dieline-605320",
+          "mockupNameKey": "sachets-plastic-sachets-mockup-605320"
+        },
+        {
+          "num": "605321",
+          "name": "方形咖啡袋",
+          "nameKey": "custom-dimensions-plastic-sachets-tea-dieline-605321",
+          "mockupNameKey": "plastic-sachets-tea-mockup-605321"
+        },
+        {
+          "num": "605322",
+          "name": "咖啡小袋 605322",
+          "nameKey": "custom-dimensions-plastic-sachets-tea-dieline-605322",
+          "mockupNameKey": "plastic-sachets-tea-mockup-605322"
+        },
+        {
+          "num": "605310",
+          "name": "咖啡小袋",
+          "nameKey": "custom-dimensions-milk-powder-concentrates-dieline-605310",
+          "mockupNameKey": "milk-powder-concentrates-mockup-605310"
+        },
+        {
+          "num": "605311",
+          "name": "长方形咖啡小袋 605311",
+          "nameKey": "custom-dimensions-milk-powder-concentrates-dieline-605311",
+          "mockupNameKey": "milk-powder-concentrates-mockup-605311"
+        },
+        {
+          "num": "601320",
+          "name": "条状小袋包装",
+          "nameKey": "flexible-packaging-3-side-sealed-dieline-601320",
+          "mockupNameKey": "flexible-packaging-3-side-sealed-mockup-601320"
+        }
+      ],
+      "sampleOnlyD": [
+        "310320",
+        "150233",
+        "116013",
+        "112044",
+        "102281",
+        "511210",
+        "511100",
+        "521010"
+      ],
+      "sampleOnlyM": [
+        "102010",
+        "600880",
+        "509380",
+        "605301",
+        "509360",
+        "600420",
+        "602710",
+        "602300"
+      ]
+    },
+    {
+      "name": "药品",
+      "dKey": "medicine-packaging-dielines",
+      "mKey": "medicine-box-mockups",
+      "dielineTotal": 375,
+      "dielineUnique": 100,
+      "mockupTotal": 0,
+      "mockupUnique": 0,
+      "intersection": 0,
+      "onlyDieline": 100,
+      "onlyMockup": 0,
+      "overlapPctOfDieline": 0,
+      "overlapPctOfMockup": 0,
+      "sampleInter": [],
+      "sampleOnlyD": [
+        "20001002",
+        "17031101",
+        "10002004",
+        "10002003",
+        "10001006",
+        "10001005",
+        "10001004",
+        "310430"
+      ],
+      "sampleOnlyM": []
+    }
+  ],
+  "boxMockups": {
+    "total": 1329,
+    "unique": 100,
+    "pairedKeys": 100,
+    "sameNumSuffix": 100,
+    "giftDielineIntersection": 27
+  }
+}

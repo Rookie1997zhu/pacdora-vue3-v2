@@ -29,8 +29,11 @@ for(const p of data.presets||[]){
   if(!p.templateId||!OPEN.has(p.templateId)||folds<12)continue
   const from=p.templateId
   const code=p.structureCode||''
-  let to=resolveStructureTemplate(code,{usePrefixes:true})
-  let reason='structure-code-prefix'
+  // 托盘盒类目本身就是开顶结构：只认精确映射，不用前缀/关键词族把它改挂成有盖模板
+  // （实测 CartonClipTray→rea-carton-0201、TraySelflockWithWindow→rea-pair-window 展开尺寸误差 80%+）
+  const openTopCategory=p.categoryId==='tray'
+  let to=resolveStructureTemplate(code,{usePrefixes:!openTopCategory})
+  let reason=openTopCategory?'structure-code-exact':'structure-code-prefix'
   if(!to){
     const primary=primarySubclass(p.subclassIds||[])
     if(primary&&shouldCorrectSubclass(primary)){

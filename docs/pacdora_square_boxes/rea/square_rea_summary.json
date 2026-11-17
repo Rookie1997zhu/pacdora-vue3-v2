@@ -1,0 +1,46 @@
+{
+  "page": "https://www.pacdora.cn/mockups/square-box-mockup",
+  "slug_expected": "square-box-mockup",
+  "ctree_hits": [
+    {
+      "path": "/盒子/方形盒",
+      "name": "方形盒",
+      "nameKey": "square-boxes",
+      "mockupNameKey": "square-box-mockup",
+      "count": 47,
+      "id": 296
+    }
+  ],
+  "models_total_com": 112,
+  "models_total_note": ".cn ctree count=47; .com models list total=112",
+  "sample_list": {
+    "id": 5066,
+    "num": 20001001,
+    "name": "Square shipping box dieline",
+    "mockupNameKey": "square-shipping-box-20001001"
+  },
+  "auth_code": 200,
+  "knife_probe": {
+    "code": 200,
+    "list_id": 5066,
+    "num": 20001001,
+    "knifeSize": {
+      "L": 305,
+      "W": 305,
+      "H": 305
+    },
+    "layers": {
+      "traditional": {
+        "cuts": 54,
+        "folds": 12
+      }
+    }
+  },
+  "apis": [
+    "GET /api/v2/models/ctree?mockup=true",
+    "GET /api/v2/users/experience_user",
+    "GET /api/v2/models?...&mockupNameKey=square-box-mockup",
+    "GET /api/v2/project/knife?id={list_id}&bleed=5&export_type=model"
+  ],
+  "api_origin": "https://www.pacdora.com"
+}

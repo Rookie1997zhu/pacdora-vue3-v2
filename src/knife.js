@@ -5,6 +5,12 @@ import {orderFaces,validateKnife} from './knifeContract.js'
 import {getTemplate,TEMPLATES} from './templates/index.js'
 import {buildDepthFoldStages} from './foldStages.js'
 import {createCrashlockKnife} from './crashlock/createCrashlockKnife.js'
+import {
+  arcSegmentCount,
+  commandsToPathData,
+  pathCommandsFromLoop,
+  roundedRectPathCommands,
+} from './geom/flattenPath.js'
 const round=n=>Math.round(n*1000)/1000
 const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]]
 const key=p=>p.map(round).join(',')
@@ -15,44 +21,141 @@ const DIMS=['length','width','height']
 const CLOSE_EPS=.25 // 面缝形态闭合（mm）；铰链浮点缝常用 0.1–0.2
 /** 默认在 UI/源出血之上再外扩 1cm，便于视觉区分裁切与出血 */
 export const BLEED_EXTRA_MM=10
-export function effectiveBleedMm(bleed){
-  return Math.max(0,Number(bleed)||0)+BLEED_EXTRA_MM
+export function effectiveBleedMm(bleed,previewBleedExtra=BLEED_EXTRA_MM){
+  return Math.max(0,Number(bleed)||0)+Math.max(0,Number(previewBleedExtra)||0)
 }
 
-/** 按模板 paramDefs 计算默认值，再用 overrides 覆盖并夹取 */
+function evalBound(bound,panel,T,params){
+  if(typeof bound==='function'){
+    const v=bound(panel,T,params)
+    return Number.isFinite(v)?v:NaN
+  }
+  return Number(bound)
+}
+
+/**
+ * 按模板 paramDefs 计算默认值，再用 overrides 覆盖并夹取。
+ * 返回值仍是扁平 params；调用方可读最后一个返回对象上的 __paramState（createKnife 会剥离）。
+ */
 export function resolveParams(template,panel,T,overrides={}){
   const defs=template?.paramDefs||[]
+  const byCode=new Map(defs.filter(d=>d?.code).map(d=>[d.code,d]))
+  const codes=[...byCode.keys()]
+  // 拓扑排序：dependsOn 声明的依赖先算；无声明则按定义顺序
+  const indeg=Object.fromEntries(codes.map(c=>[c,0]))
+  const adj=Object.fromEntries(codes.map(c=>[c,[]]))
+  for(const code of codes){
+    const deps=byCode.get(code)?.dependsOn
+    if(!Array.isArray(deps))continue
+    for(const dep of deps){
+      if(!byCode.has(dep))continue
+      adj[dep].push(code)
+      indeg[code]++
+    }
+  }
+  const queue=codes.filter(c=>indeg[c]===0)
+  const order=[]
+  while(queue.length){
+    const c=queue.shift()
+    order.push(c)
+    for(const n of adj[c]){
+      indeg[n]--
+      if(indeg[n]===0)queue.push(n)
+    }
+  }
+  if(order.length!==codes.length){
+    const cycle=codes.filter(c=>!order.includes(c))
+    throw new Error(`paramDefs cyclic dependency: ${cycle.join(',')}`)
+  }
+  // 无 dependsOn 的定义保持原顺序：把未出现在 depends 图里的按 defs 顺序插入
+  const ordered=order.length?order:codes
+
   const out={}
-  for(const d of defs){
-    const code=d.code
-    if(!code)continue
-    const defVal=typeof d.default==='function'?d.default(panel,T):Number(d.default)
-    let v=overrides[code]!=null&&overrides[code]!==''?Number(overrides[code]):defVal
-    if(!Number.isFinite(v))v=defVal
-    if(Number.isFinite(d.min))v=Math.max(d.min,v)
-    if(Number.isFinite(d.max))v=Math.min(d.max,v)
-    out[code]=round(v)
+  const paramState={}
+  for(const code of ordered){
+    const d=byCode.get(code)
+    if(!d)continue
+    const autoRaw=typeof d.default==='function'?d.default(panel,T,out):Number(d.default)
+    const auto=Number.isFinite(autoRaw)?round(autoRaw):0
+    const hasUser=overrides[code]!=null&&overrides[code]!==''
+    let source=hasUser?'user':'default'
+    let v=hasUser?Number(overrides[code]):auto
+    if(!Number.isFinite(v)){v=auto;source='default'}
+    const min=evalBound(d.min,panel,T,out)
+    const max=evalBound(d.max,panel,T,out)
+    let clamped=false
+    if(Number.isFinite(min)&&v<min){v=min;clamped=true}
+    if(Number.isFinite(max)&&v>max){v=max;clamped=true}
+    if(d.unit==='count'||d.unit==='pcs')v=Math.round(v)
+    v=round(v)
+    out[code]=v
+    paramState[code]={
+      value:v,
+      auto,
+      min:Number.isFinite(min)?min:null,
+      max:Number.isFinite(max)?max:null,
+      source,
+      clamped,
+      grade:d.grade??2,
+      group:d.group||'',
+      unit:d.unit||'mm',
+      label:d.label||code,
+      labelKo:d.labelKo||d.label||code,
+      affects:Array.isArray(d.affects)?d.affects:[],
+    }
+  }
+  out.__paramState=paramState
+  return out
+}
+
+/**
+ * 返回当前尺寸模式下用户输入的允许范围（基于模板 limits，limits 定义在内尺寸上）。
+ * @returns {Record<'length'|'width'|'height', [number, number]|null>}
+ */
+export function limitsFor(template,sizeMode='inner',T=1){
+  const limits=template?.limits||{}
+  const sizeRule=template?.sizeRule||{panelAdd:{length:0,width:0,height:0},outerAdd:{length:0,width:0,height:0}}
+  const t=Number(T)||0
+  const mode=sizeMode==='outer'?'outer':sizeMode==='manufacturing'?'manufacturing':'inner'
+  const out={}
+  for(const k of DIMS){
+    const range=limits?.[k]
+    if(!Array.isArray(range)||range.length!==2){out[k]=null;continue}
+    const [lo,hi]=range
+    if(mode==='inner'){out[k]=[lo,hi];continue}
+    if(mode==='manufacturing'){
+      const add=(sizeRule.panelAdd?.[k]??0)*t
+      out[k]=[round(lo+add),round(hi+add)]
+      continue
+    }
+    const add=(sizeRule.outerAdd?.[k]??0)*t
+    out[k]=[round(lo+add),round(hi+add)]
   }
   return out
 }
 
-/** 轴对齐矩形孔轮廓；r>0 时四角圆弧细分为折线（绕向与直角孔一致） */
+/** 轴对齐矩形孔轮廓；圆弧采样弦高 ≤0.04mm，供布尔/碰撞使用。 */
 export function holeLoop(x,y,w,h,r=0,arcSeg=4){
   r=Math.max(0,Math.min(Number(r)||0,w/2,h/2))
-  if(r<1e-6)return [[x,y],[x,y+h],[x+w,y+h],[x+w,y]]
+  if(r<1e-6)return [[x,y],[x+w,y],[x+w,y+h],[x,y+h]]
   const pts=[]
+  const segments=arcSegmentCount(r,Math.PI/2,.04,arcSeg)
   const arc=(cx,cy,a0,a1)=>{
-    for(let i=0;i<=arcSeg;i++){
-      const t=a0+(a1-a0)*(i/arcSeg)
+    for(let i=1;i<=segments;i++){
+      const t=a0+(a1-a0)*(i/segments)
       pts.push([cx+r*Math.cos(t),cy+r*Math.sin(t)])
     }
   }
-  // 与直角孔相同绕向：下→上→右→下（y 向下坐标系）
+  // y 向下坐标系：上边 → 右边 → 下边 → 左边。
   pts.push([x+r,y])
-  arc(x+w-r,y, -Math.PI/2, 0)
-  arc(x+w-r,y+h-r, 0, Math.PI/2)
-  arc(x+r,y+h-r, Math.PI/2, Math.PI)
-  arc(x+r,y+r, Math.PI, Math.PI*1.5)
+  pts.push([x+w-r,y])
+  arc(x+w-r,y+r,-Math.PI/2,0)
+  pts.push([x+w,y+h-r])
+  arc(x+w-r,y+h-r,0,Math.PI/2)
+  pts.push([x+r,y+h])
+  arc(x+r,y+h-r,Math.PI/2,Math.PI)
+  pts.push([x,y+r])
+  arc(x+r,y+r,Math.PI,Math.PI*1.5)
   return pts.map(([px,py])=>[round(px),round(py)])
 }
 
@@ -771,7 +874,14 @@ function hingeSegment(child,parent){
 }
 
 /** 压线 = 相邻面的完整共享边 ∪ 铰链处的部分重叠边 ∪ 显式 hingeLine；smooth 面不出压线 */
-function foldsFromFaces(faces){
+function foldName(parent,child){
+  return `${parent}__${child}`
+}
+
+function foldsFromFaces(faces,hinges=[]){
+  const angleByChild=Object.fromEntries((hinges||[]).map(h=>[h.child,h.angle??90]))
+  const stageByChild={}
+  // stage filled later by caller when foldStages known; keep placeholder
   const smoothNames=new Set(faces.filter(f=>f.smooth).map(f=>f.name))
   const edgeMap=new Map()
   for(const f of faces){
@@ -787,32 +897,46 @@ function foldsFromFaces(faces){
   }
   const folds=[]
   const seen=new Set()
-  for(const [k,entries] of edgeMap){
-    if(entries.length!==2)continue
-    // 任一侧为 smooth 虚折：不出压线
-    if(entries.some(e=>smoothNames.has(e.face)))continue
-    const {a,b}=entries[0]
-    seen.add(k)
-    folds.push({name:entries.map(e=>e.face).join('_'),x1:round(a[0]),y1:round(a[1]),x2:round(b[0]),y2:round(b[1])})
-  }
   const byName=Object.fromEntries(faces.map(f=>[f.name,f]))
+  // Prefer parent__child naming from hinge relationships
   for(const f of faces){
     if(!f.parent||f.smooth)continue
+    let a,b
     if(Array.isArray(f.hingeLine)&&f.hingeLine.length===2){
-      const [a,b]=f.hingeLine
-      const k=edgeKey(a,b)
-      if(!seen.has(k)){
-        seen.add(k)
-        folds.push({name:`${f.parent}_${f.name}`,x1:round(a[0]),y1:round(a[1]),x2:round(b[0]),y2:round(b[1])})
-      }
-      continue
+      ;[a,b]=f.hingeLine
+    }else{
+      const seg=hingeSegment(f,byName[f.parent])
+      if(!seg)continue
+      ;[a,b]=seg
     }
-    const seg=hingeSegment(f,byName[f.parent])
-    if(!seg)continue
-    const k=edgeKey(seg[0],seg[1])
+    const k=edgeKey(a,b)
     if(seen.has(k))continue
     seen.add(k)
-    folds.push({name:`${f.parent}_${f.name}`,x1:round(seg[0][0]),y1:round(seg[0][1]),x2:round(seg[1][0]),y2:round(seg[1][1])})
+    folds.push({
+      name:foldName(f.parent,f.name),
+      parent:f.parent,
+      child:f.name,
+      angle:angleByChild[f.name]??90,
+      stage:stageByChild[f.name]??null,
+      x1:round(a[0]),y1:round(a[1]),x2:round(b[0]),y2:round(b[1]),
+    })
+  }
+  for(const [k,entries] of edgeMap){
+    if(entries.length!==2)continue
+    if(entries.some(e=>smoothNames.has(e.face)))continue
+    if(seen.has(k))continue
+    const {a,b}=entries[0]
+    seen.add(k)
+    // Shared edge without explicit parent link: stable alphabetical pair
+    const [fa,fb]=entries.map(e=>e.face).sort()
+    folds.push({
+      name:foldName(fa,fb),
+      parent:fa,
+      child:fb,
+      angle:90,
+      stage:null,
+      x1:round(a[0]),y1:round(a[1]),x2:round(b[0]),y2:round(b[1]),
+    })
   }
   return folds
 }
@@ -867,16 +991,19 @@ function assertHingeEdgeIntact(face){
 }
 
 /**
- * 按模板补偿规则推导三套尺寸：inner（净空）、panel（刀版面板）、outer（外廓）。
+ * 按模板补偿规则推导三套尺寸：inner（净空）、panel（刀版面板 / 制造尺寸）、outer（外廓）。
+ * sizeMode: inner | outer | manufacturing
  * 默认（预览）夹取 limits；strict/production 越限抛 OUT_OF_RANGE，不静默夹取。
+ * thicknessMinMm：可选；缺省非严格模式仍夹到 ≥0.5（保持 LAB/金样）。工作台可传入材质下限。
  */
-export function deriveSizes(template,{length,width,height,thickness,sizeMode='inner',strict=false}={}){
+export function deriveSizes(template,{length,width,height,thickness,sizeMode='inner',strict=false,thicknessMinMm}={}){
   const {defaults,limits,sizeRule}=template
   const Traw=Number(thickness)
+  const floor=Number.isFinite(thicknessMinMm)?Math.max(0,thicknessMinMm):0.5
   const T=strict
     ?(Number.isFinite(Traw)&&Traw>0?Traw:(()=>{const e=new Error('thickness_mm must be > 0');e.code='INVALID_NUMBER';e.field='thickness_mm';throw e})())
-    :Math.max(.5,Traw||defaults.thickness)
-  const mode=sizeMode==='outer'?'outer':'inner'
+    :Math.max(floor,Traw||defaults.thickness)
+  const mode=sizeMode==='outer'?'outer':sizeMode==='manufacturing'?'manufacturing':'inner'
   const input={
     length:Number(length)||defaults.length,
     width:Number(width)||defaults.width,
@@ -884,7 +1011,11 @@ export function deriveSizes(template,{length,width,height,thickness,sizeMode='in
   }
   const inner={},panel={},outer={}
   for(const k of DIMS){
-    const raw=mode==='inner'?input[k]:input[k]-sizeRule.outerAdd[k]*T
+    const panelAdd=(sizeRule.panelAdd?.[k]??0)*T
+    const outerAdd=(sizeRule.outerAdd?.[k]??0)*T
+    const raw=mode==='inner'?input[k]
+      :mode==='outer'?input[k]-outerAdd
+      :/* manufacturing */input[k]-panelAdd
     const range=limits?.[k]
     if(Array.isArray(range)&&range.length===2){
       if(raw<range[0]||raw>range[1]){
@@ -901,8 +1032,8 @@ export function deriveSizes(template,{length,width,height,thickness,sizeMode='in
     }else{
       inner[k]=round(raw)
     }
-    panel[k]=round(inner[k]+sizeRule.panelAdd[k]*T)
-    outer[k]=round(inner[k]+sizeRule.outerAdd[k]*T)
+    panel[k]=round(inner[k]+panelAdd)
+    outer[k]=round(inner[k]+outerAdd)
   }
   return {sizeMode:mode,T,inner,outer,panel}
 }
@@ -912,9 +1043,96 @@ export function derivePanelSizes({templateId,...args}={}){
   return deriveSizes(getTemplate(templateId),args)
 }
 
-export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bleed=5,sizeMode='inner',fluteDirection='L',materialId='kraft',piece,lidClearance,params:paramOverrides,strict=false,production=false}={}){
+/** 线长 / 面积统计（基于 segments 与 bounds） */
+export function computeKnifeStats(knife){
+  const segLen=(segs=[])=>segs.reduce((s,e)=>{
+    const dx=(e.x2??0)-(e.x1??0),dy=(e.y2??0)-(e.y1??0)
+    return s+Math.hypot(dx,dy)
+  },0)
+  const cutLengthMm=round(segLen(knife.cuts||knife.layers?.trim?.segments||[]))
+  const creaseLengthMm=round(segLen(knife.folds||knife.layers?.crease?.segments||[]))
+  const b=knife.bounds||{}
+  const bleed=Number(knife.bleedEffective??knife.bleed??0)||0
+  const sheetWidthMm=round((b.maxX??knife.totalX??0)-(b.minX??0)+2*bleed)
+  const sheetHeightMm=round((b.maxY??knife.totalY??0)-(b.minY??0)+2*bleed)
+  // 净面积：面片 AABB 面积之和（示意；重叠面会略高估）
+  const netAreaMm2=(knife.faces||[]).reduce((s,f)=>s+(Number(f.w)||0)*(Number(f.h)||0),0)
+  return {
+    cutLengthMm,
+    creaseLengthMm,
+    sheetWidthMm,
+    sheetHeightMm,
+    sheetAreaM2:round(sheetWidthMm*sheetHeightMm/1e6),
+    netAreaM2:round(netAreaMm2/1e6),
+    holeCount:(knife.holes||[]).length,
+    faceCount:(knife.faces||[]).length,
+  }
+}
+
+/** 汇总契约校验、模板约束、近似轮廓为 issues[] */
+export function buildKnifeIssues(knife,{constraints=[],paramState={},panel,T,params}={}){
+  const issues=[]
+  const validation=knife.validation
+  if(validation&&!validation.ok){
+    for(const c of validation.checks||[]){
+      if(c.ok)continue
+      issues.push({
+        code:c.id||'CONTRACT',
+        severity:'blocking',
+        message:c.message||c.id||'contract check failed',
+        faces:c.faces||undefined,
+      })
+    }
+  }
+  if(knife.meta?.cutApprox){
+    issues.push({
+      code:'CUT_APPROX',
+      severity:'warning',
+      message:'轮廓为近似，仅可导出校样稿',
+    })
+  }
+  for(const [code,st] of Object.entries(paramState||{})){
+    if(st?.clamped){
+      issues.push({
+        code:'PARAM_CLAMPED',
+        severity:'info',
+        message:`参数 ${code} 已调整为 ${st.value}`,
+        params:[code],
+      })
+    }
+  }
+  for(const c of constraints||[]){
+    if(typeof c.test!=='function')continue
+    let ok=true
+    try{ok=!!c.test({params,panel,T,knife,paramState})}catch{ok=false}
+    if(!ok){
+      issues.push({
+        code:c.code||'PARAM_CONSTRAINT',
+        severity:c.severity||'blocking',
+        message:c.message||c.code||'constraint failed',
+        params:c.params||undefined,
+        faces:c.faces||undefined,
+      })
+    }
+  }
+  return issues
+}
+
+export function createKnife({
+  templateId,length:L,width:W,height:H,thickness:T,bleed=5,sizeMode='inner',
+  fluteDirection='L',materialId='kraft',piece,lidClearance,params:paramOverrides,
+  strict=false,production=false,
+  previewBleedExtra=BLEED_EXTRA_MM,
+  thicknessMinMm,
+}={}){
   const strictMode=!!(strict||production)
   const tid=String(templateId||'').trim()
+  // 结构规格模板在浏览器端按需加载；未注册时不得回退成默认模板（会悄悄画出另一种盒子）
+  if(tid.startsWith('spec-')&&!TEMPLATES[tid]){
+    const err=new Error(`template ${tid} is not loaded; await ensureTemplate() first`)
+    err.code='TEMPLATE_NOT_LOADED'
+    throw err
+  }
   if(strictMode){
     if(!tid||!TEMPLATES[tid]){
       const err=new Error('unknown template_id')
@@ -928,14 +1146,15 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
       err.code='UNKNOWN_TEMPLATE'
       throw err
     }
-    return createCrashlockKnife({
+    const crash=createCrashlockKnife({
       length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,
       params:paramOverrides||{},
     })
+    return enrichKnifeV31(crash,{previewBleedExtra:Number(previewBleedExtra)||0})
   }
   const template=strictMode?TEMPLATES[tid]:getTemplate(templateId)
   const bleedInput=Math.max(0,Number(bleed)||0)
-  const bleedExtra=BLEED_EXTRA_MM
+  const bleedExtra=Math.max(0,Number(previewBleedExtra)||0)
   const bleedEff=bleedInput+bleedExtra
   bleed=bleedEff // 几何外扩用有效出血；knife.bleed 仍写 UI 输入值
   fluteDirection=fluteDirection==='W'?'W':'L'
@@ -949,7 +1168,9 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
   }else{
     materialId=['kraft','white','blue'].includes(materialId)?materialId:'kraft'
   }
-  const derived=deriveSizes(template,{length:L,width:W,height:H,thickness:T,sizeMode,strict:strictMode})
+  const derived=deriveSizes(template,{
+    length:L,width:W,height:H,thickness:T,sizeMode,strict:strictMode,thicknessMinMm,
+  })
   T=derived.T
   sizeMode=derived.sizeMode
   const pieceList=Array.isArray(template.pieces)&&template.pieces.length?template.pieces:null
@@ -961,7 +1182,10 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
   const resolvedClearance=supportsPiece
     ?Math.max(0,Number(lidClearance??template.defaults?.lidClearance??2)||0)
     :0
-  const params=resolveParams(template,derived.panel,T,paramOverrides||{})
+  const resolved=resolveParams(template,derived.panel,T,paramOverrides||{})
+  const paramState=resolved.__paramState||{}
+  delete resolved.__paramState
+  const params=resolved
   const layoutArgs={panel:derived.panel,inner:derived.inner,T,params}
   if(supportsPiece){
     layoutArgs.piece=resolvedPiece
@@ -993,7 +1217,13 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
     if(face.outline)assertHingeEdgeIntact(face)
     return face
   }),faceOrder)
-  const folds=foldsFromFaces(faces)
+  const hingesEarly=faces.filter(f=>f.parent).map(f=>{
+    const h={parent:f.parent,child:f.name,side:f.side,angle:angleMap[f.name]??90}
+    if(f.hingeLine)h.hingeLine=f.hingeLine
+    if(f.smooth)h.smooth=true
+    return h
+  })
+  const folds=foldsFromFaces(faces,hingesEarly)
   const anyPoly=faces.some(f=>Array.isArray(f.outline)&&f.outline.length>=3)
   const minX0=Math.min(...faces.map(f=>f.x)),minY0=Math.min(...faces.map(f=>f.y))
   const maxX0=Math.max(...faces.map(f=>f.x+f.w)),maxY0=Math.max(...faces.map(f=>f.y+f.h))
@@ -1119,9 +1349,32 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
     if(!loop)loop=dedupeLoop(holeLoop(x,y,w,hh,r))
     if(loop.length<3||new Set(loop.map(p=>key(p))).size!==loop.length)loop=rect(x,y,w,hh)
     const face=h.face||faceForHole(x,y,w,hh)||null
-    return {x,y,w,h:hh,r,face,loop,cuts:loopToCuts(loop),path:loopToPath(loop)}
+    const pathCommands=Array.isArray(h.outline)&&h.outline.length>=3
+      ?pathCommandsFromLoop(loop)
+      :roundedRectPathCommands(x,y,w,hh,r)
+    return {
+      x,y,w,h:hh,r,face,loop,cuts:loopToCuts(loop),
+      pathCommands,
+      path:commandsToPathData(pathCommands)
+    }
   })
   for(const hole of holes)cuts.push(...hole.cuts)
+  // 附加切线（slits）：模板给出的开放折线，如相邻面片之间的刀口、面内切缝。
+  // 外轮廓来自面片并集，零宽度的切缝在并集里不存在，只能由模板显式给出。不参与并集与出血。
+  const slits=(Array.isArray(layoutOut.slits)?layoutOut.slits:[]).map(s=>{
+    const points=dedupeLoop((s?.points||[]).filter(p=>Array.isArray(p)&&Number.isFinite(p[0])&&Number.isFinite(p[1])))
+    return {face:s?.face||null,points}
+  }).filter(s=>s.points.length>=2)
+  const slitPaths=[]
+  for(const s of slits){
+    const cmds=[]
+    for(let i=0;i<s.points.length;i++){
+      const [px,py]=s.points[i]
+      cmds.push({mtd:i?'L':'M',x:px,y:py})
+      if(i)cuts.push({x1:s.points[i-1][0],y1:s.points[i-1][1],x2:px,y2:py})
+    }
+    slitPaths.push(cmds)
+  }
   let bleedLoop=cutLoop
   let bleedApprox=false
   // AABB 外扩：覆盖 cutLoop（闭运算可能略超面 bbox）
@@ -1160,38 +1413,68 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
     if(cutApprox||(anyPoly&&bleed>0))bleedApprox=true
   }
   const bleeds=loopToCuts(bleedLoop)
-  const cutPath=[loopToPath(cutLoop),...cutExtraLoops.map(loopToPath),...holes.map(h=>h.path)].filter(Boolean).join(' ')
-  const bleedPath=loopToPath(bleedLoop)
+  const trimPaths=[
+    pathCommandsFromLoop(cutLoop),
+    ...cutExtraLoops.map(loop=>pathCommandsFromLoop(loop)),
+    ...holes.map(h=>h.pathCommands),
+    ...slitPaths
+  ].filter(path=>path.length)
+  const creasePaths=folds.map(f=>[
+    {mtd:'M',x:f.x1,y:f.y1},
+    {mtd:'L',x:f.x2,y:f.y2}
+  ])
+  const bleedPaths=[pathCommandsFromLoop(bleedLoop)].filter(path=>path.length)
+  const paths={trim:trimPaths,crease:creasePaths,bleed:bleedPaths}
+  const cutPath=trimPaths.map(commandsToPathData).join(' ')
+  const bleedPath=bleedPaths.map(commandsToPathData).join(' ')
 
-  const hinges=faces.filter(f=>f.parent).map(f=>{
-    const h={parent:f.parent,child:f.name,side:f.side,angle:angleMap[f.name]??90}
-    if(f.hingeLine)h.hingeLine=f.hingeLine
-    if(f.smooth)h.smooth=true
-    return h
+  const hinges=hingesEarly
+  const foldStages=typeof template.foldStages==='function'
+    ?template.foldStages(params,{faces,hinges})
+    :buildDepthFoldStages(faces,hinges)
+  // Annotate fold.stage from foldStages (array of step arrays: [{child,rotate},...])
+  const stageOf={}
+  ;(foldStages||[]).forEach((st,idx)=>{
+    const steps=Array.isArray(st)?st:(st?.hinges||st?.children||[])
+    for(const step of steps){
+      const child=typeof step==='string'?step:step?.child
+      if(child!=null&&stageOf[child]==null)stageOf[child]=idx
+    }
   })
-  const foldStages=buildDepthFoldStages(faces,hinges)
+  for(const f of folds){
+    if(f.child&&stageOf[f.child]!=null)f.stage=stageOf[f.child]
+  }
+  // Annotate face dlist edges that lie on a fold
+  annotateFaceFolds(faces,folds)
   const minX=Math.min(...faces.map(f=>f.x)),minY=Math.min(...faces.map(f=>f.y)),maxX=Math.max(...faces.map(f=>f.x+f.w)),maxY=Math.max(...faces.map(f=>f.y+f.h))
-  const show=sizeMode==='inner'?derived.inner:derived.outer
+  const show=sizeMode==='manufacturing'?derived.panel:sizeMode==='outer'?derived.outer:derived.inner
   const arrowName={length:'L',width:'W',height:'H'}
-  const sizeArrowData=DIMS.map(k=>({lineName:`${arrowName[k]}(${sizeMode})`,lineLength:show[k],p1:arrows[k][0],p2:arrows[k][1]}))
+  // 模板可以不给某个方向的标注线（没有哪块面片的边长真正等于该尺寸时，宁可不画也不画错）
+  const sizeArrowData=DIMS.filter(k=>Array.isArray(arrows?.[k])&&arrows[k].length===2)
+    .map(k=>({lineName:`${arrowName[k]}(${sizeMode})`,lineLength:show[k],p1:arrows[k][0],p2:arrows[k][1]}))
   const layers={
-    trim:{role:'trim',color:'#2028b0',segments:cuts},
-    crease:{role:'crease',color:'#fa0000',dash:true,segments:folds},
-    bleed:{role:'bleed',color:'#46ba00',segments:bleeds}
+    trim:{role:'trim',color:'#2028b0',segments:cuts,paths:trimPaths},
+    crease:{role:'crease',color:'#fa0000',dash:true,segments:folds,paths:creasePaths},
+    bleed:{role:'bleed',color:'#46ba00',segments:bleeds,paths:bleedPaths}
   }
   const material={id:materialId,science:'demo-board',fluteDirection}
   const knife={
-    schema:'boxcraft.knife.v3',unit:'mm',template:template.id,
+    schema:'boxcraft.knife.v3',schemaMinor:1,unit:'mm',template:template.id,
+    engineVersion:'3.1.0',
     templateInfo:{id:template.id,label:template.label,labelEn:template.labelEn,standard:template.standard,sizeRule:template.sizeRule},
     dimensions:{
       length:show.length,width:show.width,height:show.height,thickness:T,
       sizeMode,fluteDirection,
       inner:derived.inner,outer:derived.outer,panel:derived.panel
     },
-    material,bleed:bleedInput,bleedEffective:bleedEff,params,
-    faces,cuts,bleeds,folds,hinges,foldStages,layers,holes,
+    material,bleed:bleedInput,bleedEffective:bleedEff,params,paramState,
+    faces,cuts,bleeds,folds,hinges,foldStages,layers,paths,holes,slits,
     cutPath,bleedPath,cutLoop,cutExtraLoops,bleedLoop,
-    meta:{anyPoly,bleedApprox,cutApprox,cutApproxReason:cutApprox?cutApproxReason:undefined,cutChosen,extraCutLoops:cutExtraLoops.length,foldStageCount:foldStages.length,bleedExtra,bleedEffective:bleedEff},
+    meta:{
+      anyPoly,bleedApprox,cutApprox,cutApproxReason:cutApprox?cutApproxReason:undefined,
+      cutChosen,extraCutLoops:cutExtraLoops.length,foldStageCount:foldStages.length,
+      bleedExtra,previewBleedExtra:bleedExtra,bleedEffective:bleedEff,
+    },
     topology:{
       root:resolvedRoot,faceCount:faces.length,hingeCount:hinges.length,
       faceOrder:[...faceOrder],supportsClosedCheck:template.supportsClosedCheck!==false&&!!template.closedCheck,
@@ -1202,6 +1485,8 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
     bounds:{minX,minY,maxX,maxY},
     manufacturingReady:false
   }
+  // 模板自带的 3D 折叠配方（只影响 3D 骨架，见 src/foldRecipe.js）
+  if(layoutOut.fold3d)knife.fold3d=layoutOut.fold3d
   if(supportsPiece){
     knife.piece=resolvedPiece
     knife.lidClearance=resolvedClearance
@@ -1209,7 +1494,64 @@ export function createKnife({templateId,length:L,width:W,height:H,thickness:T,bl
   const validation=validateKnife(knife)
   knife.validation=validation
   knife.productionReady=validation.ok
+  knife.stats=computeKnifeStats(knife)
+  knife.issues=buildKnifeIssues(knife,{
+    constraints:template.constraints||[],
+    paramState,panel:derived.panel,T,params,
+  })
   // strict/production：禁止静默夹取与未知模板回退；近似轮廓仍返回并由 manufacturing gate 的 APPROX/GEOMETRY 阻断
   return knife
 }
+
+function annotateFaceFolds(faces,folds){
+  const foldByEdge=new Map()
+  for(const f of folds||[]){
+    foldByEdge.set(edgeKey([f.x1,f.y1],[f.x2,f.y2]),f.name)
+  }
+  for(const face of faces||[]){
+    const dlist=face.dlist
+    if(!Array.isArray(dlist)||dlist.length<2)continue
+    for(let i=0;i<dlist.length-1;i++){
+      const a=dlist[i],b=dlist[i+1]
+      if(!a||!b||a.mtd==='Z'||b.mtd==='Z')continue
+      if(a.x==null||b.x==null)continue
+      const name=foldByEdge.get(edgeKey([a.x,a.y],[b.x,b.y]))
+      if(name)b.fold=name
+    }
+  }
+}
+
+/** Attach v3.1 fields to knives from alternate generators (e.g. crashlock). */
+function enrichKnifeV31(knife,{previewBleedExtra=BLEED_EXTRA_MM}={}){
+  if(!knife||typeof knife!=='object')return knife
+  knife.schema=knife.schema||'boxcraft.knife.v3'
+  knife.schemaMinor=1
+  knife.engineVersion=knife.engineVersion||'3.1.0'
+  if(!knife.paths){
+    const fromSegments=segments=>(segments||[]).map(s=>[
+      {mtd:'M',x:s.x1,y:s.y1},
+      {mtd:'L',x:s.x2,y:s.y2}
+    ])
+    knife.paths={
+      trim:fromSegments(knife.layers?.trim?.segments||knife.cuts),
+      crease:fromSegments(knife.layers?.crease?.segments||knife.folds),
+      bleed:fromSegments(knife.layers?.bleed?.segments||knife.bleeds),
+    }
+  }
+  for(const role of ['trim','crease','bleed']){
+    if(knife.layers?.[role]&&!knife.layers[role].paths)knife.layers[role].paths=knife.paths[role]
+  }
+  if(!knife.paramState)knife.paramState={}
+  if(knife.meta&&typeof knife.meta==='object'){
+    knife.meta.previewBleedExtra=previewBleedExtra
+  }
+  if(!knife.validation){
+    try{knife.validation=validateKnife(knife)}catch{knife.validation={ok:false,checks:[]}}
+  }
+  knife.productionReady=!!knife.validation?.ok
+  knife.stats=knife.stats||computeKnifeStats(knife)
+  knife.issues=knife.issues||buildKnifeIssues(knife)
+  return knife
+}
+
 export function pathsFromCuts(cuts){return cuts.map(e=>`M ${e.x1} ${e.y1} L ${e.x2} ${e.y2}`).join(' ')}

@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pacdora 3D 渲染器（3d-creator → 3d-modeling）逆向报告</title>
+<style>
+  :root{
+    --ink:#0f172a; --muted:#475569; --faint:#94a3b8; --line:#e2e8f0;
+    --paper:#f8fafc; --card:#ffffff; --steel:#2458d4; --steel-soft:#eef3fd;
+    --warn:#b45309; --ok:#15803d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.65 "HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+  header.hero{background:linear-gradient(135deg,#0f172a,#0f766e);color:#fff;padding:40px clamp(16px,4vw,56px) 32px}
+  header.hero h1{margin:0 0 8px;font-size:clamp(1.4rem,2.6vw,2rem)}
+  header.hero p{margin:0;color:#cbd5e1;max-width:900px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:#e2e8f0}
+  nav.toc{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:10px clamp(16px,4vw,56px);display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px}
+  nav.toc a{color:var(--steel);text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  main{max-width:1120px;margin:0 auto;padding:28px clamp(16px,4vw,40px) 80px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:0 0 20px}
+  h2{margin:0 0 12px;font-size:1.25rem}
+  h3{margin:18px 0 8px;font-size:1.02rem}
+  p{margin:0 0 10px}
+  .lead{font-size:16px}
+  .muted{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 12px}
+  th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+  th{background:var(--paper);font-weight:600}
+  code,pre{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px}
+  code{background:#f1f5f9;padding:1px 5px;border-radius:4px}
+  pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:10px;overflow:auto;line-height:1.5}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:999px;margin-right:4px}
+  .obs{background:#dcfce7;color:var(--ok)}
+  .inf{background:#fef3c7;color:var(--warn)}
+  .unk{background:#f1f5f9;color:var(--muted)}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:10px 0}
+  .flow .step{flex:1 1 150px;background:var(--steel-soft);border:1px solid #c7d6f7;border-radius:10px;padding:10px 12px;font-size:13px}
+  .flow .step b{display:block;color:var(--steel);margin-bottom:2px}
+  .flow .arrow{align-self:center;color:var(--faint);font-weight:700}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff}
+  .card h4{margin:0 0 6px;font-size:14px}
+  figure{margin:10px 0}
+  figure img{max-width:100%;border:1px solid var(--line);border-radius:10px}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:4px}
+  .figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+  ul{margin:0 0 10px;padding-left:20px}
+  li{margin:2px 0}
+  .callout{border-left:4px solid var(--steel);background:var(--steel-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}
+  .callout.warn{border-color:var(--warn);background:#fffbeb}
+  footer{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 40px;color:var(--faint);font-size:12px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Pacdora 3D 渲染器逆向报告</h1>
+  <p>入口：<code style="background:rgba(255,255,255,.12);color:#fff">https://www.pacdora.cn/3d-creator</code> → 点击「开始 3D 设计」→ 新标签打开 <code style="background:rgba(255,255,255,.12);color:#fff">https://www.pacdora.cn/3d-modeling/</code>。本报告说明这个“把包装模型摆进 3D 场景、调光、套模板、导出高清效果图”的编辑器是怎么做出来的。</p>
+  <div class="meta">
+    <span class="chip">分析日期 2026-11-17</span>
+    <span class="chip">REA 访客抓包 + REA JS 静态分析</span>
+    <span class="chip">Cursor 浏览器登录态实操（无订阅账号）</span>
+    <span class="chip">Vue 3 + Vite + Three.js + knife2gltf WASM</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#tldr">一句话结论</a>
+  <a href="#entry">入口与页面</a>
+  <a href="#arch">整体架构</a>
+  <a href="#load">启动加载链路</a>
+  <a href="#add">把盒子放进场景</a>
+  <a href="#scene">场景数据结构</a>
+  <a href="#template">场景模板</a>
+  <a href="#renderer">实时预览渲染器</a>
+  <a href="#export">超级渲染 / 导出</a>
+  <a href="#gate">付费门槛</a>
+  <a href="#api">接口清单</a>
+  <a href="#boxcraft">对 BOXCRAFT 的启示</a>
+  <a href="#evidence">证据与局限</a>
+</nav>
+
+<main>
+
+<section id="tldr">
+  <h2>一句话结论</h2>
+  <p class="lead"><b>浏览器里是普通的 Three.js 光栅化预览；“超级渲染”是把整个场景序列化成 JSON 交给服务端做光线追踪出图。</b>场景本身是一份可存档的 JSON（相机、太阳光、HDR 环境光、每个模型的位置/缩放/PBR 材质、背景、输出尺寸），每次操作自动 PUT 到 <code>/simplerender/{renderId}</code>。包装盒模型不是预制的，仍然是“刀版 JSON → knife2gltf WASM → glTF”实时生成，和刀版生成器共用同一条链路。</p>
+  <div class="grid2">
+    <div class="card"><h4>场景怎么存</h4><p class="muted">一个场景 = 一条 <code>simplerender</code> 记录（<code>renderId</code> 如 <code>irfbck4org</code>，写进地址栏 <code>?id=</code>），内容是 <code>config</code> JSON（版本 4.1.1）。改动即自动保存。</p></div>
+    <div class="card"><h4>盒子从哪来</h4><p class="muted">每放一个盒子就复制一份工程（<code>POST /projects project_type:3</code>），再取刀版 JSON 和 <code>blanks/setting</code>（材质/相机预设），用 knife2gltf WASM 生成 3D。</p></div>
+    <div class="card"><h4>预览怎么画</h4><p class="muted">自研封装 <code>pacdora-3d</code> 包（约 2MB）基于 Three.js <code>WebGLRenderer</code>：阴影贴图、4×MSAA 渲染目标、交互时降到 0.5 倍像素比保流畅。</p></div>
+    <div class="card"><h4>高清图怎么出</h4><p class="muted">2K/4K/8K 默认走服务端：上传预览截图做封面 → <code>POST /image/render/bray</code> 提交 <code>d3_params</code>（含光线反弹次数 <code>bounces:3</code>）→ 进导出任务队列。另有一个隐藏的“本地 4K 截图”档。</p></div>
+  </div>
+</section>
+
+<section id="entry">
+  <h2>入口与页面</h2>
+  <p><span class="tag obs">观察</span> <code>/3d-creator</code> 是 SEO 落地页（“在线免费 3D 渲染器”），页面上 7 个「开始 3D 设计」按钮里 6 个指向 <code>/3d-modeling</code>（<code>target="_blank"</code>），1 个指向 <code>/mockups</code>。落地页自身用一个轻量库 <code>cdn.pacdora.com/Pacdora-tiny-3d-v0.0.16.js</code> 加载一个 glTF 做首屏 3D 展示（控制台打印“加载模型 → Loading model resources 12.5%…100% → 加载模型完成”）。</p>
+  <p><span class="tag obs">观察</span> <code>/3d-modeling/</code> 是独立的 Vue 3 单页应用，入口 <code>/_pacui/assets/zh-CN/render/index-*.js</code>，页面标题“Pacdora | 3D渲染器”。界面：左侧「上传 / 场景 / 样机 / 元素 / 背景 / 灯光 / 更多」，中间 3D 画布（带地面网格和坐标轴），右侧「选择 / 平移、撤销 / 重做、聚焦、视角」，顶部「超级渲染」，底部「移除水印」。</p>
+  <div class="figs">
+    <figure><img src="01_editor_empty.png" alt="3D 渲染器空场景" /><figcaption>进入编辑器：空场景，左侧样机面板「我的」里有一个已保存的盒子。</figcaption></figure>
+    <figure><img src="02_mockup_added.png" alt="盒子加入场景" /><figcaption>点击盒子后加入场景：牛皮纸材质 + Pacdora 水印（免费用户）。</figcaption></figure>
+  </div>
+</section>
+
+<section id="arch">
+  <h2>整体架构</h2>
+  <div class="flow">
+    <div class="step"><b>资源库</b>样机分类树 <code>models/ctree</code>、空白模型 <code>models?type=blank</code>、材质效果、元素、HDR</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>模型生成</b>盒子：刀版 JSON → knife2gltf WASM → glTF；非盒子：模板自带资源</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>场景编辑</b><code>pacdora-3d</code> 引擎：摆放、灯光、背景、相机、撤销重做</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>自动保存</b>场景 JSON → <code>PUT /simplerender/{id}</code></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>出图</b>服务端光追 <code>/image/render/bray</code> 或本地截图</div>
+  </div>
+  <h3>前端分包 <span class="tag obs">观察</span></h3>
+  <table>
+    <tr><th>分包</th><th>体积</th><th>作用</th></tr>
+    <tr><td><code>pacdora-3d-*.js</code></td><td>2.0MB</td><td>自研 3D 引擎：渲染器、场景、相机、灯光、地面阴影、模型组、快照、场景 JSON 序列化；内含 knife2gltf 胶水和 SVG 曲线解析（曲面盒）</td></tr>
+    <tr><td><code>three-*.js</code></td><td>590KB</td><td>Three.js（控制台提示“Multiple instances of Three.js being imported”，<code>pacdora-3d</code> 里还打了一份）</td></tr>
+    <tr><td><code>pacdora-editor-*.js</code></td><td>300KB</td><td>通用编辑器 UI 组件</td></tr>
+    <tr><td><code>index-afef….js</code></td><td>58KB</td><td>3D 渲染器页面主体：视角管理、超级渲染弹窗、导出流程</td></tr>
+    <tr><td><code>useProject-*.js</code></td><td>8KB</td><td>场景记录 CRUD（<code>simplerender</code>）、官方模板、场景对象分类（模型 / 元素 / 组）</td></tr>
+    <tr><td><code>useLight / useBackground / useModels / useToolModels</code></td><td>小</td><td>灯光、背景、模型库、空白模型设置</td></tr>
+    <tr><td><code>resolutionEffect / Mockup / ExportDialog / render</code></td><td>小</td><td>分辨率表、导出面板、提交云渲染</td></tr>
+    <tr><td><code>aliyun-oss-sdk / aws-sdk</code></td><td>—</td><td>封面图与上传素材直传对象存储（国内阿里云，海外 AWS）</td></tr>
+  </table>
+</section>
+
+<section id="load">
+  <h2>启动加载链路（访客，REA 抓包）<span class="tag obs">观察</span></h2>
+  <table>
+    <tr><th>#</th><th>请求</th><th>用途</th></tr>
+    <tr><td>1</td><td><code>GET /api/v2/users/experience_user</code></td><td>访客分配体验用户（登录用户为 <code>users/check</code>）</td></tr>
+    <tr><td>2</td><td><code>GET oss.pacdora.cn/frontend/web-assets/c6d6…json</code></td><td>编辑器静态配置（OSS 上的 JSON）</td></tr>
+    <tr><td>3</td><td><code>GET /api/v2/render/view/list</code></td><td>用户保存的相机视角列表</td></tr>
+    <tr><td>4</td><td><code>GET oss.pacdora.cn/frontend/web-assets/abfe….hdr</code></td><td>默认 HDR 环境贴图（图像照明）</td></tr>
+    <tr><td>5</td><td><code>GET /api/v2/simplerender/official/model/template</code></td><td>官方场景模板列表（基础 / 高级）</td></tr>
+    <tr><td>6</td><td><code>GET /api/v2/models/ctree?mockup=true</code>、<code>/material_effect</code></td><td>样机分类树、材质效果（烫金、UV 等）</td></tr>
+    <tr><td>7</td><td><code>GET /api/v2/models?type=blank&amp;mockupNameKey=square-box-mockup</code></td><td>资源库默认展示的空白模型</td></tr>
+  </table>
+  <p>登录用户还会请求 <code>/projects?type=mockup-detail</code>（「我的」样机）和 <code>box/export/task/record</code>（导出任务）。访客完整进入编辑器约 6 秒，期间未见报错。</p>
+</section>
+
+<section id="add">
+  <h2>把盒子放进场景（登录态实操）<span class="tag obs">观察</span></h2>
+  <table>
+    <tr><th>#</th><th>请求</th><th>要点</th></tr>
+    <tr><td>1</td><td><code>POST /projects</code> <code>{"project_id":47164033,"project_type":3,"type":"mockup"}</code></td><td>以“我的”里那个盒子为母本<b>复制</b>一份新工程（47665795），场景里改材质不会污染原工程</td></tr>
+    <tr><td>2</td><td><code>GET /projects/info</code> → <code>GET /project/knife?bleed=3&amp;export_type=project&amp;id=…</code></td><td>取工程与刀版 JSON（盒型 <code>AircraftNewThree</code>，cate 15001103）</td></tr>
+    <tr><td>3</td><td><code>GET /blanks/setting/29908</code></td><td>该盒型的“空白样机设置”：材质 <code>KRAFT</code>、推荐相机、每层内外表面 PBR 参数、HDR、光照模板 <code>Daylight</code>、贴图布局</td></tr>
+    <tr><td>4</td><td><code>GET oss.baoxiaohe.com/…/knife2gltf/1.1.8/knife2gltf.min.wasm</code></td><td>与刀版生成器同一个 WASM，把刀版转 glTF</td></tr>
+    <tr><td>5</td><td><code>GET /simplerender/official/model/template?modelNo=15001103</code></td><td>按盒型筛选可用的场景模板</td></tr>
+    <tr><td>6</td><td><code>POST /simplerender</code> <code>{config:{…}}</code> → <code>PUT /simplerender/irfbck4org/name</code> <code>{"name":"无标题模型"}</code></td><td>首次放入模型时才创建场景记录，地址栏变为 <code>?id=irfbck4org</code></td></tr>
+  </table>
+  <p><span class="tag obs">观察</span> 期间还调用了 <code>GET /home/sts</code> 获取阿里云 OSS 临时凭证（用于上传缩略图，凭证值未记录）。</p>
+</section>
+
+<section id="scene">
+  <h2>场景数据结构（<code>simplerender.config</code>）<span class="tag obs">观察</span></h2>
+  <p>由 <code>pacdora-3d</code> 引擎的序列化方法生成（缺少工程 id 或 HDR 路径时会抛 <code>miss project id</code> / <code>miss envLightPath</code>）。实测请求体节选：</p>
+<pre>{
+  "version": "4.1.1",
+  "sceneSrc": { "blender": "", "glb": "" },          // 预留：外部场景文件
+  "background": "transparent", "color": "", "image": "",
+  "camera":   { "fov": 30, "focus": 10, "aspect": 1.27,
+                "position": {x,y,z}, "direction": {x,y,z} },
+  "sunLight": { "color": "#ffffff", "intensity": 0.46, "radius": 3, "visible": true,
+                "position": {x,y,z}, "userData": { "position": { "radius": 500, "phi": 0.785, "theta": -5.50 } } },
+  "envLight": { "envUrl": "https://oss.pacdora.cn/hdr/b9f6….hdr",
+                "envMapIntensity": 1.194, "rotation": 0.546, "envMapOpen": true },
+  "bounces": 3,                                      // 光线反弹次数（给云端光追用）
+  "groups": [{                                       // 场景里的每个模型
+      "type": "project", "typeId": 47665795, "current": 100,   // 折叠进度 100 = 闭合
+      "position": {x:0, y:-7.4, z:0}, "rotation": {_x,_y,_z,_order:"XYZ"},
+      "scale": {x:50, y:50, z:50},
+      "material": { "traditional": {
+          "outside": { "color":"#fefefe", "roughness":0.8, "metalness":0.1, "ior":1.5,
+                       "normalScale":{x:0.15,y:0.15}, "clearcoat":0, "sheen":0, "transmission":0,
+                       "userData": { "name":"外侧面", "faceIndexTexture": {…} } },
+          "inside":  { …"name":"内侧面"… } } },
+      "userData": { "box3": { "min":[…], "max":[…] } } }],
+  "planeY": -10,                                     // 地面高度
+  "combines": [], "xYZCombine": [], "xYZGroup": [], "hierarchicalModelGroups": [],
+  "userData": { "backgroundType": "gradient",
+                "gradient": { "direction": 180, "colors": [{"color":"#B5B5B5","step":0},{"color":"#EBEBEB","step":1}] } },
+  "ratio": { "w": 1, "h": 1 }, "size": { "w": 1920, "h": 1920 }
+}</pre>
+  <ul>
+    <li><b>材质是 Three.js <code>MeshPhysicalMaterial</code> 的参数直存</b>：粗糙度、金属度、折射率、清漆、光泽、透射、法线强度都在里面，盒子按“图层 × 内/外侧面”分开设置。</li>
+    <li><b><code>faceIndexTexture</code></b>：一张按面编码的索引贴图，用于鼠标悬停时高亮单个面（<code>highLightAlpha 0.12</code>）。</li>
+    <li><b>场景对象分类</b>（<code>useProject</code>）：<code>Project</code>（包装模型）、<code>Base</code> / <code>Decorator</code>（元素：底座、植物等道具）、<code>Group</code> / <code>TempGroup</code>（组合）。</li>
+    <li><b>光照模板</b>：<code>blanks/setting</code> 里带 <code>lightTemplateName:"Daylight"</code>，「灯光」面板切换的是太阳光 + HDR 的预设组合。</li>
+  </ul>
+</section>
+
+<section id="template">
+  <h2>场景模板（「场景」面板）<span class="tag obs">观察</span></h2>
+  <p>点击一个官方模板后的请求：</p>
+  <div class="flow">
+    <div class="step"><b>1 取模板</b><code>GET /simplerender/official/template/2550</code>：返回与 config 同格式的 <code>params</code>（相机、比例 4:3、输出 1024×768、模型位 groups）</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>2 填模型位</b>对模板里每个模型位 <code>POST /projects project_type:3</code>，用你的盒子复制一份填进去</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>3 保存</b><code>PUT /simplerender/irfbck4org</code> 写入整份新 config</div>
+  </div>
+  <p>即：<b>模板 = 一份预设好的场景 JSON，其中的模型是“占位工程”</b>；套用时把占位换成用户自己的工程副本，相机、灯光、背景、摆放角度全部沿用模板。</p>
+  <figure><img src="03_scene_template.png" alt="套用场景模板" /><figcaption>套用“倾斜盒子”模板后：场景按模板摆放（左侧面板为基础 / 高级场景模板列表）。</figcaption></figure>
+</section>
+
+<section id="renderer">
+  <h2>实时预览渲染器 <span class="tag obs">观察</span></h2>
+  <p>来自 <code>pacdora-3d</code> 包内渲染器类（已去混淆描述）：</p>
+<pre>renderer = new THREE.WebGLRenderer({
+  antialias: true, alpha: true, precision: "highp",
+  preserveDrawingBuffer: true          // 便于随时截图（快照导出）
+})
+renderer.shadowMap.enabled = D3.useShadow   // 阴影贴图（类型常量已混淆）
+// 可选：4×MSAA 离屏渲染目标 + 全屏三角形输出
+renderTarget = new WebGLRenderTarget(w*dpr, h*dpr, { samples: 4, stencilBuffer: true })
+
+setPerformanceFirstOrEffectFirst(mode)  // "performance" 时像素比降到 0.5，交互流畅
+renderFloor()   // 先只画地面（过滤掉 MeshPhysicalMaterial）
+renderModel()   // 再清深度、隐藏地面和背景单独画模型
+renderHelpers() // 最后画选择框、变换手柄（模板缓冲遮罩）
+setBounces(n)   // 只记录数值，预览本身不做光线追踪</pre>
+  <ul>
+    <li>预览是<b>光栅化 + 阴影贴图 + HDR 环境光</b>，不是浏览器端路径追踪。<code>bounces</code> 只保存在场景里，交给云端渲染使用。<span class="tag inf">推断</span></li>
+    <li>监听 <code>webglcontextlost / restored</code>，上下文丢失时上报当前模型数量（多模型场景显存压力大）。</li>
+    <li>盒子模型仍由 knife2gltf WASM 生成（参见刀版报告）；曲面盒的刀版路径用 Three.js <code>SVGLoader</code> 解析 <code>d</code> 属性、按 50 段采样成曲线。</li>
+  </ul>
+</section>
+
+<section id="export">
+  <h2>超级渲染 / 导出 <span class="tag obs">观察</span></h2>
+  <figure><img src="04_super_render.png" alt="超级渲染弹窗" /><figcaption>「超级渲染」弹窗：比例、带地面阴影导出、JPG/PNG、2K/4K/8K，按钮「渲染导出」。</figcaption></figure>
+  <h3>分辨率表（<code>resolutionEffect</code>）</h3>
+  <table>
+    <tr><th>档位</th><th>16:9 宽度</th><th>走向</th></tr>
+    <tr><td>2K</td><td>1920</td><td>服务端渲染</td></tr>
+    <tr><td>4K（本地，<code>hidden:true</code>）</td><td>3840</td><td><b>浏览器截图</b>：<code>snapshot({width})</code> 直接下载 <code>Render_Mockup_宽_高_日期.jpg</code>；界面上隐藏</td></tr>
+    <tr><td>4K</td><td>3840</td><td>服务端渲染</td></tr>
+    <tr><td>8K</td><td>7680</td><td>服务端渲染</td></tr>
+  </table>
+  <p>9:16、4:3、1:1 等比例按同样规则换算宽高（高 = 宽 ÷ 比例）。</p>
+  <h3>服务端渲染提交流程（源码）</h3>
+<pre>onRender(resolution, exportWithShadow):
+  await checkPermission(`exportImage_${label}`)        // 无权益 → 弹付费窗并中止
+  if (resolution.localExport) {                        // 隐藏的本地 4K
+    png = engine.snapshot({ width }, format); download(png)
+  } else {
+    cover    = await uploadToOSS(engine.snapshot(), "render-cover")
+    d3Params = await buildRenderParams(ratio, size, exportWithShadow)
+    POST /api/v2/image/render/bray  (timeout 60s) {
+      d3_params: JSON.stringify(d3Params),  size: "3840*2160",
+      payFlag: `render-detail-${renderId}-png`,  sceneTemplateId,
+      render_id, thumbpath: cover, file_format: "jpg" | "png", origin: "render"
+    }
+    → 关闭弹窗，进入导出历史 / 任务队列（box/export/task/record 轮询）
+  }</pre>
+  <p><span class="tag inf">推断</span> 云端渲染器拿到的就是上面的场景 JSON（相机 + 灯光 + HDR + 模型 + PBR 材质 + 反弹次数），在服务器上做光线追踪出图，因此效果比预览更真实，且不吃用户显卡。官网 FAQ 也写明“所有渲染任务均在云服务器上完成”。接口名中的 <code>bray</code> 与 config 里预留的 <code>sceneSrc.blender</code> 暗示服务端可能基于 Blender（Cycles）类引擎，<b>未证实</b>。</p>
+</section>
+
+<section id="gate">
+  <h2>付费门槛 <span class="tag obs">观察</span></h2>
+  <p><code>GET /users/permissions</code> 返回各档权益（节选）：</p>
+  <table>
+    <tr><th>档位</th><th>相关权益</th></tr>
+    <tr><td>free（0）</td><td><code>renderMockup_2K</code>、<code>exportAIBackground_1K</code></td></tr>
+    <tr><td>lite 基础版（1）</td><td><code>exportImage_2K</code>、<code>exportVideo_720P</code>、<code>removeWaterMark</code>…</td></tr>
+    <tr><td>pro 专业版（2）</td><td>+ <code>exportImage_4K</code>、<code>exportDieline</code>、<code>renderMockup_4K</code>、<code>generateCode</code>…</td></tr>
+    <tr><td>business 商业版（3）</td><td>+ <code>exportImage_8K</code>、<code>exportVideo_2K</code>…</td></tr>
+  </table>
+  <p>3D 渲染器检查的是 <code>exportImage_*</code>，免费档没有，所以无订阅账号点「渲染导出」（2K JPG）时只发出 <code>pay/unified/recent/order</code> 和 <code>seo/info?id=303</code>（付费弹窗内容），<b>未发出 <code>/image/render/bray</code></b>。套餐价格来自 <code>/pay/unified/cn/plans</code>：基础版 ¥149/年、专业版 ¥349/年或 ¥59/月、商业版 ¥599/年或 ¥99/月。</p>
+  <figure><img src="05_paywall.png" alt="渲染导出付费弹窗" /><figcaption>点击「渲染导出」后的升级弹窗。</figcaption></figure>
+  <div class="callout warn">按约定在付费墙处停止，<b>没有</b>绕过前端调用 <code>/image/render/bray</code>。云端渲染的实际耗时、任务状态报文、输出图质量与水印、服务端是否二次校验权益，均为 <span class="tag unk">未知</span>。</div>
+</section>
+
+<section id="api">
+  <h2>接口清单（静态提取 + 运行时观察）</h2>
+  <table>
+    <tr><th>领域</th><th>接口</th><th>说明</th></tr>
+    <tr><td>场景</td><td><code>POST /simplerender</code></td><td>新建场景，返回 <code>renderId</code></td></tr>
+    <tr><td></td><td><code>GET|PUT /simplerender/{id}</code></td><td>读取 / 自动保存场景 config</td></tr>
+    <tr><td></td><td><code>PUT /simplerender/{id}/name</code>、<code>POST /simplerender/{id}/copy</code></td><td>改名、复制场景</td></tr>
+    <tr><td>模板</td><td><code>GET /simplerender/official/model/template[?modelNo=]</code></td><td>官方模板列表（可按盒型过滤）</td></tr>
+    <tr><td></td><td><code>GET /simplerender/official/template/{id}</code></td><td>模板详情（场景 JSON）</td></tr>
+    <tr><td>视角</td><td><code>GET /render/view/list</code>、<code>POST /render/view</code>、<code>PUT|DELETE /render/view/{id}</code></td><td>保存的相机视角（有数量上限）</td></tr>
+    <tr><td>模型</td><td><code>GET /models/ctree?mockup=true</code>、<code>/models?type=blank</code>、<code>/models/details</code>、<code>/models/image_search</code></td><td>样机分类、空白模型、详情、以图搜模型</td></tr>
+    <tr><td></td><td><code>GET /blanks/setting/{id}</code></td><td>空白样机的 3D 预设（材质、相机、灯光）</td></tr>
+    <tr><td>工程</td><td><code>POST /projects</code>（type 3）、<code>/projects/info</code>、<code>/project/knife</code></td><td>复制工程、取刀版 → 生成 3D</td></tr>
+    <tr><td>背景</td><td><code>/project/render/bgimage</code></td><td>背景图</td></tr>
+    <tr><td>出图</td><td><code>POST /image/render/bray</code></td><td>提交云端渲染</td></tr>
+    <tr><td></td><td><code>GET /box/export/task/record</code>、<code>POST task/{read|retry|cancel}</code></td><td>导出任务队列（与刀版导出共用）</td></tr>
+    <tr><td>其他</td><td><code>/home/sts</code>、<code>/material_effect</code>、<code>/users/permissions</code>、<code>/pay/unified/*</code></td><td>OSS 临时凭证、材质效果、权益、支付</td></tr>
+  </table>
+  <p class="muted">均带前缀 <code>/api/v2</code>。</p>
+</section>
+
+<section id="boxcraft">
+  <h2>对 BOXCRAFT 的启示</h2>
+  <div class="grid2">
+    <div class="card"><h4>1. 场景即 JSON</h4><p class="muted">相机、灯光、HDR、模型变换、PBR 材质全部可序列化，存档、模板、云渲染共用一份数据。我们若做效果图编辑器，应先定场景 schema，再做 UI。</p></div>
+    <div class="card"><h4>2. 模板 = 带占位模型的场景</h4><p class="muted">运营只需摆好场景存成模板，用户套用时替换占位模型即可，成本低、可批量产出“场景库”。</p></div>
+    <div class="card"><h4>3. 预览与出图分离</h4><p class="muted">浏览器只做够用的光栅化预览（交互时降分辨率），高质量出图交给服务端。我们现阶段用 Three.js 截图导出即可，真实感要求上来后再接云端光追。</p></div>
+    <div class="card"><h4>4. 复制而非引用工程</h4><p class="muted">放进场景的盒子都是工程副本，场景里改材质不影响原刀版工程；代价是工程表膨胀，需要清理策略。</p></div>
+    <div class="card"><h4>5. 自动保存 + 懒创建</h4><p class="muted">首次放入模型才建记录，之后每次改动整份 PUT。简单可靠，但 config 体积大时应考虑节流或差量。</p></div>
+    <div class="card"><h4>6. 门槛按分辨率切</h4><p class="muted">权益 key 形如 <code>exportImage_2K/4K/8K</code>，前端按 key 判断、后端按 payFlag 计费。我们做付费功能时可沿用“权益 key + 服务端校验”的结构。</p></div>
+  </div>
+  <div class="callout warn">参考的是<b>架构与交互模式</b>。Pacdora 的模板、模型、HDR、WASM 与接口属于其自有资产，不应直接调用或复制进 BOXCRAFT。</div>
+</section>
+
+<section id="evidence">
+  <h2>证据与局限</h2>
+  <h3>REA Evidence</h3>
+  <table>
+    <tr><th>Evidence ID</th><th>内容</th></tr>
+    <tr><td><code>ev_4c81b4c22a8d1e7174a446429a69b5870e5b1e0293f0eb9f6080a569f79cae3c</code></td><td>浏览器场景（访客）：打开 3d-creator → 点击第一个「开始 3D 设计」→ 进入 3d-modeling → 等待 25 秒；6 步全部完成</td></tr>
+    <tr><td><code>ev_d73436d0eaccc81411b5c57e35328db98893aa8e48a8bf7e0a27479aa3a013f8</code></td><td>首次抓取（失败）：页面有 9 个同名链接，严格匹配模式拒绝点击；仅用于记录</td></tr>
+    <tr><td><code>ev_e77cd2939d15bc5498c536630d198643507c75ec81d71b7192a3f3b43e4b69db</code></td><td>JS 静态分析：18 个关键分包（共 49 个），31,312 个 AST 节点，635 条发现（摘要视图 <code>ev_bd3f298b…2c50</code>）</td></tr>
+  </table>
+  <h3>标注说明</h3>
+  <p><span class="tag obs">观察</span> 抓包或源码中直接看到；<span class="tag inf">推断</span> 由观察数据推出、未直接证实；<span class="tag unk">未知</span> 本次未覆盖。</p>
+  <h3>局限</h3>
+  <ul>
+    <li>登录态实操在 Cursor 浏览器中完成（用户本人账号、无订阅），用页面内注入的请求记录器抓取，无 REA Evidence ID；STS 临时凭证未保存。</li>
+    <li>云端渲染在付费墙处停止，渲染结果、耗时、任务报文未观察到。</li>
+    <li>未操作「上传 / 元素 / 背景 / 灯光 / 更多」面板的全部功能，相关结论来自源码与场景 JSON 字段。</li>
+    <li>JS 为压缩产物，报告中的函数名为意译；<code>pacdora-3d</code> 包只做了针对性检索，未完整分析。</li>
+  </ul>
+  <h3>本次操作在你账号中留下的数据</h3>
+  <ul>
+    <li>场景 <code>irfbck4org</code>（“无标题模型”）。</li>
+    <li>两份工程副本（id 47665795 及套用模板时复制的一份）。</li>
+    <li>不需要可在 Pacdora 个人空间删除。</li>
+  </ul>
+  <h3>本地文件（同目录，未入库）</h3>
+  <ul>
+    <li><code>01_editor_empty.png</code> … <code>05_paywall.png</code>：登录态截图</li>
+    <li>JS 分包与分析脚本：<code>tmp/pacdora-rea-3d/</code>（仅用于分析）</li>
+  </ul>
+</section>
+
+</main>
+<footer>本报告仅用于技术研究与架构参考。页面、数据与商标归 Pacdora / 包小盒所有。</footer>
+</body>
+</html>

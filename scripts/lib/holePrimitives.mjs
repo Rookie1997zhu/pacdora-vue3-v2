@@ -97,6 +97,27 @@ export function toHolePrimitive(cmds,faceBox){
   return prim
 }
 
+/**
+ * 一个孔条目里可能含多段子路径（如一排 3 个插槽写在同一条 dlist 里）。
+ * 按 M 拆开，每段各成一个孔；否则展平后会被连成一个跨越全部插槽的错误多边形。
+ */
+export function splitHoleSubpaths(cmds){
+  const list=Array.isArray(cmds)?cmds:(cmds?.dlist||[])
+  const out=[]
+  let cur=[]
+  for(const c of list){
+    if(!c)continue
+    if(c.mtd==='M'){
+      if(cur.length>1)out.push(cur)
+      cur=[c]
+    }else if(cur.length){
+      cur.push(c)
+    }
+  }
+  if(cur.length>1)out.push(cur)
+  return out
+}
+
 /** 孔中心（用于未归属 layer.holes 的分配） */
 export function holeCenter(cmds){
   const list=Array.isArray(cmds)?cmds:(cmds?.dlist||[])

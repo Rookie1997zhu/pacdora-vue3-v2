@@ -1,19 +1,26 @@
+from pathlib import Path
+
 from django.db import transaction
+from django.http import FileResponse
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.ai_jobs.models import AiJob
+from apps.assets.models import AssetDerivative
+from apps.assets.services import derivative_absolute_path
 from apps.catalog.models import Product
 from apps.designs.models import Design, DesignRevision, DesignViewPreference
 from apps.designs.serializers import DesignDetailSerializer, DesignListSerializer, DesignRevisionSerializer
 from apps.designs.services import DesignServiceError, copy_design, create_design, save_revision
+from apps.designs.tasks import DIELINE_KIND
 from apps.exports.models import ExportJob
 from apps.orders.models import CartItem, OrderItem
 from apps.organizations.permissions import org_ids_for, primary_org, require_org_membership
 from apps.quotes.models import Quote
 from config.api import fail, ok
+from config.throttles import RevisionSaveRateThrottle
 
 
 def _service_error(request, exc: DesignServiceError):
@@ -77,6 +84,7 @@ class DesignListCreateView(APIView):
             if not product:
                 return fail('产品不存在', code='NOT_FOUND', request=request, http_status=404)
         initial = request.data.get('content')
+        client_geometry_hash = request.data.get('client_geometry_hash')
         if initial is None and product:
             ver = product.default_template_version or product.default_template.versions.filter(is_current=True).first()
             caps = product.capabilities or {}
@@ -119,6 +127,7 @@ class DesignListCreateView(APIView):
                 name=name,
                 product=product,
                 initial_content=initial,
+                client_geometry_hash=client_geometry_hash,
             )
         except DesignServiceError as exc:
             return _service_error(request, exc)
@@ -184,6 +193,7 @@ class DesignDetailView(APIView):
 
 class DesignRevisionListCreateView(APIView):
     permission_classes = [IsAuthenticated]
+    throttle_classes = [RevisionSaveRateThrottle]
 
     def get(self, request, design_id):
         design = _get_owned_design(request.user, design_id)
@@ -205,6 +215,8 @@ class DesignRevisionListCreateView(APIView):
         except (TypeError, ValueError):
             return fail('expected_row_version 无效', code='VALIDATION_ERROR', request=request)
         idem = request.headers.get('Idempotency-Key') or request.data.get('idempotency_key')
+        autosave = bool(request.data.get('autosave'))
+        client_geometry_hash = request.data.get('client_geometry_hash')
         try:
             data, status, _replay = save_revision(
                 design=design,
@@ -212,6 +224,8 @@ class DesignRevisionListCreateView(APIView):
                 content=content,
                 expected_row_version=expected_i,
                 idempotency_key=idem,
+                autosave=autosave,
+                client_geometry_hash=client_geometry_hash,
             )
         except DesignServiceError as exc:
             return _service_error(request, exc)
@@ -229,6 +243,30 @@ class RevisionDetailView(APIView):
         data['content'] = rev.content_json
         data['design_id'] = str(rev.design_id)
         return ok(data, request=request)
+
+
+class DesignDielineThumbnailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, design_id):
+        design = _get_owned_design(request.user, design_id)
+        if not design:
+            return fail('无权访问设计', code='FORBIDDEN', request=request, http_status=403)
+        if not design.dieline_preview_asset_id:
+            return fail('刀版缩略图未就绪', code='THUMBNAIL_NOT_READY', request=request, http_status=404)
+        derivative = AssetDerivative.objects.filter(
+            asset_id=design.dieline_preview_asset_id,
+            kind=DIELINE_KIND,
+        ).first()
+        if not derivative:
+            return fail('刀版缩略图未就绪', code='THUMBNAIL_NOT_READY', request=request, http_status=404)
+        path = derivative_absolute_path(derivative)
+        if not path.exists():
+            return fail('刀版缩略图未就绪', code='THUMBNAIL_NOT_READY', request=request, http_status=404)
+        handle = Path(path).open('rb')
+        response = FileResponse(handle, content_type='image/svg+xml', filename=path.name)
+        response['Content-Security-Policy'] = "default-src 'none'"
+        return response
 
 
 class DesignCopyView(APIView):

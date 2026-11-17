@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — existing JS knife engine
 import { createKnife } from '../knife.js'
+// @ts-expect-error JS module
+import { ensureTemplate } from '../templates/lazy.js'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — Pacdora geom replay
 import { loadPacdoraGeomKnife } from '../pacdoraGeomKnife.js'
@@ -314,7 +316,14 @@ function createParametricEngineKnife(doc: DesignDocumentV1): EngineKnife {
     fluteDirection: p.fluteDirection,
     materialId: p.materialId,
     params: p.advanced || {},
+    previewBleedExtra: 10,
   }) as EngineKnife
+}
+
+/** Prefer the largest face as the main artwork panel (area = w * h). */
+export function pickMainPanel(knife: StudioKnife): StudioFace | null {
+  if (!knife.faces.length) return null
+  return knife.faces.reduce((best, face) => (face.w * face.h > best.w * best.h ? face : best))
 }
 
 /**
@@ -344,6 +353,7 @@ export async function buildStudioKnifeAsync(doc: DesignDocumentV1): Promise<Stud
     })) as EngineKnife
     return studioKnifeFromEngineKnife(knife, doc.geometry.templateId)
   }
+  await ensureTemplate(doc.geometry.templateId)
   const knife = createParametricEngineKnife(doc)
   return studioKnifeFromEngineKnife(knife, doc.geometry.templateId)
 }
@@ -362,6 +372,7 @@ export async function resolveEngineKnife(doc: DesignDocumentV1): Promise<EngineK
       materialId: p.materialId,
     })) as EngineKnife
   }
+  await ensureTemplate(doc.geometry.templateId)
   return createParametricEngineKnife(doc)
 }
 

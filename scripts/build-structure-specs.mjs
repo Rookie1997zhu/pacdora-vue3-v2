@@ -5,6 +5,7 @@
  * 范围：--from 为 all（默认）或逗号分隔的 templateId；精确 REA 映射的代码与手绘通用代码不编。
  * 按预设条数排序，取前 --limit 个可编译代码；编译后调用 validate-structure-specs.mjs 收窄/剔除。
  * 用法：node scripts/build-structure-specs.mjs [--from all|tuck-end-straight,handle-box] [--limit 2000]
+ *        [--categories shipping,folding,tray]  只编这些类目的预设（旧目录 geometry/pacdora_boxes 里有样本的始终保留）
  */
 import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs'
 import {join,dirname} from 'node:path'
@@ -13,11 +14,14 @@ import {spawnSync} from 'node:child_process'
 import {faceSignature} from '../src/templates/spec/specTemplate.js'
 import {resolveStructureTemplate} from '../src/catalog/structureCodeTemplates.js'
 import {REA_TEMPLATES} from '../src/templates/rea/index.js'
-import {arcToCubics,quadToCubic} from '../src/geom/flattenPath.js'
+import {arcToCubics,quadToCubic,flattenCubicPath} from '../src/geom/flattenPath.js'
 
 const REA_BY_ID=Object.fromEntries(REA_TEMPLATES.map(t=>[t.id,t]))
 import {pickCompileLayer} from './lib/pickCompileLayer.mjs'
-import {toHolePrimitive,holeCenter} from './lib/holePrimitives.mjs'
+import {createGeomResolver,legacyGeomFile} from './lib/presetGeom.mjs'
+import {toHolePrimitive,holeCenter,splitHoleSubpaths} from './lib/holePrimitives.mjs'
+import {measure,gradeOf,presetParams} from './check-pacdora-fidelity.mjs'
+import {knifeFromPacdoraGeom} from '../src/pacdoraGeomKnife.js'
 
 /** 新结构族占用的精确映射：不编规格、不做 REA 接管 */
 const FAMILY_TEMPLATE_IDS=new Set(['cylinder-box','sleeve-drawer','rea-flat-sheet'])
@@ -117,6 +121,13 @@ const arg=(name,def)=>{
 const FROM=arg('from','all')
 const FROM_SET=FROM==='all'?null:new Set(FROM.split(',').map(s=>s.trim()).filter(Boolean))
 const LIMIT=Math.max(1,Number(arg('limit',100000))||100000)
+const CATEGORIES=arg('categories','all')
+const CATEGORY_SET=CATEGORIES==='all'?null:new Set(CATEGORIES.split(',').map(s=>s.trim()).filter(Boolean))
+/** 编号 → 几何文件；loadPresets 之后初始化 */
+let geomFileOf=()=>null
+
+/** 多件套最多保留的件数；超过则只编最大的一件 */
+const MAX_PIECES=12
 
 /** 手绘/原型通用代码：同代码下结构各异，面片名也可能巧合一致，不按代码编规格 */
 const GENERIC_CODES=new Set(['KnifeDraw','KnifePrototype'])
@@ -513,8 +524,8 @@ function localFoldSign(anim,fold,parentName,child){
 }
 
 function compile(code,num){
-  const file=join(geomDir,`${num}.json`)
-  if(!existsSync(file))return {error:'geometry missing'}
+  const file=geomFileOf(num)
+  if(!file)return {error:'geometry missing'}
   const j=JSON.parse(readFileSync(file,'utf8'))
   const ly=pickCompileLayer(j)
   if(!ly)return {error:'multi-layer'}
@@ -855,13 +866,13 @@ function compile(code,num){
       keptLargestFlag={droppedPieces:(keptLargestFlag?.droppedPieces||0)+tree.partialDropped,from:keptLargestFlag?.from||'treePartial'}
     }
   }else{
-    // 多件：2 件 → bottom/lid；3–4 件 → p1..pN；5+ 只保留最大件
+    // 多件：2 件 → bottom/lid；3–12 件 → p1..pN；更多只保留最大件
     const sorted=[...pieceComps].filter(c=>c.length>=1).sort((a,b)=>{
       const aa=a.reduce((s,n)=>s+areaOf(n),0),bb=b.reduce((s,n)=>s+areaOf(n),0)
       return bb-aa
     })
     if(sorted.length<1)return {error:`disconnected 0/${faces.length}`}
-    if(sorted.length>=5){
+    if(sorted.length>MAX_PIECES){
       const comp=sorted[0]
       rootName=pickRoot(comp)
       const tree=buildTree(rootName,comp,adjMerged)
@@ -952,14 +963,15 @@ function compile(code,num){
   for(const f of faces){
     if(!outByName.has(f.name)||!Array.isArray(f.holes))continue
     for(const h of f.holes){
-      const cmds=Array.isArray(h)?h:(h?.dlist||[])
-      if(!cmds.length)continue
-      if(attachHole(f.name,cmds))claimed.add(holeKey(cmds))
+      // 多段子路径逐段成孔
+      for(const cmds of splitHoleSubpaths(h)){
+        const key=holeKey(cmds)
+        if(claimed.has(key))continue
+        if(attachHole(f.name,cmds))claimed.add(key)
+      }
     }
   }
-  for(const h of ly.holes||[]){
-    const cmds=Array.isArray(h)?h:(h?.dlist||[])
-    if(!cmds.length)continue
+  for(const cmds of (ly.holes||[]).flatMap(h=>splitHoleSubpaths(h))){
     const key=holeKey(cmds)
     if(claimed.has(key))continue
     const c=holeCenter(cmds)
@@ -975,6 +987,125 @@ function compile(code,num){
     }
     if(best&&attachHole(best,cmds))claimed.add(key)
   }
+  // 内部切线：金样 cuts 中两侧都落在面片内的线段（相邻面片之间的刀口、面内切缝）。
+  // 运行时外轮廓取面片并集，这类零宽度切缝会消失，所以单独记为面内 UV 折线（sl）。
+  // 只有一侧在面片内的是外轮廓；孔在 holes 里，不在 cuts 里。
+  const SLIT_EPS=.35
+  const facePolys=faces.map(f=>{
+    const pts=flattenCubicPath(f.dlist||[],{tol:.1,maxPts:600})
+    return {name:f.name,x:f.x,y:f.y,w:f.w,h:f.h,area:f.w*f.h,pts:pts.length>=3?pts:[[f.x,f.y],[f.x+f.w,f.y],[f.x+f.w,f.y+f.h],[f.x,f.y+f.h]]}
+  })
+  const inPoly=(px,py,poly)=>{
+    let inside=false
+    for(let i=0,k=poly.length-1;i<poly.length;k=i++){
+      const a=poly[i],b=poly[k]
+      if((a[1]>py)!==(b[1]>py)&&px<(b[0]-a[0])*(py-a[1])/(b[1]-a[1])+a[0])inside=!inside
+    }
+    return inside
+  }
+  const faceAt=(px,py)=>{
+    let best=null
+    for(const f of facePolys){
+      if(px<f.x-.01||px>f.x+f.w+.01||py<f.y-.01||py>f.y+f.h+.01)continue
+      if(!inPoly(px,py,f.pts))continue
+      if(!best||f.area<best.area)best=f
+    }
+    return best
+  }
+  const cutSubpaths=[]
+  {
+    let cur=[]
+    for(const c of ly.cuts||[]){
+      if(!c)continue
+      if(c.mtd==='M'){if(cur.length>1)cutSubpaths.push(cur);cur=[c]}
+      else if(cur.length)cur.push(c)
+    }
+    if(cur.length>1)cutSubpaths.push(cur)
+  }
+  let slitCount=0,slitLen=0
+  const pushSlit=(run)=>{
+    if(!run||run.pts.length<2)return
+    const entry=outByName.get(run.face.name)
+    if(!entry)return
+    // 去掉共线中间点
+    const pts=[run.pts[0]]
+    for(let i=1;i<run.pts.length-1;i++){
+      const a=pts[pts.length-1],b=run.pts[i],c=run.pts[i+1]
+      const cross=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+      if(Math.abs(cross)>.02*Math.hypot(c[0]-a[0],c[1]-a[1]))pts.push(b)
+    }
+    pts.push(run.pts[run.pts.length-1])
+    const f=run.face
+    const uv=pts.map(([px,py])=>[u4((px-f.x)/f.w),u4((py-f.y)/f.h)])
+    if(uv.some(([u,v])=>u<-.1||u>1.1||v<-.1||v>1.1))return
+    if(!entry.sl)entry.sl=[]
+    entry.sl.push(uv)
+    slitCount++
+    for(let i=1;i<pts.length;i++)slitLen+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1])
+  }
+  for(const sub of cutSubpaths){
+    const pts=flattenCubicPath(sub,{tol:.05,maxPts:3000})
+    if(pts.length<2)continue
+    if(sub.some(c=>c.mtd==='Z'))pts.push(pts[0])
+    let run=null
+    for(let i=1;i<pts.length;i++){
+      const a=pts[i-1],b=pts[i]
+      const len=Math.hypot(b[0]-a[0],b[1]-a[1])
+      if(len<.05)continue
+      const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2
+      const nx=-(b[1]-a[1])/len*SLIT_EPS,ny=(b[0]-a[0])/len*SLIT_EPS
+      const f1=faceAt(mx+nx,my+ny),f2=faceAt(mx-nx,my-ny)
+      // 挂到已保留的面上（多件只留主件时，其余件的切缝一并丢弃）
+      const host=f1&&f2?(outByName.has(f1.name)?f1:(outByName.has(f2.name)?f2:null)):null
+      if(!host){pushSlit(run);run=null;continue}
+      if(run&&run.face===host)run.pts.push(b)
+      else{pushSlit(run);run={face:host,pts:[a,b]}}
+    }
+    pushSlit(run)
+  }
+
+  // 3D 折叠配方：金样动画里的铰接关系（父面、折线、转角、轴向、分步），与排版用的面片树分开存。
+  // 折线记成子面 bbox 内的 UV，运行时套到当前尺寸；见 src/foldRecipe.js。
+  let foldStages3d=null
+  try{
+    const rk=knifeFromPacdoraGeom({...j,layer:{traditional:ly}},{sourceNum:num})
+    const hingeBy=new Map((rk.hinges||[]).map(h=>[h.child,h]))
+    const r3=n=>Math.round(n*1000)/1000
+    let withParent=0
+    for(const rf of rk.faces||[]){
+      const entry=outByName.get(rf.name),face=byName.get(rf.name)
+      if(!entry||!face)continue
+      const parent=rf.parent&&outByName.has(rf.parent)?rf.parent:null
+      const fr={p:parent}
+      if(parent){
+        withParent++
+        const h=hingeBy.get(rf.name)
+        if(Number.isFinite(h?.angle))fr.a=r3(h.angle)
+        if(Array.isArray(rf.hingeLine)&&face.w>1e-6&&face.h>1e-6){
+          fr.h=rf.hingeLine.map(([px,py])=>[u4((px-face.x)/face.w),u4((py-face.y)/face.h)])
+        }
+        const v=h?.axisVec
+        if(v){
+          const len=Math.hypot(Number(v.x)||0,Number(v.y)||0,Number(v.z)||0)
+          if(len>1e-9)fr.v=[r3((Number(v.x)||0)/len),r3((Number(v.y)||0)/len),r3((Number(v.z)||0)/len)]
+        }
+      }
+      entry.fr=fr
+    }
+    if(withParent){
+      foldStages3d=(rk.foldStages||[]).map(stage=>(stage||[]).map(s=>{
+        if(s.child&&outByName.has(s.child)&&Number.isFinite(s.rotate))return {c:s.child,r:r3(s.rotate)}
+        if(s.face&&outByName.has(s.face)&&s.move)return {f:s.face,m:[r3(s.move.x||0),r3(s.move.y||0),r3(s.move.z||0)]}
+        return null
+      }).filter(Boolean)).filter(stage=>stage.length)
+    }else{
+      for(const e of out)delete e.fr
+    }
+  }catch{
+    for(const e of out)delete e.fr
+    foldStages3d=null
+  }
+
   let holeCount=0
   for(const e of out)if(e.hs?.length)holeCount+=e.hs.length
 
@@ -999,6 +1130,7 @@ function compile(code,num){
     params:params.map(p=>({code:p.code,label:p.label,def:p.value,min:p.min,max:p.max})),
     faces:out
   }
+  if(foldStages3d)spec.fs=foldStages3d
   if(piecesMeta){
     spec.pieces=piecesMeta
     if(supportsPiece)spec.supportsPiece=true
@@ -1012,7 +1144,7 @@ function compile(code,num){
   return {
     spec,
     stats:{
-      faces:out.length,folds:(ly.folds||[]).length,pieces:pieceCount,holes:holeCount,
+      faces:out.length,folds:(ly.folds||[]).length,pieces:pieceCount,holes:holeCount,slits:slitCount,
       curves:curvesTotal,curveFallback:curveFallbackTotal,...detailExtra
     }
   }
@@ -1020,8 +1152,8 @@ function compile(code,num){
 
 /** 样本主图层面数（用于 REA 失配判定） */
 function sampleFaceCount(num){
-  const file=join(geomDir,`${num}.json`)
-  if(!existsSync(file))return 0
+  const file=geomFileOf(num)
+  if(!file)return 0
   try{
     const j=JSON.parse(readFileSync(file,'utf8'))
     const ly=pickCompileLayer(j)
@@ -1030,8 +1162,8 @@ function sampleFaceCount(num){
 }
 
 function sampleFaceSig(num){
-  const file=join(geomDir,`${num}.json`)
-  if(!existsSync(file))return null
+  const file=geomFileOf(num)
+  if(!file)return null
   try{
     const j=JSON.parse(readFileSync(file,'utf8'))
     const ly=pickCompileLayer(j)
@@ -1054,6 +1186,21 @@ function faceCountMismatch(reaN,sampleN){
 }
 
 const data=loadPresets()
+geomFileOf=createGeomResolver(root,data.presets)
+
+/** 精确映射的参数化模板在该样本上是否不达标（等级 C） */
+function reaPoorFit(p,templateId){
+  const file=geomFileOf(p.sourceNum)
+  if(!file)return false
+  try{
+    const geom=JSON.parse(readFileSync(file,'utf8'))
+    const m=measure(templateId,geom,{
+      length:p.length,width:p.width,height:p.height,thickness:p.thickness||.5,
+      params:presetParams({...p,templateId}),
+    })
+    return gradeOf(m)==='C'
+  }catch{return false}
+}
 /** @type {Map<string, object[]>} code → presets */
 const byCode=new Map()
 /** 通用代码：每样本单独编 */
@@ -1064,6 +1211,7 @@ const reaTakeoverCandidates=[]
 for(const p of data.presets||[]){
   const from=p.templateSource==='structure-spec'||p.templateSource==='structure-spec-takeover'?p.specFrom:p.templateId
   if(FROM_SET&&!FROM_SET.has(from))continue
+  if(CATEGORY_SET&&!CATEGORY_SET.has(p.categoryId)&&!existsSync(legacyGeomFile(root,p.sourceNum)))continue
   if(!p.structureCode)continue
   const code=p.structureCode
   const exact=resolveStructureTemplate(code)
@@ -1075,7 +1223,8 @@ for(const p of data.presets||[]){
   if(exact){
     const sn=sampleFaceCount(p.sourceNum)
     const rn=reaFaceCount(exact)
-    if(faceCountMismatch(rn,sn))reaTakeoverCandidates.push(p)
+    // 面数失配，或精确模板在金样尺寸下吻合度不达标（如横向插舌盒）→ 编规格供 apply 比较后接管
+    if(faceCountMismatch(rn,sn)||reaPoorFit(p,exact))reaTakeoverCandidates.push(p)
     continue
   }
   if(!byCode.has(code))byCode.set(code,[])
@@ -1163,7 +1312,7 @@ writeFileSync(
   `/** auto-generated by scripts/build-structure-specs.mjs — 结构规格（公式+图元，无刀版坐标） */\nexport default ${JSON.stringify({from:FROM,specs})}\n`
 )
 writeFileSync(join(reportDir,'17_结构规格编译.csv'),report.join('\n'),'utf8')
-console.log(JSON.stringify({from:FROM,candidates:ranked.length,compiled:specs.length,skipped:report.length-1-specs.length},null,2))
+console.log(JSON.stringify({from:FROM,categories:CATEGORIES,candidates:ranked.length,compiled:specs.length,skipped:report.length-1-specs.length},null,2))
 
 const v=spawnSync(process.execPath,[join(root,'scripts','validate-structure-specs.mjs')],{stdio:'inherit',cwd:root})
 if(v.status){

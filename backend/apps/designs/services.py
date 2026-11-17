@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import copy
+import logging
 import uuid
+from datetime import timedelta
 
 from django.db import transaction
 from django.utils import timezone
@@ -11,6 +13,10 @@ from apps.catalog.models import TemplateDefinition, TemplateVersion
 from apps.designs.document import DocumentValidationError, content_hash, request_hash, validate_design_document
 from apps.designs.models import Design, DesignRevision, IdempotencyRecord, OutboxEvent
 from apps.geometry_api.client import GeometryServiceError, validate_geometry
+
+logger = logging.getLogger(__name__)
+
+AUTOSAVE_COALESCE_WINDOW = timedelta(minutes=10)
 
 
 class DesignServiceError(Exception):
@@ -164,6 +170,10 @@ def apply_server_geometry(content: dict, template: TemplateDefinition, version: 
                 'thickness_mm': params['thicknessMm'],
                 'bleed_mm': params['bleedInputMm'],
                 'size_mode': params['sizeMode'],
+                'flute_direction': params.get('fluteDirection') or 'L',
+                'material_id': params.get('materialId') or 'kraft',
+                'params': params.get('advanced') or {},
+                'piece_id': geom.get('pieceId') or None,
             }
         )
     except GeometryServiceError as exc:
@@ -179,7 +189,45 @@ def apply_server_geometry(content: dict, template: TemplateDefinition, version: 
     return content
 
 
-def create_design(*, organization, owner, name, product=None, initial_content=None) -> Design:
+def _revision_is_referenced(rev: DesignRevision) -> bool:
+    if rev.export_jobs.exists():
+        return True
+    if rev.ai_jobs.exists():
+        return True
+    if rev.quotes.exists():
+        return True
+    if rev.cart_items.exists():
+        return True
+    if rev.order_items.exists():
+        return True
+    if rev.sample_tests.exists():
+        return True
+    return False
+
+
+def _can_coalesce_autosave(*, head: DesignRevision | None, user, autosave: bool) -> bool:
+    if not autosave or head is None:
+        return False
+    if head.kind != DesignRevision.Kind.AUTOSAVE:
+        return False
+    if head.creator_id != getattr(user, 'id', None):
+        return False
+    if timezone.now() - head.created_at > AUTOSAVE_COALESCE_WINDOW:
+        return False
+    if _revision_is_referenced(head):
+        return False
+    return True
+
+
+def create_design(
+    *,
+    organization,
+    owner,
+    name,
+    product=None,
+    initial_content=None,
+    client_geometry_hash: str | None = None,
+) -> Design:
     design = Design.objects.create(
         organization=organization,
         owner=owner,
@@ -195,18 +243,31 @@ def create_design(*, organization, owner, name, product=None, initial_content=No
             content=initial_content,
             expected_row_version=1,
             idempotency_key=f'bootstrap-{design.id}',
+            autosave=False,
+            client_geometry_hash=client_geometry_hash,
         )
         design.refresh_from_db()
     return design
 
 
-def save_revision(*, design: Design, user, content: dict, expected_row_version: int, idempotency_key: str | None):
+def save_revision(
+    *,
+    design: Design,
+    user,
+    content: dict,
+    expected_row_version: int,
+    idempotency_key: str | None,
+    autosave: bool = False,
+    client_geometry_hash: str | None = None,
+):
     if design.status != Design.Status.ACTIVE:
         raise DesignServiceError('design archived', code='DESIGN_ARCHIVED', status=400)
 
     payload_for_hash = {
         'expected_row_version': expected_row_version,
         'content': content,
+        'autosave': bool(autosave),
+        'client_geometry_hash': client_geometry_hash or '',
     }
     req_hash = request_hash(payload_for_hash)
 
@@ -236,6 +297,24 @@ def save_revision(*, design: Design, user, content: dict, expected_row_version: 
     content['designId'] = str(design.id)
     content['schemaVersion'] = 'boxcraft.design.v1'
 
+    server_hash = content['geometry']['geometryHash']
+    geometry_drift = False
+    if client_geometry_hash:
+        client = str(client_geometry_hash).strip()
+        if client and client != server_hash:
+            geometry_drift = True
+            logger.warning(
+                'geometry_drift design=%s template=%s version=%s client=%s server=%s params=%s',
+                design.id,
+                template.template_key,
+                version.version,
+                client,
+                server_hash,
+                content['geometry'].get('params'),
+            )
+
+    kind = DesignRevision.Kind.AUTOSAVE if autosave else DesignRevision.Kind.CHECKPOINT
+
     with transaction.atomic():
         locked = Design.objects.select_for_update().get(pk=design.pk)
         if locked.row_version != expected_row_version:
@@ -249,19 +328,50 @@ def save_revision(*, design: Design, user, content: dict, expected_row_version: 
                     'current_revision_id': str(locked.current_revision_id) if locked.current_revision_id else None,
                 },
             )
-        next_no = (locked.revisions.order_by('-revision_no').values_list('revision_no', flat=True).first() or 0) + 1
-        rev = DesignRevision.objects.create(
-            design=locked,
-            revision_no=next_no,
-            schema_version='boxcraft.design.v1',
-            content_json=content,
-            content_hash=content_hash(content),
-            geometry_hash=content['geometry']['geometryHash'],
-            template_version=version.version,
-            engine_version=version.engine_version,
-            creator=user,
-        )
-        locked.current_revision = rev
+
+        head = locked.current_revision
+        coalesced = False
+        if _can_coalesce_autosave(head=head, user=user, autosave=autosave):
+            rev = DesignRevision.objects.select_for_update().get(pk=head.pk)
+            rev.content_json = content
+            rev.content_hash = content_hash(content)
+            rev.geometry_hash = server_hash
+            rev.template_version = version.version
+            rev.engine_version = version.engine_version
+            rev.schema_version = 'boxcraft.design.v1'
+            rev.kind = DesignRevision.Kind.AUTOSAVE
+            rev.save(
+                update_fields=[
+                    'content_json',
+                    'content_hash',
+                    'geometry_hash',
+                    'template_version',
+                    'engine_version',
+                    'schema_version',
+                    'kind',
+                ]
+            )
+            coalesced = True
+            event_type = 'design.revision_coalesced'
+        else:
+            next_no = (
+                locked.revisions.order_by('-revision_no').values_list('revision_no', flat=True).first() or 0
+            ) + 1
+            rev = DesignRevision.objects.create(
+                design=locked,
+                revision_no=next_no,
+                kind=kind,
+                schema_version='boxcraft.design.v1',
+                content_json=content,
+                content_hash=content_hash(content),
+                geometry_hash=server_hash,
+                template_version=version.version,
+                engine_version=version.engine_version,
+                creator=user,
+            )
+            locked.current_revision = rev
+            event_type = 'design.revision_created'
+
         locked.row_version = locked.row_version + 1
         locked.updated_at = timezone.now()
         locked.save(update_fields=['current_revision', 'row_version', 'updated_at'])
@@ -274,12 +384,14 @@ def save_revision(*, design: Design, user, content: dict, expected_row_version: 
             )
 
         OutboxEvent.objects.create(
-            event_type='design.revision_created',
+            event_type=event_type,
             payload={
                 'design_id': str(locked.id),
                 'revision_id': str(rev.id),
                 'revision_no': rev.revision_no,
                 'organization_id': str(locked.organization_id),
+                'coalesced': coalesced,
+                'kind': rev.kind,
             },
         )
 
@@ -289,11 +401,14 @@ def save_revision(*, design: Design, user, content: dict, expected_row_version: 
             'revision': {
                 'id': str(rev.id),
                 'revision_no': rev.revision_no,
+                'kind': rev.kind,
                 'content_hash': rev.content_hash,
                 'geometry_hash': rev.geometry_hash,
                 'created_at': rev.created_at.isoformat(),
             },
             'content': content,
+            'geometry_drift': geometry_drift,
+            'coalesced': coalesced,
         }
         if idempotency_key:
             IdempotencyRecord.objects.create(
@@ -305,9 +420,13 @@ def save_revision(*, design: Design, user, content: dict, expected_row_version: 
             )
 
         from apps.assets.services import enqueue_missing_thumbnails_for_content
+        from apps.designs.thumbnail import enqueue_dieline_thumbnail_if_needed
 
         # Non-blocking for async workers; eager mode may run sync after commit via on_commit.
         transaction.on_commit(lambda c=content: enqueue_missing_thumbnails_for_content(c))
+        transaction.on_commit(
+            lambda d_id=str(locked.id), r_id=str(rev.id): enqueue_dieline_thumbnail_if_needed(d_id, r_id)
+        )
         return response, 201, False
 
 

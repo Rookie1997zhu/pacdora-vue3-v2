@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test test/validate.test.mjs"
+    "test": "node --test test/validate.test.mjs test/geometry-document.test.mjs test/server.test.mjs"
   },
   "dependencies": {
     "pdf-lib": "^1.17.1",

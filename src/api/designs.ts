@@ -11,6 +11,8 @@ export type DesignListItem = {
   current_revision_id: string | null
   preview_asset_id?: string | null
   thumbnail_ready?: boolean
+  dieline_thumbnail_ready?: boolean
+  dieline_preview_asset_id?: string | null
   updated_at: string
   created_at: string
 }
@@ -32,8 +34,17 @@ export type DesignDetail = DesignListItem & {
 export type SaveRevisionResult = {
   design_id: string
   row_version: number
-  revision: { id: string; revision_no: number; content_hash: string; geometry_hash: string; created_at: string }
+  revision: {
+    id: string
+    revision_no: number
+    kind?: string
+    content_hash: string
+    geometry_hash: string
+    created_at: string
+  }
   content: DesignDocumentV1
+  geometry_drift?: boolean
+  coalesced?: boolean
 }
 
 export type AssetMeta = {
@@ -68,7 +79,12 @@ export async function fetchDesign(id: string) {
   return res.data
 }
 
-export async function createDesign(payload: { name: string; product_slug?: string; content?: DesignDocumentV1 }) {
+export async function createDesign(payload: {
+  name: string
+  product_slug?: string
+  content?: DesignDocumentV1
+  client_geometry_hash?: string
+}) {
   const res = await apiRequest<DesignDetail>('/designs/', { method: 'POST', json: payload })
   return res.data
 }
@@ -90,7 +106,12 @@ export async function deleteDesign(id: string) {
 
 export async function saveDesignRevision(
   id: string,
-  payload: { content: DesignDocumentV1; expected_row_version: number },
+  payload: {
+    content: DesignDocumentV1
+    expected_row_version: number
+    autosave?: boolean
+    client_geometry_hash?: string
+  },
   idempotencyKey: string,
 ) {
   const res = await apiRequest<SaveRevisionResult>(`/designs/${id}/revisions/`, {

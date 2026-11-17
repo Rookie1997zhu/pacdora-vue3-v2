@@ -14,6 +14,11 @@ x-backend-env: &backend-env
   REDIS_PORT: "6379"
   REDIS_PASSWORD: ${REDIS_PASSWORD:?required}
   GEOMETRY_URL: http://geometry:3100
+  RENDER_URL: http://render:3200
+  RENDER_TIMEOUT_SEC: ${RENDER_TIMEOUT_SEC:-600}
+  RENDER_SAMPLES_2K: ${RENDER_SAMPLES_2K:-64}
+  RENDER_SAMPLES_4K: ${RENDER_SAMPLES_4K:-48}
+  RENDER_ALLOW_4K: ${RENDER_ALLOW_4K:-true}
   MEDIA_ROOT: /app/media
   AI_PROVIDER: ${AI_PROVIDER:-disabled}
   AI_API_KEY: ${AI_API_KEY:-}
@@ -26,6 +31,8 @@ x-backend-env: &backend-env
   EMAIL_USE_TLS: ${EMAIL_USE_TLS:-true}
   DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-}
   PAYMENT_MODE: ${PAYMENT_MODE:-manual_quote}
+  SITE_PUBLIC_URL: ${SITE_PUBLIC_URL:-http://localhost}
+  GEO_COUNTRY_HEADER: ${GEO_COUNTRY_HEADER:-CF-IPCountry}
 
 x-backend-base: &backend-base
   image: boxcraft-backend:${APP_TAG:-local}
@@ -52,6 +59,7 @@ services:
         NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
         CADDY_IMAGE: ${CADDY_IMAGE:-caddy:2-alpine}
         VITE_API_BASE: /api/v1
+        VITE_WORKBENCH: ${VITE_WORKBENCH:-1}
     restart: unless-stopped
     ports: ["80:80", "443:443", "443:443/udp"]
     environment:
@@ -118,6 +126,36 @@ services:
       retries: 10
     networks: [core]
 
+  render:
+    image: boxcraft-render:${APP_TAG:-local}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.render
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.12-slim-bookworm}
+        BLENDER_VERSION: ${BLENDER_VERSION:-4.2.5}
+        SKIP_BLENDER: ${SKIP_BLENDER:-0}
+    restart: unless-stopped
+    expose: ["3200"]
+    environment:
+      PORT: "3200"
+      HOST: "0.0.0.0"
+      RENDER_MOCK: ${RENDER_MOCK:-false}
+      RENDER_SAMPLES: ${RENDER_SAMPLES_2K:-64}
+      RENDER_TIMEOUT_SEC: ${RENDER_TIMEOUT_SEC:-600}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3200/health')"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4g
+    networks: [core]
+
   backend:
     <<: *backend-base
     command: ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "60"]
@@ -126,6 +164,7 @@ services:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
       geometry: { condition: service_healthy }
+      render: { condition: service_healthy }
     healthcheck:
       test: ["CMD", "python", "-m", "config.healthcheck"]
       interval: 15s
@@ -139,6 +178,24 @@ services:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
       geometry: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'celery -A config inspect ping -d "celery@$$HOSTNAME" 2>/dev/null | grep -qi pong',
+        ]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 45s
+
+  render-worker:
+    <<: *backend-base
+    command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--queues=render", "--concurrency=1", "--prefetch-multiplier=1"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      render: { condition: service_healthy }
     healthcheck:
       test:
         [

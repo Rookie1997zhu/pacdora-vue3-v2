@@ -1,0 +1,249 @@
+[
+  {
+    "id": "kraft-150",
+    "labelZh": "牛皮纸 150g",
+    "labelKo": "크라프트 150g",
+    "family": "kraft",
+    "flute": null,
+    "thickness": {
+      "default": 0.22,
+      "min": 0.2,
+      "max": 0.28,
+      "step": 0.02
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": [
+      "thin_board"
+    ]
+  },
+  {
+    "id": "kraft-250",
+    "labelZh": "牛皮纸 250g",
+    "labelKo": "크라프트 250g",
+    "family": "kraft",
+    "flute": null,
+    "thickness": {
+      "default": 0.35,
+      "min": 0.28,
+      "max": 0.42,
+      "step": 0.02
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "kraft-350",
+    "labelZh": "牛皮纸 350g",
+    "labelKo": "크라프트 350g",
+    "family": "kraft",
+    "flute": null,
+    "thickness": {
+      "default": 0.48,
+      "min": 0.4,
+      "max": 0.55,
+      "step": 0.02
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "art-150",
+    "labelZh": "铜版/艺术纸 150g",
+    "labelKo": "아트지 150g",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.18,
+      "min": 0.15,
+      "max": 0.25,
+      "step": 0.02
+    },
+    "engineMaterialId": "white",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": [
+      "thin_board",
+      "art_paper"
+    ]
+  },
+  {
+    "id": "art-250",
+    "labelZh": "铜版/艺术纸 250g",
+    "labelKo": "아트지 250g",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.3,
+      "min": 0.25,
+      "max": 0.38,
+      "step": 0.02
+    },
+    "engineMaterialId": "white",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": [
+      "art_paper"
+    ]
+  },
+  {
+    "id": "art-350",
+    "labelZh": "铜版/艺术纸 350g",
+    "labelKo": "아트지 350g",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.42,
+      "min": 0.35,
+      "max": 0.5,
+      "step": 0.02
+    },
+    "engineMaterialId": "white",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": [
+      "art_paper"
+    ]
+  },
+  {
+    "id": "flute-e",
+    "labelZh": "E 楞瓦楞（三层）",
+    "labelKo": "E골 골판지",
+    "family": "corrugated",
+    "flute": "E",
+    "thickness": {
+      "default": 1.5,
+      "min": 1.1,
+      "max": 2,
+      "step": 0.1
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 5,
+    "riskTags": [
+      "flute"
+    ]
+  },
+  {
+    "id": "flute-b",
+    "labelZh": "B 楞瓦楞（三层）",
+    "labelKo": "B골 골판지",
+    "family": "corrugated",
+    "flute": "B",
+    "thickness": {
+      "default": 3,
+      "min": 2.5,
+      "max": 3.5,
+      "step": 0.1
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 5,
+    "riskTags": [
+      "flute"
+    ]
+  },
+  {
+    "id": "white-board",
+    "labelZh": "白卡纸",
+    "labelKo": "백판지",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.4,
+      "min": 0.3,
+      "max": 0.55,
+      "step": 0.05
+    },
+    "engineMaterialId": "white",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "blue-board",
+    "labelZh": "蓝卡纸",
+    "labelKo": "블루보드",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.4,
+      "min": 0.3,
+      "max": 0.55,
+      "step": 0.05
+    },
+    "engineMaterialId": "blue",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "kraft",
+    "labelZh": "牛皮（引擎）",
+    "labelKo": "크라프트",
+    "family": "kraft",
+    "flute": null,
+    "thickness": {
+      "default": 1.5,
+      "min": 0.2,
+      "max": 5,
+      "step": 0.1
+    },
+    "engineMaterialId": "kraft",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "white",
+    "labelZh": "白卡（引擎）",
+    "labelKo": "화이트",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.5,
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05
+    },
+    "engineMaterialId": "white",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  },
+  {
+    "id": "blue",
+    "labelZh": "蓝卡（引擎）",
+    "labelKo": "블루",
+    "family": "art",
+    "flute": null,
+    "thickness": {
+      "default": 0.5,
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05
+    },
+    "engineMaterialId": "blue",
+    "calibrated": false,
+    "profileVersion": "0.1",
+    "bleedDefaultMm": 3,
+    "riskTags": []
+  }
+]

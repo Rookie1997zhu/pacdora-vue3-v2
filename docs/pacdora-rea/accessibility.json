@@ -1,0 +1,8 @@
+{
+ "state": "captured",
+ "value": {
+  "sha256": "a80f5c77d7aabd639db21780eb82580f3f793f360da3c9fa53b5e7a590ac6737",
+  "bytes": 999,
+  "text": "- document:\n  - text:  刀版生成器 \n  - img\n  - link \"在线设计 \":\n    - /url: \"\"\n  - text:   下载刀版 \n  - paragraph: 样机\n  - text: \n  - paragraph: 基础\n  - text: \n  - paragraph: 更多\n  - text:  尺寸类型  制造尺寸 内尺寸 外尺寸 割线 展开 闭合  文件格式\n  - img\n  - text: AI 刀版\n  - img\n  - text: PDF 刀版\n  - img\n  - text: DXF 刀版\n  - img\n  - text: 3D 样机\n  - paragraph: 你将获得\n  - list:\n    - listitem: 所有模板文件都可以在几分钟内生成和下载。\n    - listitem: 所有模板文件都经过严格检查，包括尺寸、厚度和材质描述。可直接进行打印。\n    - listitem: 所有模板文件都没有水印，并可以在本地使用Adobe Illustrator进行编辑。\n  - text:       构建模型 准备材质 创建环境 即将完成 构建模型\n  - complementary \"Live chat widget\":\n    - button \"Minimize live chat window\": \n    - img \"聊天小工具\""
+ }
+}

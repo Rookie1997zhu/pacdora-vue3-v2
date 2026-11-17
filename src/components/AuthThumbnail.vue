@@ -7,11 +7,15 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from 'vue'
+import { API_BASE } from '../api/client'
 import { fetchAssetThumbnailObjectUrl } from '../api/designs'
 
 const props = defineProps<{
   assetId?: string | null
   ready?: boolean
+  /** Fallback when no image layer thumbnail: design dieline SVG endpoint */
+  designId?: string | null
+  dielineReady?: boolean
   alt?: string
   placeholder?: string
 }>()
@@ -27,17 +31,37 @@ function revoke() {
   url.value = null
 }
 
+async function fetchDielineObjectUrl(designId: string): Promise<string | null> {
+  const res = await fetch(`${API_BASE}/designs/${designId}/dieline-thumbnail/`, {
+    credentials: 'include',
+    headers: { Accept: 'image/svg+xml,image/*,*/*' },
+  })
+  if (!res.ok) return null
+  const blob = await res.blob()
+  return URL.createObjectURL(blob)
+}
+
 async function load() {
   revoke()
-  if (!props.assetId || !props.ready) return
-  const next = await fetchAssetThumbnailObjectUrl(props.assetId)
-  if (!next) return
-  objectUrl = next
-  url.value = next
+  if (props.assetId && props.ready) {
+    const next = await fetchAssetThumbnailObjectUrl(props.assetId)
+    if (next) {
+      objectUrl = next
+      url.value = next
+      return
+    }
+  }
+  if (props.designId && props.dielineReady) {
+    const next = await fetchDielineObjectUrl(props.designId)
+    if (next) {
+      objectUrl = next
+      url.value = next
+    }
+  }
 }
 
 watch(
-  () => [props.assetId, props.ready] as const,
+  () => [props.assetId, props.ready, props.designId, props.dielineReady] as const,
   () => {
     void load()
   },

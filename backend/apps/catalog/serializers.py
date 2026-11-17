@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from apps.catalog.models import Product, ProductVariant, TemplateDefinition, TemplateVersion
+from apps.catalog.models import MaterialProfile, Product, ProductVariant, TemplateDefinition, TemplateVersion
+from apps.catalog.workbench import build_workbench_payload
 
 
 class ProductVariantSerializer(serializers.ModelSerializer):
@@ -34,9 +35,10 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(ProductListSerializer):
     variants = ProductVariantSerializer(many=True, read_only=True)
     template_version = serializers.SerializerMethodField()
+    workbench = serializers.SerializerMethodField()
 
     class Meta(ProductListSerializer.Meta):
-        fields = ProductListSerializer.Meta.fields + ('variants', 'template_version')
+        fields = ProductListSerializer.Meta.fields + ('variants', 'template_version', 'workbench')
 
     def get_template_version(self, obj):
         ver = obj.default_template_version
@@ -50,6 +52,34 @@ class ProductDetailSerializer(ProductListSerializer):
             'limits': ver.limits,
             'capabilities': ver.capabilities,
         }
+
+    def get_workbench(self, obj):
+        return build_workbench_payload(obj)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if data.get('workbench') is None:
+            data.pop('workbench', None)
+        return data
+
+
+class MaterialProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaterialProfile
+        fields = (
+            'code',
+            'name_zh',
+            'name_ko',
+            'family',
+            'flute',
+            'thickness_min',
+            'thickness_default',
+            'thickness_max',
+            'engine_material_id',
+            'calibrated',
+            'profile_version',
+            'is_active',
+        )
 
 
 class TemplateVersionSerializer(serializers.ModelSerializer):

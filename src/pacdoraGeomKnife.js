@@ -6,6 +6,7 @@ import {foldStagesFromAnimation} from './foldStages.js'
 import {sizeArrowDataFromBounds} from './dimAnnotations.js'
 import {BLEED_EXTRA_MM,expandBleedLoops} from './knife.js'
 import {publicAssetUrl} from './assetUrl.js'
+import {commandsToPathData,pathCommandsFromLoop} from './geom/flattenPath.js'
 
 const cache=new Map()
 const inflight=new Map()
@@ -168,13 +169,13 @@ function buildHoles(ly){
       if(!cmds.length)continue
       const loop=cmdsToPolyline(cmds)
       if(loop.length<3)continue
-      holes.push({face:f.name,loop,path:pathFromCmds(cmds)})
+      holes.push({face:f.name,loop,pathCommands:cmds,path:pathFromCmds(cmds)})
     }
   }
   for(const h of ly.holes||[]){
     const cmds=Array.isArray(h)?h:(h.dlist||[])
     if(!cmds.length)continue
-    holes.push({face:h.face||null,loop:cmdsToPolyline(cmds),path:pathFromCmds(cmds)})
+    holes.push({face:h.face||null,loop:cmdsToPolyline(cmds),pathCommands:cmds,path:pathFromCmds(cmds)})
   }
   return holes
 }
@@ -303,8 +304,14 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     if(!loop.length)return ''
     return loop.map((p,i)=>`${i?'L':'M'} ${p[0]} ${p[1]}`).join(' ')+' Z'
   }).filter(Boolean)
+  const trimPathCommands=cutSubs.map(path=>path.map(c=>({...c})))
+  const creasePathCommands=folds
+    .filter(f=>Number.isFinite(f.x1)&&Number.isFinite(f.y1)&&Number.isFinite(f.x2)&&Number.isFinite(f.y2))
+    .map(f=>[{mtd:'M',x:f.x1,y:f.y1},{mtd:'L',x:f.x2,y:f.y2}])
+  const bleedPathCommands=bleedLoops.map(loop=>pathCommandsFromLoop(loop))
+  const paths={trim:trimPathCommands,crease:creasePathCommands,bleed:bleedPathCommands}
   const cutPath=cutPaths.join(' ')
-  const bleedPath=bleedPaths.join(' ')
+  const bleedPath=bleedPathCommands.map(commandsToPathData).join(' ')
   const cuts=cmdsToSegments(ly.cuts||[])
   const bleeds=bleedLoops.flatMap(loop=>{
     const segs=[]
@@ -347,9 +354,9 @@ export function knifeFromPacdoraGeom(raw,meta={}){
   const bleedEff=bleedSrc+BLEED_EXTRA_MM
 
   const layers={
-    trim:{role:'trim',color:'#2028b0',segments:cuts},
-    crease:{role:'crease',color:'#fa0000',dash:true,segments:folds.filter(f=>Number.isFinite(f.x1)).map(f=>({x1:f.x1,y1:f.y1,x2:f.x2,y2:f.y2}))},
-    bleed:{role:'bleed',color:'#46ba00',segments:bleeds}
+    trim:{role:'trim',color:'#2028b0',segments:cuts,paths:trimPathCommands},
+    crease:{role:'crease',color:'#fa0000',dash:true,segments:folds.filter(f=>Number.isFinite(f.x1)).map(f=>({x1:f.x1,y1:f.y1,x2:f.x2,y2:f.y2})),paths:creasePathCommands},
+    bleed:{role:'bleed',color:'#46ba00',segments:bleeds,paths:bleedPathCommands}
   }
 
   return {
@@ -376,7 +383,7 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     bleed:bleedSrc,
     bleedEffective:bleedEff,
     params:{},
-    faces,cuts,bleeds,folds,hinges,foldStages,layers,holes,
+    faces,cuts,bleeds,folds,hinges,foldStages,layers,paths,holes,
     cutPath,bleedPath,cutPaths,bleedPaths,
     meta:{anyPoly:true,fromPacdoraGeom:true,components:comps.length,foldStageCount:foldStages.length,bleedExtra:BLEED_EXTRA_MM,bleedEffective:bleedEff},
     topology:{
@@ -416,6 +423,8 @@ async function fetchGeomJson(num,meta={}){
   const preferred=String(meta.geomPublicRel||'').replace(/^\/+/,'')
   const candidates=[
     preferred,
+    `square-geom/${num}.json`,
+    `gift-geom/${num}.json`,
     `mailer-geom/${num}.json`,
     `shipping-geom/${num}.json`,
   ].filter(Boolean)

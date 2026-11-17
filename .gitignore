@@ -11,11 +11,15 @@ backend/db.sqlite3
 backend/media/
 backend/staticfiles/
 deploy/.env
+deploy/cache/*.tar.xz
+deploy/cache/*.tar.gz
 # Local secret scratch files (never commit)
 api key.md
 **/api key.md
 *.apikey
 services/geometry/node_modules/
+services/render/benchmark_result.json
+
 research/**/node_modules/
 research/**/dist/
 research/**/data/private/**
