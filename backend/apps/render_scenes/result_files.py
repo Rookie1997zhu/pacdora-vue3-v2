@@ -1,4 +1,8 @@
-"""Ephemeral render result files (shared volume, not Asset/media catalog)."""
+"""Legacy ephemeral render result helpers (migration fallback only).
+
+Successful jobs now archive via Asset + result_asset; ephemeral files may still
+exist briefly during processing or for older rows without result_asset.
+"""
 from __future__ import annotations
 
 import hashlib

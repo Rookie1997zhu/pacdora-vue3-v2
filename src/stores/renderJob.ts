@@ -7,6 +7,7 @@ import {
   renderJobCreate,
   renderJobDownload,
   renderJobGet,
+  renderJobList,
   type RenderBatch,
   type RenderJob,
 } from '../api/renderScenes'
@@ -48,10 +49,12 @@ export const useRenderJobStore = defineStore('renderJob', () => {
   const errorCode = ref('')
   const artifactStatus = ref<ArtifactStatus>('unknown')
   const downloadStatus = ref<DownloadStatus>('idle')
-  /** Local cache so re-download works after server deletes ephemeral file. */
+  /** Local LRU preview cache (speed only; server keeps archived Asset). */
   const resultCache = ref<Record<string, CachedResult>>({})
   /** Oldest → newest job ids for LRU eviction. */
   const cacheOrder = ref<string[]>([])
+  /** Scene-scoped succeeded jobs for re-download. */
+  const sceneJobs = ref<RenderJob[]>([])
   const inflightFetches = new Map<string, Promise<CachedResult>>()
   let pollTimer: ReturnType<typeof setTimeout> | null = null
   let pollGeneration = 0
@@ -312,11 +315,26 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     }
   }
 
-  async function fetchAndCacheJob(jobId: string): Promise<CachedResult> {
-    const cached = resultCache.value[jobId]
-    if (cached) {
-      touchCacheOrder(jobId)
-      return cached
+  async function refreshSceneJobs(sceneId: string | null | undefined) {
+    if (!sceneId) {
+      sceneJobs.value = []
+      return
+    }
+    try {
+      const items = await renderJobList(sceneId)
+      sceneJobs.value = items
+    } catch {
+      /* keep previous list on transient failure */
+    }
+  }
+
+  async function fetchAndCacheJob(jobId: string, opts?: { preferServer?: boolean }): Promise<CachedResult> {
+    if (!opts?.preferServer) {
+      const cached = resultCache.value[jobId]
+      if (cached) {
+        touchCacheOrder(jobId)
+        return cached
+      }
     }
     const pending = inflightFetches.get(jobId)
     if (pending) return pending
@@ -333,26 +351,19 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     }
   }
 
-  async function download() {
-    if (!currentJob.value || currentJob.value.status !== 'succeeded') {
-      artifactStatus.value = 'not_ready'
-      downloadStatus.value = 'failed'
-      error.value = error.value || 'render_not_ready'
-      errorCode.value = errorCode.value || 'RENDER_NOT_READY'
-      return
-    }
-    const jobId = currentJob.value.id
+  async function downloadJobById(jobId: string) {
     busy.value = true
     downloadStatus.value = 'fetching'
     try {
-      const { blob, filename } = await fetchAndCacheJob(jobId)
+      // Prefer server archive when artifact is known ready; LRU still accelerates repeats.
+      const preferServer = artifactStatus.value === 'ready'
+      const { blob, filename } = await fetchAndCacheJob(jobId, { preferServer })
       triggerBlobDownload(blob, filename)
       artifactStatus.value = 'ready'
       downloadStatus.value = 'saved_triggered'
       error.value = ''
       errorCode.value = ''
     } catch (e: unknown) {
-      // Server may have already deleted the ephemeral file after first download.
       const cached = resultCache.value[jobId]
       if (cached) {
         triggerBlobDownload(cached.blob, cached.filename)
@@ -363,7 +374,6 @@ export const useRenderJobStore = defineStore('renderJob', () => {
         return
       }
       const code = e instanceof ApiError ? e.code : 'RENDER_DOWNLOAD_FAILED'
-      // Keep job succeeded; surface artifact/download failure separately.
       if (code === 'ASSET_MISSING' || code === 'RENDER_NOT_READY') {
         markArtifactMissing(code)
         return
@@ -375,6 +385,17 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     } finally {
       busy.value = false
     }
+  }
+
+  async function download() {
+    if (!currentJob.value || currentJob.value.status !== 'succeeded') {
+      artifactStatus.value = 'not_ready'
+      downloadStatus.value = 'failed'
+      error.value = error.value || 'render_not_ready'
+      errorCode.value = errorCode.value || 'RENDER_NOT_READY'
+      return
+    }
+    await downloadJobById(currentJob.value.id)
   }
 
   async function downloadBatch() {
@@ -455,13 +476,16 @@ export const useRenderJobStore = defineStore('renderJob', () => {
     artifactStatus,
     downloadStatus,
     resultCache,
+    sceneJobs,
     hasUnconfirmedResults,
     hasCachedResult,
     hasDownloadableResult,
     clearResultCache,
+    refreshSceneJobs,
     start,
     startBatch,
     download,
+    downloadJobById,
     downloadBatch,
     reset,
   }

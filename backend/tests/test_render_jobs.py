@@ -122,6 +122,7 @@ class RenderJobsTests(TestCase):
     @patch('apps.render_scenes.jobs.call_render', return_value=PNG_1X1)
     def test_render_job_success_and_download(self, _mock_render):
         from apps.assets.models import Asset
+        from apps.assets.services import absolute_path
         from apps.render_scenes.result_files import resolve_result_path
 
         scene, token = self._scene()
@@ -142,26 +143,33 @@ class RenderJobsTests(TestCase):
         self.assertEqual(create.status_code, 202, create.content)
         job = create.json()['data']
         self.assertEqual(job['status'], 'succeeded')
-        self.assertFalse(job.get('result_asset_id'))
+        self.assertTrue(job.get('result_asset_id'))
         self.assertTrue(job.get('checksum'))
-        self.assertIsNotNone(resolve_result_path(job['id'], format='png'))
-        self.assertFalse(
-            Asset.objects.filter(organization=self.org1, source='render').exists()
-        )
+        self.assertIsNone(resolve_result_path(job['id'], format='png'))
+        asset = Asset.objects.get(id=job['result_asset_id'], organization=self.org1, source='render')
+        self.assertTrue(absolute_path(asset).is_file())
 
         detail = self.client.get(f'/api/v1/render-jobs/{job["id"]}/')
         self.assertEqual(detail.status_code, 200)
         self.assertEqual(detail.json()['data']['status'], 'succeeded')
+        self.assertEqual(detail.json()['data']['result_asset_id'], job['result_asset_id'])
+
+        listed = self.client.get(f'/api/v1/render-scenes/{scene["id"]}/render-jobs/')
+        self.assertEqual(listed.status_code, 200)
+        items = listed.json()['data']['items']
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]['id'], job['id'])
 
         download = self.client.get(f'/api/v1/render-jobs/{job["id"]}/download/')
         self.assertEqual(download.status_code, 200)
         body = download.content
         self.assertEqual(body[:8], b'\x89PNG\r\n\x1a\n')
-        self.assertIsNone(resolve_result_path(job['id'], format='png'))
+        self.assertTrue(absolute_path(asset).is_file())
+        self.assertEqual(RenderJob.objects.get(pk=job['id']).result_asset_id, asset.id)
 
         again = self.client.get(f'/api/v1/render-jobs/{job["id"]}/download/')
-        self.assertEqual(again.status_code, 404)
-        self.assertEqual(again.json()['code'], 'ASSET_MISSING')
+        self.assertEqual(again.status_code, 200)
+        self.assertEqual(again.content, body)
 
         ent = OrganizationEntitlement.objects.get(organization=self.org1)
         self.assertEqual(ent.exports_used, 1)
@@ -243,3 +251,5 @@ class RenderJobsTests(TestCase):
         self._login(self.u2)
         r = self.client.get(f'/api/v1/render-jobs/{job_id}/')
         self.assertEqual(r.status_code, 403)
+        dl = self.client.get(f'/api/v1/render-jobs/{job_id}/download/')
+        self.assertEqual(dl.status_code, 403)

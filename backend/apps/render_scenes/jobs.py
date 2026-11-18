@@ -9,7 +9,7 @@ from django.db import transaction
 from django.utils import timezone
 
 from apps.assets.models import Asset
-from apps.assets.services import absolute_path, store_render_input
+from apps.assets.services import absolute_path, store_render_input, store_render_result
 from apps.billing.errors import BillingError
 from apps.billing.models import ExportGrant
 from apps.billing.services import consume_export, refund_export_grant
@@ -18,8 +18,15 @@ from apps.render_scenes.document import create_default_scene, upgrade_scene_to_v
 from apps.render_scenes.errors import RenderSceneError
 from apps.render_scenes.glb import validate_glb
 from apps.render_scenes.models import RenderBatch, RenderEnvironment, RenderJob, RenderScene
-from apps.render_scenes.result_files import delete_result, resolve_result_path, write_result
+from apps.render_scenes.result_files import delete_result, resolve_result_path
 from apps.render_scenes.serializers import RenderBatchSerializer, RenderJobSerializer
+
+
+def _result_mime_and_ext(fmt: str) -> tuple[str, str]:
+    normalized = (fmt or 'png').strip().lower()
+    if normalized in ('jpg', 'jpeg'):
+        return 'image/jpeg', 'jpg'
+    return 'image/png', 'png'
 
 
 def serialize_job(job: RenderJob) -> dict:
@@ -446,7 +453,9 @@ def process_render_job(job_id: str) -> dict:
             .get(pk=job_id)
         )
         if job.status == RenderJob.Status.SUCCEEDED and (
-            job.checksum or resolve_result_path(job.id, format=job.format)
+            job.result_asset_id
+            or job.checksum
+            or resolve_result_path(job.id, format=job.format)
         ):
             return serialize_job(job)
         if job.status in (RenderJob.Status.CANCELLED, RenderJob.Status.FAILED):
@@ -479,7 +488,6 @@ def process_render_job(job_id: str) -> dict:
     started = time.monotonic()
     try:
         image_bytes = call_render(glb=glb, params=params, hdr=hdr_bytes)
-        _path, checksum = write_result(job.id, data=image_bytes, format=job.format)
     except (RenderServiceError, OSError, ValueError) as exc:
         code = getattr(exc, 'code', 'RENDER_FAILED')
         delete_result(job_id, format=job.format)
@@ -493,15 +501,45 @@ def process_render_job(job_id: str) -> dict:
     with transaction.atomic():
         locked = (
             RenderJob.objects.select_for_update(of=('self',))
-            .select_related('batch')
+            .select_related('batch', 'organization', 'owner')
+            .get(pk=job_id)
+        )
+        if locked.status == RenderJob.Status.CANCELLED:
+            delete_result(job_id, format=locked.format)
+            return serialize_job(locked)
+
+    mime, ext = _result_mime_and_ext(job.format)
+    try:
+        asset = store_render_result(
+            organization=job.organization,
+            owner=job.owner,
+            data=image_bytes,
+            mime=mime,
+            filename=f'render-{job_id}.{ext}',
+            meta={
+                'render_job_id': str(job_id),
+                'scene_id': str(job.scene_id),
+                'width': job.width,
+                'height': job.height,
+                'format': job.format,
+            },
+        )
+    except Exception as exc:  # noqa: BLE001
+        delete_result(job_id, format=job.format)
+        return _fail_job(job_id, code='ASSET_STORE_FAILED', message=str(exc))
+
+    with transaction.atomic():
+        locked = (
+            RenderJob.objects.select_for_update(of=('self',))
+            .select_related('batch', 'result_asset')
             .get(pk=job_id)
         )
         if locked.status == RenderJob.Status.CANCELLED:
             delete_result(job_id, format=locked.format)
             return serialize_job(locked)
         locked.status = RenderJob.Status.SUCCEEDED
-        locked.result_asset = None
-        locked.checksum = checksum
+        locked.result_asset = asset
+        locked.checksum = asset.sha256 or ''
         locked.error_code = ''
         locked.error_message = ''
         locked.duration_ms = duration_ms
@@ -521,4 +559,6 @@ def process_render_job(job_id: str) -> dict:
         _cleanup_input(locked)
         _update_batch_after_job(locked)
         _dispatch_next_queued(locked.organization_id)
+        # Prefer archived Asset; drop any leftover ephemeral twin.
+        delete_result(job_id, format=locked.format)
         return serialize_job(locked)

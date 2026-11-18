@@ -1,4 +1,4 @@
-import { API_BASE, apiRequest } from './client'
+import { API_BASE, ApiError, apiRequest } from './client'
 import type { RenderSceneDocumentV2 } from '../../packages/render-scene-schema/renderScene'
 
 export type RenderSceneListItem = {
@@ -218,6 +218,11 @@ export async function renderJobGet(jobId: string) {
   return res.data
 }
 
+export async function renderJobList(sceneId: string) {
+  const res = await apiRequest<{ items: RenderJob[] }>(`/render-scenes/${sceneId}/render-jobs/`)
+  return res.data.items
+}
+
 export async function renderJobDownload(jobId: string): Promise<{ blob: Blob; filename: string }> {
   const tokenHeaders: HeadersInit = { Accept: 'image/png,image/jpeg,*/*' }
   const res = await fetch(`${API_BASE}/render-jobs/${jobId}/download/`, {
@@ -226,13 +231,15 @@ export async function renderJobDownload(jobId: string): Promise<{ blob: Blob; fi
   })
   if (!res.ok) {
     let message = `HTTP ${res.status}`
+    let code = 'RENDER_DOWNLOAD_FAILED'
     try {
       const body = await res.json()
       message = body?.message || message
+      if (typeof body?.code === 'string' && body.code) code = body.code
     } catch {
       /* ignore */
     }
-    throw new Error(message)
+    throw new ApiError(res.status, { message, code })
   }
   const blob = await res.blob()
   const cd = res.headers.get('Content-Disposition') || ''

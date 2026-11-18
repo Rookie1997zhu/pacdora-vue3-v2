@@ -18,8 +18,8 @@
 | 脏设计开渲 | Passed | Studio 改纸种/尺寸后点「3D 렌더러에서 열기」进入渲染场景；脏态优先走保存再 `renderSceneCreate`（1.5s 自动保存常先清 dirty，未截到中间态提示属预期竞态） |
 | 开渲确认 | Passed | `08-render-confirm-pixels.png`：弹窗摘要含 **출력 크기 2048×2048**、**시점 1개**，非只写「2K」 |
 | 返回设计 | Passed | 同上帧顶栏「디자인으로 돌아가기」可见（`07` 与 `08` 同帧备份） |
-| 云渲全链路 | Blocked | `09-cloud-render-progress.png`：已提交 2K 单视角，约 70s 仍 `running`/光追中，按计划不硬等成片 |
-| 成片失效 LRU | Blocked | 合理时间内未复现缓存失效，不记 Passed |
+| 云渲全链路 | Passed | 见 [p1.2-render-archive-evidence.md](p1.2-render-archive-evidence.md)：job `caa7a05c…` 2K 等到 `succeeded`，`result_asset` 非空，成片可下载 |
+| 成片失效 LRU | Passed（叙事更新） | P1.2 起成片归档到 Asset，可二次下载；前端 LRU=8 仅作本机加速缓存，不再作为「服务端删文件后唯一副本」；旧 Blocked「成片失效」不再作为期望 |
 | 购物车设计名 | Passed | `10-cart-design-name.png`：行显示 **FEFCO 0427**（`design_name`） |
 | 升级页非付款 | Passed | `11-upgrade-non-payment.png`：可见「실제 결제를 연결하지 않습니다…」意向非付款说明 |
 | 窄屏工作台导出抽屉 | Not Run | 时间未补 `/workbench` 390 导出抽屉（可选） |

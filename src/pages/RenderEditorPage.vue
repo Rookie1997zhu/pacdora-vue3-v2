@@ -225,6 +225,25 @@
             </label>
             <p class="hint">{{ t('render.outputSizePreview', { size: outputSizeLabel }) }}</p>
           </section>
+          <section class="panel archived-jobs">
+            <h2>{{ t('render.archivedJobs') }}</h2>
+            <ul v-if="archivedJobs.length" class="job-list">
+              <li v-for="j in archivedJobs" :key="j.id">
+                <div>
+                  <strong>{{ t('render.archivedJobMeta', { w: j.width, h: j.height, format: (j.format || 'png').toUpperCase() }) }}</strong>
+                  <span class="hint">{{ formatJobTime(j.finished_at || j.created_at) }}</span>
+                </div>
+                <button
+                  type="button"
+                  :disabled="jobStore.busy"
+                  @click="onDownloadArchived(j.id)"
+                >
+                  {{ t('render.downloadAgain') }}
+                </button>
+              </li>
+            </ul>
+            <p v-else class="hint">{{ t('render.archivedJobsEmpty') }}</p>
+          </section>
         </details>
       </aside>
     </main>
@@ -980,6 +999,21 @@ function onDownload() {
   else void jobStore.download()
 }
 
+function onDownloadArchived(jobId: string) {
+  void jobStore.downloadJobById(jobId)
+}
+
+function formatJobTime(iso: string | null | undefined) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  return d.toLocaleString()
+}
+
+const archivedJobs = computed(() =>
+  (jobStore.sceneJobs || []).filter((j) => j.status === 'succeeded' && j.result_asset_id),
+)
+
 async function onRenderConfirm() {
   if (jobStore.hasUnconfirmedResults) {
     const ok = window.confirm(t('render.confirmClearResults'))
@@ -1042,6 +1076,7 @@ async function onRenderConfirm() {
   } finally {
     rendering.value = false
     stopProgressTicker()
+    void jobStore.refreshSceneJobs(store.sceneId)
   }
 }
 
@@ -1084,6 +1119,7 @@ onMounted(async () => {
     designOptions.value = await fetchDesigns('active')
     void billing.refresh()
     await refreshProps()
+    void jobStore.refreshSceneJobs(store.sceneId)
   } catch (e: unknown) {
     bootError.value = e instanceof ApiError ? e.message : t('render.loadFailed')
     return
@@ -1245,6 +1281,28 @@ onBeforeUnmount(() => {
 }
 .ephemeral-note {
   margin: 0 0 12px;
+}
+.archived-jobs .job-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.archived-jobs .job-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.archived-jobs .job-list strong {
+  display: block;
+  font-size: 0.85rem;
+}
+.archived-jobs .job-list .hint {
+  display: block;
+  margin: 2px 0 0;
+  font-size: 0.75rem;
 }
 .status button,
 .xform button,

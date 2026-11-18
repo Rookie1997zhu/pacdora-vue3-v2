@@ -1,6 +1,6 @@
 import json
 
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -218,6 +218,17 @@ class RenderJobCreateView(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
+    def get(self, request, scene_id):
+        scene = _get_owned_scene(request.user, scene_id)
+        if not scene:
+            return fail('无权访问场景', code='FORBIDDEN', request=request, http_status=403)
+        qs = (
+            RenderJob.objects.select_related('result_asset', 'input_asset', 'batch')
+            .filter(scene_id=scene.id, organization_id=scene.organization_id)
+            .order_by('-created_at')[:50]
+        )
+        return ok({'items': RenderJobSerializer(qs, many=True).data}, request=request)
+
     def post(self, request, scene_id):
         scene = _get_owned_scene(request.user, scene_id)
         if not scene:
@@ -346,14 +357,24 @@ class RenderJobDownloadView(APIView):
             return fail('无权访问渲染任务', code='FORBIDDEN', request=request, http_status=403)
         if job.status != RenderJob.Status.SUCCEEDED:
             return fail('渲染尚未完成', code='RENDER_NOT_READY', request=request, http_status=400)
-        path = resolve_result_path(job.id, format=job.format)
+
+        # Prefer archived Asset; ephemeral path is migration-only fallback.
+        path = None
+        if job.result_asset_id and job.result_asset:
+            candidate = absolute_path(job.result_asset)
+            if candidate.is_file():
+                path = candidate
+            else:
+                return fail('文件缺失', code='ASSET_MISSING', request=request, http_status=404)
+        if path is None:
+            path = resolve_result_path(job.id, format=job.format)
         if not path:
             return fail('文件缺失', code='ASSET_MISSING', request=request, http_status=404)
-        data = path.read_bytes()
+
         filename = download_filename(job.id, path)
         content_type = mime_for_path(path)
-        delete_result(job.id, format=job.format)
-        response = HttpResponse(data, content_type=content_type)
+        # Repeatable download: keep Asset / migration ephemeral file.
+        response = HttpResponse(path.read_bytes(), content_type=content_type)
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         return response
 
