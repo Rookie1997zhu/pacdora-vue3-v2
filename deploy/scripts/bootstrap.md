@@ -64,8 +64,29 @@ docker compose --env-file deploy/.env -f deploy/compose.yaml exec -T postgres \
 ```
 
 - 卷：`pg_data`、`redis_data`、`media_data`、`caddy_data`、`caddy_config`
-- 回滚：保留卷，切换 `APP_TAG`/`WEB_TAG` 镜像后 `up -d`
 - **禁止**日常排障 `docker compose down -v`
+
+### 回滚（保留卷，不删数据）
+
+本机/交付环境用 `APP_TAG` / `WEB_TAG`（默认 `local`）引用镜像。回退到已知可用摘要时：
+
+```bash
+# 1) 查可用镜像（记下要回退的 IMAGE ID）
+docker images boxcraft-backend boxcraft-caddy
+
+# 2) 示例：临时把旧摘要标成可切换 tag（按实际 ID 改）
+# docker tag <old-backend-id> boxcraft-backend:rollback
+# docker tag <old-caddy-id> boxcraft-caddy:rollback
+
+# 3) 在 deploy/.env 设 APP_TAG=rollback WEB_TAG=rollback 后：
+docker compose --env-file deploy/.env -f deploy/compose.yaml up -d backend worker render-worker scheduler caddy
+
+# 4) 健康检查
+docker compose --env-file deploy/.env -f deploy/compose.yaml ps
+curl -sS http://localhost/api/v1/health/
+```
+
+仅有 `:local`、没有旧摘要时，无法做实机切镜像演练；应先在发布前 `docker tag boxcraft-backend:local boxcraft-backend:pre-<sha>` 留档。无破坏性 migration 时，镜像回滚即可；有迁移时需按迁移方向单独评估，仍禁止 `down -v`。
 
 ## Windows Docker Desktop：基镜像拉取失败
 

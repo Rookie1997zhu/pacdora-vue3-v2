@@ -22,7 +22,7 @@
 | 成片失效 LRU | Passed（叙事更新） | P1.2 起成片归档到 Asset，可二次下载；前端 LRU=8 仅作本机加速缓存，不再作为「服务端删文件后唯一副本」；旧 Blocked「成片失效」不再作为期望 |
 | 购物车设计名 | Passed | `10-cart-design-name.png`：行显示 **FEFCO 0427**（`design_name`） |
 | 升级页非付款 | Passed | `11-upgrade-non-payment.png`：可见「실제 결제를 연결하지 않습니다…」意向非付款说明 |
-| 窄屏工作台导出抽屉 | Not Run | 时间未补 `/workbench` 390 导出抽屉（可选） |
+| 窄屏工作台导出抽屉 | Passed | 见 [p0.6-release-evidence.md](p0.6-release-evidence.md) 续验：`screenshots/p0.6/01-workbench-390-export-drawer.png`（390，`export-drawer open narrow`） |
 
 ## 预备
 
