@@ -13,18 +13,45 @@
       </div>
       <motion.div class="hero-visual" :aria-label="t('site.heroVisual')" v-bind="visualEnter">
         <div class="hero-stage">
-          <img
-            v-if="heroCover"
-            class="hero-cover"
-            :src="heroCover"
-            :alt="heroAlt"
-            width="640"
-            height="512"
+          <HomeHeroFoldPreview
+            v-if="previewOn && heroPreviewSlug"
+            :slug="heroPreviewSlug"
+            @failed="onPreviewFailed"
+            @ready="previewFailed = false"
           />
-          <div v-else class="hero-fallback" aria-hidden="true">
-            <div class="hero-panel" />
-          </div>
+          <template v-else>
+            <img
+              v-if="heroCover && !coverBroken"
+              class="hero-cover"
+              :src="heroCover"
+              :alt="heroAlt"
+              width="640"
+              height="512"
+              @error="coverBroken = true"
+            />
+            <div v-else class="hero-fallback" role="img" :aria-label="heroAlt || t('site.heroCoverFailed')">
+              <div class="hero-panel" />
+              <p class="hero-fallback-label">{{ heroAlt || t('site.heroCoverFailed') }}</p>
+            </div>
+            <button
+              v-if="heroPreviewSlug && !previewFailed"
+              type="button"
+              class="bc-btn bc-btn--primary hero-3d-cta"
+              @click="previewOn = true"
+            >
+              {{ t('site.heroView3d') }}
+            </button>
+          </template>
+          <button
+            v-if="previewOn"
+            type="button"
+            class="bc-btn bc-btn--ghost hero-3d-close"
+            @click="closePreview"
+          >
+            {{ t('site.heroClose3d') }}
+          </button>
         </div>
+        <p v-if="previewFailed" class="hero-3d-note">{{ t('site.hero3dUnavailable') }}</p>
       </motion.div>
     </section>
 
@@ -90,7 +117,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { motion } from 'motion-v'
 import logoUrl from '../assets/brand/boxcraft-logo.png'
@@ -105,6 +132,9 @@ import { fetchBlogPosts, type BlogCard } from '../api/blog'
 // @ts-expect-error JS asset helper
 import { publicAssetUrl } from '../assetUrl.js'
 
+/** Lazy so homepage first paint never pulls Three / knifeScene. */
+const HomeHeroFoldPreview = defineAsyncComponent(() => import('../components/home/HomeHeroFoldPreview.vue'))
+
 const { t, locale } = useI18n()
 const heroCopyEl = ref<HTMLElement | null>(null)
 useHomeHeroGsap(heroCopyEl)
@@ -117,18 +147,49 @@ const productsError = ref('')
 const blogPosts = ref<BlogCard[]>([])
 const blogLoading = ref(true)
 
+const previewOn = ref(false)
+const previewFailed = ref(false)
+const coverBroken = ref(false)
+
 const featuredProducts = computed(() => {
   const withCover = products.value.filter((p) => p.cover_rel)
   const pool = withCover.length ? withCover : products.value
   return pool.slice(0, 6)
 })
 
-const heroProduct = computed(() => featuredProducts.value[0] || null)
+/** Prefer a product that can feed workbench geometry (not model_only). */
+const heroProduct = computed(() => {
+  const pool = featuredProducts.value
+  return (
+    pool.find((p) => p.geometry_mode !== 'model_only' && p.cover_rel) ||
+    pool.find((p) => p.geometry_mode !== 'model_only') ||
+    pool[0] ||
+    null
+  )
+})
+const heroPreviewSlug = computed(() => {
+  const p = heroProduct.value
+  if (!p || p.geometry_mode === 'model_only') return ''
+  return p.slug || ''
+})
 const heroCover = computed(() => (heroProduct.value?.cover_rel ? publicAssetUrl(heroProduct.value.cover_rel) : ''))
 const heroAlt = computed(() => {
   const p = heroProduct.value
   if (!p) return t('site.heroVisual')
   return locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name
+})
+
+function closePreview() {
+  previewOn.value = false
+}
+
+function onPreviewFailed() {
+  previewOn.value = false
+  previewFailed.value = true
+}
+
+watch(heroCover, () => {
+  coverBroken.value = false
 })
 const workspaceCover = computed(() =>
   featuredProducts.value[1]?.cover_rel
@@ -266,6 +327,8 @@ h1 {
   width: 100%;
   height: 100%;
   position: relative;
+  display: grid;
+  place-items: center;
 }
 
 .hero-panel {
@@ -274,6 +337,45 @@ h1 {
   border: 1.5px dashed rgba(0, 104, 104, 0.35);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.45);
+}
+
+.hero-fallback-label {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0 16px;
+  font-size: 13px;
+  color: var(--bc-ink-muted);
+  text-align: center;
+}
+
+.hero-3d-cta,
+.hero-3d-close {
+  position: absolute;
+  z-index: 3;
+  box-shadow: var(--bc-shadow);
+}
+
+.hero-3d-cta {
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+}
+
+.hero-3d-close {
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.hero-3d-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--bc-ink-muted);
+  text-align: center;
+  max-width: 42ch;
 }
 
 .how {
