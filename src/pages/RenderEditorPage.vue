@@ -299,6 +299,8 @@
         <label>
           {{ t('render.resolution') }}
           <select v-model="renderRes">
+            <option value="512">512</option>
+            <option value="1k">1K</option>
             <option value="2k">2K</option>
             <option value="4k">4K</option>
           </select>
@@ -453,13 +455,24 @@ const selectedTemplateId = ref('')
 const templateDesignId = ref('')
 const batchViewIds = ref<string[]>([])
 const renderDialogOpen = ref(false)
-const renderRes = ref<'2k' | '4k'>('2k')
+type RenderRes = '512' | '1k' | '2k' | '4k'
+const RENDER_RES_WIDTH: Record<RenderRes, number> = {
+  '512': 512,
+  '1k': 1024,
+  '2k': 2048,
+  '4k': 3840,
+}
+const renderRes = ref<RenderRes>('1k')
 const renderFormat = ref<'png' | 'jpg'>('png')
 const renderBatchMode = ref(false)
 const progressOpen = ref(false)
 const progressStartedAt = ref(0)
 const progressTick = ref(0)
 let progressTickTimer: ReturnType<typeof setInterval> | null = null
+
+function widthForRenderRes(res: RenderRes): number {
+  return RENDER_RES_WIDTH[res] || 1024
+}
 
 function startProgressTicker() {
   stopProgressTicker()
@@ -499,7 +512,7 @@ const linkedDesignId = computed(() => store.content.models[0]?.designId || '')
 
 const outputPixels = computed(() => {
   const ratio = ASPECT_RATIOS[aspect.value] || ASPECT_RATIOS[store.content.output.aspect] || 1
-  const width = renderRes.value === '4k' ? 3840 : 2048
+  const width = widthForRenderRes(renderRes.value)
   const height = Math.max(256, Math.round(width / ratio))
   return { width, height }
 })
@@ -1045,7 +1058,7 @@ async function onRenderConfirm() {
       throw new Error(t('render.exportGlbFailed'))
     }
     const ratio = ASPECT_RATIOS[store.content.output.aspect] || 1
-    const width = renderRes.value === '4k' ? 3840 : 2048
+    const width = widthForRenderRes(renderRes.value)
     const height = Math.max(256, Math.round(width / ratio))
     const glb = new Blob([glbBuf as BlobPart], { type: 'model/gltf-binary' })
     if (renderBatchMode.value && batchViewIds.value.length) {

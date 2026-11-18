@@ -1,6 +1,6 @@
 import json
 
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -27,6 +27,7 @@ from apps.render_scenes.result_files import (
 )
 from apps.render_scenes.serializers import (
     RenderEnvironmentSerializer,
+    RenderJobSerializer,
     RenderPropSerializer,
     RenderSceneDetailSerializer,
     RenderSceneListSerializer,

@@ -8,7 +8,14 @@ cp deploy/env.example deploy/.env
 # 本机冒烟保持 SITE_ADDRESS=http://localhost（关闭自动 HTTPS）；公网域名再改为 example.com
 # 填好 SMOKE_EMAIL / SMOKE_PASSWORD（与下方 smoke 用户一致）
 
+# 本机构建：
 docker compose --env-file deploy/.env -f deploy/compose.yaml build
+# 或从 Docker Hub 拉取（无需 build）：在 .env 设
+#   IMAGE_PREFIX=rookie1997/
+#   APP_TAG=latest
+#   WEB_TAG=latest
+# 然后：docker compose --env-file deploy/.env -f deploy/compose.yaml pull
+
 docker compose --env-file deploy/.env -f deploy/compose.yaml --profile maintenance run --rm migrate
 docker compose --env-file deploy/.env -f deploy/compose.yaml up -d
 docker compose --env-file deploy/.env -f deploy/compose.yaml exec backend \
@@ -17,6 +24,23 @@ docker compose --env-file deploy/.env -f deploy/compose.yaml exec backend \
   python manage.py createsuperuser
 # 超管用于自研控制台 /console（已移除 Django Admin）；也可创建冒烟用户（SMOKE_*）
 ```
+
+### 推送到 Docker Hub（维护者）
+
+本机已 `docker build` 出 `boxcraft-*:local` 且已 `docker login` 后：
+
+```bash
+U=rookie1997
+T=$(git rev-parse --short HEAD)   # 或固定 latest
+for n in backend caddy geometry render; do
+  docker tag boxcraft-$n:local $U/boxcraft-$n:$T
+  docker tag boxcraft-$n:local $U/boxcraft-$n:latest
+  docker push $U/boxcraft-$n:$T
+  docker push $U/boxcraft-$n:latest
+done
+```
+
+Hub 仓库名：`rookie1997/boxcraft-backend|caddy|geometry|render`。postgres/redis 仍用官方镜像，不必推送。
 
 冒烟（Caddy `:80`，Host 需匹配 `SITE_ADDRESS`）：
 

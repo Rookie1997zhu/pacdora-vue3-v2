@@ -34,8 +34,9 @@ x-backend-env: &backend-env
   SITE_PUBLIC_URL: ${SITE_PUBLIC_URL:-http://localhost}
   GEO_COUNTRY_HEADER: ${GEO_COUNTRY_HEADER:-CF-IPCountry}
 
+# IMAGE_PREFIX empty = local names; Docker Hub e.g. IMAGE_PREFIX=rookie1997/
 x-backend-base: &backend-base
-  image: boxcraft-backend:${APP_TAG:-local}
+  image: ${IMAGE_PREFIX:-}boxcraft-backend:${APP_TAG:-local}
   build:
     context: ..
     dockerfile: deploy/Dockerfile.backend
@@ -51,7 +52,7 @@ x-backend-base: &backend-base
 
 services:
   caddy:
-    image: boxcraft-caddy:${WEB_TAG:-local}
+    image: ${IMAGE_PREFIX:-}boxcraft-caddy:${WEB_TAG:-local}
     build:
       context: ..
       dockerfile: deploy/Dockerfile.caddy
@@ -108,7 +109,7 @@ services:
     networks: [core]
 
   geometry:
-    image: boxcraft-geometry:${APP_TAG:-local}
+    image: ${IMAGE_PREFIX:-}boxcraft-geometry:${APP_TAG:-local}
     build:
       context: ..
       dockerfile: deploy/Dockerfile.geometry
@@ -127,7 +128,7 @@ services:
     networks: [core]
 
   render:
-    image: boxcraft-render:${APP_TAG:-local}
+    image: ${IMAGE_PREFIX:-}boxcraft-render:${APP_TAG:-local}
     build:
       context: ..
       dockerfile: deploy/Dockerfile.render
