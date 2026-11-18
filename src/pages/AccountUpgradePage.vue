@@ -48,7 +48,8 @@
         <button class="bc-btn bc-btn--primary" type="button" :disabled="busy" @click="onSubmit">
           {{ t('billing.submitIntent') }}
         </button>
-        <p v-if="success" class="ok">{{ t('billing.intentSubmitted') }}</p>
+        <p v-if="success" class="ok" role="status">{{ t('billing.intentSubmitted') }}</p>
+        <p v-if="success" class="note">{{ t('billing.noPaymentNote') }}</p>
         <p v-if="error" class="err">{{ error }}</p>
 
         <p class="links">

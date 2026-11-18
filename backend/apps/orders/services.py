@@ -31,6 +31,17 @@ def get_or_create_active_cart(organization) -> Cart:
     return Cart.objects.create(organization=organization, status=Cart.Status.ACTIVE)
 
 
+def _design_display_fields(item) -> dict:
+    design = getattr(item, 'design', None)
+    name = getattr(design, 'name', None) if design is not None else None
+    product = getattr(design, 'product', None) if design is not None else None
+    slug = getattr(product, 'slug', None) if product is not None else None
+    return {
+        'design_name': name or None,
+        'product_slug': slug or None,
+    }
+
+
 def serialize_cart_item(item: CartItem) -> dict:
     from apps.assets.preview import preview_fields_for_content
 
@@ -46,6 +57,7 @@ def serialize_cart_item(item: CartItem) -> dict:
         'id': str(item.id),
         'design_id': str(item.design_id),
         'design_revision_id': str(item.design_revision_id),
+        **_design_display_fields(item),
         'quote_id': str(item.quote_id) if item.quote_id else None,
         'quote': quote_data,
         'quantity': item.quantity,
@@ -59,7 +71,7 @@ def serialize_cart_item(item: CartItem) -> dict:
 def serialize_cart(cart: Cart) -> dict:
     items = (
         CartItem.objects.filter(cart=cart)
-        .select_related('quote', 'design', 'design_revision')
+        .select_related('quote', 'design', 'design__product', 'design_revision')
         .order_by('created_at')
     )
     return {
@@ -78,6 +90,7 @@ def serialize_order_item(item: OrderItem) -> dict:
         'id': str(item.id),
         'design_id': str(item.design_id),
         'design_revision_id': str(item.design_revision_id),
+        **_design_display_fields(item),
         'quote_id': str(item.quote_id) if item.quote_id else None,
         'quantity': item.quantity,
         'unit_amount': str(item.unit_amount) if item.unit_amount is not None else None,
@@ -87,7 +100,11 @@ def serialize_order_item(item: OrderItem) -> dict:
 
 
 def serialize_order(order: Order) -> dict:
-    items = OrderItem.objects.filter(order=order).order_by('created_at')
+    items = (
+        OrderItem.objects.filter(order=order)
+        .select_related('design', 'design__product')
+        .order_by('created_at')
+    )
     return {
         'id': str(order.id),
         'organization_id': str(order.organization_id),

@@ -5,6 +5,8 @@ export type CartItem = {
   id: string
   design_id: string
   design_revision_id: string
+  design_name?: string | null
+  product_slug?: string | null
   quote_id: string | null
   quote: Quote | null
   quantity: number

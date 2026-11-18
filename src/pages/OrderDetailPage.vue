@@ -19,8 +19,14 @@
       <ul class="list">
         <li v-for="line in order.current.items" :key="line.id" class="row">
           <div>
-            <strong>rev {{ line.design_revision_id.slice(0, 8) }}</strong>
-            <p class="meta">qty {{ line.quantity }} · {{ lineStatus(line.line_status) }}</p>
+            <strong>{{ line.design_name || `rev ${line.design_revision_id.slice(0, 8)}` }}</strong>
+            <p class="meta">
+              <span v-if="line.product_slug">{{ line.product_slug }} · </span>
+              rev {{ line.design_revision_id.slice(0, 8) }} · qty {{ line.quantity }} ·
+              <span class="status-chip" :data-tone="line.line_status === 'priced' ? 'ready' : 'pending'">{{
+                lineStatus(line.line_status)
+              }}</span>
+            </p>
           </div>
           <div class="meta amount">
             <template v-if="order.current.status === 'pending_manual' && line.line_status === 'pending_manual'">
@@ -202,6 +208,29 @@ h2 {
   margin: 4px 0 0;
   color: var(--bc-ink-muted);
   font-size: 13px;
+}
+
+.status-chip {
+  display: inline-flex;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--bc-line);
+  background: #f4f6f8;
+  color: var(--bc-ink-muted);
+  vertical-align: middle;
+}
+
+.status-chip[data-tone='ready'] {
+  background: #e8f5ee;
+  border-color: #b7dfc8;
+  color: #1f6b45;
+}
+
+.status-chip[data-tone='pending'] {
+  background: #fff6e8;
+  border-color: #efd2a3;
+  color: #8a5a12;
 }
 
 .amount input {

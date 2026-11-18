@@ -2,19 +2,28 @@
   <ConsoleShell :title="t('console.nav.exports')">
     <div class="toolbar">
       <select v-model="status" @change="load">
-        <option value="">all</option>
-        <option value="failed">failed</option>
-        <option value="queued">queued</option>
-        <option value="running">running</option>
-        <option value="succeeded">succeeded</option>
-        <option value="cancelled">cancelled</option>
+        <option value="">{{ t('console.filterAll') }}</option>
+        <option value="failed">{{ t('console.statusFailed') }}</option>
+        <option value="queued">{{ t('console.statusQueued') }}</option>
+        <option value="running">{{ t('console.statusRunning') }}</option>
+        <option value="succeeded">{{ t('console.statusSucceeded') }}</option>
+        <option value="cancelled">{{ t('console.statusCancelled') }}</option>
       </select>
       <button type="button" @click="load">{{ t('console.refresh') }}</button>
     </div>
     <p v-if="msg" class="msg">{{ msg }}</p>
     <table>
       <thead>
-        <tr><th>format</th><th>status</th><th>attempts</th><th>grant refunded</th><th>design</th><th>error</th><th>created</th><th></th></tr>
+        <tr>
+          <th>{{ t('console.colFormat') }}</th>
+          <th>{{ t('console.colStatus') }}</th>
+          <th>{{ t('console.colAttempts') }}</th>
+          <th>{{ t('console.colGrantRefunded') }}</th>
+          <th>{{ t('console.colDesign') }}</th>
+          <th>{{ t('console.colError') }}</th>
+          <th>{{ t('console.colCreated') }}</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="j in items" :key="j.id">
@@ -26,8 +35,8 @@
           <td class="err">{{ j.error_code }} {{ j.error_message }}</td>
           <td>{{ j.created_at }}</td>
           <td class="actions">
-            <button type="button" @click="retry(j)">retry</button>
-            <button type="button" @click="cancel(j)">cancel</button>
+            <button type="button" @click="retry(j)">{{ t('console.retry') }}</button>
+            <button type="button" @click="cancel(j)">{{ t('console.cancel') }}</button>
           </td>
         </tr>
       </tbody>
@@ -55,10 +64,10 @@ async function retry(j: any) {
   msg.value = ''
   try {
     await consoleApi.retryExport(j.id)
-    msg.value = `retried ${j.id}`
+    msg.value = t('console.retried', { id: j.id.slice(0, 8) })
     await load()
   } catch (e: unknown) {
-    msg.value = e instanceof Error ? e.message : 'retry failed'
+    msg.value = e instanceof Error ? e.message : t('console.retryFailed')
   }
 }
 

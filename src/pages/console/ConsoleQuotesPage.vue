@@ -2,7 +2,15 @@
   <ConsoleShell :title="t('console.nav.quotes')">
     <button type="button" class="refresh" @click="load">{{ t('console.refresh') }}</button>
     <table>
-      <thead><tr><th>id</th><th>status</th><th>design</th><th>total</th><th>created</th></tr></thead>
+      <thead>
+        <tr>
+          <th>{{ t('console.colId') }}</th>
+          <th>{{ t('console.colStatus') }}</th>
+          <th>{{ t('console.colDesign') }}</th>
+          <th>{{ t('console.colTotal') }}</th>
+          <th>{{ t('console.colCreated') }}</th>
+        </tr>
+      </thead>
       <tbody>
         <tr v-for="q in items" :key="q.id">
           <td class="mono">{{ q.id.slice(0, 8) }}</td>

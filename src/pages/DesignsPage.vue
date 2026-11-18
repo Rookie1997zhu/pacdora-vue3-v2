@@ -30,10 +30,13 @@
             <span>{{ d.product_slug || '—' }} · v{{ d.row_version }} · {{ formatTime(d.updated_at) }}</span>
           </RouterLink>
           <div class="actions">
+            <RouterLink class="bc-btn bc-btn--primary continue-edit" :to="`/designs/${d.id}`">
+              {{ t('studio.continueEdit') }}
+            </RouterLink>
             <button type="button" @click="onCopy(d.id)">{{ t('studio.copy') }}</button>
             <button v-if="tab === 'active'" type="button" @click="onArchive(d.id)">{{ t('studio.archive') }}</button>
             <button v-else type="button" @click="onRestore(d.id)">{{ t('studio.restore') }}</button>
-            <button type="button" class="danger" @click="onDelete(d.id)">{{ t('studio.delete') }}</button>
+            <button type="button" class="danger" @click="onDelete(d)">{{ t('studio.delete') }}</button>
           </div>
         </li>
       </ul>
@@ -110,10 +113,10 @@ async function onCopy(id: string) {
   await router.push(`/designs/${copied.id}`)
 }
 
-async function onDelete(id: string) {
-  if (!window.confirm(t('studio.deleteConfirm'))) return
+async function onDelete(d: DesignListItem) {
+  if (!window.confirm(t('studio.deleteConfirmNamed', { name: d.name }))) return
   try {
-    await deleteDesign(id)
+    await deleteDesign(d.id)
     await load()
   } catch (e: unknown) {
     error.value = e instanceof ApiError ? e.message : t('studio.deleteFailed')
@@ -190,6 +193,13 @@ onMounted(async () => {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.actions .continue-edit {
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .actions button {

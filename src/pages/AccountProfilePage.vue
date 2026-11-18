@@ -9,12 +9,20 @@
           <div class="quota" v-if="billing.entitlement">
             <h2>{{ t('billing.entitlementTitle') }}</h2>
             <p>
-              {{ t('billing.plan') }}: <strong>{{ billing.entitlement.plan }}</strong>
+              {{ t('billing.plan') }}:
+              <strong>{{ planLabel(billing.entitlement.plan) }}</strong>
+              <span v-if="!isKnownPlan(billing.entitlement.plan)" class="tech">{{
+                t('billing.planUnknownDetail', { code: billing.entitlement.plan })
+              }}</span>
               ·
               {{ t('billing.remaining') }}:
               <strong>{{ billing.entitlement.unlimited ? t('billing.unlimited') : billing.entitlement.remaining }}</strong>
             </p>
-            <RouterLink class="bc-btn" to="/account/upgrade">{{ t('billing.upgradeLink') }}</RouterLink>
+            <p v-if="billing.quotaExceeded" class="quota-warn">{{ t('billing.quotaExceeded') }}</p>
+            <p class="note">{{ t('billing.noPaymentNote') }}</p>
+            <RouterLink class="bc-btn bc-btn--primary" to="/account/upgrade">{{
+              billing.quotaExceeded ? t('billing.upgradeNow') : t('billing.upgradeLink')
+            }}</RouterLink>
           </div>
           <div class="orgs">
             <h2>{{ t('auth.organizations') }}</h2>
@@ -51,6 +59,17 @@ const { t } = useI18n()
 const auth = useAuthStore()
 const billing = useBillingStore()
 const router = useRouter()
+
+function isKnownPlan(code: string) {
+  return code === 'free' || code === 'annual' || code === 'pay_per_use'
+}
+
+function planLabel(code: string) {
+  if (code === 'free') return t('billing.planFree')
+  if (code === 'annual') return t('billing.planAnnual')
+  if (code === 'pay_per_use') return t('billing.planPayPerUse')
+  return code
+}
 
 onMounted(async () => {
   await auth.refreshMe()
@@ -96,6 +115,54 @@ async function onLogout() {
 .quota .bc-btn {
   display: inline-flex;
   margin-top: 8px;
+}
+
+.quota .note {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bc-steel-soft);
+  color: var(--bc-ink-muted);
+  font-size: 13px;
+}
+
+.quota-warn {
+  margin: 6px 0 0;
+  color: var(--bc-danger, #b42318);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tech {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--bc-ink-muted);
+  font-weight: 400;
+}
+
+.tech {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--bc-ink-muted);
+  font-weight: 400;
+}
+
+.note {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bc-steel-soft);
+  color: var(--bc-ink-muted);
+  font-size: 13px;
+}
+
+.quota-warn {
+  margin: 8px 0 0;
+  color: var(--bc-danger, #b42318);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .links {

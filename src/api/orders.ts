@@ -7,6 +7,8 @@ export type OrderItem = {
   id: string
   design_id: string
   design_revision_id: string
+  design_name?: string | null
+  product_slug?: string | null
   quote_id: string | null
   quantity: number
   unit_amount: string | null

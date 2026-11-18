@@ -6,7 +6,14 @@
     </div>
     <table>
       <thead>
-        <tr><th>name</th><th>org</th><th>owner</th><th>status</th><th>updated</th><th></th></tr>
+        <tr>
+          <th>{{ t('console.colName') }}</th>
+          <th>{{ t('console.colOrg') }}</th>
+          <th>{{ t('console.colOwner') }}</th>
+          <th>{{ t('console.colStatus') }}</th>
+          <th>{{ t('console.colUpdated') }}</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="d in items" :key="d.id">
@@ -15,7 +22,7 @@
           <td>{{ d.owner_email }}</td>
           <td>{{ d.status }}</td>
           <td>{{ d.updated_at }}</td>
-          <td><RouterLink :to="`/designs/${d.id}`">open</RouterLink></td>
+          <td><RouterLink :to="`/designs/${d.id}`">{{ t('console.open') }}</RouterLink></td>
         </tr>
       </tbody>
     </table>
