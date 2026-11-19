@@ -29,9 +29,13 @@ CAT = {'gift': '礼盒', 'mailer': '邮寄盒', 'square': '方形盒', 'shipping
 NO_FOLD_DATA = {'510340', '512220', '603573', '603574', '603610', '603678', '605360'}
 by = {r['slug']: r for r in t4}
 rows = []
+# Taken out of the catalogue after this audit (src/catalog/excludedPresets.js)
+DELISTED = {'512220', '605360', '603500', '603650', '181600', '181610', '185000', '36101111'}
 
 
 def add(r, src, phen, sev, sug):
+    if r['category'] == 'gift' and r['num'] in DELISTED:
+        sug = '已下架（2026-11-19）'
     rows.append({
         '类目': CAT[r['category']], '编号': r['num'], '名称': r['name'], 'slug': r['slug'],
         '产品页': 'http://localhost/products/' + r['slug'], '来源': src, '现象': phen,
@@ -95,6 +99,8 @@ code{{background:#eef2f3;border-radius:4px;padding:1px 6px;font-size:13px;word-b
 
 <div class="note ok"><b>结论：</b>{len(t1)} 个产品里，刀版确认有问题的是 2 个；导出和保存全部正常；{v3['成盒']} 个的 3D 也正常。另有 {v3['不成盒']} 个 3D 不成盒，除礼盒 603500 外，它们的刀版和封面图对得上。</div>
 
+<div class="note"><b>审计后的处理：</b>3D 不成盒的 {v3['不成盒']} 个产品已全部下架（2026-11-19），其中包括两个刀版有问题的。目录现有 {len(t1) - len(DELISTED)} 个导入产品；下面的数字是下架前 {len(t1)} 个的审计结果。5 个圆筒盒的 3D 已改为卷成圆柱。</div>
+
 <h2>四项检查的结果</h2>
 <div class="wrap"><table>
 <tr><th>检查</th><th>覆盖</th><th>结果</th></tr>
@@ -129,7 +135,7 @@ code{{background:#eef2f3;border-radius:4px;padding:1px 6px;font-size:13px;word-b
 <li>3D 看的是合盖状态的截图（面片按真实轮廓画，材质从简），没有逐个对照来源的效果图；“看不出”的 {v3['看不出']} 个需要对照。</li>
 <li>页面流程只抽了 {len(smoke)} 个，不是方案里的 16–20 个。</li>
 <li>Illustrator 打开 <code>.ai</code> 是否显示为图层，仍需人工看一眼。</li>
-<li>这一轮没有下架或重采任何产品。</li>
+<li>下架的 8 个只是从目录移除（数据库里是归档），刀版文件还在，从排除名单删掉对应行即可恢复。</li>
 <li>PDF / AI 里的中文、韩文文字画不出来（需要内嵌字体，尚未做）；内面的图案不导出。</li>
 </ul>
 

@@ -1,17 +1,17 @@
 ﻿类目,编号,名称,slug,产品页,来源,现象,严重程度,建议
-礼盒,603500,Wine box with inserts wine bottles wine bottle,import-gift-603500,http://localhost/products/import-gift-603500,任务2-对照图 + 任务4-3D,封面图是三片，我方参考数据只有两片（缺一块方片）；3D 不成盒,高,重采；采不到则下架
-礼盒,603650,Surprise gift box,import-gift-603650,http://localhost/products/import-gift-603650,任务4-3D,登记尺寸为 10×10×0；3D 面片散开,高,到来源核对尺寸；确认不了则下架
+礼盒,603500,Wine box with inserts wine bottles wine bottle,import-gift-603500,http://localhost/products/import-gift-603500,任务2-对照图 + 任务4-3D,封面图是三片，我方参考数据只有两片（缺一块方片）；3D 不成盒,高,已下架（2026-11-19）
+礼盒,603650,Surprise gift box,import-gift-603650,http://localhost/products/import-gift-603650,任务4-3D,登记尺寸为 10×10×0；3D 面片散开,高,已下架（2026-11-19）
 礼盒,121111,Mini cupcake gable box,import-gift-121111,http://localhost/products/import-gift-121111,任务4-3D,异形盒，单看截图判断不了是否正确；提手屋顶盒：两片带提手孔的斜顶在一侧合拢，从截图角度判断不了是否正确，需对照效果图,低,对照来源效果图
 礼盒,128130,Flip top coffee box,import-gift-128130,http://localhost/products/import-gift-128130,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,181600,Tree shaped holiday box,import-gift-181600,http://localhost/products/import-gift-181600,任务4-3D,3D 不成盒：多片异形（圣诞树形）：带整件平移/翻转，面片散成小碎片,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
-礼盒,181610,Double layer christmas tree box,import-gift-181610,http://localhost/products/import-gift-181610,任务4-3D,3D 不成盒：多片异形（双层圣诞树）：带整件平移/翻转，面片散开,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
-礼盒,185000,Gift box,import-gift-185000,http://localhost/products/import-gift-185000,任务4-3D,3D 不成盒：多片（XMAS 字母盒）：带整件平移/翻转，面片散开,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
+礼盒,181600,Tree shaped holiday box,import-gift-181600,http://localhost/products/import-gift-181600,任务4-3D,3D 不成盒：多片异形（圣诞树形）：带整件平移/翻转，面片散成小碎片,中,已下架（2026-11-19）
+礼盒,181610,Double layer christmas tree box,import-gift-181610,http://localhost/products/import-gift-181610,任务4-3D,3D 不成盒：多片异形（双层圣诞树）：带整件平移/翻转，面片散开,中,已下架（2026-11-19）
+礼盒,185000,Gift box,import-gift-185000,http://localhost/products/import-gift-185000,任务4-3D,3D 不成盒：多片（XMAS 字母盒）：带整件平移/翻转，面片散开,中,已下架（2026-11-19）
 礼盒,188270,Sphere surprise gift box,import-gift-188270,http://localhost/products/import-gift-188270,任务4-3D,异形盒，单看截图判断不了是否正确；糖果形，两端是扇形收口，需对照效果图,低,对照来源效果图
 礼盒,188271,Twist wrap candy packaging,import-gift-188271,http://localhost/products/import-gift-188271,任务4-3D,异形盒，单看截图判断不了是否正确；糖果形，两端是扇形收口，需对照效果图,低,对照来源效果图
-礼盒,36101111,Cosmetics box with lid,import-gift-36101111,http://localhost/products/import-gift-36101111,任务4-3D,3D 不成盒：多层盒缺装配对照数据，系统按设计退回散件视图,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
-礼盒,512220,Heart shaped gift box,import-gift-512220,http://localhost/products/import-gift-512220,任务4-3D,3D 不成盒：心形盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,没有折叠步骤可修：隐藏 3D，或单独做模型
+礼盒,36101111,Cosmetics box with lid,import-gift-36101111,http://localhost/products/import-gift-36101111,任务4-3D,3D 不成盒：多层盒缺装配对照数据，系统按设计退回散件视图,中,已下架（2026-11-19）
+礼盒,512220,Heart shaped gift box,import-gift-512220,http://localhost/products/import-gift-512220,任务4-3D,3D 不成盒：心形盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,已下架（2026-11-19）
 礼盒,603630,Lid and base luxury gift box,import-gift-603630,http://localhost/products/import-gift-603630,任务4-3D,异形盒，单看截图判断不了是否正确；敞口异形，需对照效果图,低,对照来源效果图
-礼盒,605360,Wine bottle with box,import-gift-605360,http://localhost/products/import-gift-605360,任务4-3D,3D 不成盒：酒盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,没有折叠步骤可修：隐藏 3D，或单独做模型
+礼盒,605360,Wine bottle with box,import-gift-605360,http://localhost/products/import-gift-605360,任务4-3D,3D 不成盒：酒盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,已下架（2026-11-19）
 邮寄盒,150430,Flip top box side mailer,import-mailer-150430,http://localhost/products/import-mailer-150430,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 邮寄盒,156280,Flip top miler box with lock inserts,import-mailer-156280,http://localhost/products/import-mailer-156280,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 邮寄盒,156281,Flip top mailer box with zipper,import-mailer-156281,http://localhost/products/import-mailer-156281,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
