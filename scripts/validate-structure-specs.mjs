@@ -22,7 +22,8 @@ const reportPath=join(root,'未映射名单','17_结构规格编译.csv')
 const TIERS=[[.6,2],[.8,1.5],[.9,1.2],[.95,1.1],[.98,1.05]]
 
 function limitsFor(def,[lo,hi]){
-  const r=v=>[Math.max(10,Math.round(v*lo)),Math.max(Math.round(v*lo)+1,Math.round(v*hi))]
+  // 样本上为 0 的尺寸（圆盒的宽、平面件的高）刀版不使用：给一个什么值都能过的宽区间，否则会算出下限大于上限的区间
+  const r=v=>(Number(v)>0?[Math.max(10,Math.round(v*lo)),Math.max(Math.round(v*lo)+1,Math.round(v*hi))]:[0,2000])
   return {length:r(def.length),width:r(def.width),height:r(def.height)}
 }
 

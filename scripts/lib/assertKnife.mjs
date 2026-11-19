@@ -169,10 +169,12 @@ export function assertKnife(t,label,k){
 
 /** 默认 / 最小 / 最大三档尺寸用例（与 check-templates 一致） */
 export function sizeCases(t){
-  const d=t.defaults,lim=t.limits
+  const d=t.defaults,lim=t.limits||{}
+  const at=(k,i)=>(Array.isArray(lim[k])&&lim[k].length===2?lim[k][i]:d[k])
   return {
     default:{...d,bleed:3},
-    min:{length:lim.length[0],width:lim.width[0],height:lim.height[0],thickness:d.thickness,bleed:0},
-    max:{length:lim.length[1],width:lim.width[1],height:lim.height[1],thickness:d.thickness*2,bleed:5}
+    // 没有范围的尺寸（模板不使用它，如圆盒的宽）在最小 / 最大档里沿用默认值
+    min:{length:at('length',0),width:at('width',0),height:at('height',0),thickness:d.thickness,bleed:0},
+    max:{length:at('length',1),width:at('width',1),height:at('height',1),thickness:d.thickness*2,bleed:5}
   }
 }

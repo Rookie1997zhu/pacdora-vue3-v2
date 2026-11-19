@@ -180,6 +180,22 @@ function expandHole(hs,fx,fy,fw,fh,faceOutline){
 
 const PIECE_GAP=40
 
+/**
+ * 规格里某个尺寸在样本上为 0（圆形 / 多边形盒没有「宽」，平面件没有「高」）时，编译出的范围是
+ * 「最小 10、最大 1」这样下限大于上限的区间，任何数值都通不过，盒型在默认尺寸下就无法保存和导出。
+ * 这种尺寸刀版并不使用：换成一个什么值都能过的宽区间（保留区间而不是去掉，是因为多处代码默认
+ * 三个尺寸都有范围）。
+ */
+const UNUSED_DIM_RANGE=[0,2000]
+function usableLimits(limits){
+  if(!limits||typeof limits!=='object')return limits
+  const out={}
+  for(const [k,r] of Object.entries(limits)){
+    out[k]=Array.isArray(r)&&r.length===2&&Number(r[0])>Number(r[1])?[...UNUSED_DIM_RANGE]:r
+  }
+  return out
+}
+
 export function createSpecTemplate(spec){
   const pieces=Array.isArray(spec.pieces)&&spec.pieces.length
     ?spec.pieces.map(p=>({id:p.id,label:p.label||p.id,role:p.role,root:p.root,faces:p.faces}))
@@ -218,7 +234,7 @@ export function createSpecTemplate(spec){
     supportsPiece,
     assembly:pieces&&pieces.length>2?'row':(supportsPiece?'stack':undefined),
     defaults:{...spec.defaults},
-    limits:spec.limits,
+    limits:usableLimits(spec.limits),
     sizeRule:spec.sizeRule,
     specRef:{code:spec.code,sampleNum:spec.sampleNum,structureCode:spec.structureCode||spec.code},
     pieces:pieces||undefined,

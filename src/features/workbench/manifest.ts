@@ -310,6 +310,11 @@ function advancedFromPreset(preset: ImportPreset): Record<string, number> {
   return out
 }
 
+function zeroHeightOnly(templateId: string): boolean {
+  const h = (TEMPLATES as Record<string, { limits?: { height?: unknown } }>)[templateId]?.limits?.height
+  return Array.isArray(h) && h.length === 2 && Number(h[1]) === 0
+}
+
 function isCustomizableFidelity(f: WorkbenchFidelity | undefined): f is 'exact' | 'close' {
   return f === 'exact' || f === 'close'
 }
@@ -375,7 +380,9 @@ function manifestFromImportPreset(slug: string): WorkbenchManifest | null {
     defaultParams: {
       lengthMm: Number(preset.length) || 100,
       widthMm: Number(preset.width) || 80,
-      heightMm: Number(preset.height) || 50,
+      // Flat items (sheets, sleeves) have height 0 and their template only accepts 0: do not
+      // substitute the 50 mm fallback there, or the default size itself is rejected on save.
+      heightMm: Number(preset.height) || (zeroHeightOnly(String(preset.templateId)) ? 0 : 50),
       thicknessMm: Number(preset.thickness) || (family === 'corrugated' ? 1.5 : 0.5),
       sizeMode: 'inner',
       materialId,
