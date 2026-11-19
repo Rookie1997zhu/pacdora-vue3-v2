@@ -82,7 +82,7 @@ import-gift-110670,gift,sampled-gift-110670,,exact,263.0x492.8,通过,
 import-folding-110670,folding,sampled-folding-110670,,exact,263.0x492.8,通过,
 import-shipping-110680,shipping,spec-BottomInsertingBoxWithHalfSelfLockingUpperCover,,close,523.5x323.3,通过,
 import-square-110680,square,spec-BottomInsertingBoxWithHalfSelfLockingUpperCover,,close,523.5x323.3,通过,
-import-folding-110700,folding,spec-KnifeDraw__110700,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-folding-110700,folding,spec-KnifeDraw__110700,,close,308.9x199.3,通过,
 import-shipping-110810,shipping,spec-BuckleBottomBoxWithInsertion,,close,880.8x292.8,通过,
 import-folding-110830,folding,spec-SideBuckleHandleBuckleBottomBox,,close,649.6x546.9,通过,
 import-folding-110850,folding,spec-BackplaneLiftingHoleInsertLockBottomBox,,close,303.9x301.9,通过,
@@ -168,8 +168,8 @@ import-tray-120201,tray,spec-ClaspInclinedTrayTypeBox,,close,261.0x141.6,通过,
 import-tray-120202,tray,spec-SideOpeningBuckleInclinedBox,,exact,191.0x148.7,通过,
 import-tray-120220,tray,spec-FourCompartmentTrayBox,,close,346.5x884.8,通过,
 import-tray-120221,tray,spec-FourCompartmentHandleTrayBox,,close,1245.5x451.2,通过,
-import-square-120230,square,spec-RoundFlapDiscBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
-import-tray-120230,tray,spec-RoundFlapDiscBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-square-120230,square,spec-RoundFlapDiscBox,,close,509.3x504.3,通过,
+import-tray-120230,tray,spec-RoundFlapDiscBox,,close,509.3x504.3,通过,
 import-tray-120240,tray,spec-DiscBuckleBox,,exact,181.2x121.2,通过,
 import-tray-120250,tray,spec-DiscBuckleCoverBox,,close,332.0x121.8,通过,
 import-folding-120251,folding,sampled-folding-120251,,exact,342.2x451.4,通过,
@@ -223,7 +223,7 @@ import-square-123040,square,spec-ReverseFoldingDiscBox,,close,181.2x181.8,通过
 import-tray-123050,tray,spec-HexagonDiscBoxWithLockBottom,,close,425.1x305.4,通过,
 import-tray-123051,tray,spec-TrayWithHandle,bottom,close,420.0x549.0,通过,
 import-tray-123051,tray,spec-TrayWithHandle,lid,close,663.0x240.0,通过,
-import-tray-123070,tray,spec-RegularHexagonalDiscBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-tray-123070,tray,spec-RegularHexagonalDiscBox,,close,518.3x451.9,通过,
 import-tray-123090,tray,spec-OctagonalLockBottomBox,,close,434.0x434.0,通过,
 import-tray-123160,tray,spec-SixGridDiscBox,,close,710.8x1029.7,通过,
 import-tray-123180,tray,sampled-tray-123180,,exact,332.7x181.8,通过,
@@ -511,24 +511,24 @@ import-folding-171580,folding,spec-LadderLockDisplayBox,,close,549.5x642.6,通�
 import-folding-171800,folding,spec-FlipLockDisplayBox__171800,,exact,775.8x441.3,通过,
 import-gift-180190,gift,spec-TrapezoidalInsertLockBox,,close,379.3x545.4,通过,
 import-folding-180190,folding,spec-TrapezoidalInsertLockBox,,close,379.3x545.4,通过,
-import-folding-180200,folding,spec-TriangularcassetteWithHook,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-folding-180200,folding,spec-TriangularcassetteWithHook,,close,164.3x304.7,通过,
 import-folding-180231,folding,spec-TrianglePizzaBox,,exact,359.5x625.7,通过,
 import-folding-180235,folding,spec-SimpleLockingTriangularBox,,exact,373.8x514.9,通过,
 import-folding-180280,folding,spec-TriangularConicalBottomBoxWithHook,,exact,373.0x337.1,通过,
 import-folding-181092,folding,sampled-folding-181092,,exact,518.0x258.1,通过,
-import-folding-181230,folding,spec-PolygonalFlowerShapedCoverBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-folding-181230,folding,spec-PolygonalFlowerShapedCoverBox,,close,451.4x394.2,通过,
 import-folding-181240,folding,spec-AdhesiveEdgeDiscTrapezoidalBox,,close,465.9x380.0,通过,
 import-folding-183070,folding,spec-SixGridBottomSelflockBox,,close,855.0x414.6,通过,
 import-folding-183080,folding,spec-FourGridBottomSelflockBox,,exact,1058.0x556.5,通过,
 import-folding-188030,folding,sampled-folding-188030,,exact,174.5x248.0,通过,
 import-folding-188050,folding,spec-TriangularInclinedCoverHangingHoleBox,,close,281.5x225.2,通过,
 import-folding-188130,folding,spec-SideHangingSixSidedBoxP1,,close,260.0x380.0,通过,
-import-gift-188271,gift,spec-ChristmasCandyGiftBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
-import-gift-188300,gift,spec-BallGiftBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
-import-gift-188310,gift,spec-NonConcaveSphericalGiftBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-gift-188271,gift,spec-ChristmasCandyGiftBox,,close,415.5x506.7,通过,
+import-gift-188300,gift,spec-BallGiftBox,,close,669.3x428.0,通过,
+import-gift-188310,gift,spec-NonConcaveSphericalGiftBox,,close,664.5x425.0,通过,
 import-gift-189040,gift,spec-KnifeDraw__189040,,exact,515.5x381.8,通过,
-import-gift-189041,gift,spec-RegularHexagonalInterlockingTubeBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
-import-gift-189042,gift,spec-FivesidedIrregularshapedLockBox,,close,,失败,"validate OUT_OF_RANGE: width_mm out of range [10, 1]"
+import-gift-189041,gift,spec-RegularHexagonalInterlockingTubeBox,,close,617.0x436.9,通过,
+import-gift-189042,gift,spec-FivesidedIrregularshapedLockBox,,close,450.8x355.4,通过,
 import-shipping-200010,shipping,rea-carton-0201,,close,1337.0x490.0,通过,
 import-shipping-200012,shipping,spec-CartonHandhole,,close,1333.3x491.6,通过,
 import-shipping-200013,shipping,spec-CartonRegular0209,,close,1333.3x437.6,通过,
@@ -582,7 +582,7 @@ import-tray-240180,tray,sampled-tray-240180,,exact,455.8x270.8,通过,
 import-folding-240230,folding,spec-SidePortableCoverP1,,close,203.0x506.5,通过,
 import-folding-240240,folding,spec-EnvelopeWithWindowRoundholeP1,,close,80.8x309.7,通过,
 import-folding-240800,folding,spec-KnifeDraw__240800,,exact,476.1x275.5,通过,
-import-folding-242004,folding,spec-FoldingThreeWalletDiscount,,close,,失败,"validate OUT_OF_RANGE: height_mm out of range [10, 1]"
+import-folding-242004,folding,spec-FoldingThreeWalletDiscount,,close,278.8x215.9,通过,
 import-folding-310227,folding,spec-KnifeDraw__310227,,close,539.8x724.3,通过,
 import-folding-310600,folding,spec-KnifeDraw__310600,bottom,close,300.9x525.9,通过,
 import-folding-310600,folding,spec-KnifeDraw__310600,lid,close,719.9x200.0,通过,
@@ -597,12 +597,12 @@ import-gift-550340,gift,sampled-gift-550340,,exact,560.0x430.0,通过,
 import-folding-550340,folding,sampled-folding-550340,,exact,560.0x430.0,通过,
 import-folding-600180,folding,sampled-folding-600180,,exact,221.0x330.0,通过,
 import-folding-600181,folding,spec-BagTissue,,close,201.2x300.0,通过,
-import-tray-602471,tray,rea-flat-sheet,,exact,,失败,"validate OUT_OF_RANGE: height_mm out of range [0, 0]"
-import-tray-602472,tray,rea-flat-sheet,,exact,,失败,"validate OUT_OF_RANGE: height_mm out of range [0, 0]"
-import-folding-603270,folding,rea-flat-sheet,,exact,,失败,"validate OUT_OF_RANGE: height_mm out of range [0, 0]"
+import-tray-602471,tray,rea-flat-sheet,,exact,200.0x120.0,通过,
+import-tray-602472,tray,rea-flat-sheet,,exact,180.0x120.0,通过,
+import-folding-603270,folding,rea-flat-sheet,,exact,520.0x100.0,通过,
 import-gift-603630,gift,sampled-gift-603630,,exact,200.0x280.0,通过,
-import-folding-603640,folding,spec-PlasticBag,,close,,失败,"validate OUT_OF_RANGE: height_mm out of range [10, 1]"
-import-folding-606085,folding,spec-ConsumerTwenty,,close,,失败,"validate OUT_OF_RANGE: height_mm out of range [10, 1]"
+import-folding-603640,folding,spec-PlasticBag,,close,170.0x97.0,通过,
+import-folding-606085,folding,spec-ConsumerTwenty,,close,147.0x92.0,通过,
 import-square-10001001,square,spec-Pair__10001001,,close,253.9x207.5,通过,
 import-gift-10001002,gift,sampled-gift-10001002,,exact,538.5x429.0,通过,
 import-folding-10001004,folding,spec-Pair__10001004,,close,213.4x223.0,通过,
@@ -747,7 +747,7 @@ import-square-20001001,square,rea-carton-0201,,close,1273.0x614.0,通过,
 import-folding-20001001,folding,rea-carton-0201,,close,1273.0x614.0,通过,
 import-shipping-20001002,shipping,rea-carton-0201,,close,1337.0x490.0,通过,
 import-folding-22001601,folding,spec-RectangularHoleFlatMouthHandbag,,close,620.7x280.4,通过,
-import-folding-24200406,folding,spec-KnifeDraw__24200406,,close,,失败,"validate OUT_OF_RANGE: height_mm out of range [10, 1]"
+import-folding-24200406,folding,spec-KnifeDraw__24200406,,close,630.9x295.0,通过,
 import-folding-31022401,folding,spec-AllWrappedLining,,close,602.9x585.9,通过,
 import-gift-36601001,gift,spec-BoutiqueboxDivideEquallyCover,bottom,exact,329.8x259.8,通过,
 import-gift-36601001,gift,spec-BoutiqueboxDivideEquallyCover,lid,exact,320.0x250.0,通过,
