@@ -203,6 +203,24 @@ class AssetsDesignsTests(TestCase):
         self.assertEqual(c.status_code, 403)
 
     @patch('apps.designs.services.validate_geometry')
+    def test_design_create_rejects_broken_outline(self, mock_validate):
+        # A size at which the dieline falls apart must not be saved
+        mock_validate.return_value = {
+            'geometry_hash': 'geom-abc',
+            'ok': False,
+            'issues': [{'code': 'OUTLINE_BROKEN', 'severity': 'blocking', 'message': 'outline broken'}],
+        }
+        token = self._login(self.u1)
+        create = self.client.post(
+            '/api/v1/designs/',
+            data=json.dumps({'name': 'Demo', 'product_slug': 'mailer-parametric-demo'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(create.status_code, 422, create.content)
+        self.assertEqual(create.json()['code'], 'OUTLINE_BROKEN')
+
+    @patch('apps.designs.services.validate_geometry')
     def test_design_create_save_reopen(self, mock_validate):
         mock_validate.return_value = {'geometry_hash': 'geom-abc', 'ok': True}
         asset = self._upload_png(self.u1)

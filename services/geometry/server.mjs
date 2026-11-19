@@ -374,6 +374,13 @@ async function exportDieline(body) {
     unit_confidence: doc.provenance?.unitConfidence || input.unitConfidence,
     unit_trusted: isTrustedUnit(doc.provenance?.unitConfidence || input.unitConfidence),
   }
+  // A resized dieline whose panels came apart is not exported at any tier, proofs included
+  const outlineBroken = (knife.validation?.checks || []).find((c) => c.id === 'OUTLINE_BROKEN' && !c.ok)
+  if (outlineBroken) {
+    const err = new Error(outlineBroken.message || 'dieline outline is broken at this size')
+    err.code = 'OUTLINE_BROKEN'
+    throw err
+  }
   if (qualityTier === 'manufacturing' || qualityTier === 'engineering') {
     if (!validated.ok) {
       const err = new Error('geometry validation failed')

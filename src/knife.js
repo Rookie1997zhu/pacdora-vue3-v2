@@ -5,6 +5,7 @@ import {createSampledKnife} from './templates/sampled/sampledTemplate.js'
 import {orderFaces,validateKnife} from './knifeContract.js'
 import {getTemplate,TEMPLATES} from './templates/index.js'
 import {buildDepthFoldStages} from './foldStages.js'
+import {outlineStats,outlineRegression} from './outlineIntegrity.js'
 import {createCrashlockKnife} from './crashlock/createCrashlockKnife.js'
 import {
   arcSegmentCount,
@@ -1119,12 +1120,44 @@ export function buildKnifeIssues(knife,{constraints=[],paramState={},panel,T,par
   return issues
 }
 
+const BASELINE_OUTLINE_CACHE=new Map()
+const BASELINE_OUTLINE_CACHE_MAX=400
+
+/** 同模板、同参数在默认尺寸下的轮廓指标（缓存）；默认尺寸本身算不出时返回 null（不做对比） */
+function baselineOutlineStats(template,{tid,T,piece,lidClearance,paramOverrides,fluteDirection,materialId}){
+  const d=template?.defaults
+  if(!d||!(Number(d.length)>0))return null
+  const key=[tid,piece||'',T,lidClearance??'',JSON.stringify(paramOverrides||{})].join('|')
+  if(BASELINE_OUTLINE_CACHE.has(key))return BASELINE_OUTLINE_CACHE.get(key)
+  let stats=null
+  try{
+    const base=createKnife({
+      templateId:tid,length:d.length,width:d.width,height:d.height,thickness:T,bleed:0,sizeMode:'inner',
+      fluteDirection,materialId,piece,lidClearance,params:paramOverrides,previewBleedExtra:0,skipOutlineCheck:true,
+    })
+    if(base?.template===tid||base?.templateId===tid||base?.faces?.length)stats=outlineStats(base)
+  }catch{stats=null}
+  if(BASELINE_OUTLINE_CACHE.size>=BASELINE_OUTLINE_CACHE_MAX)BASELINE_OUTLINE_CACHE.delete(BASELINE_OUTLINE_CACHE.keys().next().value)
+  BASELINE_OUTLINE_CACHE.set(key,stats)
+  return stats
+}
+
+function outlineBrokenVsDefault(knife,template,ctx){
+  const d=template?.defaults
+  if(!d)return null
+  const same=k=>!(Number(d[k])>0)||Math.abs(Number(ctx.size[k])-Number(d[k]))<0.05
+  if(ctx.sizeMode==='inner'&&same('length')&&same('width')&&same('height'))return null
+  const base=baselineOutlineStats(template,ctx)
+  return base?outlineRegression(knife,base):null
+}
+
 export function createKnife({
   templateId,length:L,width:W,height:H,thickness:T,bleed=5,sizeMode='inner',
   fluteDirection='L',materialId='kraft',piece,lidClearance,params:paramOverrides,
   strict=false,production=false,
   previewBleedExtra=BLEED_EXTRA_MM,
   thicknessMinMm,
+  skipOutlineCheck=false,
 }={}){
   const strictMode=!!(strict||production)
   const tid=String(templateId||'').trim()
@@ -1512,6 +1545,21 @@ export function createKnife({
     knife.lidClearance=resolvedClearance
   }
   const validation=validateKnife(knife)
+  // 改尺寸后结构参数可能装不进面板：面板脱开、切线不再闭合。与同模板默认尺寸对比，变差即判无效
+  if(!skipOutlineCheck){
+    const broken=outlineBrokenVsDefault(knife,template,{
+      tid,T,piece:supportsPiece?resolvedPiece:undefined,lidClearance,paramOverrides,fluteDirection,materialId,
+      size:{length:L,width:W,height:H},sizeMode,
+    })
+    if(broken){
+      validation.checks.push({
+        id:'OUTLINE_BROKEN',ok:false,
+        message:'该尺寸下刀版结构已脱开（面板分离或切线不闭合），无法保存和导出，请把尺寸调回接近默认值',
+        faces:broken.open.slice(0,12),
+      })
+      validation.ok=false
+    }
+  }
   knife.validation=validation
   knife.productionReady=validation.ok
   knife.stats=computeKnifeStats(knife)

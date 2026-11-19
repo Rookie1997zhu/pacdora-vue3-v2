@@ -179,6 +179,16 @@ def apply_server_geometry(content: dict, template: TemplateDefinition, version: 
     except GeometryServiceError as exc:
         raise DesignServiceError(str(exc), code=exc.code, status=exc.status_code, errors=exc.payload) from exc
 
+    # A size at which the dieline falls apart (panels detached / cut line open) is not saved
+    if not result.get('ok'):
+        for issue in result.get('issues') or []:
+            if isinstance(issue, dict) and issue.get('code') == 'OUTLINE_BROKEN':
+                raise DesignServiceError(
+                    issue.get('message') or 'dieline outline is broken at this size',
+                    code='OUTLINE_BROKEN',
+                    status=422,
+                )
+
     geom['mode'] = template.geometry_mode
     geom['templateId'] = template.template_key
     geom['templateVersion'] = version.version

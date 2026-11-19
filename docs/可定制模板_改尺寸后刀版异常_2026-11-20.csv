@@ -1,0 +1,207 @@
+﻿slug,类目,模板,部件,保真度,判定,出问题的比例,现象,校验是否仍显示通过
+import-folding-101526,folding,spec-RearOpenSingleAircraftHoleHangerBox,,close,可疑,1.4,x1.4: open ends 0→2,是
+import-shipping-102040,shipping,spec-PairBuckletriple,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 4→6 | x0.8: open ends 4→6 | x0.9: open ends 4→6 | x1.1: open ends 4→6 | x1.25: open ends 4→6 | x1.4: open ends 4→6,是
+import-shipping-102041,shipping,spec-PairBuckletripleBackward,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 4→6 | x0.8: open ends 4→6 | x0.9: open ends 4→6 | x1.1: open ends 4→6 | x1.25: open ends 4→6 | x1.4: open ends 4→6,是
+import-folding-102050,folding,sampled-folding-102050,,exact,可疑,0.7 / 0.8 / 1.25 / 1.4,x0.7: open ends 2→8 | x0.8: open ends 2→8 | x1.25: open ends 2→8 | x1.4: open ends 2→8,是
+import-mailer-102060,mailer,spec-DoubleSafetyBuckleAndThreeBuckleButtingBox,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 16→18 | x0.8: open ends 16→18 | x0.9: open ends 16→18,是
+import-mailer-102061,mailer,spec-DoubleSafetyBuckleAndSelfLockingButtomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 12→14 | x0.8: open ends 12→14 | x0.9: open ends 12→14 | x1.1: open ends 12→14 | x1.25: open ends 12→14 | x1.4: open ends 12→14,是
+import-mailer-102063,mailer,spec-SafetyReinforcedBuckleBottomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 20→25 | x0.8: open ends 20→25 | x0.9: open ends 20→25 | x1.1: open ends 20→22 | x1.25: open ends 20→22 | x1.4: open ends 20→22,是
+import-mailer-102064,mailer,spec-EasyToOpenSafetyBuckleBottomBox,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 28→30 | x0.8: open ends 28→30 | x0.9: open ends 28→30,是
+import-folding-103210,folding,sampled-folding-103210,,exact,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 0→6 | x0.8: open ends 0→6 | x0.9: open ends 0→6 | x1.1: open ends 0→6 | x1.25: open ends 0→6 | x1.4: open ends 0→6,是
+import-folding-103213,folding,sampled-folding-103213,,exact,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 0→6 | x0.8: open ends 0→6 | x0.9: open ends 0→6 | x1.1: open ends 0→6 | x1.25: open ends 0→6 | x1.4: open ends 0→6,是
+import-folding-105041,folding,spec-FoldClamshellSelflockingBottomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 4→6 | x0.8: open ends 4→6 | x0.9: open ends 4→6 | x1.1: open ends 4→6 | x1.25: open ends 4→6 | x1.4: open ends 4→6,是
+import-folding-105081,folding,spec-SnapZipperSelflockingBottomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 76→78 | x0.8: open ends 76→78 | x0.9: open ends 76→78 | x1.1: open ends 76→78 | x1.25: open ends 76→78 | x1.4: open ends 76→78,是
+import-folding-108000,folding,spec-TissueSimpleP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 4→8 | x0.8: open ends 4→8 | x0.9: open ends 4→8 | x1.1: open ends 4→8 | x1.25: open ends 4→8 | x1.4: open ends 4→8,是
+import-folding-108070,folding,spec-ButtonSimpleTissueBox,,exact,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 66→70 | x0.8: open ends 66→70 | x0.9: open ends 66→70 | x1.1: open ends 66→70 | x1.25: open ends 66→70 | x1.4: open ends 66→70,是
+import-folding-110049,folding,spec-SideRotatingBuckleBottomBoxP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 12→22 | x0.8: open ends 12→22 | x0.9: open ends 12→22 | x1.1: open ends 12→19 | x1.25: open ends 12→19 | x1.4: open ends 12→19,是
+import-mailer-110160,mailer,spec-CappingMachineBagBoxP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 6→18 | x0.8: open ends 6→18 | x0.9: open ends 6→18 | x1.1: open ends 6→12 | x1.25: open ends 6→12 | x1.4: open ends 6→12,是
+import-folding-110160,folding,spec-CappingMachineBagBoxP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 6→18 | x0.8: open ends 6→18 | x0.9: open ends 6→18 | x1.1: open ends 6→12 | x1.25: open ends 6→12 | x1.4: open ends 6→12,是
+import-folding-110241,folding,spec-SideLiftingHoleTrapezoidalInclinedLockBoxP1,,close,明确异常,0.7,x0.7: cut length x1.52 of expected,是
+import-folding-110700,folding,spec-KnifeDraw__110700,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.95 of expected | x0.8: cut length x1.88 of expected,是
+import-gift-112047,gift,spec-RoofWiringAndBottomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 3→6 | x0.8: open ends 3→6 | x0.9: open ends 3→6 | x1.1: open ends 3→4 | x1.25: open ends 3→4 | x1.4: open ends 3→4,是
+import-folding-112315,folding,spec-SideInsertLockBuckleSuitcaseForward,,close,可疑,1.4,x1.4: open ends 12→14,是
+import-mailer-112372,mailer,spec-RoofboxWithLatched,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 8→12 | x0.8: open ends 8→12 | x0.9: open ends 8→12 | x1.1: open ends 8→12 | x1.25: open ends 8→12 | x1.4: open ends 8→12,是
+import-mailer-112450,mailer,spec-BuckleBottomBoxWithDoubleLockHandle,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 22→24 | x0.8: open ends 22→24 | x0.9: open ends 22→24 | x1.1: open ends 22→24 | x1.25: open ends 22→24 | x1.4: open ends 22→24,是
+import-mailer-112550,mailer,spec-BuckleBottomBoxWithSafetyBuckle,,close,明确异常,0.8,x0.8: sheet 644x400→393x174; cut length x0.37 of expected,是
+import-mailer-112690,mailer,spec-RoundNeckBuckleBottomBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.55 of expected | x0.8: open ends 16→18; cut length x0.53 of expected,是
+import-shipping-116200,shipping,spec-InterlockPortableTrayCase,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.55 of expected | x0.8: cut length x0.54 of expected | x0.9: cut length x0.52 of expected,是
+import-folding-116200,folding,spec-InterlockPortableTrayCase,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.55 of expected | x0.8: cut length x0.54 of expected | x0.9: cut length x0.52 of expected,是
+import-tray-120033,tray,spec-StackedSideGlueTrayBottomBox,,close,明确异常,0.7,x0.7: cut length x1.49 of expected,是
+import-tray-120034,tray,spec-StackableHandleTrayBox,,close,明确异常,1.25 / 1.4,x1.25: cut length x0.65 of expected | x1.4: cut length x0.63 of expected,是
+import-tray-120050,tray,spec-InterlockingAngleDiscBox,,close,明确异常,1.1 / 1.25 / 1.4,x1.1: cut length x0.66 of expected | x1.25: cut length x0.65 of expected | x1.4: cut length x0.65 of expected,是
+import-tray-120110,tray,spec-TrapezoidalArcEdgeTrayBox,,close,明确异常,0.7,x0.7: cut length x1.50 of expected,是
+import-tray-120130,tray,spec-LockThickenDiscBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.64 of expected | x0.8: cut length x0.63 of expected,是
+import-tray-120141,tray,spec-SideLockInterlockThickenedDiscBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.45 of expected | x0.8: cut length x0.43 of expected | x0.9: cut length x0.59 of expected,是
+import-folding-120144,folding,spec-SideLowLockInterlockThickenedDiscBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.49 of expected | x0.8: cut length x0.47 of expected,是
+import-tray-120200,tray,spec-ArcSideInclinedDiscBox,,close,明确异常,0.7,x0.7: sheet 443x304→62x230; cut length x0.52 of expected,是
+import-tray-120220,tray,spec-FourCompartmentTrayBox,,close,明确异常,1.1 / 1.25 / 1.4,x1.1: cut length x1.75 of expected | x1.25: cut length x2.26 of expected | x1.4: cut length x2.25 of expected,是
+import-tray-120270,tray,spec-BreatherTray,,close,明确异常,1.4,x1.4: cut length x0.69 of expected,是
+import-tray-120280,tray,spec-SpecialShapedDiscBox,,close,可疑,1.1,x1.1: open ends 0→4,是
+import-tray-120330,tray,spec-SideLockFourSealAngleDiscBox,,close,可疑,1.1,x1.1: open ends 16→24,是
+import-tray-120350,tray,spec-TrapezoidalDiscBox,,close,明确异常,0.8 / 1.1,x0.8: cut length x0.67 of expected | x1.1: cut length x0.68 of expected,是
+import-tray-120390,tray,spec-FourFoldEdgeAndCornerDiscBox,,close,可疑,0.9,x0.9: open ends 0→2,是
+import-tray-120460,tray,spec-DiscDoubleBox,,exact,明确异常,0.7 / 0.8,x0.7: cut length x0.49 of expected | x0.8: cut length x0.48 of expected,是
+import-tray-120530,tray,spec-LockBottomStackingTray,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: open ends 18→21; cut length x1.82 of expected | x0.8: open ends 18→21; cut length x1.72 of expected | x0.9: open ends 18→21; cut length x1.64 of expected,是
+import-tray-120550,tray,spec-TrapezoidalDiscBoxWithThreeCompartments,,close,明确异常,0.9 / 1.1 / 1.25 / 1.4,x0.9: cut length x0.66 of expected | x1.1: cut length x0.61 of expected | x1.25: cut length x0.57 of expected | x1.4: cut length x0.54 of expected,是
+import-tray-120620,tray,spec-SinglePieceFoldingPluginLockDiscBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.68 of expected | x0.8: cut length x0.68 of expected | x0.9: cut length x1.71 of expected,是
+import-tray-120680,tray,spec-InterlockingSnapLockDiscDox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: open ends 0→2; cut length x0.70 of expected | x0.8: cut length x0.67 of expected | x0.9: cut length x0.65 of expected,是
+import-tray-120710,tray,spec-LinedWithFlatStickInsertLockingDiscBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 6→8 | x0.8: open ends 6→8 | x0.9: open ends 6→8 | x1.1: open ends 6→8 | x1.25: open ends 6→8 | x1.4: open ends 6→8,是
+import-tray-120730,tray,spec-QuadhemInterlockingBottomDiscBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.55 of expected | x0.8: cut length x0.53 of expected,是
+import-gift-121111,gift,spec-SlantedRoofPipeTrayHandleBox,,close,明确异常,0.7 / 0.8,x0.7: open ends 12→24; cut length x1.58 of expected | x0.8: open ends 12→24; cut length x1.47 of expected,是
+import-folding-121111,folding,spec-SlantedRoofPipeTrayHandleBox,,close,明确异常,0.7 / 0.8,x0.7: open ends 12→24; cut length x1.58 of expected | x0.8: open ends 12→24; cut length x1.47 of expected,是
+import-folding-121140,folding,spec-TrapezoidalRoofHandleBox,,close,明确异常,0.8 / 0.9,x0.8: cut length x0.45 of expected | x0.9: cut length x0.68 of expected,是
+import-tray-123050,tray,spec-HexagonDiscBoxWithLockBottom,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.59 of expected | x0.8: cut length x0.56 of expected | x0.9: cut length x0.54 of expected,是
+import-tray-123070,tray,spec-RegularHexagonalDiscBox,,close,明确异常,0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.8: cut length x0.67 of expected | x0.9: cut length x0.66 of expected | x1.1: cut length x0.66 of expected | x1.25: cut length x0.65 of expected | x1.4: cut length x0.64 of expected,是
+import-tray-123090,tray,spec-OctagonalLockBottomBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 16→22 | x0.8: open ends 16→22 | x0.9: open ends 16→22 | x1.1: open ends 16→22 | x1.25: open ends 16→22 | x1.4: open ends 16→22,是
+import-folding-123210,folding,spec-TearPullMouthDiscLockBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 38→42 | x0.8: open ends 38→42 | x0.9: open ends 38→42 | x1.1: open ends 38→42 | x1.25: open ends 38→42 | x1.4: open ends 38→42,是
+import-tray-128013,tray,spec-BufferwallboxInnercover,bottom,close,可疑,1.4,x1.4: open ends 0→2,是
+import-tray-128013,tray,spec-BufferwallboxInnercover,lid,close,明确异常,0.7,x0.7: cut length x1.86 of expected,是
+import-tray-128021,tray,spec-InsertLockEnvelopeHandleDrawerBox,lid,close,明确异常,0.7 / 0.8,x0.7: open ends 4→8; cut length x0.65 of expected | x0.8: open ends 4→8; cut length x0.62 of expected,是
+import-tray-128030,tray,spec-CornerPaperJamDrawerBox,lid,exact,明确异常,0.7,x0.7: cut length x0.68 of expected,是
+import-tray-128040,tray,spec-FourFoldBufferBox,,close,可疑,0.7,x0.7: open ends 0→2,是
+import-tray-128100,tray,spec-TrapezoidalFourFoldDiscBox,,close,明确异常,0.7,x0.7: cut length x1.71 of expected,是
+import-gift-128130,gift,spec-FoldingAngleFlipDrawerBoxP1,,close,明确异常,0.7,x0.7: cut length x0.42 of expected,是
+import-square-128130,square,spec-FoldingAngleFlipDrawerBoxP1,,close,明确异常,0.7,x0.7: cut length x0.42 of expected,是
+import-mailer-150023,mailer,spec-TripleFlangedPlaneCaseWithoutTongueP1,,close,明确异常,1.4,x1.4: cut length x0.68 of expected,是
+import-gift-150023,gift,spec-TripleFlangedPlaneCaseWithoutTongueP1,,close,明确异常,1.4,x1.4: cut length x0.68 of expected,是
+import-folding-150023,folding,spec-TripleFlangedPlaneCaseWithoutTongueP1,,close,明确异常,1.4,x1.4: cut length x0.68 of expected,是
+import-mailer-150030,mailer,spec-AircraftWithoutFlank,,close,明确异常,1.4,x1.4: cut length x0.67 of expected,是
+import-folding-150030,folding,spec-AircraftWithoutFlank,,close,明确异常,1.4,x1.4: cut length x0.67 of expected,是
+import-mailer-150032,mailer,spec-AircraftWithoutWingsHoles,,close,明确异常,0.7,x0.7: open ends 10→12; cut length x0.68 of expected,是
+import-folding-150032,folding,spec-AircraftWithoutWingsHoles,,close,明确异常,0.7,x0.7: open ends 10→12; cut length x0.68 of expected,是
+import-folding-150112,folding,spec-TopCoverLockThePlaneBox,,close,明确异常,0.7 / 1.4,x0.7: cut length x1.48 of expected | x1.4: cut length x0.65 of expected,是
+import-folding-150162,folding,spec-AircraftWithHookHandle,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 18→20 | x0.8: open ends 18→20 | x0.9: open ends 18→20 | x1.1: open ends 18→20 | x1.25: open ends 18→20 | x1.4: open ends 18→20,是
+import-folding-150260,folding,spec-AircraftWithHandleDoubleLocks,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 18→20 | x0.8: open ends 18→20 | x0.9: open ends 18→20,是
+import-folding-150280,folding,spec-AircraftBoxWithDoubleTongue,,close,明确异常,0.9,x0.9: cut length x0.53 of expected,是
+import-folding-150330,folding,spec-TracelessBottomDisplayAircraftBox,,close,可疑,1.1 / 1.25 / 1.4,x1.1: open ends 128→132 | x1.25: open ends 128→132 | x1.4: open ends 128→132,是
+import-mailer-150430,mailer,spec-SideFixedAircraftBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 12→16 | x0.8: open ends 12→16 | x0.9: open ends 12→16 | x1.1: open ends 12→15 | x1.25: open ends 12→15 | x1.4: open ends 12→17,是
+import-folding-150430,folding,spec-SideFixedAircraftBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 12→16 | x0.8: open ends 12→16 | x0.9: open ends 12→16 | x1.1: open ends 12→15 | x1.25: open ends 12→15 | x1.4: open ends 12→17,是
+import-mailer-151030,mailer,spec-FlipShoebox,,close,明确异常,0.8,x0.8: cut length x0.55 of expected,是
+import-folding-151030,folding,spec-FlipShoebox,,close,明确异常,0.8,x0.8: cut length x0.55 of expected,是
+import-folding-151031,folding,spec-FlipShoesBox,,close,明确异常,0.9,x0.9: open ends 0→2; cut length x0.63 of expected,是
+import-folding-151071,folding,spec-FlipPlugLockSingleSideLockBottomBox,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 9→14 | x0.8: open ends 9→14 | x0.9: open ends 9→14,是
+import-folding-151080,folding,spec-FoldingAngleDoubleLatchCoverBox,,close,明确异常,0.7 / 0.8,x0.7: open ends 14→18; cut length x1.80 of expected | x0.8: open ends 14→18; cut length x1.78 of expected,是
+import-folding-151090,folding,spec-SemiSealingSlugLockFlipBox,,close,明确异常,0.8 / 0.9,x0.8: cut length x0.69 of expected | x0.9: cut length x0.68 of expected,是
+import-folding-151130,folding,spec-AngleFoldingCoverBoxWithSideLock,,close,明确异常,0.7,x0.7: cut length x1.79 of expected,是
+import-folding-151180,folding,spec-TrapezoidalAngleLockClamshellBox,,exact,明确异常,0.7,x0.7: cut length x1.86 of expected,是
+import-mailer-151220,mailer,sampled-mailer-151220,,exact,明确异常,0.7 / 0.8,x0.7: faces 15→14 | x0.8: faces 15→14,是
+import-folding-151220,folding,sampled-folding-151220,,exact,明确异常,0.7 / 0.8,x0.7: faces 15→14 | x0.8: faces 15→14,是
+import-folding-151300,folding,spec-KnifeDraw__151300,,exact,明确异常,0.7 / 0.8,x0.7: cut length x1.69 of expected | x0.8: cut length x1.69 of expected,是
+import-folding-151630,folding,spec-SafetyBuckleSideInsertFlipBox,,close,明确异常,0.7 / 1.1 / 1.25 / 1.4,x0.7: sheet 485x662→81x274; cut length x0.37 of expected | x1.1: cut length x0.66 of expected | x1.25: cut length x0.65 of expected | x1.4: cut length x0.64 of expected,是
+import-folding-151660,folding,spec-FourFoldedCombinationFlipBox,bottom,close,明确异常,0.7 / 0.8,x0.7: cut length x0.52 of expected | x0.8: cut length x0.50 of expected,是
+import-folding-151660,folding,spec-FourFoldedCombinationFlipBox,lid,close,明确异常,0.7 / 0.8 / 1.1 / 1.25 / 1.4,x0.7: sheet 417x777→316x155; cut length x0.40 of expected | x0.8: sheet 417x777→352x175; cut length x0.40 of expected | x1.1: cut length x0.65 of expected | x1.25: cut length x0.64 of expected | x1.4: cut length x0.63 of expected,是
+import-folding-152020,folding,spec-TrayGluedWithLock,,close,明确异常,0.9,x0.9: cut length x0.67 of expected,是
+import-gift-152021,gift,spec-TrayGluedWithLockNailP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 5→6 | x0.8: open ends 5→6 | x0.9: open ends 5→6 | x1.1: open ends 5→6 | x1.25: open ends 5→6 | x1.4: open ends 5→6,是
+import-folding-152021,folding,spec-TrayGluedWithLockNailP1,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 5→6 | x0.8: open ends 5→6 | x0.9: open ends 5→6 | x1.1: open ends 5→6 | x1.25: open ends 5→6 | x1.4: open ends 5→6,是
+import-folding-152031,folding,sampled-folding-152031,,exact,可疑,1.1 / 1.25 / 1.4,x1.1: open ends 8→16 | x1.25: open ends 8→16 | x1.4: open ends 8→16,是
+import-folding-152090,folding,spec-FlipTrapezoidBevel,,close,明确异常,0.8,x0.8: cut length x0.64 of expected,是
+import-mailer-152101,mailer,spec-FlapBoxWithTopLatchOne,,close,可疑,1.1,x1.1: open ends 0→2,是
+import-shipping-152102,shipping,spec-FlapBoxWithTopLatchTwo,,close,明确异常,0.9,x0.9: cut length x1.46 of expected,是
+import-folding-152102,folding,spec-FlapBoxWithTopLatchTwo,,close,明确异常,0.9,x0.9: cut length x1.46 of expected,是
+import-folding-153010,folding,spec-FlipHandshakeLatch,,close,明确异常,0.9,x0.9: cut length x0.68 of expected,是
+import-folding-153012,folding,spec-FrontBuckleLockFlipBox,,close,可疑,1.25,x1.25: open ends 6→8,是
+import-folding-153060,folding,spec-FlipFoldenCornerWithLock,,close,明确异常,0.8 / 0.9,x0.8: cut length x1.49 of expected | x0.9: cut length x1.45 of expected,是
+import-folding-153110,folding,spec-FlipPortableLatch,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 20→24 | x0.8: open ends 20→24 | x0.9: open ends 20→24 | x1.1: open ends 20→24 | x1.25: open ends 20→24 | x1.4: open ends 20→24,是
+import-folding-153130,folding,spec-SafetyBuckleHandleLockFlipBox,,close,可疑,0.9,x0.9: open ends 14→18,是
+import-folding-153210,folding,spec-TrapezoidalLockFlipBox,,close,明确异常,0.7,x0.7: cut length x0.64 of expected,是
+import-mailer-156000,mailer,spec-AircraftWithSpecialShaped,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.67 of expected | x0.8: cut length x1.55 of expected,是
+import-folding-156000,folding,spec-AircraftWithSpecialShaped,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.67 of expected | x0.8: cut length x1.55 of expected,是
+import-mailer-156001,mailer,spec-LinedSpecialTypeAircraft,,close,明确异常,0.7,x0.7: cut length x0.53 of expected,是
+import-folding-156001,folding,spec-LinedSpecialTypeAircraft,,close,明确异常,0.7,x0.7: cut length x0.53 of expected,是
+import-folding-156060,folding,spec-DoubleDeckAircraftBox,bottom,close,可疑,1.1,x1.1: open ends 0→2,是
+import-folding-156080,folding,spec-LinerPlugLockAircraft,,close,可疑,1.25,x1.25: open ends 16→22,是
+import-folding-156110,folding,spec-DoubleLockFlipBox,,close,可疑,1.25,x1.25: open ends 0→2,是
+import-mailer-156130,mailer,spec-FlipPlugUnbonded,,close,明确异常,0.7,x0.7: cut length x1.48 of expected,是
+import-folding-156130,folding,spec-FlipPlugUnbonded,,close,明确异常,0.7,x0.7: cut length x1.48 of expected,是
+import-mailer-156181,mailer,spec-FlipLockBottom,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.55 of expected | x0.8: cut length x1.47 of expected,是
+import-folding-156215,folding,spec-BreatherHolePizzaFlapBox,,close,明确异常,0.7,x0.7: cut length x1.45 of expected,是
+import-folding-156240,folding,spec-SpecialShapedPizzaFlipBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.63 of expected | x0.8: cut length x1.55 of expected,是
+import-folding-156244,folding,spec-DoubleLockPizzaFlipBox,,close,明确异常,0.7 / 0.8,x0.7: open ends 44→50; cut length x1.91 of expected | x0.8: open ends 44→50; cut length x1.50 of expected,是
+import-folding-156245,folding,spec-HexagonalFingerLockPizzaFlipBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x2.63 of expected | x0.8: cut length x2.31 of expected | x0.9: cut length x1.73 of expected,是
+import-folding-156250,folding,spec-FourfoldLatchBufferFlapBox,,close,明确异常,0.8 / 1.4,x0.8: cut length x0.67 of expected | x1.4: cut length x0.70 of expected,是
+import-folding-156270,folding,spec-SplitFlapBoxWithPullCable,,close,明确异常,0.7 / 1.4,x0.7: open ends 16→20; cut length x1.49 of expected | x1.4: cut length x0.68 of expected,是
+import-mailer-156310,mailer,spec-ConcealedPluginLockBottomFlapBox,,close,可疑,0.7,x0.7: open ends 0→3,是
+import-folding-156310,folding,spec-ConcealedPluginLockBottomFlapBox,,close,可疑,0.7,x0.7: open ends 0→3,是
+import-folding-156330,folding,spec-TipperLockBottomMortiseLockFlipCover,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 4→6 | x0.8: open ends 4→6 | x0.9: open ends 4→6,是
+import-folding-156380,folding,spec-SimpleSingleSideLockBottomFlapBox,,close,明确异常,0.7,x0.7: cut length x1.49 of expected,是
+import-mailer-156410,mailer,spec-InterlockingPluginLockingBufferFlapBox,,close,明确异常,0.8,x0.8: cut length x0.58 of expected,是
+import-gift-156410,gift,spec-InterlockingPluginLockingBufferFlapBox,,close,明确异常,0.8,x0.8: cut length x0.58 of expected,是
+import-folding-156410,folding,spec-InterlockingPluginLockingBufferFlapBox,,close,明确异常,0.8,x0.8: cut length x0.58 of expected,是
+import-folding-156430,folding,spec-TwinPlugInLockFlipBox,,close,可疑,1.25,x1.25: open ends 32→38,是
+import-folding-156440,folding,spec-ExternalPositivePlugInLockFlipBox,,close,可疑,1.4,x1.4: open ends 12→14,是
+import-folding-157010,folding,spec-SplitFoldedFlapBox,,close,明确异常,0.7,x0.7: open ends 2→4; cut length x1.46 of expected,是
+import-folding-157030,folding,spec-ThreeTrapezoidalClamshellBox,,close,明确异常,0.7 / 0.8,x0.7: sheet 882x950→686x252 | x0.8: sheet 882x950→753x278,是
+import-folding-157060,folding,spec-TriangularSplitFlapBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.53 of expected | x0.8: cut length x1.59 of expected,是
+import-folding-157080,folding,spec-InclinedFlapBoxP1,lid,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 28→36 | x0.8: open ends 28→36 | x0.9: open ends 28→36 | x1.1: open ends 28→36 | x1.25: open ends 28→36 | x1.4: open ends 28→36,是
+import-tray-157080,tray,spec-InclinedFlapBoxP1,lid,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 28→36 | x0.8: open ends 28→36 | x0.9: open ends 28→36 | x1.1: open ends 28→36 | x1.25: open ends 28→36 | x1.4: open ends 28→36,是
+import-folding-158020,folding,spec-FlipBoxWithDoubleSocketLock,,exact,明确异常,0.7 / 0.8 / 0.9 / 1.25 / 1.4,x0.7: cut length x0.50 of expected | x0.8: cut length x0.45 of expected | x0.9: cut length x0.66 of expected | x1.25: cut length x0.64 of expected | x1.4: open ends 0→4; cut length x0.63 of expected,是
+import-folding-158030,folding,spec-SplitFlapLiftingBox,p2,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 4→8 | x0.8: open ends 4→8 | x0.9: open ends 4→8,是
+import-folding-158030,folding,spec-SplitFlapLiftingBox,p3,close,可疑,1.4,x1.4: open ends 12→13,是
+import-folding-158030,folding,spec-SplitFlapLiftingBox,p7,close,明确异常,0.7 / 0.8,x0.7: cut length x1.61 of expected | x0.8: cut length x1.55 of expected,是
+import-folding-158090,folding,spec-BufferFrameZipperFlapBox,lid,close,明确异常,0.7,x0.7: cut length x1.58 of expected,是
+import-folding-158134,folding,spec-HamburgerBoxTwo,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 52→60 | x0.8: open ends 52→60 | x0.9: open ends 52→60 | x1.1: open ends 52→60 | x1.25: open ends 52→64 | x1.4: open ends 52→60,是
+import-folding-160025,folding,spec-Cupcakeboxwithopenwindow,bottom,exact,明确异常,0.9,x0.9: open ends 10→12; cut length x0.67 of expected,是
+import-gift-160031,gift,spec-HalffoldedBottomWithoutTraceBuckleBottomWorld,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.67 of expected | x0.8: cut length x0.66 of expected,是
+import-gift-160160,gift,spec-FourFoldCoverBox,bottom,close,明确异常,1.25 / 1.4,x1.25: cut length x0.67 of expected | x1.4: cut length x0.65 of expected,是
+import-gift-161012,gift,spec-CoverBassetCardboardBox__161012,bottom,close,明确异常,0.7,x0.7: open ends 6→14; cut length x1.78 of expected,是
+import-square-161012,square,spec-CoverBassetCardboardBox__161012,bottom,close,明确异常,0.7,x0.7: open ends 6→14; cut length x1.78 of expected,是
+import-tray-170150,tray,spec-TracelessBottomSideLockDisplayBox,,close,可疑,1.4,x1.4: open ends 0→2,是
+import-tray-170170,tray,spec-FourFoldedFlatStickBottomDisplayBox,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 21→22 | x0.8: open ends 21→22 | x0.9: open ends 21→22 | x1.1: open ends 21→22 | x1.25: open ends 21→22 | x1.4: open ends 21→22,是
+import-tray-171030,tray,spec-TrayShow,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.50 of expected | x0.8: sheet 424x327→59x297; cut length x0.43 of expected,是
+import-tray-171041,tray,spec-TraySelflockWithWindow,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 2→8 | x0.8: open ends 2→8 | x0.9: open ends 2→8 | x1.1: open ends 2→8 | x1.25: open ends 2→8 | x1.4: open ends 2→8,是
+import-tray-171043,tray,spec-TrayDrawerSelflockWithWindow,lid,exact,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 12→16 | x0.8: open ends 12→16 | x0.9: open ends 12→16,是
+import-folding-171160,folding,spec-LockingBottomLatchDisplayBox,,close,可疑,1.25,x1.25: open ends 20→22,是
+import-tray-171190,tray,spec-InnerFoldingLockingDisplayBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.60 of expected | x0.8: cut length x0.60 of expected | x0.9: cut length x0.60 of expected,是
+import-folding-171210,folding,spec-SixCompartmentPortableDisplayBox,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 2→6 | x0.8: open ends 2→6 | x0.9: open ends 2→6,是
+import-tray-171232,tray,spec-BuckleShowSellWithHandlehole,,close,明确异常,0.7,x0.7: cut length x0.67 of expected,是
+import-folding-171580,folding,spec-LadderLockDisplayBox,,close,明确异常,0.9,x0.9: open ends 0→2; sheet 549x643→522x316,是
+import-folding-171800,folding,spec-FlipLockDisplayBox__171800,,exact,可疑,1.4,x1.4: open ends 90→92,是
+import-gift-180190,gift,spec-TrapezoidalInsertLockBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x1.90 of expected | x0.8: cut length x1.76 of expected | x0.9: cut length x1.65 of expected,是
+import-folding-180190,folding,spec-TrapezoidalInsertLockBox,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x1.90 of expected | x0.8: cut length x1.76 of expected | x0.9: cut length x1.65 of expected,是
+import-folding-180235,folding,spec-SimpleLockingTriangularBox,,exact,明确异常,0.7,x0.7: cut length x2.39 of expected,是
+import-folding-180280,folding,spec-TriangularConicalBottomBoxWithHook,,exact,明确异常,0.7,x0.7: cut length x1.49 of expected,是
+import-folding-181230,folding,spec-PolygonalFlowerShapedCoverBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.49 of expected | x0.8: cut length x1.50 of expected,是
+import-folding-181240,folding,spec-AdhesiveEdgeDiscTrapezoidalBox,,close,可疑,0.7 / 0.8 / 0.9,x0.7: open ends 4→6 | x0.8: open ends 4→6 | x0.9: open ends 4→6,是
+import-folding-183070,folding,spec-SixGridBottomSelflockBox,,close,可疑,0.9,x0.9: open ends 6→8,是
+import-folding-188030,folding,sampled-folding-188030,,exact,可疑,0.7 / 0.8 / 1.25 / 1.4,x0.7: open ends 2→6 | x0.8: open ends 2→6 | x1.25: open ends 2→9 | x1.4: open ends 2→6,是
+import-folding-188130,folding,spec-SideHangingSixSidedBoxP1,,close,明确异常,0.7,x0.7: cut length x1.80 of expected,是
+import-gift-188271,gift,spec-ChristmasCandyGiftBox,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.72 of expected | x0.8: open ends 4→12; cut length x1.59 of expected,是
+import-gift-188300,gift,spec-BallGiftBox,,close,明确异常,1.1 / 1.25 / 1.4,x1.1: cut length x1.59 of expected | x1.25: cut length x1.52 of expected | x1.4: cut length x1.50 of expected,是
+import-gift-188310,gift,spec-NonConcaveSphericalGiftBox,,close,明确异常,1.25 / 1.4,x1.25: open ends 42→48; cut length x1.56 of expected | x1.4: open ends 42→48; cut length x1.56 of expected,是
+import-gift-189040,gift,spec-KnifeDraw__189040,,exact,明确异常,0.8 / 0.9,x0.8: cut length x0.67 of expected | x0.9: cut length x0.64 of expected,是
+import-gift-189041,gift,spec-RegularHexagonalInterlockingTubeBox,,close,明确异常,0.7 / 0.8,x0.7: open ends 38→42; cut length x0.61 of expected | x0.8: open ends 38→42; cut length x0.59 of expected,是
+import-gift-189042,gift,spec-FivesidedIrregularshapedLockBox,,close,明确异常,0.7 / 1.4,x0.7: sheet 451x355→168x130; cut length x0.46 of expected | x1.4: cut length x0.70 of expected,是
+import-shipping-200034,shipping,spec-CartonFrontZipper,,close,明确异常,0.7 / 0.9,x0.7: cut length x0.62 of expected | x0.9: cut length x0.66 of expected,是
+import-shipping-200102,shipping,spec-CartonEconomicHandhole,,close,可疑,1.1 / 1.25 / 1.4,x1.1: open ends 0→2 | x1.25: open ends 0→2 | x1.4: open ends 0→2,是
+import-folding-200103,folding,spec-SplitHandleCardboardBox,,close,可疑,0.7 / 0.8 / 1.1 / 1.25 / 1.4,x0.7: open ends 1222→1228 | x0.8: open ends 1222→1228 | x1.1: open ends 1222→1228 | x1.25: open ends 1222→1228 | x1.4: open ends 1222→1228,是
+import-shipping-200200,shipping,spec-CartonSelfBlock,,close,明确异常,0.7 / 0.8,x0.7: cut length x0.60 of expected | x0.8: cut length x0.69 of expected,是
+import-shipping-200210,shipping,spec-CartonMovehouseStrengthen,,close,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x0.58 of expected | x0.8: cut length x0.57 of expected | x0.9: cut length x0.66 of expected,是
+import-mailer-200231,mailer,spec-CartonSelfSixBlockLocking,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 4→5 | x0.8: open ends 4→5 | x0.9: open ends 4→5 | x1.1: open ends 4→6 | x1.25: open ends 4→6 | x1.4: open ends 4→6,是
+import-folding-204030,folding,spec-LockBottomSixCompartmentLinedCarryCase,,close,明确异常,0.7,x0.7: open ends 24→30; cut length x0.63 of expected,是
+import-mailer-206090,mailer,spec-InsertLockFlatBottomCardboardBox,,close,可疑,0.7,x0.7: open ends 4→6,是
+import-tray-240150,tray,spec-SimpleHalfPackRectangularEnvelope,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 8→12 | x0.8: open ends 8→12 | x0.9: open ends 8→12 | x1.1: open ends 8→12 | x1.25: open ends 8→12 | x1.4: open ends 8→12,是
+import-folding-240230,folding,spec-SidePortableCoverP1,,close,明确异常,0.7 / 0.8,x0.7: cut length x1.50 of expected | x0.8: cut length x1.46 of expected,是
+import-folding-240800,folding,spec-KnifeDraw__240800,,exact,明确异常,0.7 / 0.8 / 0.9,x0.7: cut length x1.67 of expected | x0.8: cut length x1.64 of expected | x0.9: cut length x1.62 of expected,是
+import-square-10002001,square,spec-PairWithHook__10002001,,close,可疑,0.7 / 0.9 / 1.4,x0.7: open ends 12→14 | x0.9: open ends 12→14 | x1.4: open ends 12→16,是
+import-folding-10007101,folding,spec-PairWithWindowLockExtension02,,close,明确异常,0.7,x0.7: cut length x1.53 of expected,是
+import-gift-10508102,gift,spec-SnapZipperSelflockingBottomBox__10508102,,exact,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 61→66 | x0.8: open ends 61→66 | x0.9: open ends 61→66 | x1.1: open ends 61→64 | x1.25: open ends 61→65 | x1.4: open ends 61→66,是
+import-folding-10920001,folding,spec-InnerLockPullOffStickBottomBox__10920001,,exact,可疑,0.7 / 0.8 / 0.9 / 1.25 / 1.4,x0.7: open ends 66→68 | x0.8: open ends 66→68 | x0.9: open ends 66→68 | x1.25: open ends 66→67 | x1.4: open ends 66→68,是
+import-folding-11208101,folding,spec-LockPairBuckleCake,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 8→12 | x0.8: open ends 8→12 | x0.9: open ends 8→10 | x1.1: open ends 8→10 | x1.25: open ends 8→12 | x1.4: open ends 8→12,是
+import-folding-12306001,folding,spec-TrapezoidDiscBox,,exact,明确异常,0.7,x0.7: sheet 725x491→381x163; cut length x0.41 of expected,是
+import-folding-12807101,folding,spec-SideLatchingWindowDrawerBox,lid,exact,明确异常,0.8,x0.8: open ends 14→20; cut length x0.68 of expected,是
+import-folding-15130001,folding,spec-KnifeDraw__15130001,,exact,明确异常,0.7 / 0.8,x0.7: cut length x1.69 of expected | x0.8: cut length x1.69 of expected,是
+import-folding-15621601,folding,spec-PizzaFlapBoxWithNail,,close,可疑,1.25,x1.25: open ends 12→14,是
+import-square-15813001,square,spec-HamburgerBox,,exact,明确异常,1.1 / 1.25 / 1.4,x1.1: cut length x0.70 of expected | x1.25: cut length x0.67 of expected | x1.4: cut length x0.60 of expected,是
+import-square-16002201,square,spec-CartonCoverBoxWithHandleOne,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 5→12 | x0.8: open ends 5→12 | x0.9: open ends 5→12 | x1.1: open ends 5→12 | x1.25: open ends 5→12 | x1.4: open ends 5→12,是
+import-square-16002202,square,spec-CartonCoverBoxWithHandle,,close,可疑,0.7 / 0.8 / 0.9 / 1.1 / 1.25 / 1.4,x0.7: open ends 6→12 | x0.8: open ends 6→12 | x0.9: open ends 6→12 | x1.1: open ends 6→12 | x1.25: open ends 6→12 | x1.4: open ends 6→12,是
+import-gift-16016001,gift,spec-FourFoldCoverBox__16016001,bottom,close,可疑,1.4,x1.4: open ends 0→4,是
+import-gift-16016001,gift,spec-FourFoldCoverBox__16016001,lid,close,可疑,0.8,x0.8: open ends 0→4,是
+import-square-16016001,square,spec-FourFoldCoverBox__16016001,bottom,close,可疑,1.4,x1.4: open ends 0→4,是
+import-square-16016001,square,spec-FourFoldCoverBox__16016001,lid,close,可疑,0.8,x0.8: open ends 0→4,是
+import-square-16101201,square,spec-CoverBassetCardboardBox__16101201,bottom,close,明确异常,0.7 / 0.8,x0.7: open ends 4→16; cut length x1.51 of expected | x0.8: open ends 4→16; cut length x1.46 of expected,是
+import-gift-16101202,gift,spec-CoverBassetCardboardBox__16101202,bottom,close,明确异常,0.7 / 0.8,x0.7: open ends 10→14; cut length x1.76 of expected | x0.8: open ends 10→14; cut length x1.71 of expected,是
+import-square-16101202,square,spec-CoverBassetCardboardBox__16101202,bottom,close,明确异常,0.7 / 0.8,x0.7: open ends 10→14; cut length x1.76 of expected | x0.8: open ends 10→14; cut length x1.71 of expected,是
+import-gift-16101203,gift,spec-CoverBassetCardboardBox__16101203,bottom,exact,明确异常,0.7 / 0.8,x0.7: open ends 4→16; cut length x1.61 of expected | x0.8: open ends 4→16; cut length x1.56 of expected,是
+import-square-16101203,square,spec-CoverBassetCardboardBox__16101203,bottom,exact,明确异常,0.7 / 0.8,x0.7: open ends 4→16; cut length x1.61 of expected | x0.8: open ends 4→16; cut length x1.56 of expected,是
+import-gift-16101204,gift,spec-CoverBassetCardboardBox__16101204,bottom,close,明确异常,0.8,x0.8: open ends 4→14; cut length x1.63 of expected,是
+import-square-16101204,square,spec-CoverBassetCardboardBox__16101204,bottom,close,明确异常,0.8,x0.8: open ends 4→14; cut length x1.63 of expected,是

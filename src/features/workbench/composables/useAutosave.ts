@@ -184,6 +184,8 @@ export function useAutosave() {
     if (geometryDrift.value && !opts.force) return
     if (!wb.manifest) return
     if (knife.status === 'computing') return
+    // An invalid size (e.g. the dieline falls apart, OUTLINE_BROKEN) is not written; the server rejects it too
+    if (knife.status === 'invalid') return
     // Nothing changed since the last successful save: there is no new revision to write, even for a
     // forced checkpoint (export and tab-hidden call it every time). Force still re-saves after a drift.
     if (fingerprint() === lastSavedFingerprint && designId.value && revisionId.value && !(opts.force && geometryDrift.value)) {
