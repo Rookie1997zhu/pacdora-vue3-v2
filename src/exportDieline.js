@@ -1,5 +1,6 @@
 /** Export dieline from knife.layers (trim / crease / bleed). Demo only — not for die cutting. */
 import {PDFDocument,PDFHexString,PDFName,PDFOperator,rgb,StandardFonts} from 'pdf-lib'
+import {artworkToSvg,drawArtworkPdf,planArtwork,ARTWORK_PDF_LAYER} from './exportArtwork.js'
 import {buildDimAnnotations,dimAnnotationsToSvg,DIM_COLOR} from './dimAnnotations.js'
 import {
   arcCenter,
@@ -252,6 +253,8 @@ export function toSvgDieline(knife,options={}){
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<svg ${rootAttrs}>`,
     `<!-- ${disclaimer} -->`,
+    // 图案垫在刀线下面：切线、压痕始终可见
+    options.artwork?artworkToSvg(knife,options.artwork,options.artworkImages||{},options.artworkWarnings||[]):'',
     opts.showBleed?`<path d="${bleedPath}" stroke="${LAYER_META.bleed.color}" stroke-width="1.2" opacity="0.65"/>`:'',
     `<path d="${trimPath}" stroke="${LAYER_META.trim.color}" stroke-width="1.8"/>`,
     `<path d="${creasePath}" stroke="${LAYER_META.crease.color}" stroke-width="1.6" stroke-dasharray="6 4"/>`,
@@ -269,6 +272,10 @@ function pdfSafeLabel(s){
     .replace(/[^\x20-\x7E]/g,'')
 }
 
+/**
+ * SVG path data for page.drawSvgPath. pdf-lib draws SVG paths y-down from the anchor it is given,
+ * so `map` must return y-down coordinates (see svgMap in toPdf) and arcs keep their original sweep.
+ */
 function pdfPathData(cmds,map,scale){
   const parts=[]
   for(const cmd of cmds||[]){
@@ -277,7 +284,7 @@ function pdfPathData(cmds,map,scale){
       parts.push(`${cmd.mtd} ${p.x} ${p.y}`)
     }else if(cmd?.mtd==='A'){
       const p=map(cmd.x,cmd.y)
-      parts.push(`A ${Math.abs(cmd.rx*scale)} ${Math.abs(cmd.ry*scale)} ${-(cmd.ang||0)} ${cmd.arc?1:0} ${cmd.dir?0:1} ${p.x} ${p.y}`)
+      parts.push(`A ${Math.abs(cmd.rx*scale)} ${Math.abs(cmd.ry*scale)} ${cmd.ang||0} ${cmd.arc?1:0} ${cmd.dir?1:0} ${p.x} ${p.y}`)
     }else if(cmd?.mtd==='Q'){
       const c=map(cmd.cx,cmd.cy),p=map(cmd.x,cmd.y)
       parts.push(`Q ${c.x} ${c.y} ${p.x} ${p.y}`)
@@ -327,10 +334,12 @@ export async function toPdf(knife,options={}){
   const opts=normalizedOptions(options)
   const b=boundsOf(knife)
   const wMm=b.maxX-b.minX,hMm=b.maxY-b.minY
-  const margin=36
-  const headerH=opts.showTitleBlock?54:0,footerH=opts.showTitleBlock?36:12
   // PDF 的单位是 pt（1/72 英寸），刀版坐标是 mm：1 mm = 72/25.4 pt。页面按实际尺寸撑开，保证 1:1。
   const PT_PER_MM=72/25.4
+  // 出血线在切线外侧：页边要留出它的宽度，否则出血线会被页面边缘裁掉
+  const bleedOutMm=opts.showBleed?Math.max(0,Number(knife.bleedEffective??((Number(knife.bleed)||0)+10))||0):0
+  const margin=36+bleedOutMm*PT_PER_MM
+  const headerH=opts.showTitleBlock?54:0,footerH=opts.showTitleBlock?36:12
   const pageW=Math.max(420,wMm*PT_PER_MM+margin*2)
   const pageH=Math.max(594,hMm*PT_PER_MM+margin*2+headerH+footerH)
   const doc=await PDFDocument.create()
@@ -343,7 +352,10 @@ export async function toPdf(knife,options={}){
   const d=knife.dimensions||{}
   const mat=knife.material?.id||'-'
   const title=`${knife.template||'mailer'} · ${displayNumber(d.length,opts.displayUnit)}x${displayNumber(d.width,opts.displayUnit)}x${displayNumber(d.height,opts.displayUnit)} ${opts.displayUnit} · ${mat}`
-  const layer=pdfLayers(doc,page,['BLEED','TRIM','CREASE','DIM','TEXT'])
+  // 有图案时多一个 ARTWORK 图层，排在最下面；没有图案的文件保持原来的五个图层
+  const artworkPlan=options.artwork?planArtwork(knife,options.artwork):null
+  const hasArtwork=!!artworkPlan&&(artworkPlan.items.length>0||!!artworkPlan.background)
+  const layer=pdfLayers(doc,page,[...(hasArtwork?[ARTWORK_PDF_LAYER]:[]),'BLEED','TRIM','CREASE','DIM','TEXT'])
   if(opts.showTitleBlock){
     layer('TEXT',()=>page.drawText(pdfSafeLabel(title),{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22)}))
   }
@@ -374,6 +386,16 @@ export async function toPdf(knife,options={}){
     y:oy+(b.maxY-y)*scale
   })
 
+  // drawSvgPath 以 (x,y) 为原点、y 向下画：原点放在页面左上角，路径坐标用「距页面顶边的距离」。
+  // 以前直接把 y 向上的页面坐标交给它，又没给原点，切线 / 压痕 / 出血线全部被画到了页面下方（不可见）。
+  const svgMap=(x,y)=>{const p=map(x,y);return {x:p.x,y:pageH-p.y}}
+
+  if(hasArtwork){
+    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of('OC1')]))
+    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[]})
+    page.pushOperators(PDFOperator.of('EMC'))
+  }else if(artworkPlan&&options.artworkWarnings)options.artworkWarnings.push(...artworkPlan.skipped)
+
   for(const role of ['bleed','trim','crease']){
     if(role==='bleed'&&!opts.showBleed)continue
     const meta=LAYER_META[role]
@@ -381,9 +403,10 @@ export async function toPdf(knife,options={}){
     const color=rgb(c.r,c.g,c.b)
     layer(meta.dxf,()=>{
       for(const path of pathsOf(knife,role)){
-        const pathData=pdfPathData(path,map,scale)
+        const pathData=pdfPathData(path,svgMap,scale)
         if(!pathData)continue
         page.drawSvgPath(pathData,{
+          x:0,y:pageH,
           borderWidth:role==='trim'?1.2:role==='bleed'?0.8:0.9,
           borderColor:color,
           borderOpacity:role==='bleed'?0.65:1,

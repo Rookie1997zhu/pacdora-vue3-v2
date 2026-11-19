@@ -51,9 +51,11 @@ const {
 const PORT = Number(process.env.PORT || 3100)
 const HOST = process.env.HOST || '0.0.0.0'
 const MAX_BODY_BYTES = 256 * 1024
+// Exports carry the design's artwork images (base64) so they can be drawn into the file
+const MAX_EXPORT_BODY_BYTES = 64 * 1024 * 1024
 const GEOMETRY_TIMEOUT_MS = 5_000
 
-function readJson(req) {
+function readJson(req, maxBytes = MAX_BODY_BYTES) {
   return new Promise((resolve, reject) => {
     const chunks = []
     let totalBytes = 0
@@ -61,10 +63,10 @@ function readJson(req) {
     req.on('data', (chunk) => {
       if (settled) return
       totalBytes += chunk.length
-      if (totalBytes > MAX_BODY_BYTES) {
+      if (totalBytes > maxBytes) {
         settled = true
         chunks.length = 0
-        const err = new Error('request body exceeds 256KB')
+        const err = new Error(`request body exceeds ${Math.round(maxBytes / 1024)}KB`)
         err.code = 'BODY_TOO_LARGE'
         err.status = 413
         reject(err)
@@ -391,10 +393,16 @@ async function exportDieline(body) {
   }
   const base = `${input.templateId}-${input.lengthMm}x${input.widthMm}x${input.heightMm}`
   const options = normalizeExportOptions(body.options)
+  // Artwork placed in the design editor. DXF is a cutting file and stays line-only.
+  const artwork = body.artwork && typeof body.artwork === 'object' && !Array.isArray(body.artwork) ? body.artwork : null
+  const artworkImages = body.artwork_images && typeof body.artwork_images === 'object' ? body.artwork_images : {}
+  const artworkWarnings = Array.isArray(body.artwork_warnings) ? body.artwork_warnings.map(String) : []
+  const drawArtwork = !!artwork && format !== 'dxf'
   const exportOpts = {
     qualityTier: qualityTier || 'vector_proof',
     includeDims: options.showDimensions ?? true,
     ...options,
+    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings} : {}),
   }
   let mime
   let filename
@@ -453,6 +461,9 @@ async function exportDieline(body) {
       exporter_version: 'boxcraft.export.v1',
       geometry_document_schema: doc.schema,
       qualification_status: qualityTier === 'engineering' ? 'engineering_review' : null,
+      artwork_layers: Array.isArray(artwork?.layers) ? artwork.layers.length : 0,
+      artwork_included: drawArtwork && Array.isArray(artwork?.layers) && artwork.layers.length > 0,
+      artwork_warnings: [...new Set(artworkWarnings)].slice(0, 20),
     },
   }
 }
@@ -563,7 +574,7 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, {code: 'OK', data})
     }
     if (req.method === 'POST' && req.url === '/export') {
-      const body = await readJson(req)
+      const body = await readJson(req, MAX_EXPORT_BODY_BYTES)
       const data = await withGeometryTimeout(() => exportDieline(body))
       return send(res, 200, {code: 'OK', data})
     }

@@ -427,9 +427,9 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     name:fo.name,
     x1:fo.x1,y1:fo.y1,x2:fo.x2,y2:fo.y2
   })).filter(fo=>parseFoldName(fo.name)||fo.name) // 保留几何折线供 2D；无效名仍画线
-    // 多片式盒型用零长度的"折线"标记两片的拼接位置（名称如 H_R），只供上面的面片父子关系/3D 拼装使用；
+    // 多片式盒型用零长度（实测 0.000001 或 0.01 mm；真实的最短折线是纸厚级的 0.15 mm）的"折线"标记两片的拼接位置（名称如 H_R），只供上面的面片父子关系/3D 拼装使用；
     // 它不是压痕，坐标还可能落在轮廓之外，不进入 2D 画布、压痕图层和导出文件
-    .filter(fo=>!(Number.isFinite(fo.x1)&&Number.isFinite(fo.x2)&&Math.hypot(fo.x2-fo.x1,fo.y2-fo.y1)<0.01))
+    .filter(fo=>!(Number.isFinite(fo.x1)&&Number.isFinite(fo.x2)&&Math.hypot(fo.x2-fo.x1,fo.y2-fo.y1)<0.05))
 
   const cutSubs=splitCmdsIntoSubpaths(ly.cuts||[])
   const bleedSubs=splitCmdsIntoSubpaths(ly.bleeds||[])

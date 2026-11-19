@@ -218,6 +218,74 @@ def _geometry_payload_from_revision(revision: DesignRevision) -> dict:
     }
 
 
+# Artwork images travel to the geometry service inline; keep one export within a sane size.
+ARTWORK_IMAGE_BUDGET_BYTES = 40 * 1024 * 1024
+
+
+def _artwork_payload_from_revision(revision: DesignRevision, export_format: str) -> dict:
+    """Artwork layers (and the image files they use) so the export shows what the editor shows.
+
+    DXF is a cutting file and never carries artwork. Images that cannot be sent are reported in
+    ``artwork_warnings`` instead of being dropped silently.
+    """
+    if export_format == ExportJob.Format.DXF:
+        return {}
+    content = revision.content_json or {}
+    artwork = content.get('artwork') if isinstance(content.get('artwork'), dict) else None
+    layers = [l for l in (artwork or {}).get('layers') or [] if isinstance(l, dict)]
+    if not artwork or (not layers and not artwork.get('backgroundColor')):
+        return {}
+
+    from apps.assets.models import Asset
+    from apps.assets.services import absolute_path
+
+    wanted = {
+        str(l.get('assetId'))
+        for l in layers
+        if l.get('kind') == 'image' and l.get('assetId') and l.get('visible', True) is not False
+    }
+    images: dict = {}
+    warnings: list[str] = []
+    used = 0
+    assets = Asset.objects.filter(
+        id__in=wanted,
+        organization_id=revision.design.organization_id,
+        status=Asset.Status.READY,
+    )
+    for asset in assets:
+        try:
+            raw = absolute_path(asset).read_bytes()
+            mime = (asset.mime or '').lower()
+            width, height = asset.width_px, asset.height_px
+            if mime not in ('image/png', 'image/jpeg') or not width or not height:
+                # PDF can only embed PNG / JPEG: convert anything else (WebP…) to PNG
+                import io as _io
+
+                from PIL import Image
+
+                with Image.open(_io.BytesIO(raw)) as img:
+                    width, height = img.size
+                    if mime not in ('image/png', 'image/jpeg'):
+                        buf = _io.BytesIO()
+                        img.convert('RGBA').save(buf, format='PNG')
+                        raw, mime = buf.getvalue(), 'image/png'
+            if used + len(raw) > ARTWORK_IMAGE_BUDGET_BYTES:
+                warnings.append(f'{asset.original_filename or asset.id}: image left out (export size limit)')
+                continue
+            used += len(raw)
+            images[str(asset.id)] = {
+                'mime': mime,
+                'base64': base64.b64encode(raw).decode('ascii'),
+                'width': width,
+                'height': height,
+            }
+        except Exception as exc:  # noqa: BLE001 — one unreadable image must not fail the export
+            warnings.append(f'{asset.original_filename or asset.id}: image could not be read ({type(exc).__name__})')
+    for missing in sorted(wanted - set(images) - {str(a.id) for a in assets}):
+        warnings.append(f'image {missing}: not found or not ready')
+    return {'artwork': artwork, 'artwork_images': images, 'artwork_warnings': warnings}
+
+
 def _resolve_template_version(revision: DesignRevision, template_id: str):
     try:
         tpl, ver = resolve_template(template_id)
@@ -775,6 +843,7 @@ def process_export_job(job_id: str) -> dict:
 
     try:
         payload = _geometry_payload_from_revision(job.input_revision)
+        payload.update(_artwork_payload_from_revision(job.input_revision, job.format))
         payload['format'] = job.format
         payload['quality_tier'] = job.quality_tier
         payload['options'] = {
