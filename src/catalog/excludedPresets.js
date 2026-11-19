@@ -5,6 +5,11 @@
  *   rigid – multi-layer rigid box (face paper + greyboard)
  *   broken – the reference dieline itself is incomplete (110440: the source only ever returns it with
  *            height 0, so the four wall panels are missing; checked 2026-11-19)
+ *            603500: the source gives two pieces, its own cover shows three; 603650: registered size 10×10×0
+ *   unfoldable – the dieline is fine but the 3D cannot be shown as a box: the source gives no fold
+ *            steps (heart box 512220, wine box 605360) or assembles separate pieces with moves we
+ *            cannot replay (tree boxes 181600 / 181610, letter box 185000, 36101111 has no assembly
+ *            data). Taken out of the catalogue on the owner's decision, 2026-11-19.
  * Used by src/catalog/index.js, scripts/export-box-mockups-catalog-seed.mjs. To bring one back,
  * delete its line, then run the export script and seed_catalog.
  */
@@ -64,6 +69,14 @@ export const EXCLUDED_PRESETS = Object.freeze({
   'import-square-36201101': 'rigid',
   'import-square-36201102': 'rigid',
   'import-tray-110440': 'broken',
+  'import-gift-603500': 'broken',
+  'import-gift-603650': 'broken',
+  'import-gift-512220': 'unfoldable',
+  'import-gift-605360': 'unfoldable',
+  'import-gift-181600': 'unfoldable',
+  'import-gift-181610': 'unfoldable',
+  'import-gift-185000': 'unfoldable',
+  'import-gift-36101111': 'unfoldable',
 })
 
 export function isExcludedPreset(id) {

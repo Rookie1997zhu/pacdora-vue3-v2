@@ -1,6 +1,6 @@
 {
  "schema": "boxcraft.workbench_templates.v1",
- "count": 635,
+ "count": 631,
  "items": [
   {
    "template_key": "auto-lock-bottom",
@@ -2762,24 +2762,6 @@
    }
   },
   {
-   "template_key": "spec-ConsumerFortysix",
-   "title": "礼物盒512220",
-   "limits": {
-    "length": [
-     144,
-     480
-    ],
-    "width": [
-     21,
-     70
-    ],
-    "height": [
-     63,
-     210
-    ]
-   }
-  },
-  {
    "template_key": "spec-ConsumerFourteen",
    "title": "休闲食品糖果饼干纸质礼盒包装模型",
    "limits": {
@@ -2794,60 +2776,6 @@
     "height": [
      120,
      400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerMingOne",
-   "title": "食品饮料中外名酒酒盒",
-   "limits": {
-    "length": [
-     60,
-     200
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerMingTwo",
-   "title": "礼物盒603500",
-   "limits": {
-    "length": [
-     60,
-     200
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerThirteen",
-   "title": "礼盒-金枝玉叶",
-   "limits": {
-    "length": [
-     10,
-     20
-    ],
-    "width": [
-     10,
-     20
-    ],
-    "height": [
-     10,
-     1
     ]
    }
   },
@@ -11254,42 +11182,6 @@
    }
   },
   {
-   "template_key": "fixed-gift-181600",
-   "title": "Tree shaped holiday box",
-   "category": "gift",
-   "source_num": "181600",
-   "preset_id": "import-gift-181600",
-   "locked_dims": {
-    "lengthMm": 180,
-    "widthMm": 200,
-    "heightMm": 60
-   }
-  },
-  {
-   "template_key": "fixed-gift-181610",
-   "title": "Double layer christmas tree box",
-   "category": "gift",
-   "source_num": "181610",
-   "preset_id": "import-gift-181610",
-   "locked_dims": {
-    "lengthMm": 229.4,
-    "widthMm": 249.4,
-    "heightMm": 59.2
-   }
-  },
-  {
-   "template_key": "fixed-gift-185000",
-   "title": "Gift box",
-   "category": "gift",
-   "source_num": "185000",
-   "preset_id": "import-gift-185000",
-   "locked_dims": {
-    "lengthMm": 100,
-    "widthMm": 110,
-    "heightMm": 30
-   }
-  },
-  {
    "template_key": "fixed-gift-188270",
    "title": "Sphere surprise gift box",
    "category": "gift",
@@ -11491,18 +11383,6 @@
     "lengthMm": 180,
     "widthMm": 100,
     "heightMm": 40
-   }
-  },
-  {
-   "template_key": "fixed-gift-36101111",
-   "title": "Cosmetics box with lid",
-   "category": "gift",
-   "source_num": "36101111",
-   "preset_id": "import-gift-36101111",
-   "locked_dims": {
-    "lengthMm": 176,
-    "widthMm": 146,
-    "heightMm": 37.85
    }
   },
   {

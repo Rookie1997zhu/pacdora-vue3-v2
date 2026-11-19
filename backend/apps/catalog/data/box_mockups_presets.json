@@ -10,11 +10,11 @@
   ],
   "byCategory": {
     "square": 53,
-    "gift": 94,
+    "gift": 86,
     "mailer": 79,
     "shipping": 47
   },
-  "count": 273,
+  "count": 265,
   "items": [
     {
       "category": "square",
@@ -1110,48 +1110,6 @@
     },
     {
       "category": "gift",
-      "preset_id": "import-gift-181600",
-      "source_num": "181600",
-      "label": "Tree shaped holiday box",
-      "name_ko": "선물 상자 · 181600",
-      "length": 180,
-      "width": 200,
-      "height": 60,
-      "thickness": 0.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/181600.png",
-      "template_id": null
-    },
-    {
-      "category": "gift",
-      "preset_id": "import-gift-181610",
-      "source_num": "181610",
-      "label": "Double layer christmas tree box",
-      "name_ko": "선물 상자 · 181610",
-      "length": 229.4,
-      "width": 249.4,
-      "height": 59.2,
-      "thickness": 0.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/181610.png",
-      "template_id": null
-    },
-    {
-      "category": "gift",
-      "preset_id": "import-gift-185000",
-      "source_num": "185000",
-      "label": "Gift box",
-      "name_ko": "선물 상자 · 185000",
-      "length": 100,
-      "width": 110,
-      "height": 30,
-      "thickness": 0.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/185000.png",
-      "template_id": "tuck-end-straight"
-    },
-    {
-      "category": "gift",
       "preset_id": "import-gift-188270",
       "source_num": "188270",
       "label": "Sphere surprise gift box",
@@ -1390,20 +1348,6 @@
     },
     {
       "category": "gift",
-      "preset_id": "import-gift-512220",
-      "source_num": "512220",
-      "label": "Heart shaped gift box",
-      "name_ko": "선물 상자 · 512220",
-      "length": 240,
-      "width": 35,
-      "height": 105,
-      "thickness": 0.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/512220.png",
-      "template_id": "spec-ConsumerFortysix"
-    },
-    {
-      "category": "gift",
       "preset_id": "import-gift-550340",
       "source_num": "550340",
       "label": "Gift box with shirt",
@@ -1415,20 +1359,6 @@
       "material_id": "white",
       "cover_rel": "gift-covers/550340.png",
       "template_id": "sampled-gift-550340"
-    },
-    {
-      "category": "gift",
-      "preset_id": "import-gift-603500",
-      "source_num": "603500",
-      "label": "Wine box with inserts wine bottles wine bottle",
-      "name_ko": "선물 상자 · 603500",
-      "length": 100,
-      "width": 100,
-      "height": 100,
-      "thickness": 1.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/603500.png",
-      "template_id": "spec-ConsumerMingTwo"
     },
     {
       "category": "gift",
@@ -1488,20 +1418,6 @@
     },
     {
       "category": "gift",
-      "preset_id": "import-gift-603650",
-      "source_num": "603650",
-      "label": "Surprise gift box",
-      "name_ko": "선물 상자 · 603650",
-      "length": 10,
-      "width": 10,
-      "height": 0,
-      "thickness": 1.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/603650.png",
-      "template_id": "spec-ConsumerThirteen"
-    },
-    {
-      "category": "gift",
       "preset_id": "import-gift-603678",
       "source_num": "603678",
       "label": "Cylindrical tube",
@@ -1513,20 +1429,6 @@
       "material_id": "white",
       "cover_rel": "gift-covers/603678.png",
       "template_id": null
-    },
-    {
-      "category": "gift",
-      "preset_id": "import-gift-605360",
-      "source_num": "605360",
-      "label": "Wine bottle with box",
-      "name_ko": "선물 상자 · 605360",
-      "length": 100,
-      "width": 100,
-      "height": 100,
-      "thickness": 0.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/605360.png",
-      "template_id": "spec-ConsumerMingOne"
     },
     {
       "category": "gift",
@@ -1960,20 +1862,6 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/36101108.png",
-      "template_id": null
-    },
-    {
-      "category": "gift",
-      "preset_id": "import-gift-36101111",
-      "source_num": "36101111",
-      "label": "Cosmetics box with lid",
-      "name_ko": "선물 상자 · 36101111",
-      "length": 176,
-      "width": 146,
-      "height": 37.85,
-      "thickness": 1.5,
-      "material_id": "white",
-      "cover_rel": "gift-covers/36101111.png",
       "template_id": null
     },
     {
