@@ -6,10 +6,11 @@ export type ProductSummary = {
   name: string
   name_ko?: string
   category: string
-  description: string
+  status?: string
+  description?: string
   template_key: string
   geometry_mode: 'parametric' | 'fixed_snapshot' | 'model_only'
-  capabilities: Record<string, unknown>
+  capabilities?: Record<string, unknown>
   cover_rel?: string
   sort_order?: number
 }
@@ -34,6 +35,8 @@ export type WorkbenchApiPayload = {
 }
 
 export type ProductDetail = ProductSummary & {
+  description?: string
+  capabilities?: Record<string, unknown>
   variants: Array<{ id: string; code: string; material_id: string; min_quantity: number }>
   template_version?: {
     version: string
@@ -42,6 +45,22 @@ export type ProductDetail = ProductSummary & {
     limits?: ParamLimits
   }
   workbench?: WorkbenchApiPayload | null
+}
+
+export type ProductListParams = {
+  page?: number
+  page_size?: number
+  category?: string
+  q?: string
+}
+
+export type ProductListPage = {
+  items: ProductSummary[]
+  page: number
+  page_size: number
+  total: number
+  has_next: boolean
+  categories?: string[]
 }
 
 /** Badge kind shared with LAB / --bc-badge-* tokens */
@@ -62,9 +81,19 @@ export function categoryBadgeKind(category: string): BadgeKind {
   return 'flat'
 }
 
-export async function fetchProducts() {
-  const res = await apiRequest<{ items: ProductSummary[] }>('/products/')
-  return res.data.items
+function qs(params: Record<string, string | number | undefined | null> = {}) {
+  const sp = new URLSearchParams()
+  Object.entries(params).forEach(([k, v]) => {
+    if (v === undefined || v === null || v === '') return
+    sp.set(k, String(v))
+  })
+  const s = sp.toString()
+  return s ? `?${s}` : ''
+}
+
+export async function fetchProducts(params?: ProductListParams): Promise<ProductListPage> {
+  const res = await apiRequest<ProductListPage>(`/products/${qs(params || {})}`)
+  return res.data
 }
 
 export async function fetchProduct(slug: string) {

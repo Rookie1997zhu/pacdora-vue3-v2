@@ -1,3 +1,7 @@
+from urllib.parse import quote
+
+from django.core.cache import cache
+from django.db.models import Q
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
@@ -8,7 +12,15 @@ from apps.catalog.serializers import (
     ProductListSerializer,
     TemplateVersionSerializer,
 )
+from apps.console.pagination import paginate_queryset
 from config.api import fail, ok
+
+PRODUCTS_CACHE_TTL = 60
+MATERIALS_CACHE_TTL = 300
+
+
+def _cache_token(value: str) -> str:
+    return quote(value or '', safe='')
 
 
 class ProductListView(APIView):
@@ -16,15 +28,36 @@ class ProductListView(APIView):
     authentication_classes = []
 
     def get(self, request):
-        qs = Product.objects.filter(status=Product.Status.PUBLISHED).select_related(
-            'default_template',
-            'default_template_version',
-        ).order_by('sort_order', 'name')
-        category = request.query_params.get('category')
-        if category:
-            qs = qs.filter(category=category)
-        items = ProductListSerializer(qs, many=True).data
-        return ok({'items': items, 'page': 1, 'page_size': len(items), 'total': len(items)}, request=request)
+        category = (request.query_params.get('category') or '').strip()
+        q = (request.query_params.get('q') or '').strip()
+        page = request.query_params.get('page') or '1'
+        size = request.query_params.get('page_size') or '24'
+        cache_key = (
+            f'pub:products:v1:cat={_cache_token(category)}:q={_cache_token(q)}'
+            f':p={_cache_token(str(page))}:s={_cache_token(str(size))}'
+        )
+        payload = cache.get(cache_key)
+        if payload is None:
+            qs = Product.objects.filter(status=Product.Status.PUBLISHED).select_related(
+                'default_template',
+                'default_template_version',
+            ).order_by('sort_order', 'name')
+            if category:
+                qs = qs.filter(category=category)
+            if q:
+                qs = qs.filter(Q(name__icontains=q) | Q(name_ko__icontains=q) | Q(slug__icontains=q))
+            page_items, meta = paginate_queryset(qs, request, default_size=24, max_size=100)
+            items = ProductListSerializer(page_items, many=True).data
+            categories = list(
+                Product.objects.filter(status=Product.Status.PUBLISHED)
+                .exclude(category='')
+                .values_list('category', flat=True)
+                .distinct()
+                .order_by('category')
+            )
+            payload = {**meta, 'items': items, 'categories': categories}
+            cache.set(cache_key, payload, PRODUCTS_CACHE_TTL)
+        return ok(payload, request=request)
 
 
 class ProductDetailView(APIView):
@@ -63,9 +96,14 @@ class MaterialProfileListView(APIView):
     authentication_classes = []
 
     def get(self, request):
-        qs = MaterialProfile.objects.filter(is_active=True).order_by('family', 'code')
         include_legacy = request.query_params.get('include_legacy') in ('1', 'true', 'yes')
-        if not include_legacy:
-            qs = qs.exclude(code__in=('kraft', 'white', 'blue'))
-        items = MaterialProfileSerializer(qs, many=True).data
-        return ok({'items': items, 'total': len(items)}, request=request)
+        cache_key = f'pub:materials:v1:legacy={int(include_legacy)}'
+        payload = cache.get(cache_key)
+        if payload is None:
+            qs = MaterialProfile.objects.filter(is_active=True).order_by('family', 'code')
+            if not include_legacy:
+                qs = qs.exclude(code__in=('kraft', 'white', 'blue'))
+            items = MaterialProfileSerializer(qs, many=True).data
+            payload = {'items': items, 'total': len(items)}
+            cache.set(cache_key, payload, MATERIALS_CACHE_TTL)
+        return ok(payload, request=request)

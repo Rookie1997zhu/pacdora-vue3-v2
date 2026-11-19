@@ -698,7 +698,7 @@ export default {
       "height": 138.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairWithWindowHook",
+      "templateId": "sampled-folding-100021",
       "hasGeometry": true,
       "cutCount": 91,
       "foldCount": 15,
@@ -714,233 +714,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairWithWindowHook",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          28.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          10,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          41,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          22,
-          9,
-          79,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          45,
-          4
-        ],
-        "L1": [
-          79,
-          79,
-          79.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          170,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          70,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          63.15,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          63,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "X1": [
-          20,
-          0,
-          80,
-          6
-        ],
-        "X2": [
-          40,
-          0,
-          60,
-          6
-        ],
-        "Y3": [
-          35,
-          0.65,
-          139.35,
-          6
-        ],
-        "Y4": [
-          70,
-          0,
-          104.5,
-          6
-        ],
-        "XR": [
-          7,
-          0,
-          20,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-100023",
@@ -982,7 +759,7 @@ export default {
       "height": 108.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairWithHookNail",
+      "templateId": "sampled-folding-100024",
       "hasGeometry": true,
       "cutCount": 96,
       "foldCount": 15,
@@ -998,209 +775,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairWithHookNail",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          38.5,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          17.5,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          55,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "AR": [
-          6,
-          0,
-          13,
-          4
-        ],
-        "A": [
-          27,
-          15,
-          69,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "L1": [
-          69,
-          69,
-          69.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          150,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          55,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          55,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "KA": [
-          20,
-          0,
-          25,
-          6
-        ],
-        "KB": [
-          7.5,
-          0,
-          10,
-          6
-        ],
-        "KX": [
-          35,
-          10,
-          60,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-100025",
@@ -1242,7 +820,7 @@ export default {
       "height": 28.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-AnchorHoleReverseInsertLockBox",
+      "templateId": "sampled-folding-100027",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 15,
@@ -1258,221 +836,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "AnchorHoleReverseInsertLockBox",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          28.5,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          15,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          23,
-          9,
-          109,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "L1": [
-          109,
-          109,
-          109.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          60,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          15,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          87,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "SD": [
-          2,
-          0,
-          5,
-          6
-        ],
-        "LX": [
-          4,
-          0,
-          5,
-          6
-        ],
-        "EX": [
-          22,
-          5,
-          28,
-          6
-        ],
-        "ER": [
-          1.5,
-          0,
-          2,
-          6
-        ],
-        "SA": [
-          0.5,
-          0,
-          0.5,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-100080",
@@ -1645,7 +1012,8 @@ export default {
       },
       "specFrom": "tuck-end-reverse",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101430",
@@ -1658,7 +1026,7 @@ export default {
       "height": 118.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairAircraftWithHook",
+      "templateId": "sampled-folding-101430",
       "hasGeometry": true,
       "cutCount": 91,
       "foldCount": 15,
@@ -1674,203 +1042,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairAircraftWithHook",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          23.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          13,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          34,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          2.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          3.5,
-          2.5,
-          4.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          2.5,
-          0.5,
-          2.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          5,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          5,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          20,
-          9,
-          99,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.77,
-          4
-        ],
-        "L1": [
-          99,
-          99,
-          99.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          145,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          60,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          73.14,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          79,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101432",
@@ -1883,7 +1058,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairAircraftWithHookLock",
+      "templateId": "sampled-folding-101432",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 18,
@@ -1899,263 +1074,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairAircraftWithHookLock",
-      "openParams": {
-        "G": [
-          13.5,
-          5,
-          13.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          15,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          20,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          2.5,
-          0,
-          5,
-          4
-        ],
-        "AXX": [
-          3.5,
-          2.5,
-          4.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          2.5,
-          0.5,
-          2.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          3,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          3,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          15,
-          9,
-          119,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "L1": [
-          119,
-          119,
-          119.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          175,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          80,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          71.42,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          95,
-          5
-        ],
-        "PSD": [
-          4,
-          0,
-          15,
-          5
-        ],
-        "PSY": [
-          5,
-          0,
-          36,
-          5
-        ],
-        "PSX": [
-          10,
-          0,
-          26,
-          5
-        ],
-        "PSP": [
-          20,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "SW": [
-          24,
-          0,
-          100,
-          6
-        ],
-        "F": [
-          11,
-          0,
-          11,
-          6
-        ],
-        "FR": [
-          4.5,
-          0,
-          5,
-          6
-        ],
-        "SA": [
-          0.3,
-          0,
-          5,
-          6
-        ],
-        "F1": [
-          10.8,
-          0.3,
-          10.8,
-          6
-        ],
-        "SW1": [
-          25,
-          25,
-          25,
-          6
-        ],
-        "SD": [
-          2,
-          2,
-          2,
-          6
-        ],
-        "SRR": [
-          0.7,
-          0,
-          1,
-          6
-        ],
-        "SR": [
-          7.5,
-          0,
-          11.8,
-          6
-        ],
-        "SR1": [
-          7.5,
-          0,
-          10.5,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101433",
@@ -2168,7 +1090,7 @@ export default {
       "height": 118.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairAircraftWithWindowHookLock",
+      "templateId": "sampled-folding-101433",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 18,
@@ -2185,8 +1107,9 @@ export default {
       ],
       "structureCode": "PairAircraftWithWindowHookLock",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101521",
@@ -2199,7 +1122,7 @@ export default {
       "height": 138.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBackopenWithHookNail",
+      "templateId": "sampled-folding-101521",
       "hasGeometry": true,
       "cutCount": 94,
       "foldCount": 15,
@@ -2215,227 +1138,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairBackopenWithHookNail",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          28.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          10,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          41,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          22,
-          9,
-          79,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          45,
-          4
-        ],
-        "L1": [
-          79,
-          79,
-          79.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          170,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          70,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          69.21,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          63,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSY": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSX": [
-          8,
-          0,
-          25,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          37,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "KA": [
-          20,
-          0,
-          25,
-          6
-        ],
-        "KB": [
-          7.5,
-          0,
-          10,
-          6
-        ],
-        "KX": [
-          40,
-          10,
-          70,
-          6
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101522",
@@ -2448,7 +1154,7 @@ export default {
       "height": 100.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBackopenWithHookLock",
+      "templateId": "sampled-folding-101522",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 18,
@@ -2466,263 +1172,10 @@ export default {
         "方形盒"
       ],
       "structureCode": "PairBackopenWithHookLock",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          18.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          13,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          27,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          2.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          3.5,
-          2.5,
-          4.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          2.5,
-          0.5,
-          2.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          4,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          4,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          18,
-          9,
-          101,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "L1": [
-          101,
-          101,
-          101.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          122,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          51,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          68.39,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          81,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "SW": [
-          20,
-          0,
-          86,
-          6
-        ],
-        "F": [
-          12,
-          0,
-          16,
-          6
-        ],
-        "FR": [
-          5,
-          0,
-          6,
-          6
-        ],
-        "SA": [
-          0.3,
-          0,
-          5,
-          6
-        ],
-        "F1": [
-          11.8,
-          0.3,
-          11.8,
-          6
-        ],
-        "SW1": [
-          21,
-          21,
-          21,
-          6
-        ],
-        "SD": [
-          3,
-          3,
-          7.5,
-          6
-        ],
-        "SRR": [
-          1,
-          0,
-          1.5,
-          6
-        ],
-        "SR": [
-          7.5,
-          0,
-          9.5,
-          6
-        ],
-        "SR1": [
-          7.5,
-          0,
-          11.5,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101524",
@@ -2782,7 +1235,8 @@ export default {
       "structureCode": "RearOpenSingleAircraftHoleHangerBox",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101612",
@@ -3007,7 +1461,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-101620",
@@ -3220,7 +1675,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-102010",
@@ -3411,7 +1867,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102013",
@@ -3424,7 +1881,7 @@ export default {
       "height": 159.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BuckleWithWindow",
+      "templateId": "sampled-folding-102013",
       "hasGeometry": true,
       "cutCount": 78,
       "foldCount": 12,
@@ -3443,8 +1900,9 @@ export default {
       ],
       "structureCode": "BuckleWithWindow",
       "specFrom": "tuck-window",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102017",
@@ -3735,7 +2193,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-102040",
@@ -3768,7 +2227,8 @@ export default {
       "structureCode": "PairBuckletriple",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-102041",
@@ -3965,7 +2425,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102050",
@@ -3978,7 +2439,7 @@ export default {
       "height": 178.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BuckleFlip",
+      "templateId": "sampled-folding-102050",
       "hasGeometry": true,
       "cutCount": 106,
       "foldCount": 17,
@@ -3997,8 +2458,9 @@ export default {
       ],
       "structureCode": "BuckleFlip",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102051",
@@ -4011,7 +2473,7 @@ export default {
       "height": 158.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-MortiseLockFlipClasp",
+      "templateId": "sampled-folding-102051",
       "hasGeometry": true,
       "cutCount": 112,
       "foldCount": 20,
@@ -4030,8 +2492,9 @@ export default {
       ],
       "structureCode": "MortiseLockFlipClasp",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-102060",
@@ -4268,7 +2731,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-102061",
@@ -4529,7 +2993,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-102063",
@@ -4780,7 +3245,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-102064",
@@ -4813,7 +3279,8 @@ export default {
       "structureCode": "EasyToOpenSafetyBuckleBottomBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102100",
@@ -4906,7 +3373,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-102220",
@@ -4939,7 +3407,8 @@ export default {
       "structureCode": "AircraftCoverSafetyBuckleBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102618",
@@ -5128,7 +3597,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102620",
@@ -5141,7 +3611,7 @@ export default {
       "height": 118.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBackopenForwardWithHook",
+      "templateId": "sampled-folding-102620",
       "hasGeometry": true,
       "cutCount": 101,
       "foldCount": 15,
@@ -5157,209 +3627,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairBackopenForwardWithHook",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          28.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          11,
-          0,
-          23,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          25,
-          5,
-          41,
-          3
-        ],
-        "CR": [
-          13,
-          0,
-          24,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          9,
-          9,
-          10.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          28,
-          13,
-          179,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.62,
-          4
-        ],
-        "L1": [
-          179,
-          179,
-          179.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          150,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          60,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          80.49,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          143,
-          5
-        ],
-        "PSD": [
-          4,
-          0,
-          15,
-          5
-        ],
-        "PSY": [
-          5,
-          0,
-          36,
-          5
-        ],
-        "PSX": [
-          10,
-          0,
-          26,
-          5
-        ],
-        "PSP": [
-          20,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102621",
@@ -5372,7 +3643,7 @@ export default {
       "height": 138.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBackopenForwardWithHookNail",
+      "templateId": "sampled-folding-102621",
       "hasGeometry": true,
       "cutCount": 103,
       "foldCount": 15,
@@ -5388,227 +3659,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairBackopenForwardWithHookNail",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          28.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          10,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          41,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          2,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "A": [
-          22,
-          9,
-          79,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          45,
-          4
-        ],
-        "L1": [
-          79,
-          79,
-          79.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          170,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          70,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          69.21,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          63,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSY": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSX": [
-          8,
-          0,
-          25,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          37,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "KA": [
-          20,
-          0,
-          25,
-          6
-        ],
-        "KB": [
-          7.5,
-          0,
-          10,
-          6
-        ],
-        "KX": [
-          40,
-          10,
-          70,
-          6
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102622",
@@ -5924,7 +3978,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102627",
@@ -6113,7 +4168,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-gift-102630",
@@ -6126,7 +4182,7 @@ export default {
       "height": 178.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-OpenForwardLockingAndWindowBox",
+      "templateId": "sampled-gift-102630",
       "hasGeometry": true,
       "cutCount": 83,
       "foldCount": 12,
@@ -6138,155 +4194,10 @@ export default {
       "subclassIds": [],
       "subclassLabels": [],
       "structureCode": "OpenForwardLockingAndWindowBox",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          58.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          84,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          75,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "KL": [
-          90,
-          0,
-          100,
-          5
-        ],
-        "KW": [
-          140,
-          0,
-          160,
-          5
-        ],
-        "KR": [
-          6,
-          0,
-          30,
-          5
-        ],
-        "SP": [
-          15,
-          0,
-          30,
-          5
-        ],
-        "SP1": [
-          20,
-          0,
-          40,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-102660",
@@ -6317,7 +4228,8 @@ export default {
       "structureCode": "RearOpeningDoublePlugSideBuckleBoxP1",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-103017",
@@ -6578,7 +4490,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-103020",
@@ -6725,7 +4638,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-103021",
@@ -6902,7 +4816,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-103090",
@@ -7141,7 +5056,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-103201",
@@ -7183,7 +5099,7 @@ export default {
       "height": 158.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-HangingHoleWindowBuckleBottomBox",
+      "templateId": "sampled-folding-103210",
       "hasGeometry": true,
       "cutCount": 97,
       "foldCount": 15,
@@ -7199,269 +5115,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "HangingHoleWindowBuckleBottomBox",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          58.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          80,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          119,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.23,
-          4
-        ],
-        "L1": [
-          119,
-          119,
-          119.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          220,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          80,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          71.42,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          95,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "SP1": [
-          20,
-          0,
-          40,
-          5
-        ],
-        "K1": [
-          16,
-          12,
-          29,
-          6
-        ],
-        "MT1": [
-          15,
-          0,
-          20,
-          7
-        ],
-        "K3": [
-          16,
-          10,
-          29,
-          7
-        ],
-        "MR": [
-          4,
-          0,
-          8,
-          7
-        ],
-        "KL": [
-          90,
-          0,
-          100,
-          8
-        ],
-        "KW": [
-          120,
-          0,
-          140,
-          8
-        ],
-        "KR": [
-          6,
-          0,
-          30,
-          8
-        ],
-        "SP": [
-          15,
-          0,
-          30,
-          8
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-103213",
@@ -7474,7 +5131,7 @@ export default {
       "height": 158.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-HangingHoleWindowBuckleBottomBoxthree",
+      "templateId": "sampled-folding-103213",
       "hasGeometry": true,
       "cutCount": 97,
       "foldCount": 15,
@@ -7490,275 +5147,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "HangingHoleWindowBuckleBottomBoxthree",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          58.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          80,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          119,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.23,
-          4
-        ],
-        "L1": [
-          119,
-          119,
-          119.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          220,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          80,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          71.42,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          95,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "SP1": [
-          20,
-          0,
-          40,
-          5
-        ],
-        "K1": [
-          16,
-          12,
-          29,
-          6
-        ],
-        "MT1": [
-          15,
-          0,
-          20,
-          7
-        ],
-        "K3": [
-          16,
-          10,
-          29,
-          7
-        ],
-        "MR": [
-          4,
-          0,
-          8,
-          7
-        ],
-        "KL": [
-          90,
-          0,
-          100,
-          8
-        ],
-        "KW": [
-          120,
-          0,
-          140,
-          8
-        ],
-        "KR": [
-          6,
-          0,
-          30,
-          8
-        ],
-        "SP": [
-          15,
-          0,
-          30,
-          8
-        ],
-        "KW1": [
-          8,
-          0,
-          91.2,
-          8
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-103230",
@@ -7789,7 +5181,8 @@ export default {
       "structureCode": "BuckleBottomBoxWithInclinedHangingHole",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-105041",
@@ -7954,7 +5347,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-105042",
@@ -7967,7 +5361,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-InnerClamshellSelflockingBottomBox",
+      "templateId": "sampled-folding-105042",
       "hasGeometry": true,
       "cutCount": 89,
       "foldCount": 18,
@@ -7983,155 +5377,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "InnerClamshellSelflockingBottomBox",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          58.5,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "C": [
-          30,
-          10,
-          60,
-          3
-        ],
-        "L1": [
-          121,
-          121,
-          121,
-          3
-        ],
-        "A1": [
-          59.5,
-          5,
-          60.5,
-          3
-        ],
-        "CR": [
-          6,
-          0,
-          15,
-          3
-        ],
-        "FL": [
-          96,
-          0,
-          108,
-          3
-        ],
-        "FW": [
-          10,
-          5,
-          15,
-          3
-        ],
-        "FT": [
-          45,
-          0,
-          78.23,
-          3
-        ],
-        "AX": [
-          3,
-          2,
-          5,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          1,
-          4
-        ],
-        "R": [
-          0.5,
-          0.5,
-          0.5,
-          4
-        ],
-        "AS": [
-          3,
-          0.5,
-          3,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "BT": [
-          5,
-          5,
-          10,
-          5
-        ],
-        "B1": [
-          18,
-          18,
-          19,
-          5
-        ],
-        "BY1": [
-          4,
-          3,
-          5,
-          5
-        ],
-        "BR1": [
-          4,
-          3,
-          4,
-          5
-        ],
-        "BX2": [
-          8,
-          4,
-          15,
-          5
-        ],
-        "BX1": [
-          2,
-          0.5,
-          3,
-          5
-        ],
-        "BT2": [
-          20,
-          15,
-          25,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-105050",
@@ -8144,7 +5393,7 @@ export default {
       "height": 102.2,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FoldingLidSelflockingBottomBox",
+      "templateId": "sampled-folding-105050",
       "hasGeometry": true,
       "cutCount": 88,
       "foldCount": 18,
@@ -8164,149 +5413,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "FoldingLidSelflockingBottomBox",
-      "openParams": {
-        "BR": [
-          1,
-          0.3,
-          1,
-          2
-        ],
-        "RY": [
-          0.7,
-          0,
-          1,
-          2
-        ],
-        "RX": [
-          0.5,
-          0,
-          1,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          81.5,
-          2
-        ],
-        "B": [
-          16.5,
-          16.5,
-          41,
-          3
-        ],
-        "R": [
-          0.5,
-          0.2,
-          0.5,
-          3
-        ],
-        "BY1": [
-          3,
-          3,
-          5,
-          3
-        ],
-        "BX": [
-          1.5,
-          0.5,
-          3,
-          3
-        ],
-        "BX1": [
-          5,
-          4,
-          15,
-          3
-        ],
-        "OF": [
-          0.3,
-          0.2,
-          0.5,
-          4
-        ],
-        "TR": [
-          0.7,
-          0.6,
-          1,
-          4
-        ],
-        "OF2": [
-          0.5,
-          0.3,
-          0.5,
-          4
-        ],
-        "TD": [
-          50.84,
-          10,
-          68.33,
-          4
-        ],
-        "TD1": [
-          10,
-          0,
-          25.42,
-          4
-        ],
-        "DW1": [
-          18.87,
-          10,
-          41.75,
-          4
-        ],
-        "NY": [
-          1.5,
-          0.5,
-          1.5,
-          4
-        ],
-        "NX": [
-          3.5,
-          1.4,
-          5,
-          4
-        ],
-        "TDR": [
-          7,
-          0,
-          20.42,
-          4
-        ],
-        "TDR1": [
-          10,
-          0,
-          10,
-          4
-        ],
-        "N": [
-          26,
-          10,
-          41.75,
-          4
-        ],
-        "NY1": [
-          1,
-          0.5,
-          1.5,
-          4
-        ],
-        "X": [
-          30.5,
-          0,
-          55.33,
-          4
-        ],
-        "Y": [
-          10,
-          0,
-          15.25,
-          4
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-105081",
@@ -8551,7 +5661,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-105210",
@@ -8662,7 +5773,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-tear-self-lock",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-106030",
@@ -8675,7 +5787,7 @@ export default {
       "height": 160,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BotselflockWithHook",
+      "templateId": "sampled-folding-106030",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 17,
@@ -8691,245 +5803,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "BotselflockWithHook",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          59.1,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          81,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          120,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.5,
-          4
-        ],
-        "L1": [
-          119.6,
-          119.6,
-          120.1,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          222.2,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          81,
-          5
-        ],
-        "PFT": [
-          10,
-          0,
-          71.51,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          96,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "B1": [
-          18,
-          18,
-          19,
-          5
-        ],
-        "BY1": [
-          4,
-          3,
-          5,
-          5
-        ],
-        "BR1": [
-          4,
-          1,
-          4,
-          5
-        ],
-        "BX2": [
-          8,
-          3,
-          14.5,
-          5
-        ],
-        "BX1": [
-          2,
-          0.5,
-          3,
-          5
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-108000",
@@ -9058,7 +5935,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-108001",
@@ -9071,7 +5949,7 @@ export default {
       "height": 59.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-TissueP1",
+      "templateId": "sampled-folding-108001",
       "hasGeometry": true,
       "cutCount": 92,
       "foldCount": 16,
@@ -9089,113 +5967,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "TissueP1",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "R": [
-          1,
-          1,
-          1.5,
-          2
-        ],
-        "D1": [
-          59.5,
-          57,
-          60,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          58.5,
-          3
-        ],
-        "F1": [
-          60,
-          30,
-          60,
-          3
-        ],
-        "R1": [
-          5,
-          0,
-          20,
-          3
-        ],
-        "R2": [
-          5,
-          0,
-          20,
-          3
-        ],
-        "SX": [
-          15,
-          0,
-          30,
-          4
-        ],
-        "SY": [
-          80,
-          0,
-          115,
-          4
-        ],
-        "NX": [
-          9,
-          0,
-          22,
-          4
-        ],
-        "NY": [
-          12,
-          0,
-          40,
-          4
-        ],
-        "R3": [
-          6,
-          0,
-          7.5,
-          4
-        ],
-        "X2": [
-          60,
-          16.5,
-          103.5,
-          4
-        ],
-        "Y2": [
-          115,
-          40,
-          190,
-          4
-        ],
-        "LX": [
-          35,
-          0,
-          40,
-          4
-        ],
-        "LY": [
-          20,
-          2,
-          98,
-          4
-        ],
-        "R4": [
-          5,
-          0,
-          12,
-          4
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-108010",
@@ -9226,7 +6001,8 @@ export default {
       "structureCode": "TissueWithNailLockP1",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-108070",
@@ -9415,7 +6191,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-109010",
@@ -9544,7 +6321,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-109020",
@@ -9645,7 +6423,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-109020",
@@ -9748,7 +6527,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-109070",
@@ -9901,7 +6681,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-109080",
@@ -10054,7 +6835,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-109100",
@@ -10173,7 +6955,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-109200",
@@ -10340,7 +7123,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-109200",
@@ -10511,7 +7295,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110019",
@@ -10524,7 +7309,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-UncoveredPluginLockSleeve",
+      "templateId": "sampled-folding-110019",
       "hasGeometry": true,
       "cutCount": 53,
       "foldCount": 8,
@@ -10540,143 +7325,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "UncoveredPluginLockSleeve",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          58.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          80,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          119,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "KA": [
-          10,
-          0,
-          25,
-          5
-        ],
-        "KB": [
-          4,
-          1,
-          5,
-          5
-        ],
-        "KX": [
-          30,
-          5,
-          55,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110049",
@@ -10943,7 +7595,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110050",
@@ -10974,7 +7627,8 @@ export default {
       "structureCode": "SideHookPairP1",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110051",
@@ -11005,7 +7659,8 @@ export default {
       "structureCode": "SideHookPairWithWindow",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110052",
@@ -11170,7 +7825,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-110090",
@@ -11197,7 +7853,8 @@ export default {
       "structureCode": "CoverHeartshapedDoubleSocketBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-110091",
@@ -11340,7 +7997,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110091",
@@ -11487,7 +8145,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-110160",
@@ -11564,7 +8223,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110160",
@@ -11643,7 +8303,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-110171",
@@ -11808,7 +8469,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110241",
@@ -11839,7 +8501,8 @@ export default {
       "structureCode": "SideLiftingHoleTrapezoidalInclinedLockBoxP1",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110360",
@@ -11870,7 +8533,8 @@ export default {
       "structureCode": "DustproofHookBuckleBottomBox",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110380",
@@ -11883,7 +8547,7 @@ export default {
       "height": 160,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BuckleBottomBoxWithConcaveHook",
+      "templateId": "sampled-folding-110380",
       "hasGeometry": true,
       "cutCount": 47,
       "foldCount": 14,
@@ -11900,8 +8564,9 @@ export default {
       ],
       "structureCode": "BuckleBottomBoxWithConcaveHook",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110390",
@@ -11914,7 +8579,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SelfLockingBottomBoxWithConcaveHook",
+      "templateId": "sampled-folding-110390",
       "hasGeometry": true,
       "cutCount": 49,
       "foldCount": 18,
@@ -11931,8 +8596,9 @@ export default {
       ],
       "structureCode": "SelfLockingBottomBoxWithConcaveHook",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110391",
@@ -11963,7 +8629,8 @@ export default {
       "structureCode": "SelfLockingBottomBoxWithReverseConcaveHook",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110422",
@@ -11976,7 +8643,7 @@ export default {
       "height": 80,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ReverseTubularGluedBoxWithSafetyBuckle",
+      "templateId": "sampled-folding-110422",
       "hasGeometry": true,
       "cutCount": 64,
       "foldCount": 15,
@@ -11995,8 +8662,9 @@ export default {
       ],
       "structureCode": "ReverseTubularGluedBoxWithSafetyBuckle",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-110440",
@@ -12056,7 +8724,8 @@ export default {
       "structureCode": "TopCoverHalfSelflockingBottomBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110520",
@@ -12089,7 +8758,8 @@ export default {
       "structureCode": "TopCoverHalfSelflockingBottomBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110530",
@@ -12382,7 +9052,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110532",
@@ -12395,7 +9066,7 @@ export default {
       "height": 138.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PerforatedHookBuckleBottomBox",
+      "templateId": "sampled-folding-110532",
       "hasGeometry": true,
       "cutCount": 105,
       "foldCount": 17,
@@ -12412,8 +9083,9 @@ export default {
       ],
       "structureCode": "PerforatedHookBuckleBottomBox",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110533",
@@ -12698,7 +9370,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-110670",
@@ -12711,7 +9384,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SimpleSinglePlugBox",
+      "templateId": "sampled-gift-110670",
       "hasGeometry": true,
       "cutCount": 58,
       "foldCount": 12,
@@ -12727,167 +9400,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "SimpleSinglePlugBox",
-      "openParams": {
-        "G": [
-          12,
-          10,
-          60,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "G1": [
-          10,
-          10,
-          30,
-          2
-        ],
-        "GT1": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          80,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          119,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.23,
-          4
-        ],
-        "KA": [
-          20,
-          0,
-          25,
-          5
-        ],
-        "KB": [
-          7.5,
-          0,
-          10,
-          5
-        ],
-        "KX": [
-          60,
-          10,
-          110,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110670",
@@ -12900,7 +9416,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SimpleSinglePlugBox",
+      "templateId": "sampled-folding-110670",
       "hasGeometry": true,
       "cutCount": 58,
       "foldCount": 12,
@@ -12918,167 +9434,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "SimpleSinglePlugBox",
-      "openParams": {
-        "G": [
-          12,
-          10,
-          60,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "G1": [
-          10,
-          10,
-          30,
-          2
-        ],
-        "GT1": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          80,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          38,
-          18,
-          119,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "ATT": [
-          13,
-          0,
-          42.23,
-          4
-        ],
-        "KA": [
-          20,
-          0,
-          25,
-          5
-        ],
-        "KB": [
-          7.5,
-          0,
-          10,
-          5
-        ],
-        "KX": [
-          60,
-          10,
-          110,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-110680",
@@ -13111,7 +9470,8 @@ export default {
       "structureCode": "BottomInsertingBoxWithHalfSelfLockingUpperCover",
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-110680",
@@ -13142,7 +9502,8 @@ export default {
       "structureCode": "BottomInsertingBoxWithHalfSelfLockingUpperCover",
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110700",
@@ -13285,7 +9646,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-110810",
@@ -13318,7 +9680,8 @@ export default {
       "structureCode": "BuckleBottomBoxWithInsertion",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110830",
@@ -13351,7 +9714,8 @@ export default {
       "structureCode": "SideBuckleHandleBuckleBottomBox",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-110850",
@@ -13382,7 +9746,8 @@ export default {
       "structureCode": "BackplaneLiftingHoleInsertLockBottomBox",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-111010",
@@ -13395,7 +9760,7 @@ export default {
       "height": 80,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairShowWithHook",
+      "templateId": "sampled-folding-111010",
       "hasGeometry": true,
       "cutCount": 85,
       "foldCount": 13,
@@ -13413,179 +9778,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "PairShowWithHook",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          29.1,
-          2
-        ],
-        "E": [
-          6,
-          0,
-          15,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          41,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          4,
-          4,
-          5.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          6,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          6,
-          4
-        ],
-        "AR": [
-          5,
-          0,
-          10,
-          4
-        ],
-        "A": [
-          22,
-          12,
-          60,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "LL": [
-          121.2,
-          90.9,
-          2000,
-          5
-        ],
-        "DD": [
-          163.2,
-          122.4,
-          2000,
-          5
-        ],
-        "SD": [
-          3,
-          1,
-          20,
-          5
-        ],
-        "SW": [
-          15,
-          6,
-          30,
-          5
-        ],
-        "SW1": [
-          4,
-          0,
-          4,
-          5
-        ],
-        "LM": [
-          30.3,
-          8.5,
-          60.6,
-          5
-        ],
-        "RR": [
-          2,
-          0,
-          2,
-          5
-        ],
-        "SP": [
-          15,
-          7,
-          53.6,
-          5
-        ],
-        "LLR": [
-          15,
-          0,
-          41,
-          5
-        ]
-      },
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-111030",
@@ -13598,7 +9794,7 @@ export default {
       "height": 160,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBuckleTripleWithHookBoard",
+      "templateId": "sampled-folding-111030",
       "hasGeometry": true,
       "cutCount": 101,
       "foldCount": 16,
@@ -13615,8 +9811,9 @@ export default {
       ],
       "structureCode": "PairBuckleTripleWithHookBoard",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-111071",
@@ -13771,7 +9968,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-111640",
@@ -13844,7 +10042,7 @@ export default {
       "height": 160.5,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FlapBotselflock",
+      "templateId": "sampled-shipping-112010",
       "hasGeometry": true,
       "cutCount": 78,
       "foldCount": 14,
@@ -13860,125 +10058,10 @@ export default {
         "运输箱"
       ],
       "structureCode": "FlapBotselflock",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          1,
-          2
-        ],
-        "BR": [
-          0.25,
-          0.25,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.2,
-          0,
-          0.25,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          59.1,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "BL1": [
-          18,
-          18,
-          19,
-          3
-        ],
-        "BT": [
-          5,
-          5,
-          10,
-          3
-        ],
-        "BY1": [
-          4,
-          3,
-          5,
-          3
-        ],
-        "BR1": [
-          4,
-          3,
-          4,
-          3
-        ],
-        "BX1": [
-          2,
-          0.5,
-          3,
-          3
-        ],
-        "BX2": [
-          8,
-          4,
-          15,
-          3
-        ],
-        "BT2": [
-          20,
-          15,
-          25,
-          4
-        ],
-        "SA": [
-          0.25,
-          0,
-          0.5,
-          4
-        ],
-        "F": [
-          30.3,
-          30.3,
-          30.3,
-          5
-        ],
-        "F1": [
-          30.8,
-          10,
-          31,
-          5
-        ],
-        "AX": [
-          3,
-          2,
-          5,
-          5
-        ],
-        "AXX": [
-          5,
-          3,
-          6,
-          5
-        ],
-        "R": [
-          0.5,
-          0.5,
-          0.5,
-          5
-        ],
-        "AS": [
-          3,
-          0.5,
-          3,
-          5
-        ]
-      },
       "specFrom": "auto-lock-bottom",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112030",
@@ -14055,7 +10138,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112031",
@@ -14082,7 +10166,8 @@ export default {
       "structureCode": "IsomerismBuckleCandyBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112046",
@@ -14214,7 +10299,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112050",
@@ -14321,7 +10407,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112053",
@@ -14482,7 +10569,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112060",
@@ -14509,7 +10597,8 @@ export default {
       "structureCode": "HeartshapedDoubleSocketSelflockingBottomBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112070",
@@ -14652,7 +10741,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-112090",
@@ -14679,7 +10769,8 @@ export default {
       "structureCode": "BuckleDomeRibbonHole",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112290",
@@ -14856,7 +10947,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112291",
@@ -15047,7 +11139,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112315",
@@ -15246,7 +11339,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112322",
@@ -15277,7 +11371,8 @@ export default {
       "structureCode": "HandboxBotselflockWithLock",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112330",
@@ -15490,7 +11585,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112331",
@@ -15705,7 +11801,8 @@ export default {
       },
       "specFrom": "tuck-end-reverse",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112350",
@@ -15736,7 +11833,8 @@ export default {
       "structureCode": "HandboxBotselflockHandleWithLock",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112360",
@@ -15767,7 +11865,8 @@ export default {
       "structureCode": "HandboxFlatWithLock",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112372",
@@ -15932,7 +12031,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112401",
@@ -16031,7 +12131,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112411",
@@ -16190,7 +12291,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112430",
@@ -16327,7 +12429,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112431",
@@ -16428,7 +12531,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112450",
@@ -16461,7 +12565,8 @@ export default {
       "structureCode": "BuckleBottomBoxWithDoubleLockHandle",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112451",
@@ -16744,7 +12849,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-112470",
@@ -16921,7 +13027,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-roofflat-handle",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-112471",
@@ -17098,7 +13205,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-112480",
@@ -17129,7 +13237,8 @@ export default {
       "structureCode": "RoofflatHandleBuckletriple",
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-112481",
@@ -17162,7 +13271,8 @@ export default {
       "structureCode": "RoofflatHandleBuckletripleBackward",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112500",
@@ -17193,7 +13303,8 @@ export default {
       "structureCode": "ThreeBuckleBottomBoxWithDoubleLockAndSafetyClasp",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-112511",
@@ -17226,7 +13337,8 @@ export default {
       "structureCode": "FlatMouthSpecialLockBottom",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112550",
@@ -17257,7 +13369,8 @@ export default {
       "structureCode": "BuckleBottomBoxWithSafetyBuckle",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112580",
@@ -17288,7 +13401,8 @@ export default {
       "structureCode": "DualPurposeSuitcaseWithFrontBuckleBottomInsertLock",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112620",
@@ -17465,7 +13579,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112662",
@@ -17650,7 +13765,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-112690",
@@ -17683,7 +13799,8 @@ export default {
       "structureCode": "RoundNeckBuckleBottomBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112910",
@@ -17770,7 +13887,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-112911",
@@ -17925,7 +14043,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-113000",
@@ -17950,227 +14069,10 @@ export default {
       "subclassIds": [],
       "subclassLabels": [],
       "structureCode": "RoofReinforcedSelflockingBottomBox",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          3
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          3
-        ],
-        "BX": [
-          10,
-          3,
-          15,
-          3
-        ],
-        "B2": [
-          25,
-          5,
-          56.25,
-          3
-        ],
-        "BX1": [
-          3,
-          0.5,
-          3,
-          3
-        ],
-        "SA": [
-          0.25,
-          0,
-          0.5,
-          3
-        ],
-        "KL": [
-          24,
-          5,
-          39,
-          3
-        ],
-        "KL1": [
-          23,
-          12,
-          24,
-          3
-        ],
-        "KLL": [
-          25,
-          24,
-          25,
-          3
-        ],
-        "KD": [
-          1,
-          3,
-          1,
-          3
-        ],
-        "KD1": [
-          0.75,
-          0.5,
-          1.5,
-          3
-        ],
-        "D1": [
-          94,
-          94,
-          95,
-          4
-        ],
-        "G": [
-          19,
-          5,
-          123.5,
-          5
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          5
-        ],
-        "G1": [
-          19,
-          5,
-          19,
-          5
-        ],
-        "SW": [
-          5,
-          3,
-          5,
-          6
-        ],
-        "SL": [
-          17.5,
-          5,
-          70,
-          6
-        ],
-        "SP": [
-          10,
-          5,
-          47,
-          6
-        ],
-        "SR": [
-          2.5,
-          0,
-          2.5,
-          6
-        ],
-        "WL": [
-          23,
-          10,
-          31.11,
-          7
-        ],
-        "WD": [
-          23,
-          10,
-          70,
-          7
-        ],
-        "WL1": [
-          9,
-          3,
-          10,
-          7
-        ],
-        "WD1": [
-          9,
-          3,
-          10,
-          7
-        ],
-        "WSP": [
-          52,
-          29,
-          88.5,
-          7
-        ],
-        "WLL": [
-          19,
-          10,
-          31.11,
-          7
-        ],
-        "WDD": [
-          19,
-          10,
-          70,
-          7
-        ],
-        "WX": [
-          3,
-          3,
-          7,
-          7
-        ],
-        "WLL1": [
-          8,
-          3,
-          8,
-          7
-        ],
-        "WDD1": [
-          8,
-          3,
-          9,
-          7
-        ],
-        "WWL": [
-          23,
-          10,
-          83.33,
-          7
-        ],
-        "WWD": [
-          23,
-          10,
-          70,
-          7
-        ],
-        "WWL1": [
-          9,
-          3,
-          10,
-          7
-        ],
-        "WWD1": [
-          9,
-          3,
-          10,
-          7
-        ],
-        "HL": [
-          12.67,
-          10,
-          19,
-          7
-        ],
-        "HD": [
-          12.67,
-          12.67,
-          27,
-          7
-        ],
-        "HSP": [
-          16.33,
-          11.33,
-          29.17,
-          7
-        ]
-      },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-116013",
@@ -18281,7 +14183,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-116014",
@@ -18410,7 +14313,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-116015",
@@ -18527,7 +14431,8 @@ export default {
       },
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-116030",
@@ -18614,7 +14519,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-116200",
@@ -18647,7 +14553,8 @@ export default {
       "structureCode": "InterlockPortableTrayCase",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-116200",
@@ -18680,7 +14587,8 @@ export default {
       "structureCode": "InterlockPortableTrayCase",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120010",
@@ -18731,7 +14639,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120012",
@@ -18819,7 +14728,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120020",
@@ -18876,7 +14786,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120021",
@@ -18927,7 +14838,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120030",
@@ -18996,7 +14908,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120031",
@@ -19095,7 +15008,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120032",
@@ -19206,7 +15120,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120033",
@@ -19365,7 +15280,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-120034",
@@ -19632,7 +15548,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-120035",
@@ -19779,7 +15696,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-120040",
@@ -19810,7 +15728,8 @@ export default {
       "structureCode": "ConcealedPluginLockChassisBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120050",
@@ -19879,7 +15798,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120060",
@@ -19910,7 +15830,8 @@ export default {
       "structureCode": "SideInsertLockDiscType",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120061",
@@ -20015,7 +15936,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120070",
@@ -20028,7 +15950,7 @@ export default {
       "height": 59,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-WideSideCardTrayBox",
+      "templateId": "sampled-tray-120070",
       "hasGeometry": true,
       "cutCount": 93,
       "foldCount": 21,
@@ -20044,47 +15966,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "WideSideCardTrayBox",
-      "openParams": {
-        "OF": [
-          1,
-          0,
-          1.5,
-          2
-        ],
-        "SD": [
-          8,
-          3,
-          37,
-          2
-        ],
-        "SD1": [
-          4,
-          1.5,
-          4,
-          2
-        ],
-        "NX": [
-          3,
-          3,
-          7.5,
-          2
-        ],
-        "N": [
-          60,
-          5,
-          100,
-          2
-        ],
-        "N1": [
-          64,
-          5,
-          92,
-          2
-        ]
-      },
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120080",
@@ -20097,7 +15982,7 @@ export default {
       "height": 25,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-CartonClipTray",
+      "templateId": "sampled-tray-120080",
       "hasGeometry": true,
       "cutCount": 51,
       "foldCount": 14,
@@ -20113,59 +15998,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "CartonClipTray",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "OF2": [
-          3,
-          2,
-          6,
-          2
-        ],
-        "C": [
-          10,
-          10,
-          49,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "W1": [
-          34,
-          34,
-          50,
-          2
-        ],
-        "WR": [
-          4,
-          0,
-          11,
-          2
-        ],
-        "R2": [
-          5,
-          2,
-          5,
-          2
-        ],
-        "R3": [
-          1,
-          0,
-          1.5,
-          2
-        ]
-      },
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120090",
@@ -20240,7 +16076,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120100",
@@ -20321,7 +16158,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120101",
@@ -20378,7 +16216,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120110",
@@ -20409,7 +16248,8 @@ export default {
       "structureCode": "TrapezoidalArcEdgeTrayBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120120",
@@ -20440,7 +16280,8 @@ export default {
       "structureCode": "TracelessBottomFourFoldEdgeDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120130",
@@ -20471,7 +16312,8 @@ export default {
       "structureCode": "LockThickenDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120140",
@@ -20540,7 +16382,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120141",
@@ -20645,7 +16488,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120142",
@@ -20720,7 +16564,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120144",
@@ -20807,7 +16652,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120150",
@@ -20838,7 +16684,8 @@ export default {
       "structureCode": "SheathingFlatMountedTrayBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120170",
@@ -20900,7 +16747,8 @@ export default {
       "structureCode": "DoubleShakeCoverBuckleLockBottom",
       "templateSource": "structure-spec",
       "specFrom": "auto-lock-bottom",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120190",
@@ -20931,7 +16779,8 @@ export default {
       "structureCode": "TrapezoidalDiscBoxWithLock",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120200",
@@ -20962,7 +16811,8 @@ export default {
       "structureCode": "ArcSideInclinedDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120201",
@@ -21019,7 +16869,8 @@ export default {
       },
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120202",
@@ -21082,7 +16933,8 @@ export default {
       },
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-square-120210",
@@ -21179,7 +17031,8 @@ export default {
       "structureCode": "FourCompartmentTrayBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120221",
@@ -21292,7 +17145,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-120230",
@@ -21357,7 +17211,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120230",
@@ -21420,7 +17275,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120240",
@@ -21451,7 +17307,8 @@ export default {
       "structureCode": "DiscBuckleBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120250",
@@ -21482,7 +17339,8 @@ export default {
       "structureCode": "DiscBuckleCoverBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120251",
@@ -21495,7 +17353,7 @@ export default {
       "height": 40,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BuckleCoverBox",
+      "templateId": "sampled-folding-120251",
       "hasGeometry": true,
       "cutCount": 64,
       "foldCount": 12,
@@ -21511,89 +17369,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "BuckleCoverBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          1,
-          2
-        ],
-        "F": [
-          20.15,
-          15,
-          39.8,
-          2
-        ],
-        "FT": [
-          15,
-          0,
-          81.21,
-          2
-        ],
-        "FTR": [
-          5,
-          0,
-          20.15,
-          2
-        ],
-        "M": [
-          40.3,
-          15,
-          40.3,
-          2
-        ],
-        "MT": [
-          20,
-          0,
-          64,
-          2
-        ],
-        "MR": [
-          10.07,
-          0,
-          20.15,
-          2
-        ],
-        "N": [
-          39.8,
-          12,
-          80,
-          3
-        ],
-        "N1": [
-          9.95,
-          0,
-          19.9,
-          3
-        ],
-        "D3": [
-          32,
-          27,
-          40.3,
-          3
-        ],
-        "NR": [
-          5.93,
-          0,
-          7.9,
-          3
-        ],
-        "T": [
-          15,
-          0,
-          30,
-          3
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120252",
@@ -21606,7 +17385,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SideClamshellBox",
+      "templateId": "sampled-folding-120252",
       "hasGeometry": true,
       "cutCount": 68,
       "foldCount": 18,
@@ -21622,71 +17401,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "SideClamshellBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N1": [
-          30.15,
-          20,
-          40,
-          2
-        ],
-        "ND": [
-          15,
-          10,
-          30.15,
-          2
-        ],
-        "R": [
-          3,
-          0,
-          5,
-          2
-        ],
-        "D2": [
-          12,
-          0.5,
-          30,
-          2
-        ],
-        "T": [
-          10,
-          0,
-          45,
-          3
-        ],
-        "C": [
-          20,
-          10,
-          60,
-          3
-        ],
-        "CR": [
-          10,
-          0,
-          20,
-          3
-        ],
-        "D3": [
-          15,
-          10,
-          29,
-          3
-        ],
-        "DR": [
-          7.5,
-          0,
-          7.5,
-          3
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120253",
@@ -21699,7 +17417,7 @@ export default {
       "height": 74.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ClamshellBoxWithButtonEdge",
+      "templateId": "sampled-folding-120253",
       "hasGeometry": true,
       "cutCount": 92,
       "foldCount": 35,
@@ -21717,83 +17435,10 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "ClamshellBoxWithButtonEdge",
-      "openParams": {
-        "OF": [
-          1,
-          0,
-          1,
-          2
-        ],
-        "KL": [
-          45,
-          10,
-          103,
-          3
-        ],
-        "KD": [
-          17,
-          5,
-          38,
-          3
-        ],
-        "KT": [
-          25,
-          0,
-          37.07,
-          3
-        ],
-        "KD1": [
-          32,
-          23,
-          36.8,
-          3
-        ],
-        "KL1": [
-          3,
-          0,
-          3,
-          3
-        ],
-        "KD2": [
-          42,
-          32,
-          42,
-          3
-        ],
-        "F": [
-          74.5,
-          34,
-          75,
-          4
-        ],
-        "KL2": [
-          3,
-          0,
-          6,
-          4
-        ],
-        "FR": [
-          10,
-          0,
-          37.25,
-          4
-        ],
-        "FR1": [
-          37.25,
-          0,
-          74.5,
-          4
-        ],
-        "FR2": [
-          7,
-          0,
-          74.5,
-          4
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120254",
@@ -21806,7 +17451,7 @@ export default {
       "height": 99.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ClamshellBoxWithButtonEdgeTwo",
+      "templateId": "sampled-folding-120254",
       "hasGeometry": true,
       "cutCount": 126,
       "foldCount": 35,
@@ -21822,191 +17467,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "ClamshellBoxWithButtonEdgeTwo",
-      "openParams": {
-        "OF": [
-          1,
-          0,
-          5,
-          2
-        ],
-        "OF1": [
-          1,
-          0,
-          5,
-          2
-        ],
-        "R": [
-          1,
-          0,
-          5,
-          2
-        ],
-        "KD1": [
-          41,
-          34,
-          54.4,
-          3
-        ],
-        "KL1": [
-          3,
-          0,
-          3,
-          3
-        ],
-        "KD2": [
-          53,
-          41,
-          53,
-          3
-        ],
-        "KL": [
-          44,
-          10,
-          100,
-          3
-        ],
-        "KD": [
-          50,
-          5,
-          67,
-          3
-        ],
-        "KDD": [
-          25,
-          10,
-          50,
-          3
-        ],
-        "KT": [
-          25,
-          0,
-          40.03,
-          3
-        ],
-        "KT1": [
-          25,
-          0,
-          25,
-          3
-        ],
-        "KR": [
-          6,
-          0,
-          6,
-          3
-        ],
-        "KR1": [
-          4,
-          0,
-          7,
-          3
-        ],
-        "KLD": [
-          30,
-          5,
-          67,
-          3
-        ],
-        "KLDD": [
-          20,
-          10,
-          30,
-          3
-        ],
-        "KLT": [
-          25,
-          0,
-          46.4,
-          3
-        ],
-        "KLT1": [
-          25,
-          0,
-          25,
-          3
-        ],
-        "KLR": [
-          7,
-          0,
-          7,
-          3
-        ],
-        "KLR1": [
-          6,
-          0,
-          10,
-          3
-        ],
-        "F": [
-          100,
-          100,
-          100,
-          4
-        ],
-        "F1": [
-          60,
-          33,
-          100,
-          4
-        ],
-        "FT": [
-          10,
-          0,
-          17,
-          4
-        ],
-        "FTT": [
-          15,
-          0,
-          17,
-          4
-        ],
-        "FT2": [
-          15,
-          0,
-          36,
-          4
-        ],
-        "FT1": [
-          20,
-          0,
-          41,
-          4
-        ],
-        "FT3": [
-          20,
-          0,
-          24,
-          4
-        ],
-        "FR": [
-          8.7,
-          0,
-          11.6,
-          4
-        ],
-        "FR1": [
-          9,
-          0,
-          23,
-          4
-        ],
-        "FR2": [
-          9,
-          0,
-          14.41,
-          4
-        ],
-        "FR3": [
-          6,
-          0,
-          15,
-          4
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120255",
@@ -22019,7 +17483,7 @@ export default {
       "height": 79.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ClamshellBoxWithButtonEdge03",
+      "templateId": "sampled-folding-120255",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 36,
@@ -22035,155 +17499,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "ClamshellBoxWithButtonEdge03",
-      "openParams": {
-        "KL": [
-          5,
-          3,
-          40,
-          2
-        ],
-        "KW": [
-          20,
-          5,
-          62.5,
-          2
-        ],
-        "KW1": [
-          13,
-          10,
-          20,
-          2
-        ],
-        "KW2": [
-          3,
-          0.5,
-          3.5,
-          2
-        ],
-        "L1": [
-          50,
-          10,
-          62.5,
-          2
-        ],
-        "L2": [
-          30,
-          10,
-          50,
-          2
-        ],
-        "OF": [
-          2,
-          0,
-          5,
-          2
-        ],
-        "W1": [
-          80,
-          41.67,
-          121,
-          2
-        ],
-        "KW3": [
-          22,
-          20,
-          30,
-          2
-        ],
-        "C": [
-          26,
-          10,
-          40,
-          3
-        ],
-        "CL": [
-          65,
-          31.25,
-          96.8,
-          3
-        ],
-        "CL1": [
-          69,
-          65,
-          97.5,
-          3
-        ],
-        "SD": [
-          2.5,
-          1,
-          2.5,
-          3
-        ],
-        "F": [
-          25,
-          25,
-          52.5,
-          3
-        ],
-        "F1": [
-          12.5,
-          8.33,
-          20,
-          3
-        ],
-        "FL": [
-          2,
-          0,
-          12.5,
-          3
-        ],
-        "C1": [
-          7,
-          2.5,
-          9,
-          3
-        ],
-        "CL4": [
-          53,
-          14,
-          70,
-          3
-        ],
-        "SL": [
-          14,
-          0,
-          27,
-          3
-        ],
-        "SW": [
-          15,
-          0,
-          26,
-          3
-        ],
-        "OF1": [
-          2,
-          0,
-          19,
-          3
-        ],
-        "KD1": [
-          24,
-          16,
-          25.6,
-          4
-        ],
-        "KD2": [
-          31,
-          24,
-          31,
-          4
-        ],
-        "KL2": [
-          4,
-          0,
-          6,
-          4
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120256",
@@ -22196,7 +17515,7 @@ export default {
       "height": 59.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-WindowSideBuckleFlipBox",
+      "templateId": "sampled-folding-120256",
       "hasGeometry": true,
       "cutCount": 68,
       "foldCount": 18,
@@ -22212,83 +17531,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "WindowSideBuckleFlipBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N1": [
-          30,
-          20,
-          40,
-          2
-        ],
-        "ND": [
-          15,
-          10,
-          30,
-          2
-        ],
-        "R": [
-          5,
-          0,
-          5,
-          2
-        ],
-        "D2": [
-          12,
-          0.5,
-          30,
-          2
-        ],
-        "C": [
-          20,
-          10,
-          59.5,
-          3
-        ],
-        "CR": [
-          10,
-          0,
-          20,
-          3
-        ],
-        "D3": [
-          15,
-          10,
-          29,
-          3
-        ],
-        "DR": [
-          7.5,
-          0,
-          15,
-          3
-        ],
-        "KL": [
-          133,
-          0,
-          160,
-          4
-        ],
-        "KW": [
-          133,
-          0,
-          160,
-          4
-        ],
-        "KR": [
-          13,
-          0,
-          67,
-          4
-        ]
-      },
       "specFrom": "tuck-window",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120257",
@@ -22301,7 +17547,7 @@ export default {
       "height": 59.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SideClamshellBoxThree",
+      "templateId": "sampled-folding-120257",
       "hasGeometry": true,
       "cutCount": 80,
       "foldCount": 18,
@@ -22321,107 +17567,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "SideClamshellBoxThree",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N1": [
-          30,
-          20,
-          40,
-          2
-        ],
-        "ND": [
-          15,
-          10,
-          30,
-          2
-        ],
-        "R": [
-          5,
-          0,
-          7.5,
-          2
-        ],
-        "D2": [
-          12,
-          0,
-          30,
-          2
-        ],
-        "T": [
-          10,
-          0,
-          45,
-          3
-        ],
-        "C": [
-          20,
-          10,
-          59.5,
-          3
-        ],
-        "CR": [
-          10,
-          0,
-          20,
-          3
-        ],
-        "D3": [
-          15,
-          10,
-          29,
-          3
-        ],
-        "DR": [
-          7.5,
-          0,
-          15,
-          3
-        ],
-        "KL": [
-          40,
-          10,
-          100,
-          4
-        ],
-        "KD": [
-          20,
-          5,
-          30,
-          4
-        ],
-        "KD1": [
-          10,
-          5,
-          10,
-          4
-        ],
-        "KL1": [
-          41,
-          40,
-          41,
-          4
-        ],
-        "KD2": [
-          15,
-          12,
-          20,
-          4
-        ],
-        "KR": [
-          4,
-          0,
-          4,
-          4
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120258",
@@ -22474,7 +17623,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120258",
@@ -22525,7 +17675,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120259",
@@ -22632,7 +17783,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120259",
@@ -22739,7 +17891,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120260",
@@ -22838,7 +17991,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120270",
@@ -22955,7 +18109,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120280",
@@ -22986,7 +18141,8 @@ export default {
       "structureCode": "SpecialShapedDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120290",
@@ -23048,7 +18204,8 @@ export default {
       "structureCode": "PortableDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120310",
@@ -23189,7 +18346,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-120320",
@@ -23222,7 +18380,8 @@ export default {
       "structureCode": "InterlockingDiagonalLockingDiscBox",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-120320",
@@ -23257,7 +18416,8 @@ export default {
       "structureCode": "InterlockingDiagonalLockingDiscBox",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120320",
@@ -23290,7 +18450,8 @@ export default {
       "structureCode": "InterlockingDiagonalLockingDiscBox",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120330",
@@ -23321,7 +18482,8 @@ export default {
       "structureCode": "SideLockFourSealAngleDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120340",
@@ -23352,7 +18514,8 @@ export default {
       "structureCode": "SimpleMutualLockingDiscHandleBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120350",
@@ -23391,7 +18554,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120360",
@@ -23478,7 +18642,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120370",
@@ -23491,7 +18656,7 @@ export default {
       "height": 50,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FourFoldSideAndAngleDiscBox",
+      "templateId": "sampled-tray-120370",
       "hasGeometry": true,
       "cutCount": 66,
       "foldCount": 30,
@@ -23509,65 +18674,10 @@ export default {
         "方形盒"
       ],
       "structureCode": "FourFoldSideAndAngleDiscBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "OF1": [
-          1.5,
-          0,
-          1.5,
-          2
-        ],
-        "T": [
-          10,
-          0,
-          45,
-          2
-        ],
-        "N": [
-          67,
-          10,
-          101,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "NX": [
-          3,
-          1,
-          6,
-          2
-        ],
-        "C": [
-          20,
-          15,
-          99.8,
-          2
-        ],
-        "CX": [
-          1,
-          0,
-          1,
-          2
-        ],
-        "CT": [
-          15,
-          0,
-          45,
-          2
-        ]
-      },
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "specFrom": "lid-base",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120371",
@@ -23598,7 +18708,8 @@ export default {
       "structureCode": "FourFoldSideMutualLcokingAndAngleDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120390",
@@ -23629,7 +18740,8 @@ export default {
       "structureCode": "FourFoldEdgeAndCornerDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120400",
@@ -23660,7 +18772,8 @@ export default {
       "structureCode": "BottomFoldedAngleDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120420",
@@ -23691,7 +18804,8 @@ export default {
       "structureCode": "TracelessBottomSocketDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120430",
@@ -23722,7 +18836,8 @@ export default {
       "structureCode": "SymmetricalTracelessBottomSidePluginDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120460",
@@ -23803,7 +18918,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-120470",
@@ -23900,7 +19016,8 @@ export default {
       "structureCode": "BottomButtonTrayBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120510",
@@ -23960,7 +19077,8 @@ export default {
       "structureCode": "LockBottomStackingTray",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-120550",
@@ -23991,7 +19109,8 @@ export default {
       "structureCode": "TrapezoidalDiscBoxWithThreeCompartments",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120620",
@@ -24022,7 +19141,8 @@ export default {
       "structureCode": "SinglePieceFoldingPluginLockDiscBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120660",
@@ -24053,7 +19173,8 @@ export default {
       "structureCode": "DoubleEarPaperJamTrayBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120680",
@@ -24084,7 +19205,8 @@ export default {
       "structureCode": "InterlockingSnapLockDiscDox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120710",
@@ -24225,7 +19347,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120730",
@@ -24256,7 +19379,8 @@ export default {
       "structureCode": "QuadhemInterlockingBottomDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-121010",
@@ -24316,7 +19440,8 @@ export default {
       "structureCode": "GluedFastfoodTray",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-121030",
@@ -24415,7 +19540,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-121040",
@@ -24618,7 +19744,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-121090",
@@ -24649,7 +19776,8 @@ export default {
       "structureCode": "TrapezoidalFoldingAngleHandleTrayBox",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-121111",
@@ -24822,7 +19950,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-121111",
@@ -24999,7 +20128,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-121140",
@@ -25146,7 +20276,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123020",
@@ -25177,7 +20308,8 @@ export default {
       "structureCode": "FrontBaffleTiltingDiscBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123030",
@@ -25190,7 +20322,7 @@ export default {
       "height": 100,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ArcBuckleDiscBox",
+      "templateId": "sampled-tray-123030",
       "hasGeometry": true,
       "cutCount": 56,
       "foldCount": 8,
@@ -25207,8 +20339,9 @@ export default {
       ],
       "structureCode": "ArcBuckleDiscBox",
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-123040",
@@ -25241,7 +20374,8 @@ export default {
       "structureCode": "ReverseFoldingDiscBox",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123050",
@@ -25272,7 +20406,8 @@ export default {
       "structureCode": "HexagonDiscBoxWithLockBottom",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123051",
@@ -25409,7 +20544,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-123070",
@@ -25440,7 +20576,8 @@ export default {
       "structureCode": "RegularHexagonalDiscBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123090",
@@ -25471,7 +20608,8 @@ export default {
       "structureCode": "OctagonalLockBottomBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123160",
@@ -25502,7 +20640,8 @@ export default {
       "structureCode": "SixGridDiscBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-123180",
@@ -25515,7 +20654,7 @@ export default {
       "height": 40,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SpecialShapedHexagonalTray",
+      "templateId": "sampled-tray-123180",
       "hasGeometry": true,
       "cutCount": 46,
       "foldCount": 22,
@@ -25532,8 +20671,9 @@ export default {
       ],
       "structureCode": "SpecialShapedHexagonalTray",
       "specFrom": "polygon-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-123210",
@@ -25568,7 +20708,8 @@ export default {
       "structureCode": "TearPullMouthDiscLockBox",
       "templateSource": "structure-spec",
       "specFrom": "auto-lock-bottom",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128010",
@@ -25581,7 +20722,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-Bufferwallbox__128010",
+      "templateId": "sampled-tray-128010",
       "hasGeometry": true,
       "cutCount": 102,
       "foldCount": 32,
@@ -25597,53 +20738,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "Bufferwallbox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "SD": [
-          10,
-          5,
-          80,
-          2
-        ],
-        "G": [
-          12,
-          5,
-          55,
-          3
-        ],
-        "L5": [
-          131,
-          120.8,
-          221,
-          3
-        ],
-        "R1": [
-          3,
-          0,
-          5,
-          3
-        ],
-        "T1": [
-          15,
-          15,
-          45,
-          3
-        ],
-        "GR": [
-          9,
-          0,
-          12,
-          3
-        ]
-      },
-      "templateSource": "structure-spec-takeover",
+      "templateSource": "sampled",
       "specFrom": "rea-bufferwall",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-128011",
@@ -25736,7 +20834,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-128012",
@@ -25835,7 +20934,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128013",
@@ -25866,7 +20966,8 @@ export default {
       "structureCode": "BufferwallboxInnercover",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128020",
@@ -25926,7 +21027,8 @@ export default {
       "structureCode": "InsertLockEnvelopeHandleDrawerBox",
       "specFrom": "sleeve",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-128022",
@@ -26173,7 +21275,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-128033",
@@ -26260,7 +21363,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128040",
@@ -26291,7 +21395,8 @@ export default {
       "structureCode": "FourFoldBufferBox",
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-128050",
@@ -26304,7 +21409,7 @@ export default {
       "height": 100,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PlugLockFlipCushionWallBox",
+      "templateId": "sampled-folding-128050",
       "hasGeometry": true,
       "cutCount": 97,
       "foldCount": 30,
@@ -26322,9 +21427,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "PlugLockFlipCushionWallBox",
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-128052",
@@ -26357,7 +21463,8 @@ export default {
       "structureCode": "SafetyBuckleFlapBufferWallBox",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128060",
@@ -26468,7 +21575,8 @@ export default {
       },
       "specFrom": "sleeve",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-128100",
@@ -26499,7 +21607,8 @@ export default {
       "structureCode": "TrapezoidalFourFoldDiscBox",
       "specFrom": "pizza-clamshell",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-128121",
@@ -26712,7 +21821,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-128130",
@@ -26743,7 +21853,8 @@ export default {
       "structureCode": "FoldingAngleFlipDrawerBoxP1",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-square-128130",
@@ -26776,7 +21887,8 @@ export default {
       "structureCode": "FoldingAngleFlipDrawerBoxP1",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-128140",
@@ -27009,7 +22121,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150010",
@@ -27154,7 +22267,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150011",
@@ -27295,7 +22409,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150011",
@@ -27438,7 +22553,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150012",
@@ -27597,7 +22713,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150012",
@@ -27758,7 +22875,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150013",
@@ -27959,7 +23077,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150013",
@@ -28162,7 +23281,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150014",
@@ -28363,7 +23483,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150014",
@@ -28566,7 +23687,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150015",
@@ -28721,7 +23843,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150016",
@@ -28888,7 +24011,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150016",
@@ -29057,7 +24181,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150017",
@@ -29234,7 +24359,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150017",
@@ -29413,7 +24539,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150018",
@@ -29650,7 +24777,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150018",
@@ -29889,7 +25017,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150019",
@@ -30066,7 +25195,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150020",
@@ -30213,7 +25343,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150020",
@@ -30362,7 +25493,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150021",
@@ -30393,7 +25525,8 @@ export default {
       "structureCode": "AircraftWithWindowWithoutInsert",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150021",
@@ -30426,7 +25559,8 @@ export default {
       "structureCode": "AircraftWithWindowWithoutInsert",
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150022",
@@ -30439,7 +25573,7 @@ export default {
       "height": 59.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SafetyBuckleAircraftWithoutInsertion",
+      "templateId": "sampled-folding-150022",
       "hasGeometry": true,
       "cutCount": 108,
       "foldCount": 21,
@@ -30455,161 +25589,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "SafetyBuckleAircraftWithoutInsertion",
-      "openParams": {
-        "N": [
-          80,
-          13,
-          100,
-          2
-        ],
-        "NX": [
-          2,
-          2,
-          3,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "K": [
-          2,
-          1,
-          5,
-          2
-        ],
-        "SW": [
-          40,
-          33,
-          67,
-          2
-        ],
-        "SP": [
-          80,
-          40,
-          120,
-          2
-        ],
-        "NY": [
-          2,
-          0.5,
-          3,
-          2
-        ],
-        "SX": [
-          0.5,
-          0.5,
-          0.5,
-          3
-        ],
-        "D2": [
-          59.25,
-          59.25,
-          59.5,
-          3
-        ],
-        "DC": [
-          61.5,
-          61.5,
-          62.5,
-          3
-        ],
-        "SW1": [
-          39,
-          38,
-          40,
-          3
-        ],
-        "R1": [
-          0.75,
-          0.75,
-          1,
-          3
-        ],
-        "R2": [
-          0.75,
-          0.75,
-          2,
-          3
-        ],
-        "CR": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "M": [
-          59.5,
-          10,
-          59.5,
-          4
-        ],
-        "M1": [
-          59.5,
-          30,
-          59.5,
-          4
-        ],
-        "MOF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "MR": [
-          15,
-          0,
-          29.75,
-          4
-        ],
-        "MR1": [
-          15,
-          0,
-          29.75,
-          4
-        ],
-        "F1": [
-          15,
-          10,
-          40,
-          5
-        ],
-        "F2": [
-          21,
-          15,
-          21,
-          5
-        ],
-        "KW": [
-          86,
-          86,
-          150,
-          5
-        ],
-        "KW1": [
-          87,
-          86,
-          87,
-          5
-        ],
-        "FR": [
-          7,
-          0,
-          11,
-          5
-        ],
-        "KD": [
-          10,
-          0,
-          10,
-          5
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150023",
@@ -30792,7 +25775,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-150023",
@@ -30975,7 +25959,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150023",
@@ -31160,7 +26145,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150030",
@@ -31289,7 +26275,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150030",
@@ -31420,7 +26407,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150032",
@@ -31451,7 +26439,8 @@ export default {
       "structureCode": "AircraftWithoutWingsHoles",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150032",
@@ -31484,7 +26473,8 @@ export default {
       "structureCode": "AircraftWithoutWingsHoles",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150033",
@@ -31615,7 +26605,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150034",
@@ -31728,7 +26719,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150035",
@@ -31859,7 +26851,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150040",
@@ -31984,7 +26977,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150082",
@@ -31997,7 +26991,7 @@ export default {
       "height": 250,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FoldedCornerInnerFoldingFlapBox",
+      "templateId": "sampled-folding-150082",
       "hasGeometry": true,
       "cutCount": 36,
       "foldCount": 22,
@@ -32013,53 +27007,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "FoldedCornerInnerFoldingFlapBox",
-      "openParams": {
-        "D1": [
-          50,
-          41.77,
-          167,
-          2
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N": [
-          50.5,
-          10,
-          50.5,
-          2
-        ],
-        "NX": [
-          3,
-          3,
-          25,
-          2
-        ],
-        "NY": [
-          3,
-          0.5,
-          3,
-          2
-        ],
-        "DT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "DTR": [
-          17,
-          0,
-          25,
-          2
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150100",
@@ -32266,7 +27217,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150100",
@@ -32475,7 +27427,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150110",
@@ -32488,7 +27441,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-AngleLockAircraftBox",
+      "templateId": "sampled-folding-150110",
       "hasGeometry": true,
       "cutCount": 108,
       "foldCount": 34,
@@ -32507,8 +27460,9 @@ export default {
       ],
       "structureCode": "AngleLockAircraftBox",
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150111",
@@ -32705,7 +27659,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150112",
@@ -32860,7 +27815,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-150120",
@@ -33033,7 +27989,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-mailer-150160",
@@ -33186,7 +28143,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150160",
@@ -33341,7 +28299,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150161",
@@ -33374,7 +28333,8 @@ export default {
       "structureCode": "AircraftWithWindowHook",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150162",
@@ -33409,7 +28369,8 @@ export default {
       "structureCode": "AircraftWithHookHandle",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150170",
@@ -33594,7 +28555,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150190",
@@ -33777,7 +28739,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150230",
@@ -33928,7 +28891,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150231",
@@ -34115,7 +29079,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150233",
@@ -34376,7 +29341,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150260",
@@ -34411,7 +29377,8 @@ export default {
       "structureCode": "AircraftWithHandleDoubleLocks",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150280",
@@ -34444,7 +29411,8 @@ export default {
       "structureCode": "AircraftBoxWithDoubleTongue",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150300",
@@ -34641,7 +29609,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150330",
@@ -34674,7 +29643,8 @@ export default {
       "structureCode": "TracelessBottomDisplayAircraftBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150430",
@@ -34705,7 +29675,8 @@ export default {
       "structureCode": "SideFixedAircraftBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150430",
@@ -34738,7 +29709,8 @@ export default {
       "structureCode": "SideFixedAircraftBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-150440",
@@ -34833,7 +29805,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151010",
@@ -34914,7 +29887,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-151030",
@@ -34947,7 +29921,8 @@ export default {
       "structureCode": "FlipShoebox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151030",
@@ -34982,7 +29957,8 @@ export default {
       "structureCode": "FlipShoebox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151031",
@@ -35159,7 +30135,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151032",
@@ -35342,7 +30319,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151040",
@@ -35443,7 +30421,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151050",
@@ -35546,7 +30525,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151051",
@@ -35559,7 +30539,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-WindowFoldingFlipBox",
+      "templateId": "sampled-folding-151051",
       "hasGeometry": true,
       "cutCount": 60,
       "foldCount": 24,
@@ -35575,125 +30555,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "WindowFoldingFlipBox",
-      "openParams": {
-        "D1": [
-          60,
-          20,
-          60.3,
-          2
-        ],
-        "W1": [
-          120.6,
-          120.6,
-          121.1,
-          2
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "OF1": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "F": [
-          60.8,
-          5,
-          80,
-          2
-        ],
-        "F1": [
-          60.5,
-          5,
-          80,
-          2
-        ],
-        "AX1": [
-          3,
-          0,
-          3,
-          2
-        ],
-        "AX": [
-          2.5,
-          0,
-          5.5,
-          2
-        ],
-        "AS": [
-          2.5,
-          0,
-          2.5,
-          2
-        ],
-        "R": [
-          0.65,
-          0.6,
-          0.75,
-          2
-        ],
-        "T": [
-          5,
-          0,
-          15,
-          2
-        ],
-        "R1": [
-          6,
-          0,
-          20,
-          2
-        ],
-        "LL": [
-          60.8,
-          0,
-          91,
-          3
-        ],
-        "WW": [
-          60.3,
-          0,
-          90,
-          3
-        ],
-        "X": [
-          30.9,
-          3,
-          58.8,
-          3
-        ],
-        "Y": [
-          30.15,
-          3,
-          57.3,
-          3
-        ],
-        "RR": [
-          6,
-          0,
-          30,
-          3
-        ],
-        "KX": [
-          12,
-          0,
-          25,
-          4
-        ],
-        "KY": [
-          6,
-          0,
-          6,
-          4
-        ]
-      },
       "specFrom": "tuck-window",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151052",
@@ -35792,7 +30657,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151060",
@@ -35895,7 +30761,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151070",
@@ -36020,7 +30887,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151071",
@@ -36175,7 +31043,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151080",
@@ -36302,7 +31171,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151081",
@@ -36445,7 +31315,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151090",
@@ -36478,7 +31349,8 @@ export default {
       "structureCode": "SemiSealingSlugLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151110",
@@ -36635,7 +31507,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151120",
@@ -36648,7 +31521,7 @@ export default {
       "height": 56.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-InsideClamshellBox",
+      "templateId": "sampled-folding-151120",
       "hasGeometry": true,
       "cutCount": 85,
       "foldCount": 26,
@@ -36666,89 +31539,10 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "InsideClamshellBox",
-      "openParams": {
-        "N": [
-          49,
-          5,
-          57,
-          2
-        ],
-        "NX": [
-          7,
-          0.5,
-          24.5,
-          2
-        ],
-        "NY": [
-          2.5,
-          0.5,
-          2.5,
-          2
-        ],
-        "NT": [
-          8,
-          0,
-          37.8,
-          2
-        ],
-        "N1": [
-          49,
-          5,
-          57,
-          3
-        ],
-        "TT": [
-          7,
-          0,
-          54.42,
-          3
-        ],
-        "SL": [
-          166,
-          114.3,
-          304.8,
-          4
-        ],
-        "SL2": [
-          45,
-          26.6,
-          66.5,
-          4
-        ],
-        "SL3": [
-          72,
-          67.5,
-          132.8,
-          4
-        ],
-        "SW1": [
-          5.5,
-          3,
-          7,
-          4
-        ],
-        "SW2": [
-          9,
-          3,
-          10.33,
-          4
-        ],
-        "SD": [
-          3,
-          0,
-          17.75,
-          4
-        ],
-        "SD1": [
-          15.5,
-          7.1,
-          17.75,
-          4
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151130",
@@ -36783,7 +31577,8 @@ export default {
       "structureCode": "AngleFoldingCoverBoxWithSideLock",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151150",
@@ -36814,7 +31609,8 @@ export default {
       "structureCode": "VentilationHoleCornerFlapBox",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151160",
@@ -36849,7 +31645,8 @@ export default {
       "structureCode": "BuckleBottomFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151180",
@@ -36882,7 +31679,8 @@ export default {
       "structureCode": "TrapezoidalAngleLockClamshellBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151190",
@@ -36915,7 +31713,8 @@ export default {
       "structureCode": "BookTypeFlipBoxWithFoldedCorners",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151210",
@@ -37040,7 +31839,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-151220",
@@ -37053,7 +31853,7 @@ export default {
       "height": 100,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PlugLockRoundHeadFlipBox",
+      "templateId": "sampled-mailer-151220",
       "hasGeometry": true,
       "cutCount": 92,
       "foldCount": 16,
@@ -37070,8 +31870,9 @@ export default {
       ],
       "structureCode": "PlugLockRoundHeadFlipBox",
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151220",
@@ -37084,7 +31885,7 @@ export default {
       "height": 100,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PlugLockRoundHeadFlipBox",
+      "templateId": "sampled-folding-151220",
       "hasGeometry": true,
       "cutCount": 92,
       "foldCount": 16,
@@ -37103,8 +31904,9 @@ export default {
       ],
       "structureCode": "PlugLockRoundHeadFlipBox",
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151230",
@@ -37117,7 +31919,7 @@ export default {
       "height": 50,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SimpleClamshellBox",
+      "templateId": "sampled-folding-151230",
       "hasGeometry": true,
       "cutCount": 34,
       "foldCount": 20,
@@ -37136,8 +31938,9 @@ export default {
       ],
       "structureCode": "SimpleClamshellBox",
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151240",
@@ -37256,7 +32059,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-151250",
@@ -37287,7 +32091,8 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151300",
@@ -37318,7 +32123,8 @@ export default {
       "structureCode": "KnifeDraw",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151510",
@@ -37415,7 +32221,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151600",
@@ -37448,7 +32255,8 @@ export default {
       "structureCode": "TracelessCoverBuckleBottomFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151630",
@@ -37481,7 +32289,8 @@ export default {
       "structureCode": "SafetyBuckleSideInsertFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-151660",
@@ -37514,7 +32323,8 @@ export default {
       "structureCode": "FourFoldedCombinationFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-152010",
@@ -37545,83 +32355,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "TraySimpleGluedP1",
-      "openParams": {
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          2
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          2
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          2
-        ],
-        "X2": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "C": [
-          25,
-          5,
-          60,
-          2
-        ],
-        "A": [
-          25,
-          17,
-          50,
-          2
-        ],
-        "X1": [
-          1,
-          1,
-          1.5,
-          2
-        ],
-        "AR": [
-          6.5,
-          0,
-          11,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          59,
-          2
-        ],
-        "CX": [
-          1,
-          0.8,
-          1.5,
-          2
-        ],
-        "CR": [
-          13,
-          0,
-          25,
-          2
-        ]
-      },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152010",
@@ -37654,83 +32391,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "TraySimpleGluedP1",
-      "openParams": {
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          2
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          2
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          2
-        ],
-        "X2": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "C": [
-          25,
-          5,
-          60,
-          2
-        ],
-        "A": [
-          25,
-          17,
-          50,
-          2
-        ],
-        "X1": [
-          1,
-          1,
-          1.5,
-          2
-        ],
-        "AR": [
-          6.5,
-          0,
-          11,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          59,
-          2
-        ],
-        "CX": [
-          1,
-          0.8,
-          1.5,
-          2
-        ],
-        "CR": [
-          13,
-          0,
-          25,
-          2
-        ]
-      },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152011",
@@ -37861,7 +32525,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152020",
@@ -37994,7 +32659,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-152021",
@@ -38143,7 +32809,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152021",
@@ -38294,7 +32961,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152030",
@@ -38329,7 +32997,8 @@ export default {
       "structureCode": "TrayGluedObliqueP1",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152031",
@@ -38342,7 +33011,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-TrayGluedObliqueWithLock",
+      "templateId": "sampled-folding-152031",
       "hasGeometry": true,
       "cutCount": 72,
       "foldCount": 12,
@@ -38361,8 +33030,9 @@ export default {
       ],
       "structureCode": "TrayGluedObliqueWithLock",
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-152040",
@@ -38473,7 +33143,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152040",
@@ -38586,7 +33257,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152050",
@@ -38599,7 +33271,7 @@ export default {
       "height": 24.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-GluedThreeFoldFlapBox",
+      "templateId": "sampled-folding-152050",
       "hasGeometry": true,
       "cutCount": 89,
       "foldCount": 22,
@@ -38617,53 +33289,10 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "GluedThreeFoldFlapBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "NX": [
-          2.5,
-          2.5,
-          5,
-          2
-        ],
-        "NY": [
-          2.5,
-          0.5,
-          4,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N": [
-          41,
-          10,
-          50,
-          2
-        ],
-        "N1": [
-          41,
-          10,
-          50,
-          2
-        ],
-        "SD": [
-          1.5,
-          1,
-          3,
-          2
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152051",
@@ -38676,7 +33305,7 @@ export default {
       "height": 24.7,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-GluedNailThreeFoldFlapBox",
+      "templateId": "sampled-folding-152051",
       "hasGeometry": true,
       "cutCount": 89,
       "foldCount": 23,
@@ -38694,89 +33323,10 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "GluedNailThreeFoldFlapBox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "NX": [
-          2.5,
-          2.5,
-          5,
-          2
-        ],
-        "NY": [
-          2.5,
-          0.5,
-          4,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "N": [
-          41,
-          10,
-          50,
-          2
-        ],
-        "N1": [
-          41,
-          10,
-          50,
-          2
-        ],
-        "SD": [
-          1.5,
-          1,
-          3,
-          2
-        ],
-        "R1": [
-          7.5,
-          0,
-          13,
-          2
-        ],
-        "X": [
-          68,
-          0,
-          81,
-          2
-        ],
-        "Y": [
-          68,
-          0,
-          81,
-          2
-        ],
-        "X1": [
-          18.3,
-          0,
-          36.6,
-          2
-        ],
-        "Y1": [
-          17.8,
-          0,
-          35.6,
-          2
-        ],
-        "XR": [
-          14,
-          0,
-          34,
-          2
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152060",
@@ -38811,7 +33361,8 @@ export default {
       "structureCode": "GlueOneClamshellBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152070",
@@ -38882,7 +33433,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152080",
@@ -39001,7 +33553,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152090",
@@ -39034,7 +33587,8 @@ export default {
       "structureCode": "FlipTrapezoidBevel",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-152100",
@@ -39253,7 +33807,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152100",
@@ -39474,7 +34029,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-152101",
@@ -39627,7 +34183,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-152102",
@@ -39776,7 +34333,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152102",
@@ -39925,7 +34483,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152130",
@@ -39960,7 +34519,8 @@ export default {
       "structureCode": "DoubleSideCardFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152180",
@@ -39993,7 +34553,8 @@ export default {
       "structureCode": "FrameLockFlipBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152190",
@@ -40026,7 +34587,8 @@ export default {
       "structureCode": "FlipBoxWithLockSafetyBuckle",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152210",
@@ -40151,7 +34713,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-152500",
@@ -40370,7 +34933,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153010",
@@ -40515,7 +35079,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153011",
@@ -40632,7 +35197,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153012",
@@ -40795,7 +35361,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-153013",
@@ -40908,7 +35475,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153013",
@@ -41023,7 +35591,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153020",
@@ -41058,7 +35627,8 @@ export default {
       "structureCode": "HandshakeSlantCoverBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153030",
@@ -41206,7 +35776,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-153031",
@@ -41317,7 +35888,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153031",
@@ -41430,7 +36002,8 @@ export default {
       },
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153032",
@@ -41613,7 +36186,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153040",
@@ -41646,7 +36220,8 @@ export default {
       "structureCode": "FoldAdhesiveClamshellBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153060",
@@ -41677,7 +36252,8 @@ export default {
       "structureCode": "FlipFoldenCornerWithLock",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153070",
@@ -41820,7 +36396,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153080",
@@ -41886,7 +36463,8 @@ export default {
       "structureCode": "FlipPortableLatch",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153130",
@@ -41921,7 +36499,8 @@ export default {
       "structureCode": "SafetyBuckleHandleLockFlipBox",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153140",
@@ -41954,7 +36533,8 @@ export default {
       "structureCode": "SafetyBuckleSidePluginLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153150",
@@ -42151,7 +36731,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153180",
@@ -42252,7 +36833,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153181",
@@ -42285,7 +36867,8 @@ export default {
       "structureCode": "SimpleReverseFoldingCardLockFlipBoxWithWindow",
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153182",
@@ -42420,7 +37003,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153210",
@@ -42453,7 +37037,8 @@ export default {
       "structureCode": "TrapezoidalLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-153230",
@@ -42486,7 +37071,8 @@ export default {
       "structureCode": "DoubleSidedTrapezoidalFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-mailer-156000",
@@ -42575,7 +37161,8 @@ export default {
       },
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156000",
@@ -42666,7 +37253,8 @@ export default {
       },
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156001",
@@ -42697,7 +37285,8 @@ export default {
       "structureCode": "LinedSpecialTypeAircraft",
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156001",
@@ -42730,7 +37319,8 @@ export default {
       "structureCode": "LinedSpecialTypeAircraft",
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156002",
@@ -42743,7 +37333,7 @@ export default {
       "height": 80,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-SpecialLockshellClamshellAircraftBox",
+      "templateId": "sampled-folding-156002",
       "hasGeometry": true,
       "cutCount": 75,
       "foldCount": 20,
@@ -42762,8 +37352,9 @@ export default {
       ],
       "structureCode": "SpecialLockshellClamshellAircraftBox",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156003",
@@ -42864,7 +37455,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156030",
@@ -42897,7 +37489,8 @@ export default {
       "structureCode": "SpecialShapedSideLeafBuckleAircraftBox",
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156060",
@@ -42930,7 +37523,8 @@ export default {
       "structureCode": "DoubleDeckAircraftBox",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156080",
@@ -42963,7 +37557,8 @@ export default {
       "structureCode": "LinerPlugLockAircraft",
       "specFrom": "mailer-aircraft",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-156090",
@@ -42994,7 +37589,8 @@ export default {
       "structureCode": "ZipperShapedAirplaneCase",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156090",
@@ -43025,7 +37621,8 @@ export default {
       "structureCode": "ZipperShapedAirplaneCase",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156100",
@@ -43060,7 +37657,8 @@ export default {
       "structureCode": "FlipMutatedWithLock",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156110",
@@ -43095,7 +37693,8 @@ export default {
       "structureCode": "DoubleLockFlipBox",
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156111",
@@ -43264,7 +37863,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156112",
@@ -43417,7 +38017,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156130",
@@ -43448,7 +38049,8 @@ export default {
       "structureCode": "FlipPlugUnbonded",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156130",
@@ -43481,7 +38083,8 @@ export default {
       "structureCode": "FlipPlugUnbonded",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-156131",
@@ -43512,7 +38115,8 @@ export default {
       "structureCode": "FlipSidePlugUnbonded",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156131",
@@ -43543,7 +38147,8 @@ export default {
       "structureCode": "FlipSidePlugUnbonded",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156132",
@@ -43576,7 +38181,8 @@ export default {
       "structureCode": "FlipPlugBonded",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156150",
@@ -43609,7 +38215,8 @@ export default {
       "structureCode": "SidePluginLockBottomFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156160",
@@ -43644,7 +38251,8 @@ export default {
       "structureCode": "LockPlateBottomFlipBox",
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156181",
@@ -43761,7 +38369,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156210",
@@ -43896,7 +38505,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156211",
@@ -44015,7 +38625,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156212",
@@ -44152,7 +38763,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156213",
@@ -44241,7 +38853,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156214",
@@ -44348,7 +38961,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156215",
@@ -44519,7 +39133,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156216",
@@ -44678,7 +39293,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156220",
@@ -44711,7 +39327,8 @@ export default {
       "structureCode": "InterlockLatchFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156221",
@@ -44742,7 +39359,8 @@ export default {
       "structureCode": "InterlockLatchFlipBoxWithWindow",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156222",
@@ -44775,7 +39393,8 @@ export default {
       "structureCode": "InterlockLatchFlipBoxWithWindow01",
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156240",
@@ -44902,7 +39521,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156244",
@@ -45145,7 +39765,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156245",
@@ -45298,7 +39919,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156250",
@@ -45463,7 +40085,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156260",
@@ -45576,7 +40199,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156270",
@@ -45609,7 +40233,8 @@ export default {
       "structureCode": "SplitFlapBoxWithPullCable",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156280",
@@ -45640,7 +40265,8 @@ export default {
       "structureCode": "FlatCoverWithInsertLock",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156280",
@@ -45673,7 +40299,8 @@ export default {
       "structureCode": "FlatCoverWithInsertLock",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156281",
@@ -45706,7 +40333,8 @@ export default {
       "structureCode": "FlatPackZipperFlapBox",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156281",
@@ -45741,7 +40369,8 @@ export default {
       "structureCode": "FlatPackZipperFlapBox",
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156291",
@@ -45894,7 +40523,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156300",
@@ -45955,7 +40585,8 @@ export default {
       "structureCode": "ConcealedPluginLockBottomFlapBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156310",
@@ -45988,7 +40619,8 @@ export default {
       "structureCode": "ConcealedPluginLockBottomFlapBox",
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156330",
@@ -46021,7 +40653,8 @@ export default {
       "structureCode": "TipperLockBottomMortiseLockFlipCover",
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156380",
@@ -46116,7 +40749,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156410",
@@ -46147,7 +40781,8 @@ export default {
       "structureCode": "InterlockingPluginLockingBufferFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-156410",
@@ -46178,7 +40813,8 @@ export default {
       "structureCode": "InterlockingPluginLockingBufferFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156410",
@@ -46211,7 +40847,8 @@ export default {
       "structureCode": "InterlockingPluginLockingBufferFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156430",
@@ -46244,7 +40881,8 @@ export default {
       "structureCode": "TwinPlugInLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156440",
@@ -46277,7 +40915,8 @@ export default {
       "structureCode": "ExternalPositivePlugInLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156480",
@@ -46310,7 +40949,8 @@ export default {
       "structureCode": "RoofInterlockPluginLockFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156650",
@@ -46471,7 +41111,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156650",
@@ -46634,7 +41275,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-157010",
@@ -46667,7 +41309,8 @@ export default {
       "structureCode": "SplitFoldedFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-157030",
@@ -46700,7 +41343,8 @@ export default {
       "structureCode": "ThreeTrapezoidalClamshellBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-157050",
@@ -46735,7 +41379,8 @@ export default {
       "structureCode": "TriangularFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-157060",
@@ -46768,7 +41413,8 @@ export default {
       "structureCode": "TriangularSplitFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-157080",
@@ -46801,7 +41447,8 @@ export default {
       "structureCode": "InclinedFlapBoxP1",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-157080",
@@ -46834,7 +41481,8 @@ export default {
       "structureCode": "InclinedFlapBoxP1",
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-158010",
@@ -46867,7 +41515,8 @@ export default {
       "structureCode": "DoublePluginLockFlipBox",
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158020",
@@ -46898,7 +41547,8 @@ export default {
       "structureCode": "FlipBoxWithDoubleSocketLock",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158030",
@@ -46929,7 +41579,8 @@ export default {
       "structureCode": "SplitFlapLiftingBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158050",
@@ -47022,7 +41673,8 @@ export default {
       "structureCode": "BufferFrameZipperFlapBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158131",
@@ -47151,7 +41803,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158133",
@@ -47164,7 +41817,7 @@ export default {
       "height": 45,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-HamburgerBox01",
+      "templateId": "sampled-folding-158133",
       "hasGeometry": true,
       "cutCount": 154,
       "foldCount": 33,
@@ -47182,77 +41835,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "HamburgerBox01",
-      "openParams": {
-        "D2": [
-          5,
-          5,
-          9,
-          2
-        ],
-        "KR": [
-          0.83,
-          0,
-          1.25,
-          2
-        ],
-        "FR": [
-          7,
-          0,
-          7,
-          2
-        ],
-        "D3": [
-          7.5,
-          2,
-          7.5,
-          2
-        ],
-        "D4": [
-          5,
-          3,
-          8.75,
-          2
-        ],
-        "SW": [
-          6,
-          15,
-          6,
-          3
-        ],
-        "SW1": [
-          8,
-          6,
-          8,
-          3
-        ],
-        "SW2": [
-          4,
-          3,
-          6,
-          3
-        ],
-        "SW3": [
-          7,
-          6,
-          8,
-          3
-        ],
-        "F": [
-          6,
-          5,
-          6,
-          3
-        ],
-        "SR": [
-          1,
-          0,
-          2,
-          3
-        ]
-      },
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158134",
@@ -47405,7 +41991,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158140",
@@ -47436,7 +42023,8 @@ export default {
       "structureCode": "KnifeDraw",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158240",
@@ -47449,7 +42037,7 @@ export default {
       "height": 100,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-RotateFlipBox",
+      "templateId": "sampled-folding-158240",
       "hasGeometry": true,
       "cutCount": 40,
       "foldCount": 11,
@@ -47465,47 +42053,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "RotateFlipBox",
-      "openParams": {
-        "OF1": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "R1": [
-          0.5,
-          0.3,
-          0.5,
-          2
-        ],
-        "R2": [
-          0.3,
-          0,
-          1,
-          2
-        ],
-        "L1": [
-          100.1,
-          50.05,
-          100.1,
-          2
-        ],
-        "G1": [
-          14,
-          5,
-          99.6,
-          3
-        ],
-        "G2": [
-          14,
-          5,
-          99.1,
-          3
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158260",
@@ -47682,7 +42233,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-160025",
@@ -47805,7 +42357,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-160031",
@@ -47832,7 +42385,8 @@ export default {
       "structureCode": "HalffoldedBottomWithoutTraceBuckleBottomWorld",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-160160",
@@ -47943,7 +42497,8 @@ export default {
       },
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-161012",
@@ -48032,7 +42587,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-161012",
@@ -48121,7 +42677,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-161121",
@@ -48178,7 +42735,8 @@ export default {
       },
       "specFrom": "polygon-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-163040",
@@ -48363,7 +42921,8 @@ export default {
       },
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-170020",
@@ -48420,7 +42979,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-170021",
@@ -48586,7 +43146,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-170150",
@@ -48617,7 +43178,8 @@ export default {
       "structureCode": "TracelessBottomSideLockDisplayBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-170170",
@@ -48648,7 +43210,8 @@ export default {
       "structureCode": "FourFoldedFlatStickBottomDisplayBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-170281",
@@ -48800,7 +43363,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171030",
@@ -48929,7 +43493,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171031",
@@ -49028,7 +43593,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171040",
@@ -49097,7 +43663,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171041",
@@ -49190,7 +43757,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171042",
@@ -49283,7 +43851,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171043",
@@ -49436,7 +44005,8 @@ export default {
       },
       "specFrom": "sleeve",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171054",
@@ -49517,7 +44087,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171055",
@@ -49616,7 +44187,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171080",
@@ -49647,7 +44219,8 @@ export default {
       "structureCode": "SimpleSalesDisplayBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171081",
@@ -49722,7 +44295,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171160",
@@ -49753,7 +44327,8 @@ export default {
       "structureCode": "LockingBottomLatchDisplayBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171170",
@@ -49784,7 +44359,8 @@ export default {
       "structureCode": "SafetyBuckleSelflockingBottomDisplayBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171180",
@@ -49815,7 +44391,8 @@ export default {
       "structureCode": "HalfSealedLatchDisplayBox",
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171181",
@@ -49974,7 +44551,8 @@ export default {
       },
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-171190",
@@ -50005,7 +44583,8 @@ export default {
       "structureCode": "InnerFoldingLockingDisplayBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171210",
@@ -50098,7 +44677,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171232",
@@ -50263,7 +44843,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171495",
@@ -50451,7 +45032,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171580",
@@ -50482,7 +45064,8 @@ export default {
       "structureCode": "LadderLockDisplayBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-171800",
@@ -50719,7 +45302,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "auto-lock-bottom",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-180011",
@@ -50931,7 +45515,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-180190",
@@ -51116,7 +45701,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-180200",
@@ -51147,7 +45733,8 @@ export default {
       "structureCode": "TriangularcassetteWithHook",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-180231",
@@ -51216,7 +45803,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-180235",
@@ -51317,7 +45905,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-180280",
@@ -51348,7 +45937,8 @@ export default {
       "structureCode": "TriangularConicalBottomBoxWithHook",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-180370",
@@ -51419,7 +46009,7 @@ export default {
       "height": 80,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-Triangleclamshellbox",
+      "templateId": "sampled-folding-181092",
       "hasGeometry": true,
       "cutCount": 32,
       "foldCount": 11,
@@ -51435,53 +46025,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "Triangleclamshellbox",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "D1": [
-          80,
-          27,
-          80,
-          2
-        ],
-        "RY": [
-          20,
-          10,
-          50,
-          2
-        ],
-        "RX": [
-          10,
-          0,
-          20,
-          2
-        ],
-        "G": [
-          20,
-          10,
-          40,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          82.87,
-          2
-        ],
-        "DT": [
-          15,
-          0,
-          45,
-          2
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-181230",
@@ -51546,7 +46093,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-181240",
@@ -51609,7 +46157,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-181600",
@@ -51804,7 +46353,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-183080",
@@ -51945,7 +46495,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-185000",
@@ -51983,7 +46534,7 @@ export default {
       "height": 38.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-MutualLockSplitLiftingHoleBoxP1",
+      "templateId": "sampled-folding-188030",
       "hasGeometry": true,
       "cutCount": 102,
       "foldCount": 16,
@@ -52000,8 +46551,9 @@ export default {
       ],
       "structureCode": "MutualLockSplitLiftingHoleBoxP1",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-188050",
@@ -52032,7 +46584,8 @@ export default {
       "structureCode": "TriangularInclinedCoverHangingHoleBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-188130",
@@ -52063,7 +46616,8 @@ export default {
       "structureCode": "SideHangingSixSidedBoxP1",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-188270",
@@ -52135,7 +46689,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-gift-188300",
@@ -52162,7 +46717,8 @@ export default {
       "structureCode": "BallGiftBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-188310",
@@ -52189,7 +46745,8 @@ export default {
       "structureCode": "NonConcaveSphericalGiftBox",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-189020",
@@ -52307,7 +46864,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-189041",
@@ -52414,7 +46972,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-189042",
@@ -52503,7 +47062,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200010",
@@ -52571,7 +47131,8 @@ export default {
         ]
       },
       "templateSource": "structure-code",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "none"
     },
     {
       "id": "import-shipping-200012",
@@ -52654,7 +47215,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200013",
@@ -52729,7 +47291,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200014",
@@ -52828,7 +47391,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200014",
@@ -52927,7 +47491,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200015",
@@ -52966,7 +47531,8 @@ export default {
       },
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200016",
@@ -53209,7 +47775,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200019",
@@ -53278,7 +47845,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200020",
@@ -53347,7 +47915,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200023",
@@ -53422,7 +47991,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200025",
@@ -53479,7 +48049,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200030",
@@ -53566,7 +48137,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200033",
@@ -53703,7 +48275,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200034",
@@ -53852,7 +48425,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200035",
@@ -53953,7 +48527,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-200036",
@@ -54010,7 +48585,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200100",
@@ -54085,7 +48661,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-200101",
@@ -54116,7 +48693,8 @@ export default {
       "structureCode": "CartonEconomicAB",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200102",
@@ -54211,7 +48789,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200103",
@@ -54390,7 +48969,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200200",
@@ -54423,7 +49003,8 @@ export default {
       "structureCode": "CartonSelfBlock",
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200210",
@@ -54454,7 +49035,8 @@ export default {
       "structureCode": "CartonMovehouseStrengthen",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200230",
@@ -54529,7 +49111,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-200231",
@@ -54694,7 +49277,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200232",
@@ -54793,7 +49377,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200240",
@@ -54824,7 +49409,8 @@ export default {
       "structureCode": "SixCompartmentLinedCarton",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200240",
@@ -54855,7 +49441,8 @@ export default {
       "structureCode": "SixCompartmentLinedCarton",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200250",
@@ -54888,7 +49475,8 @@ export default {
       "structureCode": "SixCompartmentLinedSelflockingBottomFlatCarton",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200250",
@@ -54919,7 +49507,8 @@ export default {
       "structureCode": "SixCompartmentLinedSelflockingBottomFlatCarton",
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200260",
@@ -55024,7 +49613,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-200280",
@@ -55055,7 +49645,8 @@ export default {
       "structureCode": "CartonFlatWithFlipLatch",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-200330",
@@ -55086,7 +49677,8 @@ export default {
       "structureCode": "TapeFreeEcoFriendlyCarton",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-201012",
@@ -55155,7 +49747,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-201013",
@@ -55230,7 +49823,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-201015",
@@ -55293,7 +49887,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-201080",
@@ -55388,7 +49983,8 @@ export default {
       "structureCode": "LockBottomSixCompartmentLinedCarryCase",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-205010",
@@ -55457,7 +50053,8 @@ export default {
       },
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-205010",
@@ -55526,7 +50123,8 @@ export default {
       },
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-205011",
@@ -55664,7 +50262,8 @@ export default {
       },
       "specFrom": "fefco-0201",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-205012",
@@ -55745,7 +50344,8 @@ export default {
       },
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-206080",
@@ -55810,7 +50410,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-206080",
@@ -55873,7 +50474,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-206090",
@@ -56086,7 +50688,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-206091",
@@ -56227,7 +50830,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-207011",
@@ -56334,7 +50938,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-square-240031",
@@ -56347,7 +50952,7 @@ export default {
       "height": 200,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BoxsetTrapezoidWithHolesP1",
+      "templateId": "sampled-square-240031",
       "hasGeometry": true,
       "cutCount": 30,
       "foldCount": 8,
@@ -56363,59 +50968,10 @@ export default {
         "方形盒"
       ],
       "structureCode": "BoxsetTrapezoidWithHolesP1",
-      "openParams": {
-        "L1": [
-          100,
-          75,
-          150,
-          2
-        ],
-        "D1": [
-          150,
-          100,
-          200,
-          2
-        ],
-        "G": [
-          16,
-          5,
-          58.5,
-          3
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          3
-        ],
-        "K": [
-          2,
-          1,
-          5,
-          3
-        ],
-        "SW": [
-          40,
-          33,
-          67,
-          3
-        ],
-        "SP": [
-          80,
-          40,
-          120,
-          3
-        ],
-        "SR": [
-          0.75,
-          0,
-          0.75,
-          3
-        ]
-      },
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "specFrom": "lid-base",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-240110",
@@ -56557,7 +51113,8 @@ export default {
       },
       "specFrom": "sleeve",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-240180",
@@ -56570,7 +51127,7 @@ export default {
       "height": 10,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FourCornerHalfEnvelope",
+      "templateId": "sampled-tray-240180",
       "hasGeometry": true,
       "cutCount": 39,
       "foldCount": 16,
@@ -56586,59 +51143,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "FourCornerHalfEnvelope",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "W1": [
-          67,
-          10,
-          100.3,
-          2
-        ],
-        "L1": [
-          67,
-          10,
-          150.3,
-          2
-        ],
-        "R1": [
-          45,
-          0,
-          62,
-          2
-        ],
-        "G": [
-          25,
-          10,
-          67,
-          3
-        ],
-        "GT": [
-          25,
-          0,
-          45,
-          3
-        ],
-        "GR": [
-          5,
-          0,
-          25,
-          3
-        ]
-      },
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-240230",
@@ -56781,7 +51289,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-240240",
@@ -56874,7 +51383,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-240800",
@@ -57105,7 +51615,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-242004",
@@ -57136,7 +51647,8 @@ export default {
       "structureCode": "FoldingThreeWalletDiscount",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-243010",
@@ -57205,7 +51717,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-310600",
@@ -57250,7 +51763,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-310700",
@@ -57289,7 +51803,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-315303",
@@ -57715,7 +52230,8 @@ export default {
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "magnetic-rigid",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-510340",
@@ -57742,7 +52258,8 @@ export default {
       "structureCode": "ConsumerTwelve",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-gift-512220",
@@ -57769,7 +52286,8 @@ export default {
       "structureCode": "ConsumerFortysix",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-512230",
@@ -57800,7 +52318,8 @@ export default {
       "structureCode": "ConsumerFourteen",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-550190",
@@ -57898,7 +52417,7 @@ export default {
       "height": 350,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ConsumerForty",
+      "templateId": "sampled-gift-550340",
       "hasGeometry": true,
       "cutCount": 9,
       "foldCount": 4,
@@ -57911,8 +52430,9 @@ export default {
       "subclassLabels": [],
       "structureCode": "ConsumerForty",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-550340",
@@ -57925,7 +52445,7 @@ export default {
       "height": 350,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-ConsumerForty",
+      "templateId": "sampled-folding-550340",
       "hasGeometry": true,
       "cutCount": 9,
       "foldCount": 4,
@@ -57942,8 +52462,9 @@ export default {
       ],
       "structureCode": "ConsumerForty",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-551190",
@@ -58014,7 +52535,7 @@ export default {
       "height": 65,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-BagTissue",
+      "templateId": "sampled-folding-600180",
       "hasGeometry": true,
       "cutCount": 6,
       "foldCount": 17,
@@ -58033,8 +52554,9 @@ export default {
       ],
       "structureCode": "BagTissue",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-600181",
@@ -58067,7 +52589,8 @@ export default {
       "structureCode": "BagTissue",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-600182",
@@ -58128,7 +52651,8 @@ export default {
       ],
       "structureCode": "CanCylinder",
       "templateSource": "structure-code",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "none"
     },
     {
       "id": "import-tray-602472",
@@ -58158,7 +52682,8 @@ export default {
       ],
       "structureCode": "CanCylinder",
       "templateSource": "structure-code",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "none"
     },
     {
       "id": "import-folding-603270",
@@ -58190,7 +52715,8 @@ export default {
       ],
       "structureCode": "CanCylinder",
       "templateSource": "structure-code",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "none"
     },
     {
       "id": "import-gift-603500",
@@ -58217,7 +52743,8 @@ export default {
       "structureCode": "ConsumerMingTwo",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "differs"
     },
     {
       "id": "import-gift-603573",
@@ -58305,7 +52832,7 @@ export default {
       "height": 55,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-ConsumerTen",
+      "templateId": "sampled-gift-603630",
       "hasGeometry": true,
       "cutCount": 14,
       "foldCount": 4,
@@ -58322,8 +52849,9 @@ export default {
       ],
       "structureCode": "ConsumerTen",
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-603640",
@@ -58354,7 +52882,8 @@ export default {
       "structureCode": "PlasticBag",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-603650",
@@ -58381,7 +52910,8 @@ export default {
       "structureCode": "ConsumerThirteen",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-603651",
@@ -59157,7 +53687,8 @@ export default {
       "structureCode": "ConsumerMingOne",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-606085",
@@ -59188,7 +53719,8 @@ export default {
       "structureCode": "ConsumerTwenty",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-609590",
@@ -60122,7 +54654,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10001002",
@@ -60135,7 +54668,7 @@ export default {
       "height": 128.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairTwo",
+      "templateId": "sampled-gift-10001002",
       "hasGeometry": true,
       "cutCount": 76,
       "foldCount": 12,
@@ -60151,125 +54684,10 @@ export default {
         "插口盒"
       ],
       "structureCode": "PairTwo",
-      "openParams": {
-        "G": [
-          19,
-          5,
-          128.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          20,
-          5,
-          65,
-          3
-        ],
-        "CR": [
-          10,
-          0,
-          19,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          26,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          26,
-          4
-        ],
-        "AR": [
-          18,
-          0,
-          37,
-          4
-        ],
-        "A": [
-          65,
-          27,
-          129,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10001003",
@@ -60445,7 +54863,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001005",
@@ -60592,7 +55011,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001006",
@@ -60739,7 +55159,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001012",
@@ -60886,7 +55307,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001014",
@@ -61033,7 +55455,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001016",
@@ -61182,7 +55605,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001017",
@@ -61331,7 +55755,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001018",
@@ -61480,7 +55905,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001019",
@@ -61493,7 +55919,7 @@ export default {
       "height": 188.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-Pair__10001019",
+      "templateId": "sampled-folding-10001019",
       "hasGeometry": true,
       "cutCount": 76,
       "foldCount": 12,
@@ -61509,125 +55935,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "Pair",
-      "openParams": {
-        "G": [
-          13,
-          5,
-          58.5,
-          2
-        ],
-        "E": [
-          6,
-          0,
-          15,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          84,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          4,
-          4,
-          5.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          12,
-          4
-        ],
-        "AR": [
-          9,
-          0,
-          18,
-          4
-        ],
-        "A": [
-          30,
-          16,
-          59,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ]
-      },
-      "templateSource": "structure-spec-takeover",
+      "templateSource": "sampled",
       "specFrom": "rea-pair-ste",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001020",
@@ -61774,7 +56085,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001022",
@@ -61921,7 +56233,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001023",
@@ -62068,7 +56381,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001024",
@@ -62215,7 +56529,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001026",
@@ -62362,7 +56677,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001027",
@@ -62509,7 +56825,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001028",
@@ -62656,7 +56973,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001029",
@@ -62803,7 +57121,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001031",
@@ -62950,7 +57269,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001037",
@@ -63097,7 +57417,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001039",
@@ -63238,7 +57559,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001044",
@@ -63385,7 +57707,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001045",
@@ -63526,7 +57849,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001049",
@@ -63673,7 +57997,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001053",
@@ -63820,7 +58145,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10001059",
@@ -63967,7 +58293,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-10001401",
@@ -63998,7 +58325,8 @@ export default {
       "structureCode": "PairWithWindowOne",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10001402",
@@ -64171,7 +58499,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-window",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-10002001",
@@ -64384,7 +58713,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-hook",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-10002002",
@@ -64597,7 +58927,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-hook",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10002003",
@@ -64610,7 +58941,7 @@ export default {
       "height": 118.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairWithHook__10002003",
+      "templateId": "sampled-folding-10002003",
       "hasGeometry": true,
       "cutCount": 94,
       "foldCount": 15,
@@ -64626,191 +58957,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairWithHook",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          38.5,
-          2
-        ],
-        "AXX1": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          56,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "AR": [
-          6,
-          0,
-          13,
-          4
-        ],
-        "A": [
-          28,
-          15,
-          99,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "L1": [
-          99,
-          99,
-          99.5,
-          4
-        ],
-        "P": [
-          40,
-          10,
-          160,
-          5
-        ],
-        "PPY": [
-          0.5,
-          0.5,
-          0.75,
-          5
-        ],
-        "PF": [
-          10,
-          0,
-          60,
-          5
-        ],
-        "P1X": [
-          2,
-          1,
-          3,
-          5
-        ],
-        "PSW": [
-          30,
-          0,
-          79,
-          5
-        ],
-        "PSD": [
-          5,
-          0,
-          15,
-          5
-        ],
-        "PSR": [
-          4,
-          0,
-          12.5,
-          5
-        ],
-        "PSP": [
-          16.5,
-          7,
-          38,
-          5
-        ],
-        "PR": [
-          10,
-          0,
-          20,
-          5
-        ]
-      },
-      "templateSource": "structure-spec-takeover",
+      "templateSource": "sampled",
       "specFrom": "rea-pair-hook",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10002006",
@@ -65023,7 +59173,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-hook",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004001",
@@ -65170,7 +59321,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004002",
@@ -65317,7 +59469,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004003",
@@ -65464,7 +59617,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004005",
@@ -65611,7 +59765,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004006",
@@ -65758,7 +59913,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004007",
@@ -65905,7 +60061,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10004008",
@@ -66054,7 +60211,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-pair-rte",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10007101",
@@ -66303,7 +60461,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-10201001",
@@ -66529,7 +60688,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-buckle-nail",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10201102",
@@ -66720,7 +60880,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-buckle-nail",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-10201102",
@@ -66915,7 +61076,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-buckle-nail",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10201103",
@@ -67110,7 +61272,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10201104",
@@ -67406,7 +61569,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10201801",
@@ -67615,7 +61779,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10204001",
@@ -67828,7 +61993,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10211101",
@@ -68017,7 +62183,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10211101",
@@ -68208,7 +62375,8 @@ export default {
       },
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10261001",
@@ -68355,7 +62523,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10263002",
@@ -68368,7 +62537,7 @@ export default {
       "height": 198.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-OpenForwardLockingAndWindowBoxTwo",
+      "templateId": "sampled-gift-10263002",
       "hasGeometry": true,
       "cutCount": 83,
       "foldCount": 12,
@@ -68380,155 +62549,10 @@ export default {
       "subclassIds": [],
       "subclassLabels": [],
       "structureCode": "OpenForwardLockingAndWindowBoxTwo",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          38.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          56,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "AR": [
-          6,
-          0,
-          13,
-          4
-        ],
-        "A": [
-          28,
-          15,
-          55,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "KL": [
-          70,
-          0,
-          80,
-          5
-        ],
-        "KW": [
-          160,
-          0,
-          180,
-          5
-        ],
-        "KR": [
-          4,
-          0,
-          23.33,
-          5
-        ],
-        "SP": [
-          15,
-          0,
-          30,
-          5
-        ],
-        "SP1": [
-          20,
-          0,
-          40,
-          5
-        ]
-      },
       "specFrom": "tuck-window",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-10263002",
@@ -68541,7 +62565,7 @@ export default {
       "height": 198.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-OpenForwardLockingAndWindowBoxTwo",
+      "templateId": "sampled-square-10263002",
       "hasGeometry": true,
       "cutCount": 83,
       "foldCount": 12,
@@ -68557,155 +62581,10 @@ export default {
         "方形盒"
       ],
       "structureCode": "OpenForwardLockingAndWindowBoxTwo",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          38.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          15,
-          5,
-          56,
-          3
-        ],
-        "CR": [
-          8,
-          0,
-          14,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          8,
-          4
-        ],
-        "AR": [
-          6,
-          0,
-          13,
-          4
-        ],
-        "A": [
-          28,
-          15,
-          55,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "KL": [
-          70,
-          0,
-          80,
-          5
-        ],
-        "KW": [
-          160,
-          0,
-          180,
-          5
-        ],
-        "KR": [
-          4,
-          0,
-          23.33,
-          5
-        ],
-        "SP": [
-          15,
-          0,
-          30,
-          5
-        ],
-        "SP1": [
-          20,
-          0,
-          40,
-          5
-        ]
-      },
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "specFrom": "lid-base",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10263003",
@@ -68925,7 +62804,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10268001",
@@ -69122,7 +63002,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10268002",
@@ -69319,7 +63200,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10268003",
@@ -69514,7 +63396,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10268004",
@@ -69800,7 +63683,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10301201",
@@ -70059,7 +63943,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10501002",
@@ -70260,7 +64145,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-10508102",
@@ -70491,7 +64377,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10900001",
@@ -70620,7 +64507,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10900104",
@@ -70633,7 +64521,7 @@ export default {
       "height": 297.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-WindowCardBoardBoxFour",
+      "templateId": "sampled-folding-10900104",
       "hasGeometry": true,
       "cutCount": 81,
       "foldCount": 12,
@@ -70649,137 +64537,10 @@ export default {
         "折叠盒"
       ],
       "structureCode": "WindowCardBoardBoxFour",
-      "openParams": {
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "SD": [
-          1,
-          0.5,
-          1,
-          2
-        ],
-        "G": [
-          13,
-          5,
-          29,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "WX": [
-          1,
-          0.5,
-          3,
-          3
-        ],
-        "WS": [
-          3.5,
-          1.5,
-          5.5,
-          3
-        ],
-        "W2": [
-          25,
-          20,
-          29,
-          3
-        ],
-        "WT": [
-          3,
-          0,
-          15,
-          3
-        ],
-        "WR": [
-          3,
-          0,
-          11,
-          3
-        ],
-        "W3": [
-          29.5,
-          25,
-          29.5,
-          3
-        ],
-        "WR1": [
-          3,
-          0,
-          9,
-          3
-        ],
-        "AS": [
-          3.5,
-          2,
-          4,
-          4
-        ],
-        "AX": [
-          2,
-          2,
-          6,
-          4
-        ],
-        "A": [
-          20,
-          10,
-          79,
-          4
-        ],
-        "WRR": [
-          3,
-          0,
-          6,
-          4
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "WL": [
-          64,
-          0,
-          70,
-          5
-        ],
-        "WW": [
-          64,
-          0,
-          262.5,
-          5
-        ],
-        "HWP": [
-          8,
-          0,
-          16,
-          5
-        ],
-        "VWP": [
-          75,
-          0,
-          236,
-          5
-        ],
-        "WC": [
-          32,
-          0,
-          32,
-          5
-        ]
-      },
       "specFrom": "tuck-window",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10901002",
@@ -70908,7 +64669,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-10920001",
@@ -71079,7 +64841,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11005001",
@@ -71110,7 +64873,8 @@ export default {
       "structureCode": "SideHookPairP1",
       "specFrom": "hanging-tuck",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11161101",
@@ -71235,7 +64999,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11202103",
@@ -71394,7 +65159,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-11205001",
@@ -71489,7 +65255,8 @@ export default {
       "structureCode": "LockPairBuckleCake",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-11208301",
@@ -71522,7 +65289,8 @@ export default {
       "structureCode": "BotselfolckCake",
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-11229001",
@@ -71728,7 +65496,8 @@ export default {
       },
       "specFrom": "tuck-window",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11231102",
@@ -71883,7 +65652,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11241001",
@@ -72002,7 +65772,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-11658001",
@@ -72015,7 +65786,7 @@ export default {
       "height": 150,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-SideLockBox",
+      "templateId": "sampled-folding-11658001",
       "hasGeometry": true,
       "cutCount": 90,
       "foldCount": 22,
@@ -72033,137 +65804,10 @@ export default {
         "方形盒"
       ],
       "structureCode": "SideLockBox",
-      "openParams": {
-        "R": [
-          0.5,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          38,
-          10,
-          50,
-          2
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "C": [
-          38,
-          10,
-          74.3,
-          2
-        ],
-        "CT": [
-          15,
-          0,
-          45,
-          2
-        ],
-        "A": [
-          38,
-          10,
-          60,
-          2
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          2
-        ],
-        "AXX": [
-          4.5,
-          0,
-          5.5,
-          2
-        ],
-        "AS": [
-          3.5,
-          0,
-          3.5,
-          2
-        ],
-        "C1": [
-          38,
-          10,
-          75,
-          2
-        ],
-        "R1": [
-          25,
-          0,
-          38,
-          2
-        ],
-        "R2": [
-          25,
-          0,
-          38,
-          2
-        ],
-        "SW1": [
-          38,
-          10,
-          75,
-          3
-        ],
-        "SW2": [
-          42,
-          38,
-          42,
-          3
-        ],
-        "SW3": [
-          34,
-          0,
-          34,
-          3
-        ],
-        "SW4": [
-          42,
-          38,
-          42,
-          3
-        ],
-        "SL1": [
-          1.5,
-          1,
-          5,
-          3
-        ],
-        "SL": [
-          19,
-          5,
-          46,
-          3
-        ],
-        "SR": [
-          6,
-          0,
-          9,
-          3
-        ],
-        "OF3": [
-          1,
-          0,
-          5,
-          3
-        ],
-        "SA": [
-          0.5,
-          0,
-          0.5,
-          3
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-12020201",
@@ -72286,7 +65930,8 @@ export default {
       "structureCode": "TrapezoidDiscBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-12801001",
@@ -72361,7 +66006,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-bufferwall",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-12802001",
@@ -72436,7 +66082,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-12802001",
@@ -72513,7 +66160,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-12807101",
@@ -72750,7 +66398,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-12808001",
@@ -72891,7 +66540,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-12808001",
@@ -73032,7 +66682,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-15001001",
@@ -73175,7 +66826,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001002",
@@ -73316,7 +66968,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001002",
@@ -73457,7 +67110,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001003",
@@ -73598,7 +67252,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001003",
@@ -73741,7 +67396,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001004",
@@ -73884,7 +67540,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001006",
@@ -74025,7 +67682,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001006",
@@ -74166,7 +67824,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001007",
@@ -74307,7 +67966,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-15001007",
@@ -74448,7 +68108,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001008",
@@ -74589,7 +68250,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001009",
@@ -74730,7 +68392,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-15001101",
@@ -74763,7 +68426,8 @@ export default {
       "structureCode": "AircraftNew",
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-15001102",
@@ -74794,7 +68458,8 @@ export default {
       "structureCode": "AircraftNewThree",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15001103",
@@ -75025,7 +68690,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001106",
@@ -75166,7 +68832,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-aircraft",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15001201",
@@ -75325,7 +68992,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15030101",
@@ -75356,7 +69024,8 @@ export default {
       "structureCode": "MutualLockingCardboardAircraftBoxWithWindow",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15125001",
@@ -75387,7 +69056,8 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15130001",
@@ -75420,7 +69090,8 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15201001",
@@ -75525,7 +69196,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "fefco-0427",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15201001",
@@ -75630,7 +69302,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15202101",
@@ -75803,7 +69476,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-15621002",
@@ -75938,7 +69612,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15621601",
@@ -76099,7 +69774,8 @@ export default {
       },
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15621604",
@@ -76254,7 +69930,8 @@ export default {
       "structureCode": "InterlockLatchFlipBox",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15665002",
@@ -76413,7 +70090,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-15813001",
@@ -76476,7 +70154,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-15813002",
@@ -76538,7 +70217,8 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-15826001",
@@ -76717,7 +70397,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-16001001",
@@ -76798,7 +70479,8 @@ export default {
       },
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16002201",
@@ -76905,7 +70587,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16002202",
@@ -77012,7 +70695,8 @@ export default {
       },
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-16002501",
@@ -77148,7 +70832,8 @@ export default {
       },
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16016001",
@@ -77255,7 +70940,8 @@ export default {
       },
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16016002",
@@ -77373,7 +71059,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-16101202",
@@ -77460,7 +71147,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16101202",
@@ -77549,7 +71237,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-16101203",
@@ -77638,7 +71327,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16101203",
@@ -77727,7 +71417,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-16101204",
@@ -77816,7 +71507,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16101204",
@@ -77905,7 +71597,8 @@ export default {
       },
       "templateSource": "structure-spec-takeover",
       "specFrom": "rea-cover-basset",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-16302001",
@@ -78035,7 +71728,8 @@ export default {
       },
       "specFrom": "auto-lock-bottom",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-shipping-20001001",
@@ -78105,7 +71799,8 @@ export default {
         ]
       },
       "templateSource": "structure-code",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "none"
     },
     {
       "id": "import-square-20001001",
@@ -78173,7 +71868,8 @@ export default {
         ]
       },
       "templateSource": "structure-code",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "none"
     },
     {
       "id": "import-folding-20001001",
@@ -78243,7 +71939,8 @@ export default {
         ]
       },
       "templateSource": "structure-code",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "none"
     },
     {
       "id": "import-shipping-20001002",
@@ -78311,7 +72008,8 @@ export default {
         ]
       },
       "templateSource": "structure-code",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "none"
     },
     {
       "id": "import-square-20010201",
@@ -78441,7 +72139,8 @@ export default {
       },
       "specFrom": "handle-box",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-24200406",
@@ -78472,7 +72171,8 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-31022401",
@@ -78547,7 +72247,8 @@ export default {
       },
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-36001001",
@@ -79594,7 +73295,8 @@ export default {
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-36601001",
@@ -79627,7 +73329,8 @@ export default {
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-36601004",
@@ -79660,7 +73363,8 @@ export default {
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-36601201",
@@ -79693,7 +73397,8 @@ export default {
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-square-36601202",
@@ -79755,7 +73460,8 @@ export default {
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-36601204",
@@ -79786,7 +73492,8 @@ export default {
       "structureCode": "BoutiqueboxExposedDivideEquallyCoverOne",
       "specFrom": "lid-base",
       "templateSource": "structure-spec",
-      "fidelity": "exact"
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-36601205",
@@ -79813,7 +73520,8 @@ export default {
       "structureCode": "BoutiqueboxExposedDivideEquallyCoverTwo",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close"
+      "fidelity": "close",
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-60365101",

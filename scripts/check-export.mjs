@@ -48,6 +48,13 @@ async function assertPdf(label,knife){
   assert.ok(bytes.length>500,`${label}: pdf size`)
   const head=String.fromCharCode(...bytes.slice(0,5))
   assert.equal(head,'%PDF-',`${label}: %PDF header`)
+  // 1:1：页面（pt）必须装得下以 mm 计的展开尺寸（1 mm = 72/25.4 pt），否则标着 1:1 实际是缩小的
+  const {PDFDocument}=await import('pdf-lib')
+  const page=(await PDFDocument.load(bytes)).getPage(0)
+  const xs=[],ys=[]
+  for(const role of ['trim','crease'])for(const path of knife.layers?.[role]?.paths||knife.paths?.[role]||[])for(const c of path)if(Number.isFinite(c.x)){xs.push(c.x);ys.push(c.y)}
+  const k=72/25.4,w=(Math.max(...xs)-Math.min(...xs))*k,h=(Math.max(...ys)-Math.min(...ys))*k
+  assert.ok(page.getWidth()>=w&&page.getHeight()>=h,`${label}: pdf page ${page.getWidth().toFixed(0)}x${page.getHeight().toFixed(0)}pt fits 1:1 dieline ${w.toFixed(0)}x${h.toFixed(0)}pt`)
   console.log(`ok pdf ${label} bytes=${bytes.length}`)
 }
 
@@ -59,6 +66,21 @@ async function assertAi(label,knife){
   assert.equal(head,'%PDF-',`${label}: PDF-compatible .ai`)
   const pdf=await toPdf(knife,{includeDims:true})
   assert.ok(Math.abs(bytes.length-pdf.length)<pdf.length*0.25,`${label}: ai size near pdf`)
+  // 分图层：五个图层都登记在目录里，页面内容用 BDC /OC … EMC 分组，且成对
+  const {PDFDocument,PDFName,decodePDFRawStream,PDFRawStream}=await import('pdf-lib')
+  const doc=await PDFDocument.load(bytes)
+  const ocp=doc.catalog.lookup(PDFName.of('OCProperties'))
+  assert.ok(ocp,`${label}: OCProperties`)
+  const names=ocp.lookup(PDFName.of('OCGs')).asArray().map(r=>doc.context.lookup(r).lookup(PDFName.of('Name')).decodeText())
+  assert.deepEqual(names,['BLEED','TRIM','CREASE','DIM','TEXT'],`${label}: layer names`)
+  let content=''
+  const contents=doc.getPage(0).node.Contents()
+  const streams=contents.asArray?contents.asArray().map(r=>doc.context.lookup(r)):[contents]
+  for(const st of streams)content+=Buffer.from(st instanceof PDFRawStream?decodePDFRawStream(st).decode():st.getContents()).toString('latin1')+' '
+  content=' '+content.replace(/\s+/g,' ')+' '
+  const open=(content.match(/\/OC \/OC\d BDC/g)||[]).length,close=(content.match(/ EMC /g)||[]).length
+  assert.ok(open>=4&&open===close,`${label}: layer groups ${open}/${close}`)
+  for(let i=1;i<=4;i++)assert.ok(content.includes(`/OC /OC${i} BDC`),`${label}: layer OC${i} used`)
   console.log(`ok ai ${label} bytes=${bytes.length}`)
 }
 

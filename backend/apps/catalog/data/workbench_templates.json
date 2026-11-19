@@ -1,6 +1,6 @@
 {
  "schema": "boxcraft.workbench_templates.v1",
- "count": 630,
+ "count": 635,
  "items": [
   {
    "template_key": "auto-lock-bottom",
@@ -199,6 +199,371 @@
      0
     ]
    }
+  },
+  {
+   "template_key": "sampled-folding-10001019",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10002003",
+   "title": "Hook reverse cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-100021",
+   "title": "吊孔开窗反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-100024",
+   "title": "Hanging hook nail buckle reverse cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-100027",
+   "title": "支脚吊孔反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-101430",
+   "title": "Take a hook aircraft",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-101432",
+   "title": "Take a hook lock aircraft",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-101433",
+   "title": "Hook lock open window plane cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-101521",
+   "title": "Rear open belt hanging hook nail buckle reverse interlock box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-101522",
+   "title": "Rear open belt hook lock button reverse cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102013",
+   "title": "Window fastener",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102050",
+   "title": "Flip Button Bottom Box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102051",
+   "title": "Plug-in flip fastening case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102620",
+   "title": "Rear open belt hook forward cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102621",
+   "title": "Rear open belt hanging hook nail buckle forward cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-103210",
+   "title": "吊孔开窗扣底盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-103213",
+   "title": "吊孔开窗扣底盒04",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-105042",
+   "title": "内扣翻盖自锁底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-105050",
+   "title": "折叠盖自锁底盒_仅上架Pacdora_TOC定制",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-106030",
+   "title": "吊孔自锁底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-108001",
+   "title": "纸巾盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10900104",
+   "title": "开窗简易机包盒_仅上架Pacdora_04",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110019",
+   "title": "无盖插锁封套",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110380",
+   "title": "hook upconcaveshapeBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110390",
+   "title": "Hanging hole concaveshapeSelf-locking case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110422",
+   "title": "InsuranceTubeGlued box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110532",
+   "title": "Perforated hook fastening case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110670",
+   "title": "简易单插盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-111010",
+   "title": "展板吊孔双插盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-111030",
+   "title": "Backboard hanging holeZi three-button bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11658001",
+   "title": "Side interlockbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120251",
+   "title": "扣边翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120252",
+   "title": "侧扣翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120253",
+   "title": "扣边翻盖盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120254",
+   "title": "扣边翻盖盒02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120255",
+   "title": "扣边翻盖盒03",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120256",
+   "title": "开窗侧扣翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120257",
+   "title": "侧扣翻盖盒03_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-128050",
+   "title": "Block lockFlipBuffer wall box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150022",
+   "title": "保险扣无插舌飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150082",
+   "title": "简易折角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150110",
+   "title": "Folding lock airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151051",
+   "title": "开窗折叠翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151120",
+   "title": "前扣翻盖盒_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151220",
+   "title": "Block lockroundheadFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151230",
+   "title": "简易翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152031",
+   "title": "Glown oblique lock buckle cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152050",
+   "title": "gluethreeFoldFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152051",
+   "title": "胶合指扣三折边翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156002",
+   "title": "Separate cartridge flip plane box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-158133",
+   "title": "汉堡盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-158240",
+   "title": "旋转翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-181092",
+   "title": "三角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-188030",
+   "title": "互锁扣对开吊孔盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-550340",
+   "title": "550340-200x80x350-模型新增",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-600180",
+   "title": "家用清洁生活日用塑料袋包装模型-135x100x65-模型优化",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-10001002",
+   "title": "礼物盒10001002",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-102630",
+   "title": "开窗后开正向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-10263002",
+   "title": "开窗后开正向插锁盒_仅上架Pacdora_02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-110670",
+   "title": "简易单插盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-550340",
+   "title": "550340-200x80x350-模型新增",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-603630",
+   "title": "礼物盒603630",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-151220",
+   "title": "Block lockroundheadFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-112010",
+   "title": "Self-locking bottom flat box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-10263002",
+   "title": "开窗后开正向插锁盒_仅上架Pacdora_02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-240031",
+   "title": "开孔梯形盒套Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120070",
+   "title": "宽边卡位托盘盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120080",
+   "title": "Card tray carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120370",
+   "title": "四折边折角盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-123030",
+   "title": "Curved lock plate box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-123180",
+   "title": "differentshapehexagonaltray",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128010",
+   "title": "Buffer wall box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-240180",
+   "title": "Four cornersHalf pack cover",
+   "limits": {}
   },
   {
    "template_key": "sleeve",
@@ -993,24 +1358,6 @@
    }
   },
   {
-   "template_key": "spec-AnchorHoleReverseInsertLockBox",
-   "title": "支脚吊孔反向插锁盒",
-   "limits": {
-    "length": [
-     66,
-     219
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     17,
-     58
-    ]
-   }
-  },
-  {
    "template_key": "spec-AngleFoldingCoverBoxWithSideLock",
    "title": "Side lockHandleAngleFlip box",
    "limits": {
@@ -1025,42 +1372,6 @@
     "height": [
      48,
      160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AngleLockAircraftBox",
-   "title": "Folding lock airplane box",
-   "limits": {
-    "length": [
-     181,
-     604
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ArcBuckleDiscBox",
-   "title": "Curved lock plate box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     180,
-     600
-    ],
-    "height": [
-     60,
-     200
     ]
    }
   },
@@ -1277,24 +1588,6 @@
     "height": [
      59,
      198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BotselflockWithHook",
-   "title": "吊孔自锁底盒",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     320
     ]
    }
   },
@@ -1533,24 +1826,6 @@
    }
   },
   {
-   "template_key": "spec-BoxsetTrapezoidWithHolesP1",
-   "title": "开孔梯形盒套Pacdora1",
-   "limits": {
-    "length": [
-     90,
-     299
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     120,
-     400
-    ]
-   }
-  },
-  {
    "template_key": "spec-BreatherHoleCoverbox",
    "title": "Breathable hole",
    "limits": {
@@ -1637,24 +1912,6 @@
     "height": [
      90,
      300
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithConcaveHook",
-   "title": "hook upconcaveshapeBuckle",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     48,
-     160
-    ],
-    "height": [
-     96,
-     320
     ]
    }
   },
@@ -1803,24 +2060,6 @@
    }
   },
   {
-   "template_key": "spec-BuckleCoverBox",
-   "title": "扣边翻盖盒",
-   "limits": {
-    "length": [
-     156,
-     520
-    ],
-    "width": [
-     105,
-     350
-    ],
-    "height": [
-     24,
-     80
-    ]
-   }
-  },
-  {
    "template_key": "spec-BuckleDomeRibbonHole",
    "title": "Dome ribbon hole buckle bottom box",
    "limits": {
@@ -1853,24 +2092,6 @@
     "height": [
      96,
      321
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleFlip",
-   "title": "Flip Button Bottom Box",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     107,
-     357
     ]
    }
   },
@@ -2001,24 +2222,6 @@
    }
   },
   {
-   "template_key": "spec-BuckleWithWindow",
-   "title": "Window fastener",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
    "template_key": "spec-BufferFrameZipperFlapBox",
    "title": "缓冲边框拉链翻盖盒",
    "limits": {
@@ -2029,24 +2232,6 @@
     "width": [
      90,
      300
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Bufferwallbox__128010",
-   "title": "Buffer wall box",
-   "limits": {
-    "length": [
-     192,
-     640
-    ],
-    "width": [
-     132,
-     440
     ],
     "height": [
      36,
@@ -2231,24 +2416,6 @@
     "height": [
      160,
      533
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonClipTray",
-   "title": "Card tray carton",
-   "limits": {
-    "length": [
-     60,
-     200
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     15,
-     50
     ]
    }
   },
@@ -2541,60 +2708,6 @@
    }
   },
   {
-   "template_key": "spec-ClamshellBoxWithButtonEdge",
-   "title": "扣边翻盖盒01",
-   "limits": {
-    "length": [
-     166,
-     555
-    ],
-    "width": [
-     122,
-     408
-    ],
-    "height": [
-     45,
-     149
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ClamshellBoxWithButtonEdge03",
-   "title": "扣边翻盖盒03",
-   "limits": {
-    "length": [
-     75,
-     249
-    ],
-    "width": [
-     75,
-     249
-    ],
-    "height": [
-     48,
-     159
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ClamshellBoxWithButtonEdgeTwo",
-   "title": "扣边翻盖盒02",
-   "limits": {
-    "length": [
-     118,
-     395
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     60,
-     199
-    ]
-   }
-  },
-  {
    "template_key": "spec-ClaspInclinedTrayTypeBox",
    "title": "卡扣斜面盘式盒",
    "limits": {
@@ -2645,24 +2758,6 @@
     "height": [
      29,
      97
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerForty",
-   "title": "550340",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     48,
-     160
-    ],
-    "height": [
-     210,
-     700
     ]
    }
   },
@@ -2735,24 +2830,6 @@
     "height": [
      60,
      200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerTen",
-   "title": "礼物盒603630",
-   "limits": {
-    "length": [
-     102,
-     340
-    ],
-    "width": [
-     54,
-     180
-    ],
-    "height": [
-     33,
-     110
     ]
    }
   },
@@ -3477,24 +3554,6 @@
    }
   },
   {
-   "template_key": "spec-FlapBotselflock",
-   "title": "Self-locking bottom flat box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     321
-    ]
-   }
-  },
-  {
    "template_key": "spec-FlapBoxWithTopLatch",
    "title": "上盖插锁翻盖盒",
    "limits": {
@@ -4089,24 +4148,6 @@
    }
   },
   {
-   "template_key": "spec-FoldedCornerInnerFoldingFlapBox",
-   "title": "简易折角翻盖盒",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     180,
-     600
-    ],
-    "height": [
-     150,
-     500
-    ]
-   }
-  },
-  {
    "template_key": "spec-FoldingAngleDoubleLatchCoverBox",
    "title": "Abbreviation double lock flip box",
    "limits": {
@@ -4157,24 +4198,6 @@
     "height": [
      59,
      198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FoldingLidSelflockingBottomBox",
-   "title": "折叠盖自锁底盒",
-   "limits": {
-    "length": [
-     49,
-     165
-    ],
-    "width": [
-     49,
-     165
-    ],
-    "height": [
-     61,
-     204
     ]
    }
   },
@@ -4283,24 +4306,6 @@
     "height": [
      45,
      150
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourCornerHalfEnvelope",
-   "title": "Four cornersHalf pack cover",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     10,
-     20
     ]
    }
   },
@@ -4441,24 +4446,6 @@
     "width": [
      54,
      180
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourFoldSideAndAngleDiscBox",
-   "title": "四折边折角盘式盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     120,
-     400
     ],
     "height": [
      30,
@@ -4647,42 +4634,6 @@
    }
   },
   {
-   "template_key": "spec-GluedNailThreeFoldFlapBox",
-   "title": "胶合指扣三折边翻盖盒",
-   "limits": {
-    "length": [
-     61,
-     202
-    ],
-    "width": [
-     61,
-     202
-    ],
-    "height": [
-     15,
-     49
-    ]
-   }
-  },
-  {
-   "template_key": "spec-GluedThreeFoldFlapBox",
-   "title": "gluethreeFoldFlip box",
-   "limits": {
-    "length": [
-     61,
-     202
-    ],
-    "width": [
-     61,
-     202
-    ],
-    "height": [
-     15,
-     49
-    ]
-   }
-  },
-  {
    "template_key": "spec-GlueOneClamshellBox",
    "title": "胶合一体翻盖盒",
    "limits": {
@@ -4769,24 +4720,6 @@
     "height": [
      66,
      219
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HamburgerBox01",
-   "title": "汉堡盒01",
-   "limits": {
-    "length": [
-     48,
-     160
-    ],
-    "width": [
-     48,
-     160
-    ],
-    "height": [
-     27,
-     90
     ]
    }
   },
@@ -4953,42 +4886,6 @@
    }
   },
   {
-   "template_key": "spec-HangingHoleWindowBuckleBottomBox",
-   "title": "吊孔开窗扣底盒01",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     317
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HangingHoleWindowBuckleBottomBoxthree",
-   "title": "吊孔开窗扣底盒04",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     317
-    ]
-   }
-  },
-  {
    "template_key": "spec-HeartshapedDoubleSocketSelflockingBottomBox",
    "title": "礼物盒112060",
    "limits": {
@@ -5075,24 +4972,6 @@
     "height": [
      35,
      118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InnerClamshellSelflockingBottomBox",
-   "title": "内扣翻盖自锁底盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     318
     ]
    }
   },
@@ -5219,24 +5098,6 @@
     "height": [
      54,
      180
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InsideClamshellBox",
-   "title": "前扣翻盖盒",
-   "limits": {
-    "length": [
-     227,
-     757
-    ],
-    "width": [
-     174,
-     579
-    ],
-    "height": [
-     34,
-     113
     ]
    }
   },
@@ -6321,24 +6182,6 @@
    }
   },
   {
-   "template_key": "spec-MortiseLockFlipClasp",
-   "title": "Plug-in flip fastening case",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     12,
-     39
-    ],
-    "height": [
-     95,
-     317
-    ]
-   }
-  },
-  {
    "template_key": "spec-MutualLockingCardboardAircraftBox",
    "title": "Interlocking card paper plane",
    "limits": {
@@ -6371,24 +6214,6 @@
     "height": [
      30,
      99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MutualLockSplitLiftingHoleBoxP1",
-   "title": "互锁扣对开吊孔盒Pacdora1",
-   "limits": {
-    "length": [
-     47,
-     157
-    ],
-    "width": [
-     29,
-     97
-    ],
-    "height": [
-     23,
-     77
     ]
    }
   },
@@ -6515,42 +6340,6 @@
     "height": [
      36,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-OpenForwardLockingAndWindowBox",
-   "title": "开窗后开正向插锁盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     107,
-     357
-    ]
-   }
-  },
-  {
-   "template_key": "spec-OpenForwardLockingAndWindowBoxTwo",
-   "title": "开窗后开正向插锁盒",
-   "limits": {
-    "length": [
-     60,
-     199
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     119,
-     397
     ]
    }
   },
@@ -6731,24 +6520,6 @@
     "height": [
      41,
      136
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001019",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     36,
-     119
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     113,
-     378
     ]
    }
   },
@@ -7041,60 +6812,6 @@
    }
   },
   {
-   "template_key": "spec-PairAircraftWithHook",
-   "title": "Take a hook aircraft",
-   "limits": {
-    "length": [
-     60,
-     199
-    ],
-    "width": [
-     15,
-     49
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairAircraftWithHookLock",
-   "title": "Take a hook lock aircraft",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     10,
-     29
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairAircraftWithWindowHookLock",
-   "title": "Hook lock open window plane cartridge box",
-   "limits": {
-    "length": [
-     108,
-     359
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairBackopenForward",
    "title": "后开正向插锁盒",
    "limits": {
@@ -7113,24 +6830,6 @@
    }
   },
   {
-   "template_key": "spec-PairBackopenForwardWithHook",
-   "title": "Rear open belt hook forward cartridge box",
-   "limits": {
-    "length": [
-     108,
-     359
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairBackopenForwardWithHookLock",
    "title": "Rear open belt hook lock forward cartridge box",
    "limits": {
@@ -7145,60 +6844,6 @@
     "height": [
      65,
      218
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBackopenForwardWithHookNail",
-   "title": "Rear open belt hanging hook nail buckle forward cartridge box",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     83,
-     278
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBackopenWithHookLock",
-   "title": "Rear open belt hook lock button reverse cartridge box",
-   "limits": {
-    "length": [
-     61,
-     203
-    ],
-    "width": [
-     12,
-     39
-    ],
-    "height": [
-     61,
-     202
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBackopenWithHookNail",
-   "title": "Rear open belt hanging hook nail buckle reverse interlock box",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     83,
-     278
     ]
    }
   },
@@ -7307,24 +6952,6 @@
     "height": [
      53,
      178
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBuckleTripleWithHookBoard",
-   "title": "Backboard hanging holeZi three-button bottom box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     320
     ]
    }
   },
@@ -7473,42 +7100,6 @@
    }
   },
   {
-   "template_key": "spec-PairShowWithHook",
-   "title": "展板吊孔双插盒",
-   "limits": {
-    "length": [
-     36,
-     120
-    ],
-    "width": [
-     18,
-     60
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairTwo",
-   "title": "礼物盒10001002",
-   "limits": {
-    "length": [
-     78,
-     259
-    ],
-    "width": [
-     78,
-     259
-    ],
-    "height": [
-     77,
-     258
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairWithHook__10002001",
    "title": "Zsquarebox11",
    "limits": {
@@ -7545,24 +7136,6 @@
    }
   },
   {
-   "template_key": "spec-PairWithHook__10002003",
-   "title": "Hook reverse cartridge box",
-   "limits": {
-    "length": [
-     60,
-     199
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairWithHook__10002006",
    "title": "Hook reverse cartridge box",
    "limits": {
@@ -7577,42 +7150,6 @@
     "height": [
      95,
      318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairWithHookNail",
-   "title": "Hanging hook nail buckle reverse cartridge box",
-   "limits": {
-    "length": [
-     42,
-     139
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     65,
-     218
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairWithWindowHook",
-   "title": "吊孔开窗反向插锁盒",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     83,
-     278
     ]
    }
   },
@@ -7667,24 +7204,6 @@
     "height": [
      77,
      258
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PerforatedHookBuckleBottomBox",
-   "title": "Perforated hook fastening case",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     83,
-     277
     ]
    }
   },
@@ -7775,42 +7294,6 @@
     "height": [
      10,
      1
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PlugLockFlipCushionWallBox",
-   "title": "Block lockFlipBuffer wall box",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PlugLockRoundHeadFlipBox",
-   "title": "Block lockroundheadFlip box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     108,
-     360
-    ],
-    "height": [
-     60,
-     200
     ]
    }
   },
@@ -8067,24 +7550,6 @@
    }
   },
   {
-   "template_key": "spec-ReverseTubularGluedBoxWithSafetyBuckle",
-   "title": "InsuranceTubeGlued box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     24,
-     80
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
    "template_key": "spec-RibbonFlipHandshakeLatch",
    "title": "丝带握手扣翻盖盒",
    "limits": {
@@ -8319,24 +7784,6 @@
    }
   },
   {
-   "template_key": "spec-RotateFlipBox",
-   "title": "旋转翻盖盒",
-   "limits": {
-    "length": [
-     60,
-     200
-    ],
-    "width": [
-     10,
-     34
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-RoundFlapDiscBox",
    "title": "Round flip wheel box",
    "limits": {
@@ -8405,24 +7852,6 @@
     "height": [
      18,
      60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleAircraftWithoutInsertion",
-   "title": "保险扣无插舌飞机盒",
-   "limits": {
-    "length": [
-     177,
-     591
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     36,
-     119
     ]
    }
   },
@@ -8571,24 +8000,6 @@
    }
   },
   {
-   "template_key": "spec-SelfLockingBottomBoxWithConcaveHook",
-   "title": "Hanging hole concaveshapeSelf-locking case",
-   "limits": {
-    "length": [
-     90,
-     299
-    ],
-    "width": [
-     48,
-     159
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
    "template_key": "spec-SelfLockingBottomBoxWithReverseConcaveHook",
    "title": "Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case",
    "limits": {
@@ -8693,42 +8104,6 @@
     "height": [
      180,
      601
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideClamshellBox",
-   "title": "侧扣翻盖盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideClamshellBoxThree",
-   "title": "侧扣翻盖盒03",
-   "limits": {
-    "length": [
-     120,
-     399
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     36,
-     119
     ]
    }
   },
@@ -8891,24 +8266,6 @@
     "height": [
      95,
      318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideLockBox",
-   "title": "Side interlockbox",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     90,
-     300
     ]
    }
   },
@@ -9125,24 +8482,6 @@
     "height": [
      179,
      598
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleClamshellBox",
-   "title": "简易翻盖盒",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     30,
-     100
     ]
    }
   },
@@ -9377,24 +8716,6 @@
     "height": [
      27,
      90
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleSinglePlugBox",
-   "title": "简易单插盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     35,
-     118
-    ],
-    "height": [
-     95,
-     318
     ]
    }
   },
@@ -9669,24 +8990,6 @@
    }
   },
   {
-   "template_key": "spec-SpecialLockshellClamshellAircraftBox",
-   "title": "Separate cartridge flip plane box",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
    "template_key": "spec-SpecialShapedDiscBox",
    "title": "Shaped disc cartridge",
    "limits": {
@@ -9701,24 +9004,6 @@
     "height": [
      30,
      100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SpecialShapedHexagonalTray",
-   "title": "differentshapehexagonaltray",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     24,
-     80
     ]
    }
   },
@@ -10133,24 +9418,6 @@
     "height": [
      60,
      200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TissueP1",
-   "title": "纸巾盒",
-   "limits": {
-    "length": [
-     137,
-     457
-    ],
-    "width": [
-     72,
-     239
-    ],
-    "height": [
-     36,
-     119
     ]
    }
   },
@@ -10713,24 +9980,6 @@
    }
   },
   {
-   "template_key": "spec-TrayGluedObliqueWithLock",
-   "title": "Glown oblique lock buckle cartridge",
-   "limits": {
-    "length": [
-     91,
-     302
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-TrayGluedWithLock",
    "title": "Glue bracket lock",
    "limits": {
@@ -10929,24 +10178,6 @@
    }
   },
   {
-   "template_key": "spec-Triangleclamshellbox",
-   "title": "三角翻盖盒",
-   "limits": {
-    "length": [
-     108,
-     360
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
    "template_key": "spec-TrianglePizzaBox",
    "title": "三角形披萨盒",
    "limits": {
@@ -11109,24 +10340,6 @@
    }
   },
   {
-   "template_key": "spec-UncoveredPluginLockSleeve",
-   "title": "无盖插锁封套",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
    "template_key": "spec-UnilateralWidenedBufferWallBox",
    "title": "单边加宽缓冲墙盒",
    "limits": {
@@ -11163,24 +10376,6 @@
    }
   },
   {
-   "template_key": "spec-WideSideCardTrayBox",
-   "title": "宽边卡位托盘盒",
-   "limits": {
-    "length": [
-     109,
-     364
-    ],
-    "width": [
-     79,
-     264
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
    "template_key": "spec-WindowBottomRoofHandleBox",
    "title": "开窗扣底屋顶提手盒",
    "limits": {
@@ -11195,60 +10390,6 @@
     "height": [
      83,
      278
-    ]
-   }
-  },
-  {
-   "template_key": "spec-WindowCardBoardBoxFour",
-   "title": "开窗简易机包盒",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     178,
-     595
-    ]
-   }
-  },
-  {
-   "template_key": "spec-WindowFoldingFlipBox",
-   "title": "开窗折叠翻盖盒",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-WindowSideBuckleFlipBox",
-   "title": "开窗侧扣翻盖盒",
-   "limits": {
-    "length": [
-     120,
-     399
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     36,
-     119
     ]
    }
   },
@@ -11340,6 +10481,1700 @@
      40,
      800
     ]
+   }
+  }
+ ],
+ "fixed": [
+  {
+   "template_key": "fixed-200016",
+   "title": "纸箱运输盒",
+   "category": "shipping",
+   "source_num": "200016",
+   "preset_id": "import-shipping-200016",
+   "locked_dims": {
+    "lengthMm": 430,
+    "widthMm": 210,
+    "heightMm": 270
+   }
+  },
+  {
+   "template_key": "fixed-200017",
+   "title": "纸箱运输盒",
+   "category": "shipping",
+   "source_num": "200017",
+   "preset_id": "import-shipping-200017",
+   "locked_dims": {
+    "lengthMm": 430,
+    "widthMm": 210,
+    "heightMm": 270
+   }
+  },
+  {
+   "template_key": "fixed-201080",
+   "title": "带手柄的运输箱",
+   "category": "shipping",
+   "source_num": "201080",
+   "preset_id": "import-shipping-201080",
+   "locked_dims": {
+    "lengthMm": 430,
+    "widthMm": 210,
+    "heightMm": 270
+   }
+  },
+  {
+   "template_key": "fixed-201081",
+   "title": "带通气孔的运输纸箱",
+   "category": "shipping",
+   "source_num": "201081",
+   "preset_id": "import-shipping-201081",
+   "locked_dims": {
+    "lengthMm": 430,
+    "widthMm": 210,
+    "heightMm": 270
+   }
+  },
+  {
+   "template_key": "fixed-205011",
+   "title": "纸板运输箱",
+   "category": "shipping",
+   "source_num": "205011",
+   "preset_id": "import-shipping-205011",
+   "locked_dims": {
+    "lengthMm": 349,
+    "widthMm": 199,
+    "heightMm": 49
+   }
+  },
+  {
+   "template_key": "fixed-folding-100023",
+   "title": "Hanging extra slim tall medicine box",
+   "category": "folding",
+   "source_num": "100023",
+   "preset_id": "import-folding-100023",
+   "locked_dims": {
+    "lengthMm": 119.4,
+    "widthMm": 14.4,
+    "heightMm": 158.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-100025",
+   "title": "Hanging toy box with window",
+   "category": "folding",
+   "source_num": "100025",
+   "preset_id": "import-folding-100025",
+   "locked_dims": {
+    "lengthMm": 79.4,
+    "widthMm": 69.4,
+    "heightMm": 108.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-101524",
+   "title": "Hanging toy box with window",
+   "category": "folding",
+   "source_num": "101524",
+   "preset_id": "import-folding-101524",
+   "locked_dims": {
+    "lengthMm": 79.4,
+    "widthMm": 69.4,
+    "heightMm": 108.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-10201104",
+   "title": "Buttonhole ampoule box",
+   "category": "folding",
+   "source_num": "10201104",
+   "preset_id": "import-folding-10201104",
+   "locked_dims": {
+    "lengthMm": 44.4,
+    "widthMm": 44.4,
+    "heightMm": 58.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-10201105",
+   "title": "Thumb cut perfume box",
+   "category": "folding",
+   "source_num": "10201105",
+   "preset_id": "import-folding-10201105",
+   "locked_dims": {
+    "lengthMm": 119.4,
+    "widthMm": 44.4,
+    "heightMm": 158.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-10201301",
+   "title": "Tuck end window ampoule box",
+   "category": "folding",
+   "source_num": "10201301",
+   "preset_id": "import-folding-10201301",
+   "locked_dims": {
+    "lengthMm": 169.4,
+    "widthMm": 19.4,
+    "heightMm": 98.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-102622",
+   "title": "square hanging toy box with window",
+   "category": "folding",
+   "source_num": "102622",
+   "preset_id": "import-folding-102622",
+   "locked_dims": {
+    "lengthMm": 101.4,
+    "widthMm": 101.4,
+    "heightMm": 100.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-10268004",
+   "title": "Neck lock perfume box",
+   "category": "folding",
+   "source_num": "10268004",
+   "preset_id": "import-folding-10268004",
+   "locked_dims": {
+    "lengthMm": 79.4,
+    "widthMm": 36.4,
+    "heightMm": 118.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-103201",
+   "title": "Hanging electronic product box with window",
+   "category": "folding",
+   "source_num": "103201",
+   "preset_id": "import-folding-103201",
+   "locked_dims": {
+    "lengthMm": 119.4,
+    "widthMm": 59.4,
+    "heightMm": 158.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-111640",
+   "title": "Square cardboard box",
+   "category": "folding",
+   "source_num": "111640",
+   "preset_id": "import-folding-111640",
+   "locked_dims": {
+    "lengthMm": 250,
+    "widthMm": 150,
+    "heightMm": 250
+   }
+  },
+  {
+   "template_key": "fixed-folding-11205002",
+   "title": "Square biscuit box",
+   "category": "folding",
+   "source_num": "11205002",
+   "preset_id": "import-folding-11205002",
+   "locked_dims": {
+    "lengthMm": 119.4,
+    "widthMm": 49.4,
+    "heightMm": 88.9
+   }
+  },
+  {
+   "template_key": "fixed-folding-11229001",
+   "title": "Cake box with window",
+   "category": "folding",
+   "source_num": "11229001",
+   "preset_id": "import-folding-11229001",
+   "locked_dims": {
+    "lengthMm": 219.4,
+    "widthMm": 109.4,
+    "heightMm": 119.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-120210",
+   "title": "Square food tray box",
+   "category": "folding",
+   "source_num": "120210",
+   "preset_id": "import-folding-120210",
+   "locked_dims": {
+    "lengthMm": 199.4,
+    "widthMm": 20,
+    "heightMm": 48.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-120470",
+   "title": "Square food tray box",
+   "category": "folding",
+   "source_num": "120470",
+   "preset_id": "import-folding-120470",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 200,
+    "heightMm": 60
+   }
+  },
+  {
+   "template_key": "fixed-folding-121040",
+   "title": "Food tray box",
+   "category": "folding",
+   "source_num": "121040",
+   "preset_id": "import-folding-121040",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 100,
+    "heightMm": 30
+   }
+  },
+  {
+   "template_key": "fixed-folding-12109002",
+   "title": "Cake box",
+   "category": "folding",
+   "source_num": "12109002",
+   "preset_id": "import-folding-12109002",
+   "locked_dims": {
+    "lengthMm": 234,
+    "widthMm": 168,
+    "heightMm": 178
+   }
+  },
+  {
+   "template_key": "fixed-folding-128140",
+   "title": "Picnic box",
+   "category": "folding",
+   "source_num": "128140",
+   "preset_id": "import-folding-128140",
+   "locked_dims": {
+    "lengthMm": 199.4,
+    "widthMm": 99.4,
+    "heightMm": 49.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-15202101",
+   "title": "Sweet box",
+   "category": "folding",
+   "source_num": "15202101",
+   "preset_id": "import-folding-15202101",
+   "locked_dims": {
+    "lengthMm": 148.4,
+    "widthMm": 149.4,
+    "heightMm": 49.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-153030",
+   "title": "Cloud line mortise lock bottom flip box flip top boxes tuck front box mockup 153030",
+   "category": "folding",
+   "source_num": "153030",
+   "preset_id": "import-folding-153030",
+   "locked_dims": {
+    "lengthMm": 150,
+    "widthMm": 100,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-folding-153080",
+   "title": "Flip top boxes double snap lock auto bottom filp top tuck front box mockup 153080",
+   "category": "folding",
+   "source_num": "153080",
+   "preset_id": "import-folding-153080",
+   "locked_dims": {
+    "lengthMm": 304,
+    "widthMm": 199,
+    "heightMm": 58
+   }
+  },
+  {
+   "template_key": "fixed-folding-15621604",
+   "title": "12 in Pizza box",
+   "category": "folding",
+   "source_num": "15621604",
+   "preset_id": "import-folding-15621604",
+   "locked_dims": {
+    "lengthMm": 295,
+    "widthMm": 293,
+    "heightMm": 48
+   }
+  },
+  {
+   "template_key": "fixed-folding-15621605",
+   "title": "16 in pizza box",
+   "category": "folding",
+   "source_num": "15621605",
+   "preset_id": "import-folding-15621605",
+   "locked_dims": {
+    "lengthMm": 405,
+    "widthMm": 403,
+    "heightMm": 53
+   }
+  },
+  {
+   "template_key": "fixed-folding-15621606",
+   "title": "Tuck top mailer box",
+   "category": "folding",
+   "source_num": "15621606",
+   "preset_id": "import-folding-15621606",
+   "locked_dims": {
+    "lengthMm": 106,
+    "widthMm": 176,
+    "heightMm": 43
+   }
+  },
+  {
+   "template_key": "fixed-folding-156300",
+   "title": "Pizza box",
+   "category": "folding",
+   "source_num": "156300",
+   "preset_id": "import-folding-156300",
+   "locked_dims": {
+    "lengthMm": 278,
+    "widthMm": 203.5,
+    "heightMm": 49
+   }
+  },
+  {
+   "template_key": "fixed-folding-158050",
+   "title": "Packaging folding paper box double open mockup 158050",
+   "category": "folding",
+   "source_num": "158050",
+   "preset_id": "import-folding-158050",
+   "locked_dims": {
+    "lengthMm": 80,
+    "widthMm": 80,
+    "heightMm": 80
+   }
+  },
+  {
+   "template_key": "fixed-folding-158060",
+   "title": "Packaging mailer box carton box mockup 158060",
+   "category": "folding",
+   "source_num": "158060",
+   "preset_id": "import-folding-158060",
+   "locked_dims": {
+    "lengthMm": 126.4,
+    "widthMm": 31.4,
+    "heightMm": 31.4
+   }
+  },
+  {
+   "template_key": "fixed-folding-15813002",
+   "title": "Square cake box",
+   "category": "folding",
+   "source_num": "15813002",
+   "preset_id": "import-folding-15813002",
+   "locked_dims": {
+    "lengthMm": 95,
+    "widthMm": 103,
+    "heightMm": 65
+   }
+  },
+  {
+   "template_key": "fixed-folding-16002501",
+   "title": "Cake box with window",
+   "category": "folding",
+   "source_num": "16002501",
+   "preset_id": "import-folding-16002501",
+   "locked_dims": {
+    "lengthMm": 199.4,
+    "widthMm": 149.4,
+    "heightMm": 74.7
+   }
+  },
+  {
+   "template_key": "fixed-folding-170021",
+   "title": "Exhibitor box",
+   "category": "folding",
+   "source_num": "170021",
+   "preset_id": "import-folding-170021",
+   "locked_dims": {
+    "lengthMm": 294,
+    "widthMm": 198,
+    "heightMm": 59
+   }
+  },
+  {
+   "template_key": "fixed-folding-170281",
+   "title": "Folding display box",
+   "category": "folding",
+   "source_num": "170281",
+   "preset_id": "import-folding-170281",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 200,
+    "heightMm": 100
+   }
+  },
+  {
+   "template_key": "fixed-folding-171495",
+   "title": "Display box",
+   "category": "folding",
+   "source_num": "171495",
+   "preset_id": "import-folding-171495",
+   "locked_dims": {
+    "lengthMm": 115,
+    "widthMm": 44,
+    "heightMm": 80
+   }
+  },
+  {
+   "template_key": "fixed-folding-180370",
+   "title": "French fries box",
+   "category": "folding",
+   "source_num": "180370",
+   "preset_id": "import-folding-180370",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 80,
+    "heightMm": 160
+   }
+  },
+  {
+   "template_key": "fixed-folding-180371",
+   "title": "French fry box",
+   "category": "folding",
+   "source_num": "180371",
+   "preset_id": "import-folding-180371",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 80,
+    "heightMm": 160
+   }
+  },
+  {
+   "template_key": "fixed-folding-189020",
+   "title": "Hanging fish-shaped box",
+   "category": "folding",
+   "source_num": "189020",
+   "preset_id": "import-folding-189020",
+   "locked_dims": {
+    "lengthMm": 80,
+    "widthMm": 20,
+    "heightMm": 180
+   }
+  },
+  {
+   "template_key": "fixed-folding-36001004",
+   "title": "Square double opening perfume box",
+   "category": "folding",
+   "source_num": "36001004",
+   "preset_id": "import-folding-36001004",
+   "locked_dims": {
+    "lengthMm": 226,
+    "widthMm": 216,
+    "heightMm": 58
+   }
+  },
+  {
+   "template_key": "fixed-folding-550190",
+   "title": "Ice cream box",
+   "category": "folding",
+   "source_num": "550190",
+   "preset_id": "import-folding-550190",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-550240",
+   "title": "Cake box with handle",
+   "category": "folding",
+   "source_num": "550240",
+   "preset_id": "import-folding-550240",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-551190",
+   "title": "Clear plastic hanging box",
+   "category": "folding",
+   "source_num": "551190",
+   "preset_id": "import-folding-551190",
+   "locked_dims": {
+    "lengthMm": 67.5,
+    "widthMm": 25,
+    "heightMm": 100
+   }
+  },
+  {
+   "template_key": "fixed-folding-599100",
+   "title": "Product box",
+   "category": "folding",
+   "source_num": "599100",
+   "preset_id": "import-folding-599100",
+   "locked_dims": {
+    "lengthMm": 900,
+    "widthMm": 500,
+    "heightMm": 1980
+   }
+  },
+  {
+   "template_key": "fixed-folding-600182",
+   "title": "14 × 10 × 9 square napskin tissue box",
+   "category": "folding",
+   "source_num": "600182",
+   "preset_id": "import-folding-600182",
+   "locked_dims": {
+    "lengthMm": 135,
+    "widthMm": 100,
+    "heightMm": 85
+   }
+  },
+  {
+   "template_key": "fixed-folding-604190",
+   "title": "Cake boxes carton with handle mockup 604190",
+   "category": "folding",
+   "source_num": "604190",
+   "preset_id": "import-folding-604190",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-604191",
+   "title": "Cake boxes carton with handle mockup 604191",
+   "category": "folding",
+   "source_num": "604191",
+   "preset_id": "import-folding-604191",
+   "locked_dims": {
+    "lengthMm": 123,
+    "widthMm": 104,
+    "heightMm": 110
+   }
+  },
+  {
+   "template_key": "fixed-folding-609590",
+   "title": "Hanging box",
+   "category": "folding",
+   "source_num": "609590",
+   "preset_id": "import-folding-609590",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-609612",
+   "title": "Milk carton packaging",
+   "category": "folding",
+   "source_num": "609612",
+   "preset_id": "import-folding-609612",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-609613",
+   "title": "Milk carton",
+   "category": "folding",
+   "source_num": "609613",
+   "preset_id": "import-folding-609613",
+   "locked_dims": {
+    "lengthMm": 5,
+    "widthMm": 5,
+    "heightMm": 5
+   }
+  },
+  {
+   "template_key": "fixed-folding-615305",
+   "title": "Gift box",
+   "category": "folding",
+   "source_num": "615305",
+   "preset_id": "import-folding-615305",
+   "locked_dims": {
+    "lengthMm": 184,
+    "widthMm": 184,
+    "heightMm": 184
+   }
+  },
+  {
+   "template_key": "fixed-folding-615306",
+   "title": "Kraft gift box",
+   "category": "folding",
+   "source_num": "615306",
+   "preset_id": "import-folding-615306",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 150,
+    "heightMm": 100
+   }
+  },
+  {
+   "template_key": "fixed-folding-615307",
+   "title": "Paper surprise gift box",
+   "category": "folding",
+   "source_num": "615307",
+   "preset_id": "import-folding-615307",
+   "locked_dims": {
+    "lengthMm": 280,
+    "widthMm": 200,
+    "heightMm": 100
+   }
+  },
+  {
+   "template_key": "fixed-folding-615308",
+   "title": "Paper gift box",
+   "category": "folding",
+   "source_num": "615308",
+   "preset_id": "import-folding-615308",
+   "locked_dims": {
+    "lengthMm": 150,
+    "widthMm": 150,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-folding-615309",
+   "title": "Paper gift box",
+   "category": "folding",
+   "source_num": "615309",
+   "preset_id": "import-folding-615309",
+   "locked_dims": {
+    "lengthMm": 350,
+    "widthMm": 230,
+    "heightMm": 110
+   }
+  },
+  {
+   "template_key": "fixed-folding-615311",
+   "title": "Wedding glossy gift box",
+   "category": "folding",
+   "source_num": "615311",
+   "preset_id": "import-folding-615311",
+   "locked_dims": {
+    "lengthMm": 260,
+    "widthMm": 35,
+    "heightMm": 177
+   }
+  },
+  {
+   "template_key": "fixed-folding-615313",
+   "title": "Kraft paper gift box",
+   "category": "folding",
+   "source_num": "615313",
+   "preset_id": "import-folding-615313",
+   "locked_dims": {
+    "lengthMm": 10,
+    "widthMm": 10,
+    "heightMm": 10
+   }
+  },
+  {
+   "template_key": "fixed-folding-615314",
+   "title": "Paper box with rope handles",
+   "category": "folding",
+   "source_num": "615314",
+   "preset_id": "import-folding-615314",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 100,
+    "heightMm": 135
+   }
+  },
+  {
+   "template_key": "fixed-gift-10001003",
+   "title": "Tuck top gift box",
+   "category": "gift",
+   "source_num": "10001003",
+   "preset_id": "import-gift-10001003",
+   "locked_dims": {
+    "lengthMm": 129.4,
+    "widthMm": 129.4,
+    "heightMm": 188.9
+   }
+  },
+  {
+   "template_key": "fixed-gift-10263003",
+   "title": "Macaron box",
+   "category": "gift",
+   "source_num": "10263003",
+   "preset_id": "import-gift-10263003",
+   "locked_dims": {
+    "lengthMm": 59.4,
+    "widthMm": 59.4,
+    "heightMm": 178.4
+   }
+  },
+  {
+   "template_key": "fixed-gift-112046",
+   "title": "Gift box with window",
+   "category": "gift",
+   "source_num": "112046",
+   "preset_id": "import-gift-112046",
+   "locked_dims": {
+    "lengthMm": 179.4,
+    "widthMm": 99.4,
+    "heightMm": 209.4
+   }
+  },
+  {
+   "template_key": "fixed-gift-15001103",
+   "title": "Flip top gift box",
+   "category": "gift",
+   "source_num": "15001103",
+   "preset_id": "import-gift-15001103",
+   "locked_dims": {
+    "lengthMm": 289,
+    "widthMm": 302,
+    "heightMm": 99
+   }
+  },
+  {
+   "template_key": "fixed-gift-15001104",
+   "title": "Flip top gift box",
+   "category": "gift",
+   "source_num": "15001104",
+   "preset_id": "import-gift-15001104",
+   "locked_dims": {
+    "lengthMm": 213,
+    "widthMm": 175,
+    "heightMm": 74
+   }
+  },
+  {
+   "template_key": "fixed-gift-15202101",
+   "title": "Sweet box",
+   "category": "gift",
+   "source_num": "15202101",
+   "preset_id": "import-gift-15202101",
+   "locked_dims": {
+    "lengthMm": 148.4,
+    "widthMm": 149.4,
+    "heightMm": 49.4
+   }
+  },
+  {
+   "template_key": "fixed-gift-181600",
+   "title": "Tree shaped holiday box",
+   "category": "gift",
+   "source_num": "181600",
+   "preset_id": "import-gift-181600",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 200,
+    "heightMm": 60
+   }
+  },
+  {
+   "template_key": "fixed-gift-181610",
+   "title": "Double layer christmas tree box",
+   "category": "gift",
+   "source_num": "181610",
+   "preset_id": "import-gift-181610",
+   "locked_dims": {
+    "lengthMm": 229.4,
+    "widthMm": 249.4,
+    "heightMm": 59.2
+   }
+  },
+  {
+   "template_key": "fixed-gift-185000",
+   "title": "Gift box",
+   "category": "gift",
+   "source_num": "185000",
+   "preset_id": "import-gift-185000",
+   "locked_dims": {
+    "lengthMm": 100,
+    "widthMm": 110,
+    "heightMm": 30
+   }
+  },
+  {
+   "template_key": "fixed-gift-188270",
+   "title": "Sphere surprise gift box",
+   "category": "gift",
+   "source_num": "188270",
+   "preset_id": "import-gift-188270",
+   "locked_dims": {
+    "lengthMm": 118.6,
+    "widthMm": 118.6,
+    "heightMm": 158.6
+   }
+  },
+  {
+   "template_key": "fixed-gift-240110",
+   "title": "Shirt gift box",
+   "category": "gift",
+   "source_num": "240110",
+   "preset_id": "import-gift-240110",
+   "locked_dims": {
+    "lengthMm": 300,
+    "widthMm": 200,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-gift-360010",
+   "title": "Gift box with lid",
+   "category": "gift",
+   "source_num": "360010",
+   "preset_id": "import-gift-360010",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36001002",
+   "title": "Surprise gift box",
+   "category": "gift",
+   "source_num": "36001002",
+   "preset_id": "import-gift-36001002",
+   "locked_dims": {
+    "lengthMm": 256,
+    "widthMm": 161,
+    "heightMm": 38
+   }
+  },
+  {
+   "template_key": "fixed-gift-36001003",
+   "title": "Premium gift box",
+   "category": "gift",
+   "source_num": "36001003",
+   "preset_id": "import-gift-36001003",
+   "locked_dims": {
+    "lengthMm": 256,
+    "widthMm": 126,
+    "heightMm": 48
+   }
+  },
+  {
+   "template_key": "fixed-gift-360110",
+   "title": "Flip top magnetic gift box",
+   "category": "gift",
+   "source_num": "360110",
+   "preset_id": "import-gift-360110",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36011001",
+   "title": "Open gift box",
+   "category": "gift",
+   "source_num": "36011001",
+   "preset_id": "import-gift-36011001",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-360180",
+   "title": "Luxury box with lid",
+   "category": "gift",
+   "source_num": "360180",
+   "preset_id": "import-gift-360180",
+   "locked_dims": {
+    "lengthMm": 175.4,
+    "widthMm": 95.4,
+    "heightMm": 86
+   }
+  },
+  {
+   "template_key": "fixed-gift-36018003",
+   "title": "Jewelry luxury gift box",
+   "category": "gift",
+   "source_num": "36018003",
+   "preset_id": "import-gift-36018003",
+   "locked_dims": {
+    "lengthMm": 91.4,
+    "widthMm": 91.4,
+    "heightMm": 81
+   }
+  },
+  {
+   "template_key": "fixed-gift-36018004",
+   "title": "Jewelry gift box",
+   "category": "gift",
+   "source_num": "36018004",
+   "preset_id": "import-gift-36018004",
+   "locked_dims": {
+    "lengthMm": 361.4,
+    "widthMm": 111.4,
+    "heightMm": 96
+   }
+  },
+  {
+   "template_key": "fixed-gift-36018005",
+   "title": "Gift box",
+   "category": "gift",
+   "source_num": "36018005",
+   "preset_id": "import-gift-36018005",
+   "locked_dims": {
+    "lengthMm": 241.4,
+    "widthMm": 241.4,
+    "heightMm": 231
+   }
+  },
+  {
+   "template_key": "fixed-gift-36018006",
+   "title": "Square jewelry box",
+   "category": "gift",
+   "source_num": "36018006",
+   "preset_id": "import-gift-36018006",
+   "locked_dims": {
+    "lengthMm": 55,
+    "widthMm": 55,
+    "heightMm": 27
+   }
+  },
+  {
+   "template_key": "fixed-gift-361010",
+   "title": "Flip top jewelry box",
+   "category": "gift",
+   "source_num": "361010",
+   "preset_id": "import-gift-361010",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-361011",
+   "title": "Flip top magnetic gift box",
+   "category": "gift",
+   "source_num": "361011",
+   "preset_id": "import-gift-361011",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36101102",
+   "title": "Magnetic gift box",
+   "category": "gift",
+   "source_num": "36101102",
+   "preset_id": "import-gift-36101102",
+   "locked_dims": {
+    "lengthMm": 298,
+    "widthMm": 211,
+    "heightMm": 73.85
+   }
+  },
+  {
+   "template_key": "fixed-gift-36101105",
+   "title": "Flip top board game box",
+   "category": "gift",
+   "source_num": "36101105",
+   "preset_id": "import-gift-36101105",
+   "locked_dims": {
+    "lengthMm": 256,
+    "widthMm": 206,
+    "heightMm": 37.85
+   }
+  },
+  {
+   "template_key": "fixed-gift-36101108",
+   "title": "Flip top body lotion box",
+   "category": "gift",
+   "source_num": "36101108",
+   "preset_id": "import-gift-36101108",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36101111",
+   "title": "Cosmetics box with lid",
+   "category": "gift",
+   "source_num": "36101111",
+   "preset_id": "import-gift-36101111",
+   "locked_dims": {
+    "lengthMm": 176,
+    "widthMm": 146,
+    "heightMm": 37.85
+   }
+  },
+  {
+   "template_key": "fixed-gift-36101112",
+   "title": "Flip top stationery gift box",
+   "category": "gift",
+   "source_num": "36101112",
+   "preset_id": "import-gift-36101112",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36201103",
+   "title": "Square drawer gift box",
+   "category": "gift",
+   "source_num": "36201103",
+   "preset_id": "import-gift-36201103",
+   "locked_dims": {
+    "lengthMm": 205.7,
+    "widthMm": 205.7,
+    "heightMm": 57.85
+   }
+  },
+  {
+   "template_key": "fixed-gift-36201104",
+   "title": "Drawer gift box",
+   "category": "gift",
+   "source_num": "36201104",
+   "preset_id": "import-gift-36201104",
+   "locked_dims": {
+    "lengthMm": 235.7,
+    "widthMm": 161.7,
+    "heightMm": 77.85
+   }
+  },
+  {
+   "template_key": "fixed-gift-362080",
+   "title": "Double door gift box",
+   "category": "gift",
+   "source_num": "362080",
+   "preset_id": "import-gift-362080",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-36208001",
+   "title": "Luxury jewelry gift box",
+   "category": "gift",
+   "source_num": "36208001",
+   "preset_id": "import-gift-36208001",
+   "locked_dims": {
+    "lengthMm": 126,
+    "widthMm": 96,
+    "heightMm": 43
+   }
+  },
+  {
+   "template_key": "fixed-gift-362081",
+   "title": "Double door rigid gift box",
+   "category": "gift",
+   "source_num": "362081",
+   "preset_id": "import-gift-362081",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-gift-603573",
+   "title": "Kraft paper tube box",
+   "category": "gift",
+   "source_num": "603573",
+   "preset_id": "import-gift-603573",
+   "locked_dims": {
+    "lengthMm": 82,
+    "widthMm": 28,
+    "heightMm": 141
+   }
+  },
+  {
+   "template_key": "fixed-gift-603574",
+   "title": "Round paper tube",
+   "category": "gift",
+   "source_num": "603574",
+   "preset_id": "import-gift-603574",
+   "locked_dims": {
+    "lengthMm": 82,
+    "widthMm": 28,
+    "heightMm": 76
+   }
+  },
+  {
+   "template_key": "fixed-gift-603610",
+   "title": "Round cookie gift box",
+   "category": "gift",
+   "source_num": "603610",
+   "preset_id": "import-gift-603610",
+   "locked_dims": {
+    "lengthMm": 250,
+    "widthMm": 26,
+    "heightMm": 87
+   }
+  },
+  {
+   "template_key": "fixed-gift-603678",
+   "title": "Cylindrical tube",
+   "category": "gift",
+   "source_num": "603678",
+   "preset_id": "import-gift-603678",
+   "locked_dims": {
+    "lengthMm": 86,
+    "widthMm": 27.5,
+    "heightMm": 178
+   }
+  },
+  {
+   "template_key": "fixed-mailer-11205001",
+   "title": "FEFCO 0216 regular slotted container with snap lock bottom",
+   "category": "mailer",
+   "source_num": "11205001",
+   "preset_id": "import-mailer-11205001",
+   "locked_dims": {
+    "lengthMm": 248,
+    "widthMm": 148,
+    "heightMm": 116.5
+   }
+  },
+  {
+   "template_key": "fixed-mailer-15001103",
+   "title": "Flip top gift box",
+   "category": "mailer",
+   "source_num": "15001103",
+   "preset_id": "import-mailer-15001103",
+   "locked_dims": {
+    "lengthMm": 289,
+    "widthMm": 302,
+    "heightMm": 99
+   }
+  },
+  {
+   "template_key": "fixed-mailer-15202101",
+   "title": "Sweet box",
+   "category": "mailer",
+   "source_num": "15202101",
+   "preset_id": "import-mailer-15202101",
+   "locked_dims": {
+    "lengthMm": 148.4,
+    "widthMm": 149.4,
+    "heightMm": 49.4
+   }
+  },
+  {
+   "template_key": "fixed-mailer-15621606",
+   "title": "Tuck top mailer box",
+   "category": "mailer",
+   "source_num": "15621606",
+   "preset_id": "import-mailer-15621606",
+   "locked_dims": {
+    "lengthMm": 106,
+    "widthMm": 176,
+    "heightMm": 43
+   }
+  },
+  {
+   "template_key": "fixed-mailer-243010",
+   "title": "Envelope sleeves mailer",
+   "category": "mailer",
+   "source_num": "243010",
+   "preset_id": "import-mailer-243010",
+   "locked_dims": {
+    "lengthMm": 218,
+    "widthMm": 14,
+    "heightMm": 318
+   }
+  },
+  {
+   "template_key": "fixed-mailer-360101",
+   "title": "Luxury rigid box",
+   "category": "mailer",
+   "source_num": "360101",
+   "preset_id": "import-mailer-360101",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-mailer-361011",
+   "title": "Flip top magnetic gift box",
+   "category": "mailer",
+   "source_num": "361011",
+   "preset_id": "import-mailer-361011",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-mailer-36101112",
+   "title": "Flip top stationery gift box",
+   "category": "mailer",
+   "source_num": "36101112",
+   "preset_id": "import-mailer-36101112",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-square-10201001",
+   "title": "Square cardboard box",
+   "category": "square",
+   "source_num": "10201001",
+   "preset_id": "import-square-10201001",
+   "locked_dims": {
+    "lengthMm": 249.4,
+    "widthMm": 249.4,
+    "heightMm": 128.9
+   }
+  },
+  {
+   "template_key": "fixed-square-111640",
+   "title": "Square cardboard box",
+   "category": "square",
+   "source_num": "111640",
+   "preset_id": "import-square-111640",
+   "locked_dims": {
+    "lengthMm": 250,
+    "widthMm": 150,
+    "heightMm": 250
+   }
+  },
+  {
+   "template_key": "fixed-square-120210",
+   "title": "Square food tray box",
+   "category": "square",
+   "source_num": "120210",
+   "preset_id": "import-square-120210",
+   "locked_dims": {
+    "lengthMm": 199.4,
+    "widthMm": 20,
+    "heightMm": 48.4
+   }
+  },
+  {
+   "template_key": "fixed-square-120470",
+   "title": "Square food tray box",
+   "category": "square",
+   "source_num": "120470",
+   "preset_id": "import-square-120470",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 200,
+    "heightMm": 60
+   }
+  },
+  {
+   "template_key": "fixed-square-121040",
+   "title": "Food tray box",
+   "category": "square",
+   "source_num": "121040",
+   "preset_id": "import-square-121040",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 100,
+    "heightMm": 30
+   }
+  },
+  {
+   "template_key": "fixed-square-128022",
+   "title": "Gift sleeve box",
+   "category": "square",
+   "source_num": "128022",
+   "preset_id": "import-square-128022",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 90,
+    "heightMm": 50.4
+   }
+  },
+  {
+   "template_key": "fixed-square-128220",
+   "title": "Double-layer gift sleeve box",
+   "category": "square",
+   "source_num": "128220",
+   "preset_id": "import-square-128220",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 100,
+    "heightMm": 70
+   }
+  },
+  {
+   "template_key": "fixed-square-16016002",
+   "title": "Board game box with lid",
+   "category": "square",
+   "source_num": "16016002",
+   "preset_id": "import-square-16016002",
+   "locked_dims": {
+    "lengthMm": 205.6,
+    "widthMm": 205.6,
+    "heightMm": 32.4
+   }
+  },
+  {
+   "template_key": "fixed-square-16302001",
+   "title": "Slide square gift box",
+   "category": "square",
+   "source_num": "16302001",
+   "preset_id": "import-square-16302001",
+   "locked_dims": {
+    "lengthMm": 99.4,
+    "widthMm": 99.4,
+    "heightMm": 99.4
+   }
+  },
+  {
+   "template_key": "fixed-square-20010201",
+   "title": "Square cardboard box",
+   "category": "square",
+   "source_num": "20010201",
+   "preset_id": "import-square-20010201",
+   "locked_dims": {
+    "lengthMm": 446,
+    "widthMm": 446,
+    "heightMm": 392
+   }
+  },
+  {
+   "template_key": "fixed-square-36001001",
+   "title": "Flat square box",
+   "category": "square",
+   "source_num": "36001001",
+   "preset_id": "import-square-36001001",
+   "locked_dims": {
+    "lengthMm": 226,
+    "widthMm": 226,
+    "heightMm": 58
+   }
+  },
+  {
+   "template_key": "fixed-square-36001101",
+   "title": "Open flat square box",
+   "category": "square",
+   "source_num": "36001101",
+   "preset_id": "import-square-36001101",
+   "locked_dims": {
+    "lengthMm": 85.7,
+    "widthMm": 85.7,
+    "heightMm": 27.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36009001",
+   "title": "Open square gift box",
+   "category": "square",
+   "source_num": "36009001",
+   "preset_id": "import-square-36009001",
+   "locked_dims": {
+    "lengthMm": 91.4,
+    "widthMm": 91.4,
+    "heightMm": 88
+   }
+  },
+  {
+   "template_key": "fixed-square-36010101",
+   "title": "Square magnetic gift box",
+   "category": "square",
+   "source_num": "36010101",
+   "preset_id": "import-square-36010101",
+   "locked_dims": {
+    "lengthMm": 105.7,
+    "widthMm": 105.7,
+    "heightMm": 47.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36010102",
+   "title": "Open square magnetic gift box",
+   "category": "square",
+   "source_num": "36010102",
+   "preset_id": "import-square-36010102",
+   "locked_dims": {
+    "lengthMm": 210.7,
+    "widthMm": 210.7,
+    "heightMm": 87.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36012001",
+   "title": "Square magnetic gift box",
+   "category": "square",
+   "source_num": "36012001",
+   "preset_id": "import-square-36012001",
+   "locked_dims": {
+    "lengthMm": 175.7,
+    "widthMm": 175.7,
+    "heightMm": 177.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36018001",
+   "title": "Open square gift box",
+   "category": "square",
+   "source_num": "36018001",
+   "preset_id": "import-square-36018001",
+   "locked_dims": {
+    "lengthMm": 91.4,
+    "widthMm": 91.4,
+    "heightMm": 106
+   }
+  },
+  {
+   "template_key": "fixed-square-36018002",
+   "title": "Square gift box",
+   "category": "square",
+   "source_num": "36018002",
+   "preset_id": "import-square-36018002",
+   "locked_dims": {
+    "lengthMm": 91.4,
+    "widthMm": 91.4,
+    "heightMm": 86
+   }
+  },
+  {
+   "template_key": "fixed-square-36018006",
+   "title": "Square jewelry box",
+   "category": "square",
+   "source_num": "36018006",
+   "preset_id": "import-square-36018006",
+   "locked_dims": {
+    "lengthMm": 55,
+    "widthMm": 55,
+    "heightMm": 27
+   }
+  },
+  {
+   "template_key": "fixed-square-36101101",
+   "title": "Flip top square magnetic box",
+   "category": "square",
+   "source_num": "36101101",
+   "preset_id": "import-square-36101101",
+   "locked_dims": {
+    "lengthMm": 196,
+    "widthMm": 196,
+    "heightMm": 97.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36201103",
+   "title": "Square drawer gift box",
+   "category": "square",
+   "source_num": "36201103",
+   "preset_id": "import-square-36201103",
+   "locked_dims": {
+    "lengthMm": 205.7,
+    "widthMm": 205.7,
+    "heightMm": 57.85
+   }
+  },
+  {
+   "template_key": "fixed-square-36601202",
+   "title": "Square gift box",
+   "category": "square",
+   "source_num": "36601202",
+   "preset_id": "import-square-36601202",
+   "locked_dims": {
+    "lengthMm": 90,
+    "widthMm": 90,
+    "heightMm": 30
+   }
+  },
+  {
+   "template_key": "fixed-tray-120012",
+   "title": "Side self-locking tray box",
+   "category": "tray",
+   "source_num": "120012",
+   "preset_id": "import-tray-120012",
+   "locked_dims": {
+    "lengthMm": 199.8,
+    "widthMm": 149.36,
+    "heightMm": 99.9
+   }
+  },
+  {
+   "template_key": "fixed-tray-120170",
+   "title": "Hot dog tray box",
+   "category": "tray",
+   "source_num": "120170",
+   "preset_id": "import-tray-120170",
+   "locked_dims": {
+    "lengthMm": 300,
+    "widthMm": 200,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-tray-12020201",
+   "title": "Cake tray box",
+   "category": "tray",
+   "source_num": "12020201",
+   "preset_id": "import-tray-12020201",
+   "locked_dims": {
+    "lengthMm": 120,
+    "widthMm": 120,
+    "heightMm": 35
+   }
+  },
+  {
+   "template_key": "fixed-tray-120290",
+   "title": "Tray boxes handles interlocking buckles mockup 120290",
+   "category": "tray",
+   "source_num": "120290",
+   "preset_id": "import-tray-120290",
+   "locked_dims": {
+    "lengthMm": 90,
+    "widthMm": 60,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-tray-120510",
+   "title": "Tray boxes saw blade type paper mockup 120510",
+   "category": "tray",
+   "source_num": "120510",
+   "preset_id": "import-tray-120510",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 200,
+    "heightMm": 6
+   }
+  },
+  {
+   "template_key": "fixed-tray-121010",
+   "title": "Food tray box",
+   "category": "tray",
+   "source_num": "121010",
+   "preset_id": "import-tray-121010",
+   "locked_dims": {
+    "lengthMm": 198,
+    "widthMm": 140,
+    "heightMm": 48
+   }
+  },
+  {
+   "template_key": "fixed-tray-128020",
+   "title": "Drawer gift box",
+   "category": "tray",
+   "source_num": "128020",
+   "preset_id": "import-tray-128020",
+   "locked_dims": {
+    "lengthMm": 300,
+    "widthMm": 200,
+    "heightMm": 60
+   }
+  },
+  {
+   "template_key": "fixed-tray-128022",
+   "title": "Gift sleeve box",
+   "category": "tray",
+   "source_num": "128022",
+   "preset_id": "import-tray-128022",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 90,
+    "heightMm": 50.4
+   }
+  },
+  {
+   "template_key": "fixed-tray-128023",
+   "title": "Tray box with 4 grids inserts paper mockup 128023",
+   "category": "tray",
+   "source_num": "128023",
+   "preset_id": "import-tray-128023",
+   "locked_dims": {
+    "lengthMm": 224,
+    "widthMm": 179,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-tray-128150",
+   "title": "Gift drawer style boxes with insert",
+   "category": "tray",
+   "source_num": "128150",
+   "preset_id": "import-tray-128150",
+   "locked_dims": {
+    "lengthMm": 100,
+    "widthMm": 80,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-tray-180011",
+   "title": "Triangle pizza tray box",
+   "category": "tray",
+   "source_num": "180011",
+   "preset_id": "import-tray-180011",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 210,
+    "heightMm": 45
+   }
+  },
+  {
+   "template_key": "fixed-tray-360210",
+   "title": "long sleeve gift drawer box",
+   "category": "tray",
+   "source_num": "360210",
+   "preset_id": "import-tray-360210",
+   "locked_dims": {
+    "lengthMm": 300,
+    "widthMm": 80,
+    "heightMm": 80
+   }
+  },
+  {
+   "template_key": "fixed-tray-36021002",
+   "title": "Fragrance discovery set",
+   "category": "tray",
+   "source_num": "36021002",
+   "preset_id": "import-tray-36021002",
+   "locked_dims": {
+    "lengthMm": 300,
+    "widthMm": 80,
+    "heightMm": 80
+   }
+  },
+  {
+   "template_key": "fixed-tray-362010",
+   "title": "Jewellery drawer box",
+   "category": "tray",
+   "source_num": "362010",
+   "preset_id": "import-tray-362010",
+   "locked_dims": {
+    "lengthMm": 180,
+    "widthMm": 100,
+    "heightMm": 40
+   }
+  },
+  {
+   "template_key": "fixed-tray-362030",
+   "title": "Double door open gift boxes",
+   "category": "tray",
+   "source_num": "362030",
+   "preset_id": "import-tray-362030",
+   "locked_dims": {
+    "lengthMm": 200,
+    "widthMm": 200,
+    "heightMm": 50
+   }
+  },
+  {
+   "template_key": "fixed-tray-610330",
+   "title": "Sleeve and tray jewelry box",
+   "category": "tray",
+   "source_num": "610330",
+   "preset_id": "import-tray-610330",
+   "locked_dims": {
+    "lengthMm": 60,
+    "widthMm": 29,
+    "heightMm": 59
    }
   }
  ]

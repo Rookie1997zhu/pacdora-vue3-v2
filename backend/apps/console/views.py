@@ -70,14 +70,18 @@ class OverviewView(APIView):
         except Exception as exc:  # noqa: BLE001
             geom_detail = str(exc)
 
+        export_agg = ExportJob.objects.aggregate(
+            exports_24h=Count('id', filter=Q(created_at__gte=since)),
+            export_failed=Count('id', filter=Q(status=ExportJob.Status.FAILED)),
+        )
         data = {
             'since': since.isoformat(),
             'counts': {
                 'designs_24h': Design.objects.filter(created_at__gte=since).count(),
-                'exports_24h': ExportJob.objects.filter(created_at__gte=since).count(),
+                'exports_24h': export_agg['exports_24h'],
                 'orders_24h': Order.objects.filter(created_at__gte=since).count(),
                 'quotes_24h': Quote.objects.filter(created_at__gte=since).count(),
-                'export_failed': ExportJob.objects.filter(status=ExportJob.Status.FAILED).count(),
+                'export_failed': export_agg['export_failed'],
                 'ai_failed': AiJob.objects.filter(status=AiJob.Status.FAILED).count(),
                 'acquisition_failed': AcquisitionJob.objects.filter(status=AcquisitionJob.Status.FAILED).count(),
             },

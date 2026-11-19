@@ -7,6 +7,8 @@ import {sizeArrowDataFromBounds} from './dimAnnotations.js'
 import {BLEED_EXTRA_MM,expandBleedLoops} from './knife.js'
 import {publicAssetUrl} from './assetUrl.js'
 import {commandsToPathData,pathCommandsFromLoop} from './geom/flattenPath.js'
+import {sampleSvgArc} from './geom/arcSample.js'
+import LAYER_ASSEMBLY_REF from './catalog/layerAssemblyRef.js'
 
 const cache=new Map()
 const inflight=new Map()
@@ -61,17 +63,9 @@ export function cmdsToPolyline(cmds,{arcSegs=10}={}){
     }else if(c.mtd==='L'){
       cx=c.x;cy=c.y;if(started)push(cx,cy)
     }else if(c.mtd==='A'){
-      const x1=cx,y1=cy,x2=c.x,y2=c.y
-      const rx=Math.max(1e-6,Number(c.rx)||0)
-      const mx=(x1+x2)/2,my=(y1+y2)/2
-      const dx=x2-x1,dy=y2-y1
-      const len=Math.hypot(dx,dy)||1
-      const nx=-dy/len,ny=dx/len
-      const bulge=Math.min(rx,Number(c.ry)||rx)*(c.dir?1:-1)*.55
-      for(let i=1;i<=arcSegs;i++){
-        const t=i/arcSegs
-        push((1-t)*(1-t)*x1+2*(1-t)*t*(mx+nx*bulge)+t*t*x2,(1-t)*(1-t)*y1+2*(1-t)*t*(my+ny*bulge)+t*t*y2)
-      }
+      const x2=c.x,y2=c.y
+      // 按真实圆弧取点（large-arc = arc，sweep = dir），不再用二次曲线近似
+      for(const q of sampleSvgArc(cx,cy,x2,y2,c.rx,c.ry,c.ang,c.arc,c.dir,Math.max(4,arcSegs>>1)))push(q[0],q[1])
       cx=x2;cy=y2
     }else if(c.mtd==='Q'){
       const x1=cx,y1=cy,qx=c.cx,qy=c.cy,x2=c.x,y2=c.y
@@ -124,6 +118,135 @@ function pickLayer(j){
   return keys.length?j.layer[keys[0]]:null
 }
 
+const SHEET_GAP_MM=24
+const X_KEYS=['x','cx','cx1','cx2','x1','x2']
+const Y_KEYS=['y','cy','cy1','cy2','y1','y2']
+
+function shiftPoint(o,dx,dy){
+  if(!o||typeof o!=='object')return o
+  const out={...o}
+  for(const k of X_KEYS)if(typeof out[k]==='number')out[k]+=dx
+  for(const k of Y_KEYS)if(typeof out[k]==='number')out[k]+=dy
+  return out
+}
+
+function shiftHole(h,dx,dy){
+  if(Array.isArray(h))return h.map(c=>shiftPoint(c,dx,dy))
+  if(h&&Array.isArray(h.dlist))return {...h,dlist:h.dlist.map(c=>shiftPoint(c,dx,dy))}
+  return h
+}
+
+/** `Parent_Child` 折线名按改名表重写（与 parseFoldName 同一拆法） */
+function renameFoldName(name,rename){
+  const s=String(name||'')
+  const i=s.indexOf('_')
+  if(i<=0||i>=s.length-1)return name
+  const a=s.slice(0,i),b=s.slice(i+1)
+  return `${rename.get(a)||a}_${rename.get(b)||b}`
+}
+
+/**
+ * 多层盒（精品盒：面纸 + 灰板，天盖 / 地盖 / 围框……）：每层是一张独立的刀版，坐标各自从 0 起。
+ * 把所有图层排到同一张版面上（按官方图层顺序，从左到右换行），合成一层交给后面的回放流程。
+ * 跨层重名的面片加 `~层序号` 后缀，折线名与折叠动画同步改名。
+ */
+function mergeSheetLayers(raw){
+  const order=(raw?.modeCate?.layerList||[]).map(l=>l?.name).filter(Boolean)
+  const info=new Map((raw?.modeCate?.layerList||[]).map(l=>[l?.name,l]))
+  const names=Object.keys(raw.layer).filter(n=>Array.isArray(raw.layer[n]?.faces)&&raw.layer[n].faces.length)
+  names.sort((a,b)=>{
+    const ia=order.indexOf(a),ib=order.indexOf(b)
+    return (ia<0?1e6:ia)-(ib<0?1e6:ib)
+  })
+  if(!names.length)return null
+  if(names.length===1)return raw.layer[names[0]]
+
+  const sizes=names.map(n=>{
+    const ly=raw.layer[n]
+    let w=Number(ly.totalX)||0,h=Number(ly.totalY)||0
+    for(const f of ly.faces){w=Math.max(w,(Number(f.x)||0)+(Number(f.w)||0));h=Math.max(h,(Number(f.y)||0)+(Number(f.h)||0))}
+    return {w,h}
+  })
+  const area=sizes.reduce((t,z)=>t+(z.w+SHEET_GAP_MM)*(z.h+SHEET_GAP_MM),0)
+  const rowLimit=Math.max(...sizes.map(z=>z.w),Math.sqrt(area)*1.35)
+
+  const out={faces:[],folds:[],cuts:[],bleeds:[],holes:[],pieces:[],animation:{groups:[],animations:[]}}
+  const used=new Set()
+  let cx=0,cy=0,rowH=0,totalX=0,totalY=0
+  names.forEach((name,idx)=>{
+    const ly=raw.layer[name]
+    const {w,h}=sizes[idx]
+    if(cx>0&&cx+w>rowLimit){cx=0;cy+=rowH+SHEET_GAP_MM;rowH=0}
+    const dx=cx,dy=cy
+    const rename=new Map()
+    for(const f of ly.faces)if(used.has(f.name))rename.set(f.name,`${f.name}~${idx+1}`)
+    for(const f of ly.faces)used.add(rename.get(f.name)||f.name)
+    const fold=n=>rename.size?renameFoldName(n,rename):n
+    for(const f of ly.faces){
+      out.faces.push({
+        ...f,
+        name:rename.get(f.name)||f.name,
+        x:(Number(f.x)||0)+dx,
+        y:(Number(f.y)||0)+dy,
+        dlist:(f.dlist||[]).map(c=>{
+          const o=shiftPoint(c,dx,dy)
+          if(o.foldline)o.foldline=fold(o.foldline)
+          return o
+        }),
+        holes:Array.isArray(f.holes)?f.holes.map(hh=>shiftHole(hh,dx,dy)):f.holes
+      })
+    }
+    for(const fo of ly.folds||[])out.folds.push({...shiftPoint(fo,dx,dy),name:fold(fo.name)})
+    for(const c of ly.cuts||[])out.cuts.push(shiftPoint(c,dx,dy))
+    for(const c of ly.bleeds||[])out.bleeds.push(shiftPoint(c,dx,dy))
+    for(const hh of ly.holes||[])out.holes.push(shiftHole(hh,dx,dy))
+    ;(ly.animation?.animations||[]).forEach((stage,i)=>{
+      const dst=out.animation.animations[i]||(out.animation.animations[i]=[])
+      for(const st of stage||[]){
+        if(!st)continue
+        // 整件动作（平移 / 翻转）的 name 是面名，折叠的 name 是 父_子
+        const whole=st.action==='translate'||st.action==='rotateMesh'
+        const nm=rename.size&&st.name?(whole?(rename.get(st.name)||st.name):fold(st.name)):st.name
+        dst.push(nm===st.name?st:{...st,name:nm})
+      }
+    })
+    const meta=info.get(name)||{}
+    out.pieces.push({
+      id:name,
+      label:String(meta.friendlyName||name),
+      labelEn:String(meta.friendlyName_en||name),
+      grey:!!meta.isGrey,
+      thickness:Number(ly.thickness)||0,
+      x:dx,y:dy,w,h,
+      // 灰板：官方的 3D 成品里只有面纸层，灰板不单独展示（被面纸包住），装配后隐藏
+      inert:!!meta.isGrey,
+      // 官方装配位姿：把这一层（各自的刀版坐标）摆到成品盒里的位置与朝向
+      transform:ly.transform&&ly.transform.position&&ly.transform.rotate
+        ?{position:{...ly.transform.position},rotate:{...ly.transform.rotate}}
+        :null
+    })
+    cx+=w+SHEET_GAP_MM
+    rowH=Math.max(rowH,h)
+    totalX=Math.max(totalX,dx+w)
+    totalY=Math.max(totalY,dy+h)
+  })
+  const grey=out.pieces.find(pc=>pc.grey)
+  out.thickness=grey?.thickness||Number(raw.layer[names[0]].thickness)||0
+  out.bleedline=Number(raw.layer[names[0]].bleedline)||0
+  out.totalX=totalX
+  out.totalY=totalY
+  return out
+}
+
+/** 回放用的图层：单层取其本身；多层合成一张版面 */
+function replayLayer(raw){
+  if(!raw?.layer)return null
+  if(raw.layer.traditional)return raw.layer.traditional
+  const keys=Object.keys(raw.layer)
+  if(keys.length<=1)return pickLayer(raw)
+  return mergeSheetLayers(raw)||pickLayer(raw)
+}
+
 function parseFoldName(name){
   const s=String(name||'').trim()
   if(!s||s==='x'||s==='X')return null
@@ -172,10 +295,23 @@ function buildHoles(ly){
       holes.push({face:f.name,loop,pathCommands:cmds,path:pathFromCmds(cmds)})
     }
   }
+  // 同一个孔常在 faces[].holes 与 layer.holes 里各登记一次：按包围盒去重
+  const seen=new Set()
+  const boxKey=loop=>{
+    let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity
+    for(const p of loop){x0=Math.min(x0,p[0]);y0=Math.min(y0,p[1]);x1=Math.max(x1,p[0]);y1=Math.max(y1,p[1])}
+    return [x0,y0,x1,y1].map(v=>Math.round(v*2)/2).join(',')
+  }
+  for(const h of holes)seen.add(boxKey(h.loop))
   for(const h of ly.holes||[]){
     const cmds=Array.isArray(h)?h:(h.dlist||[])
     if(!cmds.length)continue
-    holes.push({face:h.face||null,loop:cmdsToPolyline(cmds),pathCommands:cmds,path:pathFromCmds(cmds)})
+    const loop=cmdsToPolyline(cmds)
+    if(loop.length<3)continue
+    const k=boxKey(loop)
+    if(seen.has(k))continue
+    seen.add(k)
+    holes.push({face:h.face||null,loop,pathCommands:cmds,path:pathFromCmds(cmds)})
   }
   return holes
 }
@@ -212,7 +348,7 @@ function connectedComponents(faceNames,folds){
  * @param {{sourceNum?:string,label?:string,length?:number,width?:number,height?:number,thickness?:number}} meta
  */
 export function knifeFromPacdoraGeom(raw,meta={}){
-  const ly=pickLayer(raw)
+  const ly=replayLayer(raw)
   if(!ly?.faces?.length)throw new Error('pacdora geom: no faces')
 
   const angleMap=angleMapFromAnimation(ly)
@@ -291,15 +427,21 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     name:fo.name,
     x1:fo.x1,y1:fo.y1,x2:fo.x2,y2:fo.y2
   })).filter(fo=>parseFoldName(fo.name)||fo.name) // 保留几何折线供 2D；无效名仍画线
+    // 多片式盒型用零长度的"折线"标记两片的拼接位置（名称如 H_R），只供上面的面片父子关系/3D 拼装使用；
+    // 它不是压痕，坐标还可能落在轮廓之外，不进入 2D 画布、压痕图层和导出文件
+    .filter(fo=>!(Number.isFinite(fo.x1)&&Number.isFinite(fo.x2)&&Math.hypot(fo.x2-fo.x1,fo.y2-fo.y1)<0.01))
 
   const cutSubs=splitCmdsIntoSubpaths(ly.cuts||[])
   const bleedSubs=splitCmdsIntoSubpaths(ly.bleeds||[])
   const cutPaths=cutSubs.map(pathFromCmds).filter(Boolean)
   // 官方 bleed 再等距外扩默认 +10mm（紧贴的多件先合并）
-  const bleedLoops=expandBleedLoops(
-    bleedSubs.map(sub=>cmdsToPolyline(sub,{arcSegs:8})),
-    BLEED_EXTRA_MM
-  )
+  // 没有官方出血线（按尺寸插值的刀版不带）：用面片轮廓的并集外扩「官方出血 + 预览加宽」
+  const bleedLoops=bleedSubs.length
+    ?expandBleedLoops(bleedSubs.map(sub=>cmdsToPolyline(sub,{arcSegs:8})),BLEED_EXTRA_MM)
+    :expandBleedLoops(
+      faces.map(f=>Array.isArray(f.outline)&&f.outline.length>=3?f.outline:[[f.x,f.y],[f.x+f.w,f.y],[f.x+f.w,f.y+f.h],[f.x,f.y+f.h]]),
+      (Number(ly.bleedline)||5)+BLEED_EXTRA_MM
+    )
   const bleedPaths=bleedLoops.map(loop=>{
     if(!loop.length)return ''
     return loop.map((p,i)=>`${i?'L':'M'} ${p[0]} ${p[1]}`).join(' ')+' Z'
@@ -323,7 +465,11 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     return segs
   })
 
-  const foldStages=foldStagesFromAnimation(ly?.animation?.animations)
+  // 多层盒：与官方 3D 结果对照得到的装配数据（步数、各层每一步的位置修正），没有则为 null
+  const assemblyRef=ly.pieces?(LAYER_ASSEMBLY_REF[String(meta.sourceNum||raw.cate_no||'')]||null):null
+  // 各层动画已按步号合并；所有层都为空的步，官方同样会跳过
+  let foldStages=foldStagesFromAnimation(ly?.animation?.animations)
+  if(assemblyRef?.stages&&foldStages.length>assemblyRef.stages)foldStages=foldStages.slice(0,assemblyRef.stages)
   const axisByChild={}
   for(const stage of foldStages)for(const s of stage){
     if(s.child&&s.vector&&!axisByChild[s.child])axisByChild[s.child]=s.vector
@@ -399,6 +545,11 @@ export function knifeFromPacdoraGeom(raw,meta={}){
       components:comps.length
     },
     animation:ly.animation||{groups:[],animations:foldStages},
+    // 多层盒：版面上各件的位置与名称（地盖面纸、天盖灰板……），单层为 null
+    sheetPieces:ly.pieces||null,
+    assemblyRef:meta.noAssemblyRef?null:assemblyRef,
+    // 官方标称的成品外尺寸：3D 装配后用它自检（对不上就退回散件视图）
+    assemblyOuter:ly.pieces&&raw.outSize?{L:Number(raw.outSize.L)||0,W:Number(raw.outSize.W)||0,H:Number(raw.outSize.H)||0}:null,
     sizeArrowData:sizeArrowDataFromBounds(
       {minX,minY,maxX,maxY},
       {length:L,width:W,height:H,sizeMode:'inner'}
@@ -447,20 +598,22 @@ async function fetchGeomJson(num,meta={}){
 export async function loadPacdoraGeomKnife(sourceNum,meta={}){
   const num=String(sourceNum||'')
   if(!num)throw new Error('missing sourceNum')
-  if(cache.has(num))return cache.get(num)
-  if(inflight.has(num))return inflight.get(num)
+  // 同一编号在不同类目里可能是不同刀版：指定了文件就按文件缓存
+  const key=meta.geomPublicRel?`${num}@${String(meta.geomPublicRel).replace(/^\/+/,'')}`:num
+  if(cache.has(key))return cache.get(key)
+  if(inflight.has(key))return inflight.get(key)
   const p=fetchGeomJson(num,meta)
     .then(raw=>{
       const knife=knifeFromPacdoraGeom(raw,{...meta,sourceNum:num})
-      cache.set(num,knife)
-      inflight.delete(num)
+      cache.set(key,knife)
+      inflight.delete(key)
       return knife
     })
     .catch(err=>{
-      inflight.delete(num)
+      inflight.delete(key)
       throw err
     })
-  inflight.set(num,p)
+  inflight.set(key,p)
   return p
 }
 

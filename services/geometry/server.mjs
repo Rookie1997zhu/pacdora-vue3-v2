@@ -9,6 +9,18 @@ const geomSchemaRoot = join(repoRoot, 'packages', 'geometry-schema')
 
 const {createKnife} = await import(pathToFileURL(join(srcRoot, 'knife.js')).href)
 const {TEMPLATES} = await import(pathToFileURL(join(srcRoot, 'templates', 'index.js')).href)
+const {knifeFromPacdoraGeom} = await import(pathToFileURL(join(srcRoot, 'pacdoraGeomKnife.js')).href)
+const {readFileSync, existsSync} = await import('node:fs')
+
+// Fixed-snapshot products replay a captured reference dieline as is: `fixed-<num>` (shipping,
+// legacy) or `fixed-<category>-<num>`. The geometry file ships with the image under public/.
+const FIXED_TEMPLATE_RE = /^fixed-(?:(shipping|mailer|gift|square|folding|tray)-)?(\d+)$/
+function fixedGeomFile(templateId) {
+  const m = FIXED_TEMPLATE_RE.exec(templateId)
+  if (!m) return null
+  const file = join(repoRoot, 'public', `${m[1] || 'shipping'}-geom`, `${m[2]}.json`)
+  return existsSync(file) ? {file, sourceNum: m[2]} : null
+}
 const {toDxf, toSvgDieline, toPdf, toAi} = await import(
   pathToFileURL(join(srcRoot, 'exportDieline.js')).href
 )
@@ -16,6 +28,11 @@ const {
   geometryDocumentFromKnife,
   isTrustedUnit,
 } = await import(pathToFileURL(join(geomSchemaRoot, 'geometryDocument.mjs')).href)
+// Material profiles (kraft-250, flute-e, …) are what the workbench saves; the engine itself only
+// knows kraft|white|blue. Unknown ids are passed through so strict mode still rejects them.
+const {getMaterialProfile} = await import(
+  pathToFileURL(join(repoRoot, 'packages', 'geometry-engine', 'materialProfiles.js')).href
+)
 const {
   assertEngineeringDomain,
   checkEngineeringDomain,
@@ -107,7 +124,8 @@ function requireNumber(name, value) {
 /** Normalize request body once for validate + export. */
 function normalizeGeometryInput(body) {
   const templateId = String(body.template_id || body.templateId || '').trim()
-  if (!templateId || !TEMPLATES[templateId]) {
+  const fixed = templateId ? fixedGeomFile(templateId) : null
+  if (!templateId || (!TEMPLATES[templateId] && !fixed)) {
     const err = new Error('unknown template_id')
     err.code = 'UNKNOWN_TEMPLATE'
     throw err
@@ -124,12 +142,13 @@ function normalizeGeometryInput(body) {
     throw err
   }
   const fluteDirection = body.flute_direction || body.fluteDirection || 'L'
-  const materialId = body.material_id || body.materialId || 'kraft'
+  const rawMaterialId = body.material_id || body.materialId || 'kraft'
+  const materialId = getMaterialProfile(rawMaterialId)?.engineMaterialId || rawMaterialId
   const params = body.params && typeof body.params === 'object' ? body.params : {}
   // Multi-piece templates (lid + base, inserts…): which piece to generate. Unknown ids are rejected.
   const pieceRaw = body.piece_id ?? body.pieceId ?? null
   const pieceId = pieceRaw == null || pieceRaw === '' ? null : String(pieceRaw)
-  if (pieceId != null) {
+  if (pieceId != null && !fixed) {
     const pieces = Array.isArray(TEMPLATES[templateId].pieces) ? TEMPLATES[templateId].pieces : []
     if (!pieces.some((p) => p.id === pieceId)) {
       const err = new Error('unknown piece_id')
@@ -139,7 +158,7 @@ function normalizeGeometryInput(body) {
     }
   }
   const unitConfidence = String(body.unit_confidence || body.unitConfidence || 'trusted')
-  const template = TEMPLATES[templateId]
+  const template = TEMPLATES[templateId] || {}
   const limits = template.limits || {}
   for (const [key, val, label] of [
     ['length', lengthMm, 'length_mm'],
@@ -158,6 +177,7 @@ function normalizeGeometryInput(body) {
   }
   return {
     templateId,
+    fixed,
     lengthMm,
     widthMm,
     heightMm,
@@ -182,6 +202,28 @@ function normalizeGeometryInput(body) {
 
 /** Single knife build shared by validate and export. */
 function generateOnce(input) {
+  if (input.fixed) {
+    // Replay of the captured reference dieline (size is locked; all layers on one sheet)
+    const raw = JSON.parse(readFileSync(input.fixed.file, 'utf8'))
+    const knife = knifeFromPacdoraGeom(raw, {
+      sourceNum: input.fixed.sourceNum,
+      label: input.templateId,
+      length: input.lengthMm,
+      width: input.widthMm,
+      height: input.heightMm,
+      thickness: input.thicknessMm,
+    })
+    // Windows and hang holes are kept apart from the outline in the replay knife; exported files
+    // need them on the cut layer.
+    const holeCuts = (knife.holes || []).map((h) => h.pathCommands).filter((c) => Array.isArray(c) && c.length)
+    if (holeCuts.length) {
+      const trim = [...(knife.paths?.trim || []), ...holeCuts]
+      knife.paths = {...knife.paths, trim}
+      if (knife.layers?.trim) knife.layers = {...knife.layers, trim: {...knife.layers.trim, paths: trim}}
+    }
+    const doc = geometryDocumentFromKnife(knife, {...input, source: 'pacdora-geom', lockedSample: true})
+    return {knife, doc, input}
+  }
   const knife = createKnife({
     templateId: input.templateId,
     length: input.lengthMm,

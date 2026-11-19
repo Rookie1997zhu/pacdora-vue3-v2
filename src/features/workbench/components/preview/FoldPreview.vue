@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useKnifeStore } from '../../stores/knife'
 import { useWorkbenchStore } from '../../stores/workbench'
@@ -13,6 +13,24 @@ const host = ref<HTMLElement | null>(null)
 const progress = ref(100)
 const webglOk = ref(true)
 const stageLabel = ref('')
+/**
+ * Per-box 3D gate: when the template's fold does not match the reference sample, show the
+ * reference sample's own fold (fixed size) rather than a wrong-looking box.
+ */
+const referenceKnife = ref<any>(null)
+const usingReference = computed(() => !!wb.manifest?.fold3dReference && !!referenceKnife.value)
+async function loadReference() {
+  const src = wb.manifest?.fold3dReference
+  referenceKnife.value = null
+  if (!src) return
+  try {
+    const { loadPacdoraGeomKnife } = await import('../../../../pacdoraGeomKnife.js')
+    const k = await loadPacdoraGeomKnife(src.sourceNum, { geomPublicRel: src.geomPublicRel })
+    if (wb.manifest?.fold3dReference?.sourceNum === src.sourceNum) referenceKnife.value = k
+  } catch (err) {
+    console.warn('reference 3D unavailable', err)
+  }
+}
 let scene: any = null
 let rebuildTimer: ReturnType<typeof setTimeout> | null = null
 let ready = false
@@ -31,6 +49,7 @@ async function init() {
       onPanelSelect: (name: string) => wb.setHover({ face: name || null }),
     })
     ready = true
+    await loadReference()
     await applyKnife(true)
     scene.setProgress(progress.value)
   } catch (err) {
@@ -42,7 +61,7 @@ async function init() {
 async function applyKnife(immediate = false) {
   if (!scene || !ready) return
   const run = async () => {
-    const k = knifeStore.displayKnife
+    const k = usingReference.value ? referenceKnife.value : knifeStore.displayKnife
     if (!k) return
     const t0 = performance.now()
     const mid = resolveEngineMaterialId(wb.params.materialId)
@@ -64,11 +83,12 @@ async function applyKnife(immediate = false) {
 }
 
 watch(() => knifeStore.displayKnife, () => applyKnife(false))
+watch(() => wb.manifest?.fold3dReference?.sourceNum, async () => { await loadReference(); void applyKnife(true) })
 watch(() => wb.params.materialId, () => applyKnife(true))
 watch(progress, (p) => {
   scene?.setProgress(p)
   // Boxes with a fold recipe animate by the recipe's own steps
-  const k = knifeStore.displayKnife
+  const k = usingReference.value ? referenceKnife.value : knifeStore.displayKnife
   const stages = (k?.fold3d?.stages?.length ? k.fold3d.stages : k?.foldStages) || []
   const idx = stageIndexAt(p / 100, stages.length || 1)
   // stageIndexAt returns { now, total }
@@ -100,6 +120,7 @@ onBeforeUnmount(() => {
     </header>
     <div v-if="!webglOk" class="fallback">{{ t('workbench.webglUnavailable') }}</div>
     <div v-show="webglOk" ref="host" class="host" />
+    <p v-if="usingReference" class="ref-note">{{ t('workbench.fold3dReferenceNote') }}</p>
     <div class="slider">
       <span>{{ t('workbench.unfolded') }}</span>
       <input v-model.number="progress" type="range" min="0" max="100" step="1" />
@@ -110,6 +131,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.ref-note{margin:0;padding:6px 10px;font-size:12px;color:#92400e;background:#fffbeb;border-top:1px solid #fde68a}
 .preview{
   display:flex;flex-direction:column;background:#eef1f4;border:1px solid var(--bc-line);
   border-radius:12px;overflow:hidden;min-height:240px

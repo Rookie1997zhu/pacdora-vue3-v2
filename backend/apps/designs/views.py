@@ -81,9 +81,12 @@ class DesignListCreateView(APIView):
                 'default_template',
                 'default_template_version',
             ).first()
-            if not product:
-                return fail('产品不存在', code='NOT_FOUND', request=request, http_status=404)
         initial = request.data.get('content')
+        if product_slug and not product and initial is None:
+            # Without content the product is needed for its default template and params.
+            # With content (workbench: folding / tray templates have no catalogue product) the
+            # design carries its own templateId, which save_revision validates.
+            return fail('产品不存在', code='NOT_FOUND', request=request, http_status=404)
         client_geometry_hash = request.data.get('client_geometry_hash')
         if initial is None and product:
             ver = product.default_template_version or product.default_template.versions.filter(is_current=True).first()

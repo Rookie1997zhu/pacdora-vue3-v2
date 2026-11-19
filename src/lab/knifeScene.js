@@ -299,7 +299,9 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     }
     const r=Math.max(sphere.radius,20)
     const fov=camera.fov||38
-    const dist=r/Math.sin((fov*Math.PI/180)/2)*1.15
+    // 竖长的视口按水平视角取景，避免模型左右被裁
+    const aspect=Math.min(1,camera.aspect||1)
+    const dist=r/Math.sin((fov*Math.PI/180)/2)*1.15/Math.max(aspect,0.35)
     const dir=new THREE.Vector3(0.8,-0.9,1).normalize()
     camera.position.copy(center).addScaledVector(dir,dist)
     if(controls){
@@ -349,6 +351,8 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
       applySelectedHighlight()
       controls?.update()
       resetView()
+      // 回放类刀版位于刀版坐标处而非原点；首帧尺寸未稳定时的取景会落空，下一帧再对准一次
+      if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>{if(!disposed)resetView()})
     },
     setProgress(pct){
       progress=Math.max(0,Math.min(1,Number(pct)/100))

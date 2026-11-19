@@ -106,7 +106,7 @@ export function buildDepthFoldStages(faces,hinges){
  * 旋转步：{child, rotate, vector}；平移步：{face, move:{x,y,z}}（刀版坐标系，y 向下）。
  * 多件款靠平移步把另一块刀版搬到拼合位置。
  */
-export function foldStagesFromAnimation(animations){
+export function foldStagesFromAnimation(animations,{keepEmpty=false}={}){
   const stages=[]
   if(!Array.isArray(animations))return stages
   for(const stage of animations){
@@ -124,6 +124,15 @@ export function foldStagesFromAnimation(animations){
         steps.push({face:name,move:{x:vx/len*amt,y:vy/len*amt,z:vz/len*amt}})
         continue
       }
+      if(step.action==='rotateMesh'){
+        // 整件翻转：绕过该面中心、方向为 vector 的轴转 rotate 度
+        const deg=Number(step.rotate)
+        const vx=Number(v.x)||0,vy=Number(v.y)||0,vz=Number(v.z)||0
+        const len=Math.hypot(vx,vy,vz)
+        if(!Number.isFinite(deg)||len<1e-12)continue
+        steps.push({face:name,spin:{x:vx/len,y:vy/len,z:vz/len,deg}})
+        continue
+      }
       const i=name.indexOf('_')
       if(i<=0||i>=name.length-1)continue
       const child=name.slice(i+1)
@@ -131,7 +140,8 @@ export function foldStagesFromAnimation(animations){
       if(!child||!Number.isFinite(rot))continue
       steps.push({child,rotate:rot,vector:{x:Number(v.x)||0,y:Number(v.y)||0,z:Number(v.z)||0}})
     }
-    if(steps.length)stages.push(steps)
+    // keepEmpty：多层盒各层的动画按步号对齐，空步不能丢
+    if(steps.length||keepEmpty)stages.push(steps)
   }
   return stages
 }
@@ -141,6 +151,29 @@ export function translatedFaces(foldStages){
   const set=new Set()
   for(const stage of foldStages||[])for(const s of stage||[])if(s?.face&&s.move)set.add(s.face)
   return set
+}
+
+/**
+ * @returns {Map<string,Array<{x:number,y:number,z:number,rad:number}>>} face → 依次施加的整件翻转（刀版坐标轴）
+ */
+export function spinsAtProgress(foldStages,t){
+  const map=new Map()
+  if(!Array.isArray(foldStages)||!foldStages.length)return map
+  const n=foldStages.length
+  const clamped=Math.max(0,Math.min(1,Number(t)||0))
+  const u=clamped*n
+  const si=clamped>=1?n:Math.min(n-1,Math.floor(u))
+  const local=clamped>=1?1:smoothstep(u-si)
+  for(let i=0;i<n;i++){
+    const w=i<si?1:(i===si?local:0)
+    if(w===0)continue
+    for(const s of foldStages[i]||[]){
+      if(!s?.face||!s.spin)continue
+      if(!map.has(s.face))map.set(s.face,[])
+      map.get(s.face).push({x:s.spin.x,y:s.spin.y,z:s.spin.z,rad:s.spin.deg*w*Math.PI/180})
+    }
+  }
+  return map
 }
 
 /**

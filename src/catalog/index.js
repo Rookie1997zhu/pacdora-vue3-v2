@@ -2,9 +2,11 @@ import data from './presets.js'
 import {TEMPLATES} from '../templates/index.js'
 import {OFFICIAL_SUBCLASS_DEFS} from './officialSubclasses.js'
 import {koSearchAliases,CATALOG_KO} from '../i18n/catalogKo.js'
+import {isExcludedPreset} from './excludedPresets.js'
 
 export const PRESET_CATALOG=data
-export const PRESETS=Object.freeze(data.presets||[])
+/** 不含 excludedPresets.js 里剔除的盒型（没有折线、无法折成纸盒的样机） */
+export const PRESETS=Object.freeze((data.presets||[]).filter(p=>!isExcludedPreset(p.id)))
 
 /** 粗分类 — 导入目录：运输箱 + 邮寄盒 + 礼盒 + 方形盒 + 折叠盒 + 托盘盒 */
 export const IMPORT_CATEGORIES=Object.freeze(
@@ -15,14 +17,14 @@ export const IMPORT_CATEGORIES=Object.freeze(
     {id:'square',label:'方形盒'},
     {id:'folding',label:'折叠盒'},
     {id:'tray',label:'托盘盒'},
-  ]).map(c=>({...c,count:c.count??PRESETS.filter(p=>p.categoryId===c.id).length}))
+  ]).map(c=>({...c,count:PRESETS.filter(p=>p.categoryId===c.id).length}))
 )
 
 /** Pacdora 风格官方盒子子类（导入目录细分；一条可属多个） */
 export const OFFICIAL_SUBCLASSES=Object.freeze(
   (data.officialSubclasses||OFFICIAL_SUBCLASS_DEFS.map(d=>({...d,count:0}))).map(c=>({
     ...c,
-    count:c.count??PRESETS.filter(p=>(p.subclassIds||[]).includes(c.id)).length
+    count:PRESETS.filter(p=>(p.subclassIds||[]).includes(c.id)).length
   }))
 )
 

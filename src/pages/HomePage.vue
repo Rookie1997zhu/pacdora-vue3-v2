@@ -211,11 +211,11 @@ const howSteps = computed(() => [
 
 onMounted(async () => {
   const [prodRes, blogRes] = await Promise.allSettled([
-    fetchProducts(),
+    fetchProducts({ page_size: 12 }),
     fetchBlogPosts({ page_size: 3, locale: locale.value }),
   ])
   if (prodRes.status === 'fulfilled') {
-    products.value = prodRes.value
+    products.value = prodRes.value.items
   } else {
     productsError.value = prodRes.reason instanceof Error ? prodRes.reason.message : t('studio.loadFailed')
   }

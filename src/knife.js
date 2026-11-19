@@ -1,6 +1,7 @@
 // Independent demonstrator geometry. Millimetres throughout. Not a manufacturing dieline.
 // 引擎：模板只给出面板矩形与补偿规则，这里统一生成裁切/压线/出血、铰链与校验。
 import polygonClipping from 'polygon-clipping'
+import {createSampledKnife} from './templates/sampled/sampledTemplate.js'
 import {orderFaces,validateKnife} from './knifeContract.js'
 import {getTemplate,TEMPLATES} from './templates/index.js'
 import {buildDepthFoldStages} from './foldStages.js'
@@ -1128,7 +1129,7 @@ export function createKnife({
   const strictMode=!!(strict||production)
   const tid=String(templateId||'').trim()
   // 结构规格模板在浏览器端按需加载；未注册时不得回退成默认模板（会悄悄画出另一种盒子）
-  if(tid.startsWith('spec-')&&!TEMPLATES[tid]){
+  if((tid.startsWith('spec-')||tid.startsWith('sampled-'))&&!TEMPLATES[tid]){
     const err=new Error(`template ${tid} is not loaded; await ensureTemplate() first`)
     err.code='TEMPLATE_NOT_LOADED'
     throw err
@@ -1139,6 +1140,25 @@ export function createKnife({
       err.code='UNKNOWN_TEMPLATE'
       throw err
     }
+  }
+  // 「按尺寸插值」模板：在官方多尺寸采样之间插值，不走参数化排版
+  if(TEMPLATES[tid]?.sampled){
+    const st=TEMPLATES[tid]
+    const fb=st.sampledFallback&&TEMPLATES[st.sampledFallback]?st.sampledFallback:null
+    const sk=createSampledKnife(st,{length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,allowFallback:!!fb})
+    if(sk)return sk
+    // 尺寸超出采样范围：退回原来的参数化模板（近似推算），并明确标出
+    const approx=createKnife({
+      templateId:fb,length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,piece,lidClearance,
+      params:paramOverrides,strict,production,previewBleedExtra,thicknessMinMm,
+    })
+    approx.template=tid
+    approx.meta={...(approx.meta||{}),sizeOutOfSampledRange:true,fallbackTemplate:fb}
+    approx.issues=[...(approx.issues||[]),{
+      code:'SIZE_OUT_OF_VERIFIED_RANGE',severity:'warning',
+      message:'该尺寸超出与官方刀版逐一核对过的范围，刀版为近似推算',
+    }]
+    return approx
   }
   if(tid==='productbox-crashlock'){
     if(strictMode&&!TEMPLATES[tid]){

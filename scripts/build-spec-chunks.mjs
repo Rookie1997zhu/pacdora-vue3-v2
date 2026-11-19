@@ -18,6 +18,14 @@ const indexPath=join(root,'src','catalog','structureSpecIndex.js')
 const raw=readFileSync(join(root,'src','catalog','presets.js'),'utf8')
 const presets=JSON.parse(raw.replace(/^\/\*\*[\s\S]*?\*\/\s*export\s+default\s+/,'').trim()).presets||[]
 const used=new Set(presets.map(p=>p.templateId).filter(t=>typeof t==='string'&&t.startsWith('spec-')).map(t=>t.slice(5)))
+// 「按尺寸插值」模板在采样范围之外退回的结构规格也要能懒加载
+const sampledDir=join(root,'public','sampled')
+if(existsSync(sampledDir)){
+  for(const f of readdirSync(sampledDir)){
+    if(!f.endsWith('.json'))continue
+    try{const fb=JSON.parse(readFileSync(join(sampledDir,f),'utf8')).fallback;if(typeof fb==='string'&&fb.startsWith('spec-'))used.add(fb.slice(5))}catch{/* ignore */}
+  }
+}
 
 mkdirSync(outDir,{recursive:true})
 const keep=new Set()

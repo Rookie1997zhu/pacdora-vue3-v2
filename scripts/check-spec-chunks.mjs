@@ -21,7 +21,11 @@ import SPEC_INDEX from '../src/catalog/structureSpecIndex.js'
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 const dir=join(root,'public','spec')
 const byCode=new Map((specData.specs||[]).map(s=>[s.code,s]))
-const used=[...new Set(PRESETS.map(p=>p.templateId).filter(t=>typeof t==='string'&&t.startsWith('spec-')))]
+// 预设直接用到的 spec-*，以及「按尺寸插值」模板在采样范围之外退回的 spec-*
+const used=[...new Set([
+  ...PRESETS.map(p=>p.templateId),
+  ...Object.values(TEMPLATES).map(t=>t.sampledFallback),
+].filter(t=>typeof t==='string'&&t.startsWith('spec-')))]
 
 assert.ok(used.length>0,'presets reference spec templates')
 for(const id of used){

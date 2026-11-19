@@ -136,7 +136,6 @@ function onKey(e: KeyboardEvent) {
 }
 
 async function openExport() {
-  if (wb.manifest?.locked) return
   exportDrawerOpen.value = true
   await nextTick()
   exportRef.value?.requestExport()
@@ -159,7 +158,7 @@ onBeforeUnmount(() => {
     <div class="wb">
       <TopBar
         :save-status="saveStatus"
-        :on-export="wb.manifest?.locked ? undefined : openExport"
+        :on-export="openExport"
         :locked="!!wb.manifest?.locked"
         :on-checkpoint="() => checkpoint()"
       />
@@ -168,8 +167,15 @@ onBeforeUnmount(() => {
         <p v-if="geometryDrift" class="warn drift">{{ t('workbench.driftBlocked') }}</p>
         <p v-if="wb.manifest?.fidelity === 'close'" class="warn soft fidelity">{{ t('workbench.fidelityCloseNote') }}</p>
         <p v-if="wb.manifest?.locked" class="warn soft locked">{{ t('workbench.lockedNote') }}</p>
+        <p v-if="wb.manifest?.verifiedRange" class="warn soft verified">
+          {{ t(wb.manifest.sampledQuality === 'improved' ? 'workbench.improvedRangeNote' : 'workbench.verifiedRangeNote', {
+            l: wb.manifest.verifiedRange.length.join('–'),
+            w: wb.manifest.verifiedRange.width.join('–'),
+            h: wb.manifest.verifiedRange.height.join('–'),
+          }) }}
+        </p>
       </div>
-      <div class="layout" :class="{ 'with-export': !wb.manifest?.locked && exportDrawerOpen }">
+      <div class="layout" :class="{ 'with-export': exportDrawerOpen }">
         <ParamPanel class="left" />
         <div class="center">
           <div class="mobile-tabs">
@@ -197,12 +203,11 @@ onBeforeUnmount(() => {
       </div>
 
       <div
-        v-if="!wb.manifest?.locked && isNarrow && exportDrawerOpen"
+        v-if="isNarrow && exportDrawerOpen"
         class="export-backdrop"
         @click="exportDrawerOpen = false"
       />
       <aside
-        v-if="!wb.manifest?.locked"
         class="export-drawer"
         :class="{ open: exportDrawerOpen, narrow: isNarrow }"
         :aria-hidden="!exportDrawerOpen"

@@ -55,10 +55,14 @@ run('apply-structure-specs.mjs')
 run('apply-manual-map-overrides.mjs')
 // 1 面 0 折且非圆筒 → 仅 3D 样机
 run('mark-model-only.mjs')
+// 有多尺寸采样数据的盒型改用「按尺寸插值」模板（sampled-*）；数据由 build-sampled-templates.mjs 离线生成
+run('apply-sampled-templates.mjs')
 // 采集的结构参数只保留当前模板用得上的（供工作台作为初始值）
 run('prune-preset-open-params.mjs')
 // 吻合度档位（exact / close / none）：工作台只对 exact 与 close 开放定制
 run('annotate-preset-fidelity.mjs')
+// 3D 把关（ok / differs / none）：折出来与参考样本不一致的盒型，工作台 3D 改为显示参考样本
+run('annotate-preset-fold3d.mjs')
 // 浏览器端按盒型懒加载规格：public/spec/*.json + 索引
 run('build-spec-chunks.mjs')
 // 定点目录：不再写出全库审计到「未映射名单」

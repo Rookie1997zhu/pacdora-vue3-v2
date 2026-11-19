@@ -21,6 +21,7 @@ import cylinderBox from './cylinderBox.js'
 import sleeveDrawer from './sleeveDrawer.js'
 import {REA_TEMPLATES} from './rea/index.js'
 import {SPEC_TEMPLATES} from './spec/index.js'
+import {SAMPLED_TEMPLATES} from './sampled/index.js'
 
 /**
  * 模板注册表。内置与 REA 模板始终在；结构规格模板（spec-*）在 Node 端启动时全量注册，
@@ -32,7 +33,8 @@ export const TEMPLATES=Object.fromEntries(
     sleeve,drawerTray,sleeveDrawer,cylinderBox,tuckWindow,mailerAircraft,hangingTuck,pizzaClamshell,
     handleBox,magneticRigid,displayPdq,zipperTuck,polygonTray,
     ...REA_TEMPLATES,
-    ...SPEC_TEMPLATES
+    ...SPEC_TEMPLATES,
+    ...SAMPLED_TEMPLATES
   ].map(t=>[t.id,t])
 )
 
@@ -42,7 +44,8 @@ export function registerTemplate(t){
   if(!TEMPLATES[t.id])TEMPLATES[t.id]=t
   return TEMPLATES[t.id]
 }
-export const TEMPLATE_LIST=Object.freeze(Object.values(TEMPLATES))
+// 参数化模板清单；「按尺寸插值」模板（sampled-*）没有参数化排版，不在其中
+export const TEMPLATE_LIST=Object.freeze(Object.values(TEMPLATES).filter(t=>!t.sampled))
 export const DEFAULT_TEMPLATE_ID=mailerFlip.id
 
 /** 未知 id 回落到默认模板，调用方可通过 knife.template 确认实际使用的模板 */

@@ -6,6 +6,9 @@ const SIZE_MODE = { dm: 'manufacturing', id: 'inner', ed: 'outer' }
 const SIZE_MODE_REV = { manufacturing: 'dm', inner: 'id', outer: 'ed' }
 
 function num(v, fallback = null) {
+  // A key missing from the URL means "same as the default" (encodeWorkbenchUrl omits those).
+  // Number(null) and Number('') are 0, so they must not reach the conversion.
+  if (v == null || String(v).trim() === '') return fallback
   const n = Number(v)
   return Number.isFinite(n) ? n : fallback
 }

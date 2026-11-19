@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOXCRAFT 刀版工作经验总结</title>
+<style>
+  :root{--ink:#1c2428;--muted:#5d6b72;--line:#dfe5e8;--bg:#f6f8f9;--card:#fff;--accent:#0f6e68;--warn:#9a5b00;--warn-bg:#fff6e5;--ok:#17603a;--ok-bg:#e9f6ee;--bad:#9b2c2c;--bad-bg:#fdeeee}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  main{max-width:920px;margin:0 auto;padding:40px 20px 80px}
+  h1{font-size:28px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 28px}
+  h2{font-size:19px;margin:36px 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 22px 16px;margin-bottom:18px}
+  section h2{margin-top:18px}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin:6px 0}
+  code{background:#eef2f3;border-radius:4px;padding:1px 6px;font:13px/1.5 Consolas,"SF Mono",monospace;word-break:break-all}
+  .table-wrap{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}
+  th{background:#eef2f3;font-weight:600}
+  td.num{font-variant-numeric:tabular-nums}
+  .note{border-radius:8px;padding:10px 14px;margin:12px 0}
+  .note.key{background:var(--ok-bg);color:var(--ok)}
+  .note.warn{background:var(--warn-bg);color:var(--warn)}
+  .note.bad{background:var(--bad-bg);color:var(--bad)}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+  .flow span{background:#eef2f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
+  .flow span.manual{background:var(--warn-bg);border-color:#f0d9a8;color:var(--warn)}
+  .flow i{color:var(--muted);font-style:normal}
+  .lesson{color:var(--muted)}
+  .lesson b{color:var(--ink)}
+  footer{color:var(--muted);font-size:13px;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+  <h1>BOXCRAFT 刀版工作经验总结</h1>
+  <p class="sub">参数化刀版工作台 · 从“刀版不准”到“按保真度把关”的全过程 · 2026-11-18</p>
+
+  <section>
+    <h2>一、问题的根源</h2>
+    <p>最初工作台的刀版和 Pacdora 差别很大，原因只有一个：<b>爬下来的盒型只保留了长宽高，然后按关键词套了一个通用模板</b>。几百种结构被十几个通用模板“代表”，自然不准。</p>
+    <p>3D 是用刀版折出来的，刀版不准，3D 也跟着乱。</p>
+    <div class="note key">3D 错乱不用单独修，刀版对了它大部分就对了。</div>
+  </section>
+
+  <section>
+    <h2>二、最终有效的做法</h2>
+    <ol>
+      <li><b>一盒一规格。</b>不再靠人写模板，而是用编译脚本把每个 Pacdora 样本自动转成“结构规格”（面片树、尺寸表达式、轮廓、内部切线、折叠步骤），每个盒型一个 <code>spec-&lt;编号&gt;</code> 模板。</li>
+      <li><b>用保真度打分把关。</b>每个盒型生成的刀版都和 Pacdora 原样本对比打分，分三档：精确、接近的可以定制尺寸；不达标的不允许定制。</li>
+      <li><b>不达标就锁定，不硬凑。</b>不达标的盒型改为“固定规格”，原样回放 Pacdora 的刀版，只能看不能改。宁可少一个可定制盒型，也不放一个不准的出去。</li>
+      <li><b>3D 用 Pacdora 自己的折叠步骤。</b>把样本里的折叠动画编译成折叠配方，而不是自己猜折法。</li>
+      <li><b>按盒型懒加载规格。</b>几百个规格不打进主包，打开哪个加载哪个。</li>
+    </ol>
+    <div class="note key">第 3 条是整个质量保证的核心。</div>
+  </section>
+
+  <section>
+    <h2>三、当前结果</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>类目</th><th>可定制 / 总数</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>折叠盒</td><td class="num">406 / 459</td><td></td></tr>
+        <tr><td>托盘盒</td><td class="num">107 / 124</td><td></td></tr>
+        <tr><td>邮寄盒</td><td class="num">71 / 79</td><td></td></tr>
+        <tr><td>运输箱</td><td class="num">42 / 47</td><td></td></tr>
+        <tr><td>礼盒</td><td class="num">— / 94</td><td>下架 51 个后的总数；可定制数未重新统计（下架前为 57 / 145）</td></tr>
+        <tr><td>方形盒</td><td class="num">— / 53</td><td>下架 3 个后的总数；可定制数未重新统计（下架前为 31 / 56）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>3D 方面，折叠盒和托盘盒的 509 个可定制规格盒型中，483 个（约 95%）与 Pacdora 的折叠结果一致。</p>
+  </section>
+
+  <section>
+    <h2>四、走过的弯路</h2>
+    <ul>
+      <li><b>自动推导内部切线。</b>试了两次，都会多切。最后改为直接从样本里提取切线，再逐盒验证保留或丢弃。<br><span class="lesson"><b>教训：</b>能从原始数据拿的，不要自己推。</span></li>
+      <li><b>关键词重映射模板。</b>盒型有了结构代码之后，旧的关键词映射反而把 6 个托盘盒映射错了。<br><span class="lesson"><b>教训：</b>有精确依据后，要关掉模糊规则。</span></li>
+      <li><b>补爬样机 3D 模型。</b>技术上做通了（46 个），但做出来才发现这类成品样机（彩带、抽屉、提手）不是需要的东西，最后全部撤掉。<br><span class="lesson"><b>教训：</b>批量做之前先出一个样品确认方向。</span></li>
+      <li><b>同一编号在不同类目是不同刀版。</b>缓存和加载只按编号会串盒，12 个盒型曾加载到别的类目的刀版。现在按“类目 + 编号”区分。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>五、已确定的范围和口径</h2>
+    <ul>
+      <li><b>只保留能折成纸盒的刀版</b>（瓦楞纸质感那种）。没有折线的成品样机、多层精品盒不进目录，共 54 个，名单在 <code>src/catalog/excludedPresets.js</code>。数据库里是归档而不是删除，删掉名单中的某一行并重新导出、写入种子即可恢复。</li>
+      <li>工作台里的 7 个内置示例（直插舌盒、自锁底盒、飞机盒、FEFCO 0201 等）只是示例，不在修复范围内。</li>
+      <li>Pacdora 几何数据的商用授权已确认没有问题。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>六、以后扩充盒型会不会再乱</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>方面</th><th>结论</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td>刀版</td><td>不会</td><td>新盒型必须过保真度打分，不达标自动锁定为固定规格。</td></tr>
+        <tr><td>3D</td><td>约 5% 有风险</td><td>3D 目前没有逐盒把关，个别盒型折出来可能和 Pacdora 不一致。“3D 不匹配就自动降级或隐藏”还没做。</td></tr>
+        <tr><td>没有折线的盒型</td><td>直接跳过</td><td>不符合目录范围。</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>扩充流程（黄色为手动步骤，容易漏，可以合成一条命令）：</p>
+    <div class="flow">
+      <span>爬取数据</span><i>→</i>
+      <span class="manual">build-structure-specs.mjs</span><i>→</i>
+      <span>npm run catalog:build</span><i>→</i>
+      <span class="manual">export-workbench-templates-seed.mjs</span><i>→</i>
+      <span>重建容器</span><i>→</i>
+      <span>seed_catalog</span>
+    </div>
+    <p>可以用 <code>node scripts/list-mockup-model-targets.mjs</code> 找出没有折线的盒型，加入排除名单。</p>
+  </section>
+
+  <section>
+    <h2>七、还没解决或没验证的</h2>
+    <div class="note warn"><b>登录后的流程没有实测。</b>保存、导出、Studio 图案设计整页，因为没有账号，只验证了底层函数。</div>
+    <ul>
+      <li>后端测试只跑了 <code>test_assets_designs</code> 和 <code>test_exports</code> 两组。</li>
+      <li>天地盖类盒型的部件标签（底盖 / 天盖）可能标反。</li>
+      <li>整体尺寸标注文字偶尔会和面片标签重叠。</li>
+      <li>LAB 列表页会发出几百个 404 探测请求。</li>
+      <li>“主力盒型清单”待从 <code>docs/主力盒型候选清单.csv</code>（714 个候选）中挑选，之后再决定是否做多尺寸采样。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>八、几条通用经验</h2>
+    <ol>
+      <li><b>先查原因再动代码。</b>第一轮要求“先不要动代码”，结果定位到的根因和最初直觉完全不同。</li>
+      <li><b>质量靠可度量的门槛，而不是逐个目测。</b>打分脚本写出来之后，后面所有改动都有了客观依据。</li>
+      <li><b>不准的宁可不给。</b>锁定回放比放出一个错的刀版安全得多，印刷出错的代价远大于少一个盒型。</li>
+      <li><b>批量做之前先出一个样品确认方向。</b></li>
+    </ol>
+  </section>
+
+  <footer>
+    相关文档：<code>BOXCRAFT_参数化刀版工作台_开发方案_2026-11-17.html</code>、<code>BOXCRAFT_工作台刀版差异_原因分析与修复方案_2026-11-17.html</code>
+  </footer>
+</main>
+</body>
+</html>
