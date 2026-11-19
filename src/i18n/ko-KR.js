@@ -687,6 +687,7 @@ export default {
     exportSvg:'SVG 내보내기',
     exportDxf:'DXF 내보내기',
     exportPdf:'PDF 내보내기',
+    exportAi:'AI 내보내기',
     exportHint:'결과는 revision·기하 해시와 바인딩됩니다.',
     exportManufacturing:'제조 등급(템플릿 승인 필요 · B-GEOM-LICENSE Open 표기)',
     exportMfgSvg:'제조 SVG',

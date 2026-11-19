@@ -12,12 +12,8 @@
 礼盒,512220,Heart shaped gift box,import-gift-512220,http://localhost/products/import-gift-512220,任务4-3D,3D 不成盒：心形盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,已下架（2026-11-19）
 礼盒,603630,Lid and base luxury gift box,import-gift-603630,http://localhost/products/import-gift-603630,任务4-3D,异形盒，单看截图判断不了是否正确；敞口异形，需对照效果图,低,对照来源效果图
 礼盒,605360,Wine bottle with box,import-gift-605360,http://localhost/products/import-gift-605360,任务4-3D,3D 不成盒：酒盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,已下架（2026-11-19）
-邮寄盒,150430,Flip top box side mailer,import-mailer-150430,http://localhost/products/import-mailer-150430,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-邮寄盒,156280,Flip top miler box with lock inserts,import-mailer-156280,http://localhost/products/import-mailer-156280,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-邮寄盒,156281,Flip top mailer box with zipper,import-mailer-156281,http://localhost/products/import-mailer-156281,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,128130,Flip top coffee box,import-square-128130,http://localhost/products/import-square-128130,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,15813001,Burger square box,import-square-15813001,http://localhost/products/import-square-15813001,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-方形盒,240031,Trapezoidal sleeve box,import-square-240031,http://localhost/products/import-square-240031,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,36001101,Open flat square box,import-square-36001101,http://localhost/products/import-square-36001101,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 运输箱,201081,带通气孔的运输纸箱,import-shipping-201081,http://localhost/products/import-shipping-201081,任务2-对照图,分段数据里有一条横穿的斜线，只影响缩略图；导出的 SVG / DXF 里没有,低,修弧线分段
 全部,—,设计器导出,—,—,任务3-页面流程,导出的 SVG / PDF 里只有刀版，没有图案。已改为把图片、文字、形状画进 SVG / PDF / AI（DXF 是切割文件，不带图案）,已修复,遗留：PDF / AI 里的中文、韩文文字画不出来（会标红框并在导出结果里提示），SVG 不受影响；内面的图案不导出

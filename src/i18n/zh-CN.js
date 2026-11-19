@@ -688,6 +688,7 @@ export default {
     exportSvg:'导出 SVG',
     exportDxf:'导出 DXF',
     exportPdf:'导出 PDF',
+    exportAi:'导出 AI',
     exportHint:'结果绑定 revision 与几何哈希。',
     exportManufacturing:'制造档（需模板审核通过 · 仍标注 B-GEOM-LICENSE Open）',
     exportMfgSvg:'制造 SVG',

@@ -138,7 +138,8 @@ export function foldStagesFromAnimation(animations,{keepEmpty=false}={}){
       const child=name.slice(i+1)
       const rot=Number(step.rotate)
       if(!child||!Number.isFinite(rot))continue
-      steps.push({child,rotate:rot,vector:{x:Number(v.x)||0,y:Number(v.y)||0,z:Number(v.z)||0}})
+      // fold：这一步绕哪条折线转。同一个面可能先后绕两条不同的折线转（如连着两片的防尘角片）
+      steps.push({child,rotate:rot,vector:{x:Number(v.x)||0,y:Number(v.y)||0,z:Number(v.z)||0},fold:name})
     }
     // keepEmpty：多层盒各层的动画按步号对齐，空步不能丢
     if(steps.length||keepEmpty)stages.push(steps)

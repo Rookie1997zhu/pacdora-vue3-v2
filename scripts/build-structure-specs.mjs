@@ -18,6 +18,7 @@ import {arcToCubics,quadToCubic,flattenCubicPath} from '../src/geom/flattenPath.
 
 const REA_BY_ID=Object.fromEntries(REA_TEMPLATES.map(t=>[t.id,t]))
 import {pickCompileLayer} from './lib/pickCompileLayer.mjs'
+import {pickFoldStages} from '../src/geomRig.js'
 import {createGeomResolver,legacyGeomFile} from './lib/presetGeom.mjs'
 import {toHolePrimitive,holeCenter,splitHoleSubpaths} from './lib/holePrimitives.mjs'
 import {measure,gradeOf,presetParams} from './check-pacdora-fidelity.mjs'
@@ -1093,7 +1094,8 @@ function compile(code,num){
       entry.fr=fr
     }
     if(withParent){
-      foldStages3d=(rk.foldStages||[]).map(stage=>(stage||[]).map(s=>{
+      // 同一步里一个面有多条转动指令时取合盖外形更接近标称外尺寸的读法（与参考回放一致，见 geomRig.pickFoldStages）
+      foldStages3d=(pickFoldStages(rk)||[]).map(stage=>(stage||[]).map(s=>{
         if(s.child&&outByName.has(s.child)&&Number.isFinite(s.rotate))return {c:s.child,r:r3(s.rotate)}
         if(s.face&&outByName.has(s.face)&&s.move)return {f:s.face,m:[r3(s.move.x||0),r3(s.move.y||0),r3(s.move.z||0)]}
         return null

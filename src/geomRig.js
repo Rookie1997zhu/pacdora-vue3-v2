@@ -302,9 +302,35 @@ function buildTubeRig(knife,tube,{makeMesh,zOff=0}){
  * @param {object} knife geomMode knife（含 faces / hinges / foldStages）
  * @param {{makeMesh:(face:object)=>THREE.Object3D, zOff?:number}} opts
  */
+const stagePick=new WeakMap()
+/**
+ * 同一步里一个面有多条转动指令时有两种读法（见 pacdoraGeomKnife 的 foldStagesAlt）。
+ * 各折一遍，合盖外形与标称外尺寸（三边排序后逐边比）更接近的那种胜出；差不多就保持原读法。
+ */
+export function pickFoldStages(knife){
+  if(!knife?.foldStagesAlt||!knife.refOuter)return knife?.foldStages
+  if(stagePick.has(knife))return stagePick.get(knife)
+  const ref=[knife.refOuter.L,knife.refOuter.W,knife.refOuter.H].sort((a,b)=>b-a)
+  const proxy=f=>new THREE.Mesh(new THREE.BoxGeometry(Math.max(f.w,.1),Math.max(f.h,.1),.1))
+  const errOf=stages=>{
+    try{
+      const rig=buildGeomRig({...knife,foldStages:stages,foldStagesAlt:null},{makeMesh:proxy,zOff:0,verifyAssembly:false})
+      rig.apply(1)
+      rig.root.updateMatrixWorld(true)
+      const s=new THREE.Box3().setFromObject(rig.root).getSize(new THREE.Vector3())
+      const d=[s.x,s.y,s.z].sort((a,b)=>b-a)
+      return Math.max(...d.map((v,i)=>Math.abs(v-ref[i])/Math.max(ref[i],1)))
+    }catch{return Infinity}
+  }
+  const pick=errOf(knife.foldStagesAlt)<errOf(knife.foldStages)-0.02?knife.foldStagesAlt:knife.foldStages
+  stagePick.set(knife,pick)
+  return pick
+}
+
 export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
   const tube=detectTube(knife)
   if(tube)return buildTubeRig(knife,tube,{makeMesh,zOff})
+  if(knife?.foldStagesAlt)knife={...knife,foldStages:pickFoldStages(knife),foldStagesAlt:null}
   const root=new THREE.Group()
   const faces=knife?.faces||[]
   const byName=Object.fromEntries(faces.map(f=>[f.name,f]))
@@ -332,6 +358,34 @@ export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
     return get
   }
   const finalMove=worldMoves(translationsAtProgress(stages,1))
+
+  /**
+   * 这个面在动画里是否绕过「主折线以外」的折线转（例如防尘角片：先随上面的锁舌折，再绕与端板相连的那条线转）。
+   * 是的话返回它的全部转动步骤（按阶段），由 apply 逐步复合；否则返回 null，沿用「同一根轴上角度累加」。
+   * 只处理各步「一次只绕一条折线」的情况（实测 156280 / 156281：修正后合盖尺寸与标称外尺寸一致）。
+   */
+  function multiFoldSteps(face,name){
+    const main=face.hingeLine
+    if(!Array.isArray(main)||main.length!==2)return null
+    const [[ax,ay],[bx,by]]=main
+    const len=Math.hypot(bx-ax,by-ay)
+    if(len<1e-6)return null
+    const off=(x,y)=>Math.abs((x-ax)*(by-ay)-(y-ay)*(bx-ax))/len
+    let other=false
+    const perStage=stages.map(stage=>(stage||[]).filter(st=>st?.child===name&&Number.isFinite(Number(st.rotate))))
+    for(const steps of perStage){
+      const lines=new Set()
+      for(const st of steps){
+        const away=Array.isArray(st.line)&&(off(st.line[0][0],st.line[0][1])>0.5||off(st.line[1][0],st.line[1][1])>0.5)
+        lines.add(away?st.fold:'main')
+        if(away)other=true
+      }
+      // 同一步里同时绕两条折线转的面（两三片之间的连角片）是闭合连杆，不能当成先后两次刚体转动：
+      // 这类仍按原来的方式处理，等弄清官方的算法再说
+      if(lines.size>1)return null
+    }
+    return other?perStage:null
+  }
 
   function attach(name){
     if(nodes.has(name))return nodes.get(name)
@@ -362,6 +416,9 @@ export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
       const h=hingeBy[name]
       const deg=Number.isFinite(h?.angle)?h.angle:-90
       node={name,anchor,mover,mesh,parent:f.parent,axis:hingeAxis(f,h),side:f.side,finalRad:deg*Math.PI/180,shift}
+      node.basePos=anchor.position.clone()
+      node.pivot=p
+      node.multi=multiFoldSteps(f,name)
     }
     nodes.set(name,node)
     return node
@@ -435,6 +492,34 @@ export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
         n.spun=false
       }
       if(!n.parent)continue
+      if(n.multi){
+        // 逐步复合：每一步绕它自己的折线（位置 + 方向）转，后面的步骤在已转过的姿态上继续
+        const count=stages.length,u=clamped*count
+        const si=clamped>=1?count:Math.min(count-1,Math.floor(u))
+        const local=clamped>=1?1:smoothstep(u-si)
+        const m=new THREE.Matrix4()
+        for(let i=0;i<count;i++){
+          const w=i<si?1:(i===si?local:0)
+          if(w===0)continue
+          for(const st of n.multi[i]){
+            const line=Array.isArray(st.line)?st.line:null
+            const q=line?{x:(line[0][0]+line[1][0])/2,y:(line[0][1]+line[1][1])/2}:n.pivot
+            let axis=null
+            const vx=Number(st.vector?.x)||0,vy=-(Number(st.vector?.y)||0),vz=-(Number(st.vector?.z)||0)
+            if(Math.hypot(vx,vy,vz)>1e-12)axis=new THREE.Vector3(vx,vy,vz).normalize()
+            else if(line)axis=new THREE.Vector3(line[1][0]-line[0][0],-(line[1][1]-line[0][1]),0).normalize()
+            else axis=n.axis
+            if(!axis)continue
+            const dx=q.x-n.pivot.x,dy=-(q.y-n.pivot.y)
+            m.multiply(new THREE.Matrix4().makeTranslation(dx,dy,0))
+              .multiply(new THREE.Matrix4().makeRotationAxis(axis,Number(st.rotate)*w*Math.PI/180))
+              .multiply(new THREE.Matrix4().makeTranslation(-dx,-dy,0))
+          }
+        }
+        m.decompose(SCRATCH_OFFSET,n.anchor.quaternion,SCRATCH_SCALE)
+        n.anchor.position.copy(n.basePos).add(SCRATCH_OFFSET)
+        continue
+      }
       // 有官方动画时，未出现在动画里的铰链不转（如只平移的隔板）
       let v
       if(angMap.has(n.name))v=angMap.get(n.name)

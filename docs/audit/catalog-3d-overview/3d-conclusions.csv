@@ -44,9 +44,9 @@ import-gift-605360,gift,605360,Wine bottle with box,100×100×100,519.1×372.6×
 import-mailer-109020,mailer,109020,Flip top tuck front mailer box,161.5×60×204.5,163.8×208.5×62.1,3.5,Y,flat/err 3.5%,shots/import-mailer-109020-closed.png,shots/import-mailer-109020-half.png,成盒,
 import-mailer-112372,mailer,112372,Roof mailer box,173×113×91.5,175.6×130.2×117.6,28.5,Y,size err 28.5%,shots/import-mailer-112372-closed.png,shots/import-mailer-112372-half.png,成盒,
 import-mailer-150100,mailer,150100,Self-locking angled front mailer box,285×198×58,300.3×200.2×69.9,20.4,Y,size err 20.4%,shots/import-mailer-150100-closed.png,shots/import-mailer-150100-half.png,成盒,
-import-mailer-150430,mailer,150430,Flip top box side mailer,315×202×202,590.7×205.3×205.5,87.5,Y,size err 87.5%,shots/import-mailer-150430-closed.png,shots/import-mailer-150430-half.png,成盒但有瑕疵,有一块大面片穿出盒体
-import-mailer-156280,mailer,156280,Flip top miler box with lock inserts,300×200×99.75,403.5×205.8×191.2,91.7,Y,size err 91.7%,shots/import-mailer-156280-closed.png,shots/import-mailer-156280-half.png,成盒但有瑕疵,有一根细条伸出盒外
-import-mailer-156281,mailer,156281,Flip top mailer box with zipper,300×200×99.75,403.5×205.8×191.2,91.7,Y,size err 91.7%,shots/import-mailer-156281-closed.png,shots/import-mailer-156281-half.png,成盒但有瑕疵,有一根细条伸出盒外
+import-mailer-150430,mailer,150430,Flip top box side mailer,315×202×202,590.7×205.3×205.5,87.5,Y,size err 87.5%,shots/import-mailer-150430-closed.png,shots/import-mailer-150430-half.png,成盒,
+import-mailer-156280,mailer,156280,Flip top miler box with lock inserts,300×200×99.75,403.5×205.8×191.2,91.7,Y,size err 91.7%,shots/import-mailer-156280-closed.png,shots/import-mailer-156280-half.png,成盒,
+import-mailer-156281,mailer,156281,Flip top mailer box with zipper,300×200×99.75,403.5×205.8×191.2,91.7,Y,size err 91.7%,shots/import-mailer-156281-closed.png,shots/import-mailer-156281-half.png,成盒,
 import-mailer-156410,mailer,156410,Buckle lock bottom carton gift mailer box,125×120×80,150.1×132.1×82.6,20.1,Y,size err 20.1%,shots/import-mailer-156410-closed.png,shots/import-mailer-156410-half.png,成盒,
 import-mailer-200036,mailer,200036,Cardboard mailer box,399×99×599,403.1×603.8×103.1,4.1,Y,flat/err 4.1%,shots/import-mailer-200036-closed.png,shots/import-mailer-200036-half.png,成盒,
 import-mailer-243010,mailer,243010,Envelope sleeves mailer,218×14×318,220.1×352.0×18.1,29.3,Y,flat/err 29.3%,shots/import-mailer-243010-closed.png,shots/import-mailer-243010-half.png,成盒,
@@ -59,7 +59,7 @@ import-square-128022,square,128022,Gift sleeve box,180×90×50.4,203.1×112.7×5
 import-square-128130,square,128130,Flip top coffee box,118.4×98.4×49.4,122.5×103.3×101.9,106.2,Y,size err 106.2%,shots/import-square-128130-closed.png,shots/import-square-128130-half.png,成盒但有瑕疵,顶部有三角形缺口
 import-square-15813001,square,15813001,Burger square box,109.4×109.4×109.4,170.3×179.9×107.1,64.4,Y,size err 64.4%,shots/import-square-15813001-closed.png,shots/import-square-15813001-half.png,成盒但有瑕疵,底部折片没有完全贴合
 import-square-16302001,square,16302001,Slide square gift box,99.4×99.4×99.4,153.3×153.3×100.1,54.3,Y,size err 54.3%,shots/import-square-16302001-closed.png,shots/import-square-16302001-half.png,成盒,
-import-square-240031,square,240031,Trapezoidal sleeve box,149.4×59.4×200,200.0×153.0×54.6,8.7,Y,flat/err 8.7%,shots/import-square-240031-closed.png,shots/import-square-240031-half.png,成盒但有瑕疵,有一片三角形折片翘起
+import-square-240031,square,240031,Trapezoidal sleeve box,149.4×59.4×200,200.0×153.0×54.6,8.7,Y,flat/err 8.7%,shots/import-square-240031-closed.png,shots/import-square-240031-half.png,成盒,
 import-square-36001101,square,36001101,Open flat square box,85.7×85.7×27.85,97.3×124.5×32.7,45.2,Y,size err 45.2%,shots/import-square-36001101-closed.png,shots/import-square-36001101-half.png,成盒但有瑕疵,各层之间有错位
 import-square-36018006,square,36018006,Square jewelry box,55×55×27,55.8×56.7×55.3,104.8,Y,size err 104.8%,shots/import-square-36018006-closed.png,shots/import-square-36018006-half.png,成盒,
 import-gift-10001002,gift,10001002,Tuck top gift box,129.4×129.4×128.9,130.1×130.6×130.1,0.9,N,,shots/import-gift-10001002-closed.png,shots/import-gift-10001002-half.png,成盒,

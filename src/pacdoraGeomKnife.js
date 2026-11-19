@@ -471,9 +471,48 @@ export function knifeFromPacdoraGeom(raw,meta={}){
   let foldStages=foldStagesFromAnimation(ly?.animation?.animations)
   if(assemblyRef?.stages&&foldStages.length>assemblyRef.stages)foldStages=foldStages.slice(0,assemblyRef.stages)
   const axisByChild={}
+  // 每一步所绕折线的位置：骨架据此区分「绕自己的主折线转」和「绕另一条折线转」
+  const foldLineByName=new Map()
+  for(const fo of ly.folds||[]){
+    if(!fo?.name||foldLineByName.has(fo.name))continue
+    if(![fo.x1,fo.y1,fo.x2,fo.y2].every(Number.isFinite))continue
+    if(Math.hypot(fo.x2-fo.x1,fo.y2-fo.y1)<0.05)continue
+    foldLineByName.set(fo.name,[[fo.x1,fo.y1],[fo.x2,fo.y2]])
+  }
   for(const stage of foldStages)for(const s of stage){
     if(s.child&&s.vector&&!axisByChild[s.child])axisByChild[s.child]=s.vector
+    if(s.child&&s.fold&&foldLineByName.has(s.fold))s.line=foldLineByName.get(s.fold)
   }
+  // 一个面在同一步里出现多条转动指令时，只有绕「它与父面之间那条折线」的才决定它的姿态：
+  //  · 这条折线被开槽断成两段时，官方给两段各起一个名字（如 FR1_FR3、FR2_FR3），各写一次同样的角度——
+  //    是同一个转动，累加会转成两倍（侧板的内折片被甩到盒外）；
+  //  · 同一步里绕别的折线的指令（它同时连着的其他面）是闭合连杆的另一边，角度是结果而不是驱动。
+  // 所以另备一份「同一步里有主折线指令时，同角度的只留一个，别的折线的丢掉」的步骤（foldStagesAlt）。
+  // 两种读法各有盒型成立（150430 必须去重，112662 必须累加），数据里分不出来：
+  // 由 3D 骨架分别折一遍，取合盖外形更接近标称外尺寸的那一种（见 geomRig.pickFoldStages）。
+  // 没有主折线指令的步（如先随锁舌折、后面某一步再单独绕另一条线转）原样保留，由骨架逐步复合。
+  const sameLine=(a,b)=>{
+    const [[ax,ay],[bx,by]]=a,len=Math.hypot(bx-ax,by-ay)
+    if(len<1e-6)return false
+    return b.every(([x,y])=>Math.abs((x-ax)*(by-ay)-(y-ay)*(bx-ax))/len<=0.5)
+  }
+  const mainLineOf=Object.fromEntries(faces.filter(f=>f.parent&&Array.isArray(f.hingeLine)).map(f=>[f.name,f.hingeLine]))
+  let foldStagesAlt=foldStages.map(stage=>{
+    const isMain=st=>!!(st.child&&st.line&&mainLineOf[st.child]&&sameLine(mainLineOf[st.child],st.line))
+    const withMain=new Set(stage.filter(isMain).map(st=>st.child))
+    const kept=[]
+    for(const st of stage){
+      if(st.child&&st.line&&withMain.has(st.child)){
+        if(!isMain(st))continue
+        if(kept.some(k=>k.child===st.child&&k.fold!==st.fold&&Math.abs(Number(k.rotate)-Number(st.rotate))<1))continue
+      }
+      kept.push(st)
+    }
+    return kept
+  })
+  if(foldStagesAlt.every((st,i)=>st.length===foldStages[i].length))foldStagesAlt=null
+  const refOuter=raw?.outSize&&[raw.outSize.L,raw.outSize.W,raw.outSize.H].every(v=>Number(v)>0)
+    ?{L:Number(raw.outSize.L),W:Number(raw.outSize.W),H:Number(raw.outSize.H)}:null
   const hinges=faces.filter(f=>f.parent).map(f=>{
     const signed=Number.isFinite(angleMap[f.name])?angleMap[f.name]:defaultFoldDeg(f.name)
     const h={parent:f.parent,child:f.name,side:f.side,angle:signed}
@@ -530,6 +569,7 @@ export function knifeFromPacdoraGeom(raw,meta={}){
     bleedEffective:bleedEff,
     params:{},
     faces,cuts,bleeds,folds,hinges,foldStages,layers,paths,holes,
+    ...(foldStagesAlt&&refOuter?{foldStagesAlt,refOuter}:{}),
     cutPath,bleedPath,cutPaths,bleedPaths,
     meta:{anyPoly:true,fromPacdoraGeom:true,components:comps.length,foldStageCount:foldStages.length,bleedExtra:BLEED_EXTRA_MM,bleedEffective:bleedEff},
     topology:{
