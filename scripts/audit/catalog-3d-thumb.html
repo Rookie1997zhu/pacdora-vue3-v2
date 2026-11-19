@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <title>catalog-3d-thumb</title>
+  <style>
+    html,body{margin:0;background:#f3f5f8;display:grid;place-items:center;min-height:100vh;font:14px system-ui}
+    #msg{color:#888}
+    canvas{width:360px;height:360px;background:#fff;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div id="msg">loading…</div>
+  <script type="module">
+    import * as THREE from 'three'
+    import { knifeFromPacdoraGeom } from '/src/pacdoraGeomKnife.js'
+    import { buildGeomRig } from '/src/geomRig.js'
+
+    const q = new URLSearchParams(location.search)
+    const cat = q.get('cat') || 'gift'
+    const num = q.get('num') || ''
+    const fold = Math.max(0, Math.min(1, Number(q.get('fold') ?? '1')))
+    const size = Number(q.get('size') || 360)
+    const L = Number(q.get('L') || 0)
+    const W = Number(q.get('W') || 0)
+    const H = Number(q.get('H') || 0)
+    const T = Number(q.get('T') || 0.5)
+    const msg = document.getElementById('msg')
+    if (!num) { msg.textContent = 'missing num'; throw 0 }
+
+    try {
+      const raw = await (await fetch(`/${cat}-geom/${num}.json`)).json()
+      const knife = knifeFromPacdoraGeom(raw, {
+        sourceNum: num,
+        L: L || raw.size?.L,
+        W: W || raw.size?.W,
+        H: H || raw.size?.H,
+        T: T || raw.size?.D || 0.5,
+      })
+      const scene = new THREE.Scene()
+      scene.background = new THREE.Color(0xf3f5f8)
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8d93, 2.2))
+      const sun = new THREE.DirectionalLight(0xffffff, 1.6)
+      sun.position.set(220, 280, 260)
+      scene.add(sun)
+
+      const makeMesh = (f) => {
+        const g = new THREE.BoxGeometry(Math.max(f.w, 0.2), Math.max(f.h, 0.2), Math.max(Number(knife.dimensions?.thickness) || 0.5, 0.2))
+        const m = new THREE.MeshStandardMaterial({ color: 0xe8d7c0, roughness: 0.85, metalness: 0.05 })
+        return new THREE.Mesh(g, m)
+      }
+      const rig = buildGeomRig(knife, { makeMesh, zOff: 0 })
+      rig.apply(fold)
+      scene.add(rig.root)
+      rig.root.updateMatrixWorld(true)
+
+      const box = new THREE.Box3().setFromObject(rig.root)
+      const center = box.getCenter(new THREE.Vector3())
+      const sphere = box.getBoundingSphere(new THREE.Sphere())
+      const r = Math.max(sphere.radius, 20)
+      const camera = new THREE.PerspectiveCamera(36, 1, 0.1, r * 20)
+      const dist = (r / Math.sin((36 * Math.PI) / 360)) * 1.08
+      camera.position.copy(center).addScaledVector(new THREE.Vector3(1.6, -1.7, 1.35).normalize(), dist)
+      camera.lookAt(center)
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true })
+      renderer.setSize(size, size, false)
+      renderer.setPixelRatio(1)
+      document.body.appendChild(renderer.domElement)
+      renderer.render(scene, camera)
+      msg.remove()
+      document.title = `ok:${cat}-${num}:${fold}`
+      window.__thumbOk = true
+      window.__closedSize = box.getSize(new THREE.Vector3()).toArray()
+    } catch (e) {
+      msg.textContent = String(e.message || e)
+      document.title = 'fail'
+      window.__thumbOk = false
+    }
+  </script>
+</body>
+</html>
