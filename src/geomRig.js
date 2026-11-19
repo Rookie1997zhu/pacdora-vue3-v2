@@ -178,10 +178,133 @@ function assemblyGroups(knife,root){
 }
 
 /**
+ * 圆筒盒：一个圆片 + 两条长度等于圆周（π·直径）的矩形（筒身、盖沿）。
+ * 这类盒型来源不给折叠步骤（官方用现成模型展示），平面折叠也折不出圆柱，单独处理。
+ * @returns {{disc:object,body:object,rim:object}|null}
+ */
+export function detectTube(knife){
+  const faces=knife?.faces||[]
+  if(faces.length!==3)return null
+  if((knife?.foldStages||[]).length)return null
+  const isDisc=f=>Array.isArray(f.outline)&&f.outline.length>=16&&f.w>1&&Math.abs(f.w-f.h)<=0.02*f.w
+  const disc=faces.find(isDisc)
+  if(!disc)return null
+  const rects=faces.filter(f=>f!==disc&&!isDisc(f)&&(!Array.isArray(f.outline)||f.outline.length<=5))
+  if(rects.length!==2)return null
+  const circ=Math.PI*disc.w
+  if(!rects.every(f=>Math.abs(f.w-circ)<=0.03*circ))return null
+  // 盖沿与圆片相连（或两条里较矮的一条），另一条是筒身
+  const linked=rects.find(f=>disc.parent===f.name||f.parent===disc.name)
+  const rim=linked||(rects[0].h<=rects[1].h?rects[0]:rects[1])
+  const body=rects.find(f=>f!==rim)
+  return {disc,body,rim}
+}
+
+const TUBE_SEGMENTS=72
+
+/** 可弯曲的条带：外表面（+z，印刷面）与内表面两层网格，UV 与平板面片一致（面片局部 mm 坐标） */
+function tubeStripGeometry(w,h,T){
+  const n=TUBE_SEGMENTS,cols=n+1
+  const flat=new Float32Array(cols*2*2*3),uv=new Float32Array(cols*2*2*2),index=[]
+  for(let layer=0;layer<2;layer++){
+    for(let i=0;i<cols;i++){
+      const u=-w/2+w*i/n
+      for(let j=0;j<2;j++){
+        const v=j?h/2:-h/2,k=(layer*cols+i)*2+j
+        flat.set([u,v,layer?T:0],k*3)
+        uv.set([u,v],k*2)
+      }
+    }
+    for(let i=0;i<n;i++){
+      const a=(layer*cols+i)*2,b=a+1,c=a+2,d=a+3
+      // 外层朝 +z，内层朝 -z
+      if(layer)index.push(a,c,b,b,c,d)
+      else index.push(a,b,c,b,d,c)
+    }
+  }
+  const geo=new THREE.BufferGeometry()
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(flat),3))
+  geo.setAttribute('uv',new THREE.BufferAttribute(uv,2))
+  geo.setIndex(index)
+  geo.userData.flat=flat
+  geo.userData.w=w
+  return geo
+}
+
+/** 把条带绕竖直轴卷起：k=0 平铺，k=1 卷成整圆。朝 -z 卷，印刷面（+z）在圆柱外侧 */
+function bendTubeStrip(geo,k){
+  const flat=geo.userData.flat,w=geo.userData.w,pos=geo.attributes.position
+  const theta=2*Math.PI*Math.max(0,Math.min(1,k))
+  for(let i=0;i<pos.count;i++){
+    const u=flat[i*3],v=flat[i*3+1],z0=flat[i*3+2]
+    if(theta<1e-5){pos.setXYZ(i,u,v,z0);continue}
+    const r=w/theta,phi=u*theta/w
+    pos.setXYZ(i,(r+z0)*Math.sin(phi),v,-r+(r+z0)*Math.cos(phi))
+  }
+  pos.needsUpdate=true
+  geo.computeVertexNormals()
+  geo.computeBoundingBox()
+  geo.computeBoundingSphere()
+}
+
+function buildTubeRig(knife,tube,{makeMesh,zOff=0}){
+  const root=new THREE.Group()
+  const nodes=new Map()
+  const R=tube.body.w/(2*Math.PI)
+  const strips=[]
+  for(const f of [tube.body,tube.rim,tube.disc]){
+    const mesh=makeMesh(f)
+    const anchor=new THREE.Group(),mover=new THREE.Group()
+    anchor.add(mover);mover.add(mesh);root.add(anchor)
+    anchor.position.set(f.x+f.w/2,-(f.y+f.h/2),0)
+    mesh.position.set(0,0,zOff)
+    if(f!==tube.disc){
+      mesh.geometry?.computeBoundingBox?.()
+      const bb=mesh.geometry?.boundingBox
+      const T=bb?Math.max(0,bb.max.z-bb.min.z):0
+      mesh.geometry?.dispose?.()
+      mesh.geometry=tubeStripGeometry(f.w,f.h,T)
+      // 弧面上按面片整体平滑着色，否则每一小段是一个平面
+      for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material]){
+        if(m&&'flatShading' in m){m.flatShading=false;m.needsUpdate=true}
+        if(m&&'side' in m)m.side=THREE.DoubleSide
+      }
+      strips.push(mesh)
+    }
+    nodes.set(f.name,{name:f.name,anchor,mover,mesh,parent:f.parent||null,axis:null,side:f.side||null,finalRad:0,shift:ZERO})
+  }
+  const disc=nodes.get(tube.disc.name)
+  // 圆片：从版面位置移到盖沿上口，同时由平放翻成水平（印刷面朝上）
+  const cx=tube.rim.x+tube.rim.w/2
+  const discFrom=new THREE.Vector3(tube.disc.x+tube.disc.w/2,-(tube.disc.y+tube.disc.h/2),0)
+  const rimAbove=tube.rim.y<=tube.body.y
+  // 版面上盖沿与筒身之间留有间隔：合拢时盖沿落到筒身上口
+  const gap=Math.max(0,rimAbove?tube.body.y-(tube.rim.y+tube.rim.h):tube.rim.y-(tube.body.y+tube.body.h))
+  const drop=rimAbove?-gap:gap
+  const rimNode=nodes.get(tube.rim.name)
+  const rimY=rimNode.anchor.position.y
+  const capY=rimAbove?tube.rim.y:tube.rim.y+tube.rim.h
+  const discTo=new THREE.Vector3(cx,-capY+drop,-R)
+  const capTurn=rimAbove?-Math.PI/2:Math.PI/2
+  function apply(t){
+    const k=smoothstep(Math.max(0,Math.min(1,Number(t)||0)))
+    for(const mesh of strips)bendTubeStrip(mesh.geometry,k)
+    rimNode.anchor.position.y=rimY+drop*k
+    disc.anchor.position.lerpVectors(discFrom,discTo,k)
+    disc.anchor.rotation.set(capTurn*k,0,0)
+  }
+  apply(0)
+  const assembly={items:[],toReference:new THREE.Matrix4(),pieceAt:()=>null,groupAt:()=>null,apply(){},verify:()=>true}
+  return {root,nodes,apply,stageCount:0,assembled:true,assembly,tube:true}
+}
+
+/**
  * @param {object} knife geomMode knife（含 faces / hinges / foldStages）
  * @param {{makeMesh:(face:object)=>THREE.Object3D, zOff?:number}} opts
  */
 export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
+  const tube=detectTube(knife)
+  if(tube)return buildTubeRig(knife,tube,{makeMesh,zOff})
   const root=new THREE.Group()
   const faces=knife?.faces||[]
   const byName=Object.fromEntries(faces.map(f=>[f.name,f]))

@@ -26,7 +26,7 @@ t2 = load(P('docs', 'audit', 'catalog-mismatch-84', 'mismatch-conclusions.csv'))
 smoke = load(P('docs', 'audit', 'catalog-page-smoke', 'page-smoke-results.csv'))
 
 CAT = {'gift': '礼盒', 'mailer': '邮寄盒', 'square': '方形盒', 'shipping': '运输箱'}
-TUBES = {'603573', '603574', '603610', '603678'}
+NO_FOLD_DATA = {'510340', '512220', '603573', '603574', '603610', '603678', '605360'}
 by = {r['slug']: r for r in t4}
 rows = []
 
@@ -48,10 +48,10 @@ for r in t4:
         continue
     note = ('；' + r['notes']) if r['notes'] else ''
     if r['verdict'] == '不成盒':
-        if r['num'] in TUBES:
-            add(r, '任务4-3D', '圆筒盒：刀版（圆片+矩形片）与封面图一致，但平面折叠画不出圆筒，3D 显示为扁平', '中', '隐藏该盒型的 3D，只留 2D')
+        if r['num'] in NO_FOLD_DATA:
+            add(r, '任务4-3D', '3D 不成盒：' + r['notes'], '中', '没有折叠步骤可修：隐藏 3D，或单独做模型')
         else:
-            add(r, '任务4-3D', '3D 合盖后不成盒（面片散开或错乱）' + note, '中', '修折叠步骤；修不了则隐藏 3D')
+            add(r, '任务4-3D', '3D 不成盒：' + r['notes'], '中', '多片盒需采集装配数据或支持其动作；修不了则隐藏 3D')
     elif r['verdict'] == '成盒但有瑕疵':
         add(r, '任务4-3D', '3D 能成盒，但有面片外露、缺口或轻微错位', '低', '可暂不处理')
     elif r['verdict'] == '看不出':
@@ -108,7 +108,7 @@ code{{background:#eef2f3;border-radius:4px;padding:1px 6px;font-size:13px;word-b
 <div class="wrap"><table>
 <tr><th>程度</th><th>数量</th><th>内容</th><th>建议</th></tr>
 <tr><td>高</td><td class="n">{sev['高']}</td><td>礼盒 603500：参考数据比封面图少一片。<br>礼盒 603650：登记尺寸 10×10×0，3D 散开。</td><td>重采或核对；不行则下架</td></tr>
-<tr><td>中</td><td class="n">{sev['中']}</td><td>3D 不成盒，刀版正常。其中 4 个是圆筒盒（603573、603574、603610、603678），其余为异形或多片盒型。</td><td>隐藏这些盒型的 3D，或修折叠步骤</td></tr>
+<tr><td>中</td><td class="n">{sev['中']}</td><td>3D 不成盒，刀版正常。其中 2 个来源没有给折叠步骤（心形盒、酒盒），4 个是多片盒（3 个异形盒的整件平移/翻转回放不对，1 个缺装配数据）。5 个圆筒盒已用“卷成圆柱”的画法修好。</td><td>见各条建议</td></tr>
 <tr><td>低</td><td class="n">{sev['低']}</td><td>3D 有瑕疵 {v3['成盒但有瑕疵']}；异形看不出 {v3['看不出']}；运输箱 201081 缩略图有一条斜线（导出文件没有）。</td><td>可暂不处理</td></tr>
 <tr><td>已修复</td><td class="n">{sev['已修复']}</td><td>设计器导出不含图案。<br>PDF / AI 里的切线、压痕、出血线画在页面外，打开看不见（所有盒型）。</td><td>已修复并部署</td></tr>
 <tr><td>待定</td><td class="n">{sev['待定']}</td><td>设计器没有 AI 导出按钮。</td><td>确认是否需要补上</td></tr>
@@ -118,7 +118,7 @@ code{{background:#eef2f3;border-radius:4px;padding:1px 6px;font-size:13px;word-b
 <div class="wrap"><table>
 <tr><th>项目</th><th>第一版</th><th>复核后</th><th>原因</th></tr>
 <tr><td>导出问题</td><td class="n">25 个</td><td class="n">{len(t1) - t1_ok} 个</td><td>10 个是审计脚本的测量错误；15 个是真实的 0.01 mm 残留标记点，已修复并部署</td></tr>
-<tr><td>3D 不成盒</td><td class="n">10 个</td><td class="n">{v3['不成盒']} 个</td><td>原规则只比外形尺寸：把细高盒和信封误判成不成盒，又看不出面片散开。改为逐个看截图</td></tr>
+<tr><td>3D 不成盒</td><td class="n">10 个</td><td class="n">{v3['不成盒']} 个</td><td>原规则只比外形尺寸：把细高盒和信封误判成不成盒，又看不出面片散开。改为逐个看截图。第二版一度写成 21 个，其中 7 个是截图工具把面片画成外接矩形造成的误判，按真实轮廓重拍后更正</td></tr>
 <tr><td>3D 成盒</td><td class="n">210 个（未看图）</td><td class="n">{v3['成盒']} 个（看过）</td><td>原来只有 71 个产品有截图，现已补齐 {len(t4)} 个</td></tr>
 <tr><td>不重合</td><td>无害 71 · 有误 1 · 拿不准 12</td><td>无害 {c2['无害']} · 有误 {c2['刀版有误']}</td><td>原来是自动分类；“有误”的那个（邮寄盒 243010）其实正常，真正有误的是礼盒 603500</td></tr>
 <tr><td>页面流程</td><td>放图案失败、导出跳过</td><td>{len(smoke)} 个全部走通</td><td>原来用的账号额度不足，且图案数据格式不对；改用页面按钮实测</td></tr>
@@ -126,7 +126,7 @@ code{{background:#eef2f3;border-radius:4px;padding:1px 6px;font-size:13px;word-b
 
 <h2>没有做的</h2>
 <ul>
-<li>3D 看的是合盖状态的简化渲染，没有逐个对照来源的效果图；“看不出”的 {v3['看不出']} 个需要对照。</li>
+<li>3D 看的是合盖状态的截图（面片按真实轮廓画，材质从简），没有逐个对照来源的效果图；“看不出”的 {v3['看不出']} 个需要对照。</li>
 <li>页面流程只抽了 {len(smoke)} 个，不是方案里的 16–20 个。</li>
 <li>Illustrator 打开 <code>.ai</code> 是否显示为图层，仍需人工看一眼。</li>
 <li>这一轮没有下架或重采任何产品。</li>

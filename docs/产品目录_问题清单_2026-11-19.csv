@@ -1,47 +1,24 @@
 ﻿类目,编号,名称,slug,产品页,来源,现象,严重程度,建议
 礼盒,603500,Wine box with inserts wine bottles wine bottle,import-gift-603500,http://localhost/products/import-gift-603500,任务2-对照图 + 任务4-3D,封面图是三片，我方参考数据只有两片（缺一块方片）；3D 不成盒,高,重采；采不到则下架
 礼盒,603650,Surprise gift box,import-gift-603650,http://localhost/products/import-gift-603650,任务4-3D,登记尺寸为 10×10×0；3D 面片散开,高,到来源核对尺寸；确认不了则下架
-礼盒,112030,Christmas apple box packaging,import-gift-112030,http://localhost/products/import-gift-112030,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,112031,Christmas eve gift  box packaging,import-gift-112031,http://localhost/products/import-gift-112031,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,112046,Gift box with window,import-gift-112046,http://localhost/products/import-gift-112046,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,112047,Roofing cord buckle bottom box,import-gift-112047,http://localhost/products/import-gift-112047,任务4-3D,异形盒，单看截图判断不了是否正确,低,对照来源效果图
-礼盒,113000,House gift box,import-gift-113000,http://localhost/products/import-gift-113000,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,121111,Mini cupcake gable box,import-gift-121111,http://localhost/products/import-gift-121111,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
+礼盒,121111,Mini cupcake gable box,import-gift-121111,http://localhost/products/import-gift-121111,任务4-3D,异形盒，单看截图判断不了是否正确；提手屋顶盒：两片带提手孔的斜顶在一侧合拢，从截图角度判断不了是否正确，需对照效果图,低,对照来源效果图
 礼盒,128130,Flip top coffee box,import-gift-128130,http://localhost/products/import-gift-128130,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,180190,Trapezoid tuck top box,import-gift-180190,http://localhost/products/import-gift-180190,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,181600,Tree shaped holiday box,import-gift-181600,http://localhost/products/import-gift-181600,任务4-3D,3D 合盖后不成盒（面片散开或错乱）；异形（圣诞树形）：面片散成小碎片；工作台 3D 预览为空白,中,修折叠步骤；修不了则隐藏 3D
-礼盒,181610,Double layer christmas tree box,import-gift-181610,http://localhost/products/import-gift-181610,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,185000,Gift box,import-gift-185000,http://localhost/products/import-gift-185000,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,188270,Sphere surprise gift box,import-gift-188270,http://localhost/products/import-gift-188270,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,188271,Twist wrap candy packaging,import-gift-188271,http://localhost/products/import-gift-188271,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,188300,Polygonal gift box mockup,import-gift-188300,http://localhost/products/import-gift-188300,任务4-3D,异形盒，单看截图判断不了是否正确；球形，需对照效果图,低,对照来源效果图
-礼盒,188310,Sphere surprise gift box,import-gift-188310,http://localhost/products/import-gift-188310,任务4-3D,异形盒，单看截图判断不了是否正确；球形，需对照效果图,低,对照来源效果图
-礼盒,189040,Regular pentagonal mortise lock box,import-gift-189040,http://localhost/products/import-gift-189040,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,189041,Hexagonal mortise lock box,import-gift-189041,http://localhost/products/import-gift-189041,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,189042,Pentagonal box,import-gift-189042,http://localhost/products/import-gift-189042,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,360110,Flip top magnetic gift box,import-gift-360110,http://localhost/products/import-gift-360110,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,36011001,Open gift box,import-gift-36011001,http://localhost/products/import-gift-36011001,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-礼盒,36101111,Cosmetics box with lid,import-gift-36101111,http://localhost/products/import-gift-36101111,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,510340,Round jewelry gift box,import-gift-510340,http://localhost/products/import-gift-510340,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,512220,Heart shaped gift box,import-gift-512220,http://localhost/products/import-gift-512220,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-礼盒,603573,Kraft paper tube box,import-gift-603573,http://localhost/products/import-gift-603573,任务4-3D,圆筒盒：刀版（圆片+矩形片）与封面图一致，但平面折叠画不出圆筒，3D 显示为扁平,中,隐藏该盒型的 3D，只留 2D
-礼盒,603574,Round paper tube,import-gift-603574,http://localhost/products/import-gift-603574,任务4-3D,圆筒盒：刀版（圆片+矩形片）与封面图一致，但平面折叠画不出圆筒，3D 显示为扁平,中,隐藏该盒型的 3D，只留 2D
-礼盒,603610,Round cookie gift box,import-gift-603610,http://localhost/products/import-gift-603610,任务4-3D,圆筒盒：刀版（圆片+矩形片）与封面图一致，但平面折叠画不出圆筒，3D 显示为扁平,中,隐藏该盒型的 3D，只留 2D
-礼盒,603630,Lid and base luxury gift box,import-gift-603630,http://localhost/products/import-gift-603630,任务4-3D,异形盒，单看截图判断不了是否正确,低,对照来源效果图
-礼盒,603678,Cylindrical tube,import-gift-603678,http://localhost/products/import-gift-603678,任务4-3D,圆筒盒：刀版（圆片+矩形片）与封面图一致，但平面折叠画不出圆筒，3D 显示为扁平,中,隐藏该盒型的 3D，只留 2D
-礼盒,605360,Wine bottle with box,import-gift-605360,http://localhost/products/import-gift-605360,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-邮寄盒,112372,Roof mailer box,import-mailer-112372,http://localhost/products/import-mailer-112372,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
+礼盒,181600,Tree shaped holiday box,import-gift-181600,http://localhost/products/import-gift-181600,任务4-3D,3D 不成盒：多片异形（圣诞树形）：带整件平移/翻转，面片散成小碎片,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
+礼盒,181610,Double layer christmas tree box,import-gift-181610,http://localhost/products/import-gift-181610,任务4-3D,3D 不成盒：多片异形（双层圣诞树）：带整件平移/翻转，面片散开,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
+礼盒,185000,Gift box,import-gift-185000,http://localhost/products/import-gift-185000,任务4-3D,3D 不成盒：多片（XMAS 字母盒）：带整件平移/翻转，面片散开,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
+礼盒,188270,Sphere surprise gift box,import-gift-188270,http://localhost/products/import-gift-188270,任务4-3D,异形盒，单看截图判断不了是否正确；糖果形，两端是扇形收口，需对照效果图,低,对照来源效果图
+礼盒,188271,Twist wrap candy packaging,import-gift-188271,http://localhost/products/import-gift-188271,任务4-3D,异形盒，单看截图判断不了是否正确；糖果形，两端是扇形收口，需对照效果图,低,对照来源效果图
+礼盒,36101111,Cosmetics box with lid,import-gift-36101111,http://localhost/products/import-gift-36101111,任务4-3D,3D 不成盒：多层盒缺装配对照数据，系统按设计退回散件视图,中,多片盒需采集装配数据或支持其动作；修不了则隐藏 3D
+礼盒,512220,Heart shaped gift box,import-gift-512220,http://localhost/products/import-gift-512220,任务4-3D,3D 不成盒：心形盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,没有折叠步骤可修：隐藏 3D，或单独做模型
+礼盒,603630,Lid and base luxury gift box,import-gift-603630,http://localhost/products/import-gift-603630,任务4-3D,异形盒，单看截图判断不了是否正确；敞口异形，需对照效果图,低,对照来源效果图
+礼盒,605360,Wine bottle with box,import-gift-605360,http://localhost/products/import-gift-605360,任务4-3D,3D 不成盒：酒盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）,中,没有折叠步骤可修：隐藏 3D，或单独做模型
 邮寄盒,150430,Flip top box side mailer,import-mailer-150430,http://localhost/products/import-mailer-150430,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 邮寄盒,156280,Flip top miler box with lock inserts,import-mailer-156280,http://localhost/products/import-mailer-156280,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 邮寄盒,156281,Flip top mailer box with zipper,import-mailer-156281,http://localhost/products/import-mailer-156281,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-方形盒,10002001,Flat square box with hanger,import-square-10002001,http://localhost/products/import-square-10002001,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-方形盒,10002002,Square box with hang tab,import-square-10002002,http://localhost/products/import-square-10002002,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,128130,Flip top coffee box,import-square-128130,http://localhost/products/import-square-128130,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-方形盒,15813001,Burger square box,import-square-15813001,http://localhost/products/import-square-15813001,任务4-3D,3D 合盖后不成盒（面片散开或错乱）,中,修折叠步骤；修不了则隐藏 3D
-方形盒,16302001,Slide square gift box,import-square-16302001,http://localhost/products/import-square-16302001,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
+方形盒,15813001,Burger square box,import-square-15813001,http://localhost/products/import-square-15813001,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,240031,Trapezoidal sleeve box,import-square-240031,http://localhost/products/import-square-240031,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 方形盒,36001101,Open flat square box,import-square-36001101,http://localhost/products/import-square-36001101,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
-运输箱,200210,纸箱移动纸,import-shipping-200210,http://localhost/products/import-shipping-200210,任务4-3D,3D 能成盒，但有面片外露、缺口或轻微错位,低,可暂不处理
 运输箱,201081,带通气孔的运输纸箱,import-shipping-201081,http://localhost/products/import-shipping-201081,任务2-对照图,分段数据里有一条横穿的斜线，只影响缩略图；导出的 SVG / DXF 里没有,低,修弧线分段
 全部,—,设计器导出,—,—,任务3-页面流程,导出的 SVG / PDF 里只有刀版，没有图案。已改为把图片、文字、形状画进 SVG / PDF / AI（DXF 是切割文件，不带图案）,已修复,遗留：PDF / AI 里的中文、韩文文字画不出来（会标红框并在导出结果里提示），SVG 不受影响；内面的图案不导出
 全部,—,PDF / AI 刀线,—,—,任务3-页面流程,PDF 和 AI 里的切线、压痕、出血线一直被画在页面下方（看不见），文件结构和页面尺寸却都正常，所有盒型都受影响；出血线还会被页边裁掉一点,已修复,已修复并加了“线必须落在页面内”的检查

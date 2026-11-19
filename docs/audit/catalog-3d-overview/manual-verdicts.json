@@ -1,178 +1,86 @@
 {
- "reviewed": "2026-11-19",
- "method": "合盖状态截图逐个目视（273 个全部看过）；未列出的为成盒",
+ "reviewed": "2026-11-19（第二次）",
+ "method": "合盖状态截图逐个目视，273 个全部看过；面片按真实轮廓和孔位绘制（第一次按外接矩形画，带斜边/异形面的盒子被误判）。未列出的为成盒。5 个圆筒盒在加入“卷成圆柱”的画法后重拍，已成盒（刀版只有一个圆片，所以筒底是敞开的）",
  "items": {
   "import-gift-121111": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-180190": {
-   "verdict": "不成盒",
-   "notes": ""
+   "verdict": "看不出",
+   "notes": "提手屋顶盒：两片带提手孔的斜顶在一侧合拢，从截图角度判断不了是否正确，需对照效果图"
   },
   "import-gift-181600": {
    "verdict": "不成盒",
-   "notes": "异形（圣诞树形）：面片散成小碎片；工作台 3D 预览为空白"
+   "notes": "多片异形（圣诞树形）：带整件平移/翻转，面片散成小碎片"
   },
   "import-gift-181610": {
    "verdict": "不成盒",
-   "notes": ""
+   "notes": "多片异形（双层圣诞树）：带整件平移/翻转，面片散开"
   },
   "import-gift-185000": {
    "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-188270": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-188271": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-189040": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-189041": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-189042": {
-   "verdict": "不成盒",
-   "notes": ""
+   "notes": "多片（XMAS 字母盒）：带整件平移/翻转，面片散开"
   },
   "import-gift-36101111": {
    "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-510340": {
-   "verdict": "不成盒",
-   "notes": ""
+   "notes": "多层盒缺装配对照数据，系统按设计退回散件视图"
   },
   "import-gift-512220": {
    "verdict": "不成盒",
-   "notes": ""
+   "notes": "心形盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）"
   },
   "import-gift-603500": {
    "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-603573": {
-   "verdict": "不成盒",
-   "notes": "圆筒：平面折叠无法表现，显示为扁平"
-  },
-  "import-gift-603574": {
-   "verdict": "不成盒",
-   "notes": "圆筒：平面折叠无法表现，显示为扁平"
-  },
-  "import-gift-603610": {
-   "verdict": "不成盒",
-   "notes": "圆筒：平面折叠无法表现，显示为扁平"
-  },
-  "import-gift-603678": {
-   "verdict": "不成盒",
-   "notes": "圆筒：平面折叠无法表现，显示为扁平"
+   "notes": "参考数据缺一片；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）"
   },
   "import-gift-603650": {
    "verdict": "不成盒",
-   "notes": "登记尺寸 10×10×0；面片散开"
+   "notes": "登记尺寸 10×10×0；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）"
   },
   "import-gift-605360": {
    "verdict": "不成盒",
-   "notes": ""
+   "notes": "酒盒；来源没有给折叠步骤（Pacdora 用现成 3D 模型展示）"
   },
-  "import-square-15813001": {
-   "verdict": "不成盒",
-   "notes": ""
-  },
-  "import-gift-188300": {
+  "import-gift-188270": {
    "verdict": "看不出",
-   "notes": "球形，需对照效果图"
+   "notes": "糖果形，两端是扇形收口，需对照效果图"
   },
-  "import-gift-188310": {
+  "import-gift-188271": {
    "verdict": "看不出",
-   "notes": "球形，需对照效果图"
+   "notes": "糖果形，两端是扇形收口，需对照效果图"
   },
   "import-gift-603630": {
    "verdict": "看不出",
-   "notes": ""
-  },
-  "import-gift-112047": {
-   "verdict": "看不出",
-   "notes": ""
-  },
-  "import-gift-112030": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-gift-112031": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-gift-112046": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-gift-113000": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
+   "notes": "敞口异形，需对照效果图"
   },
   "import-gift-128130": {
    "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-gift-360110": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-gift-36011001": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-mailer-112372": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-mailer-150430": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-mailer-156280": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-mailer-156281": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-shipping-200210": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-square-10002001": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-square-10002002": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
+   "notes": "顶部有三角形缺口"
   },
   "import-square-128130": {
    "verdict": "成盒但有瑕疵",
-   "notes": ""
+   "notes": "顶部有三角形缺口"
+  },
+  "import-mailer-150430": {
+   "verdict": "成盒但有瑕疵",
+   "notes": "有一块大面片穿出盒体"
+  },
+  "import-mailer-156280": {
+   "verdict": "成盒但有瑕疵",
+   "notes": "有一根细条伸出盒外"
+  },
+  "import-mailer-156281": {
+   "verdict": "成盒但有瑕疵",
+   "notes": "有一根细条伸出盒外"
+  },
+  "import-square-15813001": {
+   "verdict": "成盒但有瑕疵",
+   "notes": "底部折片没有完全贴合"
   },
   "import-square-240031": {
    "verdict": "成盒但有瑕疵",
-   "notes": ""
+   "notes": "有一片三角形折片翘起"
   },
   "import-square-36001101": {
    "verdict": "成盒但有瑕疵",
-   "notes": ""
-  },
-  "import-square-16302001": {
-   "verdict": "成盒但有瑕疵",
-   "notes": ""
+   "notes": "各层之间有错位"
   }
  }
 }

@@ -44,9 +44,36 @@
       sun.position.set(220, 280, 260)
       scene.add(sun)
 
+      // Draw each face with its real outline (and holes), as the app does (src/renderGeomClosedThumb.js).
+      // The first version drew every face as its bounding rectangle: any box with slanted, triangular
+      // or shaped panels then looked like a pile of overlapping boards even when it folded correctly.
+      const boardT = Math.max(Number(knife.dimensions?.thickness) || 0.5, 0.2)
+      const holesByFace = new Map()
+      for (const h of knife.holes || []) {
+        if (!h?.face) continue
+        if (!holesByFace.has(h.face)) holesByFace.set(h.face, [])
+        holesByFace.get(h.face).push(h)
+      }
       const makeMesh = (f) => {
-        const g = new THREE.BoxGeometry(Math.max(f.w, 0.2), Math.max(f.h, 0.2), Math.max(Number(knife.dimensions?.thickness) || 0.5, 0.2))
-        const m = new THREE.MeshStandardMaterial({ color: 0xe8d7c0, roughness: 0.85, metalness: 0.05 })
+        const cx = f.x + f.w / 2, cy = f.y + f.h / 2
+        const loopOf = (pts) => pts.map((p) => [p[0] - cx, -(p[1] - cy)])
+        const outline = Array.isArray(f.outline) && f.outline.length >= 3
+          ? loopOf(f.outline)
+          : [[-f.w / 2, -f.h / 2], [f.w / 2, -f.h / 2], [f.w / 2, f.h / 2], [-f.w / 2, f.h / 2]]
+        const shape = new THREE.Shape()
+        outline.forEach((p, i) => (i ? shape.lineTo(p[0], p[1]) : shape.moveTo(p[0], p[1])))
+        shape.closePath()
+        for (const hole of holesByFace.get(f.name) || []) {
+          const loop = Array.isArray(hole.loop) && hole.loop.length >= 3
+            ? hole.loop
+            : [[hole.x, hole.y], [hole.x + hole.w, hole.y], [hole.x + hole.w, hole.y + hole.h], [hole.x, hole.y + hole.h]]
+          const path = new THREE.Path()
+          loopOf(loop).forEach((p, i) => (i ? path.lineTo(p[0], p[1]) : path.moveTo(p[0], p[1])))
+          path.closePath()
+          shape.holes.push(path)
+        }
+        const g = new THREE.ExtrudeGeometry(shape, { depth: boardT, bevelEnabled: false })
+        const m = new THREE.MeshStandardMaterial({ color: 0xe8d7c0, roughness: 0.85, metalness: 0.05, side: THREE.DoubleSide })
         return new THREE.Mesh(g, m)
       }
       const rig = buildGeomRig(knife, { makeMesh, zOff: 0 })
