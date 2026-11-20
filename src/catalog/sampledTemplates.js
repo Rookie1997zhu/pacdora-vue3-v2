@@ -12,7 +12,11 @@ const list=[]
 if(fs.existsSync(dir)){
   for(const f of fs.readdirSync(dir).sort()){
     if(!f.endsWith('.json'))continue
-    try{list.push(JSON.parse(fs.readFileSync(path.join(dir,f),'utf8')))}catch{/* skip broken file */}
+    try{
+      const d=JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'))
+      // 没启用的盒型只有存根（validate-sampled-templates.mjs），不是模板
+      if(d&&d.baseKnife&&d.enabled!==false)list.push(d)
+    }catch{/* skip broken file */}
   }
 }
 export default list
