@@ -1,6 +1,7 @@
 /**
  * 给每个可定制的导入预设写入 3D 把关结果 presets[].fold3d：
- *   ok       模板折出来的合盖外形与直接回放参考样本一致（三个方向各差 ≤15%）
+ *   ok       模板折出来的合盖外形与直接回放参考样本一致（三个方向各差 ≤15%）；
+ *            或者参考样本的回放本身合不拢、而模板折出来的更接近官方标称的成品外尺寸（各差 ≤10%）
  *   differs  不一致 —— 工作台的 3D 面板改为显示参考样本本身的折叠（不随尺寸变化）
  *   none     模板没有折叠配方 —— 同上
  * 不可定制（fidelity = none）或没有参考几何的预设不写这个字段。
@@ -50,8 +51,13 @@ for(const p of data.presets||[]){
     })
     const recipe=fold3dKnife(knife)
     if(recipe){
-      const ref=closedDims(knifeFromPacdoraGeom(JSON.parse(readFileSync(file,'utf8')),{sourceNum:p.sourceNum}))
-      status=ratio(closedDims(recipe),ref)<=1.15?'ok':'differs'
+      const raw=JSON.parse(readFileSync(file,'utf8'))
+      const ref=closedDims(knifeFromPacdoraGeom(raw,{sourceNum:p.sourceNum}))
+      const ours=closedDims(recipe)
+      const o=raw.outSize||{}
+      const out=[+o.L||0,+o.W||0,+o.H||0].sort((a,b)=>b-a)
+      const closesBetter=out[2]>0&&ratio(ours,out)<=1.1&&ratio(ours,out)<ratio(ref,out)
+      status=ratio(ours,ref)<=1.15||closesBetter?'ok':'differs'
     }
   }catch{
     status='none'

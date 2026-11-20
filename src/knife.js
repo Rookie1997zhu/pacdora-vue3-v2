@@ -1178,7 +1178,7 @@ export function createKnife({
   if(TEMPLATES[tid]?.sampled){
     const st=TEMPLATES[tid]
     const fb=st.sampledFallback&&TEMPLATES[st.sampledFallback]?st.sampledFallback:null
-    const sk=createSampledKnife(st,{length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,allowFallback:!!fb})
+    const sk=createSampledKnife(st,{length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,piece,allowFallback:!!fb})
     if(sk)return sk
     // 尺寸超出采样范围：退回原来的参数化模板（近似推算），并明确标出
     const approx=createKnife({

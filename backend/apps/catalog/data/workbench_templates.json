@@ -1,6 +1,6 @@
 {
  "schema": "boxcraft.workbench_templates.v1",
- "count": 686,
+ "count": 689,
  "items": [
   {
    "template_key": "auto-lock-bottom",
@@ -536,6 +536,11 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-109080",
+   "title": "内撕拉线机包盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-110019",
    "title": "无盖插锁封套",
    "limits": {}
@@ -663,6 +668,11 @@
   {
    "template_key": "sampled-folding-11229002",
    "title": "斜屋顶扣底开窗提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112401",
+   "title": "Ordinary flip smoke box",
    "limits": {}
   },
   {
@@ -1088,6 +1098,11 @@
   {
    "template_key": "sampled-folding-151630",
    "title": "Insuranceside plugFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151660",
+   "title": "Four-foldcombinationFlip box",
    "limits": {}
   },
   {
@@ -1546,6 +1561,16 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-310600",
+   "title": "FEFCO 0404",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-310700",
+   "title": "FEFCO 0405",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-512230",
    "title": "休闲食品糖果饼干纸质礼盒包装模型-200x200x30",
    "limits": {}
@@ -1631,6 +1656,16 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-gift-12802001",
+   "title": "礼物盒12802001",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-12808001",
+   "title": "Zsquarebox06",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-gift-15001007",
    "title": "飞机盒",
    "limits": {}
@@ -1651,8 +1686,23 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-gift-16001001",
+   "title": "对盖盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-gift-160031",
    "title": "Half pack foldendwithoutmarkFlexibleUp and Bottom Cover",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-160160",
+   "title": "四折边对盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-16016001",
+   "title": "四折边对盖盒",
    "limits": {}
   },
   {
@@ -2066,6 +2116,16 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-shipping-200016",
+   "title": "常规纸箱AB面",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200017",
+   "title": "常规纸箱四拆片",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-shipping-200020",
    "title": "0202Carton",
    "limits": {}
@@ -2166,6 +2226,11 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-square-12808001",
+   "title": "Zsquarebox06",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-square-15001001",
    "title": "Zsquarebox08Pacdora1",
    "limits": {}
@@ -2178,6 +2243,11 @@
   {
    "template_key": "sampled-square-15001102",
    "title": "Zsquarebox09_Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-16016001",
+   "title": "四折边对盖盒",
    "limits": {}
   },
   {
@@ -2451,8 +2521,28 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-tray-128013",
+   "title": "Buffer wall inner cover box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-12802001",
+   "title": "礼物盒12802001",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128021",
+   "title": "插锁封套提手抽屉盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-tray-128040",
    "title": "Four-foldbufferbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128060",
+   "title": "卡扣式锁底抽屉盒",
    "limits": {}
   },
   {
@@ -3032,42 +3122,6 @@
    }
   },
   {
-   "template_key": "spec-BufferwallboxDrawerOne",
-   "title": "礼物盒12802001",
-   "limits": {
-    "length": [
-     119,
-     397
-    ],
-    "width": [
-     75,
-     249
-    ],
-    "height": [
-     17,
-     58
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BufferwallboxInnercover",
-   "title": "Buffer wall inner cover box",
-   "limits": {
-    "length": [
-     178,
-     593
-    ],
-    "width": [
-     118,
-     393
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
    "template_key": "spec-ButtonSimpleTissueBox",
    "title": "插扣简易纸巾盒",
    "limits": {
@@ -3230,24 +3284,6 @@
    }
   },
   {
-   "template_key": "spec-CigarettecaseFlip",
-   "title": "Ordinary flip smoke box",
-   "limits": {
-    "length": [
-     49,
-     108
-    ],
-    "width": [
-     20,
-     43
-    ],
-    "height": [
-     78,
-     172
-    ]
-   }
-  },
-  {
    "template_key": "spec-ConcealedPluginLockBottomFlapBox",
    "title": "Hidden docking bottom flip box",
    "limits": {
@@ -3392,24 +3428,6 @@
    }
   },
   {
-   "template_key": "spec-CoverBox",
-   "title": "对盖盒",
-   "limits": {
-    "length": [
-     120,
-     399
-    ],
-    "width": [
-     83,
-     277
-    ],
-    "height": [
-     30,
-     99
-    ]
-   }
-  },
-  {
    "template_key": "spec-Cupcakeboxwithopenwindow",
    "title": "对盖开窗蛋糕盒",
    "limits": {
@@ -3532,24 +3550,6 @@
     "height": [
      145,
      361
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DrawerCardboardBox",
-   "title": "Zsquarebox06",
-   "limits": {
-    "length": [
-     93,
-     195
-    ],
-    "width": [
-     93,
-     195
-    ],
-    "height": [
-     66,
-     139
     ]
    }
   },
@@ -3878,60 +3878,6 @@
    }
   },
   {
-   "template_key": "spec-FourFoldCoverBox",
-   "title": "四折边对盖盒",
-   "limits": {
-    "length": [
-     245,
-     472
-    ],
-    "width": [
-     175,
-     337
-    ],
-    "height": [
-     35,
-     62
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourFoldCoverBox__16016001",
-   "title": "四折边对盖盒",
-   "limits": {
-    "length": [
-     249,
-     317
-    ],
-    "width": [
-     249,
-     317
-    ],
-    "height": [
-     81,
-     99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourFoldedCombinationFlipBox",
-   "title": "Four-foldcombinationFlip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-FourFoldEdgeAndCornerDiscBox",
    "title": "FourfoldCardsideFolding wheel box",
    "limits": {
@@ -4216,42 +4162,6 @@
     "height": [
      118,
      395
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InnerTearingAndDrawingWireMachineBox",
-   "title": "内撕拉线机包盒",
-   "limits": {
-    "length": [
-     69,
-     229
-    ],
-    "width": [
-     94,
-     315
-    ],
-    "height": [
-     67,
-     225
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InsertLockEnvelopeHandleDrawerBox",
-   "title": "插锁封套提手抽屉盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     180,
-     600
-    ],
-    "height": [
-     36,
-     120
     ]
    }
   },
@@ -4594,42 +4504,6 @@
     "height": [
      90,
      232
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__310600",
-   "title": "FEFCO 0404",
-   "limits": {
-    "length": [
-     179,
-     596
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__310700",
-   "title": "FEFCO 0405",
-   "limits": {
-    "length": [
-     119,
-     396
-    ],
-    "width": [
-     89,
-     296
-    ],
-    "height": [
-     46,
-     152
     ]
    }
   },
@@ -5008,42 +4882,6 @@
     "height": [
      62,
      137
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RegularCardboardBoxABSurface",
-   "title": "常规纸箱AB面",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RegularCartonFourPieces",
-   "title": "常规纸箱四拆片",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
     ]
    }
   },
@@ -5566,24 +5404,6 @@
     "height": [
      138,
      459
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SnapTypeBottomLockDrawerBox",
-   "title": "卡扣式锁底抽屉盒",
-   "limits": {
-    "length": [
-     180,
-     400
-    ],
-    "width": [
-     90,
-     200
-    ],
-    "height": [
-     45,
-     100
     ]
    }
   },
@@ -6255,30 +6075,6 @@
   }
  ],
  "fixed": [
-  {
-   "template_key": "fixed-200016",
-   "title": "纸箱运输盒",
-   "category": "shipping",
-   "source_num": "200016",
-   "preset_id": "import-shipping-200016",
-   "locked_dims": {
-    "lengthMm": 430,
-    "widthMm": 210,
-    "heightMm": 270
-   }
-  },
-  {
-   "template_key": "fixed-200017",
-   "title": "纸箱运输盒",
-   "category": "shipping",
-   "source_num": "200017",
-   "preset_id": "import-shipping-200017",
-   "locked_dims": {
-    "lengthMm": 430,
-    "widthMm": 210,
-    "heightMm": 270
-   }
-  },
   {
    "template_key": "fixed-201080",
    "title": "带手柄的运输箱",

@@ -14,6 +14,87 @@ export function isSampledTemplateId(id){
 }
 
 const r1=v=>Math.round(v*10)/10
+
+const X_KEYS=['x','cx','cx1','cx2','x1','x2']
+const Y_KEYS=['y','cy','cy1','cy2','y1','y2']
+const shift=(o,dx,dy)=>{
+  if(!o||typeof o!=='object')return o
+  const out={...o}
+  for(const k of X_KEYS)if(typeof out[k]==='number')out[k]+=dx
+  for(const k of Y_KEYS)if(typeof out[k]==='number')out[k]+=dy
+  return out
+}
+
+/**
+ * 多件盒（天地盖、抽屉盒……）：官方把各件画在同一张版面上，彼此留有空隙。
+ * 取出其中一件（pieces 为全部各件的名单，pieceId 指定取哪一件）：面片按名单取；折线、切线、开孔按「离哪一件的面片更近」归属；整件的平移 / 翻转动作去掉。
+ * 结果平移到以该件左上角为原点。只支持单图层的刀版。
+ * @returns {object|null} 与官方接口同结构的几何对象；名单里的面片一个都找不到时返回 null
+ */
+export function pieceGeometry(raw,pieces,pieceId){
+  const keys=Object.keys(raw?.layer||{})
+  if(keys.length!==1||!Array.isArray(pieces))return null
+  const at=pieces.findIndex(p=>p.id===pieceId)
+  if(at<0||!Array.isArray(pieces[at].faces))return null
+  const ly=raw.layer[keys[0]]
+  const groups=pieces.map(p=>{const names=new Set(p.faces||[]);return (ly.faces||[]).filter(f=>names.has(f.name))})
+  const mine=groups[at]
+  if(!mine.length)return null
+  const gap=(f,x,y)=>Math.hypot(Math.max(f.x-x,0,x-(f.x+f.w)),Math.max(f.y-y,0,y-(f.y+f.h)))
+  // 归属：离哪一件的面片最近；一样近时归排在前面的那一件（保证每条线只属于一件）
+  const isMine=(x,y)=>{
+    let best=-1,bestD=Infinity
+    groups.forEach((list,i)=>{
+      const d=list.reduce((m,f)=>Math.min(m,gap(f,x,y)),Infinity)
+      if(d<bestD-1e-9){bestD=d;best=i}
+    })
+    return best===at
+  }
+  const ownsPath=cmds=>{
+    let yes=0,no=0
+    for(const c of cmds||[]){
+      if(typeof c?.x!=='number'||typeof c?.y!=='number')continue
+      if(isMine(c.x,c.y))yes++;else no++
+    }
+    return yes>no
+  }
+  const cuts=[]
+  let sub=[]
+  const flush=()=>{if(sub.length&&ownsPath(sub))cuts.push(...sub);sub=[]}
+  for(const c of ly.cuts||[]){
+    if(String(c?.mtd||'').toUpperCase()==='M')flush()
+    sub.push(c)
+  }
+  flush()
+  const folds=(ly.folds||[]).filter(f=>isMine((f.x1+f.x2)/2,(f.y1+f.y2)/2))
+  const holes=(ly.holes||[]).filter(h=>ownsPath(Array.isArray(h)?h:h?.dlist))
+  const foldOk=name=>folds.some(f=>f.name===name)
+  const animations=(ly.animation?.animations||[]).map(stage=>(stage||[]).filter(st=>{
+    if(!st)return false
+    if(st.action==='translate'||st.action==='rotateMesh')return false
+    return foldOk(st.name)
+  })).filter(stage=>stage.length)
+  const dx=-Math.min(...mine.map(f=>f.x)),dy=-Math.min(...mine.map(f=>f.y))
+  const moveHole=h=>Array.isArray(h)?h.map(c=>shift(c,dx,dy)):(h&&Array.isArray(h.dlist)?{...h,dlist:h.dlist.map(c=>shift(c,dx,dy))}:h)
+  const layer={
+    ...ly,
+    faces:mine.map(f=>({
+      ...f,x:f.x+dx,y:f.y+dy,
+      dlist:(f.dlist||[]).map(c=>shift(c,dx,dy)),
+      holes:Array.isArray(f.holes)?f.holes.map(moveHole):f.holes,
+    })),
+    cuts:cuts.map(c=>shift(c,dx,dy)),
+    folds:folds.map(f=>shift(f,dx,dy)),
+    holes:holes.map(moveHole),
+    animation:{groups:ly.animation?.groups||[],animations},
+    totalX:Math.max(...mine.map(f=>f.x+f.w))+dx,
+    totalY:Math.max(...mine.map(f=>f.y+f.h))+dy,
+  }
+  delete layer.transform
+  return {...raw,layer:{[keys[0]]:layer}}
+}
+
+const segLength=segs=>(segs||[]).reduce((s,g)=>s+Math.hypot((g.x2??0)-(g.x1??0),(g.y2??0)-(g.y1??0)),0)
 const DIMS=[['L','length'],['W','width'],['H','height']]
 
 export function createSampledTemplate(data){
@@ -45,6 +126,9 @@ export function createSampledTemplate(data){
     // 有参数化模板可退时不限制尺寸（范围外按近似推算并提示）；否则只能在采样范围内
     limits:data.fallback?undefined:limits,
     paramDefs:[],
+    /** 多件盒：各件的面片名单（来自原结构规格）；工作台据此一次显示一件 */
+    pieces:Array.isArray(data.pieces)&&data.pieces.length>1?data.pieces:undefined,
+    supportsPiece:Array.isArray(data.pieces)&&data.pieces.length>1,
     specRef:{code:data.base?.modeCate?.code||'',sampleNum:data.num,structureCode:data.base?.modeCate?.code||''},
     faceOrder:()=>[],
     layout(){throw new Error('sampled template has no parametric layout')},
@@ -73,7 +157,12 @@ export function createSampledKnife(template,input){
     anchor=data
     ;({size,clamped}=clampToRange(data,asked))
   }
-  const raw=sampledGeometry(anchor,size)
+  const whole=sampledGeometry(anchor,size)
+  // 多件盒：只出当前这一件（默认第一件）
+  const pieces=template.pieces||null
+  const pieceMeta=pieces?(pieces.find(p=>p.id===input.piece)||pieces[0]):null
+  const raw=pieceMeta?(pieceGeometry(whole,pieces,pieceMeta.id)||whole):whole
+  const isPiece=raw!==whole
   const inner={length:Number(raw.size.L),width:Number(raw.size.W),height:Number(raw.size.H)}
   const outer={length:Number(raw.outSize.L),width:Number(raw.outSize.W),height:Number(raw.outSize.H)}
   const panel={length:Number(raw.knifeSize.L),width:Number(raw.knifeSize.W),height:Number(raw.knifeSize.H)}
@@ -81,7 +170,9 @@ export function createSampledKnife(template,input){
     sourceNum:data.num,label:template.label,
     length:inner.length,width:inner.width,height:inner.height,thickness:data.thickness||input.thickness,
   })
-  const cut=Number(raw.extra?.cutlineLength)||0,crease=Number(raw.extra?.foldlineLength)||0
+  // 官方给的切线 / 折线总长是整张版面的；单件时按该件的线段重新量
+  const cut=isPiece?segLength(knife.cuts):Number(raw.extra?.cutlineLength)||0
+  const crease=isPiece?segLength(knife.folds):Number(raw.extra?.foldlineLength)||0
   // 回放刀版把开孔（挂孔、开窗）与外轮廓分开存放；导出文件按切线层出图，所以把开孔并进切线层
   const holeCuts=(knife.holes||[]).map(h=>h.pathCommands).filter(c=>Array.isArray(c)&&c.length)
   const trim=holeCuts.length?[...(knife.paths?.trim||[]),...holeCuts]:knife.paths?.trim
@@ -107,7 +198,7 @@ export function createSampledKnife(template,input){
     params:{},
     paramState:{},
     issues,
-    piece:null,
+    piece:isPiece?pieceMeta.id:null,
     stats:{
       cutLengthMm:r1(cut),creaseLengthMm:r1(crease),
       sheetWidthMm:r1(knife.totalX),sheetHeightMm:r1(knife.totalY),

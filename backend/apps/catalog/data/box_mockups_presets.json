@@ -322,7 +322,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/12808001.png",
-      "template_id": "spec-DrawerCardboardBox"
+      "template_id": "sampled-square-12808001"
     },
     {
       "category": "square",
@@ -448,7 +448,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/16016001.png",
-      "template_id": "spec-FourFoldCoverBox__16016001"
+      "template_id": "sampled-square-16016001"
     },
     {
       "category": "square",
@@ -1078,7 +1078,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "gift-covers/160160.png",
-      "template_id": "spec-FourFoldCoverBox"
+      "template_id": "sampled-gift-160160"
     },
     {
       "category": "gift",
@@ -1582,7 +1582,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/12802001.png",
-      "template_id": "spec-BufferwallboxDrawerOne"
+      "template_id": "sampled-gift-12802001"
     },
     {
       "category": "gift",
@@ -1596,7 +1596,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/12808001.png",
-      "template_id": "spec-DrawerCardboardBox"
+      "template_id": "sampled-gift-12808001"
     },
     {
       "category": "gift",
@@ -1666,7 +1666,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/16001001.png",
-      "template_id": "spec-CoverBox"
+      "template_id": "sampled-gift-16001001"
     },
     {
       "category": "gift",
@@ -1680,7 +1680,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/16016001.png",
-      "template_id": "spec-FourFoldCoverBox__16016001"
+      "template_id": "sampled-gift-16016001"
     },
     {
       "category": "gift",
@@ -3402,7 +3402,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200016.png",
-      "template_id": "spec-RegularCardboardBoxABSurface"
+      "template_id": "sampled-shipping-200016"
     },
     {
       "category": "shipping",
@@ -3416,7 +3416,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200017.png",
-      "template_id": "spec-RegularCartonFourPieces"
+      "template_id": "sampled-shipping-200017"
     },
     {
       "category": "shipping",

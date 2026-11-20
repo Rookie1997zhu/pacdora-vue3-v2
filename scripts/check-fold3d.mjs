@@ -42,7 +42,11 @@ for(const p of PRESETS){
   const ours=closedDims(recipe)
   const raw=JSON.parse(readFileSync(new URL(`../public/${p.geomRel}`,import.meta.url),'utf8'))
   const ref=closedDims(knifeFromPacdoraGeom(raw,{sourceNum:p.sourceNum}))
-  if(ratio(ours,ref)<=1.15)match++
+  // 参考回放本身合不拢、而配方折出来的更接近官方标称外尺寸：算配方是对的（与 annotate-preset-fold3d 一致）
+  const o0=raw.outSize||{}
+  const out0=[+o0.L||0,+o0.W||0,+o0.H||0].sort((a,b)=>b-a)
+  const closesBetter=out0[2]>0&&ratio(ours,out0)<=1.1&&ratio(ours,out0)<ratio(ref,out0)
+  if(ratio(ours,ref)<=1.15||closesBetter)match++
   else (p.fold3d==='differs'?knownMisses:misses).push(`${p.id} ours=${ours.map(v=>v.toFixed(0)).join('x')} ref=${ref.map(v=>v.toFixed(0)).join('x')}`)
   // 改尺寸后：参考样本本身能合成接近外尺寸的盒子时，放大后的也应如此
   const o=raw.outSize||{}
@@ -60,5 +64,5 @@ assert.equal(noRecipe,0,'every customizable spec box carries a fold recipe')
 // 以前按比例（≥93%）把关；大批盒型改用按尺寸插值模板后，仍用规格模板的盒型变少，已知缺陷的占比被动升高。
 // 改为：除已标注的以外不许有新的不一致，已知缺陷的个数也不许增加。
 assert.equal(misses.length,0,`fold recipe differs from the reference replay on boxes not annotated as such: ${misses.join('; ')}`)
-assert.ok(knownMisses.length<=13,`known fold3d defects must not grow (got ${knownMisses.length})`)
+assert.ok(knownMisses.length<=11,`known fold3d defects must not grow (got ${knownMisses.length})`)
 assert.ok(resizedOk/Math.max(1,resizedTotal)>=.93,`resized boxes must still close (got ${resizedOk}/${resizedTotal})`)

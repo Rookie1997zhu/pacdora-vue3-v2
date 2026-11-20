@@ -30,6 +30,18 @@ const {
   ensureDesign,
   loginWithClaim,
 } = autosave
+/** A box on a structure-spec template was only checked against the reference dieline at its own size */
+const UNVERIFIED_RESIZE_RATIO = 0.1
+const unverifiedResize = computed(() => {
+  const m = wb.manifest
+  if (!m || m.locked || m.verifiedRange || !String(m.templateId || '').startsWith('spec-')) return null
+  const d = m.defaultParams
+  const off = (['lengthMm', 'widthMm', 'heightMm'] as const).some((k) => {
+    const base = Number(d[k]) || 0
+    return base > 0 && Math.abs((Number(wb.params[k]) || 0) - base) / base > UNVERIFIED_RESIZE_RATIO
+  })
+  return off ? { l: d.lengthMm, w: d.widthMm, h: d.heightMm } : null
+})
 const exportRef = ref<InstanceType<typeof ExportCenter> | null>(null)
 const mobileTab = ref<'2d' | '3d'>('2d')
 const engineMismatch = ref(false)
@@ -167,6 +179,7 @@ onBeforeUnmount(() => {
         <p v-if="geometryDrift" class="warn drift">{{ t('workbench.driftBlocked') }}</p>
         <p v-if="wb.manifest?.fidelity === 'close'" class="warn soft fidelity">{{ t('workbench.fidelityCloseNote') }}</p>
         <p v-if="wb.manifest?.locked" class="warn soft locked">{{ t('workbench.lockedNote') }}</p>
+        <p v-if="unverifiedResize" class="warn unverified">{{ t('workbench.unverifiedResizeNote', unverifiedResize) }}</p>
         <p v-if="wb.manifest?.verifiedRange" class="warn soft verified">
           {{ t(wb.manifest.sampledQuality === 'improved' ? 'workbench.improvedRangeNote' : 'workbench.verifiedRangeNote', {
             l: wb.manifest.verifiedRange.length.join('–'),
@@ -243,6 +256,7 @@ onBeforeUnmount(() => {
 .warn.drift{border-left:3px solid #b91c1c}
 .warn.fidelity{border-left:3px solid #a16207}
 .warn.locked{border-left:3px solid #0369a1}
+.warn.unverified{border-left:3px solid #c2410c}
 .layout{
   display:grid;grid-template-columns:260px minmax(0,1fr) 260px;gap:12px;flex:1;min-height:0
 }

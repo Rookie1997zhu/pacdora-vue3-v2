@@ -268,6 +268,10 @@ export default {
   "hash": "2a313b2c4f",
   "quality": "verified"
  },
+ "folding-109080": {
+  "hash": "412dbdc0af",
+  "quality": "verified"
+ },
  "folding-110019": {
   "hash": "5c41efeed1",
   "quality": "verified"
@@ -370,6 +374,10 @@ export default {
  },
  "folding-11229002": {
   "hash": "9f9e45b041",
+  "quality": "verified"
+ },
+ "folding-112401": {
+  "hash": "14a9902737",
   "quality": "verified"
  },
  "folding-11241001": {
@@ -711,6 +719,10 @@ export default {
  "folding-151630": {
   "hash": "25489ee34d",
   "quality": "verified"
+ },
+ "folding-151660": {
+  "hash": "6e582fd9ef",
+  "quality": "improved"
  },
  "folding-15201001": {
   "hash": "9604d74845",
@@ -1076,6 +1088,14 @@ export default {
   "hash": "d38090a6cf",
   "quality": "verified"
  },
+ "folding-310600": {
+  "hash": "12b0333c95",
+  "quality": "verified"
+ },
+ "folding-310700": {
+  "hash": "eccf47f544",
+  "quality": "verified"
+ },
  "folding-512230": {
   "hash": "1c5d16704e",
   "quality": "verified"
@@ -1144,6 +1164,14 @@ export default {
   "hash": "6ac2e52a65",
   "quality": "verified"
  },
+ "gift-12802001": {
+  "hash": "45c83490c9",
+  "quality": "verified"
+ },
+ "gift-12808001": {
+  "hash": "39cea480db",
+  "quality": "verified"
+ },
  "gift-15001007": {
   "hash": "b9b5377722",
   "quality": "verified"
@@ -1160,9 +1188,21 @@ export default {
   "hash": "8f88cdd9fb",
   "quality": "verified"
  },
+ "gift-16001001": {
+  "hash": "3faf7baaae",
+  "quality": "improved"
+ },
  "gift-160031": {
   "hash": "78a601c963",
   "quality": "verified"
+ },
+ "gift-160160": {
+  "hash": "b12aac0132",
+  "quality": "verified"
+ },
+ "gift-16016001": {
+  "hash": "4145c9bd71",
+  "quality": "improved"
  },
  "gift-180190": {
   "hash": "19dbb48200",
@@ -1492,6 +1532,14 @@ export default {
   "hash": "fd8783d5bd",
   "quality": "verified"
  },
+ "shipping-200016": {
+  "hash": "d7fdcfc762",
+  "quality": "verified"
+ },
+ "shipping-200017": {
+  "hash": "73f0f951c5",
+  "quality": "verified"
+ },
  "shipping-200020": {
   "hash": "2cc8e9d171",
   "quality": "verified"
@@ -1572,6 +1620,10 @@ export default {
   "hash": "6cb06e6ad6",
   "quality": "verified"
  },
+ "square-12808001": {
+  "hash": "b4c38ba2bf",
+  "quality": "verified"
+ },
  "square-15001001": {
   "hash": "40154f92db",
   "quality": "verified"
@@ -1583,6 +1635,10 @@ export default {
  "square-15001102": {
   "hash": "63def1de19",
   "quality": "verified"
+ },
+ "square-16016001": {
+  "hash": "ab6ec8d486",
+  "quality": "improved"
  },
  "square-240031": {
   "hash": "df1a799fab",
@@ -1800,8 +1856,24 @@ export default {
   "hash": "1b936db4e0",
   "quality": "verified"
  },
+ "tray-128013": {
+  "hash": "fa55f27328",
+  "quality": "verified"
+ },
+ "tray-12802001": {
+  "hash": "e5fcc32abd",
+  "quality": "verified"
+ },
+ "tray-128021": {
+  "hash": "7c3fb14dd0",
+  "quality": "verified"
+ },
  "tray-128040": {
   "hash": "2d37e72852",
+  "quality": "verified"
+ },
+ "tray-128060": {
+  "hash": "411702b738",
   "quality": "verified"
  },
  "tray-128100": {

@@ -13,6 +13,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import {fileURLToPath} from 'node:url'
 import {loadPoints,anchorData,secondaryCenters,trim} from './lib/sampledRegimes.mjs'
+import {TEMPLATES} from '../src/templates/index.js'
 
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..')
 const SAMPLES=path.join(ROOT,'docs','pacdora-multisize')
@@ -45,6 +46,13 @@ for(const num of nums){
   const cat=CATS.find(c=>fs.existsSync(path.join(ROOT,'public',`${c}-geom`,`${num}.json`))&&csvHas(c,num))
   if(!cat){report.push(`${num}: no category`);continue}
   const {base,grid}=loadPoints(ROOT,cat,num)
+  // 多件盒：各件的面片名单取自原结构规格模板（改用插值模板后预设里已不是它，从旧数据里找回）
+  const fb=fallbackOf(cat,num)
+  const specPieces=TEMPLATES[fb]?.pieces
+  const pieces=Array.isArray(specPieces)&&specPieces.length>1
+    ?specPieces.map(p=>({id:p.id,label:p.label,role:p.role,faces:p.faces})):null
+  // 多图层的多件盒（面纸 + 灰板的精装盒）取不出单件，不做
+  if(pieces&&Object.keys(base.geom.layer||{}).length!==1){report.push(`${cat}-${num}: 多图层多件盒，跳过`);continue}
   const primary=anchorData(base,grid)
   // 次锚点：至少在另外两个维度之一上有可用范围（补采过样本）才有意义
   const anchors=[]
@@ -60,7 +68,8 @@ for(const num of nums){
     baseInner:{L:Number(base.geom.size.L),W:Number(base.geom.size.W),H:Number(base.geom.size.H)},
     baseOuter:{L:Number(base.geom.outSize.L),W:Number(base.geom.outSize.W),H:Number(base.geom.outSize.H)},
     thickness:Number(base.geom.size.D)||0,
-    fallback:fallbackOf(cat,num),
+    fallback:fb,
+    ...(pieces?{pieces}:{}),
     range:primary.range,dims:primary.dims,base:primary.base,
     anchors,
   }
