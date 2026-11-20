@@ -146,7 +146,30 @@ for(const {label,dims} of sizes){
   assert.ok(svg.includes('>Hello</tspan>')&&svg.includes('>盒子</tspan>'),'artwork: svg live text incl. CJK')
   assert.ok(svg.includes('<ellipse')&&svg.includes('rotate(15)')&&svg.includes('clip-path="url(#artwork-clip-'),'artwork: svg shapes / rotation / panel clip')
   assert.ok(svg.includes(`translate(${face.x+5} ${face.y+5})`),'artwork: svg position = panel origin + layer offset')
-  assert.ok(w1.some(t=>t.includes('inside'))&&w1.some(t=>t.includes('NO_SUCH_PANEL')),'artwork: skipped layers are reported')
+  assert.ok(w1.some(t=>t.includes('NO_SUCH_PANEL')),'artwork: skipped layers are reported')
+  // 内面的图案：右边并排一张从内面看的刀版（左右镜像），图层保持离面板左边的距离、本身不镜像
+  {
+    const {PDFDocument,PDFRawStream,decodePDFRawStream}=await import('pdf-lib')
+    const insideX=k.bounds.minX+k.bounds.maxX-(face.x+face.w)
+    assert.ok(svg.includes('<g id="INSIDE"')&&svg.includes('<g id="ARTWORK_INSIDE">'),'artwork: svg inside sheet')
+    assert.ok(svg.includes(`translate(${insideX} ${face.y})`),'artwork: inside layer sits at the mirrored panel')
+    assert.ok(!w1.some(t=>t.includes('is not exported')),'artwork: inside layers are no longer reported as skipped')
+    assert.ok(w1.some(t=>t.includes('inside artwork is on its own sheet')),'artwork: the export says where the inside print went')
+    const vbOf=t=>t.match(/viewBox="([^"]+)"/)[1].split(' ').map(Number)
+    const noInside={...artwork,layers:artwork.layers.filter(l=>l.side!=='inside')}
+    const one=toSvgDieline(k,{artwork:noInside,artworkImages:images})
+    assert.ok(!one.includes('id="INSIDE"'),'artwork: no inside sheet without inside layers')
+    assert.equal(vbOf(svg)[2],vbOf(one)[2]*2,'artwork: svg twice as wide with the inside sheet')
+    const two=await PDFDocument.load(await toPdf(k,{artwork,artworkImages:images,artworkWarnings:[]}))
+    assert.equal(two.getPageCount(),2,'artwork: pdf has an inside page')
+    assert.equal((await PDFDocument.load(await toPdf(k,{artwork:noInside,artworkImages:images}))).getPageCount(),1,'artwork: one page without inside layers')
+    const c2=two.getPage(1).node.Contents()
+    let text=''
+    for(const st of (c2.asArray?c2.asArray().map(r=>two.context.lookup(r)):[c2]))text+=Buffer.from(st instanceof PDFRawStream?decodePDFRawStream(st).decode():st.getContents()).toString('latin1')
+    text=' '+text.replace(/\s+/g,' ')+' '
+    assert.ok(text.includes(' 1 0 0 rg ')&&/\/OC \/OC1 BDC/.test(text),'artwork: inside page draws the inside layer in the ARTWORK layer')
+    assert.ok(!/ BT [^B]*INSIDE/.test(' ')&&(text.match(/ q /g)||[]).length===(text.match(/ Q /g)||[]).length,'artwork: inside page graphics state balanced')
+  }
   assert.ok(!toSvgDieline(k,{}).includes('ARTWORK'),'artwork: absent without layers')
   const {PDFDocument,PDFName,PDFRawStream,decodePDFRawStream}=await import('pdf-lib')
   for(const [label,fn] of [['pdf',toPdf],['ai',toAi]]){
@@ -180,9 +203,10 @@ for(const {label,dims} of sizes){
     // 不依赖本机装了什么字体：用一个假的转曲函数确认接线
     const fake=(line,size)=>({width:size*[...line].length,paths:[...line].map((_,i)=>[['M',i*size,0],['L',i*size+size*.8,0],['L',i*size+size*.8,size*.8],['C',i*size+size*.6,size,i*size+size*.2,size,i*size,size*.8],['Z']])})
     for(const [label,fn] of [['pdf',toPdf],['ai',toAi]]){
-      const plain=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:[]}))
+      // 页眉另算（见下），这里只看图案
+      const plain=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:[],showTitleBlock:false}))
       const w3=[]
-      const curved=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w3,outlineText:fake}))
+      const curved=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w3,outlineText:fake,showTitleBlock:false}))
       assert.ok(!w3.some(t=>t.includes('cannot draw')),`artwork ${label}: CJK text no longer reported as undrawable`)
       assert.ok(w3.some(t=>t.includes('cjk')&&t.includes('converted to curves')),`artwork ${label}: curve conversion is reported`)
       assert.ok(plain.includes(' 0.8 0.2 0.2 RG ')&&!curved.includes(' 0.8 0.2 0.2 RG '),`artwork ${label}: placeholder box gone`)
@@ -191,8 +215,18 @@ for(const {label,dims} of sizes){
       assert.equal((curved.match(/ q /g)||[]).length,(curved.match(/ Q /g)||[]).length,`artwork ${label}: graphics state balanced with curves`)
       // 转不出来（某个字哪种字体里都没有）时退回占位框并报告
       const w4=[]
-      const fallback=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w4,outlineText:()=>null}))
+      const fallback=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w4,outlineText:()=>null,showTitleBlock:false}))
       assert.ok(fallback.includes(' 0.8 0.2 0.2 RG ')&&w4.some(t=>t.includes('cannot draw')),`artwork ${label}: falls back to the placeholder`)
+    }
+    // 页眉：盒型名是中文 / 韩文时转成曲线画出来；没有转曲函数时照旧只留拉丁字符
+    {
+      const named={...k,templateInfo:{...(k.templateInfo||{}),label:'天地盖礼盒'}}
+      const latin={...k,templateInfo:{...(k.templateInfo||{}),label:'Gift box'}}
+      const curves=t=>(t.match(/ c /g)||[]).length
+      const a=await read(await toPdf(named,{})),b=await read(await toPdf(named,{outlineText:fake})),c=await read(await toPdf(latin,{outlineText:fake}))
+      assert.ok(curves(b)>curves(a),'title: CJK box name drawn as curves')
+      assert.equal(curves(c),curves(await read(await toPdf(latin,{}))),'title: latin box name stays text')
+      assert.equal(curves(await read(await toPdf(named,{outlineText:()=>null}))),curves(a),'title: falls back when a glyph is missing')
     }
     // 本机有中日韩字体时再用真字体过一遍（没有就跳过；镜像里装了 font-noto-cjk）
     if(loadOutlineFonts().length){

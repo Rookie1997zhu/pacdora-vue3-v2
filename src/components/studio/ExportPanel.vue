@@ -38,6 +38,7 @@
     </template>
     <p v-if="!design.currentRevisionId" class="hint">{{ t('studio.exportNoRevision') }}</p>
     <p v-if="statusText" class="job">{{ statusText }}</p>
+    <ExportNotices v-if="exportStore.currentJob?.status === 'succeeded'" :preflight="exportStore.currentJob.preflight" />
     <p v-if="exportStore.error" class="err">{{ displayError }}</p>
     <p v-if="exportStore.errorCode === 'EXPORT_QUOTA_EXCEEDED'" class="wall">
       {{ t('billing.quotaExceeded') }}
@@ -63,6 +64,7 @@ import { useAuthStore } from '../../stores/auth'
 import { useBillingStore } from '../../stores/billing'
 import { useDesignStore } from '../../stores/design'
 import { useExportStore } from '../../stores/export'
+import ExportNotices from '../export/ExportNotices.vue'
 
 const { t } = useI18n()
 const design = useDesignStore()

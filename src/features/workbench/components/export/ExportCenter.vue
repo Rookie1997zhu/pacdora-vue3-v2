@@ -10,6 +10,7 @@ import { useAuthStore } from '../../../../stores/auth'
 import { useKnifeStore } from '../../stores/knife'
 import { useWorkbenchStore } from '../../stores/workbench'
 import GateDialog from './GateDialog.vue'
+import ExportNotices from '../../../../components/export/ExportNotices.vue'
 
 const props = defineProps<{
   designId: string | null
@@ -212,6 +213,7 @@ defineExpose({ requestExport })
             <button v-if="j.status === 'queued'" type="button" @click="exportStore.cancel(j.id)">{{ t('workbench.cancel') }}</button>
             <button v-if="j.status === 'failed' && (j.attempts || 0) < 2" type="button" @click="exportStore.retry(j.id)">{{ t('workbench.retry') }}</button>
           </span>
+          <ExportNotices v-if="j.status === 'succeeded'" class="q-notices" :preflight="j.preflight" />
         </li>
       </ul>
     </div>
@@ -237,7 +239,8 @@ select{height:30px;border-radius:6px;border:1px solid var(--bc-line-strong)}
 .hint{margin:0;font-size:11px;color:var(--bc-ink-muted)}
 .err{margin:0;color:#b42318;font-size:12px}
 .queue{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.queue li{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:6px 0;border-top:1px solid var(--bc-line)}
+.queue li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:12px;padding:6px 0;border-top:1px solid var(--bc-line)}
+.q-notices{flex-basis:100%;margin-top:0}
 .q-actions{display:flex;gap:4px}
 .q-actions button,.ghost{height:28px;padding:0 8px;border-radius:6px;border:1px solid var(--bc-line-strong);background:#fff;cursor:pointer;font-size:11px}
 .muted{opacity:.55}
