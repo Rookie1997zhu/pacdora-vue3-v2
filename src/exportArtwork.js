@@ -113,10 +113,12 @@ const K=0.5522847498 // circle → 4 cubic Béziers
 
 /**
  * Draw the artwork on a pdf-lib page. `map(x,y)` converts net mm to page points (y up), `scale` is
- * points per mm. Text uses `font` (a standard PDF font): lines it cannot encode (CJK, Hangul…) are
- * drawn as a dashed placeholder box and reported, never dropped silently.
+ * points per mm. Text uses `font` (a standard PDF font). A layer with characters that font cannot
+ * encode (CJK, Hangul…) is converted to curves with `outlineText(line,size)` when the caller provides
+ * one (services/geometry/textOutline.mjs); without it, or when a character has no glyph in any font
+ * found there, the layer is drawn as a placeholder box and reported, never dropped silently.
  */
-export async function drawArtworkPdf(doc,page,knife,artwork,images,{map,scale,font,warnings=[]}){
+export async function drawArtworkPdf(doc,page,knife,artwork,images,{map,scale,font,warnings=[],outlineText=null}){
   const {items,background,skipped}=planArtwork(knife,artwork)
   warnings.push(...skipped)
   const ops=(...list)=>page.pushOperators(...list)
@@ -186,7 +188,30 @@ export async function drawArtworkPdf(doc,page,knife,artwork,images,{map,scale,fo
       const lines=textLines(layer).map(line=>{
         try{return {hex:font.encodeText(line),width:font.widthOfTextAtSize(line,size)}}catch{unsupported=true;return null}
       })
-      if(unsupported){
+      // Outline the whole layer (not just the offending lines) so that one layer keeps one typeface
+      const outlined=unsupported&&typeof outlineText==='function'
+        ?textLines(layer).map(line=>{try{return outlineText(line,size)}catch{return null}})
+        :null
+      if(outlined&&outlined.every(Boolean)){
+        ops(setFillingColor(rgb(col.r,col.g,col.b)))
+        outlined.forEach((ln,k)=>{
+          const x=align==='center'?(w-ln.width)/2:align==='right'?w-ln.width:0
+          // Glyph outlines are y-up from the baseline; the layer frame is y-down
+          const base=size*(0.86+k)
+          for(const glyph of ln.paths){
+            for(const c of glyph){
+              if(c[0]==='M')ops(moveTo(x+c[1],base-c[2]))
+              else if(c[0]==='L')ops(lineTo(x+c[1],base-c[2]))
+              else if(c[0]==='C')ops(appendBezierCurve(x+c[1],base-c[2],x+c[3],base-c[4],x+c[5],base-c[6]))
+              else ops(closePath())
+            }
+          }
+        })
+        // One fill for the whole layer: counters (the inside of 口, ㅇ…) are cut out by the winding rule
+        ops(fill())
+        warnings.push(`${layer.name||layer.id}: text converted to curves (not editable as text; glyphs may differ from the editor font)`)
+        drawn++
+      }else if(unsupported){
         warnings.push(`${layer.name||layer.id}: text has characters the PDF font cannot draw (use SVG, or convert the text to an image)`)
         ops(setStrokingColor(rgb(.8,.2,.2)),setLineWidth(0.3),rectangle(0,0,w,h),stroke())
       }else{

@@ -392,7 +392,7 @@ export async function toPdf(knife,options={}){
 
   if(hasArtwork){
     page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of('OC1')]))
-    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[]})
+    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[],outlineText:options.outlineText||null})
     page.pushOperators(PDFOperator.of('EMC'))
   }else if(artworkPlan&&options.artworkWarnings)options.artworkWarnings.push(...artworkPlan.skipped)
 

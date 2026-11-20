@@ -167,6 +167,42 @@ for(const {label,dims} of sizes){
     assert.equal((content.match(/\/OC \/OC\d BDC/g)||[]).length,(content.match(/ EMC /g)||[]).length,`artwork ${label}: layer groups balanced`)
     assert.ok(w2.some(t=>t.includes('cjk')&&t.includes('cannot draw')),`artwork ${label}: unsupported text is reported, not dropped`)
   }
+  // 中日韩文字：导出服务提供 outlineText 时转成曲线画进去（services/geometry/textOutline.mjs），不再是占位框
+  {
+    const {outlineText,loadOutlineFonts}=await import('../services/geometry/textOutline.mjs')
+    const read=async bytes=>{
+      const doc=await PDFDocument.load(bytes)
+      let content=''
+      const contents=doc.getPage(0).node.Contents()
+      for(const st of (contents.asArray?contents.asArray().map(r=>doc.context.lookup(r)):[contents]))content+=Buffer.from(st instanceof PDFRawStream?decodePDFRawStream(st).decode():st.getContents()).toString('latin1')
+      return ' '+content.replace(/\s+/g,' ')+' '
+    }
+    // 不依赖本机装了什么字体：用一个假的转曲函数确认接线
+    const fake=(line,size)=>({width:size*[...line].length,paths:[...line].map((_,i)=>[['M',i*size,0],['L',i*size+size*.8,0],['L',i*size+size*.8,size*.8],['C',i*size+size*.6,size,i*size+size*.2,size,i*size,size*.8],['Z']])})
+    for(const [label,fn] of [['pdf',toPdf],['ai',toAi]]){
+      const plain=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:[]}))
+      const w3=[]
+      const curved=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w3,outlineText:fake}))
+      assert.ok(!w3.some(t=>t.includes('cannot draw')),`artwork ${label}: CJK text no longer reported as undrawable`)
+      assert.ok(w3.some(t=>t.includes('cjk')&&t.includes('converted to curves')),`artwork ${label}: curve conversion is reported`)
+      assert.ok(plain.includes(' 0.8 0.2 0.2 RG ')&&!curved.includes(' 0.8 0.2 0.2 RG '),`artwork ${label}: placeholder box gone`)
+      assert.equal((curved.match(/ c /g)||[]).length-(plain.match(/ c /g)||[]).length,2,`artwork ${label}: one curve per outlined glyph`)
+      assert.ok(/\/ArtF[-\w]* 6 Tf/.test(curved),`artwork ${label}: latin text still uses the PDF font`)
+      assert.equal((curved.match(/ q /g)||[]).length,(curved.match(/ Q /g)||[]).length,`artwork ${label}: graphics state balanced with curves`)
+      // 转不出来（某个字哪种字体里都没有）时退回占位框并报告
+      const w4=[]
+      const fallback=await read(await fn(k,{artwork,artworkImages:images,artworkWarnings:w4,outlineText:()=>null}))
+      assert.ok(fallback.includes(' 0.8 0.2 0.2 RG ')&&w4.some(t=>t.includes('cannot draw')),`artwork ${label}: falls back to the placeholder`)
+    }
+    // 本机有中日韩字体时再用真字体过一遍（没有就跳过；镜像里装了 font-noto-cjk）
+    if(loadOutlineFonts().length){
+      const o=outlineText('盒子 한글 Box',6)
+      assert.ok(o&&o.paths.length>=7&&o.width>20&&o.width<60,'outlineText: real glyphs with a plausible width')
+      const ys=o.paths.flat().filter(c=>c[0]!=='Z').map(c=>c[c.length-1])
+      assert.ok(Math.max(...ys)>3&&Math.max(...ys)<7&&Math.min(...ys)>-2.5,'outlineText: glyphs sit on the baseline, y up')
+      console.log(`ok outlineText with ${loadOutlineFonts().length} font face(s)`)
+    }else console.log('skip outlineText real-font check (no CJK font on this machine)')
+  }
   assert.ok(!toDxf(k,{artwork,artworkImages:images}).includes('ARTWORK'),'artwork: dxf stays line-only')
   console.log('ok artwork svg/pdf/ai')
 }

@@ -1,6 +1,8 @@
 ARG NODE_IMAGE=node:22-alpine
 FROM ${NODE_IMAGE}
 WORKDIR /app
+# CJK glyphs for artwork text in PDF / AI export (services/geometry/textOutline.mjs)
+RUN apk add --no-cache font-noto-cjk
 # Install geometry deps at repo root so /app/src/knife.js can resolve polygon-clipping
 COPY services/geometry/package.json ./package.json
 RUN npm install --omit=dev

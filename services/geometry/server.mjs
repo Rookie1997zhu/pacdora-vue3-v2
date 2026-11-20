@@ -3,6 +3,8 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {dirname, join} from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+// CJK / Hangul text in artwork is converted to curves for PDF and AI (Helvetica has Latin glyphs only)
+const {outlineText} = await import('./textOutline.mjs')
 const repoRoot = join(__dirname, '..', '..')
 const srcRoot = join(repoRoot, 'src')
 const geomSchemaRoot = join(repoRoot, 'packages', 'geometry-schema')
@@ -409,7 +411,7 @@ async function exportDieline(body) {
     qualityTier: qualityTier || 'vector_proof',
     includeDims: options.showDimensions ?? true,
     ...options,
-    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings} : {}),
+    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings, outlineText} : {}),
   }
   let mime
   let filename

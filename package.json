@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@lordicon/element": "^3.0.2",
+    "fontkit": "^2.0.4",
     "gsap": "^3.15.1",
     "konva": "^10.9.1",
     "lottie-web": "^5.13.0",
