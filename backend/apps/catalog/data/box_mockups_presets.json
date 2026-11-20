@@ -2184,7 +2184,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112430.png",
-      "template_id": "spec-BuckleBottomBoxWithAdhesiveMouthHandle"
+      "template_id": "sampled-mailer-112430"
     },
     {
       "category": "mailer",
@@ -2576,7 +2576,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/152040.png",
-      "template_id": "spec-FlipWithLock"
+      "template_id": "sampled-mailer-152040"
     },
     {
       "category": "mailer",
@@ -3374,7 +3374,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200014.png",
-      "template_id": "spec-RegularCartonWithHandleHoles"
+      "template_id": "sampled-shipping-200014"
     },
     {
       "category": "shipping",

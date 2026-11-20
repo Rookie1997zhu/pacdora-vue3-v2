@@ -8515,7 +8515,7 @@ export default {
       "height": 158.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-DustproofHookBuckleBottomBox",
+      "templateId": "sampled-folding-110360",
       "hasGeometry": true,
       "cutCount": 106,
       "foldCount": 15,
@@ -8532,8 +8532,8 @@ export default {
       ],
       "structureCode": "DustproofHookBuckleBottomBox",
       "specFrom": "hanging-tuck",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -12305,7 +12305,7 @@ export default {
       "height": 150,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-BuckleBottomBoxWithAdhesiveMouthHandle",
+      "templateId": "sampled-mailer-112430",
       "hasGeometry": true,
       "cutCount": 70,
       "foldCount": 12,
@@ -12323,113 +12323,9 @@ export default {
         "带手柄的盒子"
       ],
       "structureCode": "BuckleBottomBoxWithAdhesiveMouthHandle",
-      "openParams": {
-        "BR": [
-          1,
-          0.5,
-          1.5,
-          2
-        ],
-        "RY": [
-          0.7,
-          0,
-          1,
-          2
-        ],
-        "G": [
-          45,
-          5,
-          150,
-          3
-        ],
-        "GT": [
-          15,
-          0,
-          45,
-          3
-        ],
-        "K1": [
-          30,
-          30,
-          74,
-          4
-        ],
-        "MT": [
-          15,
-          0,
-          20,
-          5
-        ],
-        "K3": [
-          29.5,
-          10,
-          74,
-          5
-        ],
-        "MR": [
-          8,
-          0,
-          15,
-          5
-        ],
-        "OF": [
-          1.5,
-          0,
-          1.5,
-          6
-        ],
-        "R1": [
-          15,
-          0,
-          29,
-          6
-        ],
-        "SW5": [
-          120,
-          20,
-          150,
-          7
-        ],
-        "RR1": [
-          15,
-          0,
-          25,
-          7
-        ],
-        "SD5": [
-          22,
-          0,
-          30,
-          7
-        ],
-        "ST6": [
-          10,
-          3,
-          20,
-          7
-        ],
-        "RR": [
-          2,
-          0,
-          5,
-          7
-        ],
-        "A": [
-          91,
-          10,
-          91,
-          8
-        ],
-        "AR": [
-          22,
-          0,
-          38,
-          8
-        ]
-      },
       "specFrom": "handle-box",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -15562,7 +15458,7 @@ export default {
       "height": 73,
       "thickness": 3,
       "materialId": "kraft",
-      "templateId": "spec-StackedSideBuckleTrayTypeBox",
+      "templateId": "sampled-tray-120035",
       "hasGeometry": true,
       "cutCount": 102,
       "foldCount": 24,
@@ -15578,126 +15474,10 @@ export default {
         "托盘盒"
       ],
       "structureCode": "StackedSideBuckleTrayTypeBox",
-      "openParams": {
-        "SX": [
-          2,
-          0,
-          2,
-          2
-        ],
-        "OF": [
-          3,
-          2,
-          3,
-          2
-        ],
-        "AX": [
-          3,
-          3,
-          5,
-          2
-        ],
-        "AY": [
-          3,
-          3,
-          3,
-          2
-        ],
-        "R": [
-          1.5,
-          0,
-          1.5,
-          2
-        ],
-        "SW": [
-          40,
-          0,
-          50,
-          3
-        ],
-        "SD": [
-          16,
-          8,
-          40,
-          3
-        ],
-        "CR": [
-          4,
-          0,
-          5.5,
-          3
-        ],
-        "C": [
-          16,
-          10,
-          75,
-          3
-        ],
-        "R1": [
-          3,
-          0,
-          4.5,
-          3
-        ],
-        "X": [
-          2,
-          2,
-          3,
-          3
-        ],
-        "SD1": [
-          2,
-          0,
-          6,
-          3
-        ],
-        "SW1": [
-          32,
-          20,
-          40,
-          3
-        ],
-        "R2": [
-          2,
-          0,
-          2,
-          3
-        ],
-        "TR": [
-          30,
-          5,
-          40,
-          4
-        ],
-        "TRR": [
-          8,
-          3,
-          8,
-          4
-        ],
-        "SD2": [
-          4.5,
-          4.5,
-          6,
-          4
-        ],
-        "TR1": [
-          28,
-          24,
-          30,
-          4
-        ],
-        "N": [
-          83,
-          10,
-          113,
-          4
-        ]
-      },
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
-      "fold3d": "differs"
+      "templateSource": "sampled",
+      "fidelity": "exact",
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120040",
@@ -16578,7 +16358,7 @@ export default {
       "height": 58,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-SideLowLockInterlockThickenedDiscBox",
+      "templateId": "sampled-folding-120144",
       "hasGeometry": true,
       "cutCount": 104,
       "foldCount": 20,
@@ -16594,65 +16374,9 @@ export default {
         "折叠盒"
       ],
       "structureCode": "SideLowLockInterlockThickenedDiscBox",
-      "openParams": {
-        "NX": [
-          4,
-          2,
-          15,
-          2
-        ],
-        "N": [
-          66,
-          10,
-          66,
-          2
-        ],
-        "R": [
-          1.5,
-          0,
-          1.5,
-          2
-        ],
-        "SW": [
-          12,
-          9,
-          51,
-          2
-        ],
-        "NY": [
-          4,
-          1.5,
-          6,
-          2
-        ],
-        "BR2": [
-          20,
-          0,
-          20,
-          2
-        ],
-        "B2": [
-          77,
-          0,
-          98.5,
-          3
-        ],
-        "B3": [
-          40,
-          5,
-          50,
-          3
-        ],
-        "BR": [
-          10,
-          0,
-          10,
-          3
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -19110,7 +18834,7 @@ export default {
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-tray-120620",
@@ -19219,7 +18943,7 @@ export default {
       "height": 29.4,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-LinedWithFlatStickInsertLockingDiscBox",
+      "templateId": "sampled-tray-120710",
       "hasGeometry": true,
       "cutCount": 91,
       "foldCount": 20,
@@ -19235,119 +18959,9 @@ export default {
         "托盘盒"
       ],
       "structureCode": "LinedWithFlatStickInsertLockingDiscBox",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          29.5,
-          2
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "NX": [
-          2,
-          2,
-          3,
-          3
-        ],
-        "NY": [
-          2,
-          0.5,
-          3,
-          3
-        ],
-        "D2": [
-          29,
-          29,
-          30,
-          3
-        ],
-        "D3": [
-          28,
-          15,
-          29.5,
-          3
-        ],
-        "R": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "A": [
-          28,
-          10,
-          28,
-          3
-        ],
-        "AR": [
-          3,
-          0,
-          4.77,
-          3
-        ],
-        "R1": [
-          3,
-          0,
-          7,
-          3
-        ],
-        "X": [
-          15,
-          0,
-          20,
-          4
-        ],
-        "Y": [
-          90,
-          20,
-          90,
-          4
-        ],
-        "Y1": [
-          15,
-          0,
-          15,
-          4
-        ],
-        "SW": [
-          30,
-          10,
-          45,
-          4
-        ],
-        "SD": [
-          3,
-          2,
-          5,
-          4
-        ],
-        "SL": [
-          11,
-          3,
-          16,
-          4
-        ],
-        "SR": [
-          6,
-          0,
-          11,
-          4
-        ],
-        "R2": [
-          3,
-          0,
-          9.1,
-          4
-        ]
-      },
       "specFrom": "drawer-tray",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -33045,7 +32659,7 @@ export default {
       "height": 80,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FlipWithLock",
+      "templateId": "sampled-mailer-152040",
       "hasGeometry": true,
       "cutCount": 84,
       "foldCount": 18,
@@ -33061,89 +32675,9 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "FlipWithLock",
-      "openParams": {
-        "G": [
-          25,
-          5,
-          50,
-          3
-        ],
-        "OF1": [
-          2.5,
-          0.5,
-          6.25,
-          3
-        ],
-        "A": [
-          20,
-          5,
-          151.1,
-          4
-        ],
-        "AR": [
-          5,
-          0,
-          9,
-          4
-        ],
-        "D2": [
-          32,
-          15,
-          81.1,
-          4
-        ],
-        "R1": [
-          16,
-          0,
-          25,
-          4
-        ],
-        "N": [
-          32.5,
-          10,
-          32.5,
-          4
-        ],
-        "SP": [
-          19,
-          5,
-          31.5,
-          4
-        ],
-        "SW": [
-          25,
-          3,
-          28,
-          4
-        ],
-        "SL": [
-          11,
-          5,
-          16,
-          4
-        ],
-        "SR": [
-          2,
-          0,
-          2,
-          4
-        ],
-        "NR": [
-          3,
-          0,
-          9,
-          4
-        ],
-        "Y": [
-          9,
-          0,
-          31.5,
-          4
-        ]
-      },
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -33157,7 +32691,7 @@ export default {
       "height": 80,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-FlipWithLock",
+      "templateId": "sampled-folding-152040",
       "hasGeometry": true,
       "cutCount": 84,
       "foldCount": 18,
@@ -33175,89 +32709,9 @@ export default {
         "邮寄盒"
       ],
       "structureCode": "FlipWithLock",
-      "openParams": {
-        "G": [
-          25,
-          5,
-          50,
-          3
-        ],
-        "OF1": [
-          2.5,
-          0.5,
-          6.25,
-          3
-        ],
-        "A": [
-          20,
-          5,
-          151.1,
-          4
-        ],
-        "AR": [
-          5,
-          0,
-          9,
-          4
-        ],
-        "D2": [
-          32,
-          15,
-          81.1,
-          4
-        ],
-        "R1": [
-          16,
-          0,
-          25,
-          4
-        ],
-        "N": [
-          32.5,
-          10,
-          32.5,
-          4
-        ],
-        "SP": [
-          19,
-          5,
-          31.5,
-          4
-        ],
-        "SW": [
-          25,
-          3,
-          28,
-          4
-        ],
-        "SL": [
-          11,
-          5,
-          16,
-          4
-        ],
-        "SR": [
-          2,
-          0,
-          2,
-          4
-        ],
-        "NR": [
-          3,
-          0,
-          9,
-          4
-        ],
-        "Y": [
-          9,
-          0,
-          31.5,
-          4
-        ]
-      },
       "specFrom": "fefco-0427",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -36513,7 +35967,7 @@ export default {
       "height": 100,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-SafetyBuckleSidePluginLockFlipBox",
+      "templateId": "sampled-folding-153140",
       "hasGeometry": true,
       "cutCount": 115,
       "foldCount": 36,
@@ -36532,8 +35986,8 @@ export default {
       ],
       "structureCode": "SafetyBuckleSidePluginLockFlipBox",
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -40266,7 +39720,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156280",
@@ -40300,7 +39754,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-mailer-156281",
@@ -40334,7 +39788,7 @@ export default {
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156281",
@@ -40370,7 +39824,7 @@ export default {
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-156291",
@@ -43677,7 +43131,7 @@ export default {
       "height": 60,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-TraySelflockWithWindow",
+      "templateId": "sampled-tray-171041",
       "hasGeometry": true,
       "cutCount": 74,
       "foldCount": 16,
@@ -43693,71 +43147,9 @@ export default {
         "托盘盒"
       ],
       "structureCode": "TraySelflockWithWindow",
-      "openParams": {
-        "OF": [
-          1.5,
-          0.2,
-          5,
-          2
-        ],
-        "N": [
-          81,
-          10,
-          101,
-          2
-        ],
-        "K": [
-          2,
-          1,
-          5,
-          2
-        ],
-        "SW": [
-          40,
-          34,
-          67,
-          2
-        ],
-        "SP": [
-          80,
-          40,
-          122,
-          2
-        ],
-        "SX": [
-          1.5,
-          1,
-          1.5,
-          3
-        ],
-        "L1": [
-          76,
-          38,
-          122,
-          4
-        ],
-        "XX": [
-          1,
-          0,
-          1,
-          4
-        ],
-        "DY": [
-          24,
-          10,
-          30,
-          4
-        ],
-        "RR": [
-          5,
-          0,
-          24,
-          4
-        ]
-      },
       "specFrom": "display-pdq",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -47305,7 +46697,7 @@ export default {
       "height": 270,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-RegularCartonWithHandleHoles",
+      "templateId": "sampled-shipping-200014",
       "hasGeometry": true,
       "cutCount": 78,
       "foldCount": 14,
@@ -47321,77 +46713,9 @@ export default {
         "运输箱"
       ],
       "structureCode": "RegularCartonWithHandleHoles",
-      "openParams": {
-        "OF": [
-          2,
-          0,
-          3,
-          2
-        ],
-        "R": [
-          3,
-          1.5,
-          6,
-          2
-        ],
-        "G": [
-          45,
-          10,
-          70.33,
-          2
-        ],
-        "F": [
-          108,
-          15,
-          211,
-          2
-        ],
-        "F1": [
-          110,
-          10,
-          110,
-          2
-        ],
-        "F2": [
-          54,
-          15,
-          211,
-          2
-        ],
-        "F3": [
-          56,
-          10,
-          56,
-          2
-        ],
-        "SW": [
-          120,
-          0,
-          124,
-          3
-        ],
-        "SD": [
-          30,
-          0,
-          60,
-          3
-        ],
-        "SR": [
-          10,
-          0,
-          15,
-          3
-        ],
-        "SP": [
-          50,
-          3,
-          244,
-          3
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -47405,7 +46729,7 @@ export default {
       "height": 270,
       "thickness": 3,
       "materialId": "kraft",
-      "templateId": "spec-RegularCartonWithHandleHoles",
+      "templateId": "sampled-folding-200014",
       "hasGeometry": true,
       "cutCount": 78,
       "foldCount": 14,
@@ -47421,77 +46745,9 @@ export default {
         "折叠盒"
       ],
       "structureCode": "RegularCartonWithHandleHoles",
-      "openParams": {
-        "OF": [
-          2,
-          0,
-          3,
-          2
-        ],
-        "R": [
-          3,
-          1.5,
-          6,
-          2
-        ],
-        "G": [
-          45,
-          10,
-          70.33,
-          2
-        ],
-        "F": [
-          108,
-          15,
-          211,
-          2
-        ],
-        "F1": [
-          110,
-          10,
-          110,
-          2
-        ],
-        "F2": [
-          54,
-          15,
-          211,
-          2
-        ],
-        "F3": [
-          56,
-          10,
-          56,
-          2
-        ],
-        "SW": [
-          120,
-          0,
-          124,
-          3
-        ],
-        "SD": [
-          30,
-          0,
-          60,
-          3
-        ],
-        "SR": [
-          10,
-          0,
-          15,
-          3
-        ],
-        "SP": [
-          50,
-          3,
-          244,
-          3
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -50702,7 +49958,7 @@ export default {
       "height": 148,
       "thickness": 1.5,
       "materialId": "kraft",
-      "templateId": "spec-FlipFlatBottomCardBoardBox",
+      "templateId": "sampled-folding-206091",
       "hasGeometry": true,
       "cutCount": 58,
       "foldCount": 12,
@@ -50718,119 +49974,9 @@ export default {
         "折叠盒"
       ],
       "structureCode": "FlipFlatBottomCardBoardBox",
-      "openParams": {
-        "G": [
-          30,
-          5,
-          150,
-          2
-        ],
-        "W2": [
-          151,
-          150.5,
-          151,
-          3
-        ],
-        "CX": [
-          1,
-          1,
-          1.5,
-          3
-        ],
-        "CY": [
-          1,
-          0,
-          1,
-          3
-        ],
-        "C": [
-          25,
-          6,
-          76,
-          3
-        ],
-        "CR": [
-          13,
-          0,
-          24,
-          3
-        ],
-        "AX": [
-          3,
-          2,
-          5,
-          4
-        ],
-        "OF": [
-          1,
-          1,
-          1.5,
-          4
-        ],
-        "R": [
-          1,
-          1,
-          1.5,
-          4
-        ],
-        "AS": [
-          3,
-          1,
-          3,
-          4
-        ],
-        "S": [
-          9,
-          9,
-          10.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          5,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          5,
-          4
-        ],
-        "AR": [
-          22,
-          0,
-          44,
-          4
-        ],
-        "A": [
-          89,
-          34,
-          151,
-          4
-        ],
-        "AX1": [
-          1.5,
-          1,
-          1.5,
-          4
-        ],
-        "FD": [
-          76.5,
-          15,
-          76.5,
-          5
-        ],
-        "FD1": [
-          77.5,
-          10,
-          151,
-          5
-        ]
-      },
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -51647,7 +50793,7 @@ export default {
       "structureCode": "FoldingThreeWalletDiscount",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -52259,7 +51405,7 @@ export default {
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-512220",
@@ -52882,7 +52028,7 @@ export default {
       "structureCode": "PlasticBag",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -52910,7 +52056,7 @@ export default {
       "structureCode": "ConsumerThirteen",
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
-      "fidelity": "close",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -56543,7 +55689,7 @@ export default {
       "height": 48.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-Pair__10001026",
+      "templateId": "sampled-folding-10001026",
       "hasGeometry": true,
       "cutCount": 76,
       "foldCount": 12,
@@ -56559,125 +55705,9 @@ export default {
         "折叠盒"
       ],
       "structureCode": "Pair",
-      "openParams": {
-        "G": [
-          16,
-          5,
-          68.5,
-          2
-        ],
-        "E": [
-          8,
-          0,
-          17.5,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          13,
-          5,
-          25,
-          3
-        ],
-        "CR": [
-          7,
-          0,
-          12,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          6,
-          6,
-          7.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          14,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          14,
-          4
-        ],
-        "AR": [
-          10,
-          0,
-          20,
-          4
-        ],
-        "A": [
-          35,
-          19,
-          69,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ]
-      },
-      "templateSource": "structure-spec-takeover",
+      "templateSource": "sampled",
       "specFrom": "rea-pair-ste",
-      "fidelity": "close",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -61793,7 +60823,7 @@ export default {
       "height": 88.9,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-PairBuckletripleP1",
+      "templateId": "sampled-folding-10204001",
       "hasGeometry": true,
       "cutCount": 92,
       "foldCount": 12,
@@ -61809,191 +60839,9 @@ export default {
         "折叠盒"
       ],
       "structureCode": "PairBuckletripleP1",
-      "openParams": {
-        "BR": [
-          0.5,
-          0.5,
-          0.5,
-          2
-        ],
-        "RY": [
-          0.3,
-          0,
-          0.5,
-          2
-        ],
-        "G": [
-          19,
-          5,
-          88.5,
-          2
-        ],
-        "E": [
-          11,
-          0,
-          20,
-          3
-        ],
-        "CX": [
-          0.5,
-          0,
-          0.5,
-          3
-        ],
-        "Y1": [
-          0.75,
-          0,
-          0.75,
-          3
-        ],
-        "Y2": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "CR1": [
-          0.5,
-          0,
-          0.75,
-          3
-        ],
-        "C": [
-          25,
-          5,
-          45,
-          3
-        ],
-        "CR": [
-          13,
-          0,
-          24,
-          3
-        ],
-        "AX": [
-          3.5,
-          0,
-          5.5,
-          4
-        ],
-        "AXX": [
-          4.5,
-          3.5,
-          5.5,
-          4
-        ],
-        "R": [
-          0.65,
-          0.6,
-          1,
-          4
-        ],
-        "OF": [
-          0.5,
-          0,
-          0.5,
-          4
-        ],
-        "AS": [
-          3.5,
-          0.5,
-          3.5,
-          4
-        ],
-        "S": [
-          9,
-          9,
-          10.25,
-          4
-        ],
-        "NX": [
-          3,
-          0,
-          18,
-          4
-        ],
-        "NY": [
-          3,
-          0,
-          18,
-          4
-        ],
-        "AR": [
-          14,
-          0,
-          28,
-          4
-        ],
-        "A": [
-          58,
-          26,
-          199,
-          4
-        ],
-        "AX1": [
-          0.3,
-          0.3,
-          0.5,
-          4
-        ],
-        "K1": [
-          22,
-          18,
-          44,
-          5
-        ],
-        "M": [
-          121,
-          66.5,
-          177,
-          5
-        ],
-        "S1": [
-          1,
-          0,
-          3,
-          5
-        ],
-        "M2": [
-          45,
-          45,
-          45,
-          6
-        ],
-        "K2": [
-          39.5,
-          39.5,
-          39.5,
-          6
-        ],
-        "MT": [
-          15,
-          0,
-          20,
-          6
-        ],
-        "K3": [
-          27.5,
-          10,
-          40,
-          6
-        ],
-        "MR": [
-          6,
-          0,
-          11,
-          6
-        ],
-        "MR1": [
-          6,
-          0,
-          19,
-          6
-        ]
-      },
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -69912,7 +68760,7 @@ export default {
       "height": 60,
       "thickness": 0.5,
       "materialId": "white",
-      "templateId": "spec-InterlockLatchFlipBox",
+      "templateId": "sampled-folding-15622001",
       "hasGeometry": true,
       "cutCount": 107,
       "foldCount": 20,
@@ -69929,8 +68777,8 @@ export default {
       ],
       "structureCode": "InterlockLatchFlipBox",
       "specFrom": null,
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -72171,7 +71019,7 @@ export default {
       "structureCode": "KnifeDraw",
       "specFrom": null,
       "templateSource": "structure-spec",
-      "fidelity": "close",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {

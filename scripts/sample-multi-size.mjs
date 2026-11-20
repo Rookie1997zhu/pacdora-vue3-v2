@@ -3,7 +3,7 @@
  * 刀版比较，检验「改尺寸后是否仍然准确」。
  *
  * 样本保存在 docs/pacdora-multisize/<编号>_<组>.json，已存在的不重复请求。
- * 用法：node scripts/sample-multi-size.mjs [--count 10] [--delay 1500] [--offline]
+ * 用法：node scripts/sample-multi-size.mjs [--count 10 | --all | --nums folding:110360,…] [--delay 1500] [--offline] [--out 文件.csv]
  * 输出：docs/多尺寸采样比对结果.csv
  */
 import fs from 'node:fs'
@@ -59,6 +59,16 @@ for(const [cat,n] of Object.entries(quota)){
 picks.splice(COUNT)
 // --all：主力清单里的全部盒型（验证样本）
 if(process.argv.includes('--all')){picks.length=0;picks.push(...main)}
+// --nums folding:110360,tray:120035：指定盒型（不必在主力清单里）
+if(arg('--nums','')){
+  const zh=Object.fromEntries(Object.entries(CATS).map(([k,v])=>[v,k]))
+  picks.length=0
+  for(const s of arg('--nums','').split(',')){
+    const [cat,num]=s.split(':')
+    const p=PRESETS.find(x=>x.categoryId===cat&&String(x.sourceNum)===num)
+    picks.push({类目:zh[cat],编号:num,名称:p?.labelEn||p?.label||'',结构代码:p?.structureCode||''})
+  }
+}
 
 const listIdOf=(cat,num)=>{
   const f=path.join(ROOT,'docs',`pacdora_${cat}_boxes`,`${cat}_boxes.csv`)
@@ -147,6 +157,6 @@ for(const pick of picks){
 
 const cols=['类目','编号','名称','结构代码','尺寸组','制造尺寸','官方实际尺寸','默认参数_等级','默认参数_展开尺寸偏差','默认参数_切线长度偏差','默认参数_面片数','官方参数_等级','官方参数_展开尺寸偏差','官方参数_切线长度偏差','官方参数随尺寸变化']
 const cell=v=>{const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s}
-fs.writeFileSync(path.join(ROOT,'docs','多尺寸采样比对结果.csv'),'﻿'+[cols.join(',')].concat(results.map(r=>cols.map(c=>cell(r[c])).join(','))).join('\n'))
+fs.writeFileSync(arg('--out','')?path.resolve(arg('--out','')):path.join(ROOT,'docs','多尺寸采样比对结果.csv'),'﻿'+[cols.join(',')].concat(results.map(r=>cols.map(c=>cell(r[c])).join(','))).join('\n'))
 const tally=k=>results.reduce((a,r)=>{const g=String(r[k]||'').slice(0,1);a[g]=(a[g]||0)+1;return a},{})
 console.log('\n默认参数',tally('默认参数_等级'),'官方参数',tally('官方参数_等级'))

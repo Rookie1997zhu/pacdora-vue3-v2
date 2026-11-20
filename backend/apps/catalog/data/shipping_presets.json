@@ -309,7 +309,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200014.png",
-      "template_id": "spec-RegularCartonWithHandleHoles"
+      "template_id": "sampled-shipping-200014"
     },
     {
       "category": "shipping",

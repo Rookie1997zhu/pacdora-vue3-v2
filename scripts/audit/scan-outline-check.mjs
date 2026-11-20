@@ -29,6 +29,7 @@ const broken = (kn) => (kn.validation?.checks || []).some((c) => c.id === 'OUTLI
 
 let targets = 0, cases = 0, blockedCases = 0, otherInvalid = 0
 const falseBlocks = []
+const otherWhy = []
 const rows = []
 for (const p of PRESETS) {
   if (!p.templateId || !(p.fidelity === 'exact' || p.fidelity === 'close')) continue
@@ -62,8 +63,8 @@ for (const p of PRESETS) {
       tested.push(k)
       try {
         const kn = make(s)
-        if (broken(kn)) { blockedCases++; hit.push(`${k}(${s.length}x${s.width}x${s.height})`) } else if (!kn.validation?.ok) otherInvalid++
-      } catch { otherInvalid++ }
+        if (broken(kn)) { blockedCases++; hit.push(`${k}(${s.length}x${s.width}x${s.height})`) } else if (!kn.validation?.ok) { otherInvalid++; otherWhy.push(`${name} ${k}: ${kn.validation.checks.filter((c) => !c.ok).map((c) => c.id).join('+')}`) }
+      } catch (err) { otherInvalid++; otherWhy.push(`${name} ${k}: ${err?.code || ''} ${String(err?.message || err).slice(0, 60)}`) }
     }
     if (hit.length) rows.push({name, cat: p.categoryId, def: `${def.length}x${def.width}x${def.height}`, tested: tested.length, hit})
   }
@@ -71,6 +72,7 @@ for (const p of PRESETS) {
 console.log(`targets ${targets} · false blocks at default size ${falseBlocks.length}`)
 if (falseBlocks.length) console.log(falseBlocks.join('\n'))
 console.log(`resized cases ${cases} · blocked ${blockedCases} · boxes with at least one blocked size ${rows.length} · invalid for other reasons ${otherInvalid}`)
+if (otherWhy.length) console.log(otherWhy.slice(0, 12).join(String.fromCharCode(10)))
 const shrinkOnly = rows.filter((r) => r.hit.every((h) => /^(0\.|min)/.test(h))).length
 console.log(`boxes blocked only when made smaller ${shrinkOnly} · also/only when made larger ${rows.length - shrinkOnly}`)
 if (process.argv[2]) {

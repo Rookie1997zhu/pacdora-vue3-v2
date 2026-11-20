@@ -54,6 +54,36 @@ function alongOffset(o,parentLen,childLen){
   return Math.min(parentLen-m,Math.max(-childLen+m,v))
 }
 
+const ATTACH_TOL=0.6
+
+/**
+ * 自由定位面（o2）沿一个轴的偏移，随尺寸变化。
+ * 规格里的偏移大多是样本上量出的常数（如「向左 110」其实是子面自己的宽度），盒子改尺寸后
+ * 子面就和父面脱开。这里按样本尺寸下的位置关系换算：
+ *   贴在（或略咬进）父面起始边外侧 → 跟着子面长度走；结束边外侧 → 跟着父面长度走；
+ *   落在父面跨度内 → 按可移动余量等比；比父面长并居中 → 保持居中；否则保持到较近一端的距离。
+ * 偏移表达式本身已随 长/宽/高 变化的不动。默认尺寸下结果与原表达式完全相同。
+ * @param expr 偏移表达式  @param cur 当前求值  @param off0 样本求值
+ * @param c0,p0 样本下子面/父面沿该轴长度  @param c,p 当前长度
+ */
+function rescaleOffset(expr,cur,off0,c0,p0,c,p){
+  if(expr&&(expr.t==='L'||expr.t==='W'||expr.t==='H')&&Number(expr.k))return cur
+  const delta=cur-off0 // 用户改结构参数带来的变化，原样保留
+  const free0=p0-c0,free=p-c
+  if(Math.abs(off0+c0)<ATTACH_TOL||off0+c0<0)return -c+(off0+c0)+delta
+  if(Math.abs(off0-p0)<ATTACH_TOL||off0>p0)return p+(off0-p0)+delta
+  // 跨在父面起始 / 结束边上、大半在外（样本上 bbox 咬进父面一点，常见于弧形或带舌的面）：
+  // 仍算贴在那条边上，咬进去的量随子面长度等比
+  const scale=c0>0?c/c0:1
+  const penStart=off0+c0,penEnd=p0-off0
+  if(off0<0&&penStart>0&&penStart<=c0/2&&penStart<p0)return -c+penStart*scale+delta
+  if(off0>0&&off0<p0&&off0+c0>p0&&penEnd<=c0/2)return p-penEnd*scale+delta
+  if(free0>1&&off0>=-ATTACH_TOL&&off0<=free0+ATTACH_TOL)return off0*(free/free0)+delta
+  if(Math.abs(off0-free0/2)<ATTACH_TOL)return free/2+(off0-free0/2)+delta
+  if(Math.abs(off0)<=Math.abs(off0-free0))return cur
+  return free+(off0-free0)+delta
+}
+
 /** 自由边（铰链对边）两端内收 → 梯形；铰链边保持整边 */
 function trapezoid(side,w,h,e){
   if(!e)return null
@@ -223,6 +253,14 @@ export function createSpecTemplate(spec){
     return spec.root
   }
 
+  // 规格样本的面板尺寸与参数：自由定位面（o2）的偏移只在这个尺寸下量过
+  const dT=Number(spec.defaults?.thickness)||0
+  const defaultPanel=Object.fromEntries(['length','width','height'].map(k=>[
+    k,round((Number(spec.defaults?.[k])||0)+(Number(spec.sizeRule?.panelAdd?.[k])||0)*dT)
+  ]))
+  const defaultParams=Object.fromEntries((spec.params||[]).map(p=>[p.code,p.def]))
+  const refCache=new Map()
+
   return {
     id:`spec-${spec.code}`,
     label:spec.name,
@@ -249,51 +287,69 @@ export function createSpecTemplate(spec){
       const pieceId=resolvePieceId(piece)
       const active=facesFor(pieceId)
       const activeRoot=rootFor(pieceId)
-      const rects=new Map()
-      const out=[]
-      // 多 root（多坯同图）：按件横向错开，禁止叠在 (0,0)
-      let originX=0,runMaxX=0,seenRoot=false
-      for(const f of active){
-        const w=round(evalExpr(f.w,panel,params)),h=round(evalExpr(f.h,panel,params))
-        if(!f.p){
-          if(seenRoot)originX=runMaxX+PIECE_GAP
-          seenRoot=true
-          const x=originX,y=0
+      const place=(panel,params,ref,record)=>{
+        const rects=new Map()
+        const out=[]
+        // 多 root（多坯同图）：按件横向错开，禁止叠在 (0,0)
+        let originX=0,runMaxX=0,seenRoot=false
+        for(const f of active){
+          const w=round(evalExpr(f.w,panel,params)),h=round(evalExpr(f.h,panel,params))
+          if(!f.p){
+            if(seenRoot)originX=runMaxX+PIECE_GAP
+            seenRoot=true
+            const x=originX,y=0
+            runMaxX=Math.max(runMaxX,x+w)
+            rects.set(f.n,{x,y,w,h})
+            out.push({f,x,y,w,h})
+            continue
+          }
+          const p=rects.get(f.p)
+          if(!p)continue
+          let x,y
+          if(f.o2&&!f.s){
+            // 斜铰链 / 非轴对齐：二维 bbox 偏移（hingeLine 显式给出折轴）
+            let ox=evalRaw(f.o2.ox,panel,params),oy=evalRaw(f.o2.oy,panel,params)
+            const r0=ref?.get(f.n)
+            if(r0){
+              ox=rescaleOffset(f.o2.ox,ox,r0.ox,r0.w,r0.pw,w,p.w)
+              oy=rescaleOffset(f.o2.oy,oy,r0.oy,r0.h,r0.ph,h,p.h)
+            }
+            x=p.x+ox
+            y=p.y+oy
+            if(record)record.set(f.n,{ox:evalRaw(f.o2.ox,panel,params),oy:evalRaw(f.o2.oy,panel,params),w,h,pw:p.w,ph:p.h})
+          }else{
+            // 折线位置：父面边，或父面内部（距起/止边 d，钳在父面跨度内）
+            const foldAt=(start,len,edge)=>{
+              if(!f.f)return edge
+              const d=Math.min(len,Math.max(0,evalRaw(f.f.d,panel,params)))
+              return f.f.from==='end'?start+len-d:start+d
+            }
+            if(f.s==='top'||f.s==='bottom'){
+              x=p.x+alongOffset(f.o,p.w,w)
+              const fy=foldAt(p.y,p.h,f.s==='top'?p.y:p.y+p.h)
+              y=f.s==='top'?fy-h:fy
+            }else{
+              y=p.y+alongOffset(f.o,p.h,h)
+              const fx=foldAt(p.x,p.w,f.s==='left'?p.x:p.x+p.w)
+              x=f.s==='left'?fx-w:fx
+            }
+          }
+          // 逐级舍入：相邻面共边坐标必须严格相等，否则折线识别失败
+          x=round(x);y=round(y)
           runMaxX=Math.max(runMaxX,x+w)
           rects.set(f.n,{x,y,w,h})
           out.push({f,x,y,w,h})
-          continue
         }
-        const p=rects.get(f.p)
-        if(!p)continue
-        let x,y
-        if(f.o2&&!f.s){
-          // 斜铰链 / 非轴对齐：二维 bbox 偏移（hingeLine 显式给出折轴）
-          x=p.x+evalRaw(f.o2.ox,panel,params)
-          y=p.y+evalRaw(f.o2.oy,panel,params)
-        }else{
-          // 折线位置：父面边，或父面内部（距起/止边 d，钳在父面跨度内）
-          const foldAt=(start,len,edge)=>{
-            if(!f.f)return edge
-            const d=Math.min(len,Math.max(0,evalRaw(f.f.d,panel,params)))
-            return f.f.from==='end'?start+len-d:start+d
-          }
-          if(f.s==='top'||f.s==='bottom'){
-            x=p.x+alongOffset(f.o,p.w,w)
-            const fy=foldAt(p.y,p.h,f.s==='top'?p.y:p.y+p.h)
-            y=f.s==='top'?fy-h:fy
-          }else{
-            y=p.y+alongOffset(f.o,p.h,h)
-            const fx=foldAt(p.x,p.w,f.s==='left'?p.x:p.x+p.w)
-            x=f.s==='left'?fx-w:fx
-          }
-        }
-        // 逐级舍入：相邻面共边坐标必须严格相等，否则折线识别失败
-        x=round(x);y=round(y)
-        runMaxX=Math.max(runMaxX,x+w)
-        rects.set(f.n,{x,y,w,h})
-        out.push({f,x,y,w,h})
+        return {rects,out}
       }
+      // 默认尺寸下各自由定位面相对父面的位置（每件只算一次），供改尺寸时保持贴合关系
+      const refKey=pieceId||''
+      if(!refCache.has(refKey)){
+        const rec=new Map()
+        place(defaultPanel,defaultParams,null,rec)
+        refCache.set(refKey,rec)
+      }
+      const {rects,out}=place(panel,params,refCache.get(refKey),null)
       if(!out.length)return {faces:[],arrows:{},faceOrder:[],root:activeRoot,holes:[]}
       const minX=Math.min(...out.map(r=>r.x)),minY=Math.min(...out.map(r=>r.y))
       const dx=round(MARGIN-minX),dy=round(MARGIN-minY)

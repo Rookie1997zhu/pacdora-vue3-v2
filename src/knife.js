@@ -1554,7 +1554,9 @@ export function createKnife({
     if(broken){
       validation.checks.push({
         id:'OUTLINE_BROKEN',ok:false,
-        message:'该尺寸下刀版结构已脱开（面板分离或切线不闭合），无法保存和导出，请把尺寸调回接近默认值',
+        message:broken.split||broken.opened
+          ?'该尺寸下刀版结构已脱开（面板分离或切线不闭合），无法保存和导出，请把尺寸调回接近默认值'
+          :'该尺寸下刀版的面板互相压住（部分结构尺寸不随盒子缩放），无法保存和导出，请把尺寸调回接近默认值',
         faces:broken.open.slice(0,12),
       })
       validation.ok=false

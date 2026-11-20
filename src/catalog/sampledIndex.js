@@ -4,6 +4,10 @@ export default {
   "hash": "8370f8b3d0",
   "quality": "verified"
  },
+ "folding-10001026": {
+  "hash": "b4557220df",
+  "quality": "verified"
+ },
  "folding-10002003": {
   "hash": "5cca8ad9e2",
   "quality": "verified"
@@ -43,6 +47,10 @@ export default {
  "folding-102013": {
   "hash": "6bb75f2109",
   "quality": "improved"
+ },
+ "folding-10204001": {
+  "hash": "e6d1bd8b28",
+  "quality": "verified"
  },
  "folding-102050": {
   "hash": "1c844830e3",
@@ -92,6 +100,10 @@ export default {
   "hash": "5c41efeed1",
   "quality": "verified"
  },
+ "folding-110360": {
+  "hash": "ec9913dba0",
+  "quality": "verified"
+ },
  "folding-110380": {
   "hash": "d21eabb078",
   "quality": "verified"
@@ -123,6 +135,10 @@ export default {
  "folding-11658001": {
   "hash": "929f921a10",
   "quality": "improved"
+ },
+ "folding-120144": {
+  "hash": "fba87e3810",
+  "quality": "verified"
  },
  "folding-120251": {
   "hash": "8819b5fd50",
@@ -188,6 +204,10 @@ export default {
   "hash": "a8cb7a1a64",
   "quality": "improved"
  },
+ "folding-152040": {
+  "hash": "b896684c21",
+  "quality": "verified"
+ },
  "folding-152050": {
   "hash": "37c9273465",
   "quality": "verified"
@@ -196,8 +216,16 @@ export default {
   "hash": "7a2c976091",
   "quality": "verified"
  },
+ "folding-153140": {
+  "hash": "e94f7a2334",
+  "quality": "verified"
+ },
  "folding-156002": {
   "hash": "236244c26a",
+  "quality": "verified"
+ },
+ "folding-15622001": {
+  "hash": "33f1fccd41",
   "quality": "verified"
  },
  "folding-158133": {
@@ -214,6 +242,14 @@ export default {
  },
  "folding-188030": {
   "hash": "22f999093e",
+  "quality": "verified"
+ },
+ "folding-200014": {
+  "hash": "23e69186c0",
+  "quality": "verified"
+ },
+ "folding-206091": {
+  "hash": "42a62d9de9",
   "quality": "verified"
  },
  "folding-550340": {
@@ -248,12 +284,24 @@ export default {
   "hash": "dcb2d367f2",
   "quality": "verified"
  },
+ "mailer-112430": {
+  "hash": "2c6793591c",
+  "quality": "improved"
+ },
  "mailer-151220": {
   "hash": "32427f6496",
   "quality": "verified"
  },
+ "mailer-152040": {
+  "hash": "ae5595bbb6",
+  "quality": "verified"
+ },
  "shipping-112010": {
   "hash": "786fdc6c42",
+  "quality": "verified"
+ },
+ "shipping-200014": {
+  "hash": "a4263bed9c",
   "quality": "verified"
  },
  "square-10263002": {
@@ -262,6 +310,10 @@ export default {
  },
  "square-240031": {
   "hash": "df1a799fab",
+  "quality": "verified"
+ },
+ "tray-120035": {
+  "hash": "b0c012807f",
   "quality": "verified"
  },
  "tray-120070": {
@@ -276,6 +328,10 @@ export default {
   "hash": "355122a5f4",
   "quality": "improved"
  },
+ "tray-120710": {
+  "hash": "5638d6c09b",
+  "quality": "verified"
+ },
  "tray-123030": {
   "hash": "f222459edf",
   "quality": "verified"
@@ -286,6 +342,10 @@ export default {
  },
  "tray-128010": {
   "hash": "51ea9707a5",
+  "quality": "verified"
+ },
+ "tray-171041": {
+  "hash": "15f3f62c85",
   "quality": "verified"
  },
  "tray-240180": {

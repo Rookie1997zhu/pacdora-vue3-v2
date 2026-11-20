@@ -1,27 +1,31 @@
 ﻿key,名称,验证尺寸,在采样范围内,等级,展开尺寸偏差,切线长度偏差,面片数,原模板等级
-folding-10001019,反向插锁盒,78×78×247,是,B,0.9%,0.5%,13/13,C
+folding-10001019,反向插锁盒,78×78×247,是,B,0.9%,0.5%,13/13,B
 folding-10001019,反向插锁盒,90×48×190,是,B,0.0%,2.7%,13/13,C
 folding-10001019,反向插锁盒,48×72×285,是,B,1.2%,0.2%,13/13,C
 folding-10001019,反向插锁盒,66×66×209,是,A,0.4%,0.3%,13/13,B
+folding-10001026,反向插锁盒,91×91×65,是,A,0.0%,1.3%,13/13,B
+folding-10001026,反向插锁盒,105×56×50,是,B,0.7%,2.6%,13/13,C
+folding-10001026,反向插锁盒,56×84×75,是,B,1.0%,0.0%,13/13,C
+folding-10001026,反向插锁盒,77×77×55,是,A,0.0%,0.1%,13/13,B
 folding-10002003,Hook reverse cartridge box,130×52×156,是,A,0.0%,0.0%,16/16,C
 folding-10002003,Hook reverse cartridge box,150×32×120,是,A,0.0%,0.2%,16/16,C
 folding-10002003,Hook reverse cartridge box,80×48×180,是,B,1.1%,0.3%,16/16,C
-folding-10002003,Hook reverse cartridge box,110×44×132,是,A,0.0%,0.0%,16/16,B
+folding-10002003,Hook reverse cartridge box,110×44×132,是,A,0.0%,0.0%,16/16,C
 folding-100021,吊孔开窗反向插锁盒,104×39×182,是,A,0.1%,0.0%,16/16,B
-folding-100021,吊孔开窗反向插锁盒,120×24×140,是,A,0.1%,0.1%,16/16,C
+folding-100021,吊孔开窗反向插锁盒,120×24×140,是,A,0.1%,0.1%,16/16,B
 folding-100021,吊孔开窗反向插锁盒,64×36×210,是,A,0.1%,0.2%,16/16,A
 folding-100021,吊孔开窗反向插锁盒,88×33×154,是,A,0.1%,0.1%,16/16,A
 folding-100024,Hanging hook nail buckle reverse cartridge box,91×52×143,是,A,0.0%,0.0%,16/16,C
 folding-100024,Hanging hook nail buckle reverse cartridge box,105×32×110,是,A,0.3%,0.1%,16/16,C
 folding-100024,Hanging hook nail buckle reverse cartridge box,56×48×165,是,A,0.4%,1.1%,16/16,C
-folding-100024,Hanging hook nail buckle reverse cartridge box,77×44×121,是,A,0.0%,0.0%,16/16,B
+folding-100024,Hanging hook nail buckle reverse cartridge box,77×44×121,是,A,0.0%,0.0%,16/16,C
 folding-100027,支脚吊孔反向插锁盒,143×39×39,是,C,2.7%,2.2%,16/16,C
 folding-100027,支脚吊孔反向插锁盒,165×24×30,是,A,0.0%,0.4%,16/16,C
 folding-100027,支脚吊孔反向插锁盒,88×36×45,是,A,0.0%,0.3%,16/16,C
-folding-100027,支脚吊孔反向插锁盒,121×33×33,是,A,0.0%,0.3%,16/16,C
+folding-100027,支脚吊孔反向插锁盒,121×33×33,是,A,0.0%,0.3%,16/16,A
 folding-101430,Take a hook aircraft,130×33×156,是,B,0.9%,0.3%,16/16,B
-folding-101430,Take a hook aircraft,150×20×120,是,A,0.0%,0.3%,16/16,C
-folding-101430,Take a hook aircraft,80×30×180,是,B,1.3%,0.1%,16/16,B
+folding-101430,Take a hook aircraft,150×20×120,是,A,0.0%,0.3%,16/16,B
+folding-101430,Take a hook aircraft,80×30×180,是,B,1.3%,0.1%,16/16,C
 folding-101430,Take a hook aircraft,110×28×132,是,A,0.4%,0.1%,16/16,B
 folding-101432,Take a hook lock aircraft,156×20×208,是,A,0.0%,0.4%,18/18,C
 folding-101432,Take a hook lock aircraft,180×12×160,是,B,1.4%,1.7%,18/18,C
@@ -33,27 +37,33 @@ folding-101433,Hook lock open window plane cartridge box,144×36×180,是,B,0.5%
 folding-101433,Hook lock open window plane cartridge box,198×33×132,是,A,0.0%,0.8%,18/18,C
 folding-101521,Rear open belt hanging hook nail buckle reverse interlock box,104×39×182,是,A,0.2%,0.0%,16/16,B
 folding-101521,Rear open belt hanging hook nail buckle reverse interlock box,120×24×140,是,A,0.2%,0.1%,16/16,B
-folding-101521,Rear open belt hanging hook nail buckle reverse interlock box,64×36×210,是,A,0.2%,0.1%,16/16,C
+folding-101521,Rear open belt hanging hook nail buckle reverse interlock box,64×36×210,是,A,0.2%,0.1%,16/16,B
 folding-101521,Rear open belt hanging hook nail buckle reverse interlock box,88×33×154,是,A,0.2%,0.2%,16/16,A
 folding-101522,Rear open belt hook lock button reverse cartridge box,133×26×133,是,B,0.9%,0.4%,18/18,B
 folding-101522,Rear open belt hook lock button reverse cartridge box,153×16×102,是,A,0.4%,0.4%,18/18,C
 folding-101522,Rear open belt hook lock button reverse cartridge box,82×24×153,是,A,0.4%,0.1%,18/18,C
 folding-101522,Rear open belt hook lock button reverse cartridge box,112×22×112,是,A,0.4%,0.1%,18/18,B
-folding-101620,左插锁对插底管式盒_仅Pacdora,299×260×143,否,C,5.8%,0.0%,14/14,C
+folding-101620,左插锁对插底管式盒_仅Pacdora,299×260×143,否,C,2.4%,0.0%,14/14,C
 folding-101620,左插锁对插底管式盒_仅Pacdora,345×160×110,否,C,3.4%,0.0%,14/14,C
-folding-101620,左插锁对插底管式盒_仅Pacdora,184×240×165,否,C,11.5%,0.0%,14/14,C
-folding-101620,左插锁对插底管式盒_仅Pacdora,253×220×121,否,C,2.2%,0.0%,14/14,C
+folding-101620,左插锁对插底管式盒_仅Pacdora,184×240×165,否,A,0.2%,0.0%,14/14,A
+folding-101620,左插锁对插底管式盒_仅Pacdora,253×220×121,否,B,1.4%,0.0%,14/14,B
 folding-101620,左插锁对插底管式盒_仅Pacdora,265×230×99,否,B,1.4%,0.0%,14/14,B
-folding-101620,左插锁对插底管式盒_仅Pacdora,265×180×126,否,C,3.1%,0.0%,14/14,C
+folding-101620,左插锁对插底管式盒_仅Pacdora,265×180×126,否,B,1.5%,0.0%,14/14,B
 folding-102013,Window fastener,156×78×209,是,C,2.3%,1.2%,13/13,B
 folding-102013,Window fastener,180×48×161,是,A,0.4%,0.1%,13/13,C
 folding-102013,Window fastener,96×72×242,是,A,0.3%,1.1%,13/13,C
 folding-102013,Window fastener,132×66×177,是,B,0.8%,0.5%,13/13,B
-folding-102050,Flip Button Bottom Box,156×52×234,否,B,1.0%,2.4%,17/17,B
-folding-102050,Flip Button Bottom Box,180×32×180,是,A,0.4%,0.3%,17/17,C
-folding-102050,Flip Button Bottom Box,96×48×270,是,A,0.2%,0.0%,17/17,B
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,260×117×117,否,C,2.2%,4.4%,13/13,C
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,300×72×90,否,C,7.3%,7.3%,13/13,C
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,160×108×135,是,A,0.0%,0.6%,13/13,C
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,220×99×99,是,A,0.3%,0.2%,13/13,B
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,140×103×81,是,A,0.0%,0.0%,13/13,C
+folding-10204001,正三扣底盒_仅上架Pacdora_P1_01,230×117×81,否,C,14.3%,1.8%,13/13,C
+folding-102050,Flip Button Bottom Box,156×52×234,否,B,0.7%,1.6%,17/17,B
+folding-102050,Flip Button Bottom Box,180×32×180,是,A,0.4%,0.3%,17/17,B
+folding-102050,Flip Button Bottom Box,96×48×270,是,A,0.2%,0.0%,17/17,A
 folding-102050,Flip Button Bottom Box,132×44×198,是,A,0.2%,0.2%,17/17,A
-folding-102050,Flip Button Bottom Box,156×46×162,是,A,0.0%,0.0%,17/17,B
+folding-102050,Flip Button Bottom Box,156×46×162,是,A,0.0%,0.0%,17/17,C
 folding-102050,Flip Button Bottom Box,138×28×162,是,A,0.0%,0.0%,17/17,B
 folding-102051,Plug-in flip fastening case,156×26×208,是,A,0.0%,0.0%,18/18,C
 folding-102051,Plug-in flip fastening case,180×20×160,是,A,0.0%,0.0%,18/18,B
@@ -61,38 +71,38 @@ folding-102051,Plug-in flip fastening case,96×24×240,是,A,0.0%,0.1%,18/18,C
 folding-102051,Plug-in flip fastening case,132×22×176,是,A,0.1%,0.0%,18/18,B
 folding-102620,Rear open belt hook forward cartridge box,234×39×156,是,A,0.1%,0.0%,16/16,B
 folding-102620,Rear open belt hook forward cartridge box,270×24×120,是,B,0.7%,0.2%,16/16,C
-folding-102620,Rear open belt hook forward cartridge box,144×36×180,是,B,0.5%,0.2%,16/16,B
+folding-102620,Rear open belt hook forward cartridge box,144×36×180,是,B,0.5%,0.2%,16/16,C
 folding-102620,Rear open belt hook forward cartridge box,198×33×132,是,A,0.1%,0.2%,16/16,A
-folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,104×39×182,是,A,0.2%,0.0%,16/16,C
-folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,120×24×140,是,A,0.2%,0.1%,16/16,C
-folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,64×36×210,是,A,0.2%,0.1%,16/16,C
-folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,88×33×154,是,A,0.2%,0.2%,16/16,C
-folding-103210,吊孔开窗扣底盒01,156×78×208,否,B,1.4%,2.8%,16/16,B
+folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,104×39×182,是,A,0.2%,0.0%,16/16,B
+folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,120×24×140,是,A,0.2%,0.1%,16/16,B
+folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,64×36×210,是,A,0.2%,0.1%,16/16,B
+folding-102621,Rear open belt hanging hook nail buckle forward cartridge box,88×33×154,是,A,0.2%,0.2%,16/16,A
+folding-103210,吊孔开窗扣底盒01,156×78×208,否,B,0.7%,4.0%,16/16,B
 folding-103210,吊孔开窗扣底盒01,180×48×160,是,A,0.4%,1.7%,16/16,C
-folding-103210,吊孔开窗扣底盒01,96×72×240,是,A,0.1%,0.9%,16/16,C
-folding-103210,吊孔开窗扣底盒01,132×66×176,是,B,0.1%,2.2%,16/16,B
+folding-103210,吊孔开窗扣底盒01,96×72×240,是,A,0.1%,0.9%,16/16,B
+folding-103210,吊孔开窗扣底盒01,132×66×176,是,B,0.1%,2.2%,16/16,C
 folding-103210,吊孔开窗扣底盒01,156×69×144,是,A,0.0%,0.0%,16/16,B
-folding-103210,吊孔开窗扣底盒01,138×42×144,是,A,0.0%,0.1%,16/16,B
-folding-103213,吊孔开窗扣底盒04,156×78×208,否,B,1.4%,2.7%,16/16,B
+folding-103210,吊孔开窗扣底盒01,138×42×144,是,A,0.0%,0.1%,16/16,C
+folding-103213,吊孔开窗扣底盒04,156×78×208,否,B,0.7%,3.9%,16/16,B
 folding-103213,吊孔开窗扣底盒04,180×48×160,是,A,0.4%,1.7%,16/16,C
-folding-103213,吊孔开窗扣底盒04,96×72×240,是,A,0.1%,0.9%,16/16,C
-folding-103213,吊孔开窗扣底盒04,132×66×176,是,B,0.1%,2.2%,16/16,B
+folding-103213,吊孔开窗扣底盒04,96×72×240,是,A,0.1%,0.9%,16/16,B
+folding-103213,吊孔开窗扣底盒04,132×66×176,是,B,0.1%,2.2%,16/16,C
 folding-103213,吊孔开窗扣底盒04,156×69×144,是,A,0.0%,0.0%,16/16,B
-folding-103213,吊孔开窗扣底盒04,138×42×144,是,A,0.0%,0.1%,16/16,B
+folding-103213,吊孔开窗扣底盒04,138×42×144,是,A,0.0%,0.1%,16/16,C
 folding-105042,内扣翻盖自锁底盒,156×78×208,是,B,0.0%,2.8%,19/19,C
 folding-105042,内扣翻盖自锁底盒,180×48×160,是,A,0.4%,0.1%,19/19,C
 folding-105042,内扣翻盖自锁底盒,96×72×240,是,A,0.0%,0.2%,19/19,C
 folding-105042,内扣翻盖自锁底盒,132×66×176,是,A,0.1%,1.1%,19/19,C
-folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,108×108×133,否,C,2.4%,4.4%,17/17,C
+folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,108×108×133,否,C,2.4%,4.1%,17/17,C
 folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,125×66×103,是,A,0.0%,0.1%,17/17,C
-folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,66×66×154,否,C,8.8%,15.9%,17/17,C
+folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,66×66×154,否,C,9.1%,4.7%,17/17,C
 folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,91×91×113,是,A,0.1%,0.1%,17/17,B
 folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,108×95×92,是,A,0.0%,0.0%,17/17,C
 folding-105050,折叠盖自锁底盒_仅上架Pacdora_TOC定制,95×58×92,是,A,0.0%,0.0%,17/17,C
-folding-106030,吊孔自锁底盒,157×79×210,是,A,0.0%,0.0%,18/18,C
+folding-106030,吊孔自锁底盒,157×79×210,是,A,0.0%,0.0%,18/18,B
 folding-106030,吊孔自锁底盒,181×48×162,是,A,0.4%,0.2%,18/18,C
-folding-106030,吊孔自锁底盒,96×73×242,是,A,0.0%,0.2%,18/18,C
-folding-106030,吊孔自锁底盒,133×67×178,是,A,0.0%,0.2%,18/18,C
+folding-106030,吊孔自锁底盒,96×73×242,是,A,0.0%,0.2%,18/18,B
+folding-106030,吊孔自锁底盒,133×67×178,是,A,0.0%,0.2%,18/18,A
 folding-108001,纸巾盒_仅上架Pacdora_P1,299×156×78,是,A,0.0%,0.7%,15/15,C
 folding-108001,纸巾盒_仅上架Pacdora_P1,345×96×60,是,C,0.0%,15.2%,15/15,B
 folding-108001,纸巾盒_仅上架Pacdora_P1,184×144×90,是,B,0.0%,3.8%,15/15,C
@@ -103,49 +113,59 @@ folding-108070,插扣简易纸巾盒,96×96×90,否,C,19.3%,19.0%,15/15,C
 folding-108070,插扣简易纸巾盒,132×132×66,否,C,4.0%,3.3%,15/15,C
 folding-10900001,简易机包盒,78×78×306,否,C,7.8%,12.5%,13/13,C
 folding-10900001,简易机包盒,90×48×235,是,B,0.0%,3.4%,13/13,C
-folding-10900001,简易机包盒,48×48×353,否,C,5.9%,4.0%,13/13,C
+folding-10900001,简易机包盒,48×48×353,否,C,6.7%,3.7%,13/13,C
 folding-10900001,简易机包盒,66×66×259,否,C,3.2%,5.6%,13/13,C
 folding-10900104,开窗简易机包盒_仅上架Pacdora_04,104×39×390,是,A,0.0%,0.0%,13/13,C
 folding-10900104,开窗简易机包盒_仅上架Pacdora_04,120×24×300,是,A,0.0%,0.0%,13/13,C
 folding-10900104,开窗简易机包盒_仅上架Pacdora_04,64×36×450,是,A,0.0%,0.1%,13/13,C
 folding-10900104,开窗简易机包盒_仅上架Pacdora_04,88×33×330,是,A,0.0%,0.0%,13/13,B
-folding-10920001,内锁扣撕拉粘底盒,182×65×260,否,C,3.9%,10.3%,33/38,C
-folding-10920001,内锁扣撕拉粘底盒,210×40×200,否,C,4.0%,1.0%,33/42,C
-folding-10920001,内锁扣撕拉粘底盒,112×60×300,否,C,2.4%,0.1%,33/30,C
-folding-10920001,内锁扣撕拉粘底盒,154×55×220,否,C,1.5%,3.9%,33/35,C
+folding-109200,内锁扣撕拉粘底盒,111×111×143,否,C,4.5%,7.7%,26/30,C
+folding-109200,内锁扣撕拉粘底盒,128×68×110,否,C,38.8%,29.9%,26/32,C
+folding-109200,内锁扣撕拉粘底盒,68×68×165,否,C,7.3%,5.9%,26/24,C
+folding-109200,内锁扣撕拉粘底盒,94×94×121,否,C,2.6%,5.2%,26/27,C
+folding-10920001,内锁扣撕拉粘底盒,182×65×260,否,C,1.4%,5.6%,33/38,C
+folding-10920001,内锁扣撕拉粘底盒,210×40×200,否,C,1.7%,1.2%,33/42,C
+folding-10920001,内锁扣撕拉粘底盒,112×60×300,否,C,0.9%,0.9%,33/30,C
+folding-10920001,内锁扣撕拉粘底盒,154×55×220,否,C,0.6%,3.5%,33/35,C
 folding-110019,无盖插锁封套,156×78×208,是,A,0.0%,0.0%,9/9,B
 folding-110019,无盖插锁封套,180×48×160,是,B,0.7%,0.1%,9/9,C
 folding-110019,无盖插锁封套,96×72×240,是,A,0.4%,0.2%,9/9,B
 folding-110019,无盖插锁封套,132×66×176,是,B,0.6%,0.4%,9/9,B
+folding-110360,DefendDustwinghook upBuckle,156×78×208,是,A,0.1%,0.0%,16/16,B
+folding-110360,DefendDustwinghook upBuckle,180×48×160,是,B,0.5%,0.4%,16/16,C
+folding-110360,DefendDustwinghook upBuckle,96×72×240,是,A,0.1%,0.5%,16/16,C
+folding-110360,DefendDustwinghook upBuckle,132×66×176,是,A,0.1%,0.6%,16/16,B
+folding-110360,DefendDustwinghook upBuckle,156×69×144,是,A,0.1%,0.0%,16/16,C
+folding-110360,DefendDustwinghook upBuckle,138×42×144,是,A,0.1%,0.0%,16/16,C
 folding-110380,hook upconcaveshapeBuckle,196×105×209,是,B,0.7%,1.0%,13/13,C
 folding-110380,hook upconcaveshapeBuckle,226×64×161,是,B,0.7%,0.6%,13/13,C
-folding-110380,hook upconcaveshapeBuckle,120×97×242,是,A,0.2%,1.2%,13/13,C
+folding-110380,hook upconcaveshapeBuckle,120×97×242,是,A,0.2%,1.2%,13/13,B
 folding-110380,hook upconcaveshapeBuckle,166×89×177,是,A,0.3%,0.1%,13/13,C
-folding-110390,Hanging hole concaveshapeSelf-locking case,195×104×208,是,B,0.7%,0.1%,15/15,C
+folding-110390,Hanging hole concaveshapeSelf-locking case,195×104×208,是,B,0.7%,0.1%,15/15,B
 folding-110390,Hanging hole concaveshapeSelf-locking case,225×64×160,是,B,0.7%,0.4%,15/15,B
-folding-110390,Hanging hole concaveshapeSelf-locking case,120×96×240,是,A,0.2%,0.1%,15/15,C
-folding-110390,Hanging hole concaveshapeSelf-locking case,165×88×176,是,A,0.2%,0.1%,15/15,C
-folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,156×156×260,否,C,1.3%,38.6%,16/16,C
+folding-110390,Hanging hole concaveshapeSelf-locking case,120×96×240,是,A,0.2%,0.1%,15/15,B
+folding-110390,Hanging hole concaveshapeSelf-locking case,165×88×176,是,A,0.2%,0.1%,15/15,B
+folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,156×156×260,否,C,7.1%,8.1%,16/16,C
 folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,180×96×200,是,B,0.7%,0.2%,16/16,C
-folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,96×96×300,否,C,23.9%,29.0%,16/16,C
-folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,132×132×220,否,C,0.5%,41.1%,16/16,C
+folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,96×96×300,否,C,20.6%,29.0%,16/16,C
+folding-110391,Counter-fold foldfoldingconcaveshapehanging holeSelf-locking case,132×132×220,否,C,0.5%,19.6%,16/16,C
 folding-110422,InsuranceTubeGlued box,158×53×105,是,A,0.0%,0.9%,15/15,C
 folding-110422,InsuranceTubeGlued box,182×32×81,是,B,1.0%,0.2%,15/15,C
 folding-110422,InsuranceTubeGlued box,97×49×122,是,B,0.5%,0.3%,15/15,B
 folding-110422,InsuranceTubeGlued box,134×45×89,是,B,0.8%,0.7%,15/15,C
 folding-110532,Perforated hook fastening case,104×39×182,是,A,0.0%,0.6%,17/17,C
-folding-110532,Perforated hook fastening case,120×24×140,否,C,1.3%,8.8%,17/17,C
-folding-110532,Perforated hook fastening case,64×36×210,是,A,0.0%,0.2%,17/17,C
+folding-110532,Perforated hook fastening case,120×24×140,否,B,2.0%,4.1%,17/17,B
+folding-110532,Perforated hook fastening case,64×36×210,是,A,0.0%,0.2%,17/17,B
 folding-110532,Perforated hook fastening case,88×33×154,是,B,1.1%,0.7%,17/17,C
 folding-110670,简易单插盒,156×78×208,是,A,0.0%,0.0%,13/13,C
 folding-110670,简易单插盒,180×48×160,是,B,0.6%,0.5%,13/13,C
-folding-110670,简易单插盒,96×72×240,是,A,0.2%,0.2%,13/13,C
-folding-110670,简易单插盒,132×66×176,是,A,0.5%,0.4%,13/13,C
+folding-110670,简易单插盒,96×72×240,是,A,0.2%,0.2%,13/13,B
+folding-110670,简易单插盒,132×66×176,是,A,0.5%,0.4%,13/13,B
 folding-111010,展板吊孔双插盒,79×40×106,是,A,0.0%,0.0%,14/14,C
 folding-111010,展板吊孔双插盒,91×24×82,是,A,0.4%,0.1%,14/14,C
 folding-111010,展板吊孔双插盒,48×37×122,是,A,0.0%,0.2%,14/14,C
 folding-111010,展板吊孔双插盒,67×34×90,是,A,0.0%,0.4%,14/14,C
-folding-111030,Backboard hanging holeZi three-button bottom box,157×79×209,是,A,0.0%,1.9%,17/17,C
+folding-111030,Backboard hanging holeZi three-button bottom box,157×79×209,是,A,0.0%,1.9%,17/17,B
 folding-111030,Backboard hanging holeZi three-button bottom box,181×48×161,是,C,5.8%,1.7%,17/17,C
 folding-111030,Backboard hanging holeZi three-button bottom box,96×73×242,是,B,1.3%,1.6%,17/17,C
 folding-111030,Backboard hanging holeZi three-button bottom box,133×67×177,是,B,1.4%,1.0%,17/17,C
@@ -161,38 +181,42 @@ folding-11658001,Side interlockbox,196×196×197,是,C,3.2%,1.8%,18/18,C
 folding-11658001,Side interlockbox,226×121×152,是,B,1.3%,1.1%,18/18,C
 folding-11658001,Side interlockbox,120×181×227,是,A,0.0%,0.1%,18/18,C
 folding-11658001,Side interlockbox,166×166×167,是,B,1.4%,1.0%,18/18,C
+folding-120144,侧面下插锁互锁扣加厚盘式盒,390×260×78,是,A,0.2%,0.1%,21/21,B
+folding-120144,侧面下插锁互锁扣加厚盘式盒,450×160×60,是,A,0.0%,0.1%,21/21,C
+folding-120144,侧面下插锁互锁扣加厚盘式盒,240×240×90,是,A,0.0%,0.1%,21/21,C
+folding-120144,侧面下插锁互锁扣加厚盘式盒,330×220×66,是,A,0.2%,0.0%,21/21,C
 folding-120251,扣边翻盖盒,339×228×52,是,A,0.0%,0.0%,13/13,B
 folding-120251,扣边翻盖盒,391×140×40,是,A,0.0%,0.0%,13/13,A
 folding-120251,扣边翻盖盒,208×211×60,是,A,0.0%,0.0%,13/13,B
 folding-120251,扣边翻盖盒,287×193×44,是,A,0.0%,0.0%,13/13,A
-folding-120252,侧扣翻盖盒,261×261×78,是,A,0.0%,0.0%,19/19,C
+folding-120252,侧扣翻盖盒,261×261×78,是,A,0.0%,0.0%,19/19,B
 folding-120252,侧扣翻盖盒,301×160×60,是,A,0.0%,0.0%,19/19,C
 folding-120252,侧扣翻盖盒,160×241×90,是,A,0.0%,0.0%,19/19,C
-folding-120252,侧扣翻盖盒,221×221×66,是,A,0.0%,0.1%,19/19,B
+folding-120252,侧扣翻盖盒,221×221×66,是,A,0.0%,0.1%,19/19,A
 folding-120253,扣边翻盖盒01,364×267×98,是,A,0.0%,0.2%,28/28,C
-folding-120253,扣边翻盖盒01,420×164×75,是,A,0.0%,0.0%,28/28,A
+folding-120253,扣边翻盖盒01,420×164×75,是,A,0.0%,0.0%,28/28,B
 folding-120253,扣边翻盖盒01,224×246×112,是,A,0.0%,0.7%,28/28,C
 folding-120253,扣边翻盖盒01,308×226×83,是,A,0.0%,0.0%,28/28,C
 folding-120254,扣边翻盖盒02,260×260×130,是,A,0.0%,0.8%,28/28,C
-folding-120254,扣边翻盖盒02,300×160×100,否,C,48.4%,15.9%,28/28,C
+folding-120254,扣边翻盖盒02,300×160×100,否,C,27.2%,4.8%,28/28,C
 folding-120254,扣边翻盖盒02,160×240×150,是,A,0.0%,0.2%,28/28,C
 folding-120254,扣边翻盖盒02,220×220×110,是,B,1.3%,5.9%,28/28,C
 folding-120255,扣边翻盖盒03,163×163×104,是,A,0.0%,0.2%,28/28,C
 folding-120255,扣边翻盖盒03,188×100×80,是,A,0.1%,0.4%,28/28,C
-folding-120255,扣边翻盖盒03,100×150×100,否,C,15.5%,11.8%,28/28,C
+folding-120255,扣边翻盖盒03,100×150×100,否,C,15.5%,24.0%,28/28,C
 folding-120255,扣边翻盖盒03,138×138×88,是,A,0.2%,0.4%,28/28,C
 folding-120256,开窗侧扣翻盖盒,260×260×78,是,A,0.1%,0.2%,19/19,B
 folding-120256,开窗侧扣翻盖盒,300×160×60,是,A,0.1%,0.0%,19/19,C
 folding-120256,开窗侧扣翻盖盒,160×240×90,是,A,0.1%,0.0%,19/19,C
-folding-120256,开窗侧扣翻盖盒,220×220×66,是,A,0.1%,0.0%,19/19,B
-folding-120257,侧扣翻盖盒03_仅上架Pacdora,260×260×78,是,B,0.8%,0.0%,19/19,C
+folding-120256,开窗侧扣翻盖盒,220×220×66,是,A,0.1%,0.0%,19/19,A
+folding-120257,侧扣翻盖盒03_仅上架Pacdora,260×260×78,是,B,0.8%,0.0%,19/19,B
 folding-120257,侧扣翻盖盒03_仅上架Pacdora,300×160×60,是,C,0.0%,84.1%,19/19,C
 folding-120257,侧扣翻盖盒03_仅上架Pacdora,160×240×90,是,A,0.0%,0.1%,19/19,C
-folding-120257,侧扣翻盖盒03_仅上架Pacdora,220×220×66,是,A,0.3%,0.1%,19/19,C
-folding-12306001,Trapezoidal disc cartridge,195×195×195,否,C,8.9%,14.2%,13/13,C
+folding-120257,侧扣翻盖盒03_仅上架Pacdora,220×220×66,是,A,0.3%,0.1%,19/19,A
+folding-12306001,Trapezoidal disc cartridge,195×195×195,否,C,1.9%,26.8%,13/13,C
 folding-12306001,Trapezoidal disc cartridge,225×120×150,是,A,0.2%,0.2%,13/13,C
-folding-12306001,Trapezoidal disc cartridge,120×120×225,否,C,28.6%,4.3%,13/13,C
-folding-12306001,Trapezoidal disc cartridge,165×165×165,否,C,3.5%,19.5%,13/13,C
+folding-12306001,Trapezoidal disc cartridge,120×120×225,否,C,33.6%,11.9%,13/13,C
+folding-12306001,Trapezoidal disc cartridge,165×165×165,否,C,0.7%,28.6%,13/13,C
 folding-128050,Block lockFlipBuffer wall box,222×144×131,是,A,0.0%,0.0%,27/27,C
 folding-128050,Block lockFlipBuffer wall box,256×88×101,是,A,0.0%,0.0%,27/27,C
 folding-128050,Block lockFlipBuffer wall box,136×133×151,是,A,0.0%,1.9%,27/27,C
@@ -201,31 +225,35 @@ folding-150022,保险扣无插舌飞机盒,390×260×78,是,A,0.2%,0.0%,17/17,C
 folding-150022,保险扣无插舌飞机盒,450×160×60,是,A,0.2%,0.0%,17/17,B
 folding-150022,保险扣无插舌飞机盒,240×240×90,是,B,0.5%,0.2%,17/17,C
 folding-150022,保险扣无插舌飞机盒,330×220×66,是,A,0.3%,0.1%,17/17,C
-folding-150082,简易折角翻盖盒,391×393×326,是,A,0.0%,0.0%,19/19,C
-folding-150082,简易折角翻盖盒,451×242×251,是,A,0.0%,0.0%,19/19,C
-folding-150082,简易折角翻盖盒,240×363×376,是,A,0.0%,0.0%,19/19,C
-folding-150082,简易折角翻盖盒,331×333×276,是,A,0.0%,0.1%,19/19,C
-folding-150110,Folding lock airplane box,396×261×79,是,A,0.1%,0.0%,22/22,C
+folding-150082,简易折角翻盖盒,391×393×326,是,A,0.0%,0.0%,19/19,B
+folding-150082,简易折角翻盖盒,451×242×251,是,A,0.0%,0.0%,19/19,A
+folding-150082,简易折角翻盖盒,240×363×376,是,A,0.0%,0.0%,19/19,B
+folding-150082,简易折角翻盖盒,331×333×276,是,A,0.0%,0.1%,19/19,A
+folding-150110,Folding lock airplane box,396×261×79,是,A,0.1%,0.0%,22/22,B
 folding-150110,Folding lock airplane box,457×160×61,是,A,0.2%,0.0%,22/22,A
 folding-150110,Folding lock airplane box,244×241×91,是,A,0.0%,0.2%,22/22,C
-folding-150110,Folding lock airplane box,335×221×67,是,A,0.1%,0.0%,22/22,C
+folding-150110,Folding lock airplane box,335×221×67,是,A,0.1%,0.0%,22/22,B
+folding-150231,zipperTongue Airplane box,402×261×79,否,C,12.1%,22.4%,20/20,C
+folding-150231,zipperTongue Airplane box,464×161×61,否,C,15.8%,0.6%,20/20,C
+folding-150231,zipperTongue Airplane box,247×241×92,否,C,8.2%,14.4%,20/20,C
+folding-150231,zipperTongue Airplane box,340×221×67,否,C,1.9%,10.5%,20/20,C
 folding-151040,simplepaperbackFlip box,261×131×65.5,否,A,0.0%,0.3%,11/11,A
-folding-151040,simplepaperbackFlip box,301×81×40.5,否,C,24.8%,1.5%,11/11,C
-folding-151040,simplepaperbackFlip box,160×121×60.5,否,C,9.6%,4.7%,11/11,C
+folding-151040,simplepaperbackFlip box,301×81×40.5,否,C,29.2%,6.2%,11/11,C
+folding-151040,simplepaperbackFlip box,160×121×60.5,否,C,8.3%,2.8%,11/11,C
 folding-151040,simplepaperbackFlip box,221×111×55,否,A,0.0%,0.1%,11/11,A
 folding-151051,开窗折叠翻盖盒,158×157×78,是,A,0.0%,0.1%,19/19,C
-folding-151051,开窗折叠翻盖盒,182×96×60,否,C,0.3%,13.7%,19/19,C
-folding-151051,开窗折叠翻盖盒,97×145×64.67,否,C,17.9%,10.7%,19/19,C
-folding-151051,开窗折叠翻盖盒,134×133×66,是,A,0.1%,0.1%,19/19,C
-folding-151120,前扣翻盖盒_仅上架Pacdora,494×377×74,是,A,0.0%,1.5%,21/21,C
+folding-151051,开窗折叠翻盖盒,182×96×60,否,C,12.7%,8.5%,19/19,C
+folding-151051,开窗折叠翻盖盒,97×145×64.67,否,C,28.7%,13.1%,19/19,C
+folding-151051,开窗折叠翻盖盒,134×133×66,是,A,0.1%,0.1%,19/19,B
+folding-151120,前扣翻盖盒_仅上架Pacdora,494×377×74,是,A,0.0%,1.5%,21/21,B
 folding-151120,前扣翻盖盒_仅上架Pacdora,570×232×57,是,A,0.0%,0.1%,21/21,C
 folding-151120,前扣翻盖盒_仅上架Pacdora,304×348×86,是,A,0.0%,0.5%,21/21,C
-folding-151120,前扣翻盖盒_仅上架Pacdora,418×319×63,是,A,0.0%,0.1%,21/21,B
-folding-151180,TrapeterFolding lock lock box,157×131×66,否,C,12.4%,19.4%,17/17,C
-folding-151180,TrapeterFolding lock lock box,181×80×51,否,C,6.6%,33.4%,17/17,C
-folding-151180,TrapeterFolding lock lock box,96×121×76,否,C,13.4%,21.0%,17/17,C
-folding-151180,TrapeterFolding lock lock box,133×111×56,否,C,5.8%,4.0%,17/17,C
-folding-151220,Block lockroundheadFlip box,157×235×131,是,A,0.0%,0.2%,15/15,C
+folding-151120,前扣翻盖盒_仅上架Pacdora,418×319×63,是,A,0.0%,0.1%,21/21,A
+folding-151180,TrapeterFolding lock lock box,157×131×66,否,C,2.6%,51.1%,17/17,C
+folding-151180,TrapeterFolding lock lock box,181×80×51,否,C,9.8%,25.7%,17/17,C
+folding-151180,TrapeterFolding lock lock box,96×121×76,否,C,9.7%,24.3%,17/17,C
+folding-151180,TrapeterFolding lock lock box,133×111×56,否,C,1.5%,8.0%,17/17,C
+folding-151220,Block lockroundheadFlip box,157×235×131,是,A,0.0%,0.2%,15/15,B
 folding-151220,Block lockroundheadFlip box,181×144×101,是,A,0.3%,0.1%,14/14,C
 folding-151220,Block lockroundheadFlip box,96×217×152,是,A,0.2%,0.2%,15/15,C
 folding-151220,Block lockroundheadFlip box,133×199×111,是,A,0.3%,0.1%,15/15,B
@@ -234,22 +262,30 @@ folding-151230,简易翻盖盒,157×159×66,是,A,0.1%,0.0%,17/17,C
 folding-151230,简易翻盖盒,181×98×51,是,A,0.4%,0.2%,17/17,C
 folding-151230,简易翻盖盒,96×147×76,是,A,0.4%,1.7%,17/17,C
 folding-151230,简易翻盖盒,133×135×56,是,A,0.3%,0.2%,17/17,C
+folding-15125001,折叠蛋糕翻盖盒_仅Pacdora,260×117×65,否,B,0.9%,0.0%,19/19,B
+folding-15125001,折叠蛋糕翻盖盒_仅Pacdora,300×72×50,否,A,0.1%,0.0%,19/19,A
+folding-15125001,折叠蛋糕翻盖盒_仅Pacdora,160×108×75,否,B,1.6%,0.0%,19/19,B
+folding-15125001,折叠蛋糕翻盖盒_仅Pacdora,220×99×55,否,A,0.3%,0.0%,19/19,A
 folding-152010,胶合简易翻盖盒Pacdora1,195×130×78,是,A,0.0%,0.0%,13/13,B
 folding-152010,胶合简易翻盖盒Pacdora1,225×80×60,是,C,2.1%,0.8%,13/13,B
 folding-152010,胶合简易翻盖盒Pacdora1,120×120×90,是,A,0.0%,0.0%,13/13,C
 folding-152010,胶合简易翻盖盒Pacdora1,165×110×66,是,A,0.0%,0.0%,13/13,B
-folding-152011,拉链简易翻盖盒,195×130×78,否,C,3.6%,5.9%,33/39,C
-folding-152011,拉链简易翻盖盒,225×80×60,否,C,1.6%,5.6%,33/46,C
-folding-152011,拉链简易翻盖盒,120×120×90,否,C,5.9%,6.6%,33/25,C
-folding-152011,拉链简易翻盖盒,165×110×66,否,C,1.4%,0.7%,33/35,C
+folding-152011,拉链简易翻盖盒,195×130×78,否,C,1.6%,6.8%,33/39,C
+folding-152011,拉链简易翻盖盒,225×80×60,否,C,1.6%,6.3%,33/46,C
+folding-152011,拉链简易翻盖盒,120×120×90,否,C,2.6%,5.5%,33/25,C
+folding-152011,拉链简易翻盖盒,165×110×66,否,C,0.6%,0.4%,33/35,C
 folding-152031,Glown oblique lock buckle cartridge,197×131×79,是,B,0.9%,0.5%,13/13,C
 folding-152031,Glown oblique lock buckle cartridge,227×80×61,是,C,2.0%,0.3%,13/13,C
 folding-152031,Glown oblique lock buckle cartridge,121×121×91,是,A,0.3%,0.1%,13/13,C
 folding-152031,Glown oblique lock buckle cartridge,167×111×67,是,A,0.0%,0.0%,13/13,C
+folding-152040,Lock flip box,197×131×105,是,A,0.0%,0.1%,19/19,C
+folding-152040,Lock flip box,227×80×81,是,A,0.0%,0.0%,19/19,C
+folding-152040,Lock flip box,121×121×122,是,A,0.0%,0.4%,19/19,C
+folding-152040,Lock flip box,167×111×89,是,A,0.2%,0.3%,19/19,B
 folding-152050,gluethreeFoldFlip box,132×132×33,是,A,0.0%,1.6%,23/23,C
 folding-152050,gluethreeFoldFlip box,152×81×26,是,A,0.0%,0.4%,23/23,C
 folding-152050,gluethreeFoldFlip box,81×122×38,是,A,0.0%,0.2%,23/23,C
-folding-152050,gluethreeFoldFlip box,112×112×28,是,A,0.0%,0.0%,23/23,C
+folding-152050,gluethreeFoldFlip box,112×112×28,是,A,0.0%,0.0%,23/23,B
 folding-152051,胶合指扣三折边翻盖盒,132×132×33,是,A,0.0%,1.1%,23/23,C
 folding-152051,胶合指扣三折边翻盖盒,152×81×26,是,A,0.0%,0.3%,23/23,C
 folding-152051,胶合指扣三折边翻盖盒,81×122×38,是,A,0.0%,0.1%,23/23,C
@@ -258,55 +294,75 @@ folding-152500,胶合插锁隔档翻盖盒,260×130×130,否,B,1.0%,0.0%,18/18,B
 folding-152500,胶合插锁隔档翻盖盒,300×80×100,是,A,0.0%,0.0%,18/18,C
 folding-152500,胶合插锁隔档翻盖盒,160×120×150,否,C,13.1%,0.0%,18/18,C
 folding-152500,胶合插锁隔档翻盖盒,220×110×110,否,A,0.3%,0.0%,18/18,A
-folding-156002,Separate cartridge flip plane box ,211×133×109,是,A,0.0%,0.9%,17/17,C
+folding-153140,InsuranceSide interlockFlip box,397×263×133,是,A,0.0%,1.6%,28/28,C
+folding-153140,InsuranceSide interlockFlip box,458×162×102,是,A,0.0%,0.0%,28/28,C
+folding-153140,InsuranceSide interlockFlip box,244×242×153,是,A,0.0%,1.2%,28/28,C
+folding-153140,InsuranceSide interlockFlip box,336×222×112,是,A,0.0%,0.1%,28/28,C
+folding-156002,Separate cartridge flip plane box ,211×133×109,是,A,0.0%,0.9%,17/17,B
 folding-156002,Separate cartridge flip plane box ,243×82×84,是,A,0.1%,0.1%,17/17,C
 folding-156002,Separate cartridge flip plane box ,130×122×125,是,B,0.0%,2.5%,17/17,C
-folding-156002,Separate cartridge flip plane box ,178×112×92,是,A,0.0%,0.1%,17/17,C
-folding-156003,ExoticBlock lockwithoutmarkBottom box,212×135×109,否,C,7.4%,8.6%,15/15,C
-folding-156003,ExoticBlock lockwithoutmarkBottom box,245×83×83,否,C,16.1%,31.9%,15/15,C
-folding-156003,ExoticBlock lockwithoutmarkBottom box,130×124×124,否,C,15.1%,7.1%,15/15,C
+folding-156002,Separate cartridge flip plane box ,178×112×92,是,A,0.0%,0.1%,17/17,A
+folding-156003,ExoticBlock lockwithoutmarkBottom box,212×135×109,否,C,7.4%,0.3%,15/15,C
+folding-156003,ExoticBlock lockwithoutmarkBottom box,245×83×83,否,C,23.0%,37.1%,15/15,C
+folding-156003,ExoticBlock lockwithoutmarkBottom box,130×124×124,否,C,15.1%,0.2%,15/15,C
 folding-156003,ExoticBlock lockwithoutmarkBottom box,179×114×92,是,B,0.8%,0.2%,15/15,C
-folding-158020,对开底座插锁翻盖盒,143×133×159,否,C,5.1%,36.0%,42/42,C
+folding-15622001,InterlockingBlock lockFlip box,261×196×79,是,A,0.0%,0.0%,19/19,B
+folding-15622001,InterlockingBlock lockFlip box,301×120×61,是,A,0.0%,0.1%,19/19,C
+folding-15622001,InterlockingBlock lockFlip box,160×181×92,是,A,0.0%,0.1%,19/19,C
+folding-15622001,InterlockingBlock lockFlip box,220×166×67,是,A,0.0%,0.1%,19/19,B
+folding-158020,对开底座插锁翻盖盒,143×133×159,否,C,0.1%,11.2%,42/42,C
 folding-158020,对开底座插锁翻盖盒,165×82×122,是,B,0.6%,0.0%,42/42,C
-folding-158020,对开底座插锁翻盖盒,88×88×183,否,C,25.0%,42.4%,42/42,C
-folding-158020,对开底座插锁翻盖盒,121×112×134,否,C,2.0%,17.6%,42/42,C
-folding-158133,汉堡盒01,104×104×59,是,A,0.0%,0.0%,26/26,C
+folding-158020,对开底座插锁翻盖盒,88×88×183,否,C,27.6%,18.3%,42/42,C
+folding-158020,对开底座插锁翻盖盒,121×112×134,否,C,0.0%,11.2%,42/42,C
+folding-158133,汉堡盒01,104×104×59,是,A,0.0%,0.0%,26/26,B
 folding-158133,汉堡盒01,120×64×45,是,A,0.0%,0.0%,26/26,C
 folding-158133,汉堡盒01,64×96×68,是,A,0.1%,0.8%,26/26,C
-folding-158133,汉堡盒01,88×88×50,是,A,0.0%,0.4%,26/26,C
+folding-158133,汉堡盒01,88×88×50,是,A,0.0%,0.4%,26/26,B
 folding-158240,旋转翻盖盒,131×27×131,是,B,0.0%,5.1%,12/12,C
 folding-158240,旋转翻盖盒,151×25×101,是,A,0.0%,0.1%,12/12,C
 folding-158240,旋转翻盖盒,80×25×151,是,A,0.0%,0.0%,12/12,C
 folding-158240,旋转翻盖盒,111×25×111,是,B,0.0%,2.0%,12/12,C
-folding-171800,自锁底盖板折叠展示盒,286×195×104,否,C,4.2%,3.8%,16/16,C
-folding-171800,自锁底盖板折叠展示盒,330×120×80,否,C,23.5%,9.3%,16/16,C
-folding-171800,自锁底盖板折叠展示盒,176×171×120,否,C,11.9%,8.0%,16/16,C
+folding-170051,提手自锁底展示盒01,260×130×195,否,C,12.3%,7.4%,13/13,C
+folding-170051,提手自锁底展示盒01,300×80×150,是,C,0.8%,0.6%,13/13,C
+folding-170051,提手自锁底展示盒01,160×80×225,否,C,15.2%,14.3%,13/13,C
+folding-170051,提手自锁底展示盒01,220×110×165,否,B,1.5%,1.1%,13/13,B
+folding-171800,自锁底盖板折叠展示盒,286×195×104,否,C,6.2%,1.9%,16/16,C
+folding-171800,自锁底盖板折叠展示盒,330×120×80,否,C,23.5%,12.3%,16/16,C
+folding-171800,自锁底盖板折叠展示盒,176×171×120,否,C,6.5%,0.2%,16/16,C
 folding-171800,自锁底盖板折叠展示盒,242×165×88,否,B,1.8%,3.1%,16/16,B
-folding-180231,三角形披萨盒,283×348×53,否,C,11.0%,19.5%,15/15,C
-folding-180231,三角形披萨盒,326×326×41,否,C,3.8%,41.5%,15/15,C
+folding-180231,三角形披萨盒,283×348×53,否,C,19.4%,3.0%,15/15,C
+folding-180231,三角形披萨盒,326×326×41,否,C,18.5%,38.5%,15/15,C
 folding-180231,三角形披萨盒,174×321×61,是,B,0.7%,1.2%,15/15,C
 folding-180231,三角形披萨盒,239×294×45,是,C,4.6%,0.0%,15/15,C
-folding-180235,简易插锁三角盒,325×325×65,否,C,9.5%,4.8%,9/9,C
+folding-180235,简易插锁三角盒,325×325×65,否,C,12.2%,10.9%,9/9,C
 folding-180235,简易插锁三角盒,375×200×50,是,C,24.1%,0.0%,9/9,C
-folding-180235,简易插锁三角盒,200×300×75,否,C,26.5%,10.3%,9/9,C
-folding-180235,简易插锁三角盒,275×275×55,否,C,3.7%,1.0%,9/9,C
+folding-180235,简易插锁三角盒,200×300×75,否,C,34.0%,29.7%,9/9,C
+folding-180235,简易插锁三角盒,275×275×55,否,B,1.1%,2.8%,9/9,B
 folding-180280,Triangle conical hook cartridge bottom box ,157×79×261,是,C,3.8%,3.1%,12/12,C
 folding-180280,Triangle conical hook cartridge bottom box ,181×48×201,是,B,1.9%,1.8%,12/12,C
 folding-180280,Triangle conical hook cartridge bottom box ,96×73×301,是,C,2.2%,1.2%,12/12,C
-folding-180280,Triangle conical hook cartridge bottom box ,133×67×221,是,A,0.1%,0.2%,12/12,C
+folding-180280,Triangle conical hook cartridge bottom box ,133×67×221,是,A,0.1%,0.2%,12/12,B
 folding-181092,三角翻盖盒,234×130×104,是,B,0.8%,0.3%,12/12,C
 folding-181092,三角翻盖盒,270×80×80,是,A,0.2%,0.1%,12/12,C
 folding-181092,三角翻盖盒,144×120×120,是,B,0.8%,0.4%,12/12,C
-folding-181092,三角翻盖盒,198×110×88,是,A,0.4%,0.1%,12/12,C
-folding-183080,四格托底自锁底盒,276×276×276,否,C,4.6%,6.4%,15/15,C
-folding-183080,四格托底自锁底盒,318×318×318,否,C,6.7%,9.2%,15/15,C
-folding-183080,四格托底自锁底盒,170×170×318,否,C,30.0%,7.9%,15/15,C
-folding-183080,四格托底自锁底盒,233×233×233,否,B,1.8%,2.7%,15/15,B
-folding-188030,互锁扣对开吊孔盒Pacdora1,104×65×52,否,B,1.3%,3.8%,15/15,B
+folding-181092,三角翻盖盒,198×110×88,是,A,0.4%,0.1%,12/12,A
+folding-183080,四格托底自锁底盒,276×276×276,否,C,1.1%,7.4%,15/15,C
+folding-183080,四格托底自锁底盒,318×318×318,否,C,1.6%,6.3%,15/15,C
+folding-183080,四格托底自锁底盒,170×170×318,否,C,30.7%,16.4%,15/15,C
+folding-183080,四格托底自锁底盒,233×233×233,否,C,0.4%,7.6%,15/15,C
+folding-188030,互锁扣对开吊孔盒Pacdora1,104×65×52,否,B,0.7%,1.2%,15/15,B
 folding-188030,互锁扣对开吊孔盒Pacdora1,120×40×40,否,C,12.1%,20.5%,15/15,C
-folding-188030,互锁扣对开吊孔盒Pacdora1,64×60×60,否,C,1.1%,8.6%,15/15,C
-folding-188030,互锁扣对开吊孔盒Pacdora1,88×55×44,是,B,0.7%,0.1%,15/15,B
+folding-188030,互锁扣对开吊孔盒Pacdora1,64×60×60,否,C,4.8%,11.6%,15/15,C
+folding-188030,互锁扣对开吊孔盒Pacdora1,88×55×44,是,B,0.7%,0.1%,15/15,A
 folding-188030,互锁扣对开吊孔盒Pacdora1,92×45×52,是,A,0.0%,0.0%,15/15,C
+folding-200014,提手孔常规纸箱,559×278×361,是,A,0.0%,0.0%,15/15,C
+folding-200014,提手孔常规纸箱,645×171×278,是,A,0.0%,0.0%,15/15,C
+folding-200014,提手孔常规纸箱,344×257×417,是,A,0.0%,0.0%,15/15,C
+folding-200014,提手孔常规纸箱,473×235×306,是,A,0.0%,0.0%,15/15,C
+folding-206091,平口底翻盖纸箱,393×198×198,是,A,0.2%,0.0%,13/13,C
+folding-206091,平口底翻盖纸箱,453×122×152,是,A,0.3%,0.0%,13/13,C
+folding-206091,平口底翻盖纸箱,242×182×228,是,A,0.2%,0.0%,13/13,C
+folding-206091,平口底翻盖纸箱,332×167×167,是,A,0.2%,0.0%,13/13,C
 folding-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
 folding-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
 folding-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
@@ -315,34 +371,42 @@ folding-600180,家用清洁生活日用塑料袋包装模型-135x100x65-模型�
 folding-600180,家用清洁生活日用塑料袋包装模型-135x100x65-模型优化,135×100×65,是,A,0.0%,0.0%,12/12,A
 folding-600180,家用清洁生活日用塑料袋包装模型-135x100x65-模型优化,135×100×65,是,A,0.0%,0.0%,12/12,A
 folding-600180,家用清洁生活日用塑料袋包装模型-135x100x65-模型优化,135×100×65,是,A,0.0%,0.0%,12/12,A
-gift-10001002,礼物盒10001002,169×169×169,是,B,0.9%,2.4%,13/13,C
+gift-10001002,礼物盒10001002,169×169×169,是,B,0.9%,2.4%,13/13,B
 gift-10001002,礼物盒10001002,195×104×130,是,B,0.9%,2.5%,13/13,C
 gift-10001002,礼物盒10001002,104×156×195,是,B,0.6%,0.4%,13/13,C
-gift-10001002,礼物盒10001002,143×143×143,是,A,0.0%,0.5%,13/13,C
-gift-102630,开窗后开正向插锁盒,156×78×234,是,A,0.2%,0.0%,13/13,C
+gift-10001002,礼物盒10001002,143×143×143,是,A,0.0%,0.5%,13/13,B
+gift-102630,开窗后开正向插锁盒,156×78×234,是,A,0.2%,0.0%,13/13,B
 gift-102630,开窗后开正向插锁盒,180×48×180,是,B,0.8%,0.4%,13/13,C
 gift-102630,开窗后开正向插锁盒,96×72×270,是,B,0.8%,0.3%,13/13,B
 gift-102630,开窗后开正向插锁盒,132×66×198,是,B,0.7%,0.6%,13/13,C
 gift-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,130×52×260,是,A,0.0%,0.0%,13/13,C
 gift-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,150×32×200,是,A,0.0%,0.1%,13/13,C
 gift-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,80×48×300,是,B,1.1%,0.2%,13/13,B
-gift-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,110×44×220,是,A,0.0%,0.0%,13/13,B
-gift-10508102,卡扣拉链自锁底盒,130×104×208,否,C,10.9%,13.8%,32/37,C
-gift-10508102,卡扣拉链自锁底盒,150×64×160,否,C,10.6%,9.7%,32/41,C
-gift-10508102,卡扣拉链自锁底盒,80×80×240,否,C,0.0%,1.5%,32/29,C
-gift-10508102,卡扣拉链自锁底盒,110×88×176,否,C,4.3%,4.1%,32/34,C
+gift-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,110×44×220,是,A,0.0%,0.0%,13/13,A
+gift-10508102,卡扣拉链自锁底盒,130×104×208,否,C,5.0%,6.0%,32/37,C
+gift-10508102,卡扣拉链自锁底盒,150×64×160,否,C,4.9%,9.6%,32/41,C
+gift-10508102,卡扣拉链自锁底盒,80×80×240,否,C,0.0%,0.5%,32/29,C
+gift-10508102,卡扣拉链自锁底盒,110×88×176,否,C,2.0%,2.4%,32/34,C
+gift-109200,内锁扣撕拉粘底盒,111×111×143,否,C,4.5%,7.7%,26/30,C
+gift-109200,内锁扣撕拉粘底盒,128×68×110,否,C,38.8%,29.9%,26/32,C
+gift-109200,内锁扣撕拉粘底盒,68×68×165,否,C,7.3%,5.9%,26/24,C
+gift-109200,内锁扣撕拉粘底盒,94×94×121,否,C,2.6%,5.2%,26/27,C
 gift-110670,简易单插盒,156×78×208,是,A,0.0%,0.0%,13/13,C
 gift-110670,简易单插盒,180×48×160,是,B,0.6%,0.5%,13/13,C
-gift-110670,简易单插盒,96×72×240,是,A,0.2%,0.2%,13/13,C
-gift-110670,简易单插盒,132×66×176,是,A,0.5%,0.4%,13/13,C
+gift-110670,简易单插盒,96×72×240,是,A,0.2%,0.2%,13/13,B
+gift-110670,简易单插盒,132×66×176,是,A,0.5%,0.4%,13/13,B
 gift-112090,Dome ribbon hole buckle bottom box,85×85×86,否,A,0.4%,0.4%,13/13,A
 gift-112090,Dome ribbon hole buckle bottom box,98×52×66,是,B,1.0%,0.5%,13/13,C
 gift-112090,Dome ribbon hole buckle bottom box,52×52×99,否,C,6.0%,7.7%,13/13,C
 gift-112090,Dome ribbon hole buckle bottom box,72×72×73,否,A,0.2%,0.0%,13/13,A
-gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,182×163×137,否,C,6.6%,4.3%,22/22,C
+gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,182×163×137,否,C,6.7%,4.8%,22/22,C
 gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,210×100×105,是,A,0.5%,0.6%,22/22,C
-gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,112×112×158,否,C,7.3%,26.2%,22/22,C
+gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,112×112×158,否,C,7.3%,27.0%,22/22,C
 gift-113000,屋顶盖加强自锁底盒_仅上架Pacdora,154×138×116,是,C,2.5%,1.3%,22/22,C
+gift-188271,圣诞糖果礼物盒_仅上架Pacdora,130×0×260,是,C,3.2%,16.5%,51/51,C
+gift-188271,圣诞糖果礼物盒_仅上架Pacdora,150×0×200,是,C,13.7%,22.2%,51/51,C
+gift-188271,圣诞糖果礼物盒_仅上架Pacdora,80×0×300,是,C,5.6%,18.4%,51/51,C
+gift-188271,圣诞糖果礼物盒_仅上架Pacdora,110×0×220,是,C,1.2%,14.8%,51/51,C
 gift-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
 gift-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
 gift-550340,550340-200x80x350-模型新增,200×80×350,是,A,0.0%,0.0%,5/5,A
@@ -351,7 +415,13 @@ gift-603630,礼物盒603630,170×90×55,是,A,0.0%,0.0%,5/5,A
 gift-603630,礼物盒603630,170×90×55,是,A,0.0%,0.0%,5/5,A
 gift-603630,礼物盒603630,170×90×55,是,A,0.0%,0.0%,5/5,A
 gift-603630,礼物盒603630,170×90×55,是,A,0.0%,0.0%,5/5,A
-mailer-151220,Block lockroundheadFlip box,157×235×131,是,A,0.0%,0.2%,15/15,C
+mailer-112430,Adhesive mouth handle bottom box,393×198×202,否,C,4.3%,8.0%,13/13,C
+mailer-112430,Adhesive mouth handle bottom box,453×122×155,是,C,3.7%,1.4%,13/13,C
+mailer-112430,Adhesive mouth handle bottom box,242×182×233,是,A,0.3%,0.8%,13/13,C
+mailer-112430,Adhesive mouth handle bottom box,332×167×171,是,A,0.1%,0.0%,13/13,B
+mailer-112430,Adhesive mouth handle bottom box,393×175×140,是,A,0.1%,0.0%,13/13,C
+mailer-112430,Adhesive mouth handle bottom box,347×106×140,是,A,0.1%,0.0%,13/13,C
+mailer-151220,Block lockroundheadFlip box,157×235×131,是,A,0.0%,0.2%,15/15,B
 mailer-151220,Block lockroundheadFlip box,181×144×101,是,A,0.3%,0.1%,14/14,C
 mailer-151220,Block lockroundheadFlip box,96×217×152,是,A,0.2%,0.2%,15/15,C
 mailer-151220,Block lockroundheadFlip box,133×199×111,是,A,0.3%,0.1%,15/15,B
@@ -360,30 +430,50 @@ mailer-152010,胶合简易翻盖盒Pacdora1,195×130×78,是,A,0.0%,0.0%,13/13,B
 mailer-152010,胶合简易翻盖盒Pacdora1,225×80×60,是,C,2.1%,0.8%,13/13,B
 mailer-152010,胶合简易翻盖盒Pacdora1,120×120×90,是,A,0.0%,0.0%,13/13,C
 mailer-152010,胶合简易翻盖盒Pacdora1,165×110×66,是,A,0.0%,0.0%,13/13,B
+mailer-152040,Lock flip box,197×131×105,是,A,0.0%,0.1%,19/19,C
+mailer-152040,Lock flip box,227×80×81,是,A,0.0%,0.0%,19/19,C
+mailer-152040,Lock flip box,121×121×122,是,A,0.0%,0.4%,19/19,C
+mailer-152040,Lock flip box,167×111×89,是,A,0.2%,0.3%,19/19,B
 shipping-112010,Self-locking bottom flat box,157×79×210,是,A,0.0%,0.0%,15/15,C
 shipping-112010,Self-locking bottom flat box,181×48×162,是,A,0.4%,0.1%,15/15,C
 shipping-112010,Self-locking bottom flat box,96×73×242,是,A,0.0%,0.1%,15/15,C
 shipping-112010,Self-locking bottom flat box,133×67×178,是,A,0.0%,0.0%,15/15,C
+shipping-200014,提手孔常规纸箱,559×278×361,是,A,0.0%,0.0%,15/15,C
+shipping-200014,提手孔常规纸箱,645×171×278,是,A,0.0%,0.0%,15/15,C
+shipping-200014,提手孔常规纸箱,344×257×417,是,A,0.0%,0.0%,15/15,C
+shipping-200014,提手孔常规纸箱,473×235×306,是,A,0.0%,0.0%,15/15,C
 square-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,130×52×260,是,A,0.0%,0.0%,13/13,C
 square-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,150×32×200,是,A,0.0%,0.1%,13/13,C
 square-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,80×48×300,是,B,1.1%,0.2%,13/13,B
-square-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,110×44×220,是,A,0.0%,0.0%,13/13,B
-square-15813001,Gsquarebox03,143×143×143,否,C,12.8%,42.3%,20/20,C
-square-15813001,Gsquarebox03,165×88×88,否,C,49.8%,11.6%,20/20,C
-square-15813001,Gsquarebox03,88×132×132,否,C,23.2%,39.4%,20/20,C
-square-15813001,Gsquarebox03,121×121×121,否,C,5.0%,30.5%,20/20,C
+square-10263002,开窗后开正向插锁盒_仅上架Pacdora_02,110×44×220,是,A,0.0%,0.0%,13/13,A
+square-123040,Counter-fold ModeTrays,157×79×39.5,否,C,5.4%,3.4%,21/21,C
+square-123040,Counter-fold ModeTrays,181×48×30,否,C,0.0%,7.0%,21/21,C
+square-123040,Counter-fold ModeTrays,96×73×45,否,C,13.8%,3.7%,21/21,C
+square-123040,Counter-fold ModeTrays,133×67×33.5,否,C,0.0%,8.0%,21/21,C
+square-15813001,Gsquarebox03,143×143×143,否,A,0.5%,0.4%,20/20,A
+square-15813001,Gsquarebox03,165×88×88,否,C,82.6%,81.9%,20/20,C
+square-15813001,Gsquarebox03,88×132×132,否,C,32.1%,29.1%,20/20,C
+square-15813001,Gsquarebox03,121×121×121,否,C,0.2%,8.7%,20/20,C
 square-240031,开孔梯形盒套Pacdora1,195×78×260,是,A,0.0%,0.0%,5/5,C
 square-240031,开孔梯形盒套Pacdora1,225×48×200,是,A,0.0%,0.0%,5/5,C
 square-240031,开孔梯形盒套Pacdora1,120×72×300,是,A,0.0%,0.0%,5/5,C
 square-240031,开孔梯形盒套Pacdora1,165×66×220,是,A,0.0%,0.0%,5/5,C
-tray-120070,宽边卡位托盘盒,260×195×78,是,B,0.0%,4.7%,22/22,C
+tray-120035,堆叠式侧扣盘式盒,390×260×104,是,A,0.0%,0.0%,19/19,C
+tray-120035,堆叠式侧扣盘式盒,450×160×80,是,A,0.2%,0.1%,19/19,C
+tray-120035,堆叠式侧扣盘式盒,240×240×120,是,A,0.1%,0.8%,19/19,C
+tray-120035,堆叠式侧扣盘式盒,330×220×88,是,A,0.2%,0.3%,19/19,C
+tray-120070,宽边卡位托盘盒,260×195×78,是,B,0.0%,4.7%,22/22,B
 tray-120070,宽边卡位托盘盒,300×120×60,是,A,0.0%,0.0%,22/22,A
-tray-120070,宽边卡位托盘盒,160×160×90,否,C,5.6%,0.5%,22/22,C
-tray-120070,宽边卡位托盘盒,220×165×66,是,A,0.0%,0.9%,22/22,B
+tray-120070,宽边卡位托盘盒,160×160×90,否,C,0.0%,10.1%,22/22,C
+tray-120070,宽边卡位托盘盒,220×165×66,是,A,0.0%,0.9%,22/22,A
 tray-120080,Card tray carton,133×131×33,是,A,0.0%,0.9%,15/15,C
 tray-120080,Card tray carton,154×80×26,是,A,0.4%,0.4%,15/15,C
 tray-120080,Card tray carton,82×121×38,是,A,0.0%,0.3%,15/15,C
 tray-120080,Card tray carton,113×111×28,是,A,0.3%,0.2%,15/15,B
+tray-120220,易折叠四格盘式盒,406×276×99,否,C,10.1%,54.1%,29/29,C
+tray-120220,易折叠四格盘式盒,468×170×76,否,C,7.5%,40.6%,29/29,C
+tray-120220,易折叠四格盘式盒,250×250×62.5,否,C,26.4%,50.5%,29/29,C
+tray-120220,易折叠四格盘式盒,343×233×84,否,C,2.4%,54.2%,29/29,C
 tray-120240,Disc bucklebox,157×79×39,否,B,0.0%,3.8%,9/9,B
 tray-120240,Disc bucklebox,181×48×24,否,C,0.0%,6.6%,9/9,C
 tray-120240,Disc bucklebox,96×73×36.5,否,B,0.0%,5.3%,9/9,B
@@ -391,27 +481,35 @@ tray-120240,Disc bucklebox,133×67×33,否,A,0.0%,1.7%,9/9,A
 tray-120370,四折边折角盘式盒,262×262×66,是,C,2.1%,1.3%,25/25,C
 tray-120370,四折边折角盘式盒,302×161×51,是,A,0.2%,0.0%,25/25,C
 tray-120370,四折边折角盘式盒,161×242×76,是,A,0.1%,0.1%,25/25,C
-tray-120370,四折边折角盘式盒,222×222×56,是,B,0.8%,0.6%,25/25,C
-tray-120460,pairgridTrays,166×81×66,否,C,6.5%,19.0%,17/17,C
-tray-120460,pairgridTrays,192×50×50,否,C,2.5%,7.0%,17/17,C
-tray-120460,pairgridTrays,102×74×74,否,C,7.6%,19.5%,17/17,C
+tray-120370,四折边折角盘式盒,222×222×56,是,B,0.8%,0.6%,25/25,B
+tray-120460,pairgridTrays,166×81×66,否,C,1.1%,15.5%,17/17,C
+tray-120460,pairgridTrays,192×50×50,否,B,0.1%,2.9%,17/17,B
+tray-120460,pairgridTrays,102×74×74,否,C,1.7%,15.0%,17/17,C
 tray-120460,pairgridTrays,141×68×56,是,A,0.0%,0.0%,17/17,C
-tray-120490,endbuttonTray box,393×391×78,否,B,0.0%,2.3%,15/15,B
+tray-120490,endbuttonTray box,393×391×78,否,A,0.0%,0.9%,15/15,A
 tray-120490,endbuttonTray box,454×240×60,是,A,0.0%,0.0%,15/15,C
-tray-120490,endbuttonTray box,242×242×90,否,C,8.0%,15.8%,15/15,C
-tray-120490,endbuttonTray box,333×331×66,否,A,0.1%,0.9%,15/15,A
+tray-120490,endbuttonTray box,242×242×90,否,C,8.0%,22.9%,15/15,C
+tray-120490,endbuttonTray box,333×331×66,否,A,0.1%,0.2%,15/15,A
+tray-120710,Linerflat stickBlock lockTrays,156×156×39,是,A,0.0%,0.1%,18/18,C
+tray-120710,Linerflat stickBlock lockTrays,180×96×30,是,A,0.3%,0.1%,18/18,C
+tray-120710,Linerflat stickBlock lockTrays,96×144×45,是,A,0.0%,1.2%,18/18,C
+tray-120710,Linerflat stickBlock lockTrays,132×132×33,是,A,0.0%,0.1%,18/18,C
 tray-123030,Curved lock plate box,262×391×130,是,A,0.0%,0.0%,9/9,A
 tray-123030,Curved lock plate box,302×240×100,是,A,0.0%,0.1%,9/9,C
 tray-123030,Curved lock plate box,161×361×150,是,A,0.0%,0.2%,9/9,C
 tray-123030,Curved lock plate box,222×331×110,是,A,0.0%,0.0%,9/9,A
 tray-123180,differentshapehexagonaltray,196×131×53,是,A,0.0%,0.0%,21/21,C
-tray-123180,differentshapehexagonaltray,226×80×41,是,A,0.0%,0.0%,21/21,B
+tray-123180,differentshapehexagonaltray,226×80×41,是,A,0.0%,0.0%,21/21,C
 tray-123180,differentshapehexagonaltray,120×120×61,是,A,0.1%,0.0%,21/21,C
 tray-123180,differentshapehexagonaltray,166×111×45,是,A,0.1%,0.0%,21/21,C
-tray-128010,Buffer wall box,444×314×79,是,B,0.9%,0.4%,29/29,B
+tray-128010,Buffer wall box,444×314×79,是,B,0.9%,0.4%,29/29,C
 tray-128010,Buffer wall box,512×193×61,是,B,1.5%,0.7%,29/29,B
-tray-128010,Buffer wall box,273×273×92,否,B,0.0%,2.4%,29/29,B
-tray-128010,Buffer wall box,376×266×67,是,A,0.3%,0.2%,29/29,B
+tray-128010,Buffer wall box,273×273×92,否,C,0.0%,10.7%,29/29,C
+tray-128010,Buffer wall box,376×266×67,是,A,0.3%,0.2%,29/29,C
+tray-171041,Window self-locking tray box,403×263×79,是,A,0.3%,0.0%,13/13,C
+tray-171041,Window self-locking tray box,465×162×61,是,A,0.3%,0.3%,13/13,C
+tray-171041,Window self-locking tray box,248×242×92,是,A,0.4%,1.6%,13/13,C
+tray-171041,Window self-locking tray box,341×222×67,是,A,0.4%,0.0%,13/13,C
 tray-240180,Four cornersHalf pack cover,391×261×14,是,A,0.0%,0.0%,17/17,C
 tray-240180,Four cornersHalf pack cover,451×160×11,是,B,1.8%,0.6%,17/17,C
 tray-240180,Four cornersHalf pack cover,240×240×16,是,B,0.9%,0.5%,17/17,C
