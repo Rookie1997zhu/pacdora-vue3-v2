@@ -357,6 +357,8 @@ export function createSpecTemplate(spec){
       const slits=[]
       /** 3D 折叠配方（来自金样动画）：面名 → {parent,hingeLine,angle,axisVec} */
       const fold3dFaces={}
+      /** 面名 → 当前尺寸下的矩形（折叠步骤里按 UV 还原折线用） */
+      const fold3dRects=new Map(out.map(({f,x,y,w,h})=>[f.n,{x:round(x+dx),y:round(y+dy),w,h}]))
       let hasFold3d=false
       const faces=out.map(({f,x,y,w,h})=>{
         // 内部折 / 斜铰链：side 置空，用 hingeLine
@@ -439,9 +441,18 @@ export function createSpecTemplate(spec){
         slits,
         fold3d:hasFold3d?{
           faces:fold3dFaces,
-          stages:(spec.fs||[]).map(stage=>stage.map(s=>s.c
-            ?{child:s.c,rotate:s.r}
-            :{face:s.f,move:{x:s.m[0],y:s.m[1],z:s.m[2]}}))
+          stages:(spec.fs||[]).map(stage=>stage.map(s=>{
+            if(!s.c)return {face:s.f,move:{x:s.m[0],y:s.m[1],z:s.m[2]}}
+            const step={child:s.c,rotate:s.r}
+            // 这一步绕的不是主折线（如防尘翼先随侧板翻、再绕自己的斜折线折）：折线记成该面 bbox 内的 UV
+            const r=Array.isArray(s.l)&&s.l.length===2?fold3dRects.get(s.c):null
+            if(r){
+              step.line=s.l.map(([u,v])=>[round(r.x+Number(u)*r.w),round(r.y+Number(v)*r.h)])
+              step.fold=s.n||`${s.c}~line`
+              if(Array.isArray(s.v))step.vector={x:s.v[0],y:s.v[1],z:s.v[2]}
+            }
+            return step
+          }))
         }:undefined,
         faceOrder:out.map(o=>o.f.n),
         root:activeRoot,

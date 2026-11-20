@@ -8384,7 +8384,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "exact",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-112911",
@@ -9691,7 +9691,7 @@ export default {
       "specFrom": "drawer-tray",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120035",
@@ -12228,7 +12228,7 @@ export default {
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-120620",
@@ -16848,7 +16848,7 @@ export default {
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-mailer-150430",
@@ -23260,7 +23260,7 @@ export default {
       "templateSource": "structure-spec",
       "specFrom": "tuck-end-straight",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156250",
@@ -23392,7 +23392,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156280",
@@ -23426,7 +23426,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-156281",
@@ -23460,7 +23460,7 @@ export default {
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156281",
@@ -23496,7 +23496,7 @@ export default {
       "specFrom": "zipper-tuck",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-156291",
@@ -24390,7 +24390,7 @@ export default {
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-157080",
@@ -24424,7 +24424,7 @@ export default {
       "templateSource": "structure-spec",
       "specFrom": "lid-base",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158010",
@@ -24522,7 +24522,7 @@ export default {
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "ok"
+      "fold3d": "differs"
     },
     {
       "id": "import-folding-158050",
@@ -25713,7 +25713,7 @@ export default {
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
       "fidelity": "exact",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-170150",
@@ -26536,7 +26536,7 @@ export default {
       "specFrom": "display-pdq",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-tray-171190",
@@ -27909,7 +27909,7 @@ export default {
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-188130",
@@ -28014,7 +28014,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-188300",
@@ -31939,7 +31939,7 @@ export default {
       "height": 114,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxExposedDivideEquallyCover",
+      "templateId": "sampled-gift-366012",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -31956,7 +31956,7 @@ export default {
       ],
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "magnetic-rigid",
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "fidelity": "exact",
       "fold3d": "ok"
     },
@@ -32471,7 +32471,7 @@ export default {
       "specFrom": null,
       "templateSource": "structure-spec",
       "fidelity": "exact",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-gift-603573",
@@ -45050,7 +45050,7 @@ export default {
       "height": 60,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxDivideEquallyCover",
+      "templateId": "sampled-gift-36601001",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45067,7 +45067,7 @@ export default {
       ],
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "fidelity": "exact",
       "fold3d": "ok"
     },
@@ -45082,7 +45082,7 @@ export default {
       "height": 60,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxDivideEquallyCover",
+      "templateId": "sampled-folding-36601001",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45101,7 +45101,7 @@ export default {
       ],
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "fidelity": "exact",
       "fold3d": "ok"
     },
@@ -45116,7 +45116,7 @@ export default {
       "height": 60,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxDivideEquallyCover",
+      "templateId": "sampled-folding-36601004",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45135,7 +45135,7 @@ export default {
       ],
       "structureCode": "BoutiqueboxDivideEquallyCover",
       "specFrom": null,
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "fidelity": "exact",
       "fold3d": "ok"
     },
@@ -45150,7 +45150,7 @@ export default {
       "height": 180,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxExposedDivideEquallyCover",
+      "templateId": "sampled-square-36601201",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45169,8 +45169,8 @@ export default {
       ],
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "lid-base",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -45213,7 +45213,7 @@ export default {
       "height": 180,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxExposedDivideEquallyCover",
+      "templateId": "sampled-square-36601203",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45232,8 +45232,8 @@ export default {
       ],
       "structureCode": "BoutiqueboxExposedDivideEquallyCover",
       "specFrom": "lid-base",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {
@@ -45247,7 +45247,7 @@ export default {
       "height": 40,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxExposedDivideEquallyCoverOne",
+      "templateId": "sampled-gift-36601204",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45264,7 +45264,7 @@ export default {
       ],
       "structureCode": "BoutiqueboxExposedDivideEquallyCoverOne",
       "specFrom": "lid-base",
-      "templateSource": "structure-spec",
+      "templateSource": "sampled",
       "fidelity": "exact",
       "fold3d": "ok"
     },
@@ -45279,7 +45279,7 @@ export default {
       "height": 60,
       "thickness": 1.5,
       "materialId": "white",
-      "templateId": "spec-BoutiqueboxExposedDivideEquallyCoverTwo",
+      "templateId": "sampled-gift-36601205",
       "hasGeometry": true,
       "cutCount": 86,
       "foldCount": 24,
@@ -45292,8 +45292,8 @@ export default {
       "subclassLabels": [],
       "structureCode": "BoutiqueboxExposedDivideEquallyCoverTwo",
       "specFrom": "tuck-end-straight",
-      "templateSource": "structure-spec",
-      "fidelity": "close",
+      "templateSource": "sampled",
+      "fidelity": "exact",
       "fold3d": "ok"
     },
     {

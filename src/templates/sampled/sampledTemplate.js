@@ -28,14 +28,26 @@ const shift=(o,dx,dy)=>{
 /**
  * 多件盒（天地盖、抽屉盒……）：官方把各件画在同一张版面上，彼此留有空隙。
  * 取出其中一件（pieces 为全部各件的名单，pieceId 指定取哪一件）：面片按名单取；折线、切线、开孔按「离哪一件的面片更近」归属；整件的平移 / 翻转动作去掉。
- * 结果平移到以该件左上角为原点。只支持单图层的刀版。
+ * 结果平移到以该件左上角为原点。
+ * 多图层的盒（面纸 + 灰板）不用拆：名单里的每一件直接对应一个图层（piece.layer）。
  * @returns {object|null} 与官方接口同结构的几何对象；名单里的面片一个都找不到时返回 null
  */
 export function pieceGeometry(raw,pieces,pieceId){
-  const keys=Object.keys(raw?.layer||{})
-  if(keys.length!==1||!Array.isArray(pieces))return null
+  if(!Array.isArray(pieces))return null
   const at=pieces.findIndex(p=>p.id===pieceId)
-  if(at<0||!Array.isArray(pieces[at].faces))return null
+  if(at<0)return null
+  // 多图层的盒（精装盒：面纸 + 灰板）：每个图层本来就是一张独立的刀版，一件 = 一个图层
+  if(pieces[at].layer){
+    const ly=raw?.layer?.[pieces[at].layer]
+    if(!ly||!Array.isArray(ly.faces)||!ly.faces.length)return null
+    const layer={...ly,animation:{groups:ly.animation?.groups||[],animations:(ly.animation?.animations||[])
+      .map(stage=>(stage||[]).filter(st=>st&&st.action!=='translate'&&st.action!=='rotateMesh')).filter(stage=>stage.length)}}
+    delete layer.transform
+    const list=(raw.modeCate?.layerList||[]).filter(l=>l?.name===pieces[at].layer)
+    return {...raw,modeCate:{...(raw.modeCate||{}),layerList:list},layer:{[pieces[at].layer]:layer}}
+  }
+  const keys=Object.keys(raw?.layer||{})
+  if(keys.length!==1||!Array.isArray(pieces[at].faces))return null
   const ly=raw.layer[keys[0]]
   const groups=pieces.map(p=>{const names=new Set(p.faces||[]);return (ly.faces||[]).filter(f=>names.has(f.name))})
   const mine=groups[at]
@@ -163,12 +175,14 @@ export function createSampledKnife(template,input){
   const pieceMeta=pieces?(pieces.find(p=>p.id===input.piece)||pieces[0]):null
   const raw=pieceMeta?(pieceGeometry(whole,pieces,pieceMeta.id)||whole):whole
   const isPiece=raw!==whole
+  // 多图层盒各层的纸厚不同（灰板 2mm、面纸 0.15mm）
+  const layerT=isPiece&&pieceMeta.layer?Number(raw.layer?.[pieceMeta.layer]?.thickness)||0:0
   const inner={length:Number(raw.size.L),width:Number(raw.size.W),height:Number(raw.size.H)}
   const outer={length:Number(raw.outSize.L),width:Number(raw.outSize.W),height:Number(raw.outSize.H)}
   const panel={length:Number(raw.knifeSize.L),width:Number(raw.knifeSize.W),height:Number(raw.knifeSize.H)}
   const knife=knifeFromPacdoraGeom(raw,{
     sourceNum:data.num,label:template.label,
-    length:inner.length,width:inner.width,height:inner.height,thickness:data.thickness||input.thickness,
+    length:inner.length,width:inner.width,height:inner.height,thickness:layerT||data.thickness||input.thickness,
   })
   // 官方给的切线 / 折线总长是整张版面的；单件时按该件的线段重新量
   const cut=isPiece?segLength(knife.cuts):Number(raw.extra?.cutlineLength)||0
@@ -189,7 +203,7 @@ export function createSampledKnife(template,input){
     sampled:true,
     dimensions:{
       length:inner.length,width:inner.width,height:inner.height,
-      thickness:data.thickness||Number(input.thickness)||0.5,
+      thickness:layerT||data.thickness||Number(input.thickness)||0.5,
       sizeMode:mode,fluteDirection:input.fluteDirection==='W'?'W':'L',
       inner,outer,panel,
     },

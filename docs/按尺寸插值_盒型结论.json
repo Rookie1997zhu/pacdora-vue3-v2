@@ -4355,6 +4355,28 @@
   "段数": 1,
   "窄": ""
  },
+ "folding-36601001": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 4,
+  "total": 4,
+  "范围": "L140–320 W91–208 H42–96",
+  "段数": 1,
+  "窄": ""
+ },
+ "folding-36601004": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 4,
+  "total": 4,
+  "范围": "L140–320 W91–208 H42–96",
+  "段数": 1,
+  "窄": ""
+ },
  "folding-512230": {
   "ok": true,
   "quality": "verified",
@@ -4926,6 +4948,50 @@
   "范围": "L70–160 W0–0 H35–80",
   "段数": 1,
   "窄": "W"
+ },
+ "gift-36601001": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 4,
+  "total": 4,
+  "范围": "L140–320 W91–208 H42–96",
+  "段数": 1,
+  "窄": ""
+ },
+ "gift-366012": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 4,
+  "total": 4,
+  "范围": "L195–446 W132–302 H80–182",
+  "段数": 1,
+  "窄": ""
+ },
+ "gift-36601204": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 2,
+  "total": 4,
+  "范围": "L112–256 W112–256 H28–64",
+  "段数": 1,
+  "窄": ""
+ },
+ "gift-36601205": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 2,
+  "total": 4,
+  "范围": "L84–192 W84–192 H42–96",
+  "段数": 1,
+  "窄": ""
  },
  "gift-510340": {
   "ok": true,
@@ -6497,6 +6563,28 @@
   "specPassed": 0,
   "total": 4,
   "范围": "L105–240 W42–96 H140–320",
+  "段数": 1,
+  "窄": ""
+ },
+ "square-36601201": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 2,
+  "total": 4,
+  "范围": "L126–288 W126–288 H126–288",
+  "段数": 1,
+  "窄": ""
+ },
+ "square-36601203": {
+  "ok": true,
+  "quality": "verified",
+  "inRange": 4,
+  "passed": 4,
+  "specPassed": 2,
+  "total": 4,
+  "范围": "L126–288 W126–288 H126–288",
   "段数": 1,
   "窄": ""
  },

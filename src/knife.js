@@ -1182,7 +1182,9 @@ export function createKnife({
     if(sk)return sk
     // 尺寸超出采样范围：退回原来的参数化模板（近似推算），并明确标出
     const approx=createKnife({
-      templateId:fb,length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,piece,lidClearance,
+      templateId:fb,length:L,width:W,height:H,thickness:T,bleed,sizeMode,fluteDirection,materialId,lidClearance,
+      // 多图层盒：插值模板按图层分件，参数化模板只有灰板的天 / 地盖，退回时换成对应的那一件
+      piece:st.pieces?.find(x=>x.id===piece)?.fallbackPiece||piece,
       params:paramOverrides,strict,production,previewBleedExtra,thicknessMinMm,
     })
     approx.template=tid

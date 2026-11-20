@@ -1096,6 +1096,14 @@ export default {
   "hash": "eccf47f544",
   "quality": "verified"
  },
+ "folding-36601001": {
+  "hash": "cdb2403d81",
+  "quality": "verified"
+ },
+ "folding-36601004": {
+  "hash": "4f007b222d",
+  "quality": "verified"
+ },
  "folding-512230": {
   "hash": "1c5d16704e",
   "quality": "verified"
@@ -1206,6 +1214,22 @@ export default {
  },
  "gift-180190": {
   "hash": "19dbb48200",
+  "quality": "verified"
+ },
+ "gift-36601001": {
+  "hash": "704ff0d4a0",
+  "quality": "verified"
+ },
+ "gift-366012": {
+  "hash": "5564d0d618",
+  "quality": "verified"
+ },
+ "gift-36601204": {
+  "hash": "568e14dcdc",
+  "quality": "verified"
+ },
+ "gift-36601205": {
+  "hash": "0e5f58492b",
   "quality": "verified"
  },
  "gift-510340": {
@@ -1642,6 +1666,14 @@ export default {
  },
  "square-240031": {
   "hash": "df1a799fab",
+  "quality": "verified"
+ },
+ "square-36601201": {
+  "hash": "ed600bc956",
+  "quality": "verified"
+ },
+ "square-36601203": {
+  "hash": "0a079b0fef",
   "quality": "verified"
  },
  "tray-120010": {

@@ -9,6 +9,8 @@ import {readFileSync,writeFileSync,mkdirSync} from 'node:fs'
 import {join,dirname} from 'node:path'
 import {fileURLToPath,pathToFileURL} from 'node:url'
 import {createKnife} from '../src/knife.js'
+import {knifeFromPacdoraGeom} from '../src/pacdoraGeomKnife.js'
+import {pieceGeometry} from '../src/templates/sampled/sampledTemplate.js'
 import {TEMPLATES} from '../src/templates/index.js'
 import specData from '../src/catalog/structureSpecs.js'
 import {pickCompileLayer} from './lib/pickCompileLayer.mjs'
@@ -104,6 +106,31 @@ export function measure(templateId,geom,{length,width,height,thickness,params={}
     }
   }catch(e){
     return {error:String(e?.code||e?.message||e).slice(0,60)}
+  }
+  // 按图层分件的插值模板（精装盒：面纸 + 灰板）：金样的参照值（ref）只统计灰板那一层，对不上四层的输出；
+  // 改为逐层与官方该层的刀版比较 —— 面片数、开孔数、该层版面尺寸、切线与折线长度。
+  if(template.sampled&&Array.isArray(template.pieces)&&template.pieces.every(p=>p.layer)&&knives.length===template.pieces.length){
+    const seg=list=>(list||[]).reduce((t,g)=>t+Math.hypot((g.x2??0)-(g.x1??0),(g.y2??0)-(g.y1??0)),0)
+    let facesEq=true,holesEq=true,sheetErr=0,cut=0,refCut=0,fold=0,refFold=0,faces=0,refFaces=0
+    for(let i=0;i<knives.length;i++){
+      const k=knives[i]
+      const one=pieceGeometry(geom,template.pieces,template.pieces[i].id)
+      if(!one)return {error:'layer-missing'}
+      const r=knifeFromPacdoraGeom(one,{})
+      faces+=k.faces.length;refFaces+=r.faces.length
+      if(k.faces.length!==r.faces.length)facesEq=false
+      if((k.holes||[]).length!==(r.holes||[]).length)holesEq=false
+      sheetErr=Math.max(sheetErr,rel(k.totalX,r.totalX),rel(k.totalY,r.totalY))
+      cut+=seg(k.cuts);refCut+=seg(r.cuts);fold+=seg(k.folds);refFold+=seg(r.folds)
+    }
+    const valid=knives.every(k=>k.validation?.ok!==false&&!(k.issues||[]).some(i=>i.severity==='blocking')&&!k.meta?.cutApprox)
+    const pn=knives[0].dimensions?.panel||{},kz=ref.knife
+    return {
+      valid,facesEq,faces,refFaces,holesEq,sheetWErr:sheetErr,sheetHErr:sheetErr,
+      cutErr:refCut?rel(cut,refCut):0,foldErr:refFold?rel(fold,refFold):0,
+      panelErr:Math.max(Math.abs((pn.length||0)-(Number(kz.L)||0)),Math.abs((pn.width||0)-(Number(kz.W)||0)),Math.abs((pn.height||0)-(Number(kz.H)||0))),
+      multiLayer:true,pieces:knives.length,
+    }
   }
   const sum=fn=>knives.reduce((s,k)=>s+fn(k),0)
   const valid=knives.every(k=>k.validation?.ok!==false

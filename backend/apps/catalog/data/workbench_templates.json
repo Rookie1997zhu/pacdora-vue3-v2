@@ -1,6 +1,6 @@
 {
  "schema": "boxcraft.workbench_templates.v1",
- "count": 689,
+ "count": 693,
  "items": [
   {
    "template_key": "auto-lock-bottom",
@@ -1571,6 +1571,16 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-36601001",
+   "title": "in the endHalfKnifeUp and Bottom Cover",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-36601004",
+   "title": "in the endHalfKnifeUp and Bottom Cover",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-512230",
    "title": "休闲食品糖果饼干纸质礼盒包装模型-200x200x30",
    "limits": {}
@@ -1708,6 +1718,26 @@
   {
    "template_key": "sampled-gift-180190",
    "title": "梯形插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-36601001",
+   "title": "in the endHalfKnifeUp and Bottom Cover",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-366012",
+   "title": "露底半刀天地盖",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-36601204",
+   "title": "露底半刀天地盖_仅上架Pacdora_04",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-36601205",
+   "title": "露底半刀天地盖_仅上架Pacdora_05",
    "limits": {}
   },
   {
@@ -2253,6 +2283,16 @@
   {
    "template_key": "sampled-square-240031",
    "title": "开孔梯形盒套Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-36601201",
+   "title": "露底半刀天地盖_仅上架Pacdora_01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-36601203",
+   "title": "露底半刀天地盖_仅上架Pacdora_03",
    "limits": {}
   },
   {
@@ -2866,78 +2906,6 @@
     "height": [
      30,
      99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BoutiqueboxDivideEquallyCover",
-   "title": "in the endHalfKnifeUp and Bottom Cover",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     78,
-     260
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BoutiqueboxExposedDivideEquallyCover",
-   "title": "露底半刀天地盖",
-   "limits": {
-    "length": [
-     167,
-     558
-    ],
-    "width": [
-     113,
-     378
-    ],
-    "height": [
-     68,
-     228
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BoutiqueboxExposedDivideEquallyCoverOne",
-   "title": "露底半刀天地盖",
-   "limits": {
-    "length": [
-     96,
-     320
-    ],
-    "width": [
-     96,
-     320
-    ],
-    "height": [
-     24,
-     80
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BoutiqueboxExposedDivideEquallyCoverTwo",
-   "title": "露底半刀天地盖",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     36,
-     120
     ]
    }
   },

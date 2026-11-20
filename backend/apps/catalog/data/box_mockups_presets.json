@@ -728,7 +728,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "square-covers/36601201.png",
-      "template_id": "spec-BoutiqueboxExposedDivideEquallyCover"
+      "template_id": "sampled-square-36601201"
     },
     {
       "category": "square",
@@ -756,7 +756,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "square-covers/36601203.png",
-      "template_id": "spec-BoutiqueboxExposedDivideEquallyCover"
+      "template_id": "sampled-square-36601203"
     },
     {
       "category": "gift",
@@ -1330,7 +1330,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/366012.png",
-      "template_id": "spec-BoutiqueboxExposedDivideEquallyCover"
+      "template_id": "sampled-gift-366012"
     },
     {
       "category": "gift",
@@ -1932,7 +1932,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/36601001.png",
-      "template_id": "spec-BoutiqueboxDivideEquallyCover"
+      "template_id": "sampled-gift-36601001"
     },
     {
       "category": "gift",
@@ -1946,7 +1946,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/36601204.png",
-      "template_id": "spec-BoutiqueboxExposedDivideEquallyCoverOne"
+      "template_id": "sampled-gift-36601204"
     },
     {
       "category": "gift",
@@ -1960,7 +1960,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/36601205.png",
-      "template_id": "spec-BoutiqueboxExposedDivideEquallyCoverTwo"
+      "template_id": "sampled-gift-36601205"
     },
     {
       "category": "mailer",

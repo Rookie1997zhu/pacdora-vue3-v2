@@ -51,8 +51,26 @@ for(const num of nums){
   const specPieces=TEMPLATES[fb]?.pieces
   const pieces=Array.isArray(specPieces)&&specPieces.length>1
     ?specPieces.map(p=>({id:p.id,label:p.label,role:p.role,faces:p.faces})):null
-  // 多图层的多件盒（面纸 + 灰板的精装盒）取不出单件，不做
-  if(pieces&&Object.keys(base.geom.layer||{}).length!==1){report.push(`${cat}-${num}: 多图层多件盒，跳过`);continue}
+  // 多图层的多件盒（面纸 + 灰板的精装盒）：每个图层是一件；原规格只有灰板的天 / 地盖，
+  // 超出采样范围退回时，各层对应到含有它面片的那一件（面纸跟着同名的灰板走）
+  let layerPieces=null
+  const layerNames=Object.keys(base.geom.layer||{}).filter(n=>Array.isArray(base.geom.layer[n]?.faces)&&base.geom.layer[n].faces.length)
+  if(pieces&&layerNames.length>1){
+    const info=base.geom.modeCate?.layerList||[]
+    const order=info.map(l=>l?.name).filter(n=>layerNames.includes(n))
+    const ordered=[...order,...layerNames.filter(n=>!order.includes(n))]
+    const ownerOf=name=>{
+      const faces=new Set(base.geom.layer[name].faces.map(f=>f.name))
+      return pieces.find(p=>(p.faces||[]).some(f=>faces.has(f)))?.id||null
+    }
+    const direct=Object.fromEntries(ordered.map(n=>[n,ownerOf(n)]))
+    const twin=n=>ordered.find(m=>m!==n&&direct[m]&&m.replace(/Greyboard|Facepaper/gi,'')===n.replace(/Greyboard|Facepaper/gi,''))
+    layerPieces=ordered.map((name,i)=>{
+      const meta=info.find(l=>l?.name===name)||{}
+      return {id:`layer${i+1}`,label:String(meta.friendlyName||name),labelEn:String(meta.friendlyName_en||name),layer:name,
+        fallbackPiece:direct[name]||(twin(name)?direct[twin(name)]:null)||pieces[0].id}
+    })
+  }
   const primary=anchorData(base,grid)
   // 次锚点：至少在另外两个维度之一上有可用范围（补采过样本）才有意义
   const anchors=[]
@@ -69,7 +87,7 @@ for(const num of nums){
     baseOuter:{L:Number(base.geom.outSize.L),W:Number(base.geom.outSize.W),H:Number(base.geom.outSize.H)},
     thickness:Number(base.geom.size.D)||0,
     fallback:fb,
-    ...(pieces?{pieces}:{}),
+    ...(layerPieces?{pieces:layerPieces}:(pieces?{pieces}:{})),
     range:primary.range,dims:primary.dims,base:primary.base,
     anchors,
   }
