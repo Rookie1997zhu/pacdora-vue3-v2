@@ -6,11 +6,14 @@ import {createKnife} from '../src/knife.js'
 import {TEMPLATES} from '../src/templates/index.js'
 import {PRESETS,PRESET_CATALOG,OFFICIAL_SUBCLASSES,searchImportedPresets} from '../src/catalog/index.js'
 import {EXPECTED,templateFitsAnySubclass} from '../src/catalog/subclassTemplateRules.js'
+import {isExcludedPreset} from '../src/catalog/excludedPresets.js'
 
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 
 assert.ok(PRESET_CATALOG.count>0,'catalog count')
-assert.equal(PRESETS.length,PRESET_CATALOG.count)
+// PRESETS leaves out the boxes listed in src/catalog/excludedPresets.js
+const excluded=(PRESET_CATALOG.presets||[]).filter(p=>isExcludedPreset(p.id)).length
+assert.equal(PRESETS.length+excluded,PRESET_CATALOG.count)
 assert.ok(PRESETS.length>=47,`catalog size ${PRESETS.length} >= 47`)
 const blob=JSON.stringify(PRESET_CATALOG)
 assert.ok(!blob.includes('cdn.pacdora.com'),'no pacdora CDN')
@@ -67,8 +70,8 @@ assert.ok(none.every(p=>!(p.subclassIds||[]).length),'unclassified filter')
 let subclassMismatch=0
 for(const p of PRESETS){
   if(!p.templateId)continue
-  // structure-code / structure-spec / 手工示意挂载：允许偏离子类启发式白名单
-  if(p.templateSource==='structure-code'||p.templateSource==='structure-spec'||p.templateSource==='structure-spec-takeover'||p.templateSource==='map-override-manual')continue
+  // structure-code / structure-spec / 手工示意挂载 / 按尺寸插值：允许偏离子类启发式白名单
+  if(p.templateSource==='structure-code'||p.templateSource==='structure-spec'||p.templateSource==='structure-spec-takeover'||p.templateSource==='map-override-manual'||p.templateSource==='sampled')continue
   const subIds=(p.subclassIds||[]).filter(id=>{
     const exp=EXPECTED[id]
     return Array.isArray(exp)&&exp.length>0

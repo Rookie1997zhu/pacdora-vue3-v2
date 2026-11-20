@@ -46,7 +46,20 @@ export type WorkbenchManifest = {
    * Fixed-spec box: no parametric template matches its structure, so the reference dieline is
    * shown as captured. Size and structure cannot be changed; no save / export.
    */
-  locked?: { sourceNum: string; geomPublicRel: string }
+  /** templateKey: the fixed-snapshot template the server saves and exports this box under */
+  locked?: { sourceNum: string; geomPublicRel: string; templateKey: string }
+  /**
+   * Customizable box whose folded 3D does not match the reference sample (or has no fold recipe):
+   * the 3D panel shows the reference sample's own fold instead. It does not follow size changes.
+   */
+  fold3dReference?: { sourceNum: string; geomPublicRel: string }
+  /**
+   * Size-interpolated boxes: the inner-size range checked against reference dielines. Inside it the
+   * dieline follows the reference samples; outside it is an approximation. Structure params are fixed.
+   */
+  verifiedRange?: { length: [number, number]; width: [number, number]; height: [number, number] }
+  /** 'verified': every validation size inside the range matched; 'improved': one did not */
+  sampledQuality?: 'verified' | 'improved'
 }
 
 const corrugatedMaterials = ['flute-e', 'flute-b', 'kraft']
@@ -266,6 +279,8 @@ type ImportPreset = {
   geomRel?: string
   structureCode?: string
   fidelity?: WorkbenchFidelity
+  /** scripts/annotate-preset-fold3d.mjs: does the template fold like the reference sample */
+  fold3d?: 'ok' | 'differs' | 'none'
   /** Captured structure params kept for this template: code → [value, min, max, grade] */
   openParams?: Record<string, [number, number | null, number | null, number | null]>
 }
@@ -295,14 +310,22 @@ function advancedFromPreset(preset: ImportPreset): Record<string, number> {
   return out
 }
 
+function zeroHeightOnly(templateId: string): boolean {
+  const h = (TEMPLATES as Record<string, { limits?: { height?: unknown } }>)[templateId]?.limits?.height
+  return Array.isArray(h) && h.length === 2 && Number(h[1]) === 0
+}
+
 function isCustomizableFidelity(f: WorkbenchFidelity | undefined): f is 'exact' | 'close' {
   return f === 'exact' || f === 'close'
 }
 
-function lockedSource(preset: ImportPreset): { sourceNum: string; geomPublicRel: string } | null {
+function lockedSource(preset: ImportPreset): { sourceNum: string; geomPublicRel: string; templateKey: string } | null {
   const rel = String(preset.geomPublicRel || preset.geomRel || '')
   if (!preset.hasGeometry || !preset.sourceNum || !rel) return null
-  return { sourceNum: String(preset.sourceNum), geomPublicRel: rel }
+  // Same key scheme as the catalogue seed: `fixed-<num>` for shipping, `fixed-<category>-<num>` otherwise
+  const cat = String(preset.categoryId || 'shipping')
+  const templateKey = cat === 'shipping' ? `fixed-${preset.sourceNum}` : `fixed-${cat}-${preset.sourceNum}`
+  return { sourceNum: String(preset.sourceNum), geomPublicRel: rel, templateKey }
 }
 
 function lockedManifest(preset: ImportPreset): WorkbenchManifest | null {
@@ -328,7 +351,7 @@ function lockedManifest(preset: ImportPreset): WorkbenchManifest | null {
       advanced: {},
     },
     materialIds: [corrugated ? 'kraft' : 'white'],
-    tiers: [],
+    tiers: ['vector_proof'],
     family: corrugated ? 'corrugated' : 'board',
     engineVersion: ENGINE_VERSION,
     fidelity: 'none',
@@ -357,7 +380,9 @@ function manifestFromImportPreset(slug: string): WorkbenchManifest | null {
     defaultParams: {
       lengthMm: Number(preset.length) || 100,
       widthMm: Number(preset.width) || 80,
-      heightMm: Number(preset.height) || 50,
+      // Flat items (sheets, sleeves) have height 0 and their template only accepts 0: do not
+      // substitute the 50 mm fallback there, or the default size itself is rejected on save.
+      heightMm: Number(preset.height) || (zeroHeightOnly(String(preset.templateId)) ? 0 : 50),
       thicknessMm: Number(preset.thickness) || (family === 'corrugated' ? 1.5 : 0.5),
       sizeMode: 'inner',
       materialId,
@@ -370,6 +395,10 @@ function manifestFromImportPreset(slug: string): WorkbenchManifest | null {
     family,
     engineVersion: ENGINE_VERSION,
     fidelity: preset.fidelity,
+    fold3dReference:
+      preset.fold3d && preset.fold3d !== 'ok' ? lockedSource(preset) || undefined : undefined,
+    verifiedRange: (TEMPLATES as Record<string, any>)[String(preset.templateId)]?.verifiedRange || undefined,
+    sampledQuality: (TEMPLATES as Record<string, any>)[String(preset.templateId)]?.sampledQuality || undefined,
   }
 }
 

@@ -142,10 +142,10 @@
             </label>
             <p v-if="!editable" class="hint">{{ t('studio.sizeLocked') }}</p>
             <p v-else-if="outOfRange" class="hint bc-err">{{ t('studio.outOfRange') }}</p>
-            <p v-if="isWorkbenchLocked" class="hint">{{ t('studio.lockedCreateNote') }}</p>
+            <p v-if="studioBlocked" class="hint">{{ t('studio.lockedCreateNote') }}</p>
             <p v-if="error" class="bc-err">{{ error }}</p>
             <div class="actions">
-              <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy || isWorkbenchLocked">
+              <button class="bc-btn bc-btn--primary" type="submit" :disabled="busy || studioBlocked">
                 {{ t('studio.ctaEnterStudio') }}
               </button>
             </div>
@@ -230,16 +230,20 @@ const canCustomizeStructure = computed(() => {
 
 const canViewLocked = computed(() => isWorkbenchEnabled() && isWorkbenchLocked.value)
 
+/** Studio cannot open it: workbench-locked and not a fixed-snapshot product */
+const studioBlocked = computed(
+  () => isWorkbenchLocked.value && product.value?.geometry_mode !== 'fixed_snapshot',
+)
+
 /** Studio create: parametric or fixed that can still open a design, but not locked-only dead ends. */
 const canCreateStudio = computed(() => {
   if (!product.value) return false
   if (product.value.geometry_mode === 'model_only' && !canCustomizeStructure.value && !canViewLocked.value) {
     return false
   }
-  if (isWorkbenchLocked.value && product.value.geometry_mode !== 'parametric') {
-    // locked reference: viewing only via workbench; don't offer misleading studio create as primary path
-    return false
-  }
+  // A fixed-snapshot product opens in Studio with its reference dieline replayed as is, whether or
+  // not the workbench can customise that structure. (The workbench 'fixed spec' flag only means the
+  // size cannot be changed there; it must not block artwork design.)
   return product.value.geometry_mode === 'parametric' || product.value.geometry_mode === 'fixed_snapshot'
 })
 
@@ -324,7 +328,7 @@ onMounted(async () => {
 
 async function onCreate() {
   if (!product.value) return
-  if (isWorkbenchLocked.value) {
+  if (studioBlocked.value) {
     error.value = t('studio.lockedCreateNote')
     return
   }

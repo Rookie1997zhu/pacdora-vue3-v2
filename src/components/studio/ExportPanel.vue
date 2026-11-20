@@ -20,6 +20,7 @@
       <button type="button" class="secondary" :disabled="disabled" @click="onStart('svg')">{{ t('studio.exportSvg') }}</button>
       <button type="button" class="secondary" :disabled="disabled" @click="onStart('dxf')">{{ t('studio.exportDxf') }}</button>
       <button type="button" class="secondary" :disabled="disabled" @click="onStart('pdf')">{{ t('studio.exportPdf') }}</button>
+      <button type="button" class="secondary" :disabled="disabled" @click="onStart('ai')">{{ t('studio.exportAi') }}</button>
     </div>
     <template v-if="design.canExportManufacturing">
       <p class="hint mfg">{{ t('studio.exportManufacturing') }}</p>

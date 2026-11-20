@@ -54,6 +54,36 @@ function alongOffset(o,parentLen,childLen){
   return Math.min(parentLen-m,Math.max(-childLen+m,v))
 }
 
+const ATTACH_TOL=0.6
+
+/**
+ * 自由定位面（o2）沿一个轴的偏移，随尺寸变化。
+ * 规格里的偏移大多是样本上量出的常数（如「向左 110」其实是子面自己的宽度），盒子改尺寸后
+ * 子面就和父面脱开。这里按样本尺寸下的位置关系换算：
+ *   贴在（或略咬进）父面起始边外侧 → 跟着子面长度走；结束边外侧 → 跟着父面长度走；
+ *   落在父面跨度内 → 按可移动余量等比；比父面长并居中 → 保持居中；否则保持到较近一端的距离。
+ * 偏移表达式本身已随 长/宽/高 变化的不动。默认尺寸下结果与原表达式完全相同。
+ * @param expr 偏移表达式  @param cur 当前求值  @param off0 样本求值
+ * @param c0,p0 样本下子面/父面沿该轴长度  @param c,p 当前长度
+ */
+function rescaleOffset(expr,cur,off0,c0,p0,c,p){
+  if(expr&&(expr.t==='L'||expr.t==='W'||expr.t==='H')&&Number(expr.k))return cur
+  const delta=cur-off0 // 用户改结构参数带来的变化，原样保留
+  const free0=p0-c0,free=p-c
+  if(Math.abs(off0+c0)<ATTACH_TOL||off0+c0<0)return -c+(off0+c0)+delta
+  if(Math.abs(off0-p0)<ATTACH_TOL||off0>p0)return p+(off0-p0)+delta
+  // 跨在父面起始 / 结束边上、大半在外（样本上 bbox 咬进父面一点，常见于弧形或带舌的面）：
+  // 仍算贴在那条边上，咬进去的量随子面长度等比
+  const scale=c0>0?c/c0:1
+  const penStart=off0+c0,penEnd=p0-off0
+  if(off0<0&&penStart>0&&penStart<=c0/2&&penStart<p0)return -c+penStart*scale+delta
+  if(off0>0&&off0<p0&&off0+c0>p0&&penEnd<=c0/2)return p-penEnd*scale+delta
+  if(free0>1&&off0>=-ATTACH_TOL&&off0<=free0+ATTACH_TOL)return off0*(free/free0)+delta
+  if(Math.abs(off0-free0/2)<ATTACH_TOL)return free/2+(off0-free0/2)+delta
+  if(Math.abs(off0)<=Math.abs(off0-free0))return cur
+  return free+(off0-free0)+delta
+}
+
 /** 自由边（铰链对边）两端内收 → 梯形；铰链边保持整边 */
 function trapezoid(side,w,h,e){
   if(!e)return null
@@ -180,6 +210,22 @@ function expandHole(hs,fx,fy,fw,fh,faceOutline){
 
 const PIECE_GAP=40
 
+/**
+ * 规格里某个尺寸在样本上为 0（圆形 / 多边形盒没有「宽」，平面件没有「高」）时，编译出的范围是
+ * 「最小 10、最大 1」这样下限大于上限的区间，任何数值都通不过，盒型在默认尺寸下就无法保存和导出。
+ * 这种尺寸刀版并不使用：换成一个什么值都能过的宽区间（保留区间而不是去掉，是因为多处代码默认
+ * 三个尺寸都有范围）。
+ */
+const UNUSED_DIM_RANGE=[0,2000]
+function usableLimits(limits){
+  if(!limits||typeof limits!=='object')return limits
+  const out={}
+  for(const [k,r] of Object.entries(limits)){
+    out[k]=Array.isArray(r)&&r.length===2&&Number(r[0])>Number(r[1])?[...UNUSED_DIM_RANGE]:r
+  }
+  return out
+}
+
 export function createSpecTemplate(spec){
   const pieces=Array.isArray(spec.pieces)&&spec.pieces.length
     ?spec.pieces.map(p=>({id:p.id,label:p.label||p.id,role:p.role,root:p.root,faces:p.faces}))
@@ -207,6 +253,14 @@ export function createSpecTemplate(spec){
     return spec.root
   }
 
+  // 规格样本的面板尺寸与参数：自由定位面（o2）的偏移只在这个尺寸下量过
+  const dT=Number(spec.defaults?.thickness)||0
+  const defaultPanel=Object.fromEntries(['length','width','height'].map(k=>[
+    k,round((Number(spec.defaults?.[k])||0)+(Number(spec.sizeRule?.panelAdd?.[k])||0)*dT)
+  ]))
+  const defaultParams=Object.fromEntries((spec.params||[]).map(p=>[p.code,p.def]))
+  const refCache=new Map()
+
   return {
     id:`spec-${spec.code}`,
     label:spec.name,
@@ -218,7 +272,7 @@ export function createSpecTemplate(spec){
     supportsPiece,
     assembly:pieces&&pieces.length>2?'row':(supportsPiece?'stack':undefined),
     defaults:{...spec.defaults},
-    limits:spec.limits,
+    limits:usableLimits(spec.limits),
     sizeRule:spec.sizeRule,
     specRef:{code:spec.code,sampleNum:spec.sampleNum,structureCode:spec.structureCode||spec.code},
     pieces:pieces||undefined,
@@ -233,51 +287,69 @@ export function createSpecTemplate(spec){
       const pieceId=resolvePieceId(piece)
       const active=facesFor(pieceId)
       const activeRoot=rootFor(pieceId)
-      const rects=new Map()
-      const out=[]
-      // 多 root（多坯同图）：按件横向错开，禁止叠在 (0,0)
-      let originX=0,runMaxX=0,seenRoot=false
-      for(const f of active){
-        const w=round(evalExpr(f.w,panel,params)),h=round(evalExpr(f.h,panel,params))
-        if(!f.p){
-          if(seenRoot)originX=runMaxX+PIECE_GAP
-          seenRoot=true
-          const x=originX,y=0
+      const place=(panel,params,ref,record)=>{
+        const rects=new Map()
+        const out=[]
+        // 多 root（多坯同图）：按件横向错开，禁止叠在 (0,0)
+        let originX=0,runMaxX=0,seenRoot=false
+        for(const f of active){
+          const w=round(evalExpr(f.w,panel,params)),h=round(evalExpr(f.h,panel,params))
+          if(!f.p){
+            if(seenRoot)originX=runMaxX+PIECE_GAP
+            seenRoot=true
+            const x=originX,y=0
+            runMaxX=Math.max(runMaxX,x+w)
+            rects.set(f.n,{x,y,w,h})
+            out.push({f,x,y,w,h})
+            continue
+          }
+          const p=rects.get(f.p)
+          if(!p)continue
+          let x,y
+          if(f.o2&&!f.s){
+            // 斜铰链 / 非轴对齐：二维 bbox 偏移（hingeLine 显式给出折轴）
+            let ox=evalRaw(f.o2.ox,panel,params),oy=evalRaw(f.o2.oy,panel,params)
+            const r0=ref?.get(f.n)
+            if(r0){
+              ox=rescaleOffset(f.o2.ox,ox,r0.ox,r0.w,r0.pw,w,p.w)
+              oy=rescaleOffset(f.o2.oy,oy,r0.oy,r0.h,r0.ph,h,p.h)
+            }
+            x=p.x+ox
+            y=p.y+oy
+            if(record)record.set(f.n,{ox:evalRaw(f.o2.ox,panel,params),oy:evalRaw(f.o2.oy,panel,params),w,h,pw:p.w,ph:p.h})
+          }else{
+            // 折线位置：父面边，或父面内部（距起/止边 d，钳在父面跨度内）
+            const foldAt=(start,len,edge)=>{
+              if(!f.f)return edge
+              const d=Math.min(len,Math.max(0,evalRaw(f.f.d,panel,params)))
+              return f.f.from==='end'?start+len-d:start+d
+            }
+            if(f.s==='top'||f.s==='bottom'){
+              x=p.x+alongOffset(f.o,p.w,w)
+              const fy=foldAt(p.y,p.h,f.s==='top'?p.y:p.y+p.h)
+              y=f.s==='top'?fy-h:fy
+            }else{
+              y=p.y+alongOffset(f.o,p.h,h)
+              const fx=foldAt(p.x,p.w,f.s==='left'?p.x:p.x+p.w)
+              x=f.s==='left'?fx-w:fx
+            }
+          }
+          // 逐级舍入：相邻面共边坐标必须严格相等，否则折线识别失败
+          x=round(x);y=round(y)
           runMaxX=Math.max(runMaxX,x+w)
           rects.set(f.n,{x,y,w,h})
           out.push({f,x,y,w,h})
-          continue
         }
-        const p=rects.get(f.p)
-        if(!p)continue
-        let x,y
-        if(f.o2&&!f.s){
-          // 斜铰链 / 非轴对齐：二维 bbox 偏移（hingeLine 显式给出折轴）
-          x=p.x+evalRaw(f.o2.ox,panel,params)
-          y=p.y+evalRaw(f.o2.oy,panel,params)
-        }else{
-          // 折线位置：父面边，或父面内部（距起/止边 d，钳在父面跨度内）
-          const foldAt=(start,len,edge)=>{
-            if(!f.f)return edge
-            const d=Math.min(len,Math.max(0,evalRaw(f.f.d,panel,params)))
-            return f.f.from==='end'?start+len-d:start+d
-          }
-          if(f.s==='top'||f.s==='bottom'){
-            x=p.x+alongOffset(f.o,p.w,w)
-            const fy=foldAt(p.y,p.h,f.s==='top'?p.y:p.y+p.h)
-            y=f.s==='top'?fy-h:fy
-          }else{
-            y=p.y+alongOffset(f.o,p.h,h)
-            const fx=foldAt(p.x,p.w,f.s==='left'?p.x:p.x+p.w)
-            x=f.s==='left'?fx-w:fx
-          }
-        }
-        // 逐级舍入：相邻面共边坐标必须严格相等，否则折线识别失败
-        x=round(x);y=round(y)
-        runMaxX=Math.max(runMaxX,x+w)
-        rects.set(f.n,{x,y,w,h})
-        out.push({f,x,y,w,h})
+        return {rects,out}
       }
+      // 默认尺寸下各自由定位面相对父面的位置（每件只算一次），供改尺寸时保持贴合关系
+      const refKey=pieceId||''
+      if(!refCache.has(refKey)){
+        const rec=new Map()
+        place(defaultPanel,defaultParams,null,rec)
+        refCache.set(refKey,rec)
+      }
+      const {rects,out}=place(panel,params,refCache.get(refKey),null)
       if(!out.length)return {faces:[],arrows:{},faceOrder:[],root:activeRoot,holes:[]}
       const minX=Math.min(...out.map(r=>r.x)),minY=Math.min(...out.map(r=>r.y))
       const dx=round(MARGIN-minX),dy=round(MARGIN-minY)
@@ -285,6 +357,8 @@ export function createSpecTemplate(spec){
       const slits=[]
       /** 3D 折叠配方（来自金样动画）：面名 → {parent,hingeLine,angle,axisVec} */
       const fold3dFaces={}
+      /** 面名 → 当前尺寸下的矩形（折叠步骤里按 UV 还原折线用） */
+      const fold3dRects=new Map(out.map(({f,x,y,w,h})=>[f.n,{x:round(x+dx),y:round(y+dy),w,h}]))
       let hasFold3d=false
       const faces=out.map(({f,x,y,w,h})=>{
         // 内部折 / 斜铰链：side 置空，用 hingeLine
@@ -302,6 +376,11 @@ export function createSpecTemplate(spec){
             const trap=trapezoid(f.s,w,h,f.e)
             if(trap)shape.outline=trap.map(([px,py])=>[round(px),round(py)])
           }
+        }
+        // o3：只给 3D 用的外轮廓（UV，可超出 0..1）。舌片伸进相邻面的缺口里时，2D 的切线由那个缺口画出，
+        // 这一面的矩形不必变；但 3D 里少了这块舌片，合盖外形就和参考对不上
+        if(Array.isArray(f.o3)&&f.o3.length>=3){
+          shape.outline3d=f.o3.map(([u,v])=>[round(Number(u)*w),round(Number(v)*h)])
         }
         if(f.hl&&!f.s){
           const hl=expandUv(f.hl,w,h)
@@ -367,9 +446,18 @@ export function createSpecTemplate(spec){
         slits,
         fold3d:hasFold3d?{
           faces:fold3dFaces,
-          stages:(spec.fs||[]).map(stage=>stage.map(s=>s.c
-            ?{child:s.c,rotate:s.r}
-            :{face:s.f,move:{x:s.m[0],y:s.m[1],z:s.m[2]}}))
+          stages:(spec.fs||[]).map(stage=>stage.map(s=>{
+            if(!s.c)return {face:s.f,move:{x:s.m[0],y:s.m[1],z:s.m[2]}}
+            const step={child:s.c,rotate:s.r}
+            // 这一步绕的不是主折线（如防尘翼先随侧板翻、再绕自己的斜折线折）：折线记成该面 bbox 内的 UV
+            const r=Array.isArray(s.l)&&s.l.length===2?fold3dRects.get(s.c):null
+            if(r){
+              step.line=s.l.map(([u,v])=>[round(r.x+Number(u)*r.w),round(r.y+Number(v)*r.h)])
+              step.fold=s.n||`${s.c}~line`
+              if(Array.isArray(s.v))step.vector={x:s.v[0],y:s.v[1],z:s.v[2]}
+            }
+            return step
+          }))
         }:undefined,
         faceOrder:out.map(o=>o.f.n),
         root:activeRoot,

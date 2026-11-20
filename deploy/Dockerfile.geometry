@@ -1,13 +1,25 @@
 ARG NODE_IMAGE=node:22-alpine
 FROM ${NODE_IMAGE}
 WORKDIR /app
+# CJK glyphs for artwork text in PDF / AI export (services/geometry/textOutline.mjs)
+RUN apk add --no-cache font-noto-cjk
 # Install geometry deps at repo root so /app/src/knife.js can resolve polygon-clipping
 COPY services/geometry/package.json ./package.json
 RUN npm install --omit=dev
 COPY src/ ./src/
 COPY packages/geometry-schema/ ./packages/geometry-schema/
 COPY packages/crashlock-engine/ ./packages/crashlock-engine/
+COPY packages/geometry-engine/ ./packages/geometry-engine/
 COPY services/geometry/ ./services/geometry/
+# Captured reference dielines replayed for fixed-snapshot products
+COPY public/shipping-geom/ ./public/shipping-geom/
+COPY public/mailer-geom/ ./public/mailer-geom/
+COPY public/gift-geom/ ./public/gift-geom/
+COPY public/square-geom/ ./public/square-geom/
+COPY public/folding-geom/ ./public/folding-geom/
+COPY public/tray-geom/ ./public/tray-geom/
+# Multi-size reference samples for the size-interpolated templates
+COPY public/sampled/ ./public/sampled/
 WORKDIR /app/services/geometry
 ENV NODE_ENV=production
 ENV PORT=3100

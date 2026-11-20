@@ -1,0 +1,385 @@
+﻿类目,编号,名称,结构代码,尺寸组,制造尺寸,官方实际尺寸,默认参数_等级,默认参数_展开尺寸偏差,默认参数_切线长度偏差,默认参数_面片数,官方参数_等级,官方参数_展开尺寸偏差,官方参数_切线长度偏差,官方参数随尺寸变化
+折叠盒,103213,Hanging electronic product box,HangingHoleWindowBuckleBottomBoxthree,整体放大 1.1 倍,132×66×176,132×66×176,B,0.2%,5.6%,16/16,B,0.2%,5.6%,C:15→20 CR:8→10 AR:9→10 A:38→43 L1:119→131 K1:16→17 K3:16→17 KL:90→102 KW:120→136 KW1:8→9
+折叠盒,103213,Hanging electronic product box,HangingHoleWindowBuckleBottomBoxthree,整体放大 1.3 倍,156×78×208,156×78×208,B,1.4%,2.7%,16/16,B,1.4%,2.7%,E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→49 L1:119→155 K1:16→19 K3:16→19 MR:4→5 KL:90→126 KW:120→168 KR:6→8 KW1:8→11
+折叠盒,103213,Hanging electronic product box,HangingHoleWindowBuckleBottomBoxthree,"加长收窄 (L×1.5, W×0.8)",180×48×160,180×48×160,C,0.1%,8.7%,16/16,C,0.1%,8.7%,E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 L1:119→179 K1:16→13 S1:0→2 K3:16→13 MR:4→3 MR1:0→3 KL:90→150 KR:6→8
+折叠盒,103213,Hanging electronic product box,HangingHoleWindowBuckleBottomBoxthree,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×240,96×72×240,A,0.1%,0.9%,16/16,A,0.1%,0.9%,C:15→13 CR:8→7 AR:9→10 A:38→43 L1:119→95 K1:16→18 K3:16→13 MR:4→5 KL:90→67.2 KW:120→200 KR:6→4 SP:15→14.4 KW1:8→13
+折叠盒,103210,Hanging display box with window,HangingHoleWindowBuckleBottomBox,整体放大 1.1 倍,132×66×176,132×66×176,B,0.2%,5.7%,16/16,B,0.2%,5.7%,C:15→20 CR:8→10 AR:9→10 A:38→43 L1:119→131 K1:16→17 K3:16→17 KL:90→102 KW:120→136
+折叠盒,103210,Hanging display box with window,HangingHoleWindowBuckleBottomBox,整体放大 1.3 倍,156×78×208,156×78×208,B,1.4%,2.8%,16/16,B,1.4%,2.8%,E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→49 L1:119→155 K1:16→19 K3:16→19 MR:4→5 KL:90→126 KW:120→168 KR:6→8
+折叠盒,103210,Hanging display box with window,HangingHoleWindowBuckleBottomBox,"加长收窄 (L×1.5, W×0.8)",180×48×160,180×48×160,C,0.1%,8.6%,16/16,C,0.1%,8.6%,E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 L1:119→179 K1:16→13 S1:0→2 K3:16→13 MR:4→3 MR1:0→3 KL:90→150 KR:6→8
+折叠盒,103210,Hanging display box with window,HangingHoleWindowBuckleBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×240,96×72×240,A,0.1%,0.9%,16/16,A,0.1%,0.9%,C:15→13 CR:8→7 AR:9→10 A:38→43 L1:119→95 K1:16→18 K3:16→13 MR:4→5 KL:90→67.2 KW:120→200 KR:6→4 SP:15→14.4
+折叠盒,101432,Hanging extra slim tall medicine box,PairAircraftWithHookLock,整体放大 1.1 倍,132×17×176,132×17×176,B,0.6%,0.7%,18/18,B,0.6%,0.7%,G:13.5→15.5 C:15→20 CR:8→10 A:15→19 L1:119→131 SW:24→26 F:11→12 FR:4.5→5 F1:10.8→11.8 SW1:25→27
+折叠盒,101432,Hanging extra slim tall medicine box,PairAircraftWithHookLock,整体放大 1.3 倍,156×20×208,156×20×208,A,0.0%,0.4%,18/18,A,0.0%,0.4%,G:13.5→16 E:8→11 C:15→20 CR:8→10 S:6→9 A:15→20 L1:119→155 SW:24→31 F:11→12 FR:4.5→5 F1:10.8→11.8 SW1:25→32
+折叠盒,101432,Hanging extra slim tall medicine box,PairAircraftWithHookLock,"加长收窄 (L×1.5, W×0.8)",180×12×160,180×12×160,B,1.4%,1.7%,18/18,B,1.4%,1.7%,G:13.5→10.5 E:8→11 C:15→16 S:6→9 A:15→14 L1:119→179 SW:24→36 F:11→8 FR:4.5→3 F1:10.8→7.8 SW1:25→37
+折叠盒,101432,Hanging extra slim tall medicine box,PairAircraftWithHookLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×18×240,96×18×240,B,0.9%,0.6%,18/18,B,0.9%,0.6%,G:13.5→13 C:15→13 CR:8→7 A:15→16 L1:119→95 SW:24→19 F:11→12 FR:4.5→5 F1:10.8→11.8 SW1:25→20
+折叠盒,101522,Square hanging medicine box,PairBackopenWithHookLock,整体放大 1.1 倍,112×22×112,112×22×112,A,0.4%,0.1%,18/18,A,0.4%,0.1%,G:13→16 A:18→19 ATT:0→13 L1:101→111 SW:20→22 SW1:21→23
+折叠盒,101522,Square hanging medicine box,PairBackopenWithHookLock,整体放大 1.3 倍,133×26×133,133×26×133,B,0.9%,0.4%,18/18,B,0.9%,0.4%,G:13→16 C:15→20 CR:8→10 A:18→23 ATT:0→13 L1:101→132 SW:20→27 SW1:21→28
+折叠盒,101522,Square hanging medicine box,PairBackopenWithHookLock,"加长收窄 (L×1.5, W×0.8)",153×16×102,153×16×102,A,0.4%,0.4%,18/18,A,0.4%,0.4%,G:13→14.5 E:8→11 C:15→20 CR:8→10 S:6→9 L1:101→152 SW:20→31 SW1:21→32
+折叠盒,101522,Square hanging medicine box,PairBackopenWithHookLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",82×24×153,82×24×153,A,0.4%,0.1%,18/18,A,0.4%,0.1%,C:15→13 CR:8→7 A:18→19 ATT:0→13 L1:101→81 SW:20→16 SW1:21→17
+折叠盒,106030,Hanging electronic product box,BotselflockWithHook,整体放大 1.1 倍,133×67×178,133×67×178,C,0.0%,6.3%,18/18,C,0.0%,6.5%,C:15→20 CR:8→10 AR:9→10 A:38→44 L1:119.6→132 B1:18→20
+折叠盒,106030,Hanging electronic product box,BotselflockWithHook,整体放大 1.3 倍,157×79×210,157×79×210,C,2.1%,1.5%,18/18,C,2.1%,1.3%,E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→50 L1:119.6→156 B1:18→23.5
+折叠盒,106030,Hanging electronic product box,BotselflockWithHook,"加长收窄 (L×1.5, W×0.8)",181×48×162,181×48×162,C,9.0%,4.3%,18/18,C,9.0%,5.0%,E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 L1:119.6→180 B1:18→14.5 BX2:8→6
+折叠盒,106030,Hanging electronic product box,BotselflockWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×242,96×73×242,C,7.0%,20.3%,18/18,C,7.0%,19.9%,C:15→13 CR:8→7 AR:9→10 A:38→43 L1:119.6→95 B1:18→22
+折叠盒,100021,Hanging electronic product box with window,PairWithWindowHook,整体放大 1.1 倍,88×33×154,88×33×154,A,0.1%,0.1%,16/16,A,0.1%,0.6%,NX:2→3 NY:2→3 AR:1→5 A:22→23 L1:79→87 X1:20→22 X2:40→44 Y3:35→39 Y4:70→77
+折叠盒,100021,Hanging electronic product box with window,PairWithWindowHook,整体放大 1.3 倍,104×39×182,104×39×182,B,1.0%,3.2%,16/16,B,1.0%,1.1%,G:13→16 C:13→15 CR:7→8 NX:2→3 NY:2→3 AR:1→6 A:22→27 L1:79→103 X1:20→26 X2:40→52 Y3:35→46 Y4:70→91 XR:7→9
+折叠盒,100021,Hanging electronic product box with window,PairWithWindowHook,"加长收窄 (L×1.5, W×0.8)",120×24×140,120×24×140,C,1.0%,11.1%,16/16,C,1.0%,11.6%,G:13→16 C:13→15 CR:7→8 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 A:22→20 L1:79→119 X1:20→30 X2:40→60 XR:7→9
+折叠盒,100021,Hanging electronic product box with window,PairWithWindowHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×36×210,64×36×210,A,0.1%,0.3%,16/16,A,0.1%,1.4%,E:8→6 S:6→4 NX:2→3 NY:2→3 AR:1→6 A:22→25 L1:79→63 X1:20→16 X2:40→32 Y3:35→53 Y4:70→105 XR:7→5
+折叠盒,101521,Hanging slim tall display box,PairBackopenWithHookNail,整体放大 1.1 倍,88×33×154,88×33×154,A,0.3%,0.2%,16/16,A,0.3%,0.4%,NX:2→3 NY:2→3 AR:1→5 A:22→23 L1:79→87 KX:40→44
+折叠盒,101521,Hanging slim tall display box,PairBackopenWithHookNail,整体放大 1.3 倍,104×39×182,104×39×182,B,1.0%,4.1%,16/16,B,1.0%,1.0%,G:13→16 C:13→15 CR:7→8 NX:2→3 NY:2→3 AR:1→6 A:22→27 L1:79→103 KX:40→52
+折叠盒,101521,Hanging slim tall display box,PairBackopenWithHookNail,"加长收窄 (L×1.5, W×0.8)",120×24×140,120×24×140,B,1.0%,2.6%,16/16,B,1.0%,2.4%,G:13→16 C:13→15 CR:7→8 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 A:22→20 L1:79→119 KX:40→60
+折叠盒,101521,Hanging slim tall display box,PairBackopenWithHookNail,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×36×210,64×36×210,C,0.2%,8.7%,16/16,C,0.2%,10.0%,E:8→6 S:6→4 NX:2→3 NY:2→3 AR:1→6 A:22→25 L1:79→63 KX:40→32
+折叠盒,102621,Hanging electronic product box,PairBackopenForwardWithHookNail,整体放大 1.1 倍,88×33×154,88×33×154,C,3.1%,1.0%,16/16,C,3.1%,0.3%,NX:2→3 NY:2→3 AR:1→5 A:22→23 L1:79→87 KX:40→44
+折叠盒,102621,Hanging electronic product box,PairBackopenForwardWithHookNail,整体放大 1.3 倍,104×39×182,104×39×182,C,9.0%,6.9%,16/16,C,9.0%,6.0%,G:13→16 C:13→15 CR:7→8 NX:2→3 NY:2→3 AR:1→6 A:22→27 L1:79→103 KX:40→52
+折叠盒,102621,Hanging electronic product box,PairBackopenForwardWithHookNail,"加长收窄 (L×1.5, W×0.8)",120×24×140,120×24×140,C,14.2%,10.1%,16/16,C,14.2%,10.0%,G:13→16 C:13→15 CR:7→8 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 A:22→20 L1:79→119 KX:40→60
+折叠盒,102621,Hanging electronic product box,PairBackopenForwardWithHookNail,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×36×210,64×36×210,C,7.5%,32.5%,16/16,C,7.5%,34.1%,E:8→6 S:6→4 NX:2→3 NY:2→3 AR:1→6 A:22→25 L1:79→63 KX:40→32
+折叠盒,100027,Hanging long-shaped medicine box,AnchorHoleReverseInsertLockBox,整体放大 1.1 倍,121×33×33,121×33×33,C,3.4%,4.5%,16/16,C,3.4%,5.7%,NX:2→3 NY:2→3 AR:1→6 A:23→24 L1:109→120 EX:22→24
+折叠盒,100027,Hanging long-shaped medicine box,AnchorHoleReverseInsertLockBox,整体放大 1.3 倍,143×39×39,143×39×39,C,8.7%,1.3%,16/16,C,8.7%,3.2%,C:15→20 CR:8→10 NX:2→3 NY:2→3 AR:1→7 A:23→30 L1:109→142 EX:22→29
+折叠盒,100027,Hanging long-shaped medicine box,AnchorHoleReverseInsertLockBox,"加长收窄 (L×1.5, W×0.8)",165×24×30,165×24×30,C,14.0%,14.0%,16/16,C,14.0%,1.6%,E:8→11 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 S:6→9 A:23→20 L1:109→164 EX:22→33
+折叠盒,100027,Hanging long-shaped medicine box,AnchorHoleReverseInsertLockBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",88×36×45,88×36×45,C,9.6%,0.0%,16/16,C,9.6%,0.8%,G:16→13 C:15→13 CR:8→7 NX:2→3 NY:2→3 AR:1→6 A:23→25 L1:109→87 EX:22→18
+折叠盒,171800,Flip lock display box,FlipLockDisplayBox,整体放大 1.1 倍,242×165×88,242×165×88,B,1.8%,3.1%,16/16,B,1.1%,0.1%,G:35→45 B1:45→49.5 E:8→11 W2:100→110 L2:87→96 AR:16→17 A:50→55 DD:53→58 W3:100→110
+折叠盒,171800,Flip lock display box,FlipLockDisplayBox,整体放大 1.3 倍,286×195×104,286×195×104,C,4.2%,3.8%,16/16,B,1.7%,3.7%,G:35→45 B1:45→58.5 E:8→11 W2:100→130 L2:87→114 AR:16→20 A:50→65 DD:53→69 W3:100→130
+折叠盒,171800,Flip lock display box,FlipLockDisplayBox,"加长收窄 (L×1.5, W×0.8)",330×120×80,330×120×80,C,23.5%,9.3%,16/16,C,20.1%,43.6%,G:35→45 B1:45→36 BX2:12→10 W2:100→80 L2:87→131 S:9→7.25 AR:16→23 A:50→40 W3:100→80
+折叠盒,171800,Flip lock display box,FlipLockDisplayBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",176×180×120,176×171×120,C,11.9%,8.0%,16/16,C,7.5%,18.5%,G:35→25 B1:45→51.5 E:8→11 C:20→18 CR:10→9 W2:100→114 L2:87→70 AR:16→13 A:50→57 DD:53→80 W3:100→114 BCX:15→13
+折叠盒,100024,Hanging electronic product box,PairWithHookNail,整体放大 1.1 倍,77×44×121,77×44×121,B,1.8%,1.3%,16/16,B,1.8%,0.5%,AR:6→7 A:27→29 L1:69→76 KX:35→38.5
+折叠盒,100024,Hanging electronic product box,PairWithHookNail,整体放大 1.3 倍,91×52×143,91×52×143,C,4.3%,3.6%,16/16,C,5.3%,1.0%,G:13→16 AR:6→8 A:27→33 L1:69→90 KX:35→45.5
+折叠盒,100024,Hanging electronic product box,PairWithHookNail,"加长收窄 (L×1.5, W×0.8)",105×32×110,105×32×110,C,3.8%,13.7%,16/16,C,2.5%,14.9%,G:13→16 C:13→15 CR:7→8 AR:6→5 A:27→24 L1:69→104 KX:35→52.5
+折叠盒,100024,Hanging electronic product box,PairWithHookNail,"缩短加高 (L×0.8, W×1.2, H×1.5)",56×48×165,56×48×165,C,3.4%,1.4%,16/16,C,3.4%,1.8%,E:8→6 C:13→11 CR:7→6 S:6→4 AR:6→7 A:27→28 L1:69→55 KX:35→28
+折叠盒,102620,Hanging ultra slim flat medicine box,PairBackopenForwardWithHook,整体放大 1.1 倍,198×33×132,198×33×132,A,0.3%,0.7%,16/16,A,0.3%,0.3%,NX:2→3 NY:2→3 AR:1→7 A:28→29 L1:179→197
+折叠盒,102620,Hanging ultra slim flat medicine box,PairBackopenForwardWithHook,整体放大 1.3 倍,234×39×156,234×39×156,B,0.5%,2.1%,16/16,B,0.5%,0.7%,G:16→19 NX:2→3 NY:2→3 AR:1→8 A:28→32 L1:179→233
+折叠盒,102620,Hanging ultra slim flat medicine box,PairBackopenForwardWithHook,"加长收窄 (L×1.5, W×0.8)",270×24×120,270×24×120,C,0.3%,32.0%,16/16,C,0.4%,60.2%,G:16→19 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 A:28→25 L1:179→269
+折叠盒,102620,Hanging ultra slim flat medicine box,PairBackopenForwardWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",144×36×180,144×36×180,B,1.8%,2.6%,16/16,B,0.2%,3.5%,E:11→8 C:25→20 CR:13→10 S:9→6 NX:2→3 NY:2→3 AR:1→7 L1:179→143
+折叠盒,101430,Hanging slim tall medicine box,PairAircraftWithHook,整体放大 1.1 倍,110×28×132,110×28×132,B,1.0%,2.7%,16/16,B,1.0%,2.1%,G:13→16 A:20→22 L1:99→109
+折叠盒,101430,Hanging slim tall medicine box,PairAircraftWithHook,整体放大 1.3 倍,130×33×156,130×33×156,B,1.4%,5.3%,16/16,B,1.4%,3.3%,G:13→16 C:15→20 CR:8→10 AX:2.5→3.5 AXX:3.5→4.5 AS:2.5→3.5 NX:2→3 NY:2→3 AR:1→6 A:20→27 L1:99→129
+折叠盒,101430,Hanging slim tall medicine box,PairAircraftWithHook,"加长收窄 (L×1.5, W×0.8)",150×20×120,150×20×120,C,1.7%,13.0%,16/16,C,1.7%,12.9%,G:13→16 E:8→11 C:15→20 CR:8→10 S:6→9 ATT:13→0 L1:99→149
+折叠盒,101430,Hanging slim tall medicine box,PairAircraftWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",80×30×180,80×30×180,B,0.9%,0.2%,16/16,B,0.9%,0.9%,C:15→13 CR:8→7 AX:2.5→3.5 AXX:3.5→4.5 AS:2.5→3.5 A:20→22 L1:99→79
+折叠盒,152500,Dessert box,GluedInterlockingPartitionFlapBox,整体放大 1.1 倍,220×110×110,220×110×110,A,0.3%,0.0%,18/18,A,0.1%,0.0%,C:25→27.5 C1:16.5→18 A1:16.5→18.5 S:16→17.5 NX:9.95→10 SW:24→27 SW1:12→15 SW2:23→26 SL1:8.5→9.5 SP2:24→27 X:12.5→14.5 Y:17.5→20 SP3:22.5→25 WR:4.5→5 B:13→14.5 B2:12.5→14.5 B3:33→34.5
+折叠盒,152500,Dessert box,GluedInterlockingPartitionFlapBox,整体放大 1.3 倍,260×130×130,260×130×130,B,1.0%,0.0%,18/18,A,0.1%,0.0%,C:25→32.5 C1:16.5→21.5 A1:16.5→20 S:16→21.5 NX:9.95→10 SW:24→33 SW1:12→21 SW2:23→32 SL1:8.5→11.5 SP2:24→33.5 X:12.5→19 Y:17.5→24 SP3:22.5→30 WR:4.5→5 B:13→18 B2:12.5→15.5 B3:33→38
+折叠盒,152500,Dessert box,GluedInterlockingPartitionFlapBox,"加长收窄 (L×1.5, W×0.8)",300×80×100,300×80×100,C,8.0%,0.0%,18/18,C,8.0%,0.0%,S:16→11 X:12.5→13 Y:17.5→12.5 SP3:22.5→17.5
+折叠盒,152500,Dessert box,GluedInterlockingPartitionFlapBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×120×150,160×120×150,C,13.1%,0.0%,18/18,C,13.1%,0.0%,C:25→37.5 C1:16.5→25 A1:16.5→20 S:16→19 NX:9.95→10 SW:24→40 SW1:12→28 SW2:23→39 SL1:8.5→14 SP2:24→40 X:12.5→23.5 Y:17.5→22 SP3:22.5→27.5 WR:4.5→5 B:13→21.5 B2:12.5→15.5 B3:33→41.5
+折叠盒,10002003,Hanging medicine box,PairWithHook,整体放大 1.1 倍,110×44×132,110×44×132,B,1.7%,2.2%,16/16,B,1.7%,1.6%,AR:6→7 A:28→30 L1:99→109
+折叠盒,10002003,Hanging medicine box,PairWithHook,整体放大 1.3 倍,130×52×156,130×52×156,C,2.4%,4.7%,16/16,C,4.0%,1.6%,C:15→20 CR:8→10 AR:6→9 A:28→36 L1:99→129
+折叠盒,10002003,Hanging medicine box,PairWithHook,"加长收窄 (L×1.5, W×0.8)",150×32×120,150×32×120,C,4.7%,18.5%,16/16,C,2.8%,19.7%,E:8→11 C:15→20 CR:8→10 S:6→9 A:28→26 L1:99→149
+折叠盒,10002003,Hanging medicine box,PairWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",80×48×180,80×48×180,C,3.3%,0.6%,16/16,C,2.7%,1.3%,C:15→13 CR:8→7 AR:6→7 A:28→31 L1:99→79
+折叠盒,101620,Self locking box,KnifeDraw,整体放大 1.1 倍,253×220×121,253×220×121,C,2.2%,0.0%,14/14,A,0.1%,0.0%,G:25→35 AR:16→18 A:68→73 FW:66→73 FW1:60→67 F1:67→73 FF:70→75.5
+折叠盒,101620,Self locking box,KnifeDraw,整体放大 1.3 倍,299×260×143,299×260×143,C,5.8%,0.0%,14/14,C,2.2%,0.0%,G:25→45 AR:16→21 A:68→84 FW:66→86 FW1:60→80 F1:67→87 FF:70→86.5
+折叠盒,101620,Self locking box,KnifeDraw,"加长收窄 (L×1.5, W×0.8)",345×160×110,345×160×110,C,3.4%,0.0%,14/14,C,4.7%,0.0%,G:25→45 C:25→20 CR:33→26 A:68→65 FW:66→53 FW1:60→47 F1:67→53
+折叠盒,101620,Self locking box,KnifeDraw,"缩短加高 (L×0.8, W×1.2, H×1.5)",184×240×165,184×240×165,C,11.5%,0.0%,14/14,C,11.5%,0.0%,AR:16→23 A:68→95 FW:66→80 FW1:60→74 F1:67→80 FF:70→97.5
+折叠盒,120254,Folding box,ClamshellBoxWithButtonEdgeTwo,整体放大 1.1 倍,220×220×110,220×220×110,C,2.3%,22.9%,28/28,C,2.3%,8.0%,KD1:41→46 KL1:3→4 KD2:53→60 KL:44→48 KD:50→17 KDD:25→10 KR:6→2 KR1:4→3 KLD:30→33 KLDD:20→22 KLR1:6→7 F:100→34 F1:60→36.3 FR:8.7→11.33 FR1:9→3 FR2:9→12 FR3:6→1
+折叠盒,120254,Folding box,ClamshellBoxWithButtonEdgeTwo,整体放大 1.3 倍,260×260×130,260×260×130,C,5.8%,15.8%,28/28,C,5.8%,10.4%,KD1:41→53 KL1:3→4 KD2:53→69 KL:44→57 KD:50→20 KDD:25→10 KR:6→3 KR1:4→3 KLD:30→39 KLDD:20→26 KLR:7→9 KLR1:6→8 F:100→40 F1:60→42.9 FR:8.7→13.33 FR1:9→4 FR2:9→14 FR3:6→1
+折叠盒,120254,Folding box,ClamshellBoxWithButtonEdgeTwo,"加长收窄 (L×1.5, W×0.8)",300×160×100,300×160×100,C,48.4%,15.9%,28/28,C,48.4%,26.3%,KL:44→35 KR:6→3 KR1:4→1 KLR:7→5 FTT:15→13 FR:8.7→5.75 FR1:9→7 FR2:9→20
+折叠盒,120254,Folding box,ClamshellBoxWithButtonEdgeTwo,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×240×150,160×240×150,C,24.1%,14.7%,28/28,C,24.1%,1.5%,KD1:41→60 KL1:3→4 KD2:53→78 KL:44→35 KD:50→23 KDD:25→11.5 KR:6→4 KLD:30→45 KLDD:20→30 KLR:7→2 KLR1:6→9 F:100→46 F1:60→49.5 FR:8.7→15.33 FR1:9→5 FR2:9→8 FR3:6→1
+折叠盒,111010,Double tuck box with hang hole for display board,PairShowWithHook,整体放大 1.1 倍,67×34×90,67×34×90,C,7.1%,7.2%,14/14,A,0.3%,0.6%,E:6→8 S:4→6 A:22→24 LL:121.2→134 DD:163.2→180 LM:30.3→33.5
+折叠盒,111010,Double tuck box with hang hole for display board,PairShowWithHook,整体放大 1.3 倍,79×40×106,79×40×106,C,18.1%,16.1%,14/14,A,0.3%,0.0%,E:6→8 S:4→6 AR:5→6 A:22→27 LL:121.2→158 DD:163.2→212 LM:30.3→39.5
+折叠盒,111010,Double tuck box with hang hole for display board,PairShowWithHook,"加长收窄 (L×1.5, W×0.8)",91×24×82,91×24×82,C,22.3%,18.3%,14/14,C,4.2%,2.7%,E:6→8 AX:3.5→2.5 AXX:4.5→3.5 AS:3.5→2.5 S:4→6 NX:3→2 NY:3→2 AR:5→1 A:22→19 LL:121.2→182 DD:163.2→164 LM:30.3→45.5
+折叠盒,111010,Double tuck box with hang hole for display board,PairShowWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",48×37×122,48×37×122,C,23.9%,4.8%,14/14,C,3.9%,1.0%,C:13→11 CR:7→6 AR:5→6 A:22→24 LL:121.2→96 DD:163.2→244 SD:3→2 LM:30.3→24 LLR:15→12
+折叠盒,108070,Packaging tubular box tissue mockup 108070,ButtonSimpleTissueBox,整体放大 1.1 倍,132×132×66,132×132×66,C,4.0%,3.3%,15/15,C,4.0%,1.9%,D2:40→44 D3:59.5→65.5 A:30→34 S1:96→105.6 S2:48→52.8 S3:12→13.2 SR:6→6.6
+折叠盒,108070,Packaging tubular box tissue mockup 108070,ButtonSimpleTissueBox,整体放大 1.3 倍,156×156×78,156×156×78,C,10.4%,8.5%,15/15,C,10.4%,5.4%,D2:40→52 D3:59.5→77.5 A:30→42 S1:96→124.8 S2:48→62.4 S3:12→15.6 SR:6→7.8 WR:4→5 WR1:4→5
+折叠盒,108070,Packaging tubular box tissue mockup 108070,ButtonSimpleTissueBox,"加长收窄 (L×1.5, W×0.8)",180×96×60,180×96×60,C,51.3%,19.5%,15/15,C,51.3%,19.5%,S1:96→144
+折叠盒,108070,Packaging tubular box tissue mockup 108070,ButtonSimpleTissueBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×144×90,96×96×90,C,19.3%,19.0%,15/15,C,19.3%,14.3%,D2:40→60 D3:59.5→89.5 A:30→48 S1:96→76.8 S2:48→72 S3:12→18 SR:6→9 WR:4→6 WR1:4→6
+折叠盒,112291,Gable box with snap lock,SlantedHangingEarRoofBuckleBottomHandleBox,整体放大 1.1 倍,253×220×253,253×220×253,C,2.3%,2.9%,15/15,A,0.3%,0.5%,K1:40→44 K3:31→34 MR:10→11 SW:77→84 KL:184→202 KW:153→169 SP1:38.5→42 SP2:23→25.5 KR:9→10
+折叠盒,112291,Gable box with snap lock,SlantedHangingEarRoofBuckleBottomHandleBox,整体放大 1.3 倍,299×260×299,299×260×299,C,5.6%,4.9%,15/15,B,1.6%,0.8%,K1:40→52 K3:31→40 MR:10→13 SW:77→100 KL:184→239 KW:153→199 SP1:38.5→50 SP2:23→30 KR:9→11
+折叠盒,112291,Gable box with snap lock,SlantedHangingEarRoofBuckleBottomHandleBox,"加长收窄 (L×1.5, W×0.8)",345×160×230,345×160×230,C,48.3%,13.3%,15/15,C,48.3%,13.3%,K1:40→32 K3:31→32 MR:10→8 SW:77→110 KL:184→276 SP2:23→34.5 KR:9→13
+折叠盒,112291,Gable box with snap lock,SlantedHangingEarRoofBuckleBottomHandleBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",184×240×345,184×184×345,C,24.8%,7.3%,15/15,C,20.1%,12.5%,G:45→35 K1:40→37 K3:31→24 MR:10→9 HR:13→12 SW:77→61 HT:29→26 KL:184→147 KW:153→230 SP1:38.5→57.5 SP2:23→18.5 KR:9→7
+折叠盒,150022,Folding display box,SafetyBuckleAircraftWithoutInsertion,整体放大 1.1 倍,330×220×66,330×220×66,C,4.0%,1.4%,17/17,C,3.7%,2.0%,N:80→88 SW:40→44 SP:80→88 D2:59.25→65.25 DC:61.5→67.5 SW1:39→43 M:59.5→65.5 M1:59.5→65.5 F1:15→16 F2:21→23 KW:86→94 KW1:87→95 FR:7→8 KD:10→11
+折叠盒,150022,Folding display box,SafetyBuckleAircraftWithoutInsertion,整体放大 1.3 倍,390×260×78,390×260×78,C,10.2%,9.0%,17/17,C,9.9%,7.7%,N:80→104 SW:40→52 SP:80→104 D2:59.25→77.25 DC:61.5→79.5 SW1:39→51 M:59.5→77.5 M1:59.5→77.5 F1:15→19 F2:21→27 KW:86→111 KW1:87→112 FR:7→9 KD:10→13
+折叠盒,150022,Folding display box,SafetyBuckleAircraftWithoutInsertion,"加长收窄 (L×1.5, W×0.8)",450×160×60,450×160×60,B,0.0%,5.2%,17/17,A,0.0%,1.4%,N:80→64 SW:40→32 SP:80→64 SW1:39→31 KW:86→129 KW1:87→130
+折叠盒,150022,Folding display box,SafetyBuckleAircraftWithoutInsertion,"缩短加高 (L×0.8, W×1.2, H×1.5)",240×240×90,240×240×90,C,19.9%,22.0%,17/17,C,19.6%,18.7%,N:80→96 SW:40→48 SP:80→96 D2:59.25→89.25 DC:61.5→91.5 SW1:39→47 M:59.5→89.5 M1:59.5→89.5 F1:15→22 F2:21→25 KW:86→69 KW1:87→70 FR:7→8 KD:10→15
+折叠盒,105042,Folding paper packaging box,InnerClamshellSelflockingBottomBox,整体放大 1.1 倍,132×66×176,132×66×176,C,3.0%,5.6%,19/19,B,1.2%,5.6%,C:30→33 L1:121→133 A1:59.5→65.5 CR:6→7 FL:96→106 FW:10→11 B1:18→20
+折叠盒,105042,Folding paper packaging box,InnerClamshellSelflockingBottomBox,整体放大 1.3 倍,156×78×208,156×78×208,C,7.6%,12.6%,19/19,C,3.5%,5.1%,C:30→39 L1:121→157 A1:59.5→77.5 CR:6→8 FL:96→125 FW:10→13 B1:18→23.5
+折叠盒,105042,Folding paper packaging box,InnerClamshellSelflockingBottomBox,"加长收窄 (L×1.5, W×0.8)",180×48×160,180×48×160,C,7.3%,17.5%,19/19,C,3.2%,9.6%,C:30→24 L1:121→181 A1:59.5→47.5 CR:6→5 FL:96→144 FW:10→8 B1:18→14.5 BX2:8→6
+折叠盒,105042,Folding paper packaging box,InnerClamshellSelflockingBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×240,96×72×240,C,4.9%,22.6%,19/19,C,3.2%,5.7%,C:30→36 L1:121→97 A1:59.5→48.5 CR:6→7 FL:96→77 FW:10→12 B1:18→21.5
+折叠盒,120255,Folding box,ClamshellBoxWithButtonEdge03,整体放大 1.1 倍,138×138×88,138×138×88,C,3.8%,12.8%,28/28,C,3.2%,13.1%,KL:5→6 KW:20→22 KW1:13→15 L1:50→55 L2:30→33 W1:80→88 KW3:22→24 C:26→29 CL:65→72 CL1:69→76 F:25→28 F1:12.5→14 C1:7→8 CL4:53→57 SL:14→15 SW:15→16 KD1:24→27 KD2:31→35 KL2:4→5
+折叠盒,120255,Folding box,ClamshellBoxWithButtonEdge03,整体放大 1.3 倍,163×163×104,163×163×104,C,9.0%,8.9%,28/28,C,7.7%,14.3%,KL:5→7 KW:20→26 KW1:13→17 KW2:3→3.86 L1:50→65 L2:30→39 W1:80→104 KW3:22→29 C:26→34 CL:65→85 CL1:69→90 F:25→33 F1:12.5→16.5 C1:7→9 CL4:53→68 SL:14→18 SW:15→19 KD1:24→30 KD2:31→39 KL2:4→5
+折叠盒,120255,Folding box,ClamshellBoxWithButtonEdge03,"加长收窄 (L×1.5, W×0.8)",188×100×80,188×100×80,C,29.2%,8.4%,28/28,C,29.2%,21.0%,KL:5→8 KW:20→16 KW1:13→11 KW2:3→2.14 L1:50→75 L2:30→45 W1:80→64 KW3:22→18 CL:65→98 CL1:69→104 F:25→20 F1:12.5→10 CL4:53→78 SL:14→21 SW:15→12
+折叠盒,120255,Folding box,ClamshellBoxWithButtonEdge03,"缩短加高 (L×0.8, W×1.2, H×1.5)",100×150×120,100×150×100,C,15.5%,11.8%,28/28,C,14.6%,11.4%,KL:5→4 KW:20→24 KW1:13→16 KW2:3→3.43 L1:50→40 L2:30→24 W1:80→96 KW3:22→26 C:26→33 CL:65→52 CL1:69→55 F:25→30 F1:12.5→15 C1:7→9 CL4:53→42 SL:14→11 SW:15→18 KD1:24→30 KD2:31→39 KL2:4→5
+折叠盒,105050,Flip top and auto bottom box,FoldingLidSelflockingBottomBox,整体放大 1.1 倍,91×91×113,91×91×113,B,1.6%,2.6%,17/17,B,1.6%,2.3%,B:16.5→18 TD:50.84→56.05 DW1:18.87→20.68 N:26→28 X:30.5→33.5 Y:10→11
+折叠盒,105050,Flip top and auto bottom box,FoldingLidSelflockingBottomBox,整体放大 1.3 倍,108×108×133,108×108×133,C,2.4%,4.4%,17/17,C,2.4%,3.6%,B:16.5→21.5 BX:1.5→3 BX1:5→8 TD:50.84→60 DW1:18.87→24.52 N:26→34 X:30.5→40 Y:10→13.5
+折叠盒,105050,Flip top and auto bottom box,FoldingLidSelflockingBottomBox,"加长收窄 (L×1.5, W×0.8)",125×66×103,125×66×103,C,37.5%,29.6%,17/17,C,37.5%,28.7%,B:16.5→13 TD:50.84→51.09 DW1:18.87→15.03 N:26→21 X:30.5→46.5 Y:10→15.5
+折叠盒,105050,Flip top and auto bottom box,FoldingLidSelflockingBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",66×100×154,66×66×154,C,8.8%,15.9%,17/17,C,8.8%,15.4%,B:16.5→13 TD:50.84→60 DW1:18.87→15.03 N:26→21 X:30.5→24.5 Y:10→8
+折叠盒,10920001,Inner locking perfume box,InnerLockPullOffStickBottomBox,整体放大 1.1 倍,154×55×220,154×55×220,C,1.5%,3.9%,33/35,C,1.5%,3.9%,AR:1→2 A1:104.5→116 A2:130→144 W2:5→5.5 A3:18→19.5 WR:1.5→2
+折叠盒,10920001,Inner locking perfume box,InnerLockPullOffStickBottomBox,整体放大 1.3 倍,182×65×260,182×65×260,C,3.9%,10.3%,33/38,C,3.9%,9.2%,SW:8→10 AR:1→2 A1:104.5→139 A2:130→170 W2:5→9 A3:18→24.5 WR:1.5→3 SP:14→16
+折叠盒,10920001,Inner locking perfume box,InnerLockPullOffStickBottomBox,"加长收窄 (L×1.5, W×0.8)",210×40×200,210×40×200,C,4.0%,1.0%,33/42,C,3.6%,1.5%,A1:104.5→179.5 A2:130→200 W2:5→4.5 A3:18→15
+折叠盒,10920001,Inner locking perfume box,InnerLockPullOffStickBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",112×60×300,112×60×300,C,2.4%,0.1%,33/30,C,2.4%,0.8%,SW:8→10 AR:1→2 A1:104.5→71.5 A2:130→102 W2:5→6.5 A3:18→22 WR:1.5→2 SP:14→15
+折叠盒,110019,Kraft paper display box without cap,UncoveredPluginLockSleeve,整体放大 1.1 倍,132×66×176,132×66×176,B,1.6%,2.4%,9/9,A,0.3%,0.5%,C:15→20 CR:8→10 AR:9→10 A:38→43 KX:30→33
+折叠盒,110019,Kraft paper display box without cap,UncoveredPluginLockSleeve,整体放大 1.3 倍,156×78×208,156×78×208,B,1.4%,3.5%,9/9,A,0.2%,0.6%,E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→49 KX:30→39
+折叠盒,110019,Kraft paper display box without cap,UncoveredPluginLockSleeve,"加长收窄 (L×1.5, W×0.8)",180×48×160,180×48×160,C,4.0%,1.3%,9/9,A,0.3%,0.3%,E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 KA:10→5 KB:4→2 KX:30→24
+折叠盒,110019,Kraft paper display box without cap,UncoveredPluginLockSleeve,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×240,96×72×240,B,0.8%,2.1%,9/9,A,0.2%,1.0%,C:15→13 CR:8→7 AR:9→10 A:38→43 KX:30→36
+折叠盒,10900104,Pasta box with window,WindowCardBoardBoxFour,整体放大 1.1 倍,88×33×330,88×33×330,B,1.5%,4.8%,13/13,B,1.5%,3.1%,W2:25→28 W3:29.5→32.5 A:20→23 WL:64→70 WW:64→70 HWP:8→9 VWP:75→82.5 WC:32→35
+折叠盒,10900104,Pasta box with window,WindowCardBoardBoxFour,整体放大 1.3 倍,104×39×390,104×39×390,C,4.0%,11.2%,13/13,C,3.9%,7.2%,G:13→16 W2:25→34 W3:29.5→38.5 A:20→29 WL:64→83 WW:64→83 HWP:8→10.5 VWP:75→97.5 WC:32→41.5
+折叠盒,10900104,Pasta box with window,WindowCardBoardBoxFour,"加长收窄 (L×1.5, W×0.8)",120×24×300,120×24×300,C,3.5%,0.8%,13/13,C,2.2%,7.3%,G:13→16 W2:25→19 W3:29.5→23.5 A:20→14 WL:64→96 WW:64→96 HWP:8→12 WC:32→48
+折叠盒,10900104,Pasta box with window,WindowCardBoardBoxFour,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×36×450,64×36×450,C,2.8%,4.2%,13/13,C,2.8%,1.3%,W2:25→31 W3:29.5→35.5 A:20→26 WL:64→51 WW:64→51 HWP:8→6.5 VWP:75→112.5 WC:32→25.5
+折叠盒,11658001,Square cake box,SideLockBox,整体放大 1.1 倍,166×166×167,166×166×167,C,2.9%,4.4%,18/18,C,2.3%,10.0%,G:38→42 C:38→42 A:38→42 C1:38→42 R1:25→28 R2:25→28 SW1:38→42 SW2:42→46 SW3:34→37 SW4:42→46 SL:19→21 SR:6→7
+折叠盒,11658001,Square cake box,SideLockBox,整体放大 1.3 倍,196×196×197,196×196×197,C,7.2%,8.4%,18/18,C,5.9%,5.7%,G:38→49 C:38→49 A:38→49 C1:38→49 R1:25→33 R2:25→33 SW1:38→49 SW2:42→53 SW3:34→44 SW4:42→53 SL:19→25 SR:6→8
+折叠盒,11658001,Square cake box,SideLockBox,"加长收窄 (L×1.5, W×0.8)",226×121×152,226×121×152,C,24.8%,24.0%,18/18,C,24.8%,23.7%,G:38→30 A:38→48 C1:38→48 R1:25→20 SW1:38→50 SW2:42→54 SW3:34→45 SW4:42→54 SL:19→25 SR:6→8
+折叠盒,11658001,Square cake box,SideLockBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×181×227,120×181×227,C,12.9%,3.1%,18/18,C,12.9%,0.7%,G:38→30 C:38→30 A:38→30 C1:38→30 R1:25→30 R2:25→38 SW1:38→30 SW2:42→33 SW3:34→27 SW4:42→32 SL:19→15 SR:6→5
+折叠盒,10001019,Lotion box,Pair,整体放大 1.1 倍,66×66×209,66×66×209,B,1.2%,3.5%,13/13,A,0.4%,1.2%,G:13→16 E:6→8 S:4→6 A:30→33
+折叠盒,10001019,Lotion box,Pair,整体放大 1.3 倍,78×78×247,78×78×247,C,3.9%,6.4%,13/13,C,2.5%,2.4%,G:13→16 E:6→8 S:4→6 AR:9→11 A:30→39
+折叠盒,10001019,Lotion box,Pair,"加长收窄 (L×1.5, W×0.8)",90×48×190,90×48×190,C,27.8%,17.9%,13/13,C,28.8%,19.5%,G:13→16 E:6→8 S:4→6 AR:9→7 A:30→31
+折叠盒,10001019,Lotion box,Pair,"缩短加高 (L×0.8, W×1.2, H×1.5)",48×72×285,48×72×285,C,19.0%,7.2%,13/13,C,19.0%,10.6%,C:13→11 CR:7→6 AR:9→10 A:30→24
+折叠盒,151051,Folding box with window mockup 151051,WindowFoldingFlipBox,整体放大 1.1 倍,134×133×66,134×133×66,C,2.1%,6.1%,19/19,B,1.1%,1.9%,D1:60→65.5 W1:120.6→133 F:60.8→66.5 F1:60.5→66 R1:6→6.5 LL:60.8→67 WW:60.3→66.5 X:30.9→34 Y:30.15→33.25 RR:6→7
+折叠盒,151051,Folding box with window mockup 151051,WindowFoldingFlipBox,整体放大 1.3 倍,158×157×78,158×157×78,C,5.6%,1.3%,19/19,C,3.1%,0.9%,D1:60→77.5 W1:120.6→157 F:60.8→78.5 F1:60.5→78 R1:6→8 LL:60.8→79 WW:60.3→78.5 X:30.9→40 Y:30.15→39.25 RR:6→8
+折叠盒,151051,Folding box with window mockup 151051,WindowFoldingFlipBox,"加长收窄 (L×1.5, W×0.8)",182×96×60,182×96×60,C,0.3%,13.7%,19/19,C,0.1%,29.4%,D1:60→59.5 W1:120.6→96 F:60.8→60.5 F1:60.5→60 R1:6→5 LL:60.8→91 WW:60.3→48 X:30.9→46 Y:30.15→24 RR:6→5
+折叠盒,151051,Folding box with window mockup 151051,WindowFoldingFlipBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",97×145×90,97×145×64.67,C,17.9%,10.7%,19/19,C,21.7%,13.7%,D1:60→64 W1:120.6→145 F:60.8→65.17 F1:60.5→64.5 R1:6→7.5 LL:60.8→48.5 WW:60.3→72.5 X:30.9→24.75 Y:30.15→36.25 RR:6→5 KX:12→10 KY:6→5
+折叠盒,183080,FEFCO 0723 4-pack carrier box,FourGridBottomSelflockBox,整体放大 1.1 倍,233×233×233,233×233×233,B,1.8%,2.7%,15/15,C,1.8%,9.1%,B1:59.5→65.5 D1:46.5→51 D2:106→116.5 D3:26.5→29.13 DR:13.25→14.56
+折叠盒,183080,FEFCO 0723 4-pack carrier box,FourGridBottomSelflockBox,整体放大 1.3 倍,276×276×276,276×276×276,C,4.6%,6.4%,15/15,C,4.6%,11.0%,B1:59.5→78 D1:46.5→60 D2:106→138 D3:26.5→34.5 DR:13.25→17.25
+折叠盒,183080,FEFCO 0723 4-pack carrier box,FourGridBottomSelflockBox,"加长收窄 (L×1.5, W×0.8)",318×170×212,318×318×318,C,6.7%,9.2%,15/15,C,6.7%,12.3%,B1:59.5→90.5 D1:46.5→68.5 D2:106→159 D3:26.5→39.75 DR:13.25→19.88 T2:35.12→35.16
+折叠盒,183080,FEFCO 0723 4-pack carrier box,FourGridBottomSelflockBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",170×254×318,170×170×318,C,30.0%,7.9%,15/15,C,26.5%,4.2%,B1:59.5→47 BX2:15→12 D1:46.5→42.13 D2:106→159 D3:26.5→39.75 DR:13.25→19.88 T2:35.12→23.21
+折叠盒,108001,Tuck end tissue boxes,TissueP1,整体放大 1.1 倍,253×132×66,253×132×66,C,1.5%,8.3%,15/15,C,1.3%,8.2%,D1:59.5→65.5 F1:60→66 SX:15→17 SY:80→85 NX:9→10 NY:12→13 R3:6→7 X2:60→66 Y2:115→126.5 LX:35→39
+折叠盒,108001,Tuck end tissue boxes,TissueP1,整体放大 1.3 倍,299×156×78,299×156×78,C,3.7%,5.4%,15/15,C,3.6%,5.3%,D1:59.5→77.5 F1:60→78 SX:15→20 SY:80→100 NX:9→12 NY:12→15 R3:6→8 X2:60→78 Y2:115→149.5 LX:35→46
+折叠盒,108001,Tuck end tissue boxes,TissueP1,"加长收窄 (L×1.5, W×0.8)",345×96×60,345×96×60,B,0.0%,3.3%,15/15,B,0.0%,3.3%,F1:60→48 SX:15→12 SY:80→115 NX:9→7 NY:12→9 R3:6→5 X2:60→48 Y2:115→172.5 LX:35→32
+折叠盒,108001,Tuck end tissue boxes,TissueP1,"缩短加高 (L×0.8, W×1.2, H×1.5)",184×144×90,184×144×90,C,6.2%,7.2%,15/15,C,6.1%,7.1%,D1:59.5→89.5 F1:60→72 SX:15→18 NX:9→11 NY:12→14 R3:6→7 X2:60→72 Y2:115→92 LX:35→48
+折叠盒,10900001,Agarbatti box,CardBoardBox,整体放大 1.1 倍,66×66×259,66×66×259,C,3.2%,5.6%,13/13,C,3.1%,3.5%,G:13→16 W2:55→61 W3:59.5→65.5 A:30→33
+折叠盒,10900001,Agarbatti box,CardBoardBox,整体放大 1.3 倍,78×78×306,78×78×306,C,7.8%,12.5%,13/13,C,7.8%,8.5%,G:13→16 W2:55→73 W3:59.5→77.5 A:30→39
+折叠盒,10900001,Agarbatti box,CardBoardBox,"加长收窄 (L×1.5, W×0.8)",90×48×235,90×48×235,C,17.5%,7.2%,13/13,C,17.0%,4.1%,G:13→16 W2:55→43 W3:59.5→47.5 A:30→38
+折叠盒,10900001,Agarbatti box,CardBoardBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",48×72×353,48×48×353,C,5.9%,4.0%,13/13,C,4.4%,5.6%,W2:55→43 W3:59.5→47.5 A:30→24
+折叠盒,120257,Self-locking flip top and front tuck box,SideClamshellBoxThree,整体放大 1.1 倍,220×220×66,220×220×66,C,1.7%,10.3%,19/19,B,1.7%,1.2%,N1:30→33 ND:15→17 R:5→6 D2:12→13 C:20→22 CR:10→11 KL:40→44 KD:20→22 KD1:10→11 KL1:41→45 KD2:15→16.5 KR:4→4.4
+折叠盒,120257,Self-locking flip top and front tuck box,SideClamshellBoxThree,整体放大 1.3 倍,260×260×78,260×260×78,C,4.3%,1.4%,19/19,C,4.3%,2.9%,N1:30→39 ND:15→20 R:5→7 D2:12→16 C:20→26 CR:10→13 KL:40→52 KD:20→26 KD1:10→13 KL1:41→53 KD2:15→19.5 KR:4→5.2
+折叠盒,120257,Self-locking flip top and front tuck box,SideClamshellBoxThree,"加长收窄 (L×1.5, W×0.8)",300×160×60,300×160×60,C,57.7%,140.8%,19/19,C,57.7%,140.8%,KL:40→60 KL1:41→61
+折叠盒,120257,Self-locking flip top and front tuck box,SideClamshellBoxThree,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×240×90,160×240×90,C,29.0%,37.8%,19/19,C,27.6%,14.8%,N1:30→45 ND:15→23 R:5→8 D2:12→18 C:20→30 CR:10→15 KL:40→32 KD:20→30 KD1:10→15 KL1:41→33 KD2:15→22.5 KR:4→6
+折叠盒,152011,Courier zipper box,TraySimpleZipper,整体放大 1.1 倍,165×110×66,165×110×66,C,1.4%,0.7%,33/35,C,1.4%,0.0%,L1:16.5→18.5 MR1:6→7
+折叠盒,152011,Courier zipper box,TraySimpleZipper,整体放大 1.3 倍,195×130×78,195×130×78,C,3.6%,5.9%,33/39,C,3.6%,0.7%,F:16→19 L1:16.5→22.5 MR1:6→9
+折叠盒,152011,Courier zipper box,TraySimpleZipper,"加长收窄 (L×1.5, W×0.8)",225×80×60,225×80×60,C,1.6%,5.6%,33/46,C,0.8%,7.1%,F:16→19 N:25→20
+折叠盒,152011,Courier zipper box,TraySimpleZipper,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×120×90,120×120×90,C,5.9%,6.6%,33/25,C,5.9%,17.8%,L1:16.5→26.5 MR1:6→10
+折叠盒,116013,Hanging slant roof box,Roofcoverstickybottomhangingholebox,整体放大 1.1 倍,133×67×177,133×67×177,B,1.7%,2.9%,20/20,A,0.1%,1.0%,D1:42→47 A:40→44 AR:6→7
+折叠盒,116013,Hanging slant roof box,Roofcoverstickybottomhangingholebox,整体放大 1.3 倍,157×79×209,157×79×209,C,3.6%,4.7%,20/20,A,0.1%,0.2%,D1:42→55 A:40→52 AR:6→8
+折叠盒,116013,Hanging slant roof box,Roofcoverstickybottomhangingholebox,"加长收窄 (L×1.5, W×0.8)",181×48×161,181×48×161,C,19.4%,23.0%,20/20,C,16.3%,32.5%,D1:42→34 A:40→48 AR:6→5
+折叠盒,116013,Hanging slant roof box,Roofcoverstickybottomhangingholebox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×241,96×73×241,C,8.8%,6.1%,20/20,C,6.4%,5.6%,D1:42→51 A:40→32 AR:6→7
+折叠盒,120251,Box folding box mockup 120251,BuckleCoverBox,整体放大 1.1 倍,287×193×44,287×193×44,A,0.4%,0.7%,13/13,A,0.0%,0.0%,F:20.15→22 M:40.3→44 MR:10.07→11 N:39.8→43.5 N1:9.95→10.88 D3:32→35 NR:5.93→6.5
+折叠盒,120251,Box folding box mockup 120251,BuckleCoverBox,整体放大 1.3 倍,339×228×52,339×228×52,B,1.0%,0.8%,13/13,A,0.0%,1.1%,F:20.15→26 M:40.3→52 MR:10.07→13 N:39.8→51.5 N1:9.95→12.88 D3:32→42 NR:5.93→8
+折叠盒,120251,Box folding box mockup 120251,BuckleCoverBox,"加长收窄 (L×1.5, W×0.8)",391×140×40,391×140×40,A,0.0%,1.3%,13/13,A,0.0%,1.4%,F:20.15→20 M:40.3→40 MR:10.07→10 N:39.8→39.5 N1:9.95→9.88 NR:5.93→6
+折叠盒,120251,Box folding box mockup 120251,BuckleCoverBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",208×211×60,208×211×60,B,1.7%,2.2%,13/13,A,0.0%,1.0%,F:20.15→30 M:40.3→60 MR:10.07→15 N:39.8→59.5 N1:9.95→14.88 D3:32→48 NR:5.93→9
+折叠盒,151120,Flip top box with front tab lock,InsideClamshellBox,整体放大 1.1 倍,418×319×63,418×319×63,B,1.1%,1.3%,21/21,B,1.1%,0.3%,N:49→54 NX:7→8 N1:49→54 SL:166→182 SL2:45→50 SL3:72→79 SW1:5.5→6 SW2:9→10 SD1:15.5→16.5
+折叠盒,151120,Flip top box with front tab lock,InsideClamshellBox,整体放大 1.3 倍,494×377×74,494×377×74,C,2.6%,3.3%,21/21,C,2.6%,1.2%,N:49→63 NX:7→9 N1:49→63 SL:166→215 SL2:45→58 SL3:72→93 SW1:5.5→7.5 SW2:9→11 SD1:15.5→19.5
+折叠盒,151120,Flip top box with front tab lock,InsideClamshellBox,"加长收窄 (L×1.5, W×0.8)",570×232×57,570×232×57,C,0.0%,6.9%,21/21,C,0.0%,8.0%,N:49→39 NX:7→6 N1:49→39 SL:166→248 SL2:45→67 SL3:72→107
+折叠盒,151120,Flip top box with front tab lock,InsideClamshellBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",304×348×86,304×348×86,C,6.1%,1.0%,21/21,C,6.1%,0.2%,N:49→58 NX:7→8 N1:49→58 SL:166→133 SL2:45→36 SL3:72→57 SW1:5.5→8.5 SW2:9→14 SD1:15.5→22.5
+折叠盒,152051,Glued folding boxes flip top three-fold edge box mockup 152051,GluedNailThreeFoldFlapBox,整体放大 1.1 倍,112×112×28,112×112×28,C,1.7%,8.5%,23/23,C,1.7%,6.7%,N:41→45 N1:41→45 X:68→75 Y:68→75 X1:18.3→20 Y1:17.8→19.5 XR:14→15
+折叠盒,152051,Glued folding boxes flip top three-fold edge box mockup 152051,GluedNailThreeFoldFlapBox,整体放大 1.3 倍,132×132×33,132×132×33,C,3.4%,17.4%,23/23,C,3.4%,15.1%,N:41→53 N1:41→53 X:68→88 Y:68→88 X1:18.3→23.5 Y1:17.8→23 XR:14→18
+折叠盒,152051,Glued folding boxes flip top three-fold edge box mockup 152051,GluedNailThreeFoldFlapBox,"加长收窄 (L×1.5, W×0.8)",152×81×26,152×81×26,C,48.4%,11.4%,23/23,C,48.4%,16.2%,N:41→51 N1:41→32 X:68→101 Y:68→54 X1:18.3→27 Y1:17.8→14.5 XR:14→11
+折叠盒,152051,Glued folding boxes flip top three-fold edge box mockup 152051,GluedNailThreeFoldFlapBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",81×122×38,81×122×38,C,24.6%,24.0%,23/23,C,24.6%,26.6%,N:41→32 N1:41→49 X:68→54 Y:68→81 X1:18.3→15 Y1:17.8→21.5 XR:14→11
+折叠盒,120253,Flip-top box,ClamshellBoxWithButtonEdge,整体放大 1.1 倍,308×226×83,308×226×83,C,2.3%,1.0%,28/28,C,2.3%,2.1%,KL:45→50 KD:17→19 KD1:32→38 KD2:42→49 F:74.5→82.5 FR:10→11 FR1:37.25→41.25 FR2:7→8
+折叠盒,120253,Flip-top box,ClamshellBoxWithButtonEdge,整体放大 1.3 倍,364×267×98,364×267×98,C,5.6%,2.3%,28/28,C,5.5%,4.5%,KL:45→59 KD:17→23 KD1:32→45 KD2:42→59 F:74.5→97.5 FR:10→14 FR1:37.25→48.75 FR2:7→10
+折叠盒,120253,Flip-top box,ClamshellBoxWithButtonEdge,"加长收窄 (L×1.5, W×0.8)",420×164×75,420×164×75,A,0.0%,0.5%,28/28,C,0.0%,6.5%,KL:45→36 FR:10→8 FR1:37.25→31.25
+折叠盒,120253,Flip-top box,ClamshellBoxWithButtonEdge,"缩短加高 (L×0.8, W×1.2, H×1.5)",224×246×113,224×246×112,C,9.0%,8.0%,28/28,C,8.9%,10.0%,KL:45→49 KD:17→26 KD1:32→50 KL1:3→4 KD2:42→65 F:74.5→111.5 KL2:3→4 FR:10→13 FR1:37.25→48.5 FR2:7→11
+折叠盒,120256,Window box,WindowSideBuckleFlipBox,整体放大 1.1 倍,220×220×66,220×220×66,B,0.3%,2.1%,19/19,A,0.3%,1.6%,N1:30→33 ND:15→17 R:5→5.5 D2:12→13 C:20→22 CR:10→11 KL:133→147 KW:133→146 KR:13→15
+折叠盒,120256,Window box,WindowSideBuckleFlipBox,整体放大 1.3 倍,260×260×78,260×260×78,B,0.9%,0.9%,19/19,B,0.9%,1.8%,N1:30→39 ND:15→20 R:5→6.5 D2:12→16 C:20→26 CR:10→13 KL:133→173 KW:133→173 KR:13→17
+折叠盒,120256,Window box,WindowSideBuckleFlipBox,"加长收窄 (L×1.5, W×0.8)",300×160×60,300×160×60,C,60.9%,30.7%,19/19,C,60.9%,30.6%,KL:133→200 KW:133→106 KR:13→11
+折叠盒,120256,Window box,WindowSideBuckleFlipBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×240×90,160×240×90,C,24.7%,17.6%,19/19,C,24.7%,14.8%,N1:30→45 ND:15→23 R:5→7.5 D2:12→18 C:20→30 CR:10→15 KL:133→107 KW:133→160 KR:13→11
+折叠盒,151040,Magnet box flip top boxes easy mockup 151040,SimplePaperbackFlipBox,整体放大 1.1 倍,221×111×55,221×111×55,A,0.0%,0.1%,11/11,A,0.0%,0.1%,R1:5→6 TR:6→7 X1:99.8→110
+折叠盒,151040,Magnet box flip top boxes easy mockup 151040,SimplePaperbackFlipBox,整体放大 1.3 倍,261×131×66,261×131×65.5,A,0.0%,0.3%,11/11,A,0.0%,0.3%,R1:5→7 TR:6→8 X1:99.8→130
+折叠盒,151040,Magnet box flip top boxes easy mockup 151040,SimplePaperbackFlipBox,"加长收窄 (L×1.5, W×0.8)",301×81×50,301×81×40.5,C,24.8%,1.5%,11/11,C,24.8%,10.4%,X:5→4 Y:3→2 R1:5→4 TR:6→5 X1:99.8→150
+折叠盒,151040,Magnet box flip top boxes easy mockup 151040,SimplePaperbackFlipBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×121×76,160×121×60.5,C,9.6%,4.7%,11/11,C,9.6%,4.7%,R1:5→6 TR:6→8 X1:99.8→79.5
+折叠盒,156003,FEFCO 0470 flip top boxes polygonal lock inserts,SpecialTracelessBottomBoxWithLock,整体放大 1.1 倍,179×114×92,179×114×92,C,2.6%,2.9%,15/15,C,2.6%,2.7%,SW:35→38 L1:54→60 N:102→112.5
+折叠盒,156003,FEFCO 0470 flip top boxes polygonal lock inserts,SpecialTracelessBottomBoxWithLock,整体放大 1.3 倍,212×135×109,212×135×109,C,7.4%,8.6%,15/15,C,7.4%,8.1%,SW:35→45 L1:54→71 N:102→133.5 C:20→25 CR:4→5
+折叠盒,156003,FEFCO 0470 flip top boxes polygonal lock inserts,SpecialTracelessBottomBoxWithLock,"加长收窄 (L×1.5, W×0.8)",245×83×84,245×83×83,C,16.1%,31.9%,15/15,C,11.4%,37.1%,SW:35→28 L1:54→81.5 N:102→81.5 C:20→25 CR:4→5
+折叠盒,156003,FEFCO 0470 flip top boxes polygonal lock inserts,SpecialTracelessBottomBoxWithLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",130×124×125,130×124×124,C,15.1%,7.1%,15/15,C,15.1%,7.2%,SW:35→41 L1:54→43 N:102→122.5
+折叠盒,158133,Tuck front hamburger box,HamburgerBox01,整体放大 1.1 倍,88×88×50,88×88×50,C,2.6%,7.0%,26/26,C,2.6%,7.0%,D3:7.5→8.33 SW:6→7 SW1:8→9 SW2:4→5 SW3:7→8 F:6→7
+折叠盒,158133,Tuck front hamburger box,HamburgerBox01,整体放大 1.3 倍,104×104×59,104×104×59,C,6.2%,14.1%,26/26,C,6.2%,14.1%,FR:7→9 D3:7.5→9.83 SW:6→9 SW1:8→11 SW2:4→7 SW3:7→10 F:6→7 SR:1→2
+折叠盒,158133,Tuck front hamburger box,HamburgerBox01,"加长收窄 (L×1.5, W×0.8)",120×64×45,120×64×45,C,49.0%,20.7%,26/26,C,49.0%,20.7%,无
+折叠盒,158133,Tuck front hamburger box,HamburgerBox01,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×96×68,64×96×68,C,29.3%,31.4%,26/26,C,29.3%,31.3%,D2:5→6 KR:0.83→1 FR:7→10 D3:7.5→10 SW:6→11 SW1:8→13 SW2:4→8 SW3:7→12 F:6→9 SR:1→2
+折叠盒,180235,Tab Lock flip top triangle box,SimpleLockingTriangularBox,整体放大 1.1 倍,275×275×55,275×275×55,C,3.7%,1.0%,9/9,C,3.7%,9.2%,D1:49.5→54.5 SW:50→55 SW1:42→47 SW2:40→44 SL:25→28 SR:8→9 SW3:46→51
+折叠盒,180235,Tab Lock flip top triangle box,SimpleLockingTriangularBox,整体放大 1.3 倍,325×325×65,325×325×65,C,9.5%,4.8%,9/9,C,9.5%,3.1%,D1:49.5→64.5 SW:50→65 SW1:42→57 SW2:40→52 SL:25→33 SR:8→11 SW3:46→61
+折叠盒,180235,Tab Lock flip top triangle box,SimpleLockingTriangularBox,"加长收窄 (L×1.5, W×0.8)",375×200×50,375×200×50,C,143.5%,58.4%,9/9,C,143.5%,58.2%,CT1:30→69.64 SW:50→40 SW1:42→32 SW2:40→32 SL:25→20 SR:8→7 SW3:46→36
+折叠盒,180235,Tab Lock flip top triangle box,SimpleLockingTriangularBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",200×300×75,200×300×75,C,26.5%,10.3%,9/9,C,25.7%,34.4%,D1:49.5→74.5 C:30→29 CT1:30→19.47 SW:50→60 SW1:42→52 SW2:40→48 SL:25→30 SR:8→10 SW3:46→56
+折叠盒,120252,Folding box mockup 120252,SideClamshellBox,整体放大 1.1 倍,221×221×66,221×221×66,B,1.6%,1.3%,19/19,B,1.6%,4.3%,N1:30.15→33 ND:15→17 R:3→3.5 D2:12→13 C:20→22 CR:10→11
+折叠盒,120252,Folding box mockup 120252,SideClamshellBox,整体放大 1.3 倍,261×261×78,261×261×78,C,4.2%,1.4%,19/19,C,4.2%,3.5%,N1:30.15→39 ND:15→20 R:3→4 D2:12→16 C:20→26 CR:10→13
+折叠盒,120252,Folding box mockup 120252,SideClamshellBox,"加长收窄 (L×1.5, W×0.8)",301×160×60,301×160×60,C,61.3%,32.6%,19/19,C,61.3%,32.7%,N1:30.15→30
+折叠盒,120252,Folding box mockup 120252,SideClamshellBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×241×90,160×241×90,C,24.9%,13.4%,19/19,C,24.9%,8.5%,N1:30.15→45 ND:15→23 R:3→4.5 D2:12→18 C:20→30 CR:10→15
+折叠盒,150082,Gift folding box mockup 150082,FoldedCornerInnerFoldingFlapBox,整体放大 1.1 倍,331×333×276,331×333×276,C,2.8%,2.8%,19/19,C,2.4%,4.8%,D1:50→55 N:50.5→55.5 DTR:17→18
+折叠盒,150082,Gift folding box mockup 150082,FoldedCornerInnerFoldingFlapBox,整体放大 1.3 倍,391×393×326,391×393×326,C,7.0%,6.4%,19/19,C,6.0%,7.6%,D1:50→65 N:50.5→65.5 DTR:17→22
+折叠盒,150082,Gift folding box mockup 150082,FoldedCornerInnerFoldingFlapBox,"加长收窄 (L×1.5, W×0.8)",451×242×251,451×242×251,C,5.8%,24.1%,19/19,C,5.8%,24.1%,无
+折叠盒,150082,Gift folding box mockup 150082,FoldedCornerInnerFoldingFlapBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",240×363×376,240×363×376,C,5.5%,4.4%,19/19,C,3.9%,4.7%,D1:50→75 N:50.5→75.5 DTR:17→25
+折叠盒,152050,Flip top boxes adhesive three folds mockup 152050,GluedThreeFoldFlapBox,整体放大 1.1 倍,112×112×28,112×112×28,C,1.7%,7.3%,23/23,B,1.7%,5.2%,N:41→45 N1:41→45
+折叠盒,152050,Flip top boxes adhesive three folds mockup 152050,GluedThreeFoldFlapBox,整体放大 1.3 倍,132×132×33,132×132×33,C,3.4%,17.0%,23/23,C,3.4%,14.1%,N:41→53 N1:41→53
+折叠盒,152050,Flip top boxes adhesive three folds mockup 152050,GluedThreeFoldFlapBox,"加长收窄 (L×1.5, W×0.8)",152×81×26,152×81×26,C,48.5%,11.2%,23/23,C,48.5%,16.9%,N:41→51 N1:41→32
+折叠盒,152050,Flip top boxes adhesive three folds mockup 152050,GluedThreeFoldFlapBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",81×122×38,81×122×38,C,21.8%,22.6%,23/23,C,21.8%,25.8%,N:41→32 N1:41→49
+折叠盒,181092,Triangle folding box,Triangleclamshellbox,整体放大 1.1 倍,198×110×88,198×110×88,C,2.9%,3.5%,12/12,C,2.9%,3.5%,D1:80→88 RY:20→22 RX:10→11 G:20→22
+折叠盒,181092,Triangle folding box,Triangleclamshellbox,整体放大 1.3 倍,234×130×104,234×130×104,C,7.0%,5.8%,12/12,C,7.0%,5.8%,D1:80→104 RY:20→26 RX:10→13 G:20→26
+折叠盒,181092,Triangle folding box,Triangleclamshellbox,"加长收窄 (L×1.5, W×0.8)",270×80×80,270×80×80,C,1.4%,15.1%,12/12,C,1.4%,15.1%,RY:20→16 RX:10→8 G:20→16
+折叠盒,181092,Triangle folding box,Triangleclamshellbox,"缩短加高 (L×0.8, W×1.2, H×1.5)",144×120×120,144×120×120,C,9.7%,0.3%,12/12,C,9.7%,0.3%,D1:80→120 RY:20→24 RX:10→12 G:20→24
+折叠盒,158240,Folding paper packaging box,RotateFlipBox,整体放大 1.1 倍,111×25×111,111×25×111,C,4.7%,3.2%,12/12,C,4.7%,3.2%,L1:100.1→110.5
+折叠盒,158240,Folding paper packaging box,RotateFlipBox,整体放大 1.3 倍,131×27×131,131×27×131,C,11.6%,10.0%,12/12,C,11.6%,9.3%,L1:100.1→130.5 G1:14→16 G2:14→16
+折叠盒,158240,Folding paper packaging box,RotateFlipBox,"加长收窄 (L×1.5, W×0.8)",151×25×101,151×25×101,C,44.1%,11.6%,12/12,C,44.1%,11.6%,L1:100.1→100.5
+折叠盒,158240,Folding paper packaging box,RotateFlipBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",80×25×151,80×25×151,C,33.1%,24.5%,12/12,C,43.4%,27.8%,L1:100.1→79.5 G1:14→18 G2:14→18
+折叠盒,180231,Triangle pizza box,TrianglePizzaBox,整体放大 1.1 倍,239×294×45,239×294×45,C,4.3%,10.4%,15/15,C,4.3%,10.4%,W2:40.6→45 G:40.6→45 G1:40.6→45
+折叠盒,180231,Triangle pizza box,TrianglePizzaBox,整体放大 1.3 倍,283×348×53,283×348×53,C,11.0%,19.5%,15/15,C,11.0%,19.5%,W2:40.6→53 G:40.6→53 G1:40.6→53
+折叠盒,180231,Triangle pizza box,TrianglePizzaBox,"加长收窄 (L×1.5, W×0.8)",326×214×41,326×326×41,C,3.8%,41.5%,15/15,C,3.8%,41.5%,W2:40.6→41 G:40.6→41 G1:40.6→41
+折叠盒,180231,Triangle pizza box,TrianglePizzaBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",174×321×61,174×321×61,C,12.0%,23.6%,15/15,C,12.0%,23.6%,W2:40.6→61 G:40.6→61 G1:40.6→61
+折叠盒,101433,Hanging display box with window,PairAircraftWithWindowHookLock,整体放大 1.1 倍,198×33×132,198×33×132,C,1.4%,2.1%,18/18,C,1.4%,2.1%,无
+折叠盒,101433,Hanging display box with window,PairAircraftWithWindowHookLock,整体放大 1.3 倍,234×39×156,234×39×156,C,3.9%,2.8%,18/18,C,3.9%,2.8%,无
+折叠盒,101433,Hanging display box with window,PairAircraftWithWindowHookLock,"加长收窄 (L×1.5, W×0.8)",270×24×120,270×24×120,C,3.1%,7.9%,18/18,C,3.1%,7.9%,无
+折叠盒,101433,Hanging display box with window,PairAircraftWithWindowHookLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",144×36×180,144×36×180,C,4.0%,16.5%,18/18,C,4.0%,16.5%,无
+折叠盒,102013,Tuck end window software box,BuckleWithWindow,整体放大 1.1 倍,132×66×177,132×66×177,B,1.2%,1.0%,13/13,B,1.2%,1.0%,无
+折叠盒,102013,Tuck end window software box,BuckleWithWindow,整体放大 1.3 倍,156×78×209,156×78×209,B,0.9%,0.3%,13/13,B,0.9%,0.3%,无
+折叠盒,102013,Tuck end window software box,BuckleWithWindow,"加长收窄 (L×1.5, W×0.8)",180×48×161,180×48×161,C,3.2%,3.2%,13/13,C,3.2%,3.2%,无
+折叠盒,102013,Tuck end window software box,BuckleWithWindow,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×242,96×72×242,C,3.2%,3.2%,13/13,C,3.2%,3.2%,无
+折叠盒,102050,Hanging flip-top window box,BuckleFlip,整体放大 1.1 倍,132×44×198,132×44×198,A,0.3%,0.9%,17/17,A,0.3%,0.9%,无
+折叠盒,102050,Hanging flip-top window box,BuckleFlip,整体放大 1.3 倍,156×52×234,156×52×234,B,1.0%,2.4%,17/17,B,1.0%,2.4%,无
+折叠盒,102050,Hanging flip-top window box,BuckleFlip,"加长收窄 (L×1.5, W×0.8)",180×32×180,180×32×180,C,0.2%,7.0%,17/17,C,0.2%,7.0%,无
+折叠盒,102050,Hanging flip-top window box,BuckleFlip,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×48×270,96×48×270,B,1.5%,2.1%,17/17,B,1.5%,2.1%,无
+折叠盒,102051,Hanging flip-top window box,MortiseLockFlipClasp,整体放大 1.1 倍,132×22×176,132×22×176,B,1.7%,0.9%,18/18,B,1.7%,0.9%,无
+折叠盒,102051,Hanging flip-top window box,MortiseLockFlipClasp,整体放大 1.3 倍,156×26×208,156×26×208,C,4.0%,3.0%,18/18,C,4.0%,3.0%,无
+折叠盒,102051,Hanging flip-top window box,MortiseLockFlipClasp,"加长收窄 (L×1.5, W×0.8)",180×20×160,180×20×160,B,0.1%,2.5%,18/18,B,0.1%,2.5%,无
+折叠盒,102051,Hanging flip-top window box,MortiseLockFlipClasp,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×24×240,96×24×240,C,3.9%,1.1%,18/18,C,3.9%,1.1%,无
+折叠盒,110380,Concave-hanger hanging electronic product box,BuckleBottomBoxWithConcaveHook,整体放大 1.1 倍,166×89×177,166×89×177,C,2.0%,36.9%,13/13,C,2.0%,36.9%,无
+折叠盒,110380,Concave-hanger hanging electronic product box,BuckleBottomBoxWithConcaveHook,整体放大 1.3 倍,196×105×209,196×105×209,C,4.1%,36.5%,13/13,C,4.1%,36.5%,无
+折叠盒,110380,Concave-hanger hanging electronic product box,BuckleBottomBoxWithConcaveHook,"加长收窄 (L×1.5, W×0.8)",226×64×161,226×64×161,C,4.6%,2.9%,13/13,C,4.6%,2.9%,无
+折叠盒,110380,Concave-hanger hanging electronic product box,BuckleBottomBoxWithConcaveHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×97×242,120×97×242,C,4.9%,54.3%,13/13,C,4.9%,54.3%,无
+折叠盒,110390,Concave-hanger hanging electronic product box,SelfLockingBottomBoxWithConcaveHook,整体放大 1.1 倍,165×88×176,165×88×176,C,0.8%,38.9%,15/15,C,0.8%,38.9%,无
+折叠盒,110390,Concave-hanger hanging electronic product box,SelfLockingBottomBoxWithConcaveHook,整体放大 1.3 倍,195×104×208,195×104×208,C,1.0%,37.4%,15/15,C,1.0%,37.4%,无
+折叠盒,110390,Concave-hanger hanging electronic product box,SelfLockingBottomBoxWithConcaveHook,"加长收窄 (L×1.5, W×0.8)",225×64×160,225×64×160,B,1.5%,5.2%,15/15,B,1.5%,5.2%,无
+折叠盒,110390,Concave-hanger hanging electronic product box,SelfLockingBottomBoxWithConcaveHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×96×240,120×96×240,C,0.9%,24.7%,15/15,C,0.9%,24.7%,无
+折叠盒,110391,Concave-hanger toy hanging box,SelfLockingBottomBoxWithReverseConcaveHook,整体放大 1.1 倍,132×132×220,132×132×220,C,0.5%,41.1%,16/16,C,0.5%,41.1%,无
+折叠盒,110391,Concave-hanger toy hanging box,SelfLockingBottomBoxWithReverseConcaveHook,整体放大 1.3 倍,156×156×260,156×156×260,C,1.3%,38.6%,16/16,C,1.3%,38.6%,无
+折叠盒,110391,Concave-hanger toy hanging box,SelfLockingBottomBoxWithReverseConcaveHook,"加长收窄 (L×1.5, W×0.8)",180×96×200,180×96×200,C,39.6%,51.6%,16/16,C,39.6%,51.6%,无
+折叠盒,110391,Concave-hanger toy hanging box,SelfLockingBottomBoxWithReverseConcaveHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×144×300,96×96×300,C,23.9%,29.0%,16/16,C,23.9%,29.0%,无
+折叠盒,110422,Open tuck end box,ReverseTubularGluedBoxWithSafetyBuckle,整体放大 1.1 倍,134×45×89,134×45×89,C,1.9%,4.1%,15/15,C,1.9%,4.1%,无
+折叠盒,110422,Open tuck end box,ReverseTubularGluedBoxWithSafetyBuckle,整体放大 1.3 倍,158×53×105,158×53×105,C,1.3%,4.7%,15/15,C,1.3%,4.7%,无
+折叠盒,110422,Open tuck end box,ReverseTubularGluedBoxWithSafetyBuckle,"加长收窄 (L×1.5, W×0.8)",182×32×81,182×32×81,C,3.7%,19.7%,15/15,C,3.7%,19.7%,无
+折叠盒,110422,Open tuck end box,ReverseTubularGluedBoxWithSafetyBuckle,"缩短加高 (L×0.8, W×1.2, H×1.5)",97×49×122,97×49×122,B,1.4%,0.5%,15/15,B,1.4%,0.5%,无
+折叠盒,110532,Hanging slim tall medicine box,PerforatedHookBuckleBottomBox,整体放大 1.1 倍,88×33×154,88×33×154,C,4.4%,53.8%,17/17,C,4.4%,53.8%,无
+折叠盒,110532,Hanging slim tall medicine box,PerforatedHookBuckleBottomBox,整体放大 1.3 倍,104×39×182,104×39×182,C,5.2%,10.1%,17/17,C,5.2%,10.1%,无
+折叠盒,110532,Hanging slim tall medicine box,PerforatedHookBuckleBottomBox,"加长收窄 (L×1.5, W×0.8)",120×24×140,120×24×140,C,1.3%,8.8%,17/17,C,1.3%,8.8%,无
+折叠盒,110532,Hanging slim tall medicine box,PerforatedHookBuckleBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×36×210,64×36×210,C,1.9%,81.0%,17/17,C,1.9%,81.0%,无
+折叠盒,111030,Backboard hanging medicine box,PairBuckleTripleWithHookBoard,整体放大 1.1 倍,133×67×177,133×67×177,C,3.4%,4.4%,17/17,C,3.4%,4.4%,无
+折叠盒,111030,Backboard hanging medicine box,PairBuckleTripleWithHookBoard,整体放大 1.3 倍,157×79×209,157×79×209,C,3.7%,4.4%,17/17,C,3.7%,4.4%,无
+折叠盒,111030,Backboard hanging medicine box,PairBuckleTripleWithHookBoard,"加长收窄 (L×1.5, W×0.8)",181×48×161,181×48×161,C,14.3%,20.2%,17/17,C,14.3%,20.2%,无
+折叠盒,111030,Backboard hanging medicine box,PairBuckleTripleWithHookBoard,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×242,96×73×242,C,29.1%,4.9%,17/17,C,29.1%,4.9%,无
+折叠盒,12306001,Paper food box,TrapezoidDiscBox,整体放大 1.1 倍,165×165×165,165×165×165,C,3.5%,19.5%,13/13,C,3.5%,19.5%,无
+折叠盒,12306001,Paper food box,TrapezoidDiscBox,整体放大 1.3 倍,195×195×195,195×195×195,C,8.9%,14.2%,13/13,C,8.9%,14.2%,无
+折叠盒,12306001,Paper food box,TrapezoidDiscBox,"加长收窄 (L×1.5, W×0.8)",225×120×150,225×120×150,C,41.6%,45.1%,13/13,C,41.6%,45.1%,无
+折叠盒,12306001,Paper food box,TrapezoidDiscBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×180×225,120×120×225,C,28.6%,4.3%,13/13,C,28.6%,4.3%,无
+折叠盒,128050,Tray boxes lock inserts flip cover buffers mockup 128050,PlugLockFlipCushionWallBox,整体放大 1.1 倍,188×122×111,188×122×111,C,1.6%,12.6%,27/27,C,1.6%,12.6%,无
+折叠盒,128050,Tray boxes lock inserts flip cover buffers mockup 128050,PlugLockFlipCushionWallBox,整体放大 1.3 倍,222×144×131,222×144×131,C,3.7%,13.9%,27/27,C,3.7%,13.9%,无
+折叠盒,128050,Tray boxes lock inserts flip cover buffers mockup 128050,PlugLockFlipCushionWallBox,"加长收窄 (L×1.5, W×0.8)",256×88×101,256×88×101,C,2.8%,4.0%,27/27,C,2.8%,4.0%,无
+折叠盒,128050,Tray boxes lock inserts flip cover buffers mockup 128050,PlugLockFlipCushionWallBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",136×133×151,136×133×151,C,4.3%,5.7%,27/27,C,4.3%,5.7%,无
+折叠盒,150110,Flip top boxes angled mailer mockup 150110,AngleLockAircraftBox,整体放大 1.1 倍,335×221×67,335×221×67,C,2.1%,0.9%,22/22,C,2.1%,0.9%,无
+折叠盒,150110,Flip top boxes angled mailer mockup 150110,AngleLockAircraftBox,整体放大 1.3 倍,396×261×79,396×261×79,C,5.1%,1.1%,22/22,C,5.1%,1.1%,无
+折叠盒,150110,Flip top boxes angled mailer mockup 150110,AngleLockAircraftBox,"加长收窄 (L×1.5, W×0.8)",457×160×61,457×160×61,A,0.3%,1.1%,22/22,A,0.3%,1.1%,无
+折叠盒,150110,Flip top boxes angled mailer mockup 150110,AngleLockAircraftBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",244×241×91,244×241×91,C,9.9%,2.1%,22/22,C,9.9%,2.1%,无
+折叠盒,151180,Flip top boxes ladder-type angled mockup 151180,TrapezoidalAngleLockClamshellBox,整体放大 1.1 倍,133×111×56,133×111×56,C,5.8%,4.0%,17/17,C,5.8%,4.0%,无
+折叠盒,151180,Flip top boxes ladder-type angled mockup 151180,TrapezoidalAngleLockClamshellBox,整体放大 1.3 倍,157×131×66,157×131×66,C,12.4%,19.4%,17/17,C,12.4%,19.4%,无
+折叠盒,151180,Flip top boxes ladder-type angled mockup 151180,TrapezoidalAngleLockClamshellBox,"加长收窄 (L×1.5, W×0.8)",181×80×51,181×80×51,C,6.6%,33.4%,17/17,C,6.6%,33.4%,无
+折叠盒,151180,Flip top boxes ladder-type angled mockup 151180,TrapezoidalAngleLockClamshellBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×121×76,96×121×76,C,13.4%,21.0%,17/17,C,13.4%,21.0%,无
+折叠盒,151230,Flip top boxes mailer all-in-one mockup 151230,SimpleClamshellBox,整体放大 1.1 倍,133×135×56,133×135×56,C,1.2%,31.8%,17/17,C,1.2%,31.8%,无
+折叠盒,151230,Flip top boxes mailer all-in-one mockup 151230,SimpleClamshellBox,整体放大 1.3 倍,157×159×66,157×159×66,C,2.4%,29.1%,17/17,C,2.4%,29.1%,无
+折叠盒,151230,Flip top boxes mailer all-in-one mockup 151230,SimpleClamshellBox,"加长收窄 (L×1.5, W×0.8)",181×98×51,181×98×51,C,18.6%,38.7%,17/17,C,18.6%,38.7%,无
+折叠盒,151230,Flip top boxes mailer all-in-one mockup 151230,SimpleClamshellBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×147×76,96×147×76,C,1.0%,35.4%,17/17,C,1.0%,35.4%,无
+折叠盒,152031,Flip top boxes diagonal lock box lock-top mockup 152031,TrayGluedObliqueWithLock,整体放大 1.1 倍,167×111×67,167×111×67,C,4.1%,15.2%,13/13,C,4.1%,15.2%,无
+折叠盒,152031,Flip top boxes diagonal lock box lock-top mockup 152031,TrayGluedObliqueWithLock,整体放大 1.3 倍,197×131×79,197×131×79,C,11.4%,17.4%,13/13,C,11.4%,17.4%,无
+折叠盒,152031,Flip top boxes diagonal lock box lock-top mockup 152031,TrayGluedObliqueWithLock,"加长收窄 (L×1.5, W×0.8)",227×80×61,227×80×61,C,3.6%,22.3%,13/13,C,3.6%,22.3%,无
+折叠盒,152031,Flip top boxes diagonal lock box lock-top mockup 152031,TrayGluedObliqueWithLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",121×121×91,121×121×91,C,9.6%,2.5%,13/13,C,9.6%,2.5%,无
+折叠盒,156002,Flip top boxes polygonal lock inserts mockup 156002,SpecialLockshellClamshellAircraftBox,整体放大 1.1 倍,178×112×92,178×112×92,C,2.0%,36.9%,17/17,C,2.0%,36.9%,无
+折叠盒,156002,Flip top boxes polygonal lock inserts mockup 156002,SpecialLockshellClamshellAircraftBox,整体放大 1.3 倍,211×133×109,211×133×109,C,5.2%,33.4%,17/17,C,5.2%,33.4%,无
+折叠盒,156002,Flip top boxes polygonal lock inserts mockup 156002,SpecialLockshellClamshellAircraftBox,"加长收窄 (L×1.5, W×0.8)",243×82×84,243×82×84,C,17.2%,6.5%,17/17,C,17.2%,6.5%,无
+折叠盒,156002,Flip top boxes polygonal lock inserts mockup 156002,SpecialLockshellClamshellAircraftBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",130×122×125,130×122×125,C,11.7%,7.1%,17/17,C,11.7%,7.1%,无
+折叠盒,158020,Mortise lock folio flip box mockup 158020,FlipBoxWithDoubleSocketLock,整体放大 1.1 倍,121×112×134,121×112×134,C,2.0%,17.6%,42/42,C,2.0%,17.6%,无
+折叠盒,158020,Mortise lock folio flip box mockup 158020,FlipBoxWithDoubleSocketLock,整体放大 1.3 倍,143×133×159,143×133×159,C,5.1%,36.0%,42/42,C,5.1%,36.0%,无
+折叠盒,158020,Mortise lock folio flip box mockup 158020,FlipBoxWithDoubleSocketLock,"加长收窄 (L×1.5, W×0.8)",165×82×122,165×82×122,C,6.3%,21.1%,42/42,C,6.3%,21.1%,无
+折叠盒,158020,Mortise lock folio flip box mockup 158020,FlipBoxWithDoubleSocketLock,"缩短加高 (L×0.8, W×1.2, H×1.5)",88×122×183,88×88×183,C,25.0%,42.4%,42/42,C,25.0%,42.4%,无
+折叠盒,180280,Hanging triangular prism box,TriangularConicalBottomBoxWithHook,整体放大 1.1 倍,133×67×221,133×67×221,C,1.9%,6.6%,12/12,C,1.9%,6.6%,无
+折叠盒,180280,Hanging triangular prism box,TriangularConicalBottomBoxWithHook,整体放大 1.3 倍,157×79×261,157×79×261,C,5.2%,2.5%,12/12,C,5.2%,2.5%,无
+折叠盒,180280,Hanging triangular prism box,TriangularConicalBottomBoxWithHook,"加长收窄 (L×1.5, W×0.8)",181×48×201,181×48×201,C,5.7%,13.5%,12/12,C,5.7%,13.5%,无
+折叠盒,180280,Hanging triangular prism box,TriangularConicalBottomBoxWithHook,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×301,96×73×301,C,22.8%,68.3%,12/12,C,22.8%,68.3%,无
+折叠盒,188030,Hanging polygonal box,MutualLockSplitLiftingHoleBoxP1,整体放大 1.1 倍,88×55×44,88×55×44,B,0.5%,2.8%,15/15,B,0.5%,2.8%,无
+折叠盒,188030,Hanging polygonal box,MutualLockSplitLiftingHoleBoxP1,整体放大 1.3 倍,104×65×52,104×65×52,B,1.3%,3.8%,15/15,B,1.3%,3.8%,无
+折叠盒,188030,Hanging polygonal box,MutualLockSplitLiftingHoleBoxP1,"加长收窄 (L×1.5, W×0.8)",120×40×40,120×40×40,C,12.1%,20.5%,15/15,C,12.1%,20.5%,无
+折叠盒,188030,Hanging polygonal box,MutualLockSplitLiftingHoleBoxP1,"缩短加高 (L×0.8, W×1.2, H×1.5)",64×60×60,64×60×60,C,1.1%,8.6%,15/15,C,1.1%,8.6%,无
+折叠盒,600180,14 × 10 × 7 square napskin tissue box,BagTissue,整体放大 1.1 倍,149×110×72,135×100×65,A,0.0%,0.0%,12/12,A,0.0%,0.0%,无
+折叠盒,600180,14 × 10 × 7 square napskin tissue box,BagTissue,整体放大 1.3 倍,176×130×85,135×100×65,A,0.0%,0.0%,12/12,A,0.0%,0.0%,无
+折叠盒,600180,14 × 10 × 7 square napskin tissue box,BagTissue,"加长收窄 (L×1.5, W×0.8)",203×80×65,135×100×65,A,0.0%,0.0%,12/12,A,0.0%,0.0%,无
+折叠盒,600180,14 × 10 × 7 square napskin tissue box,BagTissue,"缩短加高 (L×0.8, W×1.2, H×1.5)",108×120×98,135×100×65,A,0.0%,0.0%,12/12,A,0.0%,0.0%,无
+托盘盒,120370,Square food tray box,FourFoldSideAndAngleDiscBox,整体放大 1.1 倍,222×222×56,222×222×56,B,0.8%,0.6%,25/25,B,0.8%,0.6%,N:67→74 C:20→22
+托盘盒,120370,Square food tray box,FourFoldSideAndAngleDiscBox,整体放大 1.3 倍,262×262×66,262×262×66,C,2.1%,1.3%,25/25,C,2.1%,1.3%,N:67→87 C:20→26
+托盘盒,120370,Square food tray box,FourFoldSideAndAngleDiscBox,"加长收窄 (L×1.5, W×0.8)",302×161×51,302×161×51,A,0.2%,0.0%,25/25,A,0.2%,0.0%,N:67→54 C:20→16
+托盘盒,120370,Square food tray box,FourFoldSideAndAngleDiscBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",161×242×76,161×242×76,A,0.1%,0.1%,25/25,A,0.1%,0.1%,N:67→81 C:20→16
+托盘盒,120080,Food tray box,CartonClipTray,整体放大 1.1 倍,113×111×28,113×111×28,A,0.3%,0.2%,15/15,A,0.3%,0.2%,C:10→11 W1:34→37 R2:5→6
+托盘盒,120080,Food tray box,CartonClipTray,整体放大 1.3 倍,133×131×33,133×131×33,A,0.0%,0.9%,15/15,A,0.0%,0.9%,C:10→13 W1:34→44 WR:4→5 R2:5→7
+托盘盒,120080,Food tray box,CartonClipTray,"加长收窄 (L×1.5, W×0.8)",154×80×26,154×80×26,A,0.4%,0.4%,15/15,A,0.4%,0.4%,C:10→15 W1:34→27 R2:5→4
+托盘盒,120080,Food tray box,CartonClipTray,"缩短加高 (L×0.8, W×1.2, H×1.5)",82×121×38,82×121×38,A,0.0%,0.3%,15/15,A,0.0%,0.3%,W1:34→40 WR:4→5 R2:5→4
+托盘盒,120460,Tray boxes double grids paper mockup 120460,DiscDoubleBox,整体放大 1.1 倍,141×68×56,141×68×56,C,2.5%,16.3%,17/17,C,2.5%,16.3%,无
+托盘盒,120460,Tray boxes double grids paper mockup 120460,DiscDoubleBox,整体放大 1.3 倍,166×81×66,166×81×66,C,6.5%,19.0%,17/17,C,6.5%,19.0%,无
+托盘盒,120460,Tray boxes double grids paper mockup 120460,DiscDoubleBox,"加长收窄 (L×1.5, W×0.8)",192×50×51,192×50×50,C,2.5%,7.0%,17/17,C,2.5%,7.0%,无
+托盘盒,120460,Tray boxes double grids paper mockup 120460,DiscDoubleBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",102×74×77,102×74×74,C,7.6%,19.5%,17/17,C,7.6%,19.5%,无
+托盘盒,240180,Tray box,FourCornerHalfEnvelope,整体放大 1.1 倍,331×221×12,331×221×12,C,2.8%,2.5%,17/17,B,1.4%,1.7%,W1:67→74 L1:67→74 R1:45→49
+托盘盒,240180,Tray box,FourCornerHalfEnvelope,整体放大 1.3 倍,391×261×14,391×261×14,C,6.7%,7.3%,17/17,C,3.4%,4.3%,W1:67→87 L1:67→87 R1:45→58 G:25→30 GR:5→6
+托盘盒,240180,Tray box,FourCornerHalfEnvelope,"加长收窄 (L×1.5, W×0.8)",451×160×11,451×160×11,C,4.8%,4.9%,17/17,C,2.4%,13.8%,W1:67→53 L1:67→53 R1:45→35
+托盘盒,240180,Tray box,FourCornerHalfEnvelope,"缩短加高 (L×0.8, W×1.2, H×1.5)",240×241×16,240×240×16,C,6.0%,4.7%,17/17,C,3.0%,3.1%,W1:67→80 L1:67→80 R1:45→53
+托盘盒,128010,Food tray box,Bufferwallbox,整体放大 1.1 倍,376×266×67,376×266×67,B,1.0%,2.0%,29/29,A,0.4%,0.2%,G:12→15 L5:131→143 GR:9→11
+托盘盒,128010,Food tray box,Bufferwallbox,整体放大 1.3 倍,444×314×79,444×314×79,B,0.9%,5.5%,29/29,B,0.4%,2.2%,G:12→15 L5:131→167 GR:9→11
+托盘盒,128010,Food tray box,Bufferwallbox,"加长收窄 (L×1.5, W×0.8)",512×193×61,512×193×61,B,0.4%,5.3%,29/29,B,1.2%,2.3%,SD:10→8 G:12→15 L5:131→109 GR:9→11
+托盘盒,128010,Food tray box,Bufferwallbox,"缩短加高 (L×0.8, W×1.2, H×1.5)",273×290×92,273×273×92,B,0.0%,2.4%,29/29,A,0.0%,0.8%,L5:131→147
+托盘盒,120070,Kraft paper tray box,WideSideCardTrayBox,整体放大 1.1 倍,220×165×66,220×165×66,B,1.3%,1.9%,22/22,B,1.3%,1.2%,N:60→66 N1:64→70
+托盘盒,120070,Kraft paper tray box,WideSideCardTrayBox,整体放大 1.3 倍,260×195×78,260×195×78,C,3.4%,10.9%,22/22,C,3.4%,10.0%,N:60→78 N1:64→82
+托盘盒,120070,Kraft paper tray box,WideSideCardTrayBox,"加长收窄 (L×1.5, W×0.8)",300×120×60,300×120×60,A,0.0%,0.5%,22/22,A,0.0%,0.5%,无
+托盘盒,120070,Kraft paper tray box,WideSideCardTrayBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",160×180×90,160×160×90,C,5.6%,0.5%,22/22,C,5.6%,14.0%,N:60→53 N1:64→57
+托盘盒,120240,FEFCO 0457 tray boxes buckle display,DiscBuckleBox,整体放大 1.1 倍,133×67×33,133×67×33,A,0.0%,1.7%,9/9,A,0.0%,1.7%,无
+托盘盒,120240,FEFCO 0457 tray boxes buckle display,DiscBuckleBox,整体放大 1.3 倍,157×79×39,157×79×39,B,0.0%,3.8%,9/9,B,0.0%,3.8%,无
+托盘盒,120240,FEFCO 0457 tray boxes buckle display,DiscBuckleBox,"加长收窄 (L×1.5, W×0.8)",181×48×30,181×48×24,C,0.0%,6.6%,9/9,C,0.0%,6.6%,无
+托盘盒,120240,FEFCO 0457 tray boxes buckle display,DiscBuckleBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×45,96×73×36.5,B,0.0%,5.3%,9/9,B,0.0%,5.3%,无
+托盘盒,120490,Food tray box,BottomButtonTrayBox,整体放大 1.1 倍,333×331×66,333×331×66,A,0.1%,0.9%,15/15,A,0.1%,0.9%,无
+托盘盒,120490,Food tray box,BottomButtonTrayBox,整体放大 1.3 倍,393×391×78,393×391×78,B,0.0%,2.3%,15/15,B,0.0%,2.3%,无
+托盘盒,120490,Food tray box,BottomButtonTrayBox,"加长收窄 (L×1.5, W×0.8)",454×240×60,454×240×60,C,4.7%,3.2%,15/15,C,4.7%,3.2%,无
+托盘盒,120490,Food tray box,BottomButtonTrayBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",242×361×90,242×242×90,C,8.0%,15.8%,15/15,C,8.0%,15.8%,无
+托盘盒,123030,Fast food tray box,ArcBuckleDiscBox,整体放大 1.1 倍,222×331×110,222×331×110,A,0.3%,0.1%,9/9,A,0.3%,0.1%,无
+托盘盒,123030,Fast food tray box,ArcBuckleDiscBox,整体放大 1.3 倍,262×391×130,262×391×130,A,0.3%,0.6%,9/9,A,0.3%,0.6%,无
+托盘盒,123030,Fast food tray box,ArcBuckleDiscBox,"加长收窄 (L×1.5, W×0.8)",302×240×100,302×240×100,C,20.2%,14.9%,9/9,C,20.2%,14.9%,无
+托盘盒,123030,Fast food tray box,ArcBuckleDiscBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",161×361×150,161×361×150,C,10.8%,18.4%,9/9,C,10.8%,18.4%,无
+托盘盒,123180,Polygonal display tray box,SpecialShapedHexagonalTray,整体放大 1.1 倍,166×111×45,166×111×45,C,2.4%,15.2%,21/21,C,2.4%,15.2%,无
+托盘盒,123180,Polygonal display tray box,SpecialShapedHexagonalTray,整体放大 1.3 倍,196×131×53,196×131×53,C,5.7%,5.0%,21/21,C,5.7%,5.0%,无
+托盘盒,123180,Polygonal display tray box,SpecialShapedHexagonalTray,"加长收窄 (L×1.5, W×0.8)",226×80×41,226×80×41,B,0.2%,2.6%,21/21,B,0.2%,2.6%,无
+托盘盒,123180,Polygonal display tray box,SpecialShapedHexagonalTray,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×121×61,120×120×61,C,10.4%,12.1%,21/21,C,10.4%,12.1%,无
+邮寄盒,152010,FEFCO 0420 flip top tuck front mailer box,TraySimpleGluedP1,整体放大 1.1 倍,165×110×66,165×110×66,A,0.0%,0.0%,13/13,A,0.0%,0.0%,无
+邮寄盒,152010,FEFCO 0420 flip top tuck front mailer box,TraySimpleGluedP1,整体放大 1.3 倍,195×130×78,195×130×78,A,0.0%,0.0%,13/13,A,0.0%,0.0%,C:25→30 G:16→19 CR:13→15
+邮寄盒,152010,FEFCO 0420 flip top tuck front mailer box,TraySimpleGluedP1,"加长收窄 (L×1.5, W×0.8)",225×80×60,225×80×60,C,2.1%,0.8%,13/13,C,2.1%,0.8%,C:25→30 A:25→20 AR:6.5→5 G:16→19 CR:13→15
+邮寄盒,152010,FEFCO 0420 flip top tuck front mailer box,TraySimpleGluedP1,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×120×90,120×120×90,A,0.0%,0.0%,13/13,A,0.0%,0.0%,C:25→15 CR:13→8
+邮寄盒,151220,Flip top mailer box with lock inserts round head,PlugLockRoundHeadFlipBox,整体放大 1.1 倍,133×199×111,133×199×111,B,1.3%,2.2%,15/15,B,1.3%,2.2%,无
+邮寄盒,151220,Flip top mailer box with lock inserts round head,PlugLockRoundHeadFlipBox,整体放大 1.3 倍,157×235×131,157×235×131,C,1.8%,6.4%,15/15,C,1.8%,6.4%,无
+邮寄盒,151220,Flip top mailer box with lock inserts round head,PlugLockRoundHeadFlipBox,"加长收窄 (L×1.5, W×0.8)",181×144×101,181×144×101,C,1.7%,1.3%,15/14,C,1.7%,1.3%,无
+邮寄盒,151220,Flip top mailer box with lock inserts round head,PlugLockRoundHeadFlipBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×217×152,96×217×152,C,5.9%,9.7%,15/15,C,5.9%,9.7%,无
+运输箱,112010,平邮箱,FlapBotselflock,整体放大 1.1 倍,133×67×178,133×67×178,A,0.0%,0.0%,15/15,A,0.0%,0.0%,BL1:18→20 F:30.3→33.5 F1:30.8→34
+运输箱,112010,平邮箱,FlapBotselflock,整体放大 1.3 倍,157×79×210,157×79×210,A,0.0%,0.0%,15/15,A,0.0%,0.0%,BL1:18→23.5 F:30.3→39.5 F1:30.8→40
+运输箱,112010,平邮箱,FlapBotselflock,"加长收窄 (L×1.5, W×0.8)",181×48×162,181×48×162,A,0.4%,0.1%,15/15,A,0.4%,0.1%,BL1:18→14.5 BX2:8→6 F:30.3→24 F1:30.8→24.5
+运输箱,112010,平邮箱,FlapBotselflock,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×73×242,96×73×242,A,0.0%,0.1%,15/15,A,0.0%,0.1%,BL1:18→22 F:30.3→36.5 F1:30.8→37
+礼盒,113000,House gift box,RoofReinforcedSelflockingBottomBox,整体放大 1.1 倍,154×138×116,154×138×116,C,2.5%,1.3%,22/22,C,2.5%,1.3%,KL:24→25 KL1:23→24 KLL:25→26 BT2:13.11→13.2 D1:94→104 SL:17.5→19.25 WL:23→26 WD:23→26 WL1:9→10.5 WD1:9→10.5 WSP:52→58 WLL:19→21 WDD:19→21 WLL1:8→9 WDD1:8→9 WWL:23→26 WWD:23→26 WWL1:9→10.5 WWD1:9→10.5 HL:12.67→14 HD:12.67→14 HSP:16.33→17
+礼盒,113000,House gift box,RoofReinforcedSelflockingBottomBox,整体放大 1.3 倍,182×163×137,182×163×137,C,6.6%,4.3%,22/22,C,6.6%,4.3%,BX:10→12 KL:24→25 KL1:23→24 KLL:25→26 BT2:13.11→13.58 D1:94→122 G:19→25 G1:19→25 SL:17.5→22.75 WL:23→30 WD:23→30 WL1:9→12.5 WD1:9→12.5 WSP:52→68 WLL:19→24 WDD:19→24 WLL1:8→10.5 WDD1:8→10.5 WWL:23→30 WWD:23→30 WWL1:9→12.5 WWD1:9→12.5 HL:12.67→16 HD:12.67→16 HSP:16.33→18
+礼盒,113000,House gift box,RoofReinforcedSelflockingBottomBox,"加长收窄 (L×1.5, W×0.8)",210×100×105,210×100×105,A,0.5%,0.6%,22/22,A,0.5%,0.6%,KL:24→25 KL1:23→24 KLL:25→26 BT2:13.11→15 D1:94→75 G:19→25 G1:19→25 SL:17.5→25 WL:23→35 WD:23→35 WL1:9→15 WD1:9→15 WLL:19→28 WDD:19→28 WLL1:8→12.5 WDD1:8→12.5 WWL:23→35 WWD:23→35 WWL1:9→15 WWD1:9→15 HL:12.67→18.67 HD:12.67→18.67 HSP:16.33→19.33
+礼盒,113000,House gift box,RoofReinforcedSelflockingBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",112×150×158,112×112×158,C,6.4%,5.0%,22/22,C,6.4%,5.0%,KL:24→18 KL1:23→17 KLL:25→19 BT2:13.11→11.9 D1:94→84 G:19→16 G1:19→16 SL:17.5→14 WL:23→19 WD:23→19 WL1:9→7 WD1:9→7 WSP:52→79 WLL:19→15 WDD:19→15 WLL1:8→6 WDD1:8→6 WWL:23→19 WWD:23→19 WWL1:9→7 WWD1:9→7 HL:12.67→10 HD:12.67→20 HSP:16.33→20
+礼盒,10508102,Zipper top blind box,SnapZipperSelflockingBottomBox,整体放大 1.1 倍,110×88×176,110×88×176,C,4.3%,4.1%,32/34,C,2.5%,1.5%,B1:24→26.5 W2:60→66 W3:79.5→87.5 A:50→55 A1:50→55 KW:18→20 KW1:16→18 KW2:20→22 SL:0→24 SRR:0→2
+礼盒,10508102,Zipper top blind box,SnapZipperSelflockingBottomBox,整体放大 1.3 倍,130×104×208,130×104×208,C,10.9%,13.8%,32/37,C,6.3%,7.1%,B1:24→31 BX2:8→10 BX1:2→3 W2:60→78 W3:79.5→103.5 A:50→65 A1:50→65 KW:18→24 KW1:16→22 KW2:20→26 SL:0→24 SRR:0→2
+礼盒,10508102,Zipper top blind box,SnapZipperSelflockingBottomBox,"加长收窄 (L×1.5, W×0.8)",150×64×160,150×64×160,C,10.6%,9.7%,32/41,C,8.4%,1.1%,B1:24→19 W2:60→48 W3:79.5→63.5 A:50→43 A1:50→43 KW:18→28 KW1:16→26 KW2:20→30 SL:0→30 SRR:0→2
+礼盒,10508102,Zipper top blind box,SnapZipperSelflockingBottomBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",80×96×240,80×80×240,C,0.0%,1.5%,32/29,C,0.0%,0.4%,A:50→40 A1:50→40 KW:18→14 KW1:16→12 KW2:20→16
+礼盒,110670,Double glues tuck top gift box,SimpleSinglePlugBox,整体放大 1.1 倍,132×66×176,132×66×176,C,4.6%,3.5%,13/13,C,4.6%,3.2%,G:12→13 C:15→20 CR:8→10 AR:9→10 A:38→43 KX:60→66
+礼盒,110670,Double glues tuck top gift box,SimpleSinglePlugBox,整体放大 1.3 倍,156×78×208,156×78×208,C,9.9%,7.6%,13/13,C,9.9%,7.0%,G:12→15 E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→49 KX:60→78
+礼盒,110670,Double glues tuck top gift box,SimpleSinglePlugBox,"加长收窄 (L×1.5, W×0.8)",180×48×160,180×48×160,C,3.9%,1.7%,13/13,B,1.9%,0.8%,G:12→18 E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 KX:60→90
+礼盒,110670,Double glues tuck top gift box,SimpleSinglePlugBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×240,96×72×240,C,12.1%,8.5%,13/13,C,12.1%,15.7%,G:12→10 C:15→13 CR:8→7 AR:9→10 A:38→43 KX:60→48
+礼盒,102630,Barbie gift box,OpenForwardLockingAndWindowBox,整体放大 1.1 倍,132×66×198,132×66×198,C,3.9%,3.8%,13/13,B,1.2%,1.4%,C:15→20 CR:8→10 AR:9→10 A:38→43 KL:90→102 KW:140→158
+礼盒,102630,Barbie gift box,OpenForwardLockingAndWindowBox,整体放大 1.3 倍,156×78×234,156×78×234,C,6.2%,6.7%,13/13,C,3.9%,3.0%,E:8→11 C:15→20 CR:8→10 S:6→9 AR:9→12 A:38→49 KL:90→126 KW:140→194 KR:6→8
+礼盒,102630,Barbie gift box,OpenForwardLockingAndWindowBox,"加长收窄 (L×1.5, W×0.8)",180×48×180,180×48×180,C,2.0%,7.6%,13/13,C,4.2%,6.3%,E:8→11 C:15→25 CR:8→13 S:6→9 A:38→37 KL:90→150 KR:6→9
+礼盒,102630,Barbie gift box,OpenForwardLockingAndWindowBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",96×72×270,96×72×270,B,1.5%,4.4%,13/13,C,2.4%,3.2%,C:15→13 CR:8→7 AR:9→10 A:38→43 KL:90→67.2 KW:140→230 KR:6→4 SP:15→14.4
+礼盒,10001002,Tuck top gift box,PairTwo,整体放大 1.1 倍,143×143×143,143×143×143,C,2.5%,3.3%,13/13,C,2.5%,1.9%,AR:18→20 A:65→71
+礼盒,10001002,Tuck top gift box,PairTwo,整体放大 1.3 倍,169×169×169,169×169×169,C,6.9%,8.1%,13/13,C,6.9%,4.3%,G:19→25 E:8→11 S:6→9 AR:18→23 A:65→84
+礼盒,10001002,Tuck top gift box,PairTwo,"加长收窄 (L×1.5, W×0.8)",195×104×130,195×104×130,C,44.8%,27.8%,13/13,C,47.4%,28.5%,E:8→11 C:20→25 CR:10→13 S:6→9 AR:18→16
+礼盒,10001002,Tuck top gift box,PairTwo,"缩短加高 (L×0.8, W×1.2, H×1.5)",104×156×195,104×156×195,C,29.4%,18.1%,13/13,C,31.3%,28.3%,C:20→15 CR:10→8 AR:18→21 A:65→52
+礼盒,112090,Gift box with ribbon holes,BuckleDomeRibbonHole,整体放大 1.1 倍,72×72×73,72×72×73,A,0.2%,0.0%,13/13,A,0.2%,0.0%,无
+礼盒,112090,Gift box with ribbon holes,BuckleDomeRibbonHole,整体放大 1.3 倍,85×85×86,85×85×86,A,0.4%,0.4%,13/13,A,0.4%,0.4%,无
+礼盒,112090,Gift box with ribbon holes,BuckleDomeRibbonHole,"加长收窄 (L×1.5, W×0.8)",98×52×66,98×52×66,C,33.9%,28.8%,13/13,C,33.9%,28.8%,无
+礼盒,112090,Gift box with ribbon holes,BuckleDomeRibbonHole,"缩短加高 (L×0.8, W×1.2, H×1.5)",52×79×99,52×52×99,C,6.0%,7.7%,13/13,C,6.0%,7.7%,无
+礼盒,550340,Gift box with shirt,ConsumerForty,整体放大 1.1 倍,0×0×0,200×80×350,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,550340,Gift box with shirt,ConsumerForty,整体放大 1.3 倍,0×0×0,200×80×350,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,550340,Gift box with shirt,ConsumerForty,"加长收窄 (L×1.5, W×0.8)",0×0×0,200×80×350,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,550340,Gift box with shirt,ConsumerForty,"缩短加高 (L×0.8, W×1.2, H×1.5)",0×0×0,200×80×350,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,603630,Lid and base luxury gift box,ConsumerTen,整体放大 1.1 倍,187×99×61,170×90×55,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,603630,Lid and base luxury gift box,ConsumerTen,整体放大 1.3 倍,221×117×72,170×90×55,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,603630,Lid and base luxury gift box,ConsumerTen,"加长收窄 (L×1.5, W×0.8)",255×72×55,170×90×55,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+礼盒,603630,Lid and base luxury gift box,ConsumerTen,"缩短加高 (L×0.8, W×1.2, H×1.5)",136×108×83,170×90×55,A,0.0%,0.0%,5/5,A,0.0%,0.0%,无
+方形盒,10263002,Sweet box with window,OpenForwardLockingAndWindowBoxTwo,整体放大 1.1 倍,110×44×220,110×44×220,A,0.0%,0.0%,13/13,A,0.0%,0.0%,AR:6→7 A:28→30 KL:70→80 KW:160→180 KR:4→5
+方形盒,10263002,Sweet box with window,OpenForwardLockingAndWindowBoxTwo,整体放大 1.3 倍,130×52×260,130×52×260,A,0.0%,0.0%,13/13,A,0.0%,0.0%,C:15→20 CR:8→10 AR:6→9 A:28→36 KL:70→100 KW:160→220 KR:4→6
+方形盒,10263002,Sweet box with window,OpenForwardLockingAndWindowBoxTwo,"加长收窄 (L×1.5, W×0.8)",150×32×200,150×32×200,A,0.0%,0.1%,13/13,A,0.0%,0.1%,E:8→11 C:15→20 CR:8→10 S:6→9 A:28→26 KL:70→120 KR:4→8
+方形盒,10263002,Sweet box with window,OpenForwardLockingAndWindowBoxTwo,"缩短加高 (L×0.8, W×1.2, H×1.5)",80×48×300,80×48×300,B,1.1%,0.2%,13/13,B,1.1%,0.2%,C:15→13 CR:8→7 AR:6→7 A:28→31 KL:70→56 KW:160→260 KR:4→3 SP:15→12
+方形盒,240031,Trapezoidal sleeve box,BoxsetTrapezoidWithHolesP1,整体放大 1.1 倍,165×66×220,165×66×220,C,4.9%,9.8%,5/5,C,1.4%,12.0%,L1:100→115 D1:150→170 SW:40→44 SP:80→88
+方形盒,240031,Trapezoidal sleeve box,BoxsetTrapezoidWithHolesP1,整体放大 1.3 倍,195×78×260,195×78×260,C,12.8%,7.2%,5/5,C,3.5%,1.5%,L1:100→145 D1:150→210 G:16→19 SW:40→52 SP:80→104
+方形盒,240031,Trapezoidal sleeve box,BoxsetTrapezoidWithHolesP1,"加长收窄 (L×1.5, W×0.8)",225×48×200,225×48×200,C,12.8%,15.6%,5/5,C,12.5%,22.5%,L1:100→175 G:16→19
+方形盒,240031,Trapezoidal sleeve box,BoxsetTrapezoidWithHolesP1,"缩短加高 (L×0.8, W×1.2, H×1.5)",120×72×300,120×72×300,C,5.1%,1.1%,5/5,B,2.0%,2.3%,L1:100→70 D1:150→250 SW:40→60 SP:80→120
+方形盒,15813001,Burger square box,HamburgerBox,整体放大 1.1 倍,121×121×121,121×121×121,C,5.0%,30.5%,20/20,C,5.0%,30.5%,SW:37→40
+方形盒,15813001,Burger square box,HamburgerBox,整体放大 1.3 倍,143×143×143,143×143×143,C,12.8%,42.3%,20/20,C,12.8%,42.3%,SW:37→48
+方形盒,15813001,Burger square box,HamburgerBox,"加长收窄 (L×1.5, W×0.8)",165×88×110,165×88×88,C,49.8%,11.6%,20/20,C,49.8%,11.6%,SW:37→55
+方形盒,15813001,Burger square box,HamburgerBox,"缩短加高 (L×0.8, W×1.2, H×1.5)",88×132×165,88×132×132,C,23.2%,39.4%,20/20,C,23.2%,39.4%,SW:37→29

@@ -21,6 +21,12 @@ const router = createRouter({
       component: () => import('../legacy/LegacyLab.vue'),
     },
     {
+      path: '/lab/hero-fold-capture',
+      name: 'hero-fold-capture',
+      meta: { seoKey: 'lab', noindex: true },
+      component: () => import('../pages/lab/HeroFoldCapturePage.vue'),
+    },
+    {
       path: '/home',
       name: 'home',
       meta: { seoKey: 'home' },

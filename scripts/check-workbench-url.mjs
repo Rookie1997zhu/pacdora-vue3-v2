@@ -50,4 +50,14 @@ assert.equal(bad.advanced['$x'], undefined)
 assert.equal(bad.sizeMode, defaults.sizeMode)
 assert.equal(bad.bleedInputMm, 10)
 
+// Keys missing from the URL fall back to the defaults (the encoder omits unchanged values).
+// Regression: Number(null) === 0 used to turn every omitted dimension into 0 after a reload.
+{
+  const d={lengthMm:119.4,widthMm:59.4,heightMm:158.4,thicknessMm:.5,bleedInputMm:3,materialId:'white',sizeMode:'inner'}
+  const got=decodeWorkbenchUrl('?l=150&v=1',{defaults:d})
+  if(got.lengthMm!==150||got.widthMm!==59.4||got.heightMm!==158.4||got.thicknessMm!==.5||got.bleedInputMm!==3){
+    throw new Error('partial URL must keep defaults for omitted keys: '+JSON.stringify(got))
+  }
+  if(decodeWorkbenchUrl('?b=0&v=1',{defaults:d}).bleedInputMm!==0)throw new Error('explicit 0 must be kept')
+}
 console.log('check-workbench-url: ok')

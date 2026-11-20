@@ -46,7 +46,7 @@ import {
   loadPackativeGeomKnife,
   clearPackativeGeomCache,
 } from '../packative/index.js'
-import brandLogoUrl from '../assets/brand/boxcraft-logo.png'
+import { useBrandLogo } from '../brand/logo'
 import {ApiError} from '../api/client'
 import {useAuthStore} from '../stores/auth'
 import {useBillingStore} from '../stores/billing'
@@ -58,6 +58,7 @@ const billing=useBillingStore()
 const router=useRouter()
 
 const {t,locale}=useI18n()
+const {logoUrl:brandLogoUrl,brandName}=useBrandLogo()
 function switchLocale(code){setLocale(code)}
 function kindLabel(tpl){
   const k=structureKind(tpl)
@@ -1144,7 +1145,7 @@ onBeforeUnmount(()=>{
 <template>
 <div class="app legacy-lab">
 <header>
-  <div class="brand"><img class="brand-logo" :src="brandLogoUrl" alt="BOXCRAFT" width="148" height="46"/><div><strong>LAB</strong><small>{{t('brand.subtitle')}}</small></div></div>
+  <div class="brand"><img class="brand-logo" :src="brandLogoUrl" :alt="brandName" width="148" height="46"/><div><strong>LAB</strong><small>{{t('brand.subtitle')}}</small></div></div>
   <div class="headright">
     <div class="lang-switch" role="group" :aria-label="t('lang.zh')+' / '+t('lang.ko')">
       <button type="button" :class="['chip','lang-chip',{selected:locale==='zh-CN'}]" @click="switchLocale('zh-CN')">{{t('lang.zh')}}</button>

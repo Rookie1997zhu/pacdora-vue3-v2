@@ -10,14 +10,24 @@ import {join,dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {createHash} from 'node:crypto'
 import specData from '../src/catalog/structureSpecs.js'
+import {isExcludedPreset} from '../src/catalog/excludedPresets.js'
 
 const root=join(dirname(fileURLToPath(import.meta.url)),'..')
 const outDir=join(root,'public','spec')
 const indexPath=join(root,'src','catalog','structureSpecIndex.js')
 
 const raw=readFileSync(join(root,'src','catalog','presets.js'),'utf8')
-const presets=JSON.parse(raw.replace(/^\/\*\*[\s\S]*?\*\/\s*export\s+default\s+/,'').trim()).presets||[]
+// 已从目录排除的预设不算在内：它们用到的规格没有页面会加载（与 check-spec-chunks 的口径一致）
+const presets=(JSON.parse(raw.replace(/^\/\*\*[\s\S]*?\*\/\s*export\s+default\s+/,'').trim()).presets||[]).filter(p=>!isExcludedPreset(p.id))
 const used=new Set(presets.map(p=>p.templateId).filter(t=>typeof t==='string'&&t.startsWith('spec-')).map(t=>t.slice(5)))
+// 「按尺寸插值」模板在采样范围之外退回的结构规格也要能懒加载
+const sampledDir=join(root,'public','sampled')
+if(existsSync(sampledDir)){
+  for(const f of readdirSync(sampledDir)){
+    if(!f.endsWith('.json'))continue
+    try{const fb=JSON.parse(readFileSync(join(sampledDir,f),'utf8')).fallback;if(typeof fb==='string'&&fb.startsWith('spec-'))used.add(fb.slice(5))}catch{/* ignore */}
+  }
+}
 
 mkdirSync(outDir,{recursive:true})
 const keep=new Set()

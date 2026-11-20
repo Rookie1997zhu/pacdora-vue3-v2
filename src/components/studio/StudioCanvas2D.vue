@@ -99,6 +99,18 @@
               />
             </template>
           </v-group>
+          <v-text
+            v-for="piece in knife.pieces || []"
+            :key="'piece-' + piece.id"
+            :config="{
+              x: piece.x - knife.minX + 3 / vp.pxPerMm,
+              y: piece.y - knife.minY + 3 / vp.pxPerMm,
+              text: pieceLabel(piece),
+              fontSize: 11 / vp.pxPerMm,
+              fill: '#475569',
+              listening: false,
+            }"
+          />
           <v-line
             v-for="(fold, i) in knife.folds"
             :key="'fold-' + i"
@@ -119,6 +131,18 @@
               stroke: '#46ba00',
               strokeWidth: 0.9,
               opacity: 0.85,
+              listening: false,
+            }"
+          />
+          <v-line
+            v-for="(path, i) in visibleHolePaths"
+            :key="'hole-' + i"
+            :config="{
+              points: path.points.map((v, idx) => (idx % 2 === 0 ? v - knife.minX : v - knife.minY)),
+              closed: true,
+              stroke: '#2028b0',
+              strokeWidth: 1.1,
+              opacity: 0.9,
               listening: false,
             }"
           />
@@ -153,8 +177,12 @@ import { fitViewport, type Viewport } from '../../studio/coordinates'
 import { buildStudioKnifeAsync, type StudioFace, type StudioKnife } from '../../studio/knifeAdapter'
 import { buildNetRegistration } from '../../studio/netMasks'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const design = useDesignStore()
+/** Multi-layer boxes: name of each blank on the sheet */
+function pieceLabel(piece: { label: string; labelEn: string }) {
+  return String(locale.value).startsWith('zh') ? piece.label : piece.labelEn || piece.label
+}
 const hostRef = ref<HTMLElement | null>(null)
 const trRef = ref<{ getNode: () => any } | null>(null)
 const size = ref({ w: 640, h: 480 })
@@ -172,6 +200,7 @@ const emptyKnife = (): StudioKnife => ({
   folds: [],
   cutPaths: [],
   bleedPaths: [],
+  holePaths: [],
   geomMode: false,
 })
 
@@ -201,6 +230,7 @@ const origin = computed(() => ({ x: vp.value.offsetX, y: vp.value.offsetY }))
 const stageConfig = computed(() => ({ width: size.value.w, height: size.value.h }))
 const visibleBleedPaths = computed(() => (design.showBleed ? knife.value.bleedPaths : []))
 const visibleCutPaths = computed(() => (design.showCut ? knife.value.cutPaths : []))
+const visibleHolePaths = computed(() => (design.showCut ? knife.value.holePaths || [] : []))
 
 type LayerItem = {
   layer: ArtworkLayer

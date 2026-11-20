@@ -1,5 +1,6 @@
 /** Export dieline from knife.layers (trim / crease / bleed). Demo only — not for die cutting. */
-import {PDFDocument,rgb,StandardFonts} from 'pdf-lib'
+import {PDFDocument,PDFHexString,PDFName,PDFOperator,rgb,StandardFonts} from 'pdf-lib'
+import {artworkToSvg,drawArtworkPdf,planArtwork,ARTWORK_PDF_LAYER} from './exportArtwork.js'
 import {buildDimAnnotations,dimAnnotationsToSvg,DIM_COLOR} from './dimAnnotations.js'
 import {
   arcCenter,
@@ -252,6 +253,8 @@ export function toSvgDieline(knife,options={}){
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<svg ${rootAttrs}>`,
     `<!-- ${disclaimer} -->`,
+    // 图案垫在刀线下面：切线、压痕始终可见
+    options.artwork?artworkToSvg(knife,options.artwork,options.artworkImages||{},options.artworkWarnings||[]):'',
     opts.showBleed?`<path d="${bleedPath}" stroke="${LAYER_META.bleed.color}" stroke-width="1.2" opacity="0.65"/>`:'',
     `<path d="${trimPath}" stroke="${LAYER_META.trim.color}" stroke-width="1.8"/>`,
     `<path d="${creasePath}" stroke="${LAYER_META.crease.color}" stroke-width="1.6" stroke-dasharray="6 4"/>`,
@@ -269,6 +272,10 @@ function pdfSafeLabel(s){
     .replace(/[^\x20-\x7E]/g,'')
 }
 
+/**
+ * SVG path data for page.drawSvgPath. pdf-lib draws SVG paths y-down from the anchor it is given,
+ * so `map` must return y-down coordinates (see svgMap in toPdf) and arcs keep their original sweep.
+ */
 function pdfPathData(cmds,map,scale){
   const parts=[]
   for(const cmd of cmds||[]){
@@ -277,7 +284,7 @@ function pdfPathData(cmds,map,scale){
       parts.push(`${cmd.mtd} ${p.x} ${p.y}`)
     }else if(cmd?.mtd==='A'){
       const p=map(cmd.x,cmd.y)
-      parts.push(`A ${Math.abs(cmd.rx*scale)} ${Math.abs(cmd.ry*scale)} ${-(cmd.ang||0)} ${cmd.arc?1:0} ${cmd.dir?0:1} ${p.x} ${p.y}`)
+      parts.push(`A ${Math.abs(cmd.rx*scale)} ${Math.abs(cmd.ry*scale)} ${cmd.ang||0} ${cmd.arc?1:0} ${cmd.dir?1:0} ${p.x} ${p.y}`)
     }else if(cmd?.mtd==='Q'){
       const c=map(cmd.cx,cmd.cy),p=map(cmd.x,cmd.y)
       parts.push(`Q ${c.x} ${c.y} ${p.x} ${p.y}`)
@@ -291,6 +298,33 @@ function pdfPathData(cmds,map,scale){
   return parts.join(' ')
 }
 
+/**
+ * PDF 图层（Optional Content Group）：与 DXF 同名的 TRIM / CREASE / BLEED / DIM / TEXT。
+ * 返回 layer(name,draw)：draw 里画的内容归入该图层。Acrobat、Illustrator 等按图层显示 / 选取。
+ */
+function pdfLayers(doc,page,names){
+  const ctx=doc.context
+  const refs={},tags={}
+  names.forEach((name,i)=>{
+    refs[name]=ctx.register(ctx.obj({Type:'OCG',Name:PDFHexStringOf(name),Intent:['View','Design']}))
+    tags[name]=`OC${i+1}`
+  })
+  const list=names.map(n=>refs[n])
+  doc.catalog.set(PDFName.of('OCProperties'),ctx.obj({
+    OCGs:list,
+    D:{Name:PDFHexStringOf('Layers'),BaseState:'ON',Order:list,ListMode:'AllPages'},
+  }))
+  const props={}
+  for(const n of names)props[tags[n]]=refs[n]
+  page.node.normalizedEntries().Resources.set(PDFName.of('Properties'),ctx.obj(props))
+  return (name,draw)=>{
+    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of(tags[name])]))
+    draw()
+    page.pushOperators(PDFOperator.of('EMC'))
+  }
+}
+const PDFHexStringOf=text=>PDFHexString.fromText(text)
+
 /** PDF export. vector_proof：页面缩放校样。engineering|manufacturing：标注实际 scale，不静默冒充 1:1。 */
 export async function toPdf(knife,options={}){
   const {
@@ -300,10 +334,14 @@ export async function toPdf(knife,options={}){
   const opts=normalizedOptions(options)
   const b=boundsOf(knife)
   const wMm=b.maxX-b.minX,hMm=b.maxY-b.minY
-  const margin=36
+  // PDF 的单位是 pt（1/72 英寸），刀版坐标是 mm：1 mm = 72/25.4 pt。页面按实际尺寸撑开，保证 1:1。
+  const PT_PER_MM=72/25.4
+  // 出血线在切线外侧：页边要留出它的宽度，否则出血线会被页面边缘裁掉
+  const bleedOutMm=opts.showBleed?Math.max(0,Number(knife.bleedEffective??((Number(knife.bleed)||0)+10))||0):0
+  const margin=36+bleedOutMm*PT_PER_MM
   const headerH=opts.showTitleBlock?54:0,footerH=opts.showTitleBlock?36:12
-  const pageW=Math.max(420,wMm+margin*2)
-  const pageH=Math.max(594,hMm+margin*2+headerH+footerH)
+  const pageW=Math.max(420,wMm*PT_PER_MM+margin*2)
+  const pageH=Math.max(594,hMm*PT_PER_MM+margin*2+headerH+footerH)
   const doc=await PDFDocument.create()
   const page=doc.addPage([pageW,pageH])
   const font=await doc.embedFont(StandardFonts.Helvetica)
@@ -314,13 +352,19 @@ export async function toPdf(knife,options={}){
   const d=knife.dimensions||{}
   const mat=knife.material?.id||'-'
   const title=`${knife.template||'mailer'} · ${displayNumber(d.length,opts.displayUnit)}x${displayNumber(d.width,opts.displayUnit)}x${displayNumber(d.height,opts.displayUnit)} ${opts.displayUnit} · ${mat}`
+  // 有图案时多一个 ARTWORK 图层，排在最下面；没有图案的文件保持原来的五个图层
+  const artworkPlan=options.artwork?planArtwork(knife,options.artwork):null
+  const hasArtwork=!!artworkPlan&&(artworkPlan.items.length>0||!!artworkPlan.background)
+  const layer=pdfLayers(doc,page,[...(hasArtwork?[ARTWORK_PDF_LAYER]:[]),'BLEED','TRIM','CREASE','DIM','TEXT'])
   if(opts.showTitleBlock){
-    page.drawText(pdfSafeLabel(title),{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22)})
+    layer('TEXT',()=>page.drawText(pdfSafeLabel(title),{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22)}))
   }
 
   const drawW=pageW-margin*2,drawH=pageH-margin*2-headerH-footerH
-  const scale=Math.min(drawW/Math.max(wMm,1),drawH/Math.max(hMm,1))
-  const scaleNote=Math.abs(scale-1)<1e-6?'scale=1:1':`PROOF scale=${scale.toFixed(4)} (not 1:1 print)`
+  // scale：每 mm 多少 pt。不放大，放得下就是 1:1
+  const scale=Math.min(PT_PER_MM,drawW/Math.max(wMm,1),drawH/Math.max(hMm,1))
+  const ratio=scale/PT_PER_MM
+  const scaleNote=Math.abs(ratio-1)<1e-6?'scale=1:1':`PROOF scale=${ratio.toFixed(4)} (not 1:1 print)`
   const sub=forAi
     ?`TRIM / CREASE / BLEED · DEMO · ${validationNote(knife)} · manufacturingReady=false`
     :tier==='engineering'
@@ -329,9 +373,9 @@ export async function toPdf(knife,options={}){
       ?`ENGINEERING PDF · ${scaleNote} · ${validationNote(knife)} · manufacturingReady=false`
       :`PROOF ONLY · ${scaleNote} · ${validationNote(knife)} · manufacturingReady=false`
   if(opts.showTitleBlock){
-    page.drawText(pdfSafeLabel(sub),{
+    layer('TEXT',()=>page.drawText(pdfSafeLabel(sub),{
       x:margin,y:pageH-44,size:8,font,color:rgb(.4,.45,.5)
-    })
+    }))
   }
 
   const ox=margin+(drawW-wMm*scale)/2
@@ -342,27 +386,41 @@ export async function toPdf(knife,options={}){
     y:oy+(b.maxY-y)*scale
   })
 
+  // drawSvgPath 以 (x,y) 为原点、y 向下画：原点放在页面左上角，路径坐标用「距页面顶边的距离」。
+  // 以前直接把 y 向上的页面坐标交给它，又没给原点，切线 / 压痕 / 出血线全部被画到了页面下方（不可见）。
+  const svgMap=(x,y)=>{const p=map(x,y);return {x:p.x,y:pageH-p.y}}
+
+  if(hasArtwork){
+    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of('OC1')]))
+    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[],outlineText:options.outlineText||null})
+    page.pushOperators(PDFOperator.of('EMC'))
+  }else if(artworkPlan&&options.artworkWarnings)options.artworkWarnings.push(...artworkPlan.skipped)
+
   for(const role of ['bleed','trim','crease']){
     if(role==='bleed'&&!opts.showBleed)continue
     const meta=LAYER_META[role]
     const c=hexToRgb01(meta.color)
     const color=rgb(c.r,c.g,c.b)
-    for(const path of pathsOf(knife,role)){
-      const pathData=pdfPathData(path,map,scale)
-      if(!pathData)continue
-      page.drawSvgPath(pathData,{
-        borderWidth:role==='trim'?1.2:role==='bleed'?0.8:0.9,
-        borderColor:color,
-        borderOpacity:role==='bleed'?0.65:1,
-        borderDashArray:role==='crease'?[6,4]:undefined,
-      })
-    }
+    layer(meta.dxf,()=>{
+      for(const path of pathsOf(knife,role)){
+        const pathData=pdfPathData(path,svgMap,scale)
+        if(!pathData)continue
+        page.drawSvgPath(pathData,{
+          x:0,y:pageH,
+          borderWidth:role==='trim'?1.2:role==='bleed'?0.8:0.9,
+          borderColor:color,
+          borderOpacity:role==='bleed'?0.65:1,
+          borderDashArray:role==='crease'?[6,4]:undefined,
+        })
+      }
+    })
   }
 
   if(opts.showDimensions){
     const anns=buildDimAnnotations(knife)
     const dimRgb=hexToRgb01(DIM_COLOR)
     const dimColor=rgb(dimRgb.r,dimRgb.g,dimRgb.b)
+    layer('DIM',()=>{
     for(const a of anns){
       for(const L of a.lines||[]){
         const p1=map(L.x1,L.y1),p2=map(L.x2,L.y2)
@@ -383,8 +441,9 @@ export async function toPdf(knife,options={}){
         page.drawText(label,{x:p.x-tw/2,y:p.y-size/3,size,font,color:dimColor})
       }
     }
+    })
   }
-  if(opts.showFaceNames){
+  if(opts.showFaceNames)layer('TEXT',()=>{
     for(const face of knife.faces||[]){
       const p=map(face.x+face.w/2,face.y+face.h/2)
       const label=faceNameLabel(face)
@@ -392,7 +451,7 @@ export async function toPdf(knife,options={}){
       const tw=font.widthOfTextAtSize(label,size)
       page.drawText(label,{x:p.x-tw/2,y:p.y-size/3,size,font,color:rgb(.35,.38,.42)})
     }
-  }
+  })
 
   const foot=tier==='engineering'
     ?`ENGINEERING CANDIDATE · NOT FOR PRODUCTION DIE · manufacturingReady=false`
@@ -400,9 +459,9 @@ export async function toPdf(knife,options={}){
     ?`ENGINEERING · ${scaleNote} · manufacturingReady=false`
     :`${DISCLAIMER_EN} / PROOF ONLY / manufacturingReady=false`
   if(opts.showTitleBlock){
-    page.drawText(pdfSafeLabel(foot),{
+    layer('TEXT',()=>page.drawText(pdfSafeLabel(foot),{
       x:margin,y:18,size:9,font:fontBold,color:rgb(.75,.15,.1)
-    })
+    }))
   }
 
   return doc.save()

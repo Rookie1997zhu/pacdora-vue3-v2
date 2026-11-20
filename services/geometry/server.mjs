@@ -3,12 +3,26 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {dirname, join} from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+// CJK / Hangul text in artwork is converted to curves for PDF and AI (Helvetica has Latin glyphs only)
+const {outlineText} = await import('./textOutline.mjs')
 const repoRoot = join(__dirname, '..', '..')
 const srcRoot = join(repoRoot, 'src')
 const geomSchemaRoot = join(repoRoot, 'packages', 'geometry-schema')
 
 const {createKnife} = await import(pathToFileURL(join(srcRoot, 'knife.js')).href)
 const {TEMPLATES} = await import(pathToFileURL(join(srcRoot, 'templates', 'index.js')).href)
+const {knifeFromPacdoraGeom} = await import(pathToFileURL(join(srcRoot, 'pacdoraGeomKnife.js')).href)
+const {readFileSync, existsSync} = await import('node:fs')
+
+// Fixed-snapshot products replay a captured reference dieline as is: `fixed-<num>` (shipping,
+// legacy) or `fixed-<category>-<num>`. The geometry file ships with the image under public/.
+const FIXED_TEMPLATE_RE = /^fixed-(?:(shipping|mailer|gift|square|folding|tray)-)?(\d+)$/
+function fixedGeomFile(templateId) {
+  const m = FIXED_TEMPLATE_RE.exec(templateId)
+  if (!m) return null
+  const file = join(repoRoot, 'public', `${m[1] || 'shipping'}-geom`, `${m[2]}.json`)
+  return existsSync(file) ? {file, sourceNum: m[2]} : null
+}
 const {toDxf, toSvgDieline, toPdf, toAi} = await import(
   pathToFileURL(join(srcRoot, 'exportDieline.js')).href
 )
@@ -16,6 +30,11 @@ const {
   geometryDocumentFromKnife,
   isTrustedUnit,
 } = await import(pathToFileURL(join(geomSchemaRoot, 'geometryDocument.mjs')).href)
+// Material profiles (kraft-250, flute-e, …) are what the workbench saves; the engine itself only
+// knows kraft|white|blue. Unknown ids are passed through so strict mode still rejects them.
+const {getMaterialProfile} = await import(
+  pathToFileURL(join(repoRoot, 'packages', 'geometry-engine', 'materialProfiles.js')).href
+)
 const {
   assertEngineeringDomain,
   checkEngineeringDomain,
@@ -34,9 +53,11 @@ const {
 const PORT = Number(process.env.PORT || 3100)
 const HOST = process.env.HOST || '0.0.0.0'
 const MAX_BODY_BYTES = 256 * 1024
+// Exports carry the design's artwork images (base64) so they can be drawn into the file
+const MAX_EXPORT_BODY_BYTES = 64 * 1024 * 1024
 const GEOMETRY_TIMEOUT_MS = 5_000
 
-function readJson(req) {
+function readJson(req, maxBytes = MAX_BODY_BYTES) {
   return new Promise((resolve, reject) => {
     const chunks = []
     let totalBytes = 0
@@ -44,10 +65,10 @@ function readJson(req) {
     req.on('data', (chunk) => {
       if (settled) return
       totalBytes += chunk.length
-      if (totalBytes > MAX_BODY_BYTES) {
+      if (totalBytes > maxBytes) {
         settled = true
         chunks.length = 0
-        const err = new Error('request body exceeds 256KB')
+        const err = new Error(`request body exceeds ${Math.round(maxBytes / 1024)}KB`)
         err.code = 'BODY_TOO_LARGE'
         err.status = 413
         reject(err)
@@ -107,7 +128,8 @@ function requireNumber(name, value) {
 /** Normalize request body once for validate + export. */
 function normalizeGeometryInput(body) {
   const templateId = String(body.template_id || body.templateId || '').trim()
-  if (!templateId || !TEMPLATES[templateId]) {
+  const fixed = templateId ? fixedGeomFile(templateId) : null
+  if (!templateId || (!TEMPLATES[templateId] && !fixed)) {
     const err = new Error('unknown template_id')
     err.code = 'UNKNOWN_TEMPLATE'
     throw err
@@ -124,12 +146,13 @@ function normalizeGeometryInput(body) {
     throw err
   }
   const fluteDirection = body.flute_direction || body.fluteDirection || 'L'
-  const materialId = body.material_id || body.materialId || 'kraft'
+  const rawMaterialId = body.material_id || body.materialId || 'kraft'
+  const materialId = getMaterialProfile(rawMaterialId)?.engineMaterialId || rawMaterialId
   const params = body.params && typeof body.params === 'object' ? body.params : {}
   // Multi-piece templates (lid + base, inserts…): which piece to generate. Unknown ids are rejected.
   const pieceRaw = body.piece_id ?? body.pieceId ?? null
   const pieceId = pieceRaw == null || pieceRaw === '' ? null : String(pieceRaw)
-  if (pieceId != null) {
+  if (pieceId != null && !fixed) {
     const pieces = Array.isArray(TEMPLATES[templateId].pieces) ? TEMPLATES[templateId].pieces : []
     if (!pieces.some((p) => p.id === pieceId)) {
       const err = new Error('unknown piece_id')
@@ -139,7 +162,7 @@ function normalizeGeometryInput(body) {
     }
   }
   const unitConfidence = String(body.unit_confidence || body.unitConfidence || 'trusted')
-  const template = TEMPLATES[templateId]
+  const template = TEMPLATES[templateId] || {}
   const limits = template.limits || {}
   for (const [key, val, label] of [
     ['length', lengthMm, 'length_mm'],
@@ -158,6 +181,7 @@ function normalizeGeometryInput(body) {
   }
   return {
     templateId,
+    fixed,
     lengthMm,
     widthMm,
     heightMm,
@@ -182,6 +206,28 @@ function normalizeGeometryInput(body) {
 
 /** Single knife build shared by validate and export. */
 function generateOnce(input) {
+  if (input.fixed) {
+    // Replay of the captured reference dieline (size is locked; all layers on one sheet)
+    const raw = JSON.parse(readFileSync(input.fixed.file, 'utf8'))
+    const knife = knifeFromPacdoraGeom(raw, {
+      sourceNum: input.fixed.sourceNum,
+      label: input.templateId,
+      length: input.lengthMm,
+      width: input.widthMm,
+      height: input.heightMm,
+      thickness: input.thicknessMm,
+    })
+    // Windows and hang holes are kept apart from the outline in the replay knife; exported files
+    // need them on the cut layer.
+    const holeCuts = (knife.holes || []).map((h) => h.pathCommands).filter((c) => Array.isArray(c) && c.length)
+    if (holeCuts.length) {
+      const trim = [...(knife.paths?.trim || []), ...holeCuts]
+      knife.paths = {...knife.paths, trim}
+      if (knife.layers?.trim) knife.layers = {...knife.layers, trim: {...knife.layers.trim, paths: trim}}
+    }
+    const doc = geometryDocumentFromKnife(knife, {...input, source: 'pacdora-geom', lockedSample: true})
+    return {knife, doc, input}
+  }
   const knife = createKnife({
     templateId: input.templateId,
     length: input.lengthMm,
@@ -330,6 +376,13 @@ async function exportDieline(body) {
     unit_confidence: doc.provenance?.unitConfidence || input.unitConfidence,
     unit_trusted: isTrustedUnit(doc.provenance?.unitConfidence || input.unitConfidence),
   }
+  // A resized dieline whose panels came apart is not exported at any tier, proofs included
+  const outlineBroken = (knife.validation?.checks || []).find((c) => c.id === 'OUTLINE_BROKEN' && !c.ok)
+  if (outlineBroken) {
+    const err = new Error(outlineBroken.message || 'dieline outline is broken at this size')
+    err.code = 'OUTLINE_BROKEN'
+    throw err
+  }
   if (qualityTier === 'manufacturing' || qualityTier === 'engineering') {
     if (!validated.ok) {
       const err = new Error('geometry validation failed')
@@ -349,10 +402,16 @@ async function exportDieline(body) {
   }
   const base = `${input.templateId}-${input.lengthMm}x${input.widthMm}x${input.heightMm}`
   const options = normalizeExportOptions(body.options)
+  // Artwork placed in the design editor. DXF is a cutting file and stays line-only.
+  const artwork = body.artwork && typeof body.artwork === 'object' && !Array.isArray(body.artwork) ? body.artwork : null
+  const artworkImages = body.artwork_images && typeof body.artwork_images === 'object' ? body.artwork_images : {}
+  const artworkWarnings = Array.isArray(body.artwork_warnings) ? body.artwork_warnings.map(String) : []
+  const drawArtwork = !!artwork && format !== 'dxf'
   const exportOpts = {
     qualityTier: qualityTier || 'vector_proof',
     includeDims: options.showDimensions ?? true,
     ...options,
+    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings, outlineText} : {}),
   }
   let mime
   let filename
@@ -411,6 +470,9 @@ async function exportDieline(body) {
       exporter_version: 'boxcraft.export.v1',
       geometry_document_schema: doc.schema,
       qualification_status: qualityTier === 'engineering' ? 'engineering_review' : null,
+      artwork_layers: Array.isArray(artwork?.layers) ? artwork.layers.length : 0,
+      artwork_included: drawArtwork && Array.isArray(artwork?.layers) && artwork.layers.length > 0,
+      artwork_warnings: [...new Set(artworkWarnings)].slice(0, 20),
     },
   }
 }
@@ -521,7 +583,7 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, {code: 'OK', data})
     }
     if (req.method === 'POST' && req.url === '/export') {
-      const body = await readJson(req)
+      const body = await readJson(req, MAX_EXPORT_BODY_BYTES)
       const data = await withGeometryTimeout(() => exportDieline(body))
       return send(res, 200, {code: 'OK', data})
     }

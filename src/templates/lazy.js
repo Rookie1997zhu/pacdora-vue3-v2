@@ -10,6 +10,8 @@
 import {TEMPLATES,registerTemplate} from './index.js'
 import {createSpecTemplate} from './spec/specTemplate.js'
 import SPEC_INDEX from '../catalog/structureSpecIndex.js'
+import SAMPLED_INDEX from '../catalog/sampledIndex.js'
+import {createSampledTemplate,SAMPLED_PREFIX,isSampledTemplateId} from './sampled/sampledTemplate.js'
 
 const SPEC_PREFIX='spec-'
 /** @type {Map<string, Promise<object|null>>} */
@@ -36,6 +38,7 @@ function specUrl(code,hash){
 export async function ensureTemplate(id){
   if(!id)return null
   if(TEMPLATES[id])return TEMPLATES[id]
+  if(isSampledTemplateId(id))return ensureSampled(id)
   if(!isSpecTemplateId(id))return null
   const code=id.slice(SPEC_PREFIX.length)
   const hash=SPEC_INDEX[code]
@@ -48,6 +51,35 @@ export async function ensureTemplate(id){
       const spec=await res.json()
       if(!spec||spec.code!==code||!Array.isArray(spec.faces))return null
       return registerTemplate(createSpecTemplate(spec))
+    }catch{
+      return null
+    }finally{
+      inflight.delete(id)
+    }
+  })()
+  inflight.set(id,job)
+  return job
+}
+
+/** 「按尺寸插值」模板：取 public/sampled/<类目>-<编号>.json 并注册 */
+function ensureSampled(id){
+  const key=id.slice(SAMPLED_PREFIX.length)
+  const entry=SAMPLED_INDEX[key]
+  if(!entry)return Promise.resolve(null)
+  const hash=typeof entry==='string'?entry:entry.hash
+  const quality=typeof entry==='string'?'verified':entry.quality
+  if(inflight.has(id))return inflight.get(id)
+  const job=(async()=>{
+    try{
+      let base='/'
+      try{base=(import.meta.env&&import.meta.env.BASE_URL)||'/'}catch{base='/'}
+      const res=await fetch(`${base.replace(/\/?$/,'/')}sampled/${encodeURIComponent(key)}.json?v=${hash}`,{credentials:'omit'})
+      if(!res.ok)return null
+      const data=await res.json()
+      if(!data||`${data.cat}-${data.num}`!==key||!data.base)return null
+      // 采样范围之外要用到的参数化模板也一并备好
+      if(data.fallback)await ensureTemplate(data.fallback)
+      return registerTemplate(createSampledTemplate({...data,quality}))
     }catch{
       return null
     }finally{

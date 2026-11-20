@@ -343,7 +343,6 @@
 100,折叠盒,150040,FEFCO 0421 flip top mailer box,AircraftFlip,close,ok,1,15,299,200,60,1.5,/workbench/import-folding-150040,import-folding-150040
 100,折叠盒,150100,Self-locking angled front mailer box,AircraftWithTrapezoidP1,close,ok,1,29,285,198,58,1.5,/workbench/import-folding-150100,import-folding-150100
 100,折叠盒,150111,Flip top boxes lock inserts mailer mockup 150111,LockThePlaneBox,close,ok,1,27,300,200,60,1.5,/workbench/import-folding-150111,import-folding-150111
-100,折叠盒,150120,Gift mailer box with sleeve,EnvelopeAircraftBoxP1,close,ok,1,23,295.4,199.4,59.4,0.5,/workbench/import-folding-150120,import-folding-150120
 100,折叠盒,150160,Flip top mailer box,AircraftWithHook,close,ok,1,20,298,200,60,1.5,/workbench/import-folding-150160,import-folding-150160
 100,折叠盒,150170,Flip top boxes rectangular inserts mailer mockup 150170,AircraftWithRecBase,close,ok,1,25,298,200,60,1.5,/workbench/import-folding-150170,import-folding-150170
 100,折叠盒,150190,Flip top boxes rope handles tuck front box mockup 150190,AircraftWithHandrope,close,ok,1,24,299,200,60,1.5,/workbench/import-folding-150190,import-folding-150190
@@ -477,13 +476,11 @@
 90,方形盒,110680,Square shipping box,BottomInsertingBoxWithHalfSelfLockingUpperCover,close,ok,1,0,150,100,100,0.5,/workbench/import-square-110680,import-square-110680
 90,方形盒,120320,Square food tray box,InterlockingDiagonalLockingDiscBox,close,ok,1,0,200,200,50,1.5,/workbench/import-square-120320,import-square-120320
 90,方形盒,123040,Hot dog tray box,ReverseFoldingDiscBox,close,ok,1,0,120,60,30,0.5,/workbench/import-square-123040,import-square-123040
-90,方形盒,128130,Flip top coffee box,FoldingAngleFlipDrawerBoxP1,close,ok,1,0,118.4,98.4,49.4,0.5,/workbench/import-square-128130,import-square-128130
 90,方形盒,15001101,Square mailer box,AircraftNew,close,ok,1,0,135,148,45,1.5,/workbench/import-square-15001101,import-square-15001101
 90,方形盒,15001102,Square box packaging,AircraftNewThree,close,ok,1,0,135,148,45,1.5,/workbench/import-square-15001102,import-square-15001102
 90,礼盒,110090,Gift box packaging,CoverHeartshapedDoubleSocketBox,close,ok,1,0,163.4,163.4,268.4,0.5,/workbench/import-gift-110090,import-gift-110090
 90,礼盒,112031,Christmas eve gift  box packaging,IsomerismBuckleCandyBox,close,ok,1,0,79.4,79.4,119.4,0.5,/workbench/import-gift-112031,import-gift-112031
 90,礼盒,112060,Christmas fruit gift box packaging,HeartshapedDoubleSocketSelflockingBottomBox,close,ok,1,0,119.4,119.4,118.4,0.5,/workbench/import-gift-112060,import-gift-112060
-90,礼盒,128130,Flip top coffee box,FoldingAngleFlipDrawerBoxP1,close,ok,1,0,118.4,98.4,49.4,0.5,/workbench/import-gift-128130,import-gift-128130
 90,礼盒,156410,Buckle lock bottom carton gift mailer box,InterlockingPluginLockingBufferFlapBox,close,ok,1,0,125,120,80,1.5,/workbench/import-gift-156410,import-gift-156410
 90,礼盒,160031,Shoe packaging box,HalffoldedBottomWithoutTraceBuckleBottomWorld,close,ok,1,0,300,200,150,1.5,/workbench/import-gift-160031,import-gift-160031
 90,礼盒,188300,Polygonal gift box mockup,BallGiftBox,close,ok,1,0,80,80,81.1,0.5,/workbench/import-gift-188300,import-gift-188300
@@ -660,6 +657,7 @@
 70,托盘盒,171181,Display tray box,HalfSealedSidelatchTransportBox,close,differs,1,21,400,300,80,1.5,/workbench/import-tray-171181,import-tray-171181
 70,折叠盒,128011,Folding display base box,UnilateralWidenedBufferWallBox,close,differs,1,10,138.4,258.4,59,0.5,/workbench/import-folding-128011,import-folding-128011
 70,折叠盒,150112,Flip top box with lock mockup 150112,TopCoverLockThePlaneBox,close,differs,1,20,288,198,58,1.5,/workbench/import-folding-150112,import-folding-150112
+70,折叠盒,150120,Gift mailer box with sleeve,EnvelopeAircraftBoxP1,close,differs,1,23,295.4,199.4,59.4,0.5,/workbench/import-folding-150120,import-folding-150120
 70,折叠盒,156245,Pizza box,HexagonalFingerLockPizzaFlipBox,close,differs,1,20,256.6,254.1,29,1.5,/workbench/import-folding-156245,import-folding-156245
 70,折叠盒,156250,Dessert box display,FourfoldLatchBufferFlapBox,close,differs,1,22,180,90,50,0.5,/workbench/import-folding-156250,import-folding-156250
 70,折叠盒,180190,Trapezoid tuck top box,TrapezoidalInsertLockBox,close,differs,1,25,120,60,160,0.5,/workbench/import-folding-180190,import-folding-180190
@@ -671,8 +669,10 @@
 64,托盘盒,161121,Polygonal display tray box,SimpleShapedHexagonalTrayBox,close,differs,1,4,160,50,45,0.5,/workbench/import-tray-161121,import-tray-161121
 63,礼盒,188271,Twist wrap candy packaging,ChristmasCandyGiftBox,close,differs,1,3,99.4,99.4,199.4,0.5,/workbench/import-gift-188271,import-gift-188271
 60,方形盒,12808001,Square gift sleeve box,DrawerCardboardBox,close,n/a,2,18,97.4,97.4,69.4,0.5,/workbench/import-square-12808001,import-square-12808001
+60,方形盒,128130,Flip top coffee box,FoldingAngleFlipDrawerBoxP1,close,differs,1,0,118.4,98.4,49.4,0.5,/workbench/import-square-128130,import-square-128130
 60,方形盒,16016001,Square board game box with lid,FourFoldCoverBox,close,n/a,2,12,275.76,275.76,89.7,0.5,/workbench/import-square-16016001,import-square-16016001
 60,礼盒,12808001,Square gift sleeve box,DrawerCardboardBox,close,n/a,2,18,97.4,97.4,69.4,0.5,/workbench/import-gift-12808001,import-gift-12808001
+60,礼盒,128130,Flip top coffee box,FoldingAngleFlipDrawerBoxP1,close,differs,1,0,118.4,98.4,49.4,0.5,/workbench/import-gift-128130,import-gift-128130
 60,礼盒,160160,Board game box with lid,FourFoldCoverBox,close,n/a,2,13,350,250,50,1.5,/workbench/import-gift-160160,import-gift-160160
 60,礼盒,16016001,Square board game box with lid,FourFoldCoverBox,close,n/a,2,12,275.76,275.76,89.7,0.5,/workbench/import-gift-16016001,import-gift-16016001
 60,礼盒,510340,Round jewelry gift box,ConsumerTwelve,close,differs,1,0,95,100,100,1.5,/workbench/import-gift-510340,import-gift-510340

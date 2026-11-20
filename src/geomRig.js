@@ -4,7 +4,7 @@
  */
 import * as THREE from 'three'
 import {foldRotation} from './foldSim.js'
-import {anglesAtProgress,translationsAtProgress,translatedFaces} from './foldStages.js'
+import {anglesAtProgress,translationsAtProgress,translatedFaces,spinsAtProgress} from './foldStages.js'
 
 const ZERO=Object.freeze({x:0,y:0,z:0})
 
@@ -49,11 +49,288 @@ function hingePivot(face,parent){
   return {x:parent.x+parent.w,y:pcy}
 }
 
+const IDENTITY_Q=new THREE.Quaternion()
+/** 装配偏移超过该层自身尺寸这么多倍，视为「停放在场外」（样本里停放的都 ≥4.9 倍，真实装配偏移都 ≤2.1 倍） */
+const FAR_FACTOR=3.5
+const ORIGIN=new THREE.Vector3()
+const SCRATCH_SCALE=new THREE.Vector3()
+const SCRATCH_OFFSET=new THREE.Vector3()
+
+/**
+ * 多层盒的装配。官方每层给出 transform（position + 欧拉角 rotate），作用在该层自己的刀版坐标
+ * (x, y, 0) 上，得到 Y 轴朝上的成品坐标。本骨架里刀版坐标是 (x, -y, -z)（绕 X 转 180°），
+ * 且各层在合并版面上平移过 (piece.x, piece.y)，所以每层的目标矩阵为
+ *   C · Rx(90°) · T(position) · R(rotate) · T(-piece.x, -piece.y, 0) · Rx(180°)
+ * 其中 Rx(90°) 让成品的顶面朝向镜头，C 把成品移到版面中心（镜头不用跟着跑）。
+ */
+function assemblyGroups(knife,root){
+  const pieces=(knife?.sheetPieces||[]).filter(p=>p?.transform)
+  if(pieces.length<2)return {groupAt:()=>null,pieceAt:()=>null,apply:()=>{},verify:()=>false}
+  // 灰板等没有给装配位姿的层（position / rotate 全为 0）：成品里被面纸包在里面，官方也不单独摆放。
+  // 展开时照常平铺显示，开始装配后隐藏。
+  const placed=p=>{
+    if(p.inert)return false
+    const t=p.transform
+    // 官方把不参与成品展示的层挪到很远处（x = 10 倍宽度、12300 等）
+    const reach=FAR_FACTOR*Math.max(Number(p.w)||0,Number(p.h)||0,1)
+    if(['x','y','z'].some(k=>Math.abs(Number(t.position[k])||0)>reach))return false
+    return ['x','y','z'].some(k=>Math.abs(Number(t.position[k])||0)>1e-9||Math.abs(Number(t.rotate[k])||0)>1e-9)
+  }
+  const anyPlaced=pieces.some(placed)
+  const sheetCenter=new THREE.Vector3((Number(knife.totalX)||0)/2,-(Number(knife.totalY)||0)/2,0)
+  const center=new THREE.Matrix4().makeTranslation(sheetCenter.x,sheetCenter.y,0)
+  // 成品坐标 Y 朝上 → 场景里朝向镜头一侧（+Z），从上方看到盒子
+  const up=new THREE.Matrix4().makeRotationX(Math.PI/2)
+  const flip=new THREE.Matrix4().makeRotationX(Math.PI)
+  const upOnly=new THREE.Matrix4().makeRotationX(Math.PI/2)
+  const items=pieces.map(p=>{
+    const group=new THREE.Group()
+    root.add(group)
+    const t=p.transform
+    const m=new THREE.Matrix4()
+      .multiply(center)
+      .multiply(up)
+      .multiply(new THREE.Matrix4().makeTranslation(Number(t.position.x)||0,Number(t.position.y)||0,Number(t.position.z)||0))
+      .multiply(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Number(t.rotate.x)||0,Number(t.rotate.y)||0,Number(t.rotate.z)||0,'XYZ')))
+      .multiply(new THREE.Matrix4().makeTranslation(-p.x,-p.y,0))
+      .multiply(flip)
+    const pos=new THREE.Vector3(),quat=new THREE.Quaternion(),scl=new THREE.Vector3()
+    m.decompose(pos,quat,scl)
+    // 官方 3D 结果对照得到的逐步位置修正（官方成品坐标）→ 场景坐标里的位移
+    const refOffsets=knife.assemblyRef?.layers?.[p.id]
+    const stageOffsets=Array.isArray(refOffsets)
+      ?refOffsets.map(o=>new THREE.Vector3(o[0],o[1],o[2]).applyMatrix4(upOnly))
+      :null
+    return {piece:p,group,pos,quat,stageOffsets,loose:anyPlaced&&!placed(p)}
+  })
+  let enabled=true
+  const at=(x,y)=>items.find(it=>x>=it.piece.x-1e-6&&x<=it.piece.x+it.piece.w+1e-6&&y>=it.piece.y-1e-6&&y<=it.piece.y+it.piece.h+1e-6)
+  return {
+    /** 场景坐标 → 官方成品坐标（Y 朝上，mm）：用于与官方 3D 结果对照 */
+    toReference:new THREE.Matrix4().multiplyMatrices(center,up).invert(),
+    items,
+    pieceAt(x,y){return at(x,y)?.piece||null},
+    groupAt(x,y){
+      const hit=items.find(it=>x>=it.piece.x-1e-6&&x<=it.piece.x+it.piece.w+1e-6&&y>=it.piece.y-1e-6&&y<=it.piece.y+it.piece.h+1e-6)
+      return hit?hit.group:null
+    },
+    /**
+     * 自检：折好并装配后，可见部分的包围盒应与官方标称的成品外尺寸一致（各边 0.9–1.25 倍）。
+     * 对不上说明这款盒子的装配用到了尚未支持的动作（整件翻面、开盖展示姿态、抽屉拉出等），
+     * 此时关闭装配，退回各片分开折叠的散件视图，避免显示一堆错位的纸板。
+     */
+    verify(applyAll){
+      // 有官方对照数据的盒型：对照时已确认过吻合程度
+      if(knife.assemblyRef)return knife.assemblyRef.ok!==false
+      const o=knife.assemblyOuter
+      const ref=o?[o.L,o.W,o.H].map(Number).sort((a,b)=>b-a):null
+      let ok=false
+      if(ref&&ref[2]>0){
+        applyAll(1)
+        root.updateMatrixWorld(true)
+        const box=new THREE.Box3()
+        root.traverse(obj=>{
+          if(!obj.isMesh)return
+          for(let p=obj;p;p=p.parent)if(p.visible===false)return
+          box.expandByObject(obj)
+        })
+        if(!box.isEmpty()){
+          const sz=box.getSize(new THREE.Vector3())
+          const dims=[sz.x,sz.y,sz.z].sort((a,b)=>b-a)
+          ok=dims.every((d,i)=>d/ref[i]>0.9&&d/ref[i]<1.25)
+        }
+      }
+      if(!ok){
+        enabled=false
+        for(const it of items){
+          it.group.visible=true
+          it.group.scale.setScalar(1)
+          it.group.position.set(0,0,0)
+          it.group.quaternion.identity()
+        }
+      }
+      return ok
+    },
+    apply(k,u=0){
+      if(!enabled)return
+      for(const it of items){
+        if(it.loose){
+          // 隐藏并缩到成品中心：包围盒（取景）不再把它算进去
+          const flat=k<0.02
+          it.group.visible=flat
+          it.group.scale.setScalar(flat?1:1e-4)
+          it.group.position.copy(flat?ORIGIN:sheetCenter)
+          continue
+        }
+        it.group.position.lerpVectors(ORIGIN,it.pos,k)
+        if(it.stageOffsets){
+          // u：以「步」为单位的进度；在相邻两步的修正量之间插值
+          const last=it.stageOffsets.length-1
+          const i=Math.max(0,Math.min(last,Math.floor(u)))
+          const j=Math.min(last,i+1)
+          const f=smoothstep(u-i)
+          it.group.position.addScaledVector(SCRATCH_OFFSET.lerpVectors(it.stageOffsets[i],it.stageOffsets[j],f),k)
+        }
+        it.group.quaternion.slerpQuaternions(IDENTITY_Q,it.quat,k)
+      }
+    }
+  }
+}
+
+/**
+ * 圆筒盒：一个圆片 + 两条长度等于圆周（π·直径）的矩形（筒身、盖沿）。
+ * 这类盒型来源不给折叠步骤（官方用现成模型展示），平面折叠也折不出圆柱，单独处理。
+ * @returns {{disc:object,body:object,rim:object}|null}
+ */
+export function detectTube(knife){
+  const faces=knife?.faces||[]
+  if(faces.length!==3)return null
+  if((knife?.foldStages||[]).length)return null
+  const isDisc=f=>Array.isArray(f.outline)&&f.outline.length>=16&&f.w>1&&Math.abs(f.w-f.h)<=0.02*f.w
+  const disc=faces.find(isDisc)
+  if(!disc)return null
+  const rects=faces.filter(f=>f!==disc&&!isDisc(f)&&(!Array.isArray(f.outline)||f.outline.length<=5))
+  if(rects.length!==2)return null
+  const circ=Math.PI*disc.w
+  if(!rects.every(f=>Math.abs(f.w-circ)<=0.03*circ))return null
+  // 盖沿与圆片相连（或两条里较矮的一条），另一条是筒身
+  const linked=rects.find(f=>disc.parent===f.name||f.parent===disc.name)
+  const rim=linked||(rects[0].h<=rects[1].h?rects[0]:rects[1])
+  const body=rects.find(f=>f!==rim)
+  return {disc,body,rim}
+}
+
+const TUBE_SEGMENTS=72
+
+/** 可弯曲的条带：外表面（+z，印刷面）与内表面两层网格，UV 与平板面片一致（面片局部 mm 坐标） */
+function tubeStripGeometry(w,h,T){
+  const n=TUBE_SEGMENTS,cols=n+1
+  const flat=new Float32Array(cols*2*2*3),uv=new Float32Array(cols*2*2*2),index=[]
+  for(let layer=0;layer<2;layer++){
+    for(let i=0;i<cols;i++){
+      const u=-w/2+w*i/n
+      for(let j=0;j<2;j++){
+        const v=j?h/2:-h/2,k=(layer*cols+i)*2+j
+        flat.set([u,v,layer?T:0],k*3)
+        uv.set([u,v],k*2)
+      }
+    }
+    for(let i=0;i<n;i++){
+      const a=(layer*cols+i)*2,b=a+1,c=a+2,d=a+3
+      // 外层朝 +z，内层朝 -z
+      if(layer)index.push(a,c,b,b,c,d)
+      else index.push(a,b,c,b,d,c)
+    }
+  }
+  const geo=new THREE.BufferGeometry()
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(flat),3))
+  geo.setAttribute('uv',new THREE.BufferAttribute(uv,2))
+  geo.setIndex(index)
+  geo.userData.flat=flat
+  geo.userData.w=w
+  return geo
+}
+
+/** 把条带绕竖直轴卷起：k=0 平铺，k=1 卷成整圆。朝 -z 卷，印刷面（+z）在圆柱外侧 */
+function bendTubeStrip(geo,k){
+  const flat=geo.userData.flat,w=geo.userData.w,pos=geo.attributes.position
+  const theta=2*Math.PI*Math.max(0,Math.min(1,k))
+  for(let i=0;i<pos.count;i++){
+    const u=flat[i*3],v=flat[i*3+1],z0=flat[i*3+2]
+    if(theta<1e-5){pos.setXYZ(i,u,v,z0);continue}
+    const r=w/theta,phi=u*theta/w
+    pos.setXYZ(i,(r+z0)*Math.sin(phi),v,-r+(r+z0)*Math.cos(phi))
+  }
+  pos.needsUpdate=true
+  geo.computeVertexNormals()
+  geo.computeBoundingBox()
+  geo.computeBoundingSphere()
+}
+
+function buildTubeRig(knife,tube,{makeMesh,zOff=0}){
+  const root=new THREE.Group()
+  const nodes=new Map()
+  const R=tube.body.w/(2*Math.PI)
+  const strips=[]
+  for(const f of [tube.body,tube.rim,tube.disc]){
+    const mesh=makeMesh(f)
+    const anchor=new THREE.Group(),mover=new THREE.Group()
+    anchor.add(mover);mover.add(mesh);root.add(anchor)
+    anchor.position.set(f.x+f.w/2,-(f.y+f.h/2),0)
+    mesh.position.set(0,0,zOff)
+    if(f!==tube.disc){
+      mesh.geometry?.computeBoundingBox?.()
+      const bb=mesh.geometry?.boundingBox
+      const T=bb?Math.max(0,bb.max.z-bb.min.z):0
+      mesh.geometry?.dispose?.()
+      mesh.geometry=tubeStripGeometry(f.w,f.h,T)
+      // 弧面上按面片整体平滑着色，否则每一小段是一个平面
+      for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material]){
+        if(m&&'flatShading' in m){m.flatShading=false;m.needsUpdate=true}
+        if(m&&'side' in m)m.side=THREE.DoubleSide
+      }
+      strips.push(mesh)
+    }
+    nodes.set(f.name,{name:f.name,anchor,mover,mesh,parent:f.parent||null,axis:null,side:f.side||null,finalRad:0,shift:ZERO})
+  }
+  const disc=nodes.get(tube.disc.name)
+  // 圆片：从版面位置移到盖沿上口，同时由平放翻成水平（印刷面朝上）
+  const cx=tube.rim.x+tube.rim.w/2
+  const discFrom=new THREE.Vector3(tube.disc.x+tube.disc.w/2,-(tube.disc.y+tube.disc.h/2),0)
+  const rimAbove=tube.rim.y<=tube.body.y
+  // 版面上盖沿与筒身之间留有间隔：合拢时盖沿落到筒身上口
+  const gap=Math.max(0,rimAbove?tube.body.y-(tube.rim.y+tube.rim.h):tube.rim.y-(tube.body.y+tube.body.h))
+  const drop=rimAbove?-gap:gap
+  const rimNode=nodes.get(tube.rim.name)
+  const rimY=rimNode.anchor.position.y
+  const capY=rimAbove?tube.rim.y:tube.rim.y+tube.rim.h
+  const discTo=new THREE.Vector3(cx,-capY+drop,-R)
+  const capTurn=rimAbove?-Math.PI/2:Math.PI/2
+  function apply(t){
+    const k=smoothstep(Math.max(0,Math.min(1,Number(t)||0)))
+    for(const mesh of strips)bendTubeStrip(mesh.geometry,k)
+    rimNode.anchor.position.y=rimY+drop*k
+    disc.anchor.position.lerpVectors(discFrom,discTo,k)
+    disc.anchor.rotation.set(capTurn*k,0,0)
+  }
+  apply(0)
+  const assembly={items:[],toReference:new THREE.Matrix4(),pieceAt:()=>null,groupAt:()=>null,apply(){},verify:()=>true}
+  return {root,nodes,apply,stageCount:0,assembled:true,assembly,tube:true}
+}
+
 /**
  * @param {object} knife geomMode knife（含 faces / hinges / foldStages）
  * @param {{makeMesh:(face:object)=>THREE.Object3D, zOff?:number}} opts
  */
-export function buildGeomRig(knife,{makeMesh,zOff=0}){
+const stagePick=new WeakMap()
+/**
+ * 同一步里一个面有多条转动指令时有两种读法（见 pacdoraGeomKnife 的 foldStagesAlt）。
+ * 各折一遍，合盖外形与标称外尺寸（三边排序后逐边比）更接近的那种胜出；差不多就保持原读法。
+ */
+export function pickFoldStages(knife){
+  if(!knife?.foldStagesAlt||!knife.refOuter)return knife?.foldStages
+  if(stagePick.has(knife))return stagePick.get(knife)
+  const ref=[knife.refOuter.L,knife.refOuter.W,knife.refOuter.H].sort((a,b)=>b-a)
+  const proxy=f=>new THREE.Mesh(new THREE.BoxGeometry(Math.max(f.w,.1),Math.max(f.h,.1),.1))
+  const errOf=stages=>{
+    try{
+      const rig=buildGeomRig({...knife,foldStages:stages,foldStagesAlt:null},{makeMesh:proxy,zOff:0,verifyAssembly:false})
+      rig.apply(1)
+      rig.root.updateMatrixWorld(true)
+      const s=new THREE.Box3().setFromObject(rig.root).getSize(new THREE.Vector3())
+      const d=[s.x,s.y,s.z].sort((a,b)=>b-a)
+      return Math.max(...d.map((v,i)=>Math.abs(v-ref[i])/Math.max(ref[i],1)))
+    }catch{return Infinity}
+  }
+  const pick=errOf(knife.foldStagesAlt)<errOf(knife.foldStages)-0.02?knife.foldStagesAlt:knife.foldStages
+  stagePick.set(knife,pick)
+  return pick
+}
+
+export function buildGeomRig(knife,{makeMesh,zOff=0,verifyAssembly=true}){
+  const tube=detectTube(knife)
+  if(tube)return buildTubeRig(knife,tube,{makeMesh,zOff})
+  if(knife?.foldStagesAlt)knife={...knife,foldStages:pickFoldStages(knife),foldStagesAlt:null}
   const root=new THREE.Group()
   const faces=knife?.faces||[]
   const byName=Object.fromEntries(faces.map(f=>[f.name,f]))
@@ -62,6 +339,9 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
 
   const stages=Array.isArray(knife?.foldStages)?knife.foldStages:[]
   const moved=translatedFaces(stages)
+
+  // 多层盒：每层一个分组，折好后按官方装配位姿拼成完整的盒子（展开时仍平铺在版面上）
+  const assembly=assemblyGroups(knife,root)
 
   /** 面在刀版坐标中的累计平移；无自身平移步则随父面 */
   function worldMoves(trMap){
@@ -79,6 +359,34 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
   }
   const finalMove=worldMoves(translationsAtProgress(stages,1))
 
+  /**
+   * 这个面在动画里是否绕过「主折线以外」的折线转（例如防尘角片：先随上面的锁舌折，再绕与端板相连的那条线转）。
+   * 是的话返回它的全部转动步骤（按阶段），由 apply 逐步复合；否则返回 null，沿用「同一根轴上角度累加」。
+   * 只处理各步「一次只绕一条折线」的情况（实测 156280 / 156281：修正后合盖尺寸与标称外尺寸一致）。
+   */
+  function multiFoldSteps(face,name){
+    const main=face.hingeLine
+    if(!Array.isArray(main)||main.length!==2)return null
+    const [[ax,ay],[bx,by]]=main
+    const len=Math.hypot(bx-ax,by-ay)
+    if(len<1e-6)return null
+    const off=(x,y)=>Math.abs((x-ax)*(by-ay)-(y-ay)*(bx-ax))/len
+    let other=false
+    const perStage=stages.map(stage=>(stage||[]).filter(st=>st?.child===name&&Number.isFinite(Number(st.rotate))))
+    for(const steps of perStage){
+      const lines=new Set()
+      for(const st of steps){
+        const away=Array.isArray(st.line)&&(off(st.line[0][0],st.line[0][1])>0.5||off(st.line[1][0],st.line[1][1])>0.5)
+        lines.add(away?st.fold:'main')
+        if(away)other=true
+      }
+      // 同一步里同时绕两条折线转的面（两三片之间的连角片）是闭合连杆，不能当成先后两次刚体转动：
+      // 这类仍按原来的方式处理，等弄清官方的算法再说
+      if(lines.size>1)return null
+    }
+    return other?perStage:null
+  }
+
   function attach(name){
     if(nodes.has(name))return nodes.get(name)
     const f=byName[name]
@@ -95,7 +403,8 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
     if(!parentNode){
       anchor.position.set(cx,-cy,0)
       mesh.position.set(0,0,zOff)
-      root.add(anchor)
+      const home=assembly.groupAt(cx,cy)||root
+      home.add(anchor)
       node={name,anchor,mover,mesh,parent:null,axis:null,side:null,finalRad:0,shift:ZERO}
     }else{
       const pcx=parentFace.x+parentFace.w/2,pcy=parentFace.y+parentFace.h/2
@@ -107,11 +416,57 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
       const h=hingeBy[name]
       const deg=Number.isFinite(h?.angle)?h.angle:-90
       node={name,anchor,mover,mesh,parent:f.parent,axis:hingeAxis(f,h),side:f.side,finalRad:deg*Math.PI/180,shift}
+      node.basePos=anchor.position.clone()
+      node.pivot=p
+      node.multi=multiFoldSteps(f,name)
     }
     nodes.set(name,node)
     return node
   }
   faces.forEach(f=>attach(f.name))
+
+  // 与官方 3D 结果对照得出：翻转之后的平移沿翻转后的自身坐标轴进行
+  const mode={frame:'local',pivot:'center',...(knife?.asmMode||{})}
+  /**
+   * 带整件翻转的面：把它的平移步与翻转步按动画顺序复合成一个位姿（相对该面展开时的中心）。
+   * frame：平移沿图层坐标轴（layer）还是沿翻转后的自身坐标轴（local）
+   * pivot：翻转绕自身当前中心（center）/ 展开时的中心（start）/ 所在图层的原点（origin）
+   */
+  function wholePiecePose(n,clamped){
+    const m=new THREE.Matrix4()
+    const count=stages.length
+    const u=clamped*count
+    const si=clamped>=1?count:Math.min(count-1,Math.floor(u))
+    const local=clamped>=1?1:smoothstep(u-si)
+    const f=byName[n.name]
+    const piece=assembly.pieceAt(f.x+f.w/2,f.y+f.h/2)
+    const o=piece?new THREE.Vector3(piece.x-(f.x+f.w/2),-(piece.y-(f.y+f.h/2)),0):new THREE.Vector3()
+    for(let i=0;i<count;i++){
+      const w=i<si?1:(i===si?local:0)
+      if(w===0)continue
+      for(const st of stages[i]||[]){
+        if(st?.face!==n.name)continue
+        if(st.move){
+          const t=new THREE.Matrix4().makeTranslation(st.move.x*w,-st.move.y*w,-st.move.z*w)
+          if(mode.frame==='local')m.multiply(t)
+          else m.premultiply(t)
+        }else if(st.spin){
+          // 整件翻转的轴是成品坐标系里的方向（如绕水平轴把盖子翻面），先换算回这一层自己的刀版坐标
+          const ax=new THREE.Vector3(st.spin.x,st.spin.y,st.spin.z)
+          if(piece?.transform?.rotate){
+            const e=piece.transform.rotate
+            ax.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Number(e.x)||0,Number(e.y)||0,Number(e.z)||0,'XYZ')).invert())
+          }
+          const r=new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(ax.x,-ax.y,-ax.z).normalize(),st.spin.deg*w*Math.PI/180)
+          if(mode.pivot==='start')m.premultiply(r)
+          else if(mode.pivot==='origin'){
+            m.premultiply(new THREE.Matrix4().makeTranslation(-o.x,-o.y,-o.z)).premultiply(r).premultiply(new THREE.Matrix4().makeTranslation(o.x,o.y,o.z))
+          }else m.multiply(r)
+        }
+      }
+    }
+    return m
+  }
 
   /** t∈[0,1]：按阶段回放旋转与整件平移 */
   function apply(t){
@@ -119,12 +474,52 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
     const angMap=anglesAtProgress(stages,clamped)
     const s=smoothstep(clamped)
     const worldMove=worldMoves(translationsAtProgress(stages,clamped))
+    const spins=spinsAtProgress(stages,clamped)
+    // 各层在第一步内就位（之后的步骤是官方动画里的折叠 / 平移 / 翻转）
+    assembly.apply(smoothstep(clamped*Math.max(1,stages.length)),clamped*stages.length)
     for(const n of nodes.values()){
       const w=worldMove(n.name)
       const pw=n.parent?worldMove(n.parent):ZERO
       const dx=w.x-pw.x+n.shift.x,dy=w.y-pw.y+n.shift.y,dz=w.z-pw.z+n.shift.z
       n.mover.position.set(dx,-dy,-dz)
+      // 整件翻转 + 平移：按动画顺序依次复合（轴与位移按刀版坐标 → 场景坐标 (x,-y,-z)）
+      if(spins.has(n.name)){
+        const m=wholePiecePose(n,clamped)
+        m.decompose(n.mover.position,n.mover.quaternion,SCRATCH_SCALE)
+        n.spun=true
+      }else if(n.spun){
+        n.mover.quaternion.identity()
+        n.spun=false
+      }
       if(!n.parent)continue
+      if(n.multi){
+        // 逐步复合：每一步绕它自己的折线（位置 + 方向）转，后面的步骤在已转过的姿态上继续
+        const count=stages.length,u=clamped*count
+        const si=clamped>=1?count:Math.min(count-1,Math.floor(u))
+        const local=clamped>=1?1:smoothstep(u-si)
+        const m=new THREE.Matrix4()
+        for(let i=0;i<count;i++){
+          const w=i<si?1:(i===si?local:0)
+          if(w===0)continue
+          for(const st of n.multi[i]){
+            const line=Array.isArray(st.line)?st.line:null
+            const q=line?{x:(line[0][0]+line[1][0])/2,y:(line[0][1]+line[1][1])/2}:n.pivot
+            let axis=null
+            const vx=Number(st.vector?.x)||0,vy=-(Number(st.vector?.y)||0),vz=-(Number(st.vector?.z)||0)
+            if(Math.hypot(vx,vy,vz)>1e-12)axis=new THREE.Vector3(vx,vy,vz).normalize()
+            else if(line)axis=new THREE.Vector3(line[1][0]-line[0][0],-(line[1][1]-line[0][1]),0).normalize()
+            else axis=n.axis
+            if(!axis)continue
+            const dx=q.x-n.pivot.x,dy=-(q.y-n.pivot.y)
+            m.multiply(new THREE.Matrix4().makeTranslation(dx,dy,0))
+              .multiply(new THREE.Matrix4().makeRotationAxis(axis,Number(st.rotate)*w*Math.PI/180))
+              .multiply(new THREE.Matrix4().makeTranslation(-dx,-dy,0))
+          }
+        }
+        m.decompose(SCRATCH_OFFSET,n.anchor.quaternion,SCRATCH_SCALE)
+        n.anchor.position.copy(n.basePos).add(SCRATCH_OFFSET)
+        continue
+      }
       // 有官方动画时，未出现在动画里的铰链不转（如只平移的隔板）
       let v
       if(angMap.has(n.name))v=angMap.get(n.name)
@@ -139,5 +534,8 @@ export function buildGeomRig(knife,{makeMesh,zOff=0}){
     }
   }
 
-  return {root,nodes,apply,stageCount:stages.length}
+  // 多层盒：装配结果与标称外尺寸对不上时退回散件视图
+  const assembled=verifyAssembly?assembly.verify(apply):true
+
+  return {root,nodes,apply,stageCount:stages.length,assembled,assembly}
 }

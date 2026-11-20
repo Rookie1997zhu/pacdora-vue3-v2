@@ -8,6 +8,7 @@
     "test": "node --test test/validate.test.mjs test/geometry-document.test.mjs test/server.test.mjs"
   },
   "dependencies": {
+    "fontkit": "^2.0.4",
     "pdf-lib": "^1.17.1",
     "polygon-clipping": "^0.15.7"
   }

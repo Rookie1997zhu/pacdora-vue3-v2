@@ -68,6 +68,11 @@ export function useAutosave() {
   let saveTimer: ReturnType<typeof setTimeout> | null = null
   let creating = false
   let lastSavedFingerprint = ''
+  // Params as the page first showed them. Until the user changes something there is nothing worth
+  // saving, so merely opening a box must not add a design to "My designs".
+  let baseline: string | null = null
+  // The design was deleted (or is no longer ours): stop saving to it instead of retrying forever.
+  let gone = false
 
   function fingerprint() {
     return JSON.stringify(wb.params)
@@ -76,6 +81,32 @@ export function useAutosave() {
   function clientHash(): string {
     const k = knife.displayKnife
     return String(k?.geometryHash || k?.canonicalHash || 'pending')
+  }
+
+  /**
+   * The browser engine does not compute the canonical geometry hash (it is produced by the geometry
+   * service). Sending the 'pending' placeholder made the server report a drift on every save and
+   * blocked export. Only send a hash when there is a real one to compare; otherwise the server's
+   * geometry is authoritative.
+   */
+  function clientHashForServer(): string | undefined {
+    // Fixed spec: the server derives its own hash from the locked size; there is nothing to compare
+    if (wb.manifest?.locked) return undefined
+    const h = clientHash()
+    return h && h !== 'pending' ? h : undefined
+  }
+
+  /** Fixed-spec boxes are saved under their fixed-snapshot template (size locked on the server) */
+  function saveTemplateId(): string {
+    return wb.manifest?.locked?.templateKey || wb.manifest?.templateId || ''
+  }
+
+  function saveParams() {
+    const params = { ...wb.params, advanced: { ...wb.params.advanced } }
+    const fixed = wb.manifest?.locked ? wb.manifest.defaultParams : null
+    // The size of a fixed spec is not the user's to change (a stale share link could carry other values)
+    if (fixed) Object.assign(params, { lengthMm: fixed.lengthMm, widthMm: fixed.widthMm, heightMm: fixed.heightMm })
+    return params
   }
 
   function locale(): 'zh-CN' | 'ko-KR' {
@@ -89,8 +120,6 @@ export function useAutosave() {
   }
 
   async function ensureDesign(): Promise<boolean> {
-    // Fixed-spec boxes are view-only: there is no parametric template to save against
-    if (wb.manifest?.locked) return false
     if (designId.value) return true
     if (!auth.isAuthenticated) {
       loginWithClaim()
@@ -105,20 +134,17 @@ export function useAutosave() {
       const content = buildDocument({
         locale: locale(),
         slug: wb.slug,
-        templateId: wb.manifest.templateId,
+        templateId: saveTemplateId(),
         pieceId: wb.pieceId,
         templateVersion: '1',
-        params: {
-          ...wb.params,
-          advanced: { ...wb.params.advanced },
-        },
+        params: saveParams(),
         geometryHash: clientHash(),
       })
       const design = await createDesign({
         name,
         product_slug: wb.slug,
         content,
-        client_geometry_hash: clientHash(),
+        client_geometry_hash: clientHashForServer(),
       })
       designId.value = design.id
       rowVersion.value = design.row_version
@@ -138,17 +164,37 @@ export function useAutosave() {
     }
   }
 
-  async function save(opts: { autosave?: boolean; force?: boolean } = {}) {
+  type SaveOpts = { autosave?: boolean; force?: boolean; passive?: boolean }
+  // One save at a time. Overlapping triggers (autosave timer, tab hidden, export) used to post the
+  // same content twice; a call that arrives mid-save waits and then saves only if something changed.
+  let inFlight: Promise<void> | null = null
+
+  async function save(opts: SaveOpts = {}) {
+    while (inFlight) await inFlight
+    inFlight = saveNow(opts).finally(() => {
+      inFlight = null
+    })
+    return inFlight
+  }
+
+  async function saveNow(opts: SaveOpts) {
+    await bootstrapped
+    if (gone) return
     if (!auth.isAuthenticated) return
-    if (wb.manifest?.locked) return
     if (geometryDrift.value && !opts.force) return
     if (!wb.manifest) return
     if (knife.status === 'computing') return
-    if (!opts.force && fingerprint() === lastSavedFingerprint && designId.value) {
-      status.value = 'saved'
+    // An invalid size (e.g. the dieline falls apart, OUTLINE_BROKEN) is not written; the server rejects it too
+    if (knife.status === 'invalid') return
+    // Nothing changed since the last successful save: there is no new revision to write, even for a
+    // forced checkpoint (export and tab-hidden call it every time). Force still re-saves after a drift.
+    if (fingerprint() === lastSavedFingerprint && designId.value && revisionId.value && !(opts.force && geometryDrift.value)) {
+      if (!geometryDrift.value) status.value = 'saved'
       return
     }
     if (!designId.value) {
+      // Background saves (autosave timer, tab hidden) only create a design once the user has edited
+      if ((opts.autosave || opts.passive) && (baseline === null || fingerprint() === baseline)) return
       const ok = await ensureDesign()
       if (!ok) return
       return
@@ -159,13 +205,10 @@ export function useAutosave() {
         designId: designId.value,
         locale: locale(),
         slug: wb.slug,
-        templateId: wb.manifest.templateId,
+        templateId: saveTemplateId(),
         pieceId: wb.pieceId,
         templateVersion: '1',
-        params: {
-          ...wb.params,
-          advanced: { ...wb.params.advanced },
-        },
+        params: saveParams(),
         geometryHash: clientHash(),
       })
       const result = await saveDesignRevision(
@@ -174,7 +217,7 @@ export function useAutosave() {
           content,
           expected_row_version: rowVersion.value,
           autosave: !!opts.autosave,
-          client_geometry_hash: clientHash(),
+          client_geometry_hash: clientHashForServer(),
         },
         crypto.randomUUID(),
       )
@@ -193,6 +236,7 @@ export function useAutosave() {
         errorMessage.value = e.message
         return
       }
+      if (e instanceof ApiError && (e.status === 403 || e.status === 404)) gone = true
       status.value = 'error'
       errorMessage.value = e instanceof ApiError ? e.message : 'save_failed'
     }
@@ -200,7 +244,6 @@ export function useAutosave() {
 
   function scheduleAutosave() {
     if (!auth.isAuthenticated) return
-    if (wb.manifest?.locked) return
     status.value = designId.value ? 'dirty' : status.value
     if (saveTimer) clearTimeout(saveTimer)
     saveTimer = setTimeout(() => {
@@ -240,9 +283,29 @@ export function useAutosave() {
     status.value = 'saved'
   }
 
+  // Resolves once the ?design= link has been looked up. Saving before that would create a
+  // second design, because the session is restored asynchronously after the page mounts.
+  let bootstrapped: Promise<void> = Promise.resolve()
+
+  function waitForAuth(): Promise<void> {
+    if (auth.loaded) return Promise.resolve()
+    return new Promise((resolve) => {
+      const stop = watch(
+        () => auth.loaded,
+        (v) => {
+          if (v) {
+            stop()
+            resolve()
+          }
+        },
+      )
+    })
+  }
+
   async function bootstrapFromRoute() {
     const qDesign = typeof route.query.design === 'string' ? route.query.design : ''
     const claim = route.query.claim === '1' || route.query.claim === 'true'
+    await waitForAuth()
     if (qDesign && auth.isAuthenticated) {
       designId.value = qDesign
       try {
@@ -262,9 +325,24 @@ export function useAutosave() {
 
   function onVisibility() {
     if (document.visibilityState === 'hidden' && auth.isAuthenticated) {
-      void checkpoint()
+      if (saveTimer) {
+        clearTimeout(saveTimer)
+        saveTimer = null
+      }
+      void save({ force: true, passive: true })
     }
   }
+
+  // Record the starting params once the box has loaded and its first dieline is computed
+  const stopBaseline = watch(
+    () => !!wb.manifest && knife.status !== 'computing' && knife.status !== 'idle',
+    (ready) => {
+      if (!ready || baseline !== null) return
+      baseline = fingerprint()
+      queueMicrotask(() => stopBaseline())
+    },
+    { immediate: true },
+  )
 
   watch(
     () => wb.params,
@@ -277,7 +355,7 @@ export function useAutosave() {
 
   onMounted(() => {
     document.addEventListener('visibilitychange', onVisibility)
-    void bootstrapFromRoute()
+    bootstrapped = bootstrapFromRoute().catch(() => {})
   })
 
   onBeforeUnmount(() => {

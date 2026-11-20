@@ -8,7 +8,7 @@
         </div>
       </motion.header>
 
-      <motion.div v-if="!loading && !error" class="toolbar" v-bind="enterProps(0.04)">
+      <motion.div v-if="!error" class="toolbar" v-bind="enterProps(0.04)">
         <label class="search">
           <span class="sr-only">{{ t('site.filterSearch') }}</span>
           <input v-model="query" type="search" :placeholder="t('site.filterSearch')" />
@@ -35,40 +35,57 @@
         <p class="bc-err">{{ error }}</p>
         <button type="button" class="bc-btn bc-btn--ghost" @click="reload">{{ t('studio.retryLoad') }}</button>
       </div>
-      <p v-else-if="loading">{{ t('studio.loading') }}</p>
-      <ul v-else-if="filtered.length" class="grid">
-        <motion.li v-for="(p, i) in filtered" :key="p.id" v-bind="staggerEnterProps(Math.min(i, 11))">
-          <RouterLink class="card" :to="detailTo(p.slug)">
-            <div class="slot" aria-hidden="true">
-              <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" alt="" />
-              <span v-else class="box-shape" />
-              <em class="bc-badge bc-badge--overlay" :data-kind="geometryBadgeKind(p.geometry_mode)">
-                {{ geometryBadgeLabel(p.geometry_mode) }}
-              </em>
-            </div>
-            <div class="meta">
-              <strong :title="displayName(p)">{{ displayName(p) }}</strong>
-              <div class="tags">
-                <span class="bc-chip" :data-kind="categoryBadgeKind(p.category)">{{ p.category }}</span>
-                <span class="bc-chip" :data-kind="geometryBadgeKind(p.geometry_mode)">{{
-                  geometryBadgeLabel(p.geometry_mode)
-                }}</span>
+      <p v-else-if="loading && !products.length">{{ t('studio.loading') }}</p>
+      <template v-else>
+        <ul v-if="products.length" class="grid" :aria-busy="loading">
+          <motion.li v-for="(p, i) in products" :key="p.id" v-bind="staggerEnterProps(Math.min(i, 11))">
+            <RouterLink class="card" :to="detailTo(p.slug)">
+              <div class="slot" aria-hidden="true">
+                <img v-if="p.cover_rel" class="cover" :src="coverUrl(p.cover_rel)" alt="" />
+                <span v-else class="box-shape" />
+                <em class="bc-badge bc-badge--overlay" :data-kind="geometryBadgeKind(p.geometry_mode)">
+                  {{ geometryBadgeLabel(p.geometry_mode) }}
+                </em>
               </div>
-            </div>
-          </RouterLink>
-        </motion.li>
-      </ul>
-      <div v-else-if="!products.length" class="bc-empty">
-        <EmptyLordIcon :src="emptySearchIcon" />
-        <p>{{ t('studio.productsEmpty') }}</p>
-      </div>
-      <div v-else class="bc-empty">
-        <EmptyLordIcon :src="emptySearchIcon" />
-        <p>{{ t('studio.productsNoMatch') }}</p>
-        <button v-if="query || category" type="button" class="bc-btn bc-btn--ghost" @click="clearFilters">
-          {{ t('library.resetFilters') }}
-        </button>
-      </div>
+              <div class="meta">
+                <strong :title="displayName(p)">{{ displayName(p) }}</strong>
+                <div class="tags">
+                  <span class="bc-chip" :data-kind="categoryBadgeKind(p.category)">{{ p.category }}</span>
+                  <span class="bc-chip" :data-kind="geometryBadgeKind(p.geometry_mode)">{{
+                    geometryBadgeLabel(p.geometry_mode)
+                  }}</span>
+                </div>
+              </div>
+            </RouterLink>
+          </motion.li>
+        </ul>
+        <div v-else-if="!loading && !total" class="bc-empty">
+          <EmptyLordIcon :src="emptySearchIcon" />
+          <p>{{ t('studio.productsEmpty') }}</p>
+        </div>
+        <div v-else-if="!loading" class="bc-empty">
+          <EmptyLordIcon :src="emptySearchIcon" />
+          <p>{{ t('studio.productsNoMatch') }}</p>
+          <button v-if="query || category" type="button" class="bc-btn bc-btn--ghost" @click="clearFilters">
+            {{ t('library.resetFilters') }}
+          </button>
+        </div>
+
+        <nav v-if="total > pageSize" class="pager" :aria-label="t('studio.productsTitle')">
+          <button type="button" class="bc-btn bc-btn--ghost" :disabled="page <= 1 || loading" @click="goPage(page - 1)">
+            ←
+          </button>
+          <span>{{ page }} / {{ totalPages }}</span>
+          <button
+            type="button"
+            class="bc-btn bc-btn--ghost"
+            :disabled="!hasNext || loading"
+            @click="goPage(page + 1)"
+          >
+            →
+          </button>
+        </nav>
+      </template>
     </main>
   </AppShell>
 </template>
@@ -96,26 +113,20 @@ const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const products = ref<ProductSummary[]>([])
+const categories = ref<string[]>([])
 const loading = ref(true)
 const error = ref('')
+const page = ref(1)
+const pageSize = ref(24)
+const total = ref(0)
+const hasNext = ref(false)
 const query = ref(String(route.query.q || ''))
 const category = ref(String(route.query.cat || ''))
 let syncingFromRoute = false
+let searchTimer: ReturnType<typeof setTimeout> | null = null
+let requestSeq = 0
 
-const categories = computed(() => {
-  const set = new Set(products.value.map((p) => p.category).filter(Boolean))
-  return [...set].sort((a, b) => a.localeCompare(b))
-})
-
-const filtered = computed(() => {
-  const q = query.value.trim().toLowerCase()
-  return products.value.filter((p) => {
-    if (category.value && p.category !== category.value) return false
-    if (!q) return true
-    const name = (locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name) || ''
-    return name.toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q) || (p.slug || '').toLowerCase().includes(q)
-  })
-})
+const totalPages = computed(() => Math.max(1, Math.ceil(total.value / pageSize.value)))
 
 function coverUrl(rel: string) {
   return publicAssetUrl(rel)
@@ -141,6 +152,7 @@ function detailTo(slug: string) {
 function clearFilters() {
   query.value = ''
   category.value = ''
+  page.value = 1
 }
 
 function pushFilterQuery() {
@@ -148,39 +160,90 @@ function pushFilterQuery() {
   const next: Record<string, string> = {}
   if (query.value.trim()) next.q = query.value.trim()
   if (category.value) next.cat = category.value
+  if (page.value > 1) next.page = String(page.value)
   const curQ = String(route.query.q || '')
   const curCat = String(route.query.cat || '')
-  if (curQ === (next.q || '') && curCat === (next.cat || '')) return
+  const curPage = String(route.query.page || '')
+  if (curQ === (next.q || '') && curCat === (next.cat || '') && curPage === (next.page || '')) return
   void router.replace({ path: '/products', query: next })
 }
 
-watch([query, category], () => {
-  pushFilterQuery()
-})
-
-watch(
-  () => [route.query.q, route.query.cat] as const,
-  ([q, cat]) => {
-    syncingFromRoute = true
-    query.value = String(q || '')
-    category.value = String(cat || '')
-    syncingFromRoute = false
-  },
-)
-
 async function reload() {
+  const seq = ++requestSeq
   loading.value = true
   error.value = ''
   try {
-    products.value = await fetchProducts()
+    const data = await fetchProducts({
+      page: page.value,
+      page_size: pageSize.value,
+      category: category.value || undefined,
+      q: query.value.trim() || undefined,
+    })
+    if (seq !== requestSeq) return
+    products.value = data.items
+    page.value = data.page
+    pageSize.value = data.page_size
+    total.value = data.total
+    hasNext.value = data.has_next
+    if (data.categories?.length) {
+      categories.value = [...data.categories].sort((a, b) => a.localeCompare(b))
+    }
   } catch (e: unknown) {
+    if (seq !== requestSeq) return
     error.value = e instanceof ApiError ? e.message : t('studio.loadFailed')
   } finally {
-    loading.value = false
+    if (seq === requestSeq) loading.value = false
   }
 }
 
+function goPage(next: number) {
+  if (next < 1 || (next > page.value && !hasNext.value)) return
+  page.value = next
+  pushFilterQuery()
+  void reload()
+}
+
+function scheduleReload(resetPage: boolean) {
+  if (searchTimer) clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    if (resetPage) page.value = 1
+    pushFilterQuery()
+    void reload()
+  }, 250)
+}
+
+watch(query, () => {
+  if (syncingFromRoute) return
+  scheduleReload(true)
+})
+
+watch(category, () => {
+  if (syncingFromRoute) return
+  page.value = 1
+  pushFilterQuery()
+  void reload()
+})
+
+watch(
+  () => [route.query.q, route.query.cat, route.query.page] as const,
+  ([q, cat, p]) => {
+    const nextQ = String(q || '')
+    const nextCat = String(cat || '')
+    const nextPage = Math.max(1, Number(p) || 1)
+    const changed = nextQ !== query.value || nextCat !== category.value || nextPage !== page.value
+    if (!changed) return
+    syncingFromRoute = true
+    query.value = nextQ
+    category.value = nextCat
+    page.value = nextPage
+    syncingFromRoute = false
+    void reload()
+  },
+)
+
 onMounted(() => {
+  const initialPage = Math.max(1, Number(route.query.page) || 1)
+  page.value = initialPage
   void reload()
 })
 </script>
@@ -324,6 +387,14 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
 }
 
 .sr-only {

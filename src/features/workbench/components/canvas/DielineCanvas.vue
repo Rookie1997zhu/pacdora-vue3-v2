@@ -9,7 +9,7 @@ import { useUnit } from '../../composables/useUnit'
 import { segmentsToPath, faceToPath, loopToPath } from '../../lib/pathToSvg.mjs'
 import { buildDimAnnotations } from '../../../../dimAnnotations.js'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const knifeStore = useKnifeStore()
 const wb = useWorkbenchStore()
 const { format, formatPair } = useUnit()
@@ -38,6 +38,13 @@ const trimPath = computed(() => knife.value?.cutPath || segmentsToPath(knife.val
 const creasePath = computed(() => segmentsToPath(knife.value?.folds || []))
 const bleedPath = computed(() => knife.value?.bleedPath || loopToPath(knife.value?.bleedLoop || []))
 const faces = computed(() => knife.value?.faces || [])
+/** Multi-layer reference boxes: the separate blanks on the sheet (face paper, greyboard…) */
+const sheetPieces = computed<Array<{ id: string; label: string; labelEn: string; x: number; y: number }>>(
+  () => (knife.value as any)?.sheetPieces || [],
+)
+function pieceLabel(p: { label: string; labelEn: string }) {
+  return String(locale.value).startsWith('zh') ? p.label : p.labelEn || p.label
+}
 const dims = computed<DimAnnotation[]>(() => {
   if (!knife.value) return []
   try { return buildDimAnnotations(knife.value) || [] } catch { return [] }
@@ -218,6 +225,13 @@ function doFit() {
               class="dim-text"
             >{{ dimText(a) }}</text>
           </g>
+        </g>
+        <g class="layer pieces-names">
+          <text
+            v-for="p in sheetPieces" :key="'pc'+p.id"
+            :x="p.x + 3 / scale" :y="p.y + 12 / scale"
+            fill="#475569" :font-size="11 / scale"
+          >{{ pieceLabel(p) }}</text>
         </g>
         <g v-if="wb.view.showFaceNames">
           <text

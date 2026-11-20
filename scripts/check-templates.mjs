@@ -3,7 +3,7 @@ import {createKnife,deriveSizes} from '../src/knife.js'
 import {assertStableTopology} from '../src/knifeContract.js'
 import {estimateClosedCollisions} from '../src/foldSim.js'
 import {TEMPLATE_LIST} from '../src/templates/index.js'
-import {assertKnife,sizeCases} from './lib/assertKnife.mjs'
+import {assertKnife,sizeCases,OUTLINE_BLOCKED} from './lib/assertKnife.mjs'
 
 for(const t of TEMPLATE_LIST){
   const d=t.defaults
@@ -67,4 +67,4 @@ assert.equal(createKnife({templateId:'unknown-template'}).template,'mailer-param
   console.log('ok cylinder-box sides 24/36/48')
 }
 
-console.log('check-templates: all passed')
+console.log(`check-templates: all passed (${OUTLINE_BLOCKED.length} resized spec cases blocked by the outline check)`)

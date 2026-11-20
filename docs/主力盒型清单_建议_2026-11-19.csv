@@ -1,0 +1,533 @@
+﻿档位,类目,编号,名称,结构代码,刀版吻合,3D,可调参数个数,同结构盒型数,同结构其他编号,长,宽,高,厚,理由,工作台链接
+A 主力,折叠盒,103213,Hanging electronic product box,HangingHoleWindowBuckleBottomBoxthree,exact,ok,44,1,,119.4,59.4,158.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-103213
+A 主力,折叠盒,103210,Hanging display box with window,HangingHoleWindowBuckleBottomBox,exact,ok,43,1,,119.4,59.4,158.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-103210
+A 主力,折叠盒,101432,Hanging extra slim tall medicine box,PairAircraftWithHookLock,exact,ok,42,1,,119.4,14.4,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101432
+A 主力,折叠盒,101522,Square hanging medicine box,PairBackopenWithHookLock,exact,ok,42,1,,101.4,19.4,100.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101522
+A 主力,折叠盒,106030,Hanging electronic product box,BotselflockWithHook,exact,ok,39,1,,120,60,160,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-106030
+A 主力,折叠盒,100021,Hanging electronic product box with window,PairWithWindowHook,exact,ok,37,1,,79.4,29.4,138.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-100021
+A 主力,折叠盒,101521,Hanging slim tall display box,PairBackopenWithHookNail,exact,ok,36,1,,79.4,29.4,138.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101521
+A 主力,折叠盒,102621,Hanging electronic product box,PairBackopenForwardWithHookNail,exact,ok,36,1,,79.4,29.4,138.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-102621
+A 主力,折叠盒,100027,Hanging long-shaped medicine box,AnchorHoleReverseInsertLockBox,exact,ok,35,1,,109.4,29.4,28.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-100027
+A 主力,折叠盒,171800,Flip lock display box,FlipLockDisplayBox,exact,ok,34,1,,219.4,149.4,79.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-171800
+A 主力,折叠盒,100024,Hanging electronic product box,PairWithHookNail,exact,ok,33,1,,69.4,39.4,108.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-100024
+A 主力,折叠盒,102620,Hanging ultra slim flat medicine box,PairBackopenForwardWithHook,exact,ok,33,1,,179.4,29.4,118.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-102620
+A 主力,折叠盒,101430,Hanging slim tall medicine box,PairAircraftWithHook,exact,ok,32,1,,99.4,24.4,118.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101430
+A 主力,折叠盒,152500,Dessert box,GluedInterlockingPartitionFlapBox,exact,ok,31,1,,199.4,98.4,99.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-152500
+A 主力,折叠盒,10002003,Hanging medicine box,PairWithHook,exact,ok,30,4,10002006 10002001 10002002,99.4,39.4,118.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-10002003
+A 主力,折叠盒,101620,Self locking box,KnifeDraw,exact,ok,30,36,189040 120259 156650 102017 109010 10901002 120259 153150 156650 15665002 240800 152070 151250 15125001 151300 15130001 ,228.4,199.4,109.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101620
+A 主力,折叠盒,120254,Folding box,ClamshellBoxWithButtonEdgeTwo,exact,ok,30,1,,197.4,198.9,99.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120254
+A 主力,折叠盒,111010,Double tuck box with hang hole for display board,PairShowWithHook,exact,ok,28,1,,60,30,80,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-111010
+A 主力,折叠盒,108070,Packaging tubular box tissue mockup 108070,ButtonSimpleTissueBox,exact,ok,26,1,,117.4,119.4,59.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-108070
+A 主力,折叠盒,112291,Gable box with snap lock,SlantedHangingEarRoofBuckleBottomHandleBox,exact,ok,26,1,,229.4,199.4,229.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-112291
+A 主力,折叠盒,150022,Folding display box,SafetyBuckleAircraftWithoutInsertion,exact,ok,25,1,,295.4,198.9,59.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-150022
+A 主力,折叠盒,105042,Folding paper packaging box,InnerClamshellSelflockingBottomBox,exact,ok,24,1,,119.4,59.4,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-105042
+A 主力,折叠盒,120255,Folding box,ClamshellBoxWithButtonEdge03,exact,ok,24,1,,124.4,124.4,79.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120255
+A 主力,折叠盒,105050,Flip top and auto bottom box,FoldingLidSelflockingBottomBox,exact,ok,23,1,,82.4,82.4,102.2,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-105050
+A 主力,折叠盒,10920001,Inner locking perfume box,InnerLockPullOffStickBottomBox,exact,ok,23,3,109200 109200,139.4,49.4,197.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-10920001
+A 主力,折叠盒,110019,Kraft paper display box without cap,UncoveredPluginLockSleeve,exact,ok,22,1,,119.4,59.4,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110019
+A 主力,折叠盒,10900104,Pasta box with window,WindowCardBoardBoxFour,exact,ok,21,1,,79.4,29.4,297.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-10900104
+A 主力,折叠盒,11658001,Square cake box,SideLockBox,exact,ok,21,1,,150,150,150,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-11658001
+A 主力,折叠盒,10001019,Lotion box,Pair,exact,ok,19,26,10001027 10001044 10001049 10001001 10001004 10001005 10001006 10001012 10001014 10001016 10001017 10001018 10001020 100,59.4,59.4,188.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-10001019
+A 主力,折叠盒,151051,Folding box with window mockup 151051,WindowFoldingFlipBox,exact,ok,19,1,,120,120,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-151051
+A 主力,折叠盒,183080,FEFCO 0723 4-pack carrier box,FourGridBottomSelflockBox,exact,ok,18,1,,212,212,212,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-183080
+A 主力,折叠盒,108001,Tuck end tissue boxes,TissueP1,exact,ok,17,1,,228.4,119.4,59.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-108001
+A 主力,折叠盒,10900001,Agarbatti box,CardBoardBox,exact,ok,16,1,,59.4,59.4,232.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-10900001
+A 主力,折叠盒,120257,Self-locking flip top and front tuck box,SideClamshellBoxThree,exact,ok,16,1,,199.4,199.4,59.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120257
+A 主力,折叠盒,152011,Courier zipper box,TraySimpleZipper,exact,ok,16,1,,147.4,99.4,59.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-152011
+A 主力,折叠盒,116013,Hanging slant roof box,Roofcoverstickybottomhangingholebox,exact,ok,13,1,,120,60,160,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-116013
+A 主力,折叠盒,120251,Box folding box mockup 120251,BuckleCoverBox,exact,ok,13,1,,260,175,40,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120251
+A 主力,折叠盒,151120,Flip top box with front tab lock,InsideClamshellBox,exact,ok,13,1,,378.4,289.4,56.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-151120
+A 主力,折叠盒,152051,Glued folding boxes flip top three-fold edge box mockup 152051,GluedNailThreeFoldFlapBox,exact,ok,13,1,,101,101,24.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-152051
+A 主力,折叠盒,120253,Flip-top box,ClamshellBoxWithButtonEdge,exact,ok,12,1,,277.4,203.9,74.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120253
+A 主力,折叠盒,120256,Window box,WindowSideBuckleFlipBox,exact,ok,12,1,,199.4,199.4,59.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120256
+A 主力,折叠盒,151040,Magnet box flip top boxes easy mockup 151040,SimplePaperbackFlipBox,exact,ok,11,1,,200.6,100.9,50.45,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-151040
+A 主力,折叠盒,156003,FEFCO 0470 flip top boxes polygonal lock inserts,SpecialTracelessBottomBoxWithLock,exact,ok,11,1,,151,100,80,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-156003
+A 主力,折叠盒,158133,Tuck front hamburger box,HamburgerBox01,exact,ok,11,1,,80,80,45,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-158133
+A 主力,折叠盒,180235,Tab Lock flip top triangle box,SimpleLockingTriangularBox,exact,ok,11,1,,250,250,50,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-180235
+A 主力,折叠盒,120252,Folding box mockup 120252,SideClamshellBox,exact,ok,10,1,,200,200,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-120252
+A 主力,折叠盒,150082,Gift folding box mockup 150082,FoldedCornerInnerFoldingFlapBox,exact,ok,7,1,,300,300,250,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-150082
+A 主力,折叠盒,152050,Flip top boxes adhesive three folds mockup 152050,GluedThreeFoldFlapBox,exact,ok,7,1,,101,101,24.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-152050
+A 主力,折叠盒,181092,Triangle folding box,Triangleclamshellbox,exact,ok,7,1,,180,100,80,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-181092
+A 主力,折叠盒,158240,Folding paper packaging box,RotateFlipBox,exact,ok,6,1,,100,17,100,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-158240
+A 主力,折叠盒,180231,Triangle pizza box,TrianglePizzaBox,exact,ok,6,1,,215,265,40,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-180231
+A 主力,折叠盒,101433,Hanging display box with window,PairAircraftWithWindowHookLock,exact,ok,0,1,,179.4,29.4,118.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-101433
+A 主力,折叠盒,102013,Tuck end window software box,BuckleWithWindow,exact,ok,0,1,,119.4,59.4,159.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-102013
+A 主力,折叠盒,102050,Hanging flip-top window box,BuckleFlip,exact,ok,0,1,,119.4,39.4,178.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-102050
+A 主力,折叠盒,102051,Hanging flip-top window box,MortiseLockFlipClasp,exact,ok,0,1,,119.4,19.4,158.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-102051
+A 主力,折叠盒,110380,Concave-hanger hanging electronic product box,BuckleBottomBoxWithConcaveHook,exact,ok,0,1,,150,80,160,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110380
+A 主力,折叠盒,110390,Concave-hanger hanging electronic product box,SelfLockingBottomBoxWithConcaveHook,exact,ok,0,1,,149.4,79.4,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110390
+A 主力,折叠盒,110391,Concave-hanger toy hanging box,SelfLockingBottomBoxWithReverseConcaveHook,exact,ok,0,1,,119.4,119.4,198.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110391
+A 主力,折叠盒,110422,Open tuck end box,ReverseTubularGluedBoxWithSafetyBuckle,exact,ok,0,1,,120,40,80,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110422
+A 主力,折叠盒,110532,Hanging slim tall medicine box,PerforatedHookBuckleBottomBox,exact,ok,0,1,,79.4,29.4,138.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-110532
+A 主力,折叠盒,111030,Backboard hanging medicine box,PairBuckleTripleWithHookBoard,exact,ok,0,1,,120,60,160,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-111030
+A 主力,折叠盒,12306001,Paper food box,TrapezoidDiscBox,exact,ok,0,1,,149.4,149.4,149.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-12306001
+A 主力,折叠盒,128050,Tray boxes lock inserts flip cover buffers mockup 128050,PlugLockFlipCushionWallBox,exact,ok,0,1,,150,100,100,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-128050
+A 主力,折叠盒,150110,Flip top boxes angled mailer mockup 150110,AngleLockAircraftBox,exact,ok,0,1,,302,200,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-150110
+A 主力,折叠盒,151180,Flip top boxes ladder-type angled mockup 151180,TrapezoidalAngleLockClamshellBox,exact,ok,0,1,,120,100,50,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-151180
+A 主力,折叠盒,151230,Flip top boxes mailer all-in-one mockup 151230,SimpleClamshellBox,exact,ok,0,1,,120,120,50,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-151230
+A 主力,折叠盒,152031,Flip top boxes diagonal lock box lock-top mockup 152031,TrayGluedObliqueWithLock,exact,ok,0,1,,151,100,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-152031
+A 主力,折叠盒,156002,Flip top boxes polygonal lock inserts mockup 156002,SpecialLockshellClamshellAircraftBox,exact,ok,0,1,,150,100,80,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-156002
+A 主力,折叠盒,158020,Mortise lock folio flip box mockup 158020,FlipBoxWithDoubleSocketLock,exact,ok,0,1,,100,100,120,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-158020
+A 主力,折叠盒,180280,Hanging triangular prism box,TriangularConicalBottomBoxWithHook,exact,ok,0,1,,120,60,200,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-180280
+A 主力,折叠盒,188030,Hanging polygonal box,MutualLockSplitLiftingHoleBoxP1,exact,ok,0,1,,78.4,48.4,38.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-188030
+A 主力,折叠盒,600180,14 × 10 × 7 square napskin tissue box,BagTissue,exact,ok,0,2,600181,135,100,65,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-folding-600180
+A 主力,托盘盒,120370,Square food tray box,FourFoldSideAndAngleDiscBox,exact,ok,9,1,,200.2,200,50,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120370
+A 主力,托盘盒,120080,Food tray box,CartonClipTray,exact,ok,8,1,,100,100,25,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120080
+A 主力,托盘盒,120460,Tray boxes double grids paper mockup 120460,DiscDoubleBox,exact,ok,8,1,,120,60,50,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120460
+A 主力,托盘盒,240180,Tray box,FourCornerHalfEnvelope,exact,ok,8,1,,300,200,10,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-240180
+A 主力,托盘盒,128010,Food tray box,Bufferwallbox,exact,ok,7,2,12801001,320,220,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-128010
+A 主力,托盘盒,120070,Kraft paper tray box,WideSideCardTrayBox,exact,ok,6,1,,182,132,59,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120070
+A 主力,托盘盒,120240,FEFCO 0457 tray boxes buckle display,DiscBuckleBox,exact,ok,0,1,,120,60,29.7,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120240
+A 主力,托盘盒,120490,Food tray box,BottomButtonTrayBox,exact,ok,0,1,,300,300,60,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-120490
+A 主力,托盘盒,123030,Fast food tray box,ArcBuckleDiscBox,exact,ok,0,1,,200,300,100,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-123030
+A 主力,托盘盒,123180,Polygonal display tray box,SpecialShapedHexagonalTray,exact,ok,0,1,,150,100,40,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-tray-123180
+A 主力,邮寄盒,152010,FEFCO 0420 flip top tuck front mailer box,TraySimpleGluedP1,exact,ok,12,4,152010 15201001 15201001,147.4,99.4,59.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-mailer-152010
+A 主力,邮寄盒,151220,Flip top mailer box with lock inserts round head,PlugLockRoundHeadFlipBox,exact,ok,0,2,151220,120,180,100,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-mailer-151220
+A 主力,运输箱,112010,平邮箱,FlapBotselflock,exact,ok,19,1,,120,60,160.5,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-shipping-112010
+A 主力,礼盒,113000,House gift box,RoofReinforcedSelflockingBottomBox,exact,ok,36,1,,139.4,124.4,104,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-113000
+A 主力,礼盒,10508102,Zipper top blind box,SnapZipperSelflockingBottomBox,exact,ok,33,2,105081,99.4,79.4,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-10508102
+A 主力,礼盒,110670,Double glues tuck top gift box,SimpleSinglePlugBox,exact,ok,26,2,110670,119.4,58.9,158.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-110670
+A 主力,礼盒,102630,Barbie gift box,OpenForwardLockingAndWindowBox,exact,ok,24,1,,119.4,59.4,178.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-102630
+A 主力,礼盒,10001002,Tuck top gift box,PairTwo,exact,ok,19,1,,129.4,129.4,128.9,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-10001002
+A 主力,礼盒,112090,Gift box with ribbon holes,BuckleDomeRibbonHole,exact,ok,0,1,,65,65,65,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-112090
+A 主力,礼盒,550340,Gift box with shirt,ConsumerForty,exact,ok,0,2,550340,200,80,350,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-550340
+A 主力,礼盒,603630,Lid and base luxury gift box,ConsumerTen,exact,ok,0,1,,170,90,55,1.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-gift-603630
+A 主力,方形盒,10263002,Sweet box with window,OpenForwardLockingAndWindowBoxTwo,exact,ok,24,2,10263002,99.4,39.4,198.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-square-10263002
+A 主力,方形盒,240031,Trapezoidal sleeve box,BoxsetTrapezoidWithHolesP1,exact,ok,8,1,,149.4,59.4,200,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-square-240031
+A 主力,方形盒,15813001,Burger square box,HamburgerBox,exact,ok,5,1,,109.4,109.4,109.4,0.5,刀版精确且 3D 与 Pacdora 一致,http://localhost/workbench/import-square-15813001
+B 备选,折叠盒,110530,Hanging square toy box,PerforationHookPair,close,ok,43,1,,119.4,119.4,118.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110530
+B 备选,折叠盒,102624,Hanging electronic product box,PairBackopenForwardWithHookLock,close,ok,42,1,,69.4,39.4,108.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-102624
+B 备选,折叠盒,110533,Hanging food box,BackOpenPerforateBuckleBottomBoxWithHanging,close,ok,42,1,,179.4,29.4,118.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110533
+B 备选,折叠盒,110049,Side gravity feed with 1-2-3 lock box,SideRotatingBuckleBottomBoxP1,close,ok,39,1,,119.4,59.4,160.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110049
+B 备选,折叠盒,103017,Folding paper packaging box,BackboardBuckleBackopenWithLock,close,ok,38,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-103017
+B 备选,折叠盒,150233,Rotary box chocolate box high-end box mockup 150233,LinedZipperAircraftBox,close,ok,38,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150233
+B 备选,折叠盒,10007101,Cosmetics tube box with window,PairWithWindowLockExtension02,close,ok,36,1,,44.4,44.4,118.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10007101
+B 备选,折叠盒,156244,Pizza box,DoubleLockPizzaFlipBox,close,ok,35,1,,303,304.5,46,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156244
+B 备选,折叠盒,12807101,Dessert box,SideLatchingWindowDrawerBox,exact,n/a,34,1,,159.4,98.4,44.7,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-12807101
+B 备选,折叠盒,101612,Cube folding box mockup 101612,InsertLockRotaryFlipFlatAdhesiveBox,close,ok,32,1,,100,99,90,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-101612
+B 备选,折叠盒,10204001,Medicine box,PairBuckletripleP1,close,ok,30,1,,199.4,89.4,88.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10204001
+B 备选,折叠盒,10501002,Auto lock bottom box,PairBotselflock,close,ok,28,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10501002
+B 备选,折叠盒,10201103,Buttonhole Face Cream box,BuckleWithNail,close,ok,27,1,,74.4,74.4,58.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10201103
+B 备选,折叠盒,112315,Carrying handle snap lock gable box,SideInsertLockBuckleSuitcaseForward,close,ok,27,1,,199.4,199.4,249.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112315
+B 备选,折叠盒,150111,Flip top boxes lock inserts mailer mockup 150111,LockThePlaneBox,close,ok,27,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150111
+B 备选,折叠盒,102618,Concave-hanger display hanging box,BackOpenSideHookForwardLockBoxP1,close,ok,26,1,,79.4,29.4,118.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-102618
+B 备选,折叠盒,112662,FEFCO 0222 kraft box with handle,BuckleBottomBoxWithInsertCard,close,ok,25,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112662
+B 备选,折叠盒,150170,Flip top boxes rectangular inserts mailer mockup 150170,AircraftWithRecBase,close,ok,25,1,,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150170
+B 备选,折叠盒,150231,Flip top boxes zipper tongue inserts mockup 150231,ZipperTongueBox,close,ok,25,1,,294,199,59,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150231
+B 备选,折叠盒,151032,Folding paper packaging shoes box,SlantedFlipShoeBox,close,ok,25,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151032
+B 备选,折叠盒,153032,FEFCO 0418 folding paper packaging box,ThickenedClamshellBox,close,ok,25,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153032
+B 备选,折叠盒,163040,FEFCO 0330 removable lid box,NonslottedTrayTypeLidBox,close,n/a,25,1,,300,200,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-163040
+B 备选,折叠盒,112290,Gable box with window,SlopingRoofBottombuttonedWindowedHandleBox,close,ok,24,2,11229002,299.4,149.4,179.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112290
+B 备选,折叠盒,112620,Gable gift box,DiagonalRoofExtensionHandleBuckleBox,close,ok,24,1,,299.4,149.4,179.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112620
+B 备选,折叠盒,150019,Folding  box,AircraftWithHandleup,close,ok,24,1,,285,198,56.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150019
+B 备选,折叠盒,150190,Flip top boxes rope handles tuck front box mockup 150190,AircraftWithHandrope,close,ok,24,1,,299,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150190
+B 备选,折叠盒,151031,Folding paper packaging shoes box,FlipShoesBox,close,ok,24,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151031
+B 备选,折叠盒,158260,Double hook flip box,HookFlipLidBox,close,ok,24,2,15826001,298,192,96.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-158260
+B 备选,折叠盒,200103,Folio handle carton mockup 200103,SplitHandleCardboardBox,close,ok,24,1,,260,160,190,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200103
+B 备选,折叠盒,100080,Reverse tuck end box with a glued top closure flap,SealReverseLockBox,close,ok,23,1,,99.4,99.4,198.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-100080
+B 备选,折叠盒,156215,Pizza box packaging,BreatherHolePizzaFlapBox,close,ok,23,1,,210,210,45,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156215
+B 备选,折叠盒,105041,Folding paper packaging box,FoldClamshellSelflockingBottomBox,close,ok,22,1,,120,60,160.8,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-105041
+B 备选,折叠盒,110052,Hanging extra slim tall medicine box,SideHookForwardLockBoxP1,close,ok,22,1,,119.4,14.4,158.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110052
+B 备选,折叠盒,156111,Flip top boxes safety buckle double mortise lock flip tuck front box mockup 156111,SafetyBuckleDoubleLock,close,ok,22,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156111
+B 备选,折叠盒,11202103,Coffee capsules box,FlipBuckle,close,ok,21,1,,190,130,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-11202103
+B 备选,折叠盒,112053,Folding display handle box,BuckleBottomBoxWithTopHandle,close,ok,21,1,,118,58,156,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112053
+B 备选,折叠盒,112411,Pasta box with window,WindowBottomRoofHandleBox,close,ok,21,1,,119.4,49.4,138.9,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112411
+B 备选,折叠盒,15001201,Medicine box,AircraftWithNailP1,close,ok,21,1,,195.4,149.4,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-15001201
+B 备选,折叠盒,153012,Self-locking flip top tray box,FrontBuckleLockFlipBox,close,ok,21,1,,199.4,99.4,59.7,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153012
+B 备选,折叠盒,156216,Pizza box,PizzaFlapBoxWithNail,close,ok,21,2,15621601,260,260,45,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156216
+B 备选,折叠盒,171501,FEFCO 0801 folding display box,DiagonalSelfLockingBottomBox,close,ok,21,1,,200,150,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171501
+B 备选,折叠盒,109080,Folding box with tear line,InnerTearingAndDrawingWireMachineBox,close,ok,20,1,,114.4,157.4,112.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-109080
+B 备选,折叠盒,111071,Rope handle box with 1-2-3 bottom,ToteHalfBagSeamlessButtonBottomBox,close,ok,20,1,,293,93,147.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-111071
+B 备选,折叠盒,11231102,Cake box with handle,BuckleSuitcaseBackward,close,ok,20,1,,168,168,148,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-11231102
+B 备选,折叠盒,112911,Cone box with handle box,TrapezoidalBoxWithHandleAndBuckleBottom,close,ok,20,1,,80,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-112911
+B 备选,折叠盒,150015,Flip top boxes mailer inserts mockup 150015,AircraftWithLining,close,ok,20,1,,304,201,61,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150015
+B 备选,折叠盒,151071,Flip top boxes flip covers lock inserts mockup 151071,FlipPlugLockSingleSideLockBottomBox,close,ok,20,1,,297,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151071
+B 备选,折叠盒,151110,FEFCO 0416 double open clamshell boxes flip top tuck front box,FlipDualBox,close,ok,20,1,,150,150,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151110
+B 备选,折叠盒,156112,Folding box with lock mockup 156112,MiddleSplitLockFlipBox,close,ok,20,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156112
+B 备选,折叠盒,156291,Pizza box,SemicircularHoleRightanglePizzaBox,close,ok,20,1,,399.36,399.06,49.8,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156291
+B 备选,折叠盒,158134,Burger box,HamburgerBoxTwo,close,ok,20,1,,190,110,70,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-158134
+B 备选,折叠盒,10004001,Medicine box,PairHorizontalOne,close,ok,19,2,10004002,99.4,19.4,58.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10004001
+B 备选,折叠盒,10004003,Ampoule box,PairHorizontal,close,ok,19,5,10004005 10004006 10004007 10004008,119.4,19.4,63.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10004003
+B 备选,折叠盒,10261001,Compact powder box,PairBackopenForward,close,ok,19,1,,69.4,19.4,68.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-10261001
+B 备选,折叠盒,121140,House shaped gable box,TrapezoidalRoofHandleBox,close,ok,19,1,,200,100,80,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-121140
+B 备选,折叠盒,150230,FEFCO 0885 flip top boxes zipper mailer,AircraftWithZipper,close,ok,19,1,,299,199,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150230
+B 备选,折叠盒,151081,Flip top boxes angled paperbacks mockup 151081,FoldingAnglePaperbackFlapBox,close,ok,18,1,,300,200,99,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151081
+B 备选,折叠盒,153010,Handshake mortise lock flip box flip top boxes tuck front box mockup 153010,FlipHandshakeLatch,close,ok,18,1,,153,100,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153010
+B 备选,折叠盒,153070,Flip top boxes arc lock inserts mockup 153070,ArcFlapLockBox,close,ok,18,1,,200,200,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153070
+B 备选,折叠盒,183070,Six pack box carrier,SixGridBottomSelflockBox,close,ok,18,1,,214,142.67,162,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-183070
+B 备选,折叠盒,206091,FEFCO 0212 folding corrugated box,FlipFlatBottomCardBoardBox,close,ok,18,1,,300,150,148,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-206091
+B 备选,折叠盒,240230,Handle sleeve box,SidePortableCoverP1,close,ok,18,1,,119.4,59.4,200,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-240230
+B 备选,折叠盒,121082,Takeaway tray box with carry handle,TrapezoidalSideBuckleHandgripBuckleHandheldTrayBox,close,ok,17,1,,201,148,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-121082
+B 备选,折叠盒,153182,Folding box with lock mockup 153182,SimpleFrontClamshellBox,close,ok,17,1,,300,300,120,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153182
+B 备选,折叠盒,156210,FEFCO 0426 pizza box,FlipPizzaP1,close,ok,17,1,,197,202,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156210
+B 备选,折叠盒,156212,Flip top box with pizza mockup 156212,PerforatedPizzaFlapBox,close,ok,17,1,,195,193,48,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156212
+B 备选,折叠盒,200033,Zipper cartons mockup 200033,Carton03Zipper,close,ok,17,1,,426,206,262,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200033
+B 备选,折叠盒,108000,Tissue box,TissueSimpleP1,close,ok,16,1,,230,120,60,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-108000
+B 备选,折叠盒,116014,Packaging box with hanging hole,RoofcoverSelflockingBottomBox,close,ok,16,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-116014
+B 备选,折叠盒,150033,Flip top boxes inserts wingless mockup 150033,AircraftLiningWithoutFlank,close,ok,16,1,,301,201,101,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150033
+B 备选,折叠盒,150035,Flip top boxes traceless bottom mailer mockup 150035,TracelessBottomAircraftBox,close,ok,16,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150035
+B 备选,折叠盒,152020,Flip top boxes lock flip top tuck front box mockup 152020,TrayGluedWithLock,close,ok,16,1,,150,100,60,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152020
+B 备选,折叠盒,158131,Fast food box,BuckleInclinedFlipBox,close,ok,16,1,,155,55,35,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-158131
+B 备选,折叠盒,11161101,Cake box with handle,CurvedHandleCakeBox,close,ok,15,1,,258,256,243,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-11161101
+B 备选,折叠盒,150040,FEFCO 0421 flip top mailer box,AircraftFlip,close,ok,15,1,,299,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150040
+B 备选,折叠盒,151070,Flip top boxes flip covers single side mockup 151070,FlipSideLockBottomBox,close,ok,15,1,,300,199,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151070
+B 备选,折叠盒,151080,Flip top boxes angled double snap locks mockup 151080,FoldingAngleDoubleLatchCoverBox,close,ok,15,1,,200,300,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151080
+B 备选,折叠盒,151210,Flip top boxes ladder-type reverse inserts mockup 151210,TrapezoidalAngleReverseInsertLockClamshellBox,close,ok,15,1,,200,100,50,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151210
+B 备选,折叠盒,152210,Flip top boxes easy non-stick,SimpleNonStickSplitFlapBox,close,ok,15,1,,100,150,100,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152210
+B 备选,折叠盒,156240,Flip top boxes polygonal tuck front box mockup 156240,SpecialShapedPizzaFlipBox,close,ok,15,1,,300,300,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156240
+B 备选,折叠盒,160025,Cake box,Cupcakeboxwithopenwindow,exact,n/a,15,1,,200,200,150,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-160025
+B 备选,折叠盒,171020,Display box,BotselflockBigopening,close,ok,15,1,,199.4,149.4,98.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171020
+B 备选,折叠盒,11241001,Cake box with handle,BottomRoofHandleBox,close,ok,14,1,,119.4,119.4,98.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-11241001
+B 备选,折叠盒,116015,Packaging box with hanging hole,RoofcoverLockBottomBox,close,ok,14,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-116015
+B 备选,折叠盒,152080,Flip top boxes easy flip covers lock inserts mockup 152080,SimpleFileBoxWithLock,close,ok,14,1,,250,50,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152080
+B 备选,折叠盒,153011,Folding paper packaging box,RibbonFlipHandshakeLatch,close,ok,14,1,,153.4,100.4,51.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153011
+B 备选,折叠盒,156211,Flip top boxes pizza with window mockup 156211,OpenWindowPizzaFlipBox,close,ok,14,1,,200,199,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156211
+B 备选,折叠盒,105210,Kraft paper box,FullCoverSelfLockingTearFlatStickyBox,close,ok,13,1,,249.4,159.4,118.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-105210
+B 备选,折叠盒,150034,Flip top boxes wingless traceless bottom mockup 150034,WinglessTracelessBottomAircraftBox,close,ok,13,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150034
+B 备选,折叠盒,156260,Flip top boxes folio auto lock bottom mockup 156260,FolioBottomLockingFlapBox,close,ok,13,1,,200,300,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156260
+B 备选,折叠盒,156214,Flip top pizza box mockup 156214,PizzaBoxWithLidAndLock,close,ok,12,1,,300,300,40,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156214
+B 备选,折叠盒,200260,FEFCO 0208 folding display cardboard box,FourCompartmentCardboardBox,close,ok,12,1,,296,296,152,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200260
+B 备选,折叠盒,207011,FEFCO 0313 removable lid corrugated cardboard box,SimpleCenterBoxToLidBox,close,n/a,12,1,,499,499,299,3,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-207011
+B 备选,折叠盒,112401,Cigarette box,CigarettecaseFlip,close,n/a,11,1,,54,21.5,86,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-112401
+B 备选,折叠盒,151050,Flip top boxes folding tuck front box mockup 151050,FoldTheFlipBox,close,ok,11,1,,120,60,30,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151050
+B 备选,折叠盒,151052,Folding box have window,RoundWindowFoldingClamshellBox,close,ok,11,1,,119.4,70,30,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151052
+B 备选,折叠盒,151060,Flip top boxes lock inserts tuck front box mockup 151060,InternalDoublePlugFlapBox,close,ok,11,1,,120,60,159.7,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151060
+B 备选,折叠盒,153180,Flip top boxes easy reverse-fold mockup 153180,SimpleReverseFoldingCardLockFlipBox,close,ok,11,1,,200,100,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153180
+B 备选,折叠盒,171055,Sandwich box,BuckleBottomBoxWithoutLid,close,ok,11,2,17105501,119.4,69.4,59.7,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171055
+B 备选,折叠盒,200232,FEFCO 0225 corrugated box,BottomLockingCardboardBox,close,ok,11,1,,428,210,270,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200232
+B 备选,折叠盒,22001601,Bread bag with handle,RectangularHoleFlatMouthHandbag,close,ok,11,1,,219.7,79.7,179.55,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-22001601
+B 备选,折叠盒,102100,FEFCO 0220 top and bottom snap container,PairBuckle0220,close,ok,10,1,,298,198,248,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-102100
+B 备选,折叠盒,150440,Flip top boxes fixed mailer mockup 150440,FixedLinedAircraftBox,close,ok,10,1,,301,69,39,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150440
+B 备选,折叠盒,151510,Flip top boxes handshake buckle corner flip box tuck front box mockup 151510,HandshakeBuckleCornerClamshell,close,ok,10,1,,200,300,81,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151510
+B 备选,折叠盒,156380,Flip top boxes easy single side flip top mockup 156380,SimpleSingleSideLockBottomFlapBox,close,ok,10,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156380
+B 备选,折叠盒,171210,6-pack carrier box,SixCompartmentPortableDisplayBox,close,ok,10,1,,250,152,62,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171210
+B 备选,折叠盒,240240,Kraft paper shot glass box,EnvelopeWithWindowRoundholeP1,close,ok,10,1,,80.4,40.4,60.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-240240
+B 备选,折叠盒,116030,Paper house-top milk box,AdhesiveRoofOneBox,close,ok,9,1,,100,80,140,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-116030
+B 备选,折叠盒,120144,Cardboard display box,SideLowLockInterlockThickenedDiscBox,close,ok,9,1,,285,188,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-120144
+B 备选,折叠盒,128033,Cardboard drawer packaging box,SimpleDrawerBox,close,n/a,9,1,,69.6,39.2,17.6,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-128033
+B 备选,折叠盒,156213,Flip top boxes pizza paper mockup 156213,FlipWithSidelock,close,ok,9,1,,300,300,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156213
+B 备选,折叠盒,151010,FEFCO 0409 five panel wraps box,TrayHatchback,close,ok,8,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151010
+B 备选,折叠盒,171054,Slotted-type box with top self-locking double crease flaps,FlatBottomShowThick,close,ok,8,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171054
+B 备选,折叠盒,200018,FEFCO 0228 corrugated cardboard box,DivisionExternallyBondedCarton,close,ok,7,1,,429,210,270,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200018
+B 备选,折叠盒,200023,FEFCO 0230 corrugated cardboard box,ExternalAdhesionFlatCarton,close,ok,7,1,,430,210,271,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200023
+B 备选,折叠盒,31022401,Cosmetic outer packaging box,AllWrappedLining,close,ok,7,1,,298,195,88,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-31022401
+B 备选,折叠盒,200019,FEFCO 0229 corrugated cardboard box,CartonFlatWithThickenedSides,close,ok,6,1,,429,210,270,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200019
+B 备选,折叠盒,181230,Gusseted polygonal tube box with integrated lid,PolygonalFlowerShapedCoverBox,close,ok,5,1,,60,60,200,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-181230
+B 备选,折叠盒,181240,French fries unequal hexagonal box,AdhesiveEdgeDiscTrapezoidalBox,close,ok,5,1,,219.4,59.7,159.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-181240
+B 备选,折叠盒,101526,Hanging cosmetics box,RearOpenSingleAircraftHoleHangerBox,close,ok,0,1,,179.4,29.4,118.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-101526
+B 备选,折叠盒,102660,Hanging display box,RearOpeningDoublePlugSideBuckleBoxP1,close,ok,0,1,,119.4,39.4,178.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-102660
+B 备选,折叠盒,103230,Hanging toy box with incline hang hole buckle,BuckleBottomBoxWithInclinedHangingHole,close,ok,0,1,,101.4,101.4,100.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-103230
+B 备选,折叠盒,108010,Tissue box packaging,TissueWithNailLockP1,close,ok,0,1,,120,50,200,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-108010
+B 备选,折叠盒,110050,Hanging medicine box,SideHookPairP1,close,ok,0,2,11005001,119.4,59.4,158.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110050
+B 备选,折叠盒,110051,Hanging toy box with window,SideHookPairWithWindow,close,ok,0,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110051
+B 备选,折叠盒,110241,Hanging polygonal display box,SideLiftingHoleTrapezoidalInclinedLockBoxP1,close,ok,0,1,,119.4,59.4,158.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110241
+B 备选,折叠盒,110360,Hanging electronic product box,DustproofHookBuckleBottomBox,close,ok,0,1,,119.4,59.4,158.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110360
+B 备选,折叠盒,110830,Paper box with handle,SideBuckleHandleBuckleBottomBox,close,ok,0,1,,200,100,300.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110830
+B 备选,折叠盒,110850,Backboard hanging cosmetics box,BackplaneLiftingHoleInsertLockBottomBox,close,ok,0,1,,60,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-110850
+B 备选,折叠盒,121090,Burger box,TrapezoidalFoldingAngleHandleTrayBox,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-121090
+B 备选,折叠盒,123210,Tray boxes tear open snap lock mockup 123210,TearPullMouthDiscLockBox,close,ok,0,1,,120,30,120,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-123210
+B 备选,折叠盒,128052,Tray boxes security buckles flip cover buffers mockup 128052,SafetyBuckleFlapBufferWallBox,close,ok,0,1,,150,100,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-128052
+B 备选,折叠盒,150161,Mailer boxes hook flip top mockup 150161,AircraftWithWindowHook,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150161
+B 备选,折叠盒,150162,Flip top boxes bring your own handles mockup 150162,AircraftWithHookHandle,close,ok,0,1,,299,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150162
+B 备选,折叠盒,150260,Flip top boxes handles double safety buckles mockup 150260,AircraftWithHandleDoubleLocks,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150260
+B 备选,折叠盒,150280,Flip top boxes double-tongue mailer mockup 150280,AircraftBoxWithDoubleTongue,close,ok,0,1,,299,100,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150280
+B 备选,折叠盒,15030101,Cake box,MutualLockingCardboardAircraftBoxWithWindow,close,ok,0,1,,146.4,148.9,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-15030101
+B 备选,折叠盒,150330,Flip top boxes traceless bottom mailer mockup 150330,TracelessBottomDisplayAircraftBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-150330
+B 备选,折叠盒,151090,Flip top boxes semi-sealed lock inserts mockup 151090,SemiSealingSlugLockFlipBox,close,ok,0,1,,300,200,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151090
+B 备选,折叠盒,151130,Flip top boxes side mortise locks handles mockup 151130,AngleFoldingCoverBoxWithSideLock,close,ok,0,1,,300,200,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151130
+B 备选,折叠盒,151150,Shoe box with holes filp top boxes paper mockup 151150,VentilationHoleCornerFlapBox,close,ok,0,1,,200,100,60,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151150
+B 备选,折叠盒,151160,Flip top boxes bottom buckles tuck front box mockup 151160,BuckleBottomFlapBox,close,ok,0,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151160
+B 备选,折叠盒,151190,Flip top boxes book types angled mockup 151190,BookTypeFlipBoxWithFoldedCorners,close,ok,0,1,,200,150,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151190
+B 备选,折叠盒,151600,Flip top boxes traceless cover bottom buckles mockup 151600,TracelessCoverBuckleBottomFlapBox,close,ok,0,1,,300,100,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151600
+B 备选,折叠盒,151630,Flip top boxes security buckles side entry plugs mockup 151630,SafetyBuckleSideInsertFlipBox,close,ok,0,1,,301,204.7,62,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-151630
+B 备选,折叠盒,151660,Flip top boxes four folds mix & match mockup 151660,FourFoldedCombinationFlipBox,close,n/a,0,1,,300,200,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-151660
+B 备选,折叠盒,152030,Adhesive boxes flip top tuck front box mockup 152030,TrayGluedObliqueP1,close,ok,0,1,,148.4,99.4,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152030
+B 备选,折叠盒,152060,Magnet box flip top boxes tuck front box mockup 152060,GlueOneClamshellBox,close,ok,0,1,,159.5,100,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152060
+B 备选,折叠盒,152090,Flip top boxes trapezoidal bevels angled mockup 152090,FlipTrapezoidBevel,close,ok,0,1,,200,100,50,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152090
+B 备选,折叠盒,152130,Flip top boxes twin-side cards tuck front box mockup 152130,DoubleSideCardFlapBox,close,ok,0,1,,150,100,30,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152130
+B 备选,折叠盒,152180,Flip top boxes mailer all-in-one mockup 152180,FrameLockFlipBox,close,ok,0,1,,180,100,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152180
+B 备选,折叠盒,152190,Flip top boxes pair-lock safety buckles mockup 152190,FlipBoxWithLockSafetyBuckle,close,ok,0,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-152190
+B 备选,折叠盒,153020,Handshake snap beveled flip box flip top boxes tuck front box mockup 153020,HandshakeSlantCoverBox,close,ok,0,1,,300,198,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153020
+B 备选,折叠盒,153040,Folding adhesive flip top boxes mockup 153040,FoldAdhesiveClamshellBox,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153040
+B 备选,折叠盒,153060,mockup 153060,FlipFoldenCornerWithLock,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153060
+B 备选,折叠盒,153110,Portable lock inserts flip top boxes mockup 153110,FlipPortableLatch,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153110
+B 备选,折叠盒,153130,Flip top boxes security buckles handles mockup 153130,SafetyBuckleHandleLockFlipBox,close,ok,0,1,,200,100,250,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153130
+B 备选,折叠盒,153140,Flip top boxes security buckles side mortise locks mockup 153140,SafetyBuckleSidePluginLockFlipBox,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153140
+B 备选,折叠盒,153181,Flip top boxes with window easy mockup 153181,SimpleReverseFoldingCardLockFlipBoxWithWindow,close,ok,0,1,,200,100,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153181
+B 备选,折叠盒,153210,Flip top boxes ladder-type lock inserts mockup 153210,TrapezoidalLockFlipBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-153210
+B 备选,折叠盒,156030,Flip top boxes polygonal mailer mockup 156030,SpecialShapedSideLeafBuckleAircraftBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156030
+B 备选,折叠盒,156060,Double drawer tuck front box paper mockup 156060,DoubleDeckAircraftBox,close,n/a,0,1,,300,200,100,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-156060
+B 备选,折叠盒,156080,Flip top boxes polygonal mailer inserts mockup 156080,LinerPlugLockAircraft,close,ok,0,1,,200,150,75,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156080
+B 备选,折叠盒,156100,Polygonal mortise lock flip boxes flip top tuck front box mockup 156100,FlipMutatedWithLock,close,ok,0,1,,150,100,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156100
+B 备选,折叠盒,156110,Flip top boxes double snap lock flip top tuck front box mockup 156110,DoubleLockFlipBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156110
+B 备选,折叠盒,156132,Flip top boxes adhesive bottom lock inserts mockup 156132,FlipPlugBonded,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156132
+B 备选,折叠盒,156150,Flip top boxes side lock inserts mockup 156150,SidePluginLockBottomFlapBox,close,ok,0,1,,300,150,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156150
+B 备选,折叠盒,156160,Flip top boxes lock inserts tray bottom mockup 156160,LockPlateBottomFlipBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156160
+B 备选,折叠盒,156220,Flip top boxes interlocking buckles lock inserts mockup 156220,InterlockLatchFlipBox,close,ok,0,2,15622001,200,150,60,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156220
+B 备选,折叠盒,156221,Bakery display box with window,InterlockLatchFlipBoxWithWindow,close,ok,0,1,,199.6,149.5,49.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156221
+B 备选,折叠盒,156270,Flip top boxes tear lines folio mockup 156270,SplitFlapBoxWithPullCable,close,ok,0,1,,100,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156270
+B 备选,折叠盒,156330,Flip top boxes dump auto lock bottom mockup 156330,TipperLockBottomMortiseLockFlipCover,close,ok,0,1,,200,100,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156330
+B 备选,折叠盒,156430,Flip top boxes twins lock inserts mockup 156430,TwinPlugInLockFlipBox,close,ok,0,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156430
+B 备选,折叠盒,156440,Flip top boxes outsourcing positive mockup 156440,ExternalPositivePlugInLockFlipBox,close,ok,0,1,,120,120,120,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156440
+B 备选,折叠盒,156480,Flip top boxes roof interlocking buckles mockup 156480,RoofInterlockPluginLockFlipBox,close,ok,0,1,,203.4,82.4,82.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-156480
+B 备选,折叠盒,157030,Flip top boxes 3 blocks ladder-type mockup 157030,ThreeTrapezoidalClamshellBox,close,ok,0,1,,297,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-157030
+B 备选,折叠盒,157050,Flip top boxes triangle tuck front box mockup 157050,TriangularFlapBox,close,ok,0,1,,299.3,199.6,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-157050
+B 备选,折叠盒,157060,Flip top boxes triangle folio mockup 157060,TriangularSplitFlapBox,close,ok,0,1,,295,199,59,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-157060
+B 备选,折叠盒,158010,Snap lock on top box paper mockup 158010,DoublePluginLockFlipBox,close,ok,0,1,,101.4,104.6,102.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-158010
+B 备选,折叠盒,158030,Packaging renovate box gift box mockup 158030,SplitFlapLiftingBox,close,n/a,0,1,,192,120,90,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-158030
+B 备选,折叠盒,158090,Box with inserts tuck front box box with inserts mockup 158090,BufferFrameZipperFlapBox,close,n/a,0,1,,200,150,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-folding-158090
+B 备选,折叠盒,171160,Display boxes/stands auto lock bottom lock inserts mockup 171160,LockingBottomLatchDisplayBox,close,ok,0,1,,159.4,98.9,78.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171160
+B 备选,折叠盒,171170,Display boxes/stands security buckles auto lock bottom mockup 171170,SafetyBuckleSelflockingBottomDisplayBox,close,ok,0,1,,200,120,120,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171170
+B 备选,折叠盒,171580,Display boxes/stands ladder-type lock inserts mockup 171580,LadderLockDisplayBox,close,ok,0,1,,296,199,59.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-171580
+B 备选,折叠盒,180200,Hanging triangular display box,TriangularcassetteWithHook,close,ok,0,1,,50,50,200,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-180200
+B 备选,折叠盒,188130,Hanging polygonal display box,SideHangingSixSidedBoxP1,close,ok,0,1,,99.4,39.4,178.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-188130
+B 备选,折叠盒,200330,Packaging carton business material mockup 200330,TapeFreeEcoFriendlyCarton,close,ok,0,1,,200,200,160,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-200330
+B 备选,折叠盒,204030,Folding box 6 grid handle box,LockBottomSixCompartmentLinedCarryCase,close,ok,0,1,,302,202,125,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-204030
+B 备选,折叠盒,242004,Tri-fold brochure,FoldingThreeWalletDiscount,close,ok,0,1,,93.67,215.9,0,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-242004
+B 备选,折叠盒,512230,Chocolate box mockup 512230,ConsumerFourteen,close,ok,0,1,,200,200,200,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-512230
+B 备选,折叠盒,603640,French fries box,PlasticBag,close,ok,0,1,,85,97,0,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-603640
+B 备选,折叠盒,606085,Pill packaging,ConsumerTwenty,close,ok,0,1,,147,92,0,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-folding-606085
+B 备选,托盘盒,171232,Tray with hand holes,BuckleShowSellWithHandlehole,close,ok,22,1,,289,198,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171232
+B 备选,托盘盒,128030,Food drawer box,CornerPaperJamDrawerBox,exact,n/a,21,1,,200,100,50,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-128030
+B 备选,托盘盒,109070,Tray box with backboard mockup 109070,TearingAndPullingDisplayBox,close,ok,20,1,,200,200,80,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-109070
+B 备选,托盘盒,171043,Self locking and sides window tray with sleeve,TrayDrawerSelflockWithWindow,exact,n/a,20,1,,296.4,199.4,59.7,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-171043
+B 备选,托盘盒,120710,Tray boxes mockup 120710,LinedWithFlatStickInsertLockingDiscBox,close,ok,18,1,,117.4,119.4,29.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120710
+B 备选,托盘盒,123051,Tray boxes with handle,TrayWithHandle,close,n/a,17,1,,300,300,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-123051
+B 备选,托盘盒,171030,Display tray box,TrayShow,close,ok,16,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171030
+B 备选,托盘盒,120270,Food tray box,BreatherTray,close,ok,14,1,,385,136,48,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120270
+B 备选,托盘盒,240150,Sleeve tray box,SimpleHalfPackRectangularEnvelope,close,ok,14,1,,249.4,149.4,29.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-240150
+B 备选,托盘盒,120032,FEFCO 0424 tray with self locking wall,TypeBox0424,close,ok,13,1,,295,238,59,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120032
+B 备选,托盘盒,120221,4-pack carrier display tray box with handle,FourCompartmentHandleTrayBox,close,ok,13,1,,300,300,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120221
+B 备选,托盘盒,128060,Sleeve food box,SnapTypeBottomLockDrawerBox,close,n/a,13,1,,200,100,50,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-128060
+B 备选,托盘盒,120061,Rectangular paper tray box,SideLockOfHandclasp,close,ok,12,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120061
+B 备选,托盘盒,120141,Paper tray box,SideLockInterlockThickenedDiscBox,close,ok,12,1,,304,204,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120141
+B 备选,托盘盒,120031,Display tray box,MortiseLockBottomBoxWithStackingBuckles,close,ok,11,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120031
+B 备选,托盘盒,120260,Tray boxes ribbon holes glue-free mockup 120260,RibbonHoleGlueFreeDiscBox,close,ok,11,1,,120,121,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120260
+B 备选,托盘盒,121030,Fast food tray box,SixPointGluedSnackBox,close,ok,11,1,,120,70,30,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-121030
+B 备选,托盘盒,128012,Interlocking flap tray box,DoubleHandshakeBuckleBufferBox,close,ok,11,1,,258.4,158.4,59,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-128012
+B 备选,托盘盒,171031,FEFCO 0770 cardboard tray display box,FourSideColumnQuickDisplayBox,close,ok,11,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171031
+B 备选,托盘盒,171041,Display tray box,TraySelflockWithWindow,close,ok,10,1,,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171041
+B 备选,托盘盒,171042,Display tray box,TrayBuckleWithFlap,close,ok,10,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171042
+B 备选,托盘盒,120360,Cardboard tray box,FourFoldDiscBox,close,ok,9,1,,350,250,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120360
+B 备选,托盘盒,120100,FEFCO 0450 foldable 4-corner tray box,TrayFolding,close,ok,8,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120100
+B 备选,托盘盒,205012,FEFCO 0480 regular slotted tray with flange,sideAdhesiveHalfPackTransportCarton,close,ok,8,1,,496,346,98,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-205012
+B 备选,托盘盒,120090,Fast food tray box,ThickBottomDiscBox,close,ok,7,1,,299,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120090
+B 备选,托盘盒,120142,Kraft paper tray box,SideLockFoldingBottomThickenedDiscBox,close,ok,7,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120142
+B 备选,托盘盒,171081,FEFCO 0460 display tray with raised panels box,SimpleFullOpeningBox,close,ok,7,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171081
+B 备选,托盘盒,120030,Cardboard food tray box,MortiseLockBottomBoxP1,close,ok,6,1,,308,198,59,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120030
+B 备选,托盘盒,120050,Food tray box,InterlockingAngleDiscBox,close,ok,6,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120050
+B 备选,托盘盒,120140,Cardboard tray box,SidePlugLockThickenedTrayBox,close,ok,6,1,,301,201,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120140
+B 备选,托盘盒,171040,FEFCO 0422 auto lock tray boxes display /stands,TraySelflock,close,ok,6,1,,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171040
+B 备选,托盘盒,120020,FEFCO 0455 tray box display,TrayThick,close,ok,4,1,,301,201,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120020
+B 备选,托盘盒,120201,Hot dog tray box,ClaspInclinedTrayTypeBox,close,ok,4,1,,200,80,30,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120201
+B 备选,托盘盒,170020,Display tray box,OpenDisplayBox,close,ok,4,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-170020
+B 备选,托盘盒,120010,FEFCO 0452 food tray box,Tray,close,ok,3,1,,300,201,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120010
+B 备选,托盘盒,120350,Trapezoid-shaped paper tray box,TrapezoidalDiscBox,close,ok,1,1,,150,105,50,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120350
+B 备选,托盘盒,120040,Food tray box,ConcealedPluginLockChassisBox,close,ok,0,1,,300,200,48.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120040
+B 备选,托盘盒,120060,Cardboard tray box,SideInsertLockDiscType,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120060
+B 备选,托盘盒,120110,Hot dog tray box,TrapezoidalArcEdgeTrayBox,close,ok,0,1,,148.4,99.4,39.7,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120110
+B 备选,托盘盒,120120,Hot dog tray box,TracelessBottomFourFoldEdgeDiscBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120120
+B 备选,托盘盒,120130,Paper tray box,LockThickenDiscBox,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120130
+B 备选,托盘盒,120150,Display tray box,SheathingFlatMountedTrayBox,close,ok,0,1,,200,100,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120150
+B 备选,托盘盒,120180,Tray boxes swing top snap lock mockup 120180,DoubleShakeCoverBuckleLockBottom,close,ok,0,1,,400,300,100,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120180
+B 备选,托盘盒,120190,Trapezoid kraft paper food tray box,TrapezoidalDiscBoxWithLock,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120190
+B 备选,托盘盒,120200,Hot dog tray box,ArcSideInclinedDiscBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120200
+B 备选,托盘盒,120220,Easily foldable four-compartment tray box,FourCompartmentTrayBox,close,ok,0,1,,300,200,75,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120220
+B 备选,托盘盒,120250,Tray boxes buckle side flip covers mockup 120250,DiscBuckleCoverBox,close,ok,0,1,,120,60,30,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120250
+B 备选,托盘盒,120280,Hot dog tray box,SpecialShapedDiscBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120280
+B 备选,托盘盒,120300,Tray box,PortableDiscBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120300
+B 备选,托盘盒,120330,Kraft paper tray box,SideLockFourSealAngleDiscBox,close,ok,0,1,,300,200,40,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120330
+B 备选,托盘盒,120340,Tray boxes easy interlocking buckles mockup 120340,SimpleMutualLockingDiscHandleBox,close,ok,0,1,,100,60,120,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120340
+B 备选,托盘盒,120371,Food tray box,FourFoldSideMutualLcokingAndAngleDiscBox,close,ok,0,1,,199.4,199.4,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120371
+B 备选,托盘盒,120390,Hot dog tray box,FourFoldEdgeAndCornerDiscBox,close,ok,0,1,,198.4,98.4,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120390
+B 备选,托盘盒,120400,Hot dog tray box,BottomFoldedAngleDiscBox,close,ok,0,1,,200,100,49.5,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120400
+B 备选,托盘盒,120420,Kraft paper tray box,TracelessBottomSocketDiscBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120420
+B 备选,托盘盒,120430,Hot dog tray box,SymmetricalTracelessBottomSidePluginDiscBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120430
+B 备选,托盘盒,120550,Three-compartment trapezoidal display tray box,TrapezoidalDiscBoxWithThreeCompartments,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120550
+B 备选,托盘盒,120620,FEFCO 0473 recessed end box folder,SinglePieceFoldingPluginLockDiscBox,close,ok,0,1,,250,120,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120620
+B 备选,托盘盒,120660,Food tray box,DoubleEarPaperJamTrayBox,close,ok,0,1,,150,150,40,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120660
+B 备选,托盘盒,120680,Tray boxes interlocking buckles card inserts mockup 120680,InterlockingSnapLockDiscDox,close,ok,0,1,,200,120,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120680
+B 备选,托盘盒,120730,Cardboard tray box,QuadhemInterlockingBottomDiscBox,close,ok,0,1,,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-120730
+B 备选,托盘盒,121020,Fast food tray box,GluedFastfoodTray,close,ok,0,1,,198,140,48,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-121020
+B 备选,托盘盒,123020,Display tray box,FrontBaffleTiltingDiscBox,close,ok,0,1,,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-123020
+B 备选,托盘盒,123050,Kraft paper tray box,HexagonDiscBoxWithLockBottom,close,ok,0,1,,200,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-123050
+B 备选,托盘盒,123070,Hexagon food tray box,RegularHexagonalDiscBox,close,ok,0,1,,200,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-123070
+B 备选,托盘盒,123090,Octagonal food tray box,OctagonalLockBottomBox,close,ok,0,1,,250,250,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-123090
+B 备选,托盘盒,123160,Six pack display tray box,SixGridDiscBox,close,ok,0,1,,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-123160
+B 备选,托盘盒,128013,Tray boxes buffers inside the wall mockup 128013,BufferwallboxInnercover,close,n/a,0,1,,296.6,196.6,58,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-128013
+B 备选,托盘盒,128021,Book sleeve box,InsertLockEnvelopeHandleDrawerBox,close,n/a,0,1,,200,300,60,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-128021
+B 备选,托盘盒,128040,Food tray box,FourFoldBufferBox,close,ok,0,1,,296.6,196.6,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-128040
+B 备选,托盘盒,128100,Hot dog tray box,TrapezoidalFourFoldDiscBox,close,ok,0,1,,299.4,199.4,56.6,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-128100
+B 备选,托盘盒,157080,Gift flip lid box with sleeve,InclinedFlapBoxP1,close,n/a,0,2,157080,148.9,58.9,58.9,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-tray-157080
+B 备选,托盘盒,170150,Display tray box,TracelessBottomSideLockDisplayBox,close,ok,0,1,,300,200,40,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-170150
+B 备选,托盘盒,170170,Display tray box,FourFoldedFlatStickBottomDisplayBox,close,ok,0,1,,410,348,152,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-170170
+B 备选,托盘盒,171080,Display tray box,SimpleSalesDisplayBox,close,ok,0,1,,300,200,100,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171080
+B 备选,托盘盒,171180,FEFCO 0431 display tray box,HalfSealedLatchDisplayBox,close,ok,0,1,,300,200,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171180
+B 备选,托盘盒,171190,FEFCO 0433 display box,InnerFoldingLockingDisplayBox,close,ok,0,1,,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-171190
+B 备选,托盘盒,200101,Simple & economical cartons splicing ab-side mockup 200101,CartonEconomicAB,close,ok,0,1,,430,210,270,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-tray-200101
+B 备选,邮寄盒,112451,Mailer box with double snap locks and handles,ThreeBuckleBottomBoxWithDoubleLockHandle,close,ok,41,1,,300,120,182.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112451
+B 备选,邮寄盒,102061,Mailer box with double safety buckles auto lock bottom,DoubleSafetyBuckleAndSelfLockingButtomBox,close,ok,38,1,,300,100,180.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-102061
+B 备选,邮寄盒,10301201,Tuck end mailer box,BuckleBackopenWithLock,close,ok,37,2,10301201,149.4,99.4,39.5,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-10301201
+B 备选,邮寄盒,102063,Tuck end mailer box with security buckles,SafetyReinforcedBuckleBottomBox,close,ok,36,1,,300,100,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-102063
+B 备选,邮寄盒,102060,Mailer box with double safety buckles positive,DoubleSafetyBuckleAndThreeBuckleButtingBox,close,ok,34,1,,300,100,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-102060
+B 备选,邮寄盒,103090,Back open mailer box with handles,BackOpenHandleInsertLatchBottomBox,close,ok,34,1,,202,137,125,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-103090
+B 备选,邮寄盒,150018,Flip top box mailer carrying cases,AircraftWithHandleLock,close,ok,34,2,150018,304,201,61,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150018
+B 备选,邮寄盒,152100,Flip top malier box with lock tab,FlapBoxWithTopLatch,close,ok,31,2,152100,135,133.5,114,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-152100
+B 备选,邮寄盒,112330,Mailer box with auto lock buckles,HandboxForwardHandleWithLock,close,ok,30,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112330
+B 备选,邮寄盒,112331,Reverse tuck end mailer boxes,HandboxBackwardHandleWithLock,close,ok,30,1,,300,150,182,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112331
+B 备选,邮寄盒,206090,Cardboard mailer box with lock,InsertLockFlatBottomCardboardBox,close,ok,30,1,,240,180,85,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-206090
+B 备选,邮寄盒,150100,Self-locking angled front mailer box,AircraftWithTrapezoidP1,close,ok,29,2,150100,285,198,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150100
+B 备选,邮寄盒,150013,Mailer box with security buckles flip top,AircraftWithNailLock,close,ok,28,2,150013,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150013
+B 备选,邮寄盒,150014,Mailer box with Double safety buckles,AircraftWithDoubleLocks,close,ok,28,2,150014,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150014
+B 备选,邮寄盒,150300,Tuck end mailer box,MutualLockingCardboardAircraftBox,close,ok,27,1,,300,125,50,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150300
+B 备选,邮寄盒,150017,Mailer box carrying cases,AircraftWithHandle,close,ok,24,2,150017,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150017
+B 备选,邮寄盒,112372,Roof mailer box,RoofboxWithLatched,close,ok,22,1,,173,113,91.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112372
+B 备选,邮寄盒,150016,Mailer box with handle hole box,ObliqueWingHandleBox,close,ok,22,2,150016,298.6,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150016
+B 备选,邮寄盒,200231,6-pack carrier box,CartonSelfSixBlockLocking,close,ok,22,1,,350,200,200,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-200231
+B 备选,邮寄盒,150012,Flip top mailer box,AircraftWithNail,close,ok,21,2,150012,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150012
+B 备选,邮寄盒,150160,Flip top mailer box,AircraftWithHook,close,ok,20,2,150160,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150160
+B 备选,邮寄盒,152101,Self locking flip top mailer box,FlapBoxWithTopLatchOne,close,ok,20,1,,135,133.5,114,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-152101
+B 备选,邮寄盒,150020,FEFCO 0429 flip top mailer box,AircraftWithoutInsertion,close,ok,19,2,150020,298,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150020
+B 备选,邮寄盒,150010,Rollover hinged lid mailer box,Aircraft,close,ok,18,9,15001007 15001006 15001007 15001008 15001009 150010 15001004 15001006,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150010
+B 备选,邮寄盒,150011,FEFCO 0427 flip top mailer box packaging,AircraftNew,close,ok,18,5,15001106 150011 15001106 15001101,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150011
+B 备选,邮寄盒,112430,Mailer box with adhesive opening and handles,BuckleBottomBoxWithAdhesiveMouthHandle,close,ok,17,1,,300,150,150,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112430
+B 备选,邮寄盒,150030,Flip top mailer box,AircraftWithoutFlank,close,ok,16,2,150030,295,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150030
+B 备选,邮寄盒,156181,Flip top box with auto lock bottom,FlipLockBottom,close,ok,14,1,,201,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156181
+B 备选,邮寄盒,152040,Flip top mailer box with lock,FlipWithLock,close,ok,13,2,152040,150,100,80,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-152040
+B 备选,邮寄盒,153031,FEFCO 0414 flip-top mailer box,NonSlotLockBottomFlipBox,close,ok,13,3,153031 153031,294,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-153031
+B 备选,邮寄盒,112050,Tuck end mailer box,BuckleFlat,close,ok,12,1,,120,60,160.5,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112050
+B 备选,邮寄盒,109020,Flip top tuck front mailer box,ArcFoldingMachinePackageBox,close,ok,11,2,109020,161.5,60,204.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-109020
+B 备选,邮寄盒,112431,Mailer box with adhesive opening and handles,AdhesiveBottomBoxWithAdhesiveMouthHandle,close,ok,11,1,,300,150,147,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112431
+B 备选,邮寄盒,156000,FEFCO 0471 flip top mailer box with polygonal tuck front,AircraftWithSpecialShaped,close,ok,9,2,156000,152.5,100,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156000
+B 备选,邮寄盒,110160,FEFCO 0227  tuck end mailer box,CappingMachineBagBoxP1,close,ok,7,2,110160,120,60,160,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-110160
+B 备选,邮寄盒,205010,FEFCO 0411 cardboard shipping box,MediumSealedCardboardBox,close,ok,6,2,205010,349,199,49,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-205010
+B 备选,邮寄盒,205011,FEFCO 0412 cardboard shipping box,TrayTypeCarton,close,ok,6,1,,349,199,49,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-205011
+B 备选,邮寄盒,200036,Cardboard mailer box,FullLifeCarton,close,ok,4,1,,399,99,599,3,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-200036
+B 备选,邮寄盒,102064,Mailer box with auto bottome snap lock,EasyToOpenSafetyBuckleBottomBox,close,ok,0,1,,300,200,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-102064
+B 备选,邮寄盒,102220,Mailer box with security buckles auto bottome snap lock,AircraftCoverSafetyBuckleBox,close,ok,0,1,,300,100,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-102220
+B 备选,邮寄盒,112322,Mailer box with safety buckle,HandboxBotselflockWithLock,close,ok,0,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112322
+B 备选,邮寄盒,112350,Auto lock bottom mailer box,HandboxBotselflockHandleWithLock,close,ok,0,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112350
+B 备选,邮寄盒,112360,Security buckles flat top cartons mailer box,HandboxFlatWithLock,close,ok,0,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112360
+B 备选,邮寄盒,112450,Carrying mailer box auto bottome snap lock boxes,BuckleBottomBoxWithDoubleLockHandle,close,ok,0,1,,300,120,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112450
+B 备选,邮寄盒,112500,Mailer box with double safety buckles lock inserts,ThreeBuckleBottomBoxWithDoubleLockAndSafetyClasp,close,ok,0,1,,300,120,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112500
+B 备选,邮寄盒,112550,Mailer box with security buckles lock inserts,BuckleBottomBoxWithSafetyBuckle,close,ok,0,1,,200,100,150,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112550
+B 备选,邮寄盒,112580,Dust-proof locking mailer box,DualPurposeSuitcaseWithFrontBuckleBottomInsertLock,close,ok,0,1,,300,150,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112580
+B 备选,邮寄盒,112690,Tuck end mailer box with lock bottom,RoundNeckBuckleBottomBox,close,ok,0,1,,300,100,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-112690
+B 备选,邮寄盒,150021,Mailer box with window,AircraftWithWindowWithoutInsert,close,ok,0,2,150021,300,200,60,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150021
+B 备选,邮寄盒,150032,Flip top insert lock mailer box,AircraftWithoutWingsHoles,close,ok,0,2,150032,300,200.5,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150032
+B 备选,邮寄盒,150430,Flip top box side mailer,SideFixedAircraftBox,close,ok,0,2,150430,315,202,202,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-150430
+B 备选,邮寄盒,151030,Flip top tuck front mailer box,FlipShoebox,close,ok,0,2,151030,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-151030
+B 备选,邮寄盒,156001,Flip top boxes inserts polygonal mailer,LinedSpecialTypeAircraft,close,ok,0,2,156001,150,100,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156001
+B 备选,邮寄盒,156130,Flip top mailer box with bottom lock inserts,FlipPlugUnbonded,close,ok,0,2,156130,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156130
+B 备选,邮寄盒,156280,Flip top miler box with lock inserts,FlatCoverWithInsertLock,close,ok,0,2,156280,300,200,99.75,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156280
+B 备选,邮寄盒,156281,Flip top mailer box with zipper,FlatPackZipperFlapBox,close,ok,0,2,156281,300,200,99.75,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156281
+B 备选,邮寄盒,156310,Flip top mailer box with bottom lock inserts,ConcealedPluginLockBottomFlapBox,close,ok,0,2,156310,300,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-mailer-156310
+B 备选,运输箱,102041,自动底部三扣底邮寄盒,PairBuckletripleBackward,close,ok,27,1,,300,150,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-102041
+B 备选,运输箱,103021,双开运输盒,SplitLockselflockingBox,close,ok,24,1,,200,120,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-103021
+B 备选,运输箱,112470,扣锁礼品运输盒,RoofflatHandleBuckle,close,ok,24,1,,300,120,202.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-112470
+B 备选,运输箱,112471,扣锁运输盒,RoofflatHandleBuckleBackward,close,ok,24,1,,300,120,202.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-112471
+B 备选,运输箱,110171,带撕线的运输盒,TearOffCableFlatBox,close,ok,22,1,,150,291,193,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-110171
+B 备选,运输箱,103020,双开运输盒,SplitLockBuckleBottomBox,close,ok,19,1,,200,120,180,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-103020
+B 备选,运输箱,152102,定制自锁式邮寄盒,FlapBoxWithTopLatchTwo,close,ok,19,2,152102,295,193.5,99,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-152102
+B 备选,运输箱,200034,带拉链的纸质运输盒,CartonFrontZipper,close,ok,19,1,,429,209,259,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200034
+B 备选,运输箱,200014,新鲜水果运输纸箱,RegularCartonWithHandleHoles,close,ok,11,2,200014,426,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200014
+B 备选,运输箱,200035,带拉链的运输纸盒,InsideCornerZipperCarton,close,ok,11,1,,429,209,269,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200035
+B 备选,运输箱,200102,带便携孔的运输纸箱ab面,CartonEconomicHandhole,close,ok,10,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200102
+B 备选,运输箱,200030,0203 国际标准运输纸箱,Carton03,close,ok,9,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200030
+B 备选,运输箱,200012,带便携搬运孔的运输纸箱,CartonHandhole,close,ok,8,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200012
+B 备选,运输箱,200013,0209常规纸质运输纸箱,CartonRegular0209,close,ok,7,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200013
+B 备选,运输箱,200100,平顶运输纸箱,CartonEconomic,close,ok,7,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200100
+B 备选,运输箱,200230,纸箱六格运输盒,CartonSelfSixBlock,close,ok,7,1,,350,200,196,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200230
+B 备选,运输箱,201013,无底纸箱运输盒,BottomCardboardBoxABSurface,close,ok,7,1,,426,206,266,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-201013
+B 备选,运输箱,200020,纸箱 0202 国际标准,Carton02,close,ok,6,1,,430,210,270,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200020
+B 备选,运输箱,201012,平口运输盒,Carton04,close,ok,6,1,,426,206,266.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-201012
+B 备选,运输箱,201015,无底纸箱,BottomLessCoverCardboardBox,close,ok,5,1,,429,209,269,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-201015
+B 备选,运输箱,206080,折叠配送箱,NonStickTrayBottomMatchingBox,close,ok,5,2,206080,150,120,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-206080
+B 备选,运输箱,200015,缓冲的运输箱,InsideCornerFlatCarton,close,ok,1,1,,429,209,269,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200015
+B 备选,运输箱,102040,插口式产品盒,PairBuckletriple,close,ok,0,1,,300,150,181.5,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-102040
+B 备选,运输箱,110810,插舌式运输盒,BuckleBottomBoxWithInsertion,close,ok,0,1,,300,100,150,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-110810
+B 备选,运输箱,112480,三锁运输盒,RoofflatHandleBuckletriple,close,ok,0,1,,300,120,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-112480
+B 备选,运输箱,112481,反锁运输盒,RoofflatHandleBuckletripleBackward,close,ok,0,1,,300,120,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-112481
+B 备选,运输箱,112511,插口运输盒,FlatMouthSpecialLockBottom,close,ok,0,1,,300,100,300,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-112511
+B 备选,运输箱,116200,带手柄的盒,InterlockPortableTrayCase,close,ok,0,2,116200,300,200,150,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-116200
+B 备选,运输箱,156090,打开的纸箱,ZipperShapedAirplaneCase,close,ok,0,2,156090,150,100,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-156090
+B 备选,运输箱,156131,带非粘合侧榫锁的运输盒,FlipSidePlugUnbonded,close,ok,0,2,156131,300,200,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-156131
+B 备选,运输箱,200200,折叠运输箱,CartonSelfBlock,close,ok,0,1,,350,350,200,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200200
+B 备选,运输箱,200210,纸箱移动纸,CartonMovehouseStrengthen,close,ok,0,1,,500,400,400,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200210
+B 备选,运输箱,200240,带有 6 格插入物的运输纸箱,SixCompartmentLinedCarton,close,ok,0,2,200240,198,134,238,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200240
+B 备选,运输箱,200250,带6格的折叠运输盒,SixCompartmentLinedSelflockingBottomFlatCarton,close,ok,0,2,200250,300,199,100,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200250
+B 备选,运输箱,200280,带锁扣插入的运输纸箱,CartonFlatWithFlipLatch,close,ok,0,1,,200,100,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-shipping-200280
+B 备选,礼盒,10201801,Easy lock-top tuck end ampoule box,SimpleBottomLockBox,close,ok,29,2,10201801,49.4,49.4,68.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-10201801
+B 备选,礼盒,10268001,Neck lock square skincare box,RearCylindricalLiningPair,close,ok,27,4,10268001 10268002 10268003,79.4,79.4,68.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-10268001
+B 备选,礼盒,102010,Tuck end mailer box packaging,PairBuckle,close,ok,26,1,,120,60,160,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-102010
+B 备选,礼盒,10211101,Zipper top blind box,PairBuckleZipperWithLatch,close,ok,26,2,10211101,99.5,79.5,158.66,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-10211101
+B 备选,礼盒,150023,Three side double wall flip top box,TripleFlangedPlaneCaseWithoutTongueP1,close,ok,25,3,150023 150023,285,191.5,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-150023
+B 备选,礼盒,10001402,Window gift box,PairWithWindowTwo,close,ok,24,1,,129.4,129.4,128.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-10001402
+B 备选,礼盒,121111,Mini cupcake gable box,SlantedRoofPipeTrayHandleBox,close,ok,24,2,121111,119.4,119.4,158.7,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-121111
+B 备选,礼盒,110091,Tree-shaped double-socket box,TopCoverTreeshapedDoubleSocketBox,close,ok,19,2,110091,119.4,119.4,119.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-110091
+B 备选,礼盒,112070,Gift box with window,RoundWindowedHandheldGiftBox,close,ok,19,1,,119.4,119.4,118.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-112070
+B 备选,礼盒,152021,Flip top box with tuck top and thumb cut,TrayGluedWithLockNailP1,close,ok,19,2,152021,296,198,58,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-152021
+B 备选,礼盒,112047,Roofing cord buckle bottom box,RoofWiringAndBottomBox,close,ok,13,1,,69.4,49.4,59.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-112047
+B 备选,礼盒,160160,Board game box with lid,FourFoldCoverBox,close,n/a,13,3,16016001 16016001,350,250,50,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-160160
+B 备选,礼盒,189041,Hexagonal mortise lock box,RegularHexagonalInterlockingTubeBox,close,ok,13,1,,99.4,99.4,48.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-189041
+B 备选,礼盒,189042,Pentagonal box,FivesidedIrregularshapedLockBox,close,ok,10,1,,99.4,99.4,49.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-189042
+B 备选,礼盒,112030,Christmas apple box packaging,BuckleWeddingCandy,close,ok,8,1,,159.4,159.4,159.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-112030
+B 备选,礼盒,16001001,Board game box with lid,CoverBox,exact,n/a,8,1,,199.4,138.4,49.7,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-16001001
+B 备选,礼盒,12802001,Sliding surprise gift box,BufferwallboxDrawerOne,close,n/a,7,2,12802001,198.4,124.4,29,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-12802001
+B 备选,礼盒,110090,Gift box packaging,CoverHeartshapedDoubleSocketBox,close,ok,0,1,,163.4,163.4,268.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-110090
+B 备选,礼盒,112031,Christmas eve gift  box packaging,IsomerismBuckleCandyBox,close,ok,0,1,,79.4,79.4,119.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-112031
+B 备选,礼盒,112060,Christmas fruit gift box packaging,HeartshapedDoubleSocketSelflockingBottomBox,close,ok,0,1,,119.4,119.4,118.4,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-112060
+B 备选,礼盒,156410,Buckle lock bottom carton gift mailer box,InterlockingPluginLockingBufferFlapBox,close,ok,0,3,156410 156410,125,120,80,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-156410
+B 备选,礼盒,160031,Shoe packaging box,HalffoldedBottomWithoutTraceBuckleBottomWorld,close,ok,0,1,,300,200,150,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-160031
+B 备选,礼盒,188300,Polygonal gift box mockup,BallGiftBox,close,ok,0,1,,80,80,81.1,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-188300
+B 备选,礼盒,188310,Sphere surprise gift box,NonConcaveSphericalGiftBox,close,ok,0,1,,79.4,79.4,78.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-188310
+B 备选,礼盒,36601001,Skincare box with lid,BoutiqueboxDivideEquallyCover,exact,n/a,0,3,36601001 36601004,200,130,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-36601001
+B 备选,礼盒,366012,Rigid box with lid,BoutiqueboxExposedDivideEquallyCover,exact,n/a,0,3,36601201 36601203,279,189,114,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-366012
+B 备选,礼盒,36601204,Gift box with lid,BoutiqueboxExposedDivideEquallyCoverOne,exact,n/a,0,1,,160,160,40,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-36601204
+B 备选,礼盒,36601205,Gorgeous gift box,BoutiqueboxExposedDivideEquallyCoverTwo,close,n/a,0,1,,120,120,60,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-36601205
+B 备选,礼盒,603500,Wine box with inserts wine bottles wine bottle,ConsumerMingTwo,exact,n/a,0,1,,100,100,100,1.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-gift-603500
+B 备选,礼盒,603650,Surprise gift box,ConsumerThirteen,close,ok,0,1,,10,10,0,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-gift-603650
+B 备选,方形盒,10201101,Tuck end open square box,BuckleWithNailOne,close,ok,27,3,10201102 10201102,129.4,129.4,128.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-10201101
+B 备选,方形盒,12808001,Square gift sleeve box,DrawerCardboardBox,close,n/a,18,2,12808001,97.4,97.4,69.4,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-square-12808001
+B 备选,方形盒,15001001,Open square mailer box,AircraftP1,close,ok,18,5,15001002 15001003 15001002 15001003,135,148,48,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-15001001
+B 备选,方形盒,15621002,Square pizza box,FlipPizza,close,ok,17,1,,210,207,43,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-15621002
+B 备选,方形盒,16002201,Square cardboard box with lid,CartonCoverBoxWithHandleOne,close,ok,12,1,,228,228,178,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-16002201
+B 备选,方形盒,16002202,Square box with lid,CartonCoverBoxWithHandle,close,ok,12,1,,348,348,348,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-16002202
+B 备选,方形盒,15621001,Open square mailer box,FlipPizzaOne,close,ok,9,1,,295,292,48,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-15621001
+B 备选,方形盒,16101203,Square sweet box with lid,CoverBassetCardboardBox,exact,n/a,9,9,16101203 161012 16101201 16101202 16101204 161012 16101202 16101204,197.4,78.4,39.4,0.5,刀版达标；多件套或无折叠动画，3D 未对照,http://localhost/workbench/import-square-16101203
+B 备选,方形盒,120230,Spare food tray box,RoundFlapDiscBox,close,ok,5,2,120230,200,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-120230
+B 备选,方形盒,10001401,Square cake box,PairWithWindowOne,close,ok,0,1,,84.4,84.4,83.9,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-10001401
+B 备选,方形盒,110520,Square box,TopCoverHalfSelflockingBottomBox,close,ok,0,2,110520,150,100,100,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-110520
+B 备选,方形盒,110680,Square shipping box,BottomInsertingBoxWithHalfSelfLockingUpperCover,close,ok,0,2,110680,150,100,100,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-110680
+B 备选,方形盒,120320,Square food tray box,InterlockingDiagonalLockingDiscBox,close,ok,0,3,120320 120320,200,200,50,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-120320
+B 备选,方形盒,123040,Hot dog tray box,ReverseFoldingDiscBox,close,ok,0,1,,120,60,30,0.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-123040
+B 备选,方形盒,15001102,Square box packaging,AircraftNewThree,close,ok,0,1,,135,148,45,1.5,刀版接近（展开尺寸 2% 内）且 3D 一致,http://localhost/workbench/import-square-15001102
+C 暂不推荐,折叠盒,102627,Hanging polygonal display box,RearOpenTrapezoidalBevelHookBox,exact,differs,26,1,,79.4,29.4,139.4,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-102627
+C 暂不推荐,折叠盒,150120,Gift mailer box with sleeve,EnvelopeAircraftBoxP1,close,differs,23,1,,295.4,199.4,59.4,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-150120
+C 暂不推荐,折叠盒,156250,Dessert box display,FourfoldLatchBufferFlapBox,close,differs,22,1,,180,90,50,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-156250
+C 暂不推荐,折叠盒,150112,Flip top box with lock mockup 150112,TopCoverLockThePlaneBox,close,differs,20,1,,288,198,58,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-150112
+C 暂不推荐,折叠盒,156245,Pizza box,HexagonalFingerLockPizzaFlipBox,close,differs,20,1,,256.6,254.1,29,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-156245
+C 暂不推荐,折叠盒,170051,Handle display box,HandleSelflockBottomDisplayBox01,exact,differs,17,1,,200,100,150,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-170051
+C 暂不推荐,折叠盒,128011,Folding display base box,UnilateralWidenedBufferWallBox,close,differs,10,1,,138.4,258.4,59,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-128011
+C 暂不推荐,折叠盒,112910,Popcorn box,BottomBuckleTrapezoidalBoxP1,exact,differs,9,1,,64,64,106,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-112910
+C 暂不推荐,折叠盒,11208101,Cake box with handle,LockPairBuckleCake,close,differs,0,1,,120,120,120,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-11208101
+C 暂不推荐,折叠盒,11208301,Cake box with handle,BotselfolckCake,close,differs,0,1,,149.4,149.4,149.4,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-11208301
+C 暂不推荐,折叠盒,153230,Flip top boxes double-sided ladder-type mockup 153230,DoubleSidedTrapezoidalFlipBox,close,differs,0,1,,150,60,160,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-153230
+C 暂不推荐,折叠盒,156222,Windowed locking flip lid box,InterlockLatchFlipBoxWithWindow01,close,differs,0,1,,299.6,199.5,58.9,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-156222
+C 暂不推荐,折叠盒,157010,Flip top boxes double open half-folded mockup 157010,SplitFoldedFlapBox,close,differs,0,1,,80,60,160,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-157010
+C 暂不推荐,折叠盒,188050,Hanging triangular display box,TriangularInclinedCoverHangingHoleBox,close,differs,0,1,,120,71.76,160,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-folding-188050
+C 暂不推荐,托盘盒,120034,Stackable corrugated tray,StackableHandleTrayBox,close,differs,39,1,,295,192,97.5,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-120034
+C 暂不推荐,托盘盒,120033,Display tray box,StackedSideGlueTrayBottomBox,close,differs,21,1,,300,200,60,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-120033
+C 暂不推荐,托盘盒,171181,Display tray box,HalfSealedSidelatchTransportBox,close,differs,21,1,,400,300,80,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-171181
+C 暂不推荐,托盘盒,120035,FEFCO 0436 stackable corrugated tray box,StackedSideBuckleTrayTypeBox,close,differs,19,1,,296,190,73,3,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-120035
+C 暂不推荐,托盘盒,120202,Hot dog tray box,SideOpeningBuckleInclinedBox,exact,differs,5,1,,120,75,35,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-120202
+C 暂不推荐,托盘盒,161121,Polygonal display tray box,SimpleShapedHexagonalTrayBox,close,differs,4,1,,160,50,45,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-161121
+C 暂不推荐,托盘盒,602471,Plastic food container,CanCylinder,exact,no-recipe,1,3,602472 603270,200,120,0,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-602471
+C 暂不推荐,托盘盒,120530,Display tray box,LockBottomStackingTray,close,differs,0,1,,300,200,60,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-tray-120530
+C 暂不推荐,运输箱,200010,0201运输纸箱,Carton,close,no-recipe,6,5,20001001 20001001 20001002 20001001,430,210,270,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-shipping-200010
+C 暂不推荐,礼盒,180190,Trapezoid tuck top box,TrapezoidalInsertLockBox,close,differs,25,2,180190,120,60,160,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-gift-180190
+C 暂不推荐,礼盒,188271,Twist wrap candy packaging,ChristmasCandyGiftBox,close,differs,3,1,,99.4,99.4,199.4,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-gift-188271
+C 暂不推荐,礼盒,510340,Round jewelry gift box,ConsumerTwelve,close,differs,0,1,,95,100,100,1.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-gift-510340
+C 暂不推荐,礼盒,512220,Heart shaped gift box,ConsumerFortysix,close,differs,0,1,,240,35,105,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-gift-512220
+C 暂不推荐,礼盒,605360,Wine bottle with box,ConsumerMingOne,close,differs,0,1,,100,100,100,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-gift-605360
+C 暂不推荐,方形盒,128130,Flip top coffee box,FoldingAngleFlipDrawerBoxP1,close,differs,0,2,128130,118.4,98.4,49.4,0.5,3D 与 Pacdora 不一致或缺折叠数据,http://localhost/workbench/import-square-128130

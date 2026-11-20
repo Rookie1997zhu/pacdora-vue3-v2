@@ -30,7 +30,7 @@ function dimLabel(item: WorkbenchCatalogItem) {
   <AppShell>
     <main class="wb-home">
       <header class="hero">
-        <p class="eyebrow">BOXCRAFT</p>
+        <p class="eyebrow">PACKGRIDA</p>
         <h1>{{ t('workbench.nav') }}</h1>
         <p class="lead">{{ t('workbench.homeLead') }}</p>
       </header>

@@ -20,6 +20,7 @@
         <input v-model.number="progress" type="range" min="0" max="100" step="1" />
         <span>{{ progress }}%</span>
       </label>
+      <p v-if="noFoldStructure" class="hint warn">{{ t('studio.noFoldStructure') }}</p>
       <p v-if="previewError" class="err">{{ previewError }}</p>
     </div>
   </div>
@@ -39,6 +40,8 @@ const design = useDesignStore()
 const hostRef = ref<HTMLElement | null>(null)
 const progress = ref(0)
 const previewError = ref('')
+/** The reference dieline has no fold lines (mock-up only artwork panels): nothing to fold in 3D */
+const noFoldStructure = ref(false)
 const previewSide = ref<'outside' | 'inside'>('outside')
 
 type SceneApi = {
@@ -58,6 +61,8 @@ async function rebuildKnife() {
   const p = design.document.geometry.params
   try {
     const knife = await resolveEngineKnife(design.document)
+    previewError.value = ''
+    noFoldStructure.value = !((knife as { hinges?: unknown[] }).hinges || []).length
     await scene.setKnife(knife, p.thicknessMm, p.materialId)
     scene.setProgress(progress.value)
     scene.setSelectedPanel(design.selectedPanelId)
@@ -153,6 +158,7 @@ watch(
 </script>
 
 <style scoped>
+.hint.warn{color:var(--bc-warn);background:var(--bc-warn-bg);border:1px solid var(--bc-warn-line);border-radius:8px;padding:6px 8px}
 .fold-preview{display:flex;flex-direction:column;gap:8px;height:100%;min-height:420px}
 .preview-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .side-toggle{display:inline-flex;border:1px solid #cfd8de;border-radius:8px;overflow:hidden}

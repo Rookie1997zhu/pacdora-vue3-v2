@@ -6,6 +6,8 @@ import { ensureTemplate } from '../templates/lazy.js'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — Pacdora geom replay
 import { loadPacdoraGeomKnife } from '../pacdoraGeomKnife.js'
+// @ts-expect-error JS module
+import { sampleSvgArc } from '../geom/arcSample.js'
 import type { DesignDocumentV1 } from '../../packages/design-schema/designDocument'
 
 export type StudioFace = {
@@ -33,9 +35,15 @@ export type StudioKnife = {
   cutPaths: StudioGuidePath[]
   /** Bleed loops as flat [x,y,...] polylines (closed). */
   bleedPaths: StudioGuidePath[]
+  /** Interior cut-outs (windows, hang holes…) as closed polylines. */
+  holePaths: StudioGuidePath[]
   /** Pacdora geom replay: face outlines should not re-stroke cut blue. */
   geomMode?: boolean
+  /** Multi-layer boxes: the separate blanks laid out on the sheet (face paper, greyboard…) */
+  pieces?: StudioSheetPiece[]
 }
+
+export type StudioSheetPiece = { id: string; label: string; labelEn: string; x: number; y: number; w: number; h: number }
 
 type EngineFace = { name: string; x: number; y: number; w: number; h: number; outline?: number[][] }
 type EngineFold = { x1: number; y1: number; x2: number; y2: number }
@@ -51,7 +59,9 @@ type EngineKnife = {
   /** LAB-style SVG subpaths from Pacdora geom (preferred over concatenating cuts). */
   cutPaths?: string[]
   bleedPaths?: string[]
+  holes?: Array<{ loop?: number[][] }>
   geomMode?: boolean
+  sheetPieces?: StudioSheetPiece[] | null
 }
 
 /** Parse pathFromCmds-style SVG (M/L/A/Q/C/Z) into flat polyline points for Konva. */
@@ -100,30 +110,16 @@ export function svgPathToGuide(d: string, arcSegs = 10): StudioGuidePath | null 
       cy = y
       if (started) push(cx, cy)
     } else if (c === 'A') {
-      const rx = Math.max(1e-6, readNum() || 0)
-      readNum() // ry
-      readNum() // ang
-      readNum() // large-arc
+      const rx = readNum()
+      const ry = readNum()
+      const ang = readNum()
+      const large = readNum()
       const sweep = readNum()
       const x2 = readNum()
       const y2 = readNum()
-      const x1 = cx
-      const y1 = cy
-      const mx = (x1 + x2) / 2
-      const my = (y1 + y2) / 2
-      const dx = x2 - x1
-      const dy = y2 - y1
-      const len = Math.hypot(dx, dy) || 1
-      const nx = -dy / len
-      const ny = dx / len
-      const bulge = Math.min(rx, rx) * (sweep ? 1 : -1) * 0.55
-      for (let s = 1; s <= arcSegs; s++) {
-        const t = s / arcSegs
-        const px =
-          (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * (mx + nx * bulge) + t * t * x2
-        const py =
-          (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * (my + ny * bulge) + t * t * y2
-        push(px, py)
+      // True elliptical arc (large-arc and sweep flags honoured)
+      for (const q of sampleSvgArc(cx, cy, x2, y2, rx, ry, ang, large, sweep, Math.max(4, arcSegs >> 1)) as number[][]) {
+        push(q[0], q[1])
       }
       cx = x2
       cy = y2
@@ -231,18 +227,34 @@ function loopToPath(loop: number[][] | undefined): StudioGuidePath | null {
   return { points }
 }
 
-/** Resolve Pacdora shipping sourceNum from design document (templateId fixed-* or advanced.sourceNum). */
-export function resolveShippingSourceNum(doc: DesignDocumentV1): string | null {
+const FIXED_CATEGORIES = ['shipping', 'mailer', 'gift', 'square', 'folding', 'tray']
+
+/**
+ * Fixed-snapshot template keys: `fixed-<num>` (shipping, legacy) or `fixed-<category>-<num>`.
+ * The same model number exists in several categories with different dielines, so the category
+ * decides which captured geometry file belongs to the design.
+ */
+export function resolveFixedGeomSource(doc: DesignDocumentV1): { sourceNum: string; geomPublicRel: string | null } | null {
+  const tid = String(doc.geometry.templateId || '')
+  const m = /^fixed-(?:([a-z]+)-)?(\d+)$/i.exec(tid)
+  const category = m?.[1] ? m[1].toLowerCase() : m ? 'shipping' : null
   const advanced = doc.geometry.params?.advanced || {}
   const fromAdvanced = advanced.sourceNum
+  let sourceNum: string | null = null
   if (fromAdvanced != null && Number.isFinite(Number(fromAdvanced)) && Number(fromAdvanced) > 0) {
     // Keep integer form without scientific notation (e.g. 20001001)
-    return String(Math.trunc(Number(fromAdvanced)))
+    sourceNum = String(Math.trunc(Number(fromAdvanced)))
+  } else if (m?.[2]) {
+    sourceNum = m[2]
   }
-  const tid = String(doc.geometry.templateId || '')
-  const m = /^fixed-(.+)$/i.exec(tid)
-  if (m?.[1]) return m[1]
-  return null
+  if (!sourceNum) return null
+  const geomPublicRel = category && FIXED_CATEGORIES.includes(category) ? `${category}-geom/${sourceNum}.json` : null
+  return { sourceNum, geomPublicRel }
+}
+
+/** Resolve Pacdora sourceNum from design document (templateId fixed-* or advanced.sourceNum). */
+export function resolveShippingSourceNum(doc: DesignDocumentV1): string | null {
+  return resolveFixedGeomSource(doc)?.sourceNum || null
 }
 
 export function studioKnifeFromEngineKnife(knife: EngineKnife, templateId: string): StudioKnife {
@@ -299,7 +311,11 @@ export function studioKnifeFromEngineKnife(knife: EngineKnife, templateId: strin
     folds,
     cutPaths,
     bleedPaths,
+    holePaths: (knife.holes || []).flatMap((h): StudioGuidePath[] =>
+      Array.isArray(h?.loop) && h.loop.length >= 3 ? [{ points: h.loop.flat(), closed: true }] : [],
+    ),
     geomMode: !!knife.geomMode,
+    pieces: Array.isArray(knife.sheetPieces) ? knife.sheetPieces : [],
   }
 }
 
@@ -340,10 +356,12 @@ export function buildStudioKnife(doc: DesignDocumentV1): StudioKnife {
 
 /** Resolve studio knife: Pacdora geom for fixed shipping, else parametric createKnife. */
 export async function buildStudioKnifeAsync(doc: DesignDocumentV1): Promise<StudioKnife> {
-  const sourceNum = resolveShippingSourceNum(doc)
+  const fixed = resolveFixedGeomSource(doc)
+  const sourceNum = fixed?.sourceNum
   if (doc.geometry.mode === 'fixed_snapshot' && sourceNum) {
     const p = doc.geometry.params
     const knife = (await loadPacdoraGeomKnife(sourceNum, {
+      geomPublicRel: fixed?.geomPublicRel || undefined,
       label: doc.geometry.templateId,
       length: p.lengthMm,
       width: p.widthMm,
@@ -360,10 +378,12 @@ export async function buildStudioKnifeAsync(doc: DesignDocumentV1): Promise<Stud
 
 /** Raw engine knife for 3D scene (same resolution rules as buildStudioKnifeAsync). */
 export async function resolveEngineKnife(doc: DesignDocumentV1): Promise<EngineKnife> {
-  const sourceNum = resolveShippingSourceNum(doc)
+  const fixed = resolveFixedGeomSource(doc)
+  const sourceNum = fixed?.sourceNum
   if (doc.geometry.mode === 'fixed_snapshot' && sourceNum) {
     const p = doc.geometry.params
     return (await loadPacdoraGeomKnife(sourceNum, {
+      geomPublicRel: fixed?.geomPublicRel || undefined,
       label: doc.geometry.templateId,
       length: p.lengthMm,
       width: p.widthMm,

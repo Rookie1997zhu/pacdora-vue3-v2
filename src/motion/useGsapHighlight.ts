@@ -8,23 +8,32 @@ gsap.registerPlugin(ScrollTrigger)
 /** Home hero: title / lead / CTA 分步显现（不与 Motion 叠长动画）. */
 export function useHomeHeroGsap(root: Ref<HTMLElement | null>) {
   let ctx: gsap.Context | null = null
+  let ran = false
 
   onMounted(() => {
-    const el = root.value
-    if (!el || prefersReducedMotion()) return
-    const logo = el.querySelector('.brand-logo')
-    const title = el.querySelector('h1')
-    const lead = el.querySelector('.lead')
-    const cta = el.querySelector('.cta')
-    ctx = gsap.context(() => {
-      gsap.set([logo, title, lead, cta].filter(Boolean), { opacity: 0, y: 10 })
-      gsap
-        .timeline({ defaults: { ease: 'power2.out', duration: 0.45 } })
-        .to(logo, { opacity: 1, y: 0 }, 0)
-        .to(title, { opacity: 1, y: 0 }, 0.08)
-        .to(lead, { opacity: 1, y: 0 }, 0.16)
-        .to(cta, { opacity: 1, y: 0 }, 0.24)
-    }, el)
+    void nextTick(() => {
+      if (ran) return
+      ran = true
+      const el = root.value
+      if (!el) return
+      const targets = ['.brand-logo', 'h1', '.lead', '.cta']
+        .map((sel) => el.querySelector(sel))
+        .filter(Boolean) as Element[]
+      if (prefersReducedMotion()) {
+        // Never leave copy invisible if a previous visit left inline styles.
+        gsap.set(targets, { clearProps: 'opacity,transform' })
+        return
+      }
+      const [logo, title, lead, cta] = targets
+      ctx = gsap.context(() => {
+        gsap.set(targets, { opacity: 0, y: 10 })
+        const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.45 } })
+        if (logo) tl.to(logo, { opacity: 1, y: 0 }, 0)
+        if (title) tl.to(title, { opacity: 1, y: 0 }, 0.08)
+        if (lead) tl.to(lead, { opacity: 1, y: 0 }, 0.16)
+        if (cta) tl.to(cta, { opacity: 1, y: 0 }, 0.24)
+      }, el)
+    })
   })
 
   onBeforeUnmount(() => {

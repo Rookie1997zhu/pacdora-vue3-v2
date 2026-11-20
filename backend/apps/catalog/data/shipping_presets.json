@@ -4,7 +4,8 @@
   "count": 47,
   "items": [
     {
-      "preset_id": "import-102040",
+      "category": "shipping",
+      "preset_id": "import-shipping-102040",
       "source_num": "102040",
       "label": "插口式产品盒",
       "name_ko": "끼움형 제품 상자",
@@ -17,7 +18,8 @@
       "template_id": "spec-PairBuckletriple"
     },
     {
-      "preset_id": "import-102041",
+      "category": "shipping",
+      "preset_id": "import-shipping-102041",
       "source_num": "102041",
       "label": "自动底部三扣底邮寄盒",
       "name_ko": "자동 바닥 삼중 우편 상자",
@@ -27,10 +29,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/102041.png",
-      "template_id": "spec-PairBuckletripleBackward"
+      "template_id": "sampled-shipping-102041"
     },
     {
-      "preset_id": "import-103020",
+      "category": "shipping",
+      "preset_id": "import-shipping-103020",
       "source_num": "103020",
       "label": "双开运输盒",
       "name_ko": "양면 개방 운송 상자",
@@ -40,10 +43,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103020.png",
-      "template_id": "spec-SplitLockBuckleBottomBox"
+      "template_id": "sampled-shipping-103020"
     },
     {
-      "preset_id": "import-103021",
+      "category": "shipping",
+      "preset_id": "import-shipping-103021",
       "source_num": "103021",
       "label": "双开运输盒",
       "name_ko": "양면 개방 운송 상자",
@@ -53,10 +57,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103021.png",
-      "template_id": "spec-SplitLockselflockingBox"
+      "template_id": "sampled-shipping-103021"
     },
     {
-      "preset_id": "import-110171",
+      "category": "shipping",
+      "preset_id": "import-shipping-110171",
       "source_num": "110171",
       "label": "带撕线的运输盒",
       "name_ko": "절취선 운송 상자",
@@ -69,7 +74,8 @@
       "template_id": "spec-TearOffCableFlatBox"
     },
     {
-      "preset_id": "import-110680",
+      "category": "shipping",
+      "preset_id": "import-shipping-110680",
       "source_num": "110680",
       "label": "方形运输箱",
       "name_ko": "사각 운송 상자",
@@ -79,10 +85,11 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110680.png",
-      "template_id": "spec-BottomInsertingBoxWithHalfSelfLockingUpperCover"
+      "template_id": "sampled-shipping-110680"
     },
     {
-      "preset_id": "import-110810",
+      "category": "shipping",
+      "preset_id": "import-shipping-110810",
       "source_num": "110810",
       "label": "插舌式运输盒",
       "name_ko": "끼움혀 운송 상자",
@@ -92,10 +99,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110810.png",
-      "template_id": "spec-BuckleBottomBoxWithInsertion"
+      "template_id": "sampled-shipping-110810"
     },
     {
-      "preset_id": "import-112010",
+      "category": "shipping",
+      "preset_id": "import-shipping-112010",
       "source_num": "112010",
       "label": "平邮箱",
       "name_ko": "플랫 우편함",
@@ -105,10 +113,11 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112010.png",
-      "template_id": "spec-FlapBotselflock"
+      "template_id": "sampled-shipping-112010"
     },
     {
-      "preset_id": "import-112470",
+      "category": "shipping",
+      "preset_id": "import-shipping-112470",
       "source_num": "112470",
       "label": "扣锁礼品运输盒",
       "name_ko": "버클 선물 운송 상자",
@@ -118,10 +127,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112470.png",
-      "template_id": "rea-roofflat-handle"
+      "template_id": "sampled-shipping-112470"
     },
     {
-      "preset_id": "import-112471",
+      "category": "shipping",
+      "preset_id": "import-shipping-112471",
       "source_num": "112471",
       "label": "扣锁运输盒",
       "name_ko": "버클 운송 상자",
@@ -131,10 +141,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112471.png",
-      "template_id": "spec-RoofflatHandleBuckleBackward"
+      "template_id": "sampled-shipping-112471"
     },
     {
-      "preset_id": "import-112480",
+      "category": "shipping",
+      "preset_id": "import-shipping-112480",
       "source_num": "112480",
       "label": "三锁运输盒",
       "name_ko": "삼중 잠금 운송 상자",
@@ -144,10 +155,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112480.png",
-      "template_id": "spec-RoofflatHandleBuckletriple"
+      "template_id": "sampled-shipping-112480"
     },
     {
-      "preset_id": "import-112481",
+      "category": "shipping",
+      "preset_id": "import-shipping-112481",
       "source_num": "112481",
       "label": "反锁运输盒",
       "name_ko": "역잠금 운송 상자",
@@ -157,10 +169,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112481.png",
-      "template_id": "spec-RoofflatHandleBuckletripleBackward"
+      "template_id": "sampled-shipping-112481"
     },
     {
-      "preset_id": "import-112511",
+      "category": "shipping",
+      "preset_id": "import-shipping-112511",
       "source_num": "112511",
       "label": "插口运输盒",
       "name_ko": "끼움 운송 상자",
@@ -170,10 +183,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112511.png",
-      "template_id": "spec-FlatMouthSpecialLockBottom"
+      "template_id": "sampled-shipping-112511"
     },
     {
-      "preset_id": "import-116200",
+      "category": "shipping",
+      "preset_id": "import-shipping-116200",
       "source_num": "116200",
       "label": "带手柄的盒",
       "name_ko": "손잡이 상자",
@@ -183,10 +197,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/116200.png",
-      "template_id": "spec-InterlockPortableTrayCase"
+      "template_id": "sampled-shipping-116200"
     },
     {
-      "preset_id": "import-152102",
+      "category": "shipping",
+      "preset_id": "import-shipping-152102",
       "source_num": "152102",
       "label": "定制自锁式邮寄盒",
       "name_ko": "맞춤 자물쇠 우편 상자",
@@ -196,10 +211,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/152102.png",
-      "template_id": "spec-FlapBoxWithTopLatchTwo"
+      "template_id": "sampled-shipping-152102"
     },
     {
-      "preset_id": "import-153031",
+      "category": "shipping",
+      "preset_id": "import-shipping-153031",
       "source_num": "153031",
       "label": "翻盖邮寄盒",
       "name_ko": "플립 우편 상자",
@@ -212,7 +228,8 @@
       "template_id": "spec-NonSlotLockBottomFlipBox"
     },
     {
-      "preset_id": "import-156090",
+      "category": "shipping",
+      "preset_id": "import-shipping-156090",
       "source_num": "156090",
       "label": "打开的纸箱",
       "name_ko": "개방형 골판상자",
@@ -225,7 +242,8 @@
       "template_id": "spec-ZipperShapedAirplaneCase"
     },
     {
-      "preset_id": "import-156131",
+      "category": "shipping",
+      "preset_id": "import-shipping-156131",
       "source_num": "156131",
       "label": "带非粘合侧榫锁的运输盒",
       "name_ko": "비가착 측 장붓 운송 상자",
@@ -235,10 +253,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/156131.png",
-      "template_id": "spec-FlipSidePlugUnbonded"
+      "template_id": "sampled-shipping-156131"
     },
     {
-      "preset_id": "import-200010",
+      "category": "shipping",
+      "preset_id": "import-shipping-200010",
       "source_num": "200010",
       "label": "0201运输纸箱",
       "name_ko": "0201 운송 골판상자",
@@ -251,7 +270,8 @@
       "template_id": "rea-carton-0201"
     },
     {
-      "preset_id": "import-200012",
+      "category": "shipping",
+      "preset_id": "import-shipping-200012",
       "source_num": "200012",
       "label": "带便携搬运孔的运输纸箱",
       "name_ko": "운반 구멍 운송 골판상자",
@@ -261,10 +281,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200012.png",
-      "template_id": "spec-CartonHandhole"
+      "template_id": "sampled-shipping-200012"
     },
     {
-      "preset_id": "import-200013",
+      "category": "shipping",
+      "preset_id": "import-shipping-200013",
       "source_num": "200013",
       "label": "0209常规纸质运输纸箱",
       "name_ko": "0209 일반 운송 골판상자",
@@ -274,10 +295,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200013.png",
-      "template_id": "spec-CartonRegular0209"
+      "template_id": "sampled-shipping-200013"
     },
     {
-      "preset_id": "import-200014",
+      "category": "shipping",
+      "preset_id": "import-shipping-200014",
       "source_num": "200014",
       "label": "新鲜水果运输纸箱",
       "name_ko": "신선 과일 운송 골판상자",
@@ -287,10 +309,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200014.png",
-      "template_id": "spec-RegularCartonWithHandleHoles"
+      "template_id": "sampled-shipping-200014"
     },
     {
-      "preset_id": "import-200015",
+      "category": "shipping",
+      "preset_id": "import-shipping-200015",
       "source_num": "200015",
       "label": "缓冲的运输箱",
       "name_ko": "완충 운송 상자",
@@ -300,10 +323,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200015.png",
-      "template_id": "spec-InsideCornerFlatCarton"
+      "template_id": "sampled-shipping-200015"
     },
     {
-      "preset_id": "import-200016",
+      "category": "shipping",
+      "preset_id": "import-shipping-200016",
       "source_num": "200016",
       "label": "纸箱运输盒",
       "name_ko": "골판 운송 상자",
@@ -313,10 +337,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200016.png",
-      "template_id": "spec-RegularCardboardBoxABSurface"
+      "template_id": "sampled-shipping-200016"
     },
     {
-      "preset_id": "import-200017",
+      "category": "shipping",
+      "preset_id": "import-shipping-200017",
       "source_num": "200017",
       "label": "纸箱运输盒",
       "name_ko": "골판 운송 상자",
@@ -326,10 +351,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200017.png",
-      "template_id": "spec-RegularCartonFourPieces"
+      "template_id": "sampled-shipping-200017"
     },
     {
-      "preset_id": "import-200020",
+      "category": "shipping",
+      "preset_id": "import-shipping-200020",
       "source_num": "200020",
       "label": "纸箱 0202 国际标准",
       "name_ko": "골판상자 0202 국제표준",
@@ -339,10 +365,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200020.png",
-      "template_id": "spec-Carton02"
+      "template_id": "sampled-shipping-200020"
     },
     {
-      "preset_id": "import-200030",
+      "category": "shipping",
+      "preset_id": "import-shipping-200030",
       "source_num": "200030",
       "label": "0203 国际标准运输纸箱",
       "name_ko": "0203 국제표준 운송 골판상자",
@@ -352,10 +379,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200030.png",
-      "template_id": "spec-Carton03"
+      "template_id": "sampled-shipping-200030"
     },
     {
-      "preset_id": "import-200034",
+      "category": "shipping",
+      "preset_id": "import-shipping-200034",
       "source_num": "200034",
       "label": "带拉链的纸质运输盒",
       "name_ko": "지퍼 운송 상자",
@@ -368,7 +396,8 @@
       "template_id": "spec-CartonFrontZipper"
     },
     {
-      "preset_id": "import-200035",
+      "category": "shipping",
+      "preset_id": "import-shipping-200035",
       "source_num": "200035",
       "label": "带拉链的运输纸盒",
       "name_ko": "지퍼 운송 상자",
@@ -381,7 +410,8 @@
       "template_id": "spec-InsideCornerZipperCarton"
     },
     {
-      "preset_id": "import-200100",
+      "category": "shipping",
+      "preset_id": "import-shipping-200100",
       "source_num": "200100",
       "label": "平顶运输纸箱",
       "name_ko": "평뚜껑 운송 골판상자",
@@ -391,10 +421,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200100.png",
-      "template_id": "spec-CartonEconomic"
+      "template_id": "sampled-shipping-200100"
     },
     {
-      "preset_id": "import-200102",
+      "category": "shipping",
+      "preset_id": "import-shipping-200102",
       "source_num": "200102",
       "label": "带便携孔的运输纸箱ab面",
       "name_ko": "운반 구멍 운송 골판상자 AB면",
@@ -404,10 +435,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200102.png",
-      "template_id": "spec-CartonEconomicHandhole"
+      "template_id": "sampled-shipping-200102"
     },
     {
-      "preset_id": "import-200200",
+      "category": "shipping",
+      "preset_id": "import-shipping-200200",
       "source_num": "200200",
       "label": "折叠运输箱",
       "name_ko": "접이식 운송 상자",
@@ -417,10 +449,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200200.png",
-      "template_id": "spec-CartonSelfBlock"
+      "template_id": "sampled-shipping-200200"
     },
     {
-      "preset_id": "import-200210",
+      "category": "shipping",
+      "preset_id": "import-shipping-200210",
       "source_num": "200210",
       "label": "纸箱移动纸",
       "name_ko": "이동용 골판지",
@@ -430,10 +463,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200210.png",
-      "template_id": "spec-CartonMovehouseStrengthen"
+      "template_id": "sampled-shipping-200210"
     },
     {
-      "preset_id": "import-200230",
+      "category": "shipping",
+      "preset_id": "import-shipping-200230",
       "source_num": "200230",
       "label": "纸箱六格运输盒",
       "name_ko": "육칸 운송 골판상자",
@@ -446,7 +480,8 @@
       "template_id": "spec-CartonSelfSixBlock"
     },
     {
-      "preset_id": "import-200240",
+      "category": "shipping",
+      "preset_id": "import-shipping-200240",
       "source_num": "200240",
       "label": "带有 6 格插入物的运输纸箱",
       "name_ko": "6칸 삽입물 운송 골판상자",
@@ -456,10 +491,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200240.png",
-      "template_id": "spec-SixCompartmentLinedCarton"
+      "template_id": "sampled-shipping-200240"
     },
     {
-      "preset_id": "import-200250",
+      "category": "shipping",
+      "preset_id": "import-shipping-200250",
       "source_num": "200250",
       "label": "带6格的折叠运输盒",
       "name_ko": "6칸 접이식 운송 상자",
@@ -472,7 +508,8 @@
       "template_id": "spec-SixCompartmentLinedSelflockingBottomFlatCarton"
     },
     {
-      "preset_id": "import-200280",
+      "category": "shipping",
+      "preset_id": "import-shipping-200280",
       "source_num": "200280",
       "label": "带锁扣插入的运输纸箱",
       "name_ko": "잠금 삽입 운송 골판상자",
@@ -482,10 +519,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200280.png",
-      "template_id": "spec-CartonFlatWithFlipLatch"
+      "template_id": "sampled-shipping-200280"
     },
     {
-      "preset_id": "import-201012",
+      "category": "shipping",
+      "preset_id": "import-shipping-201012",
       "source_num": "201012",
       "label": "平口运输盒",
       "name_ko": "평구 운송 상자",
@@ -495,10 +533,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201012.png",
-      "template_id": "spec-Carton04"
+      "template_id": "sampled-shipping-201012"
     },
     {
-      "preset_id": "import-201013",
+      "category": "shipping",
+      "preset_id": "import-shipping-201013",
       "source_num": "201013",
       "label": "无底纸箱运输盒",
       "name_ko": "무바닥 골판 운송 상자",
@@ -508,10 +547,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201013.png",
-      "template_id": "spec-BottomCardboardBoxABSurface"
+      "template_id": "sampled-shipping-201013"
     },
     {
-      "preset_id": "import-201015",
+      "category": "shipping",
+      "preset_id": "import-shipping-201015",
       "source_num": "201015",
       "label": "无底纸箱",
       "name_ko": "무바닥 골판상자",
@@ -521,10 +561,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201015.png",
-      "template_id": "spec-BottomLessCoverCardboardBox"
+      "template_id": "sampled-shipping-201015"
     },
     {
-      "preset_id": "import-201080",
+      "category": "shipping",
+      "preset_id": "import-shipping-201080",
       "source_num": "201080",
       "label": "带手柄的运输箱",
       "name_ko": "손잡이 운송 상자",
@@ -534,10 +575,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201080.png",
-      "template_id": "spec-CartonHandholeCoverbox"
+      "template_id": "fefco-0201"
     },
     {
-      "preset_id": "import-201081",
+      "category": "shipping",
+      "preset_id": "import-shipping-201081",
       "source_num": "201081",
       "label": "带通气孔的运输纸箱",
       "name_ko": "통기공 운송 골판상자",
@@ -550,7 +592,8 @@
       "template_id": "spec-BreatherHoleCoverbox"
     },
     {
-      "preset_id": "import-205010",
+      "category": "shipping",
+      "preset_id": "import-shipping-205010",
       "source_num": "205010",
       "label": "纸板运输箱",
       "name_ko": "판지 운송 상자",
@@ -560,10 +603,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205010.png",
-      "template_id": "spec-MediumSealedCardboardBox"
+      "template_id": "sampled-shipping-205010"
     },
     {
-      "preset_id": "import-205011",
+      "category": "shipping",
+      "preset_id": "import-shipping-205011",
       "source_num": "205011",
       "label": "纸板运输箱",
       "name_ko": "판지 운송 상자",
@@ -573,10 +617,11 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205011.png",
-      "template_id": "spec-TrayTypeCarton"
+      "template_id": "sampled-shipping-205011"
     },
     {
-      "preset_id": "import-206080",
+      "category": "shipping",
+      "preset_id": "import-shipping-206080",
       "source_num": "206080",
       "label": "折叠配送箱",
       "name_ko": "접이식 배송 상자",
@@ -589,7 +634,8 @@
       "template_id": "spec-NonStickTrayBottomMatchingBox"
     },
     {
-      "preset_id": "import-20001001",
+      "category": "shipping",
+      "preset_id": "import-shipping-20001001",
       "source_num": "20001001",
       "label": "方形运输箱",
       "name_ko": "사각 운송 상자",
@@ -602,7 +648,8 @@
       "template_id": "rea-carton-0201"
     },
     {
-      "preset_id": "import-20001002",
+      "category": "shipping",
+      "preset_id": "import-shipping-20001002",
       "source_num": "20001002",
       "label": "药盒",
       "name_ko": "약상자",

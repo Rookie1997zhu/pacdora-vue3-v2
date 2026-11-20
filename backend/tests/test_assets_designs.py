@@ -120,11 +120,66 @@ class AssetsDesignsTests(TestCase):
     def test_product_list_published(self):
         r = self.client.get('/api/v1/products/')
         self.assertEqual(r.status_code, 200)
-        items = r.json()['data']['items']
+        payload = r.json()['data']
+        items = payload['items']
         self.assertGreaterEqual(len(items), 1)
+        self.assertLessEqual(payload['page_size'], 24)
+        self.assertEqual(payload['page'], 1)
+        self.assertIn('total', payload)
+        self.assertIn('has_next', payload)
+        self.assertNotIn('capabilities', items[0])
+        self.assertNotIn('description', items[0])
         modes = {p['geometry_mode'] for p in items}
         self.assertIn('parametric', modes)
         self.assertIn('fixed_snapshot', modes)
+
+        page2 = self.client.get('/api/v1/products/', {'page': 2, 'page_size': 1})
+        self.assertEqual(page2.status_code, 200)
+        p2 = page2.json()['data']
+        self.assertEqual(p2['page'], 2)
+        self.assertEqual(p2['page_size'], 1)
+        self.assertLessEqual(len(p2['items']), 1)
+        if payload['total'] > 1:
+            self.assertEqual(len(p2['items']), 1)
+            self.assertNotEqual(p2['items'][0]['id'], items[0]['id'])
+
+        sample = items[0]
+        q = sample['name'][: max(3, min(8, len(sample['name'])))]
+        searched = self.client.get('/api/v1/products/', {'q': q})
+        self.assertEqual(searched.status_code, 200)
+        s_items = searched.json()['data']['items']
+        self.assertGreaterEqual(len(s_items), 1)
+        needle = q.lower()
+        self.assertTrue(
+            any(
+                needle in (p.get('name') or '').lower()
+                or needle in (p.get('name_ko') or '').lower()
+                or needle in (p.get('slug') or '').lower()
+                for p in s_items
+            )
+        )
+
+        cat = sample['category']
+        filtered = self.client.get('/api/v1/products/', {'category': cat})
+        self.assertEqual(filtered.status_code, 200)
+        f_items = filtered.json()['data']['items']
+        self.assertTrue(f_items)
+        self.assertTrue(all(p['category'] == cat for p in f_items))
+
+        cached = self.client.get('/api/v1/products/')
+        self.assertEqual(cached.status_code, 200)
+        self.assertEqual(cached.json()['data'], payload)
+
+    def test_material_profile_list_cached(self):
+        r1 = self.client.get('/api/v1/material-profiles/')
+        self.assertEqual(r1.status_code, 200)
+        p1 = r1.json()['data']
+        self.assertIn('items', p1)
+        self.assertIn('total', p1)
+        self.assertEqual(p1['total'], len(p1['items']))
+        r2 = self.client.get('/api/v1/material-profiles/')
+        self.assertEqual(r2.status_code, 200)
+        self.assertEqual(r2.json()['data'], p1)
 
     def test_asset_upload_and_auth_download(self):
         data = self._upload_png(self.u1)
@@ -146,6 +201,24 @@ class AssetsDesignsTests(TestCase):
         self.assertEqual(r.json()['code'], 'FORBIDDEN')
         c = self.client.get(f'/api/v1/assets/{data["id"]}/content/')
         self.assertEqual(c.status_code, 403)
+
+    @patch('apps.designs.services.validate_geometry')
+    def test_design_create_rejects_broken_outline(self, mock_validate):
+        # A size at which the dieline falls apart must not be saved
+        mock_validate.return_value = {
+            'geometry_hash': 'geom-abc',
+            'ok': False,
+            'issues': [{'code': 'OUTLINE_BROKEN', 'severity': 'blocking', 'message': 'outline broken'}],
+        }
+        token = self._login(self.u1)
+        create = self.client.post(
+            '/api/v1/designs/',
+            data=json.dumps({'name': 'Demo', 'product_slug': 'mailer-parametric-demo'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(create.status_code, 422, create.content)
+        self.assertEqual(create.json()['code'], 'OUTLINE_BROKEN')
 
     @patch('apps.designs.services.validate_geometry')
     def test_design_create_save_reopen(self, mock_validate):
@@ -291,7 +364,7 @@ class AssetsDesignsTests(TestCase):
         # fixed_snapshot avoids geometry service
         create = self.client.post(
             '/api/v1/designs/',
-            data=json.dumps({'name': 'X', 'product_slug': 'import-102040'}),
+            data=json.dumps({'name': 'X', 'product_slug': 'import-shipping-102040'}),
             content_type='application/json',
             HTTP_X_CSRFTOKEN=token,
         )
@@ -308,7 +381,7 @@ class AssetsDesignsTests(TestCase):
         token = self._login(self.u1)
         create = self.client.post(
             '/api/v1/designs/',
-            data=json.dumps({'name': 'A', 'product_slug': 'import-102040'}),
+            data=json.dumps({'name': 'A', 'product_slug': 'import-shipping-102040'}),
             content_type='application/json',
             HTTP_X_CSRFTOKEN=token,
         )
@@ -527,7 +600,7 @@ class AssetsDesignsTests(TestCase):
         token = self._login(self.u1)
         create = self.client.post(
             '/api/v1/designs/',
-            data=json.dumps({'name': 'Lock', 'product_slug': 'import-102040'}),
+            data=json.dumps({'name': 'Lock', 'product_slug': 'import-shipping-102040'}),
             content_type='application/json',
             HTTP_X_CSRFTOKEN=token,
         )

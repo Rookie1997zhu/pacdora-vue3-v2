@@ -16,6 +16,15 @@ const { unit } = useUnit()
 
 const materials = computed(() => wb.manifest ? workbenchMaterialOptions(wb.manifest) : [])
 const limits = computed(() => knife.limits || {})
+/**
+ * Size-interpolated boxes replay the reference dieline, whose board thickness is fixed (and differs per
+ * layer on rigid boxes: grey board vs wrapping paper). Show that value instead of an input that has no effect.
+ */
+const fixedThickness = computed(() => {
+  const k = knife.displayKnife
+  const v = k?.sampled ? Number(k.dimensions?.thickness) : NaN
+  return Number.isFinite(v) && v > 0 ? v : null
+})
 
 function outOfRange(key: 'length' | 'width' | 'height', v: number) {
   const r = limits.value?.[key]
@@ -99,7 +108,13 @@ function materialLabel(p: any) {
       <option v-for="m in materials" :key="m!.id" :value="m!.id">{{ materialLabel(m) }}</option>
     </select>
 
+    <div v-if="fixedThickness !== null" class="fixed-thickness">
+      <span class="ft-label">{{ t('workbench.thickness') }}</span>
+      <span class="ft-value">{{ fixedThickness }} mm</span>
+      <p class="ft-note">{{ t('workbench.thicknessFixedNote') }}</p>
+    </div>
     <DimInput
+      v-else
       :label="t('workbench.thickness')"
       :model-value="wb.params.thicknessMm"
       :min="getMaterialProfile(wb.params.materialId)?.thickness.min"
@@ -137,6 +152,10 @@ function materialLabel(p: any) {
 .locked-fieldset:disabled{opacity:.6}
 .locked-hint{color:var(--bc-warn);background:var(--bc-warn-bg);border:1px solid var(--bc-warn-line);border-radius:8px;padding:6px 8px;opacity:1}
 .tab{display:flex;flex-direction:column;gap:12px}
+.fixed-thickness{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline}
+.ft-label{color:var(--bc-ink-muted);font-size:12px}
+.ft-value{font-variant-numeric:tabular-nums;font-weight:600}
+.ft-note{grid-column:1/-1;margin:0;color:var(--bc-ink-muted);font-size:11px}
 .group{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--bc-line)}
 .group:last-of-type{border-bottom:0;padding-bottom:0}
 h3{margin:4px 0 0;font-size:13px;color:var(--bc-ink)}

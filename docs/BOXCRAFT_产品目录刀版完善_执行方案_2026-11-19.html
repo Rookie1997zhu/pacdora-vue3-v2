@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOXCRAFT 产品目录刀版完善 · 执行方案</title>
+<style>
+  :root{--ink:#1c2428;--muted:#5d6b72;--line:#dfe5e8;--bg:#f6f8f9;--card:#fff;--accent:#0f6e68;--warn:#9a5b00;--warn-bg:#fff6e5;--ok:#17603a;--ok-bg:#e9f6ee;--bad:#9b2c2c;--bad-bg:#fdeeee}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  main{max-width:920px;margin:0 auto;padding:40px 20px 80px}
+  h1{font-size:28px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 28px}
+  h2{font-size:19px;margin:36px 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+  h3{font-size:16px;margin:22px 0 6px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 22px 16px;margin-bottom:18px}
+  section h2{margin-top:18px}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin:6px 0}
+  code{background:#eef2f3;border-radius:4px;padding:1px 6px;font:13px/1.5 Consolas,"SF Mono",monospace;word-break:break-all}
+  .table-wrap{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+  th{background:#eef2f3;font-weight:600}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .note{border-radius:8px;padding:10px 14px;margin:12px 0}
+  .note.key{background:var(--ok-bg);color:var(--ok)}
+  .note.warn{background:var(--warn-bg);color:var(--warn)}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+  .flow span{background:#eef2f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
+  .flow i{color:var(--muted);font-style:normal}
+  .tag{display:inline-block;border-radius:999px;padding:0 9px;font-size:12px;border:1px solid var(--line);background:#eef2f3;color:var(--muted);margin-left:6px;vertical-align:middle}
+  footer{color:var(--muted);font-size:13px;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+  <h1>产品目录刀版完善 · 执行方案</h1>
+  <p class="sub">范围：<code>/products</code> 的 273 个导入产品 · 第一步“把没验证的补上” · 2026-11-19</p>
+
+  <section>
+    <h2>一、目标和边界</h2>
+    <p><b>目标：</b>回答一个问题——<code>/products</code> 里的 273 个产品，到底有多少是确认没问题的，有问题的是哪些、是什么问题。</p>
+    <p><b>这一步只测和看，不改代码逻辑。</b>查出的问题统一记进一张问题清单，怎么修另行确认后再动。</p>
+    <ul>
+      <li>包含：批量测导出和保存、确认 84 个“与原图不重合”的产品、页面流程抽测、逐个看 3D。</li>
+      <li>不包含：让产品能改尺寸、合并产品页和工作台入口、3D 不匹配自动降级。这些是第三步，等这一步的结果出来再定。</li>
+      <li>不包含：<code>/workbench</code> 的 608 个可定制模板。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>二、现状基线</h2>
+    <p>数字来自 <code>docs/上线产品刀版核实结果_2026-11-19.csv</code>（脚本 <code>scripts/verify-live-product-dielines.mjs</code> 生成）。</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>类目</th><th>总数</th><th>与原图吻合</th><th>基本吻合</th><th>多层，已补齐图层</th><th>与原图不重合</th></tr></thead>
+      <tbody>
+        <tr><td>礼盒</td><td class="num">94</td><td class="num">44</td><td class="num">5</td><td class="num">26</td><td class="num">19</td></tr>
+        <tr><td>邮寄盒</td><td class="num">79</td><td class="num">28</td><td class="num">9</td><td class="num">3</td><td class="num">39</td></tr>
+        <tr><td>方形盒</td><td class="num">53</td><td class="num">26</td><td class="num">1</td><td class="num">14</td><td class="num">12</td></tr>
+        <tr><td>运输箱</td><td class="num">47</td><td class="num">25</td><td class="num">8</td><td class="num">0</td><td class="num">14</td></tr>
+        <tr><th>合计</th><th class="num">273</th><th class="num">123</th><th class="num">23</th><th class="num">43</th><th class="num">84</th></tr>
+      </tbody>
+    </table>
+    </div>
+    <ul>
+      <li>273 个产品的刀版全部是原样回放参考数据，尺寸锁定，不生成。</li>
+      <li>其中 72 个同时是工作台的固定规格，上一轮已经批量测过导出和保存。<b>另外 201 个没有这样测过</b>（邮寄盒 71、礼盒 57、运输箱 42、方形盒 31）。</li>
+      <li>“与原图不重合”的 84 个里，邮寄盒占了将近一半（39 个）。脚本当时抽查的结论是“同结构不同尺寸”，没有逐个确认。</li>
+      <li>3D 上一轮只看过 26 个。</li>
+    </ul>
+    <div class="note warn">已知盲区：和样本比对发现不了“样本本身是错的”。托盘盒 110440 就是参考数据高度为 0，比对一直是满分，看了 3D 才暴露。所以这一步必须包含看图和看 3D。</div>
+  </section>
+
+  <section>
+    <h2>三、执行顺序</h2>
+    <div class="flow">
+      <span>任务 1 · 批量测导出和保存</span><i>→</i>
+      <span>任务 4 · 3D 总览</span><i>→</i>
+      <span>任务 2 · 确认 84 个不重合</span><i>→</i>
+      <span>任务 3 · 页面流程抽测</span><i>→</i>
+      <span>汇总问题清单</span>
+    </div>
+    <p>这样排的原因：</p>
+    <ul>
+      <li>任务 1 全自动、最快，先把“导不出来”这类硬问题筛掉。</li>
+      <li>任务 4 的 3D 总览能顺带暴露刀版残缺的盒型，给任务 2 缩小范围。</li>
+      <li>任务 3 要消耗导出额度并且最慢，放最后，优先抽前面标出可疑的盒型。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>四、任务 1 · 批量测 273 个产品的导出和保存 <span class="tag">全自动</span></h2>
+    <h3>做法</h3>
+    <p>和上一轮测固定规格相同：不走页面，直接向已部署的几何服务和后端发与页面相同的请求。不消耗导出额度，不受限流影响。</p>
+    <ol>
+      <li>从接口取全部已发布的导入产品，拿到每个产品的模板编号和锁定尺寸。</li>
+      <li>逐个请求几何服务：几何校验一次，SVG / DXF / PDF / AI 各导出一次。</li>
+      <li>逐个调后端的保存校验：按原规格应通过，改了尺寸应被拒绝。</li>
+      <li>结果写成一张表，每个产品一行。</li>
+    </ol>
+    <h3>每个产品检查什么</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>检查项</th><th>通过标准</th></tr></thead>
+      <tbody>
+        <tr><td>几何校验</td><td>通过，无报错</td></tr>
+        <tr><td>四种格式导出</td><td>都返回文件，内容无空值或非法数字</td></tr>
+        <tr><td>DXF 切线范围</td><td>与刀版范围相差不超过 1 mm（弧线按真实范围算）</td></tr>
+        <tr><td>压痕位置</td><td>不超出切线轮廓，没有零长度线段</td></tr>
+        <tr><td>PDF / AI</td><td>页面装得下 1:1 的刀版；五个图层齐全</td></tr>
+        <tr><td>侧板完整性（新增）</td><td>没有宽或高接近 0 的面片（110440 那类问题）</td></tr>
+        <tr><td>保存</td><td>原规格通过；改尺寸被拒绝</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h3>产出</h3>
+    <ul>
+      <li><code>docs/产品目录_导出与保存批量测试_2026-11-19.csv</code></li>
+      <li>测试脚本入库，以后新增产品可以重跑。</li>
+    </ul>
+    <h3>注意</h3>
+    <ul>
+      <li>多层盒型（43 个）所有图层排在一张图上，范围检查按整张图算。</li>
+      <li>这一项测的是服务端。页面上的按钮和交互由任务 3 覆盖。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>五、任务 4 · 逐个看 273 个产品的 3D <span class="tag">自动截图 + 人工扫图</span></h2>
+    <h3>做法</h3>
+    <ol>
+      <li><b>先自动筛一遍。</b>对每个产品算出折叠后的外形尺寸，和它登记的长宽高比。差得多的（例如折完是扁的、或某一边差 20% 以上）标为可疑。</li>
+      <li><b>再逐个截图。</b>在页面上打开每个产品的 3D，截“合上”和“半开”两个状态。</li>
+      <li><b>拼成总览页。</b>273 个产品按类目排成缩略图墙，可疑的排在最前并标色，点开看大图。</li>
+      <li><b>人工扫一遍总览。</b>找不成盒、面片散开、飞出去、穿插的。</li>
+    </ol>
+    <h3>判定</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>结论</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td>成盒</td><td>闭合，外形与品名相符</td></tr>
+        <tr><td>成盒但有瑕疵</td><td>闭合，但有面片轻微错位或穿插</td></tr>
+        <tr><td>不成盒</td><td>散开、扁平、或明显不是这个盒型</td></tr>
+        <tr><td>看不出</td><td>异形盒，需要对照 Pacdora 的效果图</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h3>产出</h3>
+    <ul>
+      <li>3D 总览页（本地 HTML，带截图）。</li>
+      <li>每个产品的 3D 结论，并入问题清单。</li>
+    </ul>
+    <h3>注意</h3>
+    <ul>
+      <li>截图走浏览器，每个产品约 6–8 秒，273 个两种状态大约需要一小时，可以后台跑。</li>
+      <li>“看不出”的那部分需要去 Pacdora 取效果图对照，数量预计不多，届时再说。</li>
+      <li>多层盒型的 3D 目前是各片拼装，判断标准放宽为“各片位置合理”。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>六、任务 2 · 确认 84 个“与原图不重合”的产品 <span class="tag">自动分类 + 人工确认</span></h2>
+    <p>要分清两种情况：封面图是按别的尺寸画的（无害），还是我们的刀版本身有问题。</p>
+    <h3>做法</h3>
+    <ol>
+      <li><b>先自动分类。</b>把我们的刀版和封面图各自归一化（去掉尺寸差异）后再比：
+        <ul>
+          <li>面片数、折线数、轮廓的大致形状都对得上 → 归为“同结构不同尺寸”。</li>
+          <li>对不上 → 归为“结构可疑”。</li>
+        </ul>
+      </li>
+      <li><b>出对照图。</b>每个产品一张：左边封面图，右边我们的刀版，下面是长宽高和面片数。84 个排成一页，“结构可疑”的排最前。</li>
+      <li><b>人工确认。</b>我先逐个看一遍并写下判断，你只需要看“结构可疑”的和我拿不准的；其余的可以抽查。</li>
+      <li><b>结合任务 4 的结果。</b>3D 不成盒且刀版对不上的，优先级最高。</li>
+    </ol>
+    <h3>判定</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>结论</th><th>含义</th><th>后续</th></tr></thead>
+      <tbody>
+        <tr><td>无害</td><td>同一结构，只是封面图用了别的尺寸</td><td>不处理；可选：换一张按当前尺寸画的封面图</td></tr>
+        <tr><td>刀版有误</td><td>缺面片、多面片、或形状明显不同</td><td>进问题清单，建议重采或下架</td></tr>
+        <tr><td>封面图有误</td><td>刀版是对的，封面图是别的盒型</td><td>进问题清单，建议换封面图</td></tr>
+        <tr><td>拿不准</td><td>需要到 Pacdora 页面上核对</td><td>列出来单独处理</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h3>产出</h3>
+    <ul>
+      <li>84 个产品的对照页（本地 HTML）。</li>
+      <li>核实结果表里“不重合”这一档，拆成上面四个明确的结论。</li>
+    </ul>
+    <h3>注意</h3>
+    <ul>
+      <li>自动分类只是排序用，最终结论以看图为准。</li>
+      <li>如果“刀版有误”的数量很多（比如超过 10 个），先停下来和你确认是逐个处理还是另想办法。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>七、任务 3 · 产品页完整流程抽测 <span class="tag">页面实测</span></h2>
+    <h3>抽哪些</h3>
+    <p>共 16–20 个，按下面的规则选：</p>
+    <ul>
+      <li>四个类目各 4 个。</li>
+      <li>其中至少 5 个多层盒型（礼盒、方形盒里多）。</li>
+      <li>任务 1、2、4 标出可疑但没有判死的，优先抽。</li>
+      <li>其余随机。</li>
+    </ul>
+    <h3>每个产品走的步骤</h3>
+    <ol>
+      <li>从 <code>/products</code> 列表点进产品页，看 2D 刀版、3D、尺寸信息是否显示。</li>
+      <li>点“进入设计器”，放一张图片和一段文字到主面上。</li>
+      <li>保存，刷新页面，确认设计还在、图案位置没变。</li>
+      <li>导出 SVG、DXF、PDF、AI 各一次，核对尺寸和图层。</li>
+      <li>回到“我的设计”，确认能重新打开。</li>
+    </ol>
+    <h3>产出</h3>
+    <ul>
+      <li>每个产品每一步的通过情况，失败的附截图和报错。</li>
+    </ul>
+    <h3>注意</h3>
+    <ul>
+      <li>用测试账号在本地站点上做。预计消耗导出额度 60–80 次（现有 954 次）。</li>
+      <li>测试产生的设计测完全部删除。</li>
+      <li>导出走页面按钮，不用脚本连发，避免限流。</li>
+      <li>导出文件里“图案有没有印上去”这一项，之前没有测过，这次一并看。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>八、问题怎么记、怎么处理</h2>
+    <p>四个任务查出的问题汇总到一张表：<code>docs/产品目录_问题清单_2026-11-19.csv</code>，每个问题一行。</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>列</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>产品</td><td>类目、编号、名称、产品页地址</td></tr>
+        <tr><td>来源</td><td>哪个任务发现的</td></tr>
+        <tr><td>现象</td><td>看到了什么，附截图或数值</td></tr>
+        <tr><td>严重程度</td><td>高：刀版错或导不出；中：3D 不对但刀版对；低：封面图、文字等</td></tr>
+        <tr><td>建议</td><td>重采 / 下架 / 修代码 / 换封面图 / 不处理</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note key">这一步不修任何问题。清单出来后一起看，按严重程度决定先修哪些。唯一的例外是会导致整批测试跑不下去的故障，会先告诉你再处理。</div>
+  </section>
+
+  <section>
+    <h2>九、交付物</h2>
+    <ul>
+      <li>导出与保存批量测试结果表（273 行）。</li>
+      <li>3D 总览页（273 个产品，两种状态）。</li>
+      <li>84 个产品的刀版对照页和逐个结论。</li>
+      <li>页面流程抽测记录（16–20 个）。</li>
+      <li>问题清单。</li>
+      <li>一页总结：273 个里确认没问题的有多少，各类问题各有多少，建议的处理顺序。</li>
+      <li>结论同步到 <code>BOXCRAFT_刀版工作经验总结</code>。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>十、做不到的和需要你配合的</h2>
+    <ul>
+      <li><b>Illustrator 图层。</b>我没法打开 Illustrator。需要你用任意一个导出的 <code>.ai</code> 看一眼图层面板。</li>
+      <li><b>“拿不准”的盒型。</b>可能需要到 Pacdora 页面上核对，数量出来后再和你确认怎么做。</li>
+      <li><b>目测有上限。</b>3D 和对照图靠看，细小的错位（几毫米）看不出来。能量化的部分都放在任务 1 里用数值检查。</li>
+      <li><b>测试期间站点可用。</b>全程不改代码、不重启服务，本地站点可以照常使用。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>十一、开始前需要你确认的</h2>
+    <ol>
+      <li>任务 2 按“我先全部看一遍，你只看可疑的”来做，可以吗？</li>
+      <li>任务 3 抽 16–20 个、消耗 60–80 次导出额度，可以吗？</li>
+      <li>当前分支还没有推送。建议先推送再开始，测试脚本和结果会在同一分支上继续提交。</li>
+    </ol>
+  </section>
+
+  <footer>
+    相关文档：<code>BOXCRAFT_刀版工作经验总结_2026-11-18.html</code>、<code>上线产品刀版核实结果_2026-11-19.csv</code>
+  </footer>
+</main>
+</body>
+</html>

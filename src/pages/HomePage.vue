@@ -2,7 +2,7 @@
   <AppShell flush>
     <section class="hero bc-paper-grid">
       <div ref="heroCopyEl" class="hero-copy">
-        <img class="brand-logo" :src="logoUrl" alt="BOXCRAFT" width="320" height="99" />
+        <img class="brand-logo" :src="logoUrl" :alt="brandName" width="320" height="99" />
         <h1>{{ t('site.heroTitle') }}</h1>
         <p class="lead">{{ t('site.heroLead') }}</p>
         <p class="note">{{ t('site.heroCapabilityNote') }}</p>
@@ -13,11 +13,11 @@
       </div>
       <motion.div class="hero-visual" :aria-label="t('site.heroVisual')" v-bind="visualEnter">
         <div class="hero-stage">
-          <HomeHeroFoldPreview
-            v-if="previewOn && heroPreviewSlug"
-            :slug="heroPreviewSlug"
-            @failed="onPreviewFailed"
-            @ready="previewFailed = false"
+          <HomeHeroFoldVideo
+            v-if="!videoFailed"
+            :alt="heroAlt"
+            @failed="onVideoFailed"
+            @ready="videoFailed = false"
           />
           <template v-else>
             <img
@@ -33,25 +33,8 @@
               <div class="hero-panel" />
               <p class="hero-fallback-label">{{ heroAlt || t('site.heroCoverFailed') }}</p>
             </div>
-            <button
-              v-if="heroPreviewSlug && !previewFailed"
-              type="button"
-              class="bc-btn bc-btn--primary hero-3d-cta"
-              @click="previewOn = true"
-            >
-              {{ t('site.heroView3d') }}
-            </button>
           </template>
-          <button
-            v-if="previewOn"
-            type="button"
-            class="bc-btn bc-btn--ghost hero-3d-close"
-            @click="closePreview"
-          >
-            {{ t('site.heroClose3d') }}
-          </button>
         </div>
-        <p v-if="previewFailed" class="hero-3d-note">{{ t('site.hero3dUnavailable') }}</p>
       </motion.div>
     </section>
 
@@ -117,14 +100,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { motion } from 'motion-v'
-import logoUrl from '../assets/brand/boxcraft-logo.png'
 import AppShell from '../components/layout/AppShell.vue'
+import { useBrandLogo } from '../brand/logo'
 import HomeProductStrip from '../components/home/HomeProductStrip.vue'
 import HomeBlogStrip from '../components/home/HomeBlogStrip.vue'
 import HomeFaq from '../components/home/HomeFaq.vue'
+import HomeHeroFoldVideo from '../components/home/HomeHeroFoldVideo.vue'
 import { enterProps } from '../motion'
 import { useHomeHeroGsap } from '../motion/useGsapHighlight'
 import { fetchProducts, type ProductSummary } from '../api/catalog'
@@ -132,10 +116,8 @@ import { fetchBlogPosts, type BlogCard } from '../api/blog'
 // @ts-expect-error JS asset helper
 import { publicAssetUrl } from '../assetUrl.js'
 
-/** Lazy so homepage first paint never pulls Three / knifeScene. */
-const HomeHeroFoldPreview = defineAsyncComponent(() => import('../components/home/HomeHeroFoldPreview.vue'))
-
 const { t, locale } = useI18n()
+const { logoUrl, brandName } = useBrandLogo()
 const heroCopyEl = ref<HTMLElement | null>(null)
 useHomeHeroGsap(heroCopyEl)
 
@@ -147,9 +129,8 @@ const productsError = ref('')
 const blogPosts = ref<BlogCard[]>([])
 const blogLoading = ref(true)
 
-const previewOn = ref(false)
-const previewFailed = ref(false)
 const coverBroken = ref(false)
+const videoFailed = ref(false)
 
 const featuredProducts = computed(() => {
   const withCover = products.value.filter((p) => p.cover_rel)
@@ -157,20 +138,9 @@ const featuredProducts = computed(() => {
   return pool.slice(0, 6)
 })
 
-/** Prefer a product that can feed workbench geometry (not model_only). */
 const heroProduct = computed(() => {
   const pool = featuredProducts.value
-  return (
-    pool.find((p) => p.geometry_mode !== 'model_only' && p.cover_rel) ||
-    pool.find((p) => p.geometry_mode !== 'model_only') ||
-    pool[0] ||
-    null
-  )
-})
-const heroPreviewSlug = computed(() => {
-  const p = heroProduct.value
-  if (!p || p.geometry_mode === 'model_only') return ''
-  return p.slug || ''
+  return pool.find((p) => p.cover_rel) || pool[0] || null
 })
 const heroCover = computed(() => (heroProduct.value?.cover_rel ? publicAssetUrl(heroProduct.value.cover_rel) : ''))
 const heroAlt = computed(() => {
@@ -179,13 +149,8 @@ const heroAlt = computed(() => {
   return locale.value === 'ko-KR' && p.name_ko ? p.name_ko : p.name
 })
 
-function closePreview() {
-  previewOn.value = false
-}
-
-function onPreviewFailed() {
-  previewOn.value = false
-  previewFailed.value = true
+function onVideoFailed() {
+  videoFailed.value = true
 }
 
 watch(heroCover, () => {
@@ -211,11 +176,11 @@ const howSteps = computed(() => [
 
 onMounted(async () => {
   const [prodRes, blogRes] = await Promise.allSettled([
-    fetchProducts(),
+    fetchProducts({ page_size: 12 }),
     fetchBlogPosts({ page_size: 3, locale: locale.value }),
   ])
   if (prodRes.status === 'fulfilled') {
-    products.value = prodRes.value
+    products.value = prodRes.value.items
   } else {
     productsError.value = prodRes.reason instanceof Error ? prodRes.reason.message : t('studio.loadFailed')
   }
@@ -347,35 +312,6 @@ h1 {
   font-size: 13px;
   color: var(--bc-ink-muted);
   text-align: center;
-}
-
-.hero-3d-cta,
-.hero-3d-close {
-  position: absolute;
-  z-index: 3;
-  box-shadow: var(--bc-shadow);
-}
-
-.hero-3d-cta {
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-}
-
-.hero-3d-close {
-  top: 12px;
-  right: 12px;
-  padding: 6px 12px;
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.92);
-}
-
-.hero-3d-note {
-  margin: 10px 0 0;
-  font-size: 13px;
-  color: var(--bc-ink-muted);
-  text-align: center;
-  max-width: 42ch;
 }
 
 .how {

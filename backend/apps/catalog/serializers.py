@@ -22,11 +22,9 @@ class ProductListSerializer(serializers.ModelSerializer):
             'name',
             'name_ko',
             'category',
-            'description',
             'status',
             'template_key',
             'geometry_mode',
-            'capabilities',
             'cover_rel',
             'sort_order',
         )
@@ -38,7 +36,13 @@ class ProductDetailSerializer(ProductListSerializer):
     workbench = serializers.SerializerMethodField()
 
     class Meta(ProductListSerializer.Meta):
-        fields = ProductListSerializer.Meta.fields + ('variants', 'template_version', 'workbench')
+        fields = ProductListSerializer.Meta.fields + (
+            'description',
+            'capabilities',
+            'variants',
+            'template_version',
+            'workbench',
+        )
 
     def get_template_version(self, obj):
         ver = obj.default_template_version
