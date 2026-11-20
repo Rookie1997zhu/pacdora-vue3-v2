@@ -1,6 +1,9 @@
 /** Export dieline from knife.layers (trim / crease / bleed). Demo only — not for die cutting. */
-import {PDFDocument,PDFHexString,PDFName,PDFOperator,rgb,StandardFonts} from 'pdf-lib'
-import {artworkToSvg,drawArtworkPdf,planArtwork,ARTWORK_PDF_LAYER} from './exportArtwork.js'
+import {
+  PDFDocument,PDFHexString,PDFName,PDFOperator,rgb,StandardFonts,
+  pushGraphicsState,popGraphicsState,setFillingColor,moveTo,lineTo,appendBezierCurve,closePath,fill,
+} from 'pdf-lib'
+import {artworkToSvg,drawArtworkPdf,planArtwork,hasInsideArtwork,mirrorKnifeForInside,ARTWORK_PDF_LAYER} from './exportArtwork.js'
 import {buildDimAnnotations,dimAnnotationsToSvg,DIM_COLOR} from './dimAnnotations.js'
 import {
   arcCenter,
@@ -246,9 +249,28 @@ export function toSvgDieline(knife,options={}){
   const trimPath=pathsOf(knife,'trim').map(commandsToPathData).join(' ')
   const bleedPath=pathsOf(knife,'bleed').map(commandsToPathData).join(' ')
   const creasePath=pathsOf(knife,'crease').map(commandsToPathData).join(' ')
+  // 内面有图案时，在右边并排再放一张：从纸张内面看的刀版（左右镜像）和内面的图案
+  const insideOn=!!options.artwork&&hasInsideArtwork(options.artwork)
+  let insideGroup=''
+  if(insideOn){
+    options.artworkWarnings?.push(INSIDE_SHEET_NOTE)
+    const mk=mirrorKnifeForInside(knife)
+    const p=role=>pathsOf(mk,role).map(commandsToPathData).join(' ')
+    insideGroup=[
+      `<g id="INSIDE" transform="translate(${vbW} 0)">`,
+      artworkToSvg(mk,options.artwork,options.artworkImages||{},options.artworkWarnings||[],{side:'inside'}),
+      opts.showBleed?`<path d="${p('bleed')}" stroke="${LAYER_META.bleed.color}" stroke-width="1.2" opacity="0.65"/>`:'',
+      `<path d="${p('trim')}" stroke="${LAYER_META.trim.color}" stroke-width="1.8"/>`,
+      `<path d="${p('crease')}" stroke="${LAYER_META.crease.color}" stroke-width="1.6" stroke-dasharray="6 4"/>`,
+      `<text x="${b.minX}" y="${b.minY-10}" font-size="10" fill="#667085">INSIDE (sheet seen from its inside, mirrored)</text>`,
+      `</g>`,
+    ].filter(Boolean).join(String.fromCharCode(10))
+  }
+  const fullW=insideOn?vbW*2:vbW
+  const fullVb=`${vbX} ${vbY} ${fullW} ${vbH}`
   const rootAttrs=phys
-    ?`xmlns="http://www.w3.org/2000/svg" width="${vbW}mm" height="${vbH}mm" viewBox="${vb}" fill="none"`
-    :`xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" fill="none"`
+    ?`xmlns="http://www.w3.org/2000/svg" width="${fullW}mm" height="${vbH}mm" viewBox="${fullVb}" fill="none"`
+    :`xmlns="http://www.w3.org/2000/svg" viewBox="${fullVb}" fill="none"`
   const parts=[
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<svg ${rootAttrs}>`,
@@ -260,10 +282,43 @@ export function toSvgDieline(knife,options={}){
     `<path d="${creasePath}" stroke="${LAYER_META.crease.color}" stroke-width="1.6" stroke-dasharray="6 4"/>`,
     dims,
     faceNames,
+    insideGroup,
     `</svg>`
   ]
   return parts.filter(Boolean).join('\n')
 }
+
+/**
+ * One line of page text (title block). Helvetica has Latin glyphs only, so a line with Chinese /
+ * Korean / Japanese in it is drawn as curves when the caller provides `outlineText` (the geometry
+ * service does); otherwise, or when a character has no glyph, the non-Latin characters are dropped
+ * as before.
+ */
+function drawPageLabel(page,text,{x,y,size,font,color,outlineText}){
+  const line=String(text||'')
+  if(typeof outlineText==='function'&&/[^ -~×·]/.test(line)){
+    let o=null
+    try{o=outlineText(line,size)}catch{o=null}
+    if(o&&o.paths.length){
+      const ops=[pushGraphicsState(),setFillingColor(color)]
+      for(const glyph of o.paths){
+        for(const c of glyph){
+          if(c[0]==='M')ops.push(moveTo(x+c[1],y+c[2]))
+          else if(c[0]==='L')ops.push(lineTo(x+c[1],y+c[2]))
+          else if(c[0]==='C')ops.push(appendBezierCurve(x+c[1],y+c[2],x+c[3],y+c[4],x+c[5],y+c[6]))
+          else ops.push(closePath())
+        }
+      }
+      ops.push(fill(),popGraphicsState())
+      page.pushOperators(...ops)
+      return
+    }
+  }
+  page.drawText(pdfSafeLabel(line),{x,y,size,font,color})
+}
+
+/** Reported with the export so the user knows where the inside print went */
+const INSIDE_SHEET_NOTE='inside artwork is on its own sheet (PDF / AI: page 2, SVG: right-hand side), seen from the inside and mirrored'
 
 function pdfSafeLabel(s){
   // Helvetica / WinAnsi: drop non-latin; keep digits, letters, × as x
@@ -300,9 +355,11 @@ function pdfPathData(cmds,map,scale){
 
 /**
  * PDF 图层（Optional Content Group）：与 DXF 同名的 TRIM / CREASE / BLEED / DIM / TEXT。
- * 返回 layer(name,draw)：draw 里画的内容归入该图层。Acrobat、Illustrator 等按图层显示 / 选取。
+ * 图层整份文件共用一套（多页时各页同名内容归同一个图层）。
+ * 返回 {tag(name), attach(page)}；attach 给出 layer(name,draw)：draw 里画的内容归入该图层。
+ * Acrobat、Illustrator 等按图层显示 / 选取。
  */
-function pdfLayers(doc,page,names){
+function pdfLayers(doc,names){
   const ctx=doc.context
   const refs={},tags={}
   names.forEach((name,i)=>{
@@ -316,11 +373,16 @@ function pdfLayers(doc,page,names){
   }))
   const props={}
   for(const n of names)props[tags[n]]=refs[n]
-  page.node.normalizedEntries().Resources.set(PDFName.of('Properties'),ctx.obj(props))
-  return (name,draw)=>{
-    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of(tags[name])]))
-    draw()
-    page.pushOperators(PDFOperator.of('EMC'))
+  return {
+    tag:name=>tags[name],
+    attach(page){
+      page.node.normalizedEntries().Resources.set(PDFName.of('Properties'),ctx.obj(props))
+      return (name,draw)=>{
+        page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of(tags[name])]))
+        draw()
+        page.pushOperators(PDFOperator.of('EMC'))
+      }
+    },
   }
 }
 const PDFHexStringOf=text=>PDFHexString.fromText(text)
@@ -343,7 +405,6 @@ export async function toPdf(knife,options={}){
   const pageW=Math.max(420,wMm*PT_PER_MM+margin*2)
   const pageH=Math.max(594,hMm*PT_PER_MM+margin*2+headerH+footerH)
   const doc=await PDFDocument.create()
-  const page=doc.addPage([pageW,pageH])
   const font=await doc.embedFont(StandardFonts.Helvetica)
   const fontBold=await doc.embedFont(StandardFonts.HelveticaBold)
   const tier=String(qualityTier||'vector_proof')
@@ -351,13 +412,29 @@ export async function toPdf(knife,options={}){
 
   const d=knife.dimensions||{}
   const mat=knife.material?.id||'-'
-  const title=`${knife.template||'mailer'} · ${displayNumber(d.length,opts.displayUnit)}x${displayNumber(d.width,opts.displayUnit)}x${displayNumber(d.height,opts.displayUnit)} ${opts.displayUnit} · ${mat}`
+  // 盒型名（中文 / 韩文名在有转曲函数时才画得出来）+ 模板代号
+  const boxName=String(knife.templateInfo?.label||'').trim()
+  const title=`${boxName&&boxName!==knife.template?`${boxName} · `:''}${knife.template||'mailer'} · ${displayNumber(d.length,opts.displayUnit)}x${displayNumber(d.width,opts.displayUnit)}x${displayNumber(d.height,opts.displayUnit)} ${opts.displayUnit} · ${mat}`
   // 有图案时多一个 ARTWORK 图层，排在最下面；没有图案的文件保持原来的五个图层
-  const artworkPlan=options.artwork?planArtwork(knife,options.artwork):null
-  const hasArtwork=!!artworkPlan&&(artworkPlan.items.length>0||!!artworkPlan.background)
-  const layer=pdfLayers(doc,page,[...(hasArtwork?[ARTWORK_PDF_LAYER]:[]),'BLEED','TRIM','CREASE','DIM','TEXT'])
+  // 内面有图案时多出一页：从纸张内面（背面）看的刀版，左右镜像，上面是内面的图案
+  const sheets=[{side:'outside',knife}]
+  if(options.artwork&&hasInsideArtwork(options.artwork)){
+    sheets.push({side:'inside',knife:mirrorKnifeForInside(knife)})
+    options.artworkWarnings?.push(INSIDE_SHEET_NOTE)
+  }
+  for(const s of sheets){
+    s.plan=options.artwork?planArtwork(s.knife,options.artwork,{side:s.side}):null
+    s.hasArtwork=!!s.plan&&(s.plan.items.length>0||!!s.plan.background)
+  }
+  const layerSet=pdfLayers(doc,[...(sheets.some(s=>s.hasArtwork)?[ARTWORK_PDF_LAYER]:[]),'BLEED','TRIM','CREASE','DIM','TEXT'])
+  for(const sheet of sheets){
+  const knife=sheet.knife
+  const inside=sheet.side==='inside'
+  const artworkPlan=sheet.plan,hasArtwork=sheet.hasArtwork
+  const page=doc.addPage([pageW,pageH])
+  const layer=layerSet.attach(page)
   if(opts.showTitleBlock){
-    layer('TEXT',()=>page.drawText(pdfSafeLabel(title),{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22)}))
+    layer('TEXT',()=>drawPageLabel(page,inside?`${title} · INSIDE (sheet seen from its inside, mirrored)`:title,{x:margin,y:pageH-28,size:11,font:fontBold,color:rgb(.15,.18,.22),outlineText:options.outlineText}))
   }
 
   const drawW=pageW-margin*2,drawH=pageH-margin*2-headerH-footerH
@@ -391,8 +468,8 @@ export async function toPdf(knife,options={}){
   const svgMap=(x,y)=>{const p=map(x,y);return {x:p.x,y:pageH-p.y}}
 
   if(hasArtwork){
-    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of('OC1')]))
-    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[],outlineText:options.outlineText||null})
+    page.pushOperators(PDFOperator.of('BDC',[PDFName.of('OC'),PDFName.of(layerSet.tag(ARTWORK_PDF_LAYER))]))
+    await drawArtworkPdf(doc,page,knife,options.artwork,options.artworkImages||{},{map,scale,font,warnings:options.artworkWarnings||[],outlineText:options.outlineText||null,side:sheet.side})
     page.pushOperators(PDFOperator.of('EMC'))
   }else if(artworkPlan&&options.artworkWarnings)options.artworkWarnings.push(...artworkPlan.skipped)
 
@@ -416,7 +493,8 @@ export async function toPdf(knife,options={}){
     })
   }
 
-  if(opts.showDimensions){
+  // 尺寸标注只画在外面那一页
+  if(opts.showDimensions&&!inside){
     const anns=buildDimAnnotations(knife)
     const dimRgb=hexToRgb01(DIM_COLOR)
     const dimColor=rgb(dimRgb.r,dimRgb.g,dimRgb.b)
@@ -462,6 +540,8 @@ export async function toPdf(knife,options={}){
     layer('TEXT',()=>page.drawText(pdfSafeLabel(foot),{
       x:margin,y:18,size:9,font:fontBold,color:rgb(.75,.15,.1)
     }))
+  }
+
   }
 
   return doc.save()

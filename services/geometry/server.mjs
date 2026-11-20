@@ -411,7 +411,9 @@ async function exportDieline(body) {
     qualityTier: qualityTier || 'vector_proof',
     includeDims: options.showDimensions ?? true,
     ...options,
-    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings, outlineText} : {}),
+    ...(drawArtwork ? {artwork, artworkImages, artworkWarnings} : {}),
+    // also used for the title line (box names are often Chinese or Korean)
+    outlineText,
   }
   let mime
   let filename

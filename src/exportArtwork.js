@@ -42,9 +42,23 @@ export function planArtwork(knife,artwork,{side='outside'}={}){
   const items=[],skipped=[]
   for(const layer of [...layers].sort((a,b)=>num(a?.zIndex)-num(b?.zIndex))){
     if(!layer||layer.visible===false)continue
-    if((layer.side||'outside')!==side){skipped.push(`${layer.name||layer.id}: ${layer.side} side is not exported`);continue}
+    // The other print side is drawn on its own sheet (see mirrorKnifeForInside)
+    if((layer.side||'outside')!==side)continue
     const t=layer.transform||{}
     let x=num(t.xMm),y=num(t.yMm),clipLoop=null
+    const w0=Math.max(0,num(layer.widthMm)),h0=Math.max(0,num(layer.heightMm))
+    if(side==='inside'&&layer.coordinateSpace==='net_mm'){
+      // A layer placed on the whole net: on the inside every panel shows its own part the way it was
+      // drawn (same rule as the 3D preview), so the layer is repeated per panel, clipped to it.
+      if(!(w0>0&&h0>0)){skipped.push(`${layer.name||layer.id}: empty size`);continue}
+      for(const face of knife?.faces||[]){
+        if(!Number.isFinite(face.srcX))continue
+        if(x+w0<face.srcX||x>face.srcX+num(face.w)||y+h0<num(face.y)||y>num(face.y)+num(face.h))continue
+        items.push({layer,x:num(face.x)+(x-face.srcX),y,w:w0,h:h0,rotation:num(t.rotationDeg),
+          opacity:Math.max(0,Math.min(1,num(layer.opacity,1))),clipLoop:faceOutline(face)})
+      }
+      continue
+    }
     if(layer.coordinateSpace!=='net_mm'){
       const face=faces.get(String(layer.panelId||''))
       if(!face){skipped.push(`${layer.name||layer.id}: panel ${layer.panelId||'?'} not found`);continue}
@@ -55,16 +69,68 @@ export function planArtwork(knife,artwork,{side='outside'}={}){
     if(!(w>0&&h>0)){skipped.push(`${layer.name||layer.id}: empty size`);continue}
     items.push({layer,x,y,w,h,rotation:num(t.rotationDeg),opacity:Math.max(0,Math.min(1,num(layer.opacity,1))),clipLoop})
   }
-  const bg=parseHexColor(artwork?.backgroundColor)
+  // The background colour is the outside print; the inside sheet stays unprinted unless layers are placed
+  const bg=side==='outside'?parseHexColor(artwork?.backgroundColor):null
   const background=bg?{color:String(artwork.backgroundColor).trim(),rgb:bg,loops:(knife?.faces||[]).map(faceOutline)}:null
   return {items,background,skipped}
+}
+
+/** Does the artwork have anything on the inside print side? */
+export function hasInsideArtwork(artwork){
+  return (Array.isArray(artwork?.layers)?artwork.layers:[]).some(l=>l&&l.visible!==false&&l.side==='inside')
+}
+
+/**
+ * The sheet seen from its inside (back): the dieline mirrored left ↔ right.
+ *
+ * Inside layers are placed in the editor on the usual (outside) view of a panel and are meant to read
+ * the way they were drawn when one looks at the inside of that panel. On the back of the flat sheet
+ * each panel sits at its mirrored position, so a layer keeps its offset from the panel's left edge and
+ * is NOT mirrored itself. planArtwork(mirrored, artwork, {side:'inside'}) gives exactly that, because
+ * panel layers are positioned from face.x of the mirrored face. Faces keep `srcX` (their x on the
+ * outside view) for layers placed on the whole net.
+ */
+export function mirrorKnifeForInside(knife){
+  const b=knife?.bounds
+  if(!b)return knife
+  const mx=x=>b.minX+b.maxX-num(x)
+  const cmd=c=>{
+    if(!c||typeof c!=='object')return c
+    const o={...c}
+    for(const k of ['x','cx','cx1','cx2','x1','x2'])if(typeof o[k]==='number')o[k]=mx(o[k])
+    // Mirroring reverses the turning direction of an arc
+    if(o.mtd==='A')o.dir=o.dir?0:1
+    return o
+  }
+  const seg=s=>({...s,x1:mx(s.x1),x2:mx(s.x2)})
+  const paths={},layers={}
+  for(const role of ['trim','crease','bleed']){
+    const direct=knife.paths?.[role]||knife.layers?.[role]?.paths
+    if(Array.isArray(direct)&&direct.length)paths[role]=direct.map(p=>p.map(cmd))
+    const lay=knife.layers?.[role]
+    if(lay)layers[role]={...lay,paths:paths[role],segments:Array.isArray(lay.segments)?lay.segments.map(seg):lay.segments}
+  }
+  return {
+    ...knife,
+    faces:(knife.faces||[]).map(f=>({
+      ...f,srcX:num(f.x),x:mx(num(f.x)+num(f.w)),
+      outline:Array.isArray(f.outline)?f.outline.map(p=>[mx(p[0]),num(p[1])]):f.outline,
+    })),
+    paths:{...(knife.paths||{}),...paths},
+    layers:{...(knife.layers||{}),...layers},
+    cuts:Array.isArray(knife.cuts)?knife.cuts.map(seg):knife.cuts,
+    folds:Array.isArray(knife.folds)?knife.folds.map(seg):knife.folds,
+    bleeds:Array.isArray(knife.bleeds)?knife.bleeds.map(seg):knife.bleeds,
+    insideView:true,
+  }
 }
 
 const textLines=layer=>String(layer.text?.content??'').split(/\r?\n/)
 
 /** SVG `<g id="ARTWORK">`: live text, embedded images. Returns '' when there is nothing to draw. */
-export function artworkToSvg(knife,artwork,images={},warnings=[]){
-  const {items,background,skipped}=planArtwork(knife,artwork)
+export function artworkToSvg(knife,artwork,images={},warnings=[],{side='outside'}={}){
+  const {items,background,skipped}=planArtwork(knife,artwork,{side})
+  const tag=side==='inside'?'ARTWORK_INSIDE':'ARTWORK',clipId=side==='inside'?'artwork-in-clip':'artwork-clip'
   warnings.push(...skipped)
   if(!items.length&&!background)return ''
   const defs=[],body=[]
@@ -99,14 +165,14 @@ export function artworkToSvg(knife,artwork,images={},warnings=[]){
     }else return
     let clipAttr=''
     if(it.clipLoop){
-      defs.push(`<clipPath id="artwork-clip-${i}"><path d="M${it.clipLoop.map(p=>`${p[0]} ${p[1]}`).join('L')}Z"/></clipPath>`)
-      clipAttr=` clip-path="url(#artwork-clip-${i})"`
+      defs.push(`<clipPath id="${clipId}-${i}"><path d="M${it.clipLoop.map(p=>`${p[0]} ${p[1]}`).join('L')}Z"/></clipPath>`)
+      clipAttr=` clip-path="url(#${clipId}-${i})"`
     }
     const tf=`translate(${it.x} ${it.y})${it.rotation?` rotate(${it.rotation})`:''}`
     body.push(`<g${clipAttr}><g transform="${tf}"${it.opacity<1?` opacity="${it.opacity}"`:''} data-layer="${esc(layer.name||layer.id)}">${inner}</g></g>`)
   })
   if(!body.length)return ''
-  return `${defs.length?`<defs>${defs.join('')}</defs>`:''}<g id="ARTWORK">${body.join('')}</g>`
+  return `${defs.length?`<defs>${defs.join('')}</defs>`:''}<g id="${tag}">${body.join('')}</g>`
 }
 
 const K=0.5522847498 // circle → 4 cubic Béziers
@@ -118,8 +184,8 @@ const K=0.5522847498 // circle → 4 cubic Béziers
  * one (services/geometry/textOutline.mjs); without it, or when a character has no glyph in any font
  * found there, the layer is drawn as a placeholder box and reported, never dropped silently.
  */
-export async function drawArtworkPdf(doc,page,knife,artwork,images,{map,scale,font,warnings=[],outlineText=null}){
-  const {items,background,skipped}=planArtwork(knife,artwork)
+export async function drawArtworkPdf(doc,page,knife,artwork,images,{map,scale,font,warnings=[],outlineText=null,side='outside'}){
+  const {items,background,skipped}=planArtwork(knife,artwork,{side})
   warnings.push(...skipped)
   const ops=(...list)=>page.pushOperators(...list)
   const loopPath=loop=>{
