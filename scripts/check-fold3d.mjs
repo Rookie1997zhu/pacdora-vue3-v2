@@ -38,5 +38,5 @@ assert.equal(noRecipe,0,'every customizable spec box carries a fold recipe')
 // 以前按比例（≥93%）把关；大批盒型改用按尺寸插值模板后，仍用规格模板的盒型变少，已知缺陷的占比被动升高。
 // 改为：除已标注的以外不许有新的不一致，已知缺陷的个数也不许增加。
 assert.equal(misses.length,0,`fold recipe differs from the reference replay on boxes not annotated as such: ${misses.join('; ')}`)
-assert.ok(knownMisses.length<=2,`known fold3d defects must not grow (got ${knownMisses.length})`)
+assert.ok(knownMisses.length<=0,`known fold3d defects must not grow (got ${knownMisses.length})`)
 assert.ok(resizedOk/Math.max(1,resizedTotal)>=.93,`resized boxes must still close (got ${resizedOk}/${resizedTotal})`)

@@ -25,8 +25,10 @@ function makePanelMesh(f, faceHoles, thickness, materialId) {
   const shape = new THREE.Shape()
   const cx = f.x + f.w / 2
   const cy = f.y + f.h / 2
-  if (Array.isArray(f.outline) && f.outline.length >= 3) {
-    f.outline.forEach((p, i) => {
+  // outline3d: a 3D-only outline that may reach beyond the face rectangle (tongues, ears)
+  const outline = Array.isArray(f.outline3d) && f.outline3d.length >= 3 ? f.outline3d : f.outline
+  if (Array.isArray(outline) && outline.length >= 3) {
+    outline.forEach((p, i) => {
       const x = p[0] - cx
       const y = -(p[1] - cy)
       if (i) shape.lineTo(x, y)

@@ -377,6 +377,11 @@ export function createSpecTemplate(spec){
             if(trap)shape.outline=trap.map(([px,py])=>[round(px),round(py)])
           }
         }
+        // o3：只给 3D 用的外轮廓（UV，可超出 0..1）。舌片伸进相邻面的缺口里时，2D 的切线由那个缺口画出，
+        // 这一面的矩形不必变；但 3D 里少了这块舌片，合盖外形就和参考对不上
+        if(Array.isArray(f.o3)&&f.o3.length>=3){
+          shape.outline3d=f.o3.map(([u,v])=>[round(Number(u)*w),round(Number(v)*h)])
+        }
         if(f.hl&&!f.s){
           const hl=expandUv(f.hl,w,h)
           if(hl?.length===2)shape.hingeLine=hl

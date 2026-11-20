@@ -16848,7 +16848,7 @@ export default {
       "specFrom": "fefco-0427",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-mailer-150430",
@@ -24522,7 +24522,7 @@ export default {
       "specFrom": "tuck-end-straight",
       "templateSource": "structure-spec",
       "fidelity": "close",
-      "fold3d": "differs"
+      "fold3d": "ok"
     },
     {
       "id": "import-folding-158050",

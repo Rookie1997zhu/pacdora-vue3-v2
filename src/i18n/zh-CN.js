@@ -213,6 +213,7 @@ export default {
     fidelityExactHint:'默认尺寸下与参考刀版一致',
     fidelityCloseHint:'结构与参考刀版一致，孔位或切线细节可能有出入',
     fidelityCloseNote:'该盒型为近似结构：面片与展开尺寸和参考刀版一致，孔位或切线细节可能有出入。',
+    thicknessFixedNote:'该盒型的纸厚随参考刀版固定，不可调整。',
     unverifiedResizeNote:'当前尺寸与参考尺寸（内尺寸 {l}×{w}×{h} mm）相差超过 10%。这个尺寸的刀版没有与参考刀版核对过，结构细节可能有偏差，生产前请先打样确认。',
     verifiedRangeNote:'该盒型在内尺寸 长 {l}、宽 {w}、高 {h} mm 范围内已与参考刀版逐一核对；超出范围为近似推算。结构细节随尺寸自动确定，不可单独调整。',
     improvedRangeNote:'该盒型在内尺寸 长 {l}、宽 {w}、高 {h} mm 范围内按参考刀版的多尺寸样本生成，多数尺寸与参考一致，个别尺寸组合仍有偏差；超出范围为近似推算。结构细节随尺寸自动确定，不可单独调整。',

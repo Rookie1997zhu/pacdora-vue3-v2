@@ -1263,6 +1263,10 @@ export function createKnife({
     if(shape?.outline){
       face.outline=absoluteOutline(x,y,w,h,shape.outline)
     }
+    // 只给 3D 用的外轮廓（可以伸出面片矩形，如插进相邻面缺口里的舌片）；2D 的切线不看它
+    if(Array.isArray(shape?.outline3d)&&shape.outline3d.length>=3){
+      face.outline3d=shape.outline3d.map(([px,py])=>[round(x+px),round(y+py)])
+    }
     if(Array.isArray(shape?.hingeLine)&&shape.hingeLine.length===2){
       // hingeLine 相对面 bbox 左下角
       face.hingeLine=shape.hingeLine.map(([px,py])=>[round(x+px),round(y+py)])

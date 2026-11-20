@@ -14,7 +14,7 @@ import {TEMPLATES} from '../../src/templates/index.js'
 import {pieceGeometry} from '../../src/templates/sampled/sampledTemplate.js'
 // face quad = bounding box of the real outline (see scripts/lib/foldCompare.mjs)
 const plane=f=>{
-  const o=Array.isArray(f.outline)&&f.outline.length>=3?f.outline:null
+  const o=Array.isArray(f.outline3d)&&f.outline3d.length>=3?f.outline3d:(Array.isArray(f.outline)&&f.outline.length>=3?f.outline:null)
   let x0=f.x,x1=f.x+f.w,y0=f.y,y1=f.y+f.h
   if(o){const xs=o.map(a=>+a[0]),ys=o.map(a=>+a[1]);x0=Math.min(...xs);x1=Math.max(...xs);y0=Math.min(...ys);y1=Math.max(...ys)}
   const cx=f.x+f.w/2,cy=f.y+f.h/2

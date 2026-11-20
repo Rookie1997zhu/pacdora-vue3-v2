@@ -16,7 +16,7 @@ import {fold3dKnife} from '../../src/foldRecipe.js'
 import {pieceGeometry} from '../../src/templates/sampled/sampledTemplate.js'
 
 export function shapedMesh(f){
-  const o=Array.isArray(f.outline)&&f.outline.length>=3?f.outline:null
+  const o=Array.isArray(f.outline3d)&&f.outline3d.length>=3?f.outline3d:(Array.isArray(f.outline)&&f.outline.length>=3?f.outline:null)
   let w=Math.max(f.w,.1),h=Math.max(f.h,.1),ox=0,oy=0
   if(o){
     const xs=o.map(a=>Number(a[0])),ys=o.map(a=>Number(a[1]))
