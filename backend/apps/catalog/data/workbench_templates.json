@@ -1,6 +1,6 @@
 {
  "schema": "boxcraft.workbench_templates.v1",
- "count": 634,
+ "count": 686,
  "items": [
   {
    "template_key": "auto-lock-bottom",
@@ -201,12 +201,127 @@
    }
   },
   {
+   "template_key": "sampled-folding-10001004",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001005",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001006",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001012",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001014",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001016",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001017",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001018",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-10001019",
    "title": "反向插锁盒",
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-10001020",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001022",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001023",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001024",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-10001026",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001027",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001028",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001029",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001031",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001037",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001039",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001044",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001045",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001049",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001053",
+   "title": "反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10001059",
    "title": "反向插锁盒",
    "limits": {}
   },
@@ -228,6 +343,31 @@
   {
    "template_key": "sampled-folding-100027",
    "title": "支脚吊孔反向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10004001",
+   "title": "横版反向插锁盒_仅上架Pacdora_01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10004002",
+   "title": "横版反向插锁盒_仅上架Pacdora_02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10004003",
+   "title": "反向插锁盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10004006",
+   "title": "反向插锁盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10004007",
+   "title": "反向插锁盒01",
    "limits": {}
   },
   {
@@ -256,6 +396,11 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-101526",
+   "title": "Rearreverse orderairplanehole hangingmouthbox",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-102013",
    "title": "Window fastener",
    "limits": {}
@@ -276,6 +421,21 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-102100",
+   "title": "FEFCO 0220",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10261001",
+   "title": "后开正向插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102618",
+   "title": "后开侧面凹吊孔正向插锁盒Pacdora1",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-102620",
    "title": "Rear open belt hook forward cartridge box",
    "limits": {}
@@ -283,6 +443,26 @@
   {
    "template_key": "sampled-folding-102621",
    "title": "Rear open belt hanging hook nail buckle forward cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102627",
+   "title": "后开梯形斜面吊孔盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-102660",
+   "title": "后开双插侧位吊扣盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10301201",
+   "title": "后开带锁扣扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-103017",
+   "title": "背板后开锁扣扣底盒",
    "limits": {}
   },
   {
@@ -296,6 +476,16 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-10501002",
+   "title": "自锁底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-105041",
+   "title": "折叠翻盖自锁底盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-105042",
    "title": "内扣翻盖自锁底盒",
    "limits": {}
@@ -303,6 +493,11 @@
   {
    "template_key": "sampled-folding-105050",
    "title": "折叠盖自锁底盒_仅上架Pacdora_TOC定制",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-105210",
+   "title": "全盖自锁底撕拉线平粘盒",
    "limits": {}
   },
   {
@@ -316,13 +511,68 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-108010",
+   "title": "指甲锁扣纸巾盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-10900104",
    "title": "开窗简易机包盒_仅上架Pacdora_04",
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-109010",
+   "title": "机包平粘盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-10901002",
+   "title": "机包平粘盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-109020",
+   "title": "arcSoldier cartridge",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-110019",
    "title": "无盖插锁封套",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110049",
+   "title": "侧面旋转扣底盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110050",
+   "title": "侧面吊孔反向插锁盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11005001",
+   "title": "侧面吊孔反向插锁盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110051",
+   "title": "Window side hook reverse cartridge box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110052",
+   "title": "侧面吊孔正向插锁盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110091",
+   "title": "上盖树形双插口盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110160",
+   "title": "叠盖机包盒_仅上架Pacdora_P1",
    "limits": {}
   },
   {
@@ -346,13 +596,28 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-110520",
+   "title": "Cap rightsemi-selfLockbuckleBuckle",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-110532",
    "title": "Perforated hook fastening case",
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-110533",
+   "title": "后开穿孔吊孔扣底盒 ",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-110670",
    "title": "简易单插盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-110830",
+   "title": "side buckleHandleBuckle",
    "limits": {}
   },
   {
@@ -363,6 +628,66 @@
   {
    "template_key": "sampled-folding-111030",
    "title": "Backboard hanging holeZi three-button bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11161101",
+   "title": "弧形提手蛋糕盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11202103",
+   "title": "Duckwinding cover",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112053",
+   "title": "上盖提手扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11208101",
+   "title": "Draw buckle bottom cake box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11208301",
+   "title": "Self-locking cake box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112290",
+   "title": "斜屋顶扣底开窗提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11229002",
+   "title": "斜屋顶扣底开窗提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-11241001",
+   "title": "扣底屋顶提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112411",
+   "title": "开窗扣底屋顶提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112620",
+   "title": "斜屋顶外延提手扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-112662",
+   "title": "插卡式提手扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-116200",
+   "title": "Interlockingportable discHand box",
    "limits": {}
   },
   {
@@ -411,8 +736,143 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-120258",
+   "title": "扣边盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120259",
+   "title": "扣边翻盖插口盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-120320",
+   "title": "InterlockingrightHornBlock lockTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-121082",
+   "title": "梯形侧扣握手盘式提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-121090",
+   "title": "Trapezoidal folding wheel box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-121111",
+   "title": "斜屋顶管盘式提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-121140",
+   "title": "梯形屋顶提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-128011",
+   "title": "单边加宽缓冲墙盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-128050",
    "title": "Block lockFlipBuffer wall box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-128052",
+   "title": "InsuranceFlipBuffer wall box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150010",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001002",
+   "title": "Zsquarebox08Pacdora2",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001003",
+   "title": "飞机盒_仅上架Pacdora_03_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001004",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001006",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150011",
+   "title": "飞机盒V01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001106",
+   "title": "飞机盒V01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150012",
+   "title": "指扣飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15001201",
+   "title": "指扣飞机盒_仅上架Pacdora_P1_01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150013",
+   "title": "Insurance aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150014",
+   "title": "双保险扣飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150015",
+   "title": "内衬飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150016",
+   "title": "斜翼提手飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150017",
+   "title": "提手飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150018",
+   "title": "Pent-up insurance buckle airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150019",
+   "title": "上提手飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150020",
+   "title": "tongueless aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150021",
+   "title": "Window without tongue aircraft box",
    "limits": {}
   },
   {
@@ -421,8 +881,33 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-150023",
+   "title": "三折边无插舌飞机盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150030",
+   "title": "无侧翼飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150032",
+   "title": "Free holeless airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150033",
+   "title": "Lined without a side-wing airplane box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-150082",
    "title": "简易折角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150100",
+   "title": "梯形飞机盒_仅上架Pacdora_P1",
    "limits": {}
   },
   {
@@ -431,13 +916,138 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-150111",
+   "title": "Block lockAirplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150112",
+   "title": "上盖插锁飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150120",
+   "title": "封套飞机盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150160",
+   "title": "挂钩飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150161",
+   "title": "Window hook aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150162",
+   "title": "Self-strap hand-hook aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150170",
+   "title": "矩形底座内衬飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150190",
+   "title": "Handicraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150260",
+   "title": "Bright hand double insurance",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150280",
+   "title": "Double tongue aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15030101",
+   "title": "Window interlocking card paper plane ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-150440",
+   "title": "fixedLined airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151010",
+   "title": "Hexagon flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151030",
+   "title": "Flip shoe box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151031",
+   "title": "翻盖鞋盒01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151032",
+   "title": "斜边翻盖鞋盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-151051",
    "title": "开窗折叠翻盖盒",
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-151060",
+   "title": "Internal double plug cover box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151071",
+   "title": "翻盖插锁单边锁底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151080",
+   "title": "Abbreviation double lock flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151090",
+   "title": "Semi-sealing plug lock",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151110",
+   "title": "Double open flip box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-151120",
    "title": "前扣翻盖盒_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151150",
+   "title": "透气孔折角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151160",
+   "title": "FlexibleFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151190",
+   "title": "BooktypeAngleFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151210",
+   "title": "梯形折角反插锁翻盖盒",
    "limits": {}
   },
   {
@@ -448,6 +1058,56 @@
   {
    "template_key": "sampled-folding-151230",
    "title": "简易翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151240",
+   "title": "四面折角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151300",
+   "title": "Burger翻盖盒_仅Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15130001",
+   "title": "Burger翻盖盒_仅Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151510",
+   "title": "握手扣折角翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151600",
+   "title": "withoutmarkcoverFlexibleFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-151630",
+   "title": "Insuranceside plugFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15201001",
+   "title": "胶合简易翻盖盒Pacdora2",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152020",
+   "title": "Glue bracket lock",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152021",
+   "title": "指扣胶盒锁扣翻盖盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152030",
+   "title": "胶合斜翻盖盒_仅上架Pacdora_P1",
    "limits": {}
   },
   {
@@ -471,8 +1131,93 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-152080",
+   "title": "Easy flip lock box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152090",
+   "title": "Trapezoidal beveled folding cassette",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152100",
+   "title": " 上盖插锁翻盖盒_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152102",
+   "title": "上盖插锁翻盖盒02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152130",
+   "title": "pairsideCardFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152190",
+   "title": "rightLockSafetybuckleFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-152210",
+   "title": "简易不粘对开翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153010",
+   "title": "Handshake insert lock flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153011",
+   "title": "丝带握手扣翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153032",
+   "title": " 加厚型卡扣翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153060",
+   "title": "Folding lock lock box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153130",
+   "title": "Insurance handle lock flip box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-153140",
    "title": "InsuranceSide interlockFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153180",
+   "title": "Easy anti-fold card lock cover box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153181",
+   "title": "Open windowEasy anti-fold card lock cover box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153182",
+   "title": "简易前扣翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153210",
+   "title": "TrapeterBlock lockFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-153230",
+   "title": "Double-sidedTrapeterBlock lockFlip box",
    "limits": {}
   },
   {
@@ -481,8 +1226,148 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-156030",
+   "title": "ExoticsidePagebuckleAirplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156080",
+   "title": "Lined interlock shaped airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156100",
+   "title": "Shaped plug lock",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156111",
+   "title": "保险扣双插锁翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156112",
+   "title": "中分插锁翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156130",
+   "title": "Non-adhesive cartridge bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156131",
+   "title": "Non-adhesive side interlocking flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156132",
+   "title": "Bonded cartridge bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156150",
+   "title": "Side interlockDock the bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156160",
+   "title": "Plug-in disk bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156211",
+   "title": "Window pizza flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156212",
+   "title": "透气孔披萨盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156213",
+   "title": "侧边插锁翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156220",
+   "title": "InterlockingBlock lockFlip box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-15622001",
    "title": "InterlockingBlock lockFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156221",
+   "title": "Open windowInterlockingBlock lockFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156222",
+   "title": "开窗互锁扣插锁翻盖盒01_仅Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156240",
+   "title": "异型披萨翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156244",
+   "title": "双插锁披萨翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156250",
+   "title": "四折边插锁缓冲翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156260",
+   "title": "rightopenDock the bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156291",
+   "title": "半圆孔直角披萨盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156380",
+   "title": "simpleUnilateral lock lock bottomDock the bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156410",
+   "title": "InterlockingBlock lockbufferFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-156430",
+   "title": "pairpregnancyBlock lockFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-157010",
+   "title": "rightopenFoldFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-157050",
+   "title": "三角形翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-157060",
+   "title": "三角对开翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-158131",
+   "title": "卡扣斜面翻盖盒",
    "limits": {}
   },
   {
@@ -491,8 +1376,73 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-158140",
+   "title": "BurgerBox_仅Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-15814001",
+   "title": "BurgerBox_仅Pacdora",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-158240",
    "title": "旋转翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-158260",
+   "title": "挂钩翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171020",
+   "title": "Big open self-locking bottom display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171054",
+   "title": "加厚平底展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171055",
+   "title": "无盖扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-17105501",
+   "title": "无盖扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171160",
+   "title": "Self-locking chain display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171170",
+   "title": "InsuranceSelf-locking display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171210",
+   "title": "Six portable display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171501",
+   "title": "斜边插锁式自锁底展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-171580",
+   "title": " TrapeterInsert display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-180190",
+   "title": "梯形插锁盒",
    "limits": {}
   },
   {
@@ -501,8 +1451,18 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-181240",
+   "title": "粘边盘式梯形盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-188030",
    "title": "互锁扣对开吊孔盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-188130",
+   "title": "侧吊挂六边盒Pacdora1",
    "limits": {}
   },
   {
@@ -511,8 +1471,83 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-200018",
+   "title": "分格外贴纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-200019",
+   "title": "两侧加厚型平口纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-200023",
+   "title": "外粘平口纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-200025",
+   "title": "FEFCO 0231",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-200232",
+   "title": "底部插锁式纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-200240",
+   "title": "Six gridInner lining paperbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-204030",
+   "title": "锁底六格内衬提手箱",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-folding-206091",
    "title": "平口底翻盖纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-22001601",
+   "title": "矩形孔品口手提袋",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-240230",
+   "title": "侧手提封套Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-240240",
+   "title": "开窗圆孔封套_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-242004",
+   "title": "荷包折三折页",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-24200406",
+   "title": "210*295简易折页封套",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-31022401",
+   "title": "防尘翼全包内衬",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-310227",
+   "title": "FEFCO 0407_仅上架pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-512230",
+   "title": "休闲食品糖果饼干纸质礼盒包装模型-200x200x30",
    "limits": {}
   },
   {
@@ -526,8 +1561,33 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-folding-600181",
+   "title": "家用清洁生活日用塑料袋包装模型-135x100x50-模型优化",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-603640",
+   "title": "休闲食品食品饮料纸盒包装模型1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-folding-606085",
+   "title": "606085-147x92-定制模型",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-gift-10001002",
    "title": "礼物盒10001002",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-10001402",
+   "title": "礼物盒10001402",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-102010",
+   "title": "扣底盒",
    "limits": {}
   },
   {
@@ -541,8 +1601,68 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-gift-110090",
+   "title": "礼物盒110090",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-110091",
+   "title": "上盖树形双插口盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-gift-110670",
    "title": "简易单插盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-112060",
+   "title": "礼物盒112060",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-112070",
+   "title": "圆形开窗手提礼盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-121111",
+   "title": "斜屋顶管盘式提手盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-15001007",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-150023",
+   "title": "三折边无插舌飞机盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-152021",
+   "title": "指扣胶盒锁扣翻盖盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-156410",
+   "title": "InterlockingBlock lockbufferFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-160031",
+   "title": "Half pack foldendwithoutmarkFlexibleUp and Bottom Cover",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-180190",
+   "title": "梯形插锁盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-gift-510340",
+   "title": "礼物盒510340",
    "limits": {}
   },
   {
@@ -556,8 +1676,238 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-mailer-102060",
+   "title": "Double carZi three-button bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-102063",
+   "title": "easypullInsuranceaddsolidBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-102064",
+   "title": "easyopenSafetybuckleBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-102220",
+   "title": "airplanecoverInsuranceBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-10301201",
+   "title": "后开带锁扣扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-103090",
+   "title": "RearHandleSlug bucklebuckleBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-109020",
+   "title": "arcSoldier cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-110160",
+   "title": "叠盖机包盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112050",
+   "title": "Floor flat box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112322",
+   "title": "Insurance self-locking case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112330",
+   "title": "Insurance buckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112331",
+   "title": "Insurance buckle bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112350",
+   "title": "With handle with insurance self-locking case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112360",
+   "title": "With insurance buckle flat box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112372",
+   "title": "扣底锁扣屋顶盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-mailer-112430",
    "title": "Adhesive mouth handle bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112431",
+   "title": "Adhesive mouth hand-adhesive case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112450",
+   "title": "Double plug lock handle fastening case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112451",
+   "title": "Double-in-button handle is three-button bottom box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112500",
+   "title": "Dual-lock lockInsuranceZi three-button bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112550",
+   "title": "Insurance inner liner lock buckle bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112580",
+   "title": "Dighter buckle lock two-purpose suitcase",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-112690",
+   "title": "roundtypebottleneckBucklebuckleBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150010",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001002",
+   "title": "Zsquarebox08Pacdora2",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001003",
+   "title": "飞机盒_仅上架Pacdora_03_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001006",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001007",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001008",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001009",
+   "title": "飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150011",
+   "title": "飞机盒V01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15001106",
+   "title": "飞机盒V01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150012",
+   "title": "指扣飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150013",
+   "title": "Insurance aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150014",
+   "title": "双保险扣飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150016",
+   "title": "斜翼提手飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150017",
+   "title": "提手飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150018",
+   "title": "Pent-up insurance buckle airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150020",
+   "title": "tongueless aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150021",
+   "title": "Window without tongue aircraft box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150023",
+   "title": "三折边无插舌飞机盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150030",
+   "title": "无侧翼飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150032",
+   "title": "Free holeless airplane box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150100",
+   "title": "梯形飞机盒_仅上架Pacdora_P1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150160",
+   "title": "挂钩飞机盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-150300",
+   "title": "Interlocking card paper plane ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-151030",
+   "title": "Flip shoe box",
    "limits": {}
   },
   {
@@ -566,8 +1916,88 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-mailer-15201001",
+   "title": "胶合简易翻盖盒Pacdora2",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-mailer-152040",
    "title": "Lock flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-152100",
+   "title": " 上盖插锁翻盖盒_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-152101",
+   "title": " 上盖插锁翻盖盒01_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-156130",
+   "title": "Non-adhesive cartridge bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-156181",
+   "title": "Dock the bottom flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-156410",
+   "title": "InterlockingBlock lockbufferFlip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-15826001",
+   "title": "挂钩翻盖盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-200036",
+   "title": "全糊口0203纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-205010",
+   "title": "中封纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-205011",
+   "title": "盘式中封纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-mailer-206090",
+   "title": "插锁平口底纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-102041",
+   "title": "反三扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-103020",
+   "title": "双开插锁扣底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-103021",
+   "title": "双开插锁自锁底盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-110680",
+   "title": "Cap rightsemi-selfLockInsertBottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-110810",
+   "title": "Slide stack cover bottom box ",
    "limits": {}
   },
   {
@@ -576,8 +2006,143 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-shipping-112470",
+   "title": "手提正扣平顶盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-112471",
+   "title": "Handful anti-buckle flat top box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-112480",
+   "title": "Handweigh three-button flat top box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-112481",
+   "title": "Portable anti-three buckle flat top box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-112511",
+   "title": "Pingdom special locking case",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-116200",
+   "title": "Interlockingportable discHand box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-152102",
+   "title": "上盖插锁翻盖盒02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-156131",
+   "title": "Non-adhesive side interlocking flip box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200012",
+   "title": "Hand drawn hole0201Carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200013",
+   "title": "conventional0209Carton",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-shipping-200014",
    "title": "提手孔常规纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200015",
+   "title": "内折角平口纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200020",
+   "title": "0202Carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200030",
+   "title": "0203Carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200100",
+   "title": "Easy economic carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200102",
+   "title": "Hand drawn simple economic carton",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200200",
+   "title": "Self-strap paper box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200210",
+   "title": "Strengthening moving box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200240",
+   "title": "Six gridInner lining paperbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-200280",
+   "title": "Flip lock pinbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-201012",
+   "title": "无底平口纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-201013",
+   "title": "无底平口纸箱AB面",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-201015",
+   "title": "无底对盖纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-205010",
+   "title": "中封纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-shipping-205011",
+   "title": "盘式中封纸箱",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-10001001",
+   "title": "Zsquarebox01",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-10001401",
+   "title": "Zsquarebox02",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-10002001",
+   "title": "Zsquarebox11",
    "limits": {}
   },
   {
@@ -586,13 +2151,88 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-square-110520",
+   "title": "Cap rightsemi-selfLockbuckleBuckle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-110680",
+   "title": "Cap rightsemi-selfLockInsertBottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-120320",
+   "title": "InterlockingrightHornBlock lockTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-15001001",
+   "title": "Zsquarebox08Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-15001101",
+   "title": "Zsquarebox10",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-square-15001102",
+   "title": "Zsquarebox09_Pacdora1",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-square-240031",
    "title": "开孔梯形盒套Pacdora1",
    "limits": {}
   },
   {
+   "template_key": "sampled-tray-120010",
+   "title": "Corrugated tray",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120021",
+   "title": "FEFCO 0454 ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120030",
+   "title": "插锁盘底盒Pacdora1",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120031",
+   "title": "堆叠扣插锁盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120032",
+   "title": "FEFCO 0424_仅上架Pacdora",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120033",
+   "title": "堆叠式侧粘盘式盒",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-tray-120035",
    "title": "堆叠式侧扣盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120050",
+   "title": "Interlocking corner box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120060",
+   "title": "Side interlocking disk box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120061",
+   "title": "Handshake buckle side-locking disk box",
    "limits": {}
   },
   {
@@ -606,8 +2246,163 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-tray-120090",
+   "title": "Thick bottom disc cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120100",
+   "title": "Four-corner tray box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120101",
+   "title": "FEFCO 0453",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120120",
+   "title": "withoutmarkendFour-fold cable box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120130",
+   "title": "Thickened chassis box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120140",
+   "title": "Side interlock thick disc cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120141",
+   "title": "Side interlock interlocking plus thick plate box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120142",
+   "title": "侧面插锁折底加厚盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120180",
+   "title": "Double shaker card lock bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120190",
+   "title": "TrapeterInterlocking disk bottom box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120200",
+   "title": "Arc beveled disc cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120201",
+   "title": "卡扣斜面盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120202",
+   "title": "侧开口卡扣斜面盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120250",
+   "title": "buckleFlipTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120258",
+   "title": "扣边盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120259",
+   "title": "扣边翻盖插口盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120260",
+   "title": "Ribbon hole",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120270",
+   "title": "透气孔托盘",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120280",
+   "title": "Shaped disc cartridge",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120300",
+   "title": "Handbox box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120320",
+   "title": "InterlockingrightHornBlock lockTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120330",
+   "title": "Side interlock four-segregation plate box ",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120340",
+   "title": "simpleInterlockingdiscHandle box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120350",
+   "title": "梯形盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120360",
+   "title": "Four-fold cable box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-tray-120370",
    "title": "四折边折角盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120371",
+   "title": "Four-foldInterlockingFolding wheel box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120420",
+   "title": "withoutmarkendside plugmouthTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120530",
+   "title": "Lockstacktray",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120620",
+   "title": "onepiecefoldBlock lockTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120660",
+   "title": "pairearCard boardTrays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-120680",
+   "title": "InterlockingeveryCardBlock lockTrays",
    "limits": {}
   },
   {
@@ -616,8 +2411,23 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-tray-121020",
+   "title": "Glue fast food tray box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-tray-123030",
    "title": "Curved lock plate box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-123050",
+   "title": "Dock the bottom hexagon box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-123160",
+   "title": "Six gridTrays",
    "limits": {}
   },
   {
@@ -631,8 +2441,103 @@
    "limits": {}
   },
   {
+   "template_key": "sampled-tray-12801001",
+   "title": "Buffer wall box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128012",
+   "title": "双握手扣缓冲墙盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128040",
+   "title": "Four-foldbufferbox",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-128100",
+   "title": "TrapeterFour-fold cable box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-161121",
+   "title": "简易异形六边盘式盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-170020",
+   "title": "openmouthDisplays",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-170150",
+   "title": "withoutmarkendSide interlockmortise lockInsert display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-170170",
+   "title": "四折边平粘底展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171030",
+   "title": "Tray display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171031",
+   "title": "四侧柱快速展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171040",
+   "title": "Self-lock tray box",
+   "limits": {}
+  },
+  {
    "template_key": "sampled-tray-171041",
    "title": "Window self-locking tray box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171042",
+   "title": "Docking plate stitch tray box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171080",
+   "title": "Simple sales display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171081",
+   "title": "全开口简易展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171180",
+   "title": "Semi-sealing lock display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171190",
+   "title": "Built-in sales display box",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-171232",
+   "title": "提手孔插锁式销售展示盒",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-200101",
+   "title": "Simple economic cartonABnoodle",
+   "limits": {}
+  },
+  {
+   "template_key": "sampled-tray-205012",
+   "title": "侧粘半包运输纸箱",
    "limits": {}
   },
   {
@@ -677,42 +2582,6 @@
    }
   },
   {
-   "template_key": "spec-AdhesiveBottomBoxWithAdhesiveMouthHandle",
-   "title": "Adhesive mouth hand-adhesive case",
-   "limits": {
-    "length": [
-     180,
-     352
-    ],
-    "width": [
-     126,
-     300
-    ],
-    "height": [
-     88,
-     294
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AdhesiveEdgeDiscTrapezoidalBox",
-   "title": "粘边盘式梯形盒",
-   "limits": {
-    "length": [
-     132,
-     384
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     96,
-     318
-    ]
-   }
-  },
-  {
    "template_key": "spec-AdhesiveRoofOneBox",
    "title": "粘口屋顶盒01",
    "limits": {
@@ -731,150 +2600,6 @@
    }
   },
   {
-   "template_key": "spec-Aircraft__150010",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     240,
-     330
-    ],
-    "width": [
-     160,
-     220
-    ],
-    "height": [
-     48,
-     66
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Aircraft__15001004",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     148,
-     360
-    ],
-    "width": [
-     183,
-     444
-    ],
-    "height": [
-     47,
-     113
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Aircraft__15001006",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     212,
-     331
-    ],
-    "width": [
-     207,
-     322
-    ],
-    "height": [
-     48,
-     75
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Aircraft__15001007",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     188,
-     311.66
-    ],
-    "width": [
-     121,
-     201.5
-    ],
-    "height": [
-     37,
-     61.5
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Aircraft__15001008",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     188,
-     311.66
-    ],
-    "width": [
-     121,
-     201.5
-    ],
-    "height": [
-     37,
-     61.5
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Aircraft__15001009",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     188,
-     311.66
-    ],
-    "width": [
-     121,
-     201.5
-    ],
-    "height": [
-     37,
-     61.5
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftBoxWithDoubleTongue",
-   "title": "Double tongue aircraft box",
-   "limits": {
-    "length": [
-     179,
-     598
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftCoverSafetyBuckleBox",
-   "title": "airplanecoverInsuranceBuckle",
-   "limits": {
-    "length": [
-     233,
-     600
-    ],
-    "width": [
-     70,
-     200
-    ],
-    "height": [
-     126,
-     360
-    ]
-   }
-  },
-  {
    "template_key": "spec-AircraftFlip",
    "title": "翻盖飞机盒",
    "limits": {
@@ -888,438 +2613,6 @@
     ],
     "height": [
      42,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftLiningWithoutFlank",
-   "title": "Lined without a side-wing airplane box",
-   "limits": {
-    "length": [
-     196,
-     602
-    ],
-    "width": [
-     131,
-     402
-    ],
-    "height": [
-     66,
-     202
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftNew__150011",
-   "title": "飞机盒V01",
-   "limits": {
-    "length": [
-     195,
-     330
-    ],
-    "width": [
-     130,
-     220
-    ],
-    "height": [
-     39,
-     66
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftNew__15001101",
-   "title": "Zsquarebox10",
-   "limits": {
-    "length": [
-     81,
-     270
-    ],
-    "width": [
-     89,
-     296
-    ],
-    "height": [
-     27,
-     90
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftNew__15001106",
-   "title": "飞机盒V01",
-   "limits": {
-    "length": [
-     154,
-     512
-    ],
-    "width": [
-     108,
-     359
-    ],
-    "height": [
-     36,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftNewThree",
-   "title": "Zsquarebox09_Pacdora1",
-   "limits": {
-    "length": [
-     81,
-     270
-    ],
-    "width": [
-     89,
-     296
-    ],
-    "height": [
-     27,
-     90
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftP1__15001001",
-   "title": "Zsquarebox08Pacdora1",
-   "limits": {
-    "length": [
-     95,
-     175
-    ],
-    "width": [
-     104,
-     192
-    ],
-    "height": [
-     34,
-     62
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftP1__15001002",
-   "title": "Zsquarebox08Pacdora2",
-   "limits": {
-    "length": [
-     210,
-     401
-    ],
-    "width": [
-     140,
-     290
-    ],
-    "height": [
-     55,
-     113
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftP1__15001003",
-   "title": "飞机盒",
-   "limits": {
-    "length": [
-     118,
-     393
-    ],
-    "width": [
-     90,
-     299
-    ],
-    "height": [
-     30,
-     99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithDoubleLocks",
-   "title": "双保险扣飞机盒",
-   "limits": {
-    "length": [
-     298,
-     298
-    ],
-    "width": [
-     160,
-     200
-    ],
-    "height": [
-     48,
-     60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHandle",
-   "title": "提手飞机盒",
-   "limits": {
-    "length": [
-     194,
-     298
-    ],
-    "width": [
-     130,
-     200
-    ],
-    "height": [
-     39,
-     60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHandleDoubleLocks",
-   "title": "Bright hand double insurance",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     105
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHandleLock",
-   "title": "Pent-up insurance buckle airplane box",
-   "limits": {
-    "length": [
-     244,
-     608
-    ],
-    "width": [
-     161,
-     402
-    ],
-    "height": [
-     49,
-     122
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHandleup",
-   "title": "上提手飞机盒",
-   "limits": {
-    "length": [
-     214,
-     570
-    ],
-    "width": [
-     149,
-     396
-    ],
-    "height": [
-     43,
-     113
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHandrope",
-   "title": "Handicraft box",
-   "limits": {
-    "length": [
-     240,
-     598
-    ],
-    "width": [
-     160,
-     400
-    ],
-    "height": [
-     48,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHook__150160",
-   "title": "挂钩飞机盒",
-   "limits": {
-    "length": [
-     194,
-     387
-    ],
-    "width": [
-     130,
-     260
-    ],
-    "height": [
-     39,
-     78
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithHookHandle",
-   "title": "Self-strap hand-hook aircraft box",
-   "limits": {
-    "length": [
-     179,
-     598
-    ],
-    "width": [
-     140,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithLining",
-   "title": "内衬飞机盒",
-   "limits": {
-    "length": [
-     228,
-     608
-    ],
-    "width": [
-     151,
-     402
-    ],
-    "height": [
-     46,
-     122
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithNail",
-   "title": "指扣飞机盒",
-   "limits": {
-    "length": [
-     195,
-     330
-    ],
-    "width": [
-     130,
-     220
-    ],
-    "height": [
-     39,
-     66
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithNailLock",
-   "title": "Insurance aircraft box",
-   "limits": {
-    "length": [
-     224,
-     596
-    ],
-    "width": [
-     150,
-     400
-    ],
-    "height": [
-     45,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithNailP1",
-   "title": "指扣飞机盒",
-   "limits": {
-    "length": [
-     117,
-     391
-    ],
-    "width": [
-     90,
-     299
-    ],
-    "height": [
-     30,
-     99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithoutFlank",
-   "title": "无侧翼飞机盒",
-   "limits": {
-    "length": [
-     177,
-     418
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithoutInsertion",
-   "title": "tongueless aircraft box",
-   "limits": {
-    "length": [
-     194,
-     387
-    ],
-    "width": [
-     130,
-     260
-    ],
-    "height": [
-     39,
-     78
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithoutWingsHoles",
-   "title": "Free holeless airplane box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     401
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithRecBase",
-   "title": "矩形底座内衬飞机盒",
-   "limits": {
-    "length": [
-     298,
-     596
-    ],
-    "width": [
-     200,
-     400
-    ],
-    "height": [
-     60,
      120
     ]
    }
@@ -1343,60 +2636,6 @@
    }
   },
   {
-   "template_key": "spec-AircraftWithTrapezoidP1",
-   "title": "梯形飞机盒",
-   "limits": {
-    "length": [
-     228,
-     484
-    ],
-    "width": [
-     159,
-     336
-    ],
-    "height": [
-     47,
-     98
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithWindowHook",
-   "title": "Window hook aircraft box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AircraftWithWindowWithoutInsert",
-   "title": "Window without tongue aircraft box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-AircraftWithZipper",
    "title": "Zipper airplane box",
    "limits": {
@@ -1411,24 +2650,6 @@
     "height": [
      51,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-AllWrappedLining",
-   "title": "防尘翼全包内衬",
-   "limits": {
-    "length": [
-     179,
-     298
-    ],
-    "width": [
-     117,
-     195
-    ],
-    "height": [
-     53,
-     88
     ]
    }
   },
@@ -1469,114 +2690,6 @@
    }
   },
   {
-   "template_key": "spec-ArcFoldingMachinePackageBox",
-   "title": "arcSoldier cartridge",
-   "limits": {
-    "length": [
-     105,
-     323
-    ],
-    "width": [
-     39,
-     120
-    ],
-    "height": [
-     133,
-     409
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ArcSideInclinedDiscBox",
-   "title": "Arc beveled disc cartridge",
-   "limits": {
-    "length": [
-     180,
-     321
-    ],
-    "width": [
-     187,
-     284
-    ],
-    "height": [
-     30,
-     70
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BackboardBuckleBackopenWithLock",
-   "title": "背板后开锁扣扣底盒",
-   "limits": {
-    "length": [
-     72,
-     170
-    ],
-    "width": [
-     42,
-     120
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BackOpenHandleInsertLatchBottomBox",
-   "title": "RearHandleSlug bucklebuckleBuckle",
-   "limits": {
-    "length": [
-     121,
-     404
-    ],
-    "width": [
-     82,
-     274
-    ],
-    "height": [
-     75,
-     250
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BackOpenPerforateBuckleBottomBoxWithHanging",
-   "title": "后开穿孔吊孔扣底盒",
-   "limits": {
-    "length": [
-     108,
-     359
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     71,
-     237
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BackOpenSideHookForwardLockBoxP1",
-   "title": "后开侧面凹吊孔正向插锁盒Pacdora1",
-   "limits": {
-    "length": [
-     76,
-     159
-    ],
-    "width": [
-     28,
-     35
-    ],
-    "height": [
-     113,
-     238
-    ]
-   }
-  },
-  {
    "template_key": "spec-BackplaneLiftingHoleInsertLockBottomBox",
    "title": "Backboard hanging holeSlug bucklebuckleBuckle",
    "limits": {
@@ -1595,24 +2708,6 @@
    }
   },
   {
-   "template_key": "spec-BagTissue",
-   "title": "家用清洁生活日用塑料袋包装模型",
-   "limits": {
-    "length": [
-     81,
-     270
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     39,
-     130
-    ]
-   }
-  },
-  {
    "template_key": "spec-BallGiftBox",
    "title": "礼物盒188300",
    "limits": {
@@ -1627,60 +2722,6 @@
     "height": [
      76,
      162
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BookTypeFlipBoxWithFoldedCorners",
-   "title": "BooktypeAngleFlip box",
-   "limits": {
-    "length": [
-     120,
-     230
-    ],
-    "width": [
-     90,
-     172
-    ],
-    "height": [
-     24,
-     46
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BotselflockBigopening",
-   "title": "Big open self-locking bottom display box",
-   "limits": {
-    "length": [
-     176,
-     213
-    ],
-    "width": [
-     141,
-     168
-    ],
-    "height": [
-     59,
-     198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BotselfolckCake",
-   "title": "Self-locking cake box",
-   "limits": {
-    "length": [
-     90,
-     299
-    ],
-    "width": [
-     90,
-     299
-    ],
-    "height": [
-     90,
-     299
     ]
    }
   },
@@ -1721,24 +2762,6 @@
    }
   },
   {
-   "template_key": "spec-BottomCardboardBoxABSurface",
-   "title": "无底平口纸箱AB面",
-   "limits": {
-    "length": [
-     391,
-     852
-    ],
-    "width": [
-     165,
-     412
-    ],
-    "height": [
-     213,
-     300
-    ]
-   }
-  },
-  {
    "template_key": "spec-BottomFoldedAngleDiscBox",
    "title": "padendFolding wheel box",
    "limits": {
@@ -1753,78 +2776,6 @@
     "height": [
      30,
      99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BottomInsertingBoxWithHalfSelfLockingUpperCover",
-   "title": "Cap rightsemi-selfLockInsertBottom box",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BottomLessCoverCardboardBox",
-   "title": "无底对盖纸箱",
-   "limits": {
-    "length": [
-     257,
-     858
-    ],
-    "width": [
-     125,
-     418
-    ],
-    "height": [
-     161,
-     538
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BottomLockingCardboardBox",
-   "title": "底部插锁式纸箱",
-   "limits": {
-    "length": [
-     257,
-     856
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BottomRoofHandleBox",
-   "title": "扣底屋顶提手盒",
-   "limits": {
-    "length": [
-     84,
-     239
-    ],
-    "width": [
-     84,
-     239
-    ],
-    "height": [
-     70,
-     198
     ]
    }
   },
@@ -1937,60 +2888,6 @@
    }
   },
   {
-   "template_key": "spec-BreatherTray",
-   "title": "透气孔托盘",
-   "limits": {
-    "length": [
-     231,
-     770
-    ],
-    "width": [
-     82,
-     272
-    ],
-    "height": [
-     38,
-     96
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBackopenWithLock",
-   "title": "后开带锁扣扣底盒",
-   "limits": {
-    "length": [
-     90,
-     299
-    ],
-    "width": [
-     60,
-     198
-    ],
-    "height": [
-     24,
-     79
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithDoubleLockHandle",
-   "title": "Double plug lock handle fastening case",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     72,
-     170
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
    "template_key": "spec-BuckleBottomBoxWithInclinedHangingHole",
    "title": "inclineHang holeBuckle",
    "limits": {
@@ -2009,114 +2906,6 @@
    }
   },
   {
-   "template_key": "spec-BuckleBottomBoxWithInsertCard",
-   "title": "插卡式提手扣底盒",
-   "limits": {
-    "length": [
-     285,
-     600
-    ],
-    "width": [
-     143,
-     300
-    ],
-    "height": [
-     171,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithInsertion",
-   "title": "Slide stack cover bottom box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     90,
-     300
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithoutLid",
-   "title": "无盖扣底盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     42,
-     139
-    ],
-    "height": [
-     36,
-     119
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithSafetyBuckle",
-   "title": "Insurance inner liner lock buckle bottom box",
-   "limits": {
-    "length": [
-     120,
-     312
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     90,
-     300
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomBoxWithTopHandle",
-   "title": "上盖提手扣底盒",
-   "limits": {
-    "length": [
-     113,
-     236
-    ],
-    "width": [
-     56,
-     116
-    ],
-    "height": [
-     149,
-     312
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleBottomFlapBox",
-   "title": "FlexibleFlip box",
-   "limits": {
-    "length": [
-     72,
-     140
-    ],
-    "width": [
-     51,
-     120
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
    "template_key": "spec-BuckleDomeRibbonHole",
    "title": "Dome ribbon hole buckle bottom box",
    "limits": {
@@ -2131,60 +2920,6 @@
     "height": [
      39,
      130
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleFlat",
-   "title": "Floor flat box",
-   "limits": {
-    "length": [
-     72,
-     210
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     321
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleInclinedFlipBox",
-   "title": "卡扣斜面翻盖盒",
-   "limits": {
-    "length": [
-     132,
-     310
-    ],
-    "width": [
-     47,
-     85
-    ],
-    "height": [
-     30,
-     70
-    ]
-   }
-  },
-  {
-   "template_key": "spec-BuckleShowSellWithHandlehole",
-   "title": "提手孔插锁式销售展示盒",
-   "limits": {
-    "length": [
-     173,
-     361
-    ],
-    "width": [
-     119,
-     247
-    ],
-    "height": [
-     35,
-     68
     ]
    }
   },
@@ -2297,24 +3032,6 @@
    }
   },
   {
-   "template_key": "spec-Bufferwallbox__12801001",
-   "title": "Buffer wall box",
-   "limits": {
-    "length": [
-     190,
-     633
-    ],
-    "width": [
-     130,
-     433
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
    "template_key": "spec-BufferwallboxDrawerOne",
    "title": "礼物盒12802001",
    "limits": {
@@ -2369,24 +3086,6 @@
    }
   },
   {
-   "template_key": "spec-CappingMachineBagBoxP1",
-   "title": "叠盖机包盒",
-   "limits": {
-    "length": [
-     96,
-     157
-    ],
-    "width": [
-     51,
-     120
-    ],
-    "height": [
-     128,
-     320
-    ]
-   }
-  },
-  {
    "template_key": "spec-CardBoardBox",
    "title": "简易机包盒",
    "limits": {
@@ -2405,42 +3104,6 @@
    }
   },
   {
-   "template_key": "spec-Carton02",
-   "title": "0202Carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Carton03",
-   "title": "0203Carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
    "template_key": "spec-Carton03Zipper",
    "title": "拉链纸箱",
    "limits": {
@@ -2455,24 +3118,6 @@
     "height": [
      157,
      524
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Carton04",
-   "title": "无底平口纸箱",
-   "limits": {
-    "length": [
-     256,
-     852
-    ],
-    "width": [
-     124,
-     412
-    ],
-    "height": [
-     161,
-     533
     ]
    }
   },
@@ -2513,96 +3158,6 @@
    }
   },
   {
-   "template_key": "spec-CartonEconomic",
-   "title": "Easy economic carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonEconomicAB",
-   "title": "Simple economic cartonABnoodle",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonEconomicHandhole",
-   "title": "Hand drawn simple economic carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonFlatWithFlipLatch",
-   "title": "Flip lock pinbox",
-   "limits": {
-    "length": [
-     120,
-     312
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonFlatWithThickenedSides",
-   "title": "两侧加厚型平口纸箱",
-   "limits": {
-    "length": [
-     257,
-     858
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
    "template_key": "spec-CartonFrontZipper",
    "title": "正面拉链纸箱",
    "limits": {
@@ -2617,78 +3172,6 @@
     "height": [
      155,
      518
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonHandhole",
-   "title": "Hand drawn hole0201Carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonMovehouseStrengthen",
-   "title": "Strengthening moving box",
-   "limits": {
-    "length": [
-     300,
-     1000
-    ],
-    "width": [
-     240,
-     800
-    ],
-    "height": [
-     240,
-     800
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonRegular0209",
-   "title": "conventional0209Carton",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     162,
-     540
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CartonSelfBlock",
-   "title": "Self-strap paper box",
-   "limits": {
-    "length": [
-     210,
-     700
-    ],
-    "width": [
-     210,
-     700
-    ],
-    "height": [
-     120,
-     400
     ]
    }
   },
@@ -2765,24 +3248,6 @@
    }
   },
   {
-   "template_key": "spec-ClaspInclinedTrayTypeBox",
-   "title": "卡扣斜面盘式盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     48,
-     160
-    ],
-    "height": [
-     18,
-     60
-    ]
-   }
-  },
-  {
    "template_key": "spec-ConcealedPluginLockBottomFlapBox",
    "title": "Hidden docking bottom flip box",
    "limits": {
@@ -2815,60 +3280,6 @@
     "height": [
      29,
      68
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerFourteen",
-   "title": "休闲食品糖果饼干纸质礼盒包装模型",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     120,
-     400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerTwelve",
-   "title": "礼物盒510340",
-   "limits": {
-    "length": [
-     74,
-     190
-    ],
-    "width": [
-     60,
-     131
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ConsumerTwenty",
-   "title": "606085",
-   "limits": {
-    "length": [
-     88,
-     294
-    ],
-    "width": [
-     55,
-     184
-    ],
-    "height": [
-     0,
-     2000
     ]
    }
   },
@@ -2999,24 +3410,6 @@
    }
   },
   {
-   "template_key": "spec-CoverHeartshapedDoubleSocketBox",
-   "title": "礼物盒110090",
-   "limits": {
-    "length": [
-     98,
-     327
-    ],
-    "width": [
-     98,
-     327
-    ],
-    "height": [
-     161,
-     537
-    ]
-   }
-  },
-  {
    "template_key": "spec-Cupcakeboxwithopenwindow",
    "title": "对盖开窗蛋糕盒",
    "limits": {
@@ -3031,60 +3424,6 @@
     "height": [
      120,
      270
-    ]
-   }
-  },
-  {
-   "template_key": "spec-CurvedHandleCakeBox",
-   "title": "弧形提手蛋糕盒",
-   "limits": {
-    "length": [
-     233,
-     516
-    ],
-    "width": [
-     231,
-     512
-    ],
-    "height": [
-     219,
-     319
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DiagonalRoofExtensionHandleBuckleBox",
-   "title": "斜屋顶外延提手扣底盒",
-   "limits": {
-    "length": [
-     240,
-     599
-    ],
-    "width": [
-     120,
-     261
-    ],
-    "height": [
-     144,
-     359
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DiagonalSelfLockingBottomBox",
-   "title": "斜边插锁式自锁底展示盒",
-   "limits": {
-    "length": [
-     140,
-     210
-    ],
-    "width": [
-     141,
-     176
-    ],
-    "height": [
-     88,
-     123
     ]
    }
   },
@@ -3107,24 +3446,6 @@
    }
   },
   {
-   "template_key": "spec-DiscBuckleCoverBox",
-   "title": "buckleFlipTrays",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     18,
-     60
-    ]
-   }
-  },
-  {
    "template_key": "spec-DiscDoubleBox",
    "title": "pairgridTrays",
    "limits": {
@@ -3139,24 +3460,6 @@
     "height": [
      30,
      100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DivisionExternallyBondedCarton",
-   "title": "分格外贴纸箱",
-   "limits": {
-    "length": [
-     257,
-     536
-    ],
-    "width": [
-     126,
-     249
-    ],
-    "height": [
-     162,
-     337
     ]
    }
   },
@@ -3179,42 +3482,6 @@
    }
   },
   {
-   "template_key": "spec-DoubleEarPaperJamTrayBox",
-   "title": "pairearCard boardTrays",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     24,
-     80
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DoubleHandshakeBuckleBufferBox",
-   "title": "双握手扣缓冲墙盒",
-   "limits": {
-    "length": [
-     155,
-     452
-    ],
-    "width": [
-     95,
-     317
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
    "template_key": "spec-DoubleLockFlipBox",
    "title": "Double-pin lock flip box",
    "limits": {
@@ -3229,24 +3496,6 @@
     "height": [
      30,
      82
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DoubleLockPizzaFlipBox",
-   "title": "双插锁披萨翻盖盒",
-   "limits": {
-    "length": [
-     258,
-     606
-    ],
-    "width": [
-     244,
-     609
-    ],
-    "height": [
-     37,
-     64
     ]
    }
   },
@@ -3287,78 +3536,6 @@
    }
   },
   {
-   "template_key": "spec-DoubleSafetyBuckleAndThreeBuckleButtingBox",
-   "title": "Double carZi three-button bottom box",
-   "limits": {
-    "length": [
-     240,
-     600
-    ],
-    "width": [
-     80,
-     200
-    ],
-    "height": [
-     144,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DoubleShakeCoverBuckleLockBottom",
-   "title": "Double shaker card lock bottom box",
-   "limits": {
-    "length": [
-     240,
-     640
-    ],
-    "width": [
-     210,
-     342
-    ],
-    "height": [
-     78,
-     145
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DoubleSideCardFlapBox",
-   "title": "pairsideCardFlip box",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     18,
-     60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DoubleSidedTrapezoidalFlipBox",
-   "title": "Double-sidedTrapeterBlock lockFlip box",
-   "limits": {
-    "length": [
-     146,
-     213
-    ],
-    "width": [
-     42,
-     84
-    ],
-    "height": [
-     140,
-     164
-    ]
-   }
-  },
-  {
    "template_key": "spec-DrawerCardboardBox",
    "title": "Zsquarebox06",
    "limits": {
@@ -3373,96 +3550,6 @@
     "height": [
      66,
      139
-    ]
-   }
-  },
-  {
-   "template_key": "spec-DualPurposeSuitcaseWithFrontBuckleBottomInsertLock",
-   "title": "Dighter buckle lock two-purpose suitcase",
-   "limits": {
-    "length": [
-     180,
-     468
-    ],
-    "width": [
-     90,
-     185
-    ],
-    "height": [
-     167,
-     400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-EasyToOpenSafetyBuckleBottomBox",
-   "title": "easyopenSafetybuckleBuckle",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-EnvelopeAircraftBoxP1",
-   "title": "封套飞机盒Pacdora1",
-   "limits": {
-    "length": [
-     222,
-     591
-    ],
-    "width": [
-     150,
-     399
-    ],
-    "height": [
-     45,
-     119
-    ]
-   }
-  },
-  {
-   "template_key": "spec-EnvelopeWithWindowRoundholeP1",
-   "title": "开窗圆孔封套",
-   "limits": {
-    "length": [
-     48,
-     161
-    ],
-    "width": [
-     24,
-     81
-    ],
-    "height": [
-     36,
-     121
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ExternalAdhesionFlatCarton",
-   "title": "外粘平口纸箱",
-   "limits": {
-    "length": [
-     258,
-     860
-    ],
-    "width": [
-     126,
-     420
-    ],
-    "height": [
-     163,
-     542
     ]
    }
   },
@@ -3503,96 +3590,6 @@
    }
   },
   {
-   "template_key": "spec-FixedLinedAircraftBox",
-   "title": "fixedLined airplane box",
-   "limits": {
-    "length": [
-     256,
-     602
-    ],
-    "width": [
-     59,
-     138
-    ],
-    "height": [
-     34,
-     78
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlapBoxWithTopLatch",
-   "title": "上盖插锁翻盖盒",
-   "limits": {
-    "length": [
-     81,
-     270
-    ],
-    "width": [
-     80,
-     267
-    ],
-    "height": [
-     68,
-     228
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlapBoxWithTopLatchOne",
-   "title": "上盖插锁翻盖盒01",
-   "limits": {
-    "length": [
-     81,
-     189
-    ],
-    "width": [
-     80,
-     186
-    ],
-    "height": [
-     68,
-     159
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlapBoxWithTopLatchTwo",
-   "title": "上盖插锁翻盖盒02",
-   "limits": {
-    "length": [
-     177,
-     339
-    ],
-    "width": [
-     116,
-     222
-    ],
-    "height": [
-     59,
-     113
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlatBottomShowThick",
-   "title": "加厚平底展示盒",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-FlatCoverWithInsertLock",
    "title": "Wallback cartridge flip box",
    "limits": {
@@ -3607,24 +3604,6 @@
     "height": [
      88,
      130
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlatMouthSpecialLockBottom",
-   "title": "Pingdom special locking case",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     180,
-     600
     ]
    }
   },
@@ -3665,114 +3644,6 @@
    }
   },
   {
-   "template_key": "spec-FlipBoxWithLockSafetyBuckle",
-   "title": "rightLockSafetybuckleFlip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipBuckle",
-   "title": "Duckwinding cover",
-   "limits": {
-    "length": [
-     114,
-     380
-    ],
-    "width": [
-     78,
-     260
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipDualBox",
-   "title": "Double open flip box",
-   "limits": {
-    "length": [
-     128,
-     300
-    ],
-    "width": [
-     128,
-     300
-    ],
-    "height": [
-     43,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipFoldenCornerWithLock",
-   "title": "Folding lock lock box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipHandshakeLatch",
-   "title": "Handshake insert lock flip box",
-   "limits": {
-    "length": [
-     92,
-     306
-    ],
-    "width": [
-     60,
-     123
-    ],
-    "height": [
-     42,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipLockBottom",
-   "title": "Dock the bottom flip box",
-   "limits": {
-    "length": [
-     191,
-     402
-    ],
-    "width": [
-     143,
-     300
-    ],
-    "height": [
-     171,
-     360
-    ]
-   }
-  },
-  {
    "template_key": "spec-FlipLockDisplayBox__171800",
    "title": "自锁底盖板折叠展示盒",
    "limits": {
@@ -3787,24 +3658,6 @@
     "height": [
      68,
      159
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipMutatedWithLock",
-   "title": "Shaped plug lock",
-   "limits": {
-    "length": [
-     90,
-     213
-    ],
-    "width": [
-     60,
-     156
-    ],
-    "height": [
-     48,
-     160
     ]
    }
   },
@@ -3863,60 +3716,6 @@
    }
   },
   {
-   "template_key": "spec-FlipPlugBonded",
-   "title": "Bonded cartridge bottom flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     155,
-     400
-    ],
-    "height": [
-     60,
-     123
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipPlugLockSingleSideLockBottomBox",
-   "title": "翻盖插锁单边锁底盒",
-   "limits": {
-    "length": [
-     178,
-     594
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipPlugUnbonded",
-   "title": "Non-adhesive cartridge bottom flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     155,
-     400
-    ],
-    "height": [
-     60,
-     123
-    ]
-   }
-  },
-  {
    "template_key": "spec-FlipPortableLatch",
    "title": "Hand lock bottom flip box",
    "limits": {
@@ -3931,42 +3730,6 @@
     "height": [
      94,
      131
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipShoebox",
-   "title": "Flip shoe box",
-   "limits": {
-    "length": [
-     300,
-     315
-    ],
-    "width": [
-     200,
-     210
-    ],
-    "height": [
-     100,
-     105
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipShoesBox",
-   "title": "翻盖鞋盒01",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     247
-    ],
-    "height": [
-     78,
-     200
     ]
    }
   },
@@ -3989,60 +3752,6 @@
    }
   },
   {
-   "template_key": "spec-FlipSidePlugUnbonded",
-   "title": "Non-adhesive side interlocking flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     167,
-     400
-    ],
-    "height": [
-     60,
-     117
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipTrapezoidBevel",
-   "title": "Trapezoidal beveled folding cassette",
-   "limits": {
-    "length": [
-     140,
-     400
-    ],
-    "width": [
-     70,
-     200
-    ],
-    "height": [
-     35,
-     70
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FlipWithSidelock",
-   "title": "侧边插锁翻盖盒",
-   "limits": {
-    "length": [
-     270,
-     315
-    ],
-    "width": [
-     270,
-     315
-    ],
-    "height": [
-     54,
-     63
-    ]
-   }
-  },
-  {
    "template_key": "spec-FoldAdhesiveClamshellBox",
    "title": "Folding bonding flip box",
    "limits": {
@@ -4057,42 +3766,6 @@
     "height": [
      60,
      200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FoldClamshellSelflockingBottomBox",
-   "title": "折叠翻盖自锁底盒",
-   "limits": {
-    "length": [
-     72,
-     147
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     322
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FoldingAngleDoubleLatchCoverBox",
-   "title": "Abbreviation double lock flip box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     180,
-     600
-    ],
-    "height": [
-     48,
-     160
     ]
    }
   },
@@ -4133,24 +3806,6 @@
    }
   },
   {
-   "template_key": "spec-FoldingThreeWalletDiscount",
-   "title": "荷包折三折页",
-   "limits": {
-    "length": [
-     56,
-     187
-    ],
-    "width": [
-     130,
-     432
-    ],
-    "height": [
-     0,
-     2000
-    ]
-   }
-  },
-  {
    "template_key": "spec-FoldTheFlipBox",
    "title": "foldFlip box",
    "limits": {
@@ -4165,24 +3820,6 @@
     "height": [
      26,
      33
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FolioBottomLockingFlapBox",
-   "title": "rightopenDock the bottom flip box",
-   "limits": {
-    "length": [
-     170,
-     400
-    ],
-    "width": [
-     255,
-     600
-    ],
-    "height": [
-     51,
-     120
     ]
    }
   },
@@ -4241,24 +3878,6 @@
    }
   },
   {
-   "template_key": "spec-FourFoldBufferBox",
-   "title": "Four-foldbufferbox",
-   "limits": {
-    "length": [
-     178,
-     593
-    ],
-    "width": [
-     118,
-     393
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
    "template_key": "spec-FourFoldCoverBox",
    "title": "四折边对盖盒",
    "limits": {
@@ -4295,24 +3914,6 @@
    }
   },
   {
-   "template_key": "spec-FourFoldDiscBox",
-   "title": "Four-fold cable box",
-   "limits": {
-    "length": [
-     245,
-     700
-    ],
-    "width": [
-     175,
-     500
-    ],
-    "height": [
-     35,
-     100
-    ]
-   }
-  },
-  {
    "template_key": "spec-FourFoldedCombinationFlipBox",
    "title": "Four-foldcombinationFlip box",
    "limits": {
@@ -4327,24 +3928,6 @@
     "height": [
      36,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourFoldedFlatStickBottomDisplayBox",
-   "title": "四折边平粘底展示盒",
-   "limits": {
-    "length": [
-     287,
-     640
-    ],
-    "width": [
-     305,
-     696
-    ],
-    "height": [
-     91,
-     187
     ]
    }
   },
@@ -4367,42 +3950,6 @@
    }
   },
   {
-   "template_key": "spec-FourfoldLatchBufferFlapBox",
-   "title": "四折边插锁缓冲翻盖盒",
-   "limits": {
-    "length": [
-     126,
-     360
-    ],
-    "width": [
-     54,
-     140
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourFoldSideMutualLcokingAndAngleDiscBox",
-   "title": "Four-foldInterlockingFolding wheel box",
-   "limits": {
-    "length": [
-     120,
-     399
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     30,
-     99
-    ]
-   }
-  },
-  {
    "template_key": "spec-FourGridBottomSelflockBox",
    "title": "四格托底自锁底盒",
    "limits": {
@@ -4417,24 +3964,6 @@
     "height": [
      181,
      424
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FourSideColumnQuickDisplayBox",
-   "title": "四侧柱快速展示盒",
-   "limits": {
-    "length": [
-     240,
-     600
-    ],
-    "width": [
-     160,
-     400
-    ],
-    "height": [
-     48,
-     120
     ]
    }
   },
@@ -4493,60 +4022,6 @@
    }
   },
   {
-   "template_key": "spec-FullCoverSelfLockingTearFlatStickyBox__105210",
-   "title": "全盖自锁底撕拉线平粘盒",
-   "limits": {
-    "length": [
-     208,
-     267
-    ],
-    "width": [
-     149,
-     319
-    ],
-    "height": [
-     71,
-     155
-    ]
-   }
-  },
-  {
-   "template_key": "spec-FullLifeCarton",
-   "title": "全糊口0203纸箱",
-   "limits": {
-    "length": [
-     239,
-     798
-    ],
-    "width": [
-     59,
-     198
-    ],
-    "height": [
-     359,
-     1198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-GluedFastfoodTray",
-   "title": "Glue fast food tray box",
-   "limits": {
-    "length": [
-     119,
-     396
-    ],
-    "width": [
-     84,
-     280
-    ],
-    "height": [
-     29,
-     96
-    ]
-   }
-  },
-  {
    "template_key": "spec-GluedInterlockingPartitionFlapBox",
    "title": "胶合插锁隔档翻盖盒",
    "limits": {
@@ -4579,42 +4054,6 @@
     "height": [
      24,
      56
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HalffoldedBottomWithoutTraceBuckleBottomWorld",
-   "title": "Half pack foldendwithoutmarkFlexibleUp and Bottom Cover",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     167,
-     400
-    ],
-    "height": [
-     90,
-     185
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HalfSealedLatchDisplayBox",
-   "title": "Semi-sealing lock display box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     48,
-     160
     ]
    }
   },
@@ -4673,96 +4112,6 @@
    }
   },
   {
-   "template_key": "spec-HandboxBackwardHandleWithLock",
-   "title": "Insurance buckle bottom box",
-   "limits": {
-    "length": [
-     255,
-     600
-    ],
-    "width": [
-     128,
-     300
-    ],
-    "height": [
-     155,
-     364
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HandboxBotselflockHandleWithLock",
-   "title": "With handle with insurance self-locking case",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     90,
-     234
-    ],
-    "height": [
-     158,
-     315
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HandboxBotselflockWithLock",
-   "title": "Insurance self-locking case",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     90,
-     213
-    ],
-    "height": [
-     158,
-     315
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HandboxFlatWithLock",
-   "title": "With insurance buckle flat box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     90,
-     234
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HandboxForwardHandleWithLock",
-   "title": "Insurance buckle",
-   "limits": {
-    "length": [
-     180,
-     394
-    ],
-    "width": [
-     117,
-     300
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
    "template_key": "spec-HandleSelflockBottomDisplayBox01",
    "title": "提手自锁底展示盒01",
    "limits": {
@@ -4777,24 +4126,6 @@
     "height": [
      98,
      180
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HandshakeBuckleCornerClamshell",
-   "title": "握手扣折角翻盖盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     180,
-     600
-    ],
-    "height": [
-     49,
-     162
     ]
    }
   },
@@ -4817,24 +4148,6 @@
    }
   },
   {
-   "template_key": "spec-HeartshapedDoubleSocketSelflockingBottomBox",
-   "title": "礼物盒112060",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     72,
-     239
-    ],
-    "height": [
-     71,
-     237
-    ]
-   }
-  },
-  {
    "template_key": "spec-HexagonalFingerLockPizzaFlipBox",
    "title": "六角形指扣披萨盒",
    "limits": {
@@ -4853,42 +4166,6 @@
    }
   },
   {
-   "template_key": "spec-HexagonDiscBoxWithLockBottom",
-   "title": "Dock the bottom hexagon box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-HookFlipLidBox",
-   "title": "挂钩翻盖盒",
-   "limits": {
-    "length": [
-     179,
-     596
-    ],
-    "width": [
-     115,
-     384
-    ],
-    "height": [
-     58,
-     193
-    ]
-   }
-  },
-  {
    "template_key": "spec-InclinedFlapBoxP1",
    "title": "斜面翻盖盒Pacdora1",
    "limits": {
@@ -4903,24 +4180,6 @@
     "height": [
      35,
      118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InnerFoldingLockingDisplayBox",
-   "title": "Built-in sales display box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
     ]
    }
   },
@@ -4997,24 +4256,6 @@
    }
   },
   {
-   "template_key": "spec-InsertLockFlatBottomCardboardBox",
-   "title": "插锁平口底纸箱",
-   "limits": {
-    "length": [
-     144,
-     480
-    ],
-    "width": [
-     108,
-     360
-    ],
-    "height": [
-     51,
-     170
-    ]
-   }
-  },
-  {
    "template_key": "spec-InsertLockRotaryFlipFlatAdhesiveBox",
    "title": "插锁旋转翻盖平粘盒",
    "limits": {
@@ -5033,24 +4274,6 @@
    }
   },
   {
-   "template_key": "spec-InsideCornerFlatCarton",
-   "title": "内折角平口纸箱",
-   "limits": {
-    "length": [
-     300,
-     858
-    ],
-    "width": [
-     125,
-     257
-    ],
-    "height": [
-     161,
-     538
-    ]
-   }
-  },
-  {
    "template_key": "spec-InsideCornerZipperCarton",
    "title": "内折角拉链纸箱",
    "limits": {
@@ -5065,168 +4288,6 @@
     "height": [
      216,
      381
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockingAngleDiscBox",
-   "title": "Interlocking corner box",
-   "limits": {
-    "length": [
-     270,
-     600
-    ],
-    "width": [
-     180,
-     400
-    ],
-    "height": [
-     45,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockingDiagonalLockingDiscBox",
-   "title": "InterlockingrightHornBlock lockTrays",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockingPluginLockingBufferFlapBox",
-   "title": "InterlockingBlock lockbufferFlip box",
-   "limits": {
-    "length": [
-     75,
-     194
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockingSnapLockDiscDox",
-   "title": "InterlockingeveryCardBlock lockTrays",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockLatchFlipBox",
-   "title": "InterlockingBlock lockFlip box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockLatchFlipBoxWithWindow",
-   "title": "Open windowInterlockingBlock lockFlip box",
-   "limits": {
-    "length": [
-     120,
-     399
-    ],
-    "width": [
-     90,
-     299
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockLatchFlipBoxWithWindow01",
-   "title": "开窗互锁扣插锁翻盖盒01",
-   "limits": {
-    "length": [
-     180,
-     599
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InterlockPortableTrayCase",
-   "title": "Interlockingportable discHand box",
-   "limits": {
-    "length": [
-     180,
-     394
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     90,
-     234
-    ]
-   }
-  },
-  {
-   "template_key": "spec-InternalDoublePlugFlapBox",
-   "title": "Internal double plug cover box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     319
     ]
    }
   },
@@ -5285,42 +4346,6 @@
    }
   },
   {
-   "template_key": "spec-KnifeDraw__109010",
-   "title": "机包平粘盒",
-   "limits": {
-    "length": [
-     56,
-     187
-    ],
-    "width": [
-     19,
-     63
-    ],
-    "height": [
-     33,
-     109
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__10901002",
-   "title": "机包平粘盒",
-   "limits": {
-    "length": [
-     56,
-     187
-    ],
-    "width": [
-     15,
-     51
-    ],
-    "height": [
-     90,
-     299
-    ]
-   }
-  },
-  {
    "template_key": "spec-KnifeDraw__109100",
    "title": "握手扣平粘盒",
    "limits": {
@@ -5375,78 +4400,6 @@
    }
   },
   {
-   "template_key": "spec-KnifeDraw__120021",
-   "title": "FEFCO 0454",
-   "limits": {
-    "length": [
-     173,
-     578
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__120101",
-   "title": "FEFCO 0453",
-   "limits": {
-    "length": [
-     178,
-     592
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__120258",
-   "title": "扣边盘式盒",
-   "limits": {
-    "length": [
-     147,
-     491
-    ],
-    "width": [
-     69,
-     231
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__120259",
-   "title": "扣边翻盖插口盒",
-   "limits": {
-    "length": [
-     132,
-     439
-    ],
-    "width": [
-     71,
-     237
-    ],
-    "height": [
-     48,
-     159
-    ]
-   }
-  },
-  {
    "template_key": "spec-KnifeDraw__120310",
    "title": "侧扣盘式提手盒",
    "limits": {
@@ -5483,24 +4436,6 @@
    }
   },
   {
-   "template_key": "spec-KnifeDraw__151240",
-   "title": "四面折角翻盖盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     72,
-     239
-    ],
-    "height": [
-     72,
-     239
-    ]
-   }
-  },
-  {
    "template_key": "spec-KnifeDraw__151250",
    "title": "折叠蛋糕翻盖盒",
    "limits": {
@@ -5533,42 +4468,6 @@
     "height": [
      30,
      99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__151300",
-   "title": "Burger翻盖盒",
-   "limits": {
-    "length": [
-     60,
-     149
-    ],
-    "width": [
-     64,
-     159
-    ],
-    "height": [
-     43,
-     108
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__15130001",
-   "title": "Burger翻盖盒",
-   "limits": {
-    "length": [
-     60,
-     149
-    ],
-    "width": [
-     64,
-     159
-    ],
-    "height": [
-     43,
-     108
     ]
    }
   },
@@ -5663,42 +4562,6 @@
    }
   },
   {
-   "template_key": "spec-KnifeDraw__158140",
-   "title": "BurgerBox",
-   "limits": {
-    "length": [
-     81,
-     206
-    ],
-    "width": [
-     64,
-     131
-    ],
-    "height": [
-     44,
-     146
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__15814001",
-   "title": "BurgerBox",
-   "limits": {
-    "length": [
-     81,
-     206
-    ],
-    "width": [
-     64,
-     131
-    ],
-    "height": [
-     44,
-     146
-    ]
-   }
-  },
-  {
    "template_key": "spec-KnifeDraw__189040",
    "title": "正五边形插锁盒",
    "limits": {
@@ -5717,24 +4580,6 @@
    }
   },
   {
-   "template_key": "spec-KnifeDraw__200025",
-   "title": "FEFCO 0231",
-   "limits": {
-    "length": [
-     178,
-     592
-    ],
-    "width": [
-     124,
-     414
-    ],
-    "height": [
-     155,
-     516
-    ]
-   }
-  },
-  {
    "template_key": "spec-KnifeDraw__240800",
    "title": "弧形无盖插锁封套",
    "limits": {
@@ -5749,42 +4594,6 @@
     "height": [
      90,
      232
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__24200406",
-   "title": "210*295简易折页封套",
-   "limits": {
-    "length": [
-     126,
-     420
-    ],
-    "width": [
-     177,
-     590
-    ],
-    "height": [
-     0,
-     2000
-    ]
-   }
-  },
-  {
-   "template_key": "spec-KnifeDraw__310227",
-   "title": "FEFCO 0407",
-   "limits": {
-    "length": [
-     179,
-     596
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     35,
-     116
     ]
    }
   },
@@ -5825,24 +4634,6 @@
    }
   },
   {
-   "template_key": "spec-LadderLockDisplayBox",
-   "title": "TrapeterInsert display box",
-   "limits": {
-    "length": [
-     178,
-     592
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     36,
-     119
-    ]
-   }
-  },
-  {
    "template_key": "spec-LinedSpecialTypeAircraft",
    "title": "Internal contained airplane box",
    "limits": {
@@ -5875,258 +4666,6 @@
     "height": [
      43,
      100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LinerPlugLockAircraft",
-   "title": "Lined interlock shaped airplane box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     45,
-     150
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockBottomSixCompartmentLinedCarryCase",
-   "title": "锁底六格内衬提手箱",
-   "limits": {
-    "length": [
-     181,
-     604
-    ],
-    "width": [
-     121,
-     404
-    ],
-    "height": [
-     75,
-     146
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockBottomStackingTray",
-   "title": "Lockstacktray",
-   "limits": {
-    "length": [
-     233,
-     600
-    ],
-    "width": [
-     120,
-     350
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockingBottomLatchDisplayBox",
-   "title": "Self-locking chain display box",
-   "limits": {
-    "length": [
-     140,
-     179
-    ],
-    "width": [
-     87,
-     110
-    ],
-    "height": [
-     61,
-     157
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockPairBuckleCake",
-   "title": "Draw buckle bottom cake box",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     72,
-     240
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockPlateBottomFlipBox",
-   "title": "Plug-in disk bottom flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockThePlaneBox",
-   "title": "Block lockAirplane box",
-   "limits": {
-    "length": [
-     240,
-     600
-    ],
-    "width": [
-     160,
-     284
-    ],
-    "height": [
-     48,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-LockThickenDiscBox",
-   "title": "Thickened chassis box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MediumSealedCardboardBox",
-   "title": "中封纸箱",
-   "limits": {
-    "length": [
-     209,
-     698
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     29,
-     98
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MiddleSplitLockFlipBox",
-   "title": "中分插锁翻盖盒",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     39,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MortiseLockBottomBoxP1",
-   "title": "插锁盘底盒Pacdora1",
-   "limits": {
-    "length": [
-     185,
-     616
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MortiseLockBottomBoxWithStackingBuckles",
-   "title": "堆叠扣插锁盘式盒",
-   "limits": {
-    "length": [
-     195,
-     468
-    ],
-    "width": [
-     130,
-     400
-    ],
-    "height": [
-     39,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MutualLockingCardboardAircraftBox",
-   "title": "Interlocking card paper plane",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     75,
-     250
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-MutualLockingCardboardAircraftBoxWithWindow",
-   "title": "Window interlocking card paper plane",
-   "limits": {
-    "length": [
-     88,
-     293
-    ],
-    "width": [
-     89,
-     298
-    ],
-    "height": [
-     30,
-     99
     ]
    }
   },
@@ -6203,24 +4742,6 @@
    }
   },
   {
-   "template_key": "spec-ObliqueWingHandleBox",
-   "title": "斜翼提手飞机盒",
-   "limits": {
-    "length": [
-     224,
-     597
-    ],
-    "width": [
-     150,
-     400
-    ],
-    "height": [
-     45,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-OctagonalLockBottomBox",
    "title": "Octagonal cartridge bottom box",
    "limits": {
@@ -6235,492 +4756,6 @@
     "height": [
      48,
      62
-    ]
-   }
-  },
-  {
-   "template_key": "spec-OpenDisplayBox",
-   "title": "openmouthDisplays",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-OpenWindowPizzaFlipBox",
-   "title": "Window pizza flip box",
-   "limits": {
-    "length": [
-     191,
-     207
-    ],
-    "width": [
-     193,
-     208
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001001",
-   "title": "Zsquarebox01",
-   "limits": {
-    "length": [
-     36,
-     119
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001004",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     30,
-     99
-    ],
-    "width": [
-     30,
-     99
-    ],
-    "height": [
-     59,
-     198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001005",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     30,
-     99
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001006",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     24,
-     79
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     77,
-     258
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001012",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     24,
-     79
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     89,
-     298
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001014",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     45,
-     149
-    ],
-    "width": [
-     45,
-     149
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001016",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     36,
-     119
-    ],
-    "width": [
-     27,
-     89
-    ],
-    "height": [
-     92,
-     308
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001017",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     23,
-     77
-    ],
-    "width": [
-     23,
-     77
-    ],
-    "height": [
-     92,
-     308
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001018",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     39,
-     129
-    ],
-    "width": [
-     39,
-     129
-    ],
-    "height": [
-     41,
-     136
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001020",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     27,
-     89
-    ],
-    "width": [
-     27,
-     89
-    ],
-    "height": [
-     101,
-     338
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001022",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     30,
-     99
-    ],
-    "width": [
-     22,
-     75
-    ],
-    "height": [
-     101,
-     338
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001023",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     48,
-     159
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001024",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     33,
-     109
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     104,
-     348
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001027",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     42,
-     139
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     110,
-     368
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001028",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     84,
-     279
-    ],
-    "width": [
-     30,
-     99
-    ],
-    "height": [
-     59,
-     198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001029",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     36,
-     119
-    ],
-    "width": [
-     27,
-     89
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001031",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     66,
-     219
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001037",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     48,
-     159
-    ],
-    "width": [
-     48,
-     159
-    ],
-    "height": [
-     15,
-     47
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001039",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     12,
-     38
-    ],
-    "width": [
-     12,
-     38
-    ],
-    "height": [
-     83,
-     278
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001044",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     45,
-     149
-    ],
-    "width": [
-     39,
-     129
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001045",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     15,
-     48
-    ],
-    "width": [
-     15,
-     48
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001049",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     36,
-     119
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001053",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     30,
-     99
-    ],
-    "width": [
-     30,
-     99
-    ],
-    "height": [
-     59,
-     198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-Pair__10001059",
-   "title": "反向插锁盒",
-   "limits": {
-    "length": [
-     30,
-     99
-    ],
-    "width": [
-     30,
-     99
-    ],
-    "height": [
-     59,
-     198
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBackopenForward",
-   "title": "后开正向插锁盒",
-   "limits": {
-    "length": [
-     42,
-     139
-    ],
-    "width": [
-     12,
-     38
-    ],
-    "height": [
-     41,
-     137
     ]
    }
   },
@@ -6743,60 +4778,6 @@
    }
   },
   {
-   "template_key": "spec-PairBotselflock",
-   "title": "自锁底盒",
-   "limits": {
-    "length": [
-     72,
-     210
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBuckle",
-   "title": "扣底盒",
-   "limits": {
-    "length": [
-     72,
-     187
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBuckle0220",
-   "title": "FEFCO 0220",
-   "limits": {
-    "length": [
-     179,
-     596
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     149,
-     496
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairBuckletriple",
    "title": "Zi three-button bottom box",
    "limits": {
@@ -6811,24 +4792,6 @@
     "height": [
      109,
      363
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairBuckletripleBackward",
-   "title": "反三扣底盒",
-   "limits": {
-    "length": [
-     255,
-     600
-    ],
-    "width": [
-     128,
-     300
-    ],
-    "height": [
-     153,
-     360
     ]
    }
   },
@@ -6851,24 +4814,6 @@
    }
   },
   {
-   "template_key": "spec-PairHorizontal__10004003",
-   "title": "反向插锁盒01",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     12,
-     38
-    ],
-    "height": [
-     38,
-     128
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairHorizontal__10004005",
    "title": "反向插锁盒01",
    "limits": {
@@ -6887,42 +4832,6 @@
    }
   },
   {
-   "template_key": "spec-PairHorizontal__10004006",
-   "title": "反向插锁盒01",
-   "limits": {
-    "length": [
-     108,
-     359
-    ],
-    "width": [
-     12,
-     38
-    ],
-    "height": [
-     54,
-     178
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairHorizontal__10004007",
-   "title": "反向插锁盒01",
-   "limits": {
-    "length": [
-     66,
-     219
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     41,
-     138
-    ]
-   }
-  },
-  {
    "template_key": "spec-PairHorizontal__10004008",
    "title": "反向插锁盒01",
    "limits": {
@@ -6937,60 +4846,6 @@
     "height": [
      48,
      160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairHorizontalOne__10004001",
-   "title": "横版反向插锁盒",
-   "limits": {
-    "length": [
-     60,
-     199
-    ],
-    "width": [
-     12,
-     38
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairHorizontalOne__10004002",
-   "title": "横版反向插锁盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     10,
-     29
-    ],
-    "height": [
-     30,
-     98
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairWithHook__10002001",
-   "title": "Zsquarebox11",
-   "limits": {
-    "length": [
-     72,
-     179
-    ],
-    "width": [
-     32,
-     79
-    ],
-    "height": [
-     72,
-     178
     ]
    }
   },
@@ -7049,60 +4904,6 @@
    }
   },
   {
-   "template_key": "spec-PairWithWindowOne",
-   "title": "Zsquarebox02",
-   "limits": {
-    "length": [
-     51,
-     169
-    ],
-    "width": [
-     51,
-     169
-    ],
-    "height": [
-     50,
-     168
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PairWithWindowTwo__10001402",
-   "title": "礼物盒10001402",
-   "limits": {
-    "length": [
-     78,
-     259
-    ],
-    "width": [
-     78,
-     259
-    ],
-    "height": [
-     77,
-     258
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PerforatedPizzaFlapBox",
-   "title": "透气孔披萨盒",
-   "limits": {
-    "length": [
-     117,
-     390
-    ],
-    "width": [
-     116,
-     386
-    ],
-    "height": [
-     29,
-     96
-    ]
-   }
-  },
-  {
    "template_key": "spec-PerforationHookPair",
    "title": "穿孔挂钩反向插锁盒",
    "limits": {
@@ -7157,24 +4958,6 @@
    }
   },
   {
-   "template_key": "spec-PlasticBag",
-   "title": "休闲食品食品饮料纸盒包装模型1",
-   "limits": {
-    "length": [
-     51,
-     170
-    ],
-    "width": [
-     58,
-     194
-    ],
-    "height": [
-     0,
-     2000
-    ]
-   }
-  },
-  {
    "template_key": "spec-PolygonalFlowerShapedCoverBox",
    "title": "多边形花型盖盒",
    "limits": {
@@ -7189,24 +4972,6 @@
     "height": [
      155,
      400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-PortableDiscBox",
-   "title": "Handbox box",
-   "limits": {
-    "length": [
-     233,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
     ]
    }
   },
@@ -7243,78 +5008,6 @@
     "height": [
      62,
      137
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RearOpeningDoublePlugSideBuckleBoxP1",
-   "title": "后开双插侧位吊扣盒Pacdora1",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     107,
-     357
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RearOpenSingleAircraftHoleHangerBox",
-   "title": "Rearreverse orderairplanehole hangingmouthbox",
-   "limits": {
-    "length": [
-     108,
-     359
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RearOpenTrapezoidalBevelHookBox",
-   "title": "后开梯形斜面吊孔盒",
-   "limits": {
-    "length": [
-     48,
-     112
-    ],
-    "width": [
-     18,
-     59
-    ],
-    "height": [
-     84,
-     279
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RectangularHoleFlatMouthHandbag",
-   "title": "矩形孔品口手提袋",
-   "limits": {
-    "length": [
-     132,
-     439
-    ],
-    "width": [
-     48,
-     159
-    ],
-    "height": [
-     108,
-     359
     ]
    }
   },
@@ -7409,60 +5102,6 @@
    }
   },
   {
-   "template_key": "spec-RibbonFlipHandshakeLatch",
-   "title": "丝带握手扣翻盖盒",
-   "limits": {
-    "length": [
-     92,
-     307
-    ],
-    "width": [
-     60,
-     112
-    ],
-    "height": [
-     44,
-     103
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RibbonHoleGlueFreeDiscBox",
-   "title": "Ribbon hole",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     73,
-     242
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoofboxWithLatched",
-   "title": "扣底锁扣屋顶盒",
-   "limits": {
-    "length": [
-     139,
-     346
-    ],
-    "width": [
-     91,
-     226
-    ],
-    "height": [
-     74,
-     142
-    ]
-   }
-  },
-  {
    "template_key": "spec-RoofcoverLockBottomBox",
    "title": "屋顶盖扣底吊孔盒",
    "limits": {
@@ -7513,78 +5152,6 @@
     "height": [
      96,
      320
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoofflatHandleBuckle__112470",
-   "title": "手提正扣平顶盒",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     84,
-     240
-    ],
-    "height": [
-     142,
-     405
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoofflatHandleBuckleBackward",
-   "title": "Handful anti-buckle flat top box",
-   "limits": {
-    "length": [
-     195,
-     600
-    ],
-    "width": [
-     78,
-     240
-    ],
-    "height": [
-     132,
-     405
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoofflatHandleBuckletriple",
-   "title": "Handweigh three-button flat top box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     120,
-     400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoofflatHandleBuckletripleBackward",
-   "title": "Portable anti-three buckle flat top box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     120,
-     400
     ]
    }
   },
@@ -7661,42 +5228,6 @@
    }
   },
   {
-   "template_key": "spec-RoundNeckBuckleBottomBox",
-   "title": "roundtypebottleneckBucklebuckleBuckle",
-   "limits": {
-    "length": [
-     195,
-     600
-    ],
-    "width": [
-     65,
-     200
-    ],
-    "height": [
-     117,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-RoundWindowedHandheldGiftBox",
-   "title": "圆形开窗手提礼盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     72,
-     239
-    ],
-    "height": [
-     71,
-     238
-    ]
-   }
-  },
-  {
    "template_key": "spec-RoundWindowFoldingClamshellBox",
    "title": "圆形开窗折叠翻盖盒",
    "limits": {
@@ -7711,114 +5242,6 @@
     "height": [
      23,
      60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleDoubleLock",
-   "title": "保险扣双插锁翻盖盒",
-   "limits": {
-    "length": [
-     270,
-     525
-    ],
-    "width": [
-     180,
-     400
-    ],
-    "height": [
-     45,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleFlapBufferWallBox",
-   "title": "InsuranceFlipBuffer wall box",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     88,
-     200
-    ],
-    "height": [
-     60,
-     112
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleHandleLockFlipBox",
-   "title": "Insurance handle lock flip box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     60,
-     156
-    ],
-    "height": [
-     150,
-     500
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleSelflockingBottomDisplayBox",
-   "title": "InsuranceSelf-locking display box",
-   "limits": {
-    "length": [
-     176,
-     400
-    ],
-    "width": [
-     72,
-     140
-    ],
-    "height": [
-     72,
-     240
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyBuckleSideInsertFlipBox",
-   "title": "Insuranceside plugFlip box",
-   "limits": {
-    "length": [
-     181,
-     602
-    ],
-    "width": [
-     123,
-     409
-    ],
-    "height": [
-     37,
-     96
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SafetyReinforcedBuckleBottomBox",
-   "title": "easypullInsuranceaddsolidBuckle",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     70,
-     200
-    ],
-    "height": [
-     126,
-     360
     ]
    }
   },
@@ -7859,42 +5282,6 @@
    }
   },
   {
-   "template_key": "spec-SemicircularHoleRightanglePizzaBox",
-   "title": "半圆孔直角披萨盒",
-   "limits": {
-    "length": [
-     240,
-     799
-    ],
-    "width": [
-     239,
-     798
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SemiSealingSlugLockFlipBox",
-   "title": "Semi-sealing plug lock",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     48,
-     160
-    ]
-   }
-  },
-  {
    "template_key": "spec-SheathingFlatMountedTrayBox",
    "title": "protectplatepaperbackTrays",
    "limits": {
@@ -7909,42 +5296,6 @@
     "height": [
      30,
      54
-    ]
-   }
-  },
-  {
-   "template_key": "spec-sideAdhesiveHalfPackTransportCarton",
-   "title": "侧粘半包运输纸箱",
-   "limits": {
-    "length": [
-     298,
-     992
-    ],
-    "width": [
-     208,
-     692
-    ],
-    "height": [
-     59,
-     196
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideBuckleHandleBuckleBottomBox",
-   "title": "side buckleHandleBuckle",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     60,
-     175
-    ],
-    "height": [
-     180,
-     601
     ]
    }
   },
@@ -7967,78 +5318,6 @@
    }
   },
   {
-   "template_key": "spec-SideHangingSixSidedBoxP1",
-   "title": "侧吊挂六边盒Pacdora1",
-   "limits": {
-    "length": [
-     60,
-     199
-    ],
-    "width": [
-     24,
-     79
-    ],
-    "height": [
-     107,
-     357
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideHookForwardLockBoxP1",
-   "title": "侧面吊孔正向插锁盒Pacdora1",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     10,
-     29
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideHookPairP1",
-   "title": "侧面吊孔反向插锁盒Pacdora1",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     95,
-     318
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideHookPairWithWindow",
-   "title": "Window side hook reverse cartridge box",
-   "limits": {
-    "length": [
-     72,
-     170
-    ],
-    "width": [
-     36,
-     120
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
    "template_key": "spec-SideInsertLockBuckleSuitcaseForward",
    "title": "侧插锁正扣底提手盒",
    "limits": {
@@ -8053,24 +5332,6 @@
     "height": [
      163,
      499
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideInsertLockDiscType",
-   "title": "Side interlocking disk box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
     ]
    }
   },
@@ -8111,78 +5372,6 @@
    }
   },
   {
-   "template_key": "spec-SideLockFoldingBottomThickenedDiscBox",
-   "title": "侧面插锁折底加厚盘式盒",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideLockFourSealAngleDiscBox",
-   "title": "Side interlock four-segregation plate box",
-   "limits": {
-    "length": [
-     233,
-     468
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     24,
-     46
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideLockInterlockThickenedDiscBox",
-   "title": "Side interlock interlocking plus thick plate box",
-   "limits": {
-    "length": [
-     182,
-     608
-    ],
-    "width": [
-     122,
-     408
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideLockOfHandclasp",
-   "title": "Handshake buckle side-locking disk box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-SideOpeningBuckleInclinedBox",
    "title": "侧开口卡扣斜面盘式盒",
    "limits": {
@@ -8197,78 +5386,6 @@
     "height": [
      21,
      45
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SidePluginLockBottomFlapBox",
-   "title": "Side interlockDock the bottom flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SidePlugLockThickenedTrayBox",
-   "title": "Side interlock thick disc cartridge",
-   "limits": {
-    "length": [
-     181,
-     602
-    ],
-    "width": [
-     121,
-     402
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SidePortableCoverP1",
-   "title": "侧手提封套Pacdora1",
-   "limits": {
-    "length": [
-     72,
-     186
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     120,
-     400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SideRotatingBuckleBottomBoxP1",
-   "title": "侧面旋转扣底盒",
-   "limits": {
-    "length": [
-     72,
-     186
-    ],
-    "width": [
-     36,
-     119
-    ],
-    "height": [
-     125,
-     321
     ]
    }
   },
@@ -8327,60 +5444,6 @@
    }
   },
   {
-   "template_key": "spec-SimpleFileBoxWithLock",
-   "title": "Easy flip lock box",
-   "limits": {
-    "length": [
-     188,
-     500
-    ],
-    "width": [
-     38,
-     100
-    ],
-    "height": [
-     38,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleFrontClamshellBox",
-   "title": "简易前扣翻盖盒",
-   "limits": {
-    "length": [
-     270,
-     600
-    ],
-    "width": [
-     270,
-     600
-    ],
-    "height": [
-     108,
-     240
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleFullOpeningBox",
-   "title": "全开口简易展示盒",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-SimpleHalfPackRectangularEnvelope",
    "title": "简易半包矩形封套",
    "limits": {
@@ -8417,42 +5480,6 @@
    }
   },
   {
-   "template_key": "spec-SimpleMutualLockingDiscHandleBox",
-   "title": "simpleInterlockingdiscHandle box",
-   "limits": {
-    "length": [
-     60,
-     109
-    ],
-    "width": [
-     36,
-     73
-    ],
-    "height": [
-     112,
-     240
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleNonStickSplitFlapBox",
-   "title": "简易不粘对开翻盖盒",
-   "limits": {
-    "length": [
-     60,
-     123
-    ],
-    "width": [
-     90,
-     300
-    ],
-    "height": [
-     78,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-SimplePaperbackFlipBox",
    "title": "simplepaperbackFlip box",
    "limits": {
@@ -8467,132 +5494,6 @@
     "height": [
      43,
      101
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleReverseFoldingCardLockFlipBox",
-   "title": "Easy anti-fold card lock cover box",
-   "limits": {
-    "length": [
-     150,
-     400
-    ],
-    "width": [
-     75,
-     200
-    ],
-    "height": [
-     30,
-     80
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleReverseFoldingCardLockFlipBoxWithWindow",
-   "title": "Open windowEasy anti-fold card lock cover box",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     24,
-     80
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleSalesDisplayBox",
-   "title": "Simple sales display box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleShapedHexagonalTrayBox",
-   "title": "简易异形六边盘式盒",
-   "limits": {
-    "length": [
-     151,
-     208
-    ],
-    "width": [
-     40,
-     51
-    ],
-    "height": [
-     44,
-     58
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SimpleSingleSideLockBottomFlapBox",
-   "title": "simpleUnilateral lock lock bottomDock the bottom flip box",
-   "limits": {
-    "length": [
-     240,
-     600
-    ],
-    "width": [
-     160,
-     400
-    ],
-    "height": [
-     40,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SinglePieceFoldingPluginLockDiscBox",
-   "title": "onepiecefoldBlock lockTrays",
-   "limits": {
-    "length": [
-     150,
-     500
-    ],
-    "width": [
-     72,
-     135
-    ],
-    "height": [
-     71,
-     160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SixCompartmentLinedCarton",
-   "title": "Six gridInner lining paperbox",
-   "limits": {
-    "length": [
-     119,
-     223
-    ],
-    "width": [
-     80,
-     209
-    ],
-    "height": [
-     217,
-     476
     ]
    }
   },
@@ -8615,24 +5516,6 @@
    }
   },
   {
-   "template_key": "spec-SixCompartmentPortableDisplayBox",
-   "title": "Six portable display box",
-   "limits": {
-    "length": [
-     250,
-     500
-    ],
-    "width": [
-     152,
-     237
-    ],
-    "height": [
-     62,
-     124
-    ]
-   }
-  },
-  {
    "template_key": "spec-SixGridBottomSelflockBox",
    "title": "Six gridcareendSelf-locking case",
    "limits": {
@@ -8647,24 +5530,6 @@
     "height": [
      97,
      168
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SixGridDiscBox",
-   "title": "Six gridTrays",
-   "limits": {
-    "length": [
-     210,
-     339
-    ],
-    "width": [
-     176,
-     284
-    ],
-    "height": [
-     60,
-     117
     ]
    }
   },
@@ -8687,24 +5552,6 @@
    }
   },
   {
-   "template_key": "spec-SlantedFlipShoeBox",
-   "title": "斜边翻盖鞋盒",
-   "limits": {
-    "length": [
-     255,
-     600
-    ],
-    "width": [
-     170,
-     400
-    ],
-    "height": [
-     85,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-SlantedHangingEarRoofBuckleBottomHandleBox",
    "title": "斜挂耳屋顶扣底提手盒",
    "limits": {
@@ -8719,42 +5566,6 @@
     "height": [
      138,
      459
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SlantedRoofPipeTrayHandleBox",
-   "title": "斜屋顶管盘式提手盒",
-   "limits": {
-    "length": [
-     96,
-     239
-    ],
-    "width": [
-     96,
-     239
-    ],
-    "height": [
-     127,
-     317
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SlopingRoofBottombuttonedWindowedHandleBox",
-   "title": "斜屋顶扣底开窗提手盒",
-   "limits": {
-    "length": [
-     180,
-     599
-    ],
-    "width": [
-     90,
-     299
-    ],
-    "height": [
-     108,
-     359
     ]
    }
   },
@@ -8813,60 +5624,6 @@
    }
   },
   {
-   "template_key": "spec-SpecialShapedDiscBox",
-   "title": "Shaped disc cartridge",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SpecialShapedPizzaFlipBox",
-   "title": "异型披萨翻盖盒",
-   "limits": {
-    "length": [
-     298,
-     308
-    ],
-    "width": [
-     291,
-     302
-    ],
-    "height": [
-     40,
-     70
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SpecialShapedSideLeafBuckleAircraftBox",
-   "title": "ExoticsidePagebuckleAirplane box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     140,
-     400
-    ],
-    "height": [
-     36,
-     84
-    ]
-   }
-  },
-  {
    "template_key": "spec-SpecialTracelessBottomBoxWithLock",
    "title": "ExoticBlock lockwithoutmarkBottom box",
    "limits": {
@@ -8921,24 +5678,6 @@
    }
   },
   {
-   "template_key": "spec-SplitFoldedFlapBox",
-   "title": "rightopenFoldFlip box",
-   "limits": {
-    "length": [
-     48,
-     160
-    ],
-    "width": [
-     36,
-     105
-    ],
-    "height": [
-     96,
-     320
-    ]
-   }
-  },
-  {
    "template_key": "spec-SplitHandleCardboardBox",
    "title": "对开提手纸箱",
    "limits": {
@@ -8957,42 +5696,6 @@
    }
   },
   {
-   "template_key": "spec-SplitLockBuckleBottomBox",
-   "title": "双开插锁扣底盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     108,
-     315
-    ]
-   }
-  },
-  {
-   "template_key": "spec-SplitLockselflockingBox",
-   "title": "双开插锁自锁底盒",
-   "limits": {
-    "length": [
-     167,
-     235
-    ],
-    "width": [
-     105,
-     140
-    ],
-    "height": [
-     108,
-     315
-    ]
-   }
-  },
-  {
    "template_key": "spec-StackableHandleTrayBox",
    "title": "堆叠式提手盘式盒",
    "limits": {
@@ -9007,24 +5710,6 @@
     "height": [
      69,
      195
-    ]
-   }
-  },
-  {
-   "template_key": "spec-StackedSideGlueTrayBottomBox",
-   "title": "堆叠式侧粘盘式盒",
-   "limits": {
-    "length": [
-     180,
-     465
-    ],
-    "width": [
-     120,
-     310
-    ],
-    "height": [
-     36,
-     78
     ]
    }
   },
@@ -9119,78 +5804,6 @@
    }
   },
   {
-   "template_key": "spec-ThickBottomDiscBox",
-   "title": "Thick bottom disc cartridge",
-   "limits": {
-    "length": [
-     179,
-     598
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     30,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ThickenedClamshellBox",
-   "title": "加厚型卡扣翻盖盒",
-   "limits": {
-    "length": [
-     270,
-     300
-    ],
-    "width": [
-     180,
-     200
-    ],
-    "height": [
-     54,
-     60
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ThreeBuckleBottomBoxWithDoubleLockAndSafetyClasp",
-   "title": "Dual-lock lockInsuranceZi three-button bottom box",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     72,
-     240
-    ],
-    "height": [
-     108,
-     360
-    ]
-   }
-  },
-  {
-   "template_key": "spec-ThreeBuckleBottomBoxWithDoubleLockHandle",
-   "title": "Double-in-button handle is three-button bottom box",
-   "limits": {
-    "length": [
-     225,
-     465
-    ],
-    "width": [
-     90,
-     186
-    ],
-    "height": [
-     137,
-     282
-    ]
-   }
-  },
-  {
    "template_key": "spec-ThreeTrapezoidalClamshellBox",
    "title": "Three-compartment trapezoidal flip-top box",
    "limits": {
@@ -9241,78 +5854,6 @@
     "height": [
      36,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TissueWithNailLockP1",
-   "title": "指甲锁扣纸巾盒",
-   "limits": {
-    "length": [
-     72,
-     240
-    ],
-    "width": [
-     30,
-     65
-    ],
-    "height": [
-     140,
-     400
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TopCoverHalfSelflockingBottomBox",
-   "title": "Cap rightsemi-selfLockbuckleBuckle",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     60,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TopCoverLockThePlaneBox",
-   "title": "上盖插锁飞机盒",
-   "limits": {
-    "length": [
-     202,
-     576
-    ],
-    "width": [
-     119,
-     281
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TopCoverTreeshapedDoubleSocketBox",
-   "title": "上盖树形双插口盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     72,
-     239
-    ],
-    "height": [
-     72,
-     239
     ]
    }
   },
@@ -9371,78 +5912,6 @@
    }
   },
   {
-   "template_key": "spec-TracelessBottomFourFoldEdgeDiscBox",
-   "title": "withoutmarkendFour-fold cable box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TracelessBottomSideLockDisplayBox",
-   "title": "withoutmarkendSide interlockmortise lockInsert display box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     24,
-     80
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TracelessBottomSocketDiscBox",
-   "title": "withoutmarkendside plugmouthTrays",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TracelessCoverBuckleBottomFlapBox",
-   "title": "withoutmarkcoverFlexibleFlip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     120,
-     400
-    ]
-   }
-  },
-  {
    "template_key": "spec-TrapezoidalAngleLockClamshellBox",
    "title": "TrapeterFolding lock lock box",
    "limits": {
@@ -9457,24 +5926,6 @@
     "height": [
      35,
      70
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalAngleReverseInsertLockClamshellBox",
-   "title": "梯形折角反插锁翻盖盒",
-   "limits": {
-    "length": [
-     170,
-     400
-    ],
-    "width": [
-     85,
-     200
-    ],
-    "height": [
-     43,
-     100
     ]
    }
   },
@@ -9515,42 +5966,6 @@
    }
   },
   {
-   "template_key": "spec-TrapezoidalDiscBox",
-   "title": "梯形盘式盒",
-   "limits": {
-    "length": [
-     105,
-     300
-    ],
-    "width": [
-     74,
-     210
-    ],
-    "height": [
-     35,
-     100
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalDiscBoxWithLock",
-   "title": "TrapeterInterlocking disk bottom box",
-   "limits": {
-    "length": [
-     210,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-TrapezoidalDiscBoxWithThreeCompartments",
    "title": "Three-compartment trapezoidal tray",
    "limits": {
@@ -9565,114 +5980,6 @@
     "height": [
      36,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalFoldingAngleHandleTrayBox",
-   "title": "Trapezoidal folding wheel box",
-   "limits": {
-    "length": [
-     225,
-     321
-    ],
-    "width": [
-     180,
-     400
-    ],
-    "height": [
-     75,
-     200
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalFourFoldDiscBox",
-   "title": "TrapeterFour-fold cable box",
-   "limits": {
-    "length": [
-     180,
-     599
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     34,
-     113
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalInsertLockBox",
-   "title": "梯形插锁盒",
-   "limits": {
-    "length": [
-     120,
-     126
-    ],
-    "width": [
-     60,
-     63
-    ],
-    "height": [
-     160,
-     166
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalLockFlipBox",
-   "title": "TrapeterBlock lockFlip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalRoofHandleBox",
-   "title": "梯形屋顶提手盒",
-   "limits": {
-    "length": [
-     190,
-     400
-    ],
-    "width": [
-     95,
-     117
-    ],
-    "height": [
-     76,
-     104
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrapezoidalSideBuckleHandgripBuckleHandheldTrayBox",
-   "title": "梯形侧扣握手盘式提手盒",
-   "limits": {
-    "length": [
-     171,
-     402
-    ],
-    "width": [
-     126,
-     296
-    ],
-    "height": [
-     43,
-     100
     ]
    }
   },
@@ -9695,42 +6002,6 @@
    }
   },
   {
-   "template_key": "spec-Tray",
-   "title": "Corrugated tray",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     121,
-     402
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayBuckleWithFlap",
-   "title": "Docking plate stitch tray box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     219
-    ],
-    "height": [
-     91,
-     200
-    ]
-   }
-  },
-  {
    "template_key": "spec-TrayDrawerSelflockWithWindow",
    "title": "开窗自锁托盘抽屉盒",
    "limits": {
@@ -9745,132 +6016,6 @@
     "height": [
      36,
      119
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayFolding",
-   "title": "Four-corner tray box",
-   "limits": {
-    "length": [
-     250,
-     315
-    ],
-    "width": [
-     191,
-     247
-    ],
-    "height": [
-     36,
-     69
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayGluedObliqueP1",
-   "title": "胶合斜翻盖盒",
-   "limits": {
-    "length": [
-     89,
-     297
-    ],
-    "width": [
-     60,
-     199
-    ],
-    "height": [
-     30,
-     99
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayGluedWithLock",
-   "title": "Glue bracket lock",
-   "limits": {
-    "length": [
-     90,
-     300
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayGluedWithLockNailP1",
-   "title": "指扣胶盒锁扣翻盖盒",
-   "limits": {
-    "length": [
-     178,
-     592
-    ],
-    "width": [
-     119,
-     396
-    ],
-    "height": [
-     35,
-     116
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayHatchback",
-   "title": "Hexagon flip box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TraySelflock",
-   "title": "Self-lock tray box",
-   "limits": {
-    "length": [
-     179,
-     596
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayShow",
-   "title": "Tray display box",
-   "limits": {
-    "length": [
-     180,
-     600
-    ],
-    "width": [
-     120,
-     400
-    ],
-    "height": [
-     36,
-     120
     ]
    }
   },
@@ -9925,24 +6070,6 @@
     "height": [
      36,
      120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TrayTypeCarton",
-   "title": "盘式中封纸箱",
-   "limits": {
-    "length": [
-     209,
-     698
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     29,
-     98
     ]
    }
   },
@@ -10019,24 +6146,6 @@
    }
   },
   {
-   "template_key": "spec-TriangularFlapBox",
-   "title": "三角形翻盖盒",
-   "limits": {
-    "length": [
-     180,
-     599
-    ],
-    "width": [
-     120,
-     399
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
    "template_key": "spec-TriangularInclinedCoverHangingHoleBox",
    "title": "TriangleinclinecoverHang holebox",
    "limits": {
@@ -10051,132 +6160,6 @@
     "height": [
      145,
      160
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TriangularSplitFlapBox",
-   "title": "三角对开翻盖盒",
-   "limits": {
-    "length": [
-     177,
-     590
-    ],
-    "width": [
-     119,
-     398
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TripleFlangedPlaneCaseWithoutTongueP1",
-   "title": "三折边无插舌飞机盒",
-   "limits": {
-    "length": [
-     228,
-     570
-    ],
-    "width": [
-     154,
-     383
-    ],
-    "height": [
-     47,
-     116
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TwinPlugInLockFlipBox",
-   "title": "pairpregnancyBlock lockFlip box",
-   "limits": {
-    "length": [
-     72,
-     156
-    ],
-    "width": [
-     47,
-     78
-    ],
-    "height": [
-     96,
-     208
-    ]
-   }
-  },
-  {
-   "template_key": "spec-TypeBox0424",
-   "title": "FEFCO 0424",
-   "limits": {
-    "length": [
-     236,
-     590
-    ],
-    "width": [
-     191,
-     476
-    ],
-    "height": [
-     48,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-UnilateralWidenedBufferWallBox",
-   "title": "单边加宽缓冲墙盒",
-   "limits": {
-    "length": [
-     83,
-     277
-    ],
-    "width": [
-     155,
-     517
-    ],
-    "height": [
-     35,
-     118
-    ]
-   }
-  },
-  {
-   "template_key": "spec-VentilationHoleCornerFlapBox",
-   "title": "透气孔折角翻盖盒",
-   "limits": {
-    "length": [
-     120,
-     400
-    ],
-    "width": [
-     60,
-     200
-    ],
-    "height": [
-     36,
-     120
-    ]
-   }
-  },
-  {
-   "template_key": "spec-WindowBottomRoofHandleBox",
-   "title": "开窗扣底屋顶提手盒",
-   "limits": {
-    "length": [
-     72,
-     239
-    ],
-    "width": [
-     30,
-     86
-    ],
-    "height": [
-     83,
-     278
     ]
    }
   },
@@ -10318,18 +6301,6 @@
     "lengthMm": 430,
     "widthMm": 210,
     "heightMm": 270
-   }
-  },
-  {
-   "template_key": "fixed-205011",
-   "title": "纸板运输箱",
-   "category": "shipping",
-   "source_num": "205011",
-   "preset_id": "import-shipping-205011",
-   "locked_dims": {
-    "lengthMm": 349,
-    "widthMm": 199,
-    "heightMm": 49
    }
   },
   {

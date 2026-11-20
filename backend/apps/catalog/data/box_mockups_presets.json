@@ -28,7 +28,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/110520.png",
-      "template_id": "spec-TopCoverHalfSelflockingBottomBox"
+      "template_id": "sampled-square-110520"
     },
     {
       "category": "square",
@@ -42,7 +42,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/110680.png",
-      "template_id": "spec-BottomInsertingBoxWithHalfSelfLockingUpperCover"
+      "template_id": "sampled-square-110680"
     },
     {
       "category": "square",
@@ -98,7 +98,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "square-covers/120320.png",
-      "template_id": "spec-InterlockingDiagonalLockingDiscBox"
+      "template_id": "sampled-square-120320"
     },
     {
       "category": "square",
@@ -224,7 +224,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/10001001.png",
-      "template_id": "spec-Pair__10001001"
+      "template_id": "sampled-square-10001001"
     },
     {
       "category": "square",
@@ -238,7 +238,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/10001401.png",
-      "template_id": "spec-PairWithWindowOne"
+      "template_id": "sampled-square-10001401"
     },
     {
       "category": "square",
@@ -252,7 +252,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "square-covers/10002001.png",
-      "template_id": "spec-PairWithHook__10002001"
+      "template_id": "sampled-square-10002001"
     },
     {
       "category": "square",
@@ -336,7 +336,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "square-covers/15001001.png",
-      "template_id": "spec-AircraftP1__15001001"
+      "template_id": "sampled-square-15001001"
     },
     {
       "category": "square",
@@ -350,7 +350,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "square-covers/15001101.png",
-      "template_id": "spec-AircraftNew__15001101"
+      "template_id": "sampled-square-15001101"
     },
     {
       "category": "square",
@@ -364,7 +364,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "square-covers/15001102.png",
-      "template_id": "spec-AircraftNewThree"
+      "template_id": "sampled-square-15001102"
     },
     {
       "category": "square",
@@ -770,7 +770,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/102010.png",
-      "template_id": "spec-PairBuckle"
+      "template_id": "sampled-gift-102010"
     },
     {
       "category": "gift",
@@ -826,7 +826,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/110090.png",
-      "template_id": "spec-CoverHeartshapedDoubleSocketBox"
+      "template_id": "sampled-gift-110090"
     },
     {
       "category": "gift",
@@ -840,7 +840,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/110091.png",
-      "template_id": "spec-TopCoverTreeshapedDoubleSocketBox"
+      "template_id": "sampled-gift-110091"
     },
     {
       "category": "gift",
@@ -924,7 +924,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/112060.png",
-      "template_id": "spec-HeartshapedDoubleSocketSelflockingBottomBox"
+      "template_id": "sampled-gift-112060"
     },
     {
       "category": "gift",
@@ -938,7 +938,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/112070.png",
-      "template_id": "spec-RoundWindowedHandheldGiftBox"
+      "template_id": "sampled-gift-112070"
     },
     {
       "category": "gift",
@@ -980,7 +980,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/121111.png",
-      "template_id": "spec-SlantedRoofPipeTrayHandleBox"
+      "template_id": "sampled-gift-121111"
     },
     {
       "category": "gift",
@@ -1008,7 +1008,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "gift-covers/150023.png",
-      "template_id": "spec-TripleFlangedPlaneCaseWithoutTongueP1"
+      "template_id": "sampled-gift-150023"
     },
     {
       "category": "gift",
@@ -1022,7 +1022,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "gift-covers/152021.png",
-      "template_id": "spec-TrayGluedWithLockNailP1"
+      "template_id": "sampled-gift-152021"
     },
     {
       "category": "gift",
@@ -1050,7 +1050,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "gift-covers/156410.png",
-      "template_id": "spec-InterlockingPluginLockingBufferFlapBox"
+      "template_id": "sampled-gift-156410"
     },
     {
       "category": "gift",
@@ -1064,7 +1064,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "gift-covers/160031.png",
-      "template_id": "spec-HalffoldedBottomWithoutTraceBuckleBottomWorld"
+      "template_id": "sampled-gift-160031"
     },
     {
       "category": "gift",
@@ -1106,7 +1106,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/180190.png",
-      "template_id": "spec-TrapezoidalInsertLockBox"
+      "template_id": "sampled-gift-180190"
     },
     {
       "category": "gift",
@@ -1344,7 +1344,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "gift-covers/510340.png",
-      "template_id": "spec-ConsumerTwelve"
+      "template_id": "sampled-gift-510340"
     },
     {
       "category": "gift",
@@ -1470,7 +1470,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/10001402.png",
-      "template_id": "spec-PairWithWindowTwo__10001402"
+      "template_id": "sampled-gift-10001402"
     },
     {
       "category": "gift",
@@ -1610,7 +1610,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "gift-covers/15001007.png",
-      "template_id": "spec-Aircraft__15001007"
+      "template_id": "sampled-gift-15001007"
     },
     {
       "category": "gift",
@@ -1974,7 +1974,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/102060.png",
-      "template_id": "spec-DoubleSafetyBuckleAndThreeBuckleButtingBox"
+      "template_id": "sampled-mailer-102060"
     },
     {
       "category": "mailer",
@@ -2002,7 +2002,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/102063.png",
-      "template_id": "spec-SafetyReinforcedBuckleBottomBox"
+      "template_id": "sampled-mailer-102063"
     },
     {
       "category": "mailer",
@@ -2016,7 +2016,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/102064.png",
-      "template_id": "spec-EasyToOpenSafetyBuckleBottomBox"
+      "template_id": "sampled-mailer-102064"
     },
     {
       "category": "mailer",
@@ -2030,7 +2030,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/102220.png",
-      "template_id": "spec-AircraftCoverSafetyBuckleBox"
+      "template_id": "sampled-mailer-102220"
     },
     {
       "category": "mailer",
@@ -2044,7 +2044,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/103090.png",
-      "template_id": "spec-BackOpenHandleInsertLatchBottomBox"
+      "template_id": "sampled-mailer-103090"
     },
     {
       "category": "mailer",
@@ -2058,7 +2058,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/109020.png",
-      "template_id": "spec-ArcFoldingMachinePackageBox"
+      "template_id": "sampled-mailer-109020"
     },
     {
       "category": "mailer",
@@ -2072,7 +2072,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/110160.png",
-      "template_id": "spec-CappingMachineBagBoxP1"
+      "template_id": "sampled-mailer-110160"
     },
     {
       "category": "mailer",
@@ -2086,7 +2086,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/112050.png",
-      "template_id": "spec-BuckleFlat"
+      "template_id": "sampled-mailer-112050"
     },
     {
       "category": "mailer",
@@ -2100,7 +2100,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112322.png",
-      "template_id": "spec-HandboxBotselflockWithLock"
+      "template_id": "sampled-mailer-112322"
     },
     {
       "category": "mailer",
@@ -2114,7 +2114,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112330.png",
-      "template_id": "spec-HandboxForwardHandleWithLock"
+      "template_id": "sampled-mailer-112330"
     },
     {
       "category": "mailer",
@@ -2128,7 +2128,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112331.png",
-      "template_id": "spec-HandboxBackwardHandleWithLock"
+      "template_id": "sampled-mailer-112331"
     },
     {
       "category": "mailer",
@@ -2142,7 +2142,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112350.png",
-      "template_id": "spec-HandboxBotselflockHandleWithLock"
+      "template_id": "sampled-mailer-112350"
     },
     {
       "category": "mailer",
@@ -2156,7 +2156,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112360.png",
-      "template_id": "spec-HandboxFlatWithLock"
+      "template_id": "sampled-mailer-112360"
     },
     {
       "category": "mailer",
@@ -2170,7 +2170,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112372.png",
-      "template_id": "spec-RoofboxWithLatched"
+      "template_id": "sampled-mailer-112372"
     },
     {
       "category": "mailer",
@@ -2198,7 +2198,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112431.png",
-      "template_id": "spec-AdhesiveBottomBoxWithAdhesiveMouthHandle"
+      "template_id": "sampled-mailer-112431"
     },
     {
       "category": "mailer",
@@ -2212,7 +2212,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112450.png",
-      "template_id": "spec-BuckleBottomBoxWithDoubleLockHandle"
+      "template_id": "sampled-mailer-112450"
     },
     {
       "category": "mailer",
@@ -2226,7 +2226,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112451.png",
-      "template_id": "spec-ThreeBuckleBottomBoxWithDoubleLockHandle"
+      "template_id": "sampled-mailer-112451"
     },
     {
       "category": "mailer",
@@ -2240,7 +2240,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112500.png",
-      "template_id": "spec-ThreeBuckleBottomBoxWithDoubleLockAndSafetyClasp"
+      "template_id": "sampled-mailer-112500"
     },
     {
       "category": "mailer",
@@ -2254,7 +2254,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112550.png",
-      "template_id": "spec-BuckleBottomBoxWithSafetyBuckle"
+      "template_id": "sampled-mailer-112550"
     },
     {
       "category": "mailer",
@@ -2268,7 +2268,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112580.png",
-      "template_id": "spec-DualPurposeSuitcaseWithFrontBuckleBottomInsertLock"
+      "template_id": "sampled-mailer-112580"
     },
     {
       "category": "mailer",
@@ -2282,7 +2282,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/112690.png",
-      "template_id": "spec-RoundNeckBuckleBottomBox"
+      "template_id": "sampled-mailer-112690"
     },
     {
       "category": "mailer",
@@ -2296,7 +2296,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150010.png",
-      "template_id": "spec-Aircraft__150010"
+      "template_id": "sampled-mailer-150010"
     },
     {
       "category": "mailer",
@@ -2310,7 +2310,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150011.png",
-      "template_id": "spec-AircraftNew__150011"
+      "template_id": "sampled-mailer-150011"
     },
     {
       "category": "mailer",
@@ -2324,7 +2324,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150012.png",
-      "template_id": "spec-AircraftWithNail"
+      "template_id": "sampled-mailer-150012"
     },
     {
       "category": "mailer",
@@ -2338,7 +2338,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150013.png",
-      "template_id": "spec-AircraftWithNailLock"
+      "template_id": "sampled-mailer-150013"
     },
     {
       "category": "mailer",
@@ -2352,7 +2352,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150014.png",
-      "template_id": "spec-AircraftWithDoubleLocks"
+      "template_id": "sampled-mailer-150014"
     },
     {
       "category": "mailer",
@@ -2366,7 +2366,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150016.png",
-      "template_id": "spec-ObliqueWingHandleBox"
+      "template_id": "sampled-mailer-150016"
     },
     {
       "category": "mailer",
@@ -2380,7 +2380,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150017.png",
-      "template_id": "spec-AircraftWithHandle"
+      "template_id": "sampled-mailer-150017"
     },
     {
       "category": "mailer",
@@ -2394,7 +2394,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150018.png",
-      "template_id": "spec-AircraftWithHandleLock"
+      "template_id": "sampled-mailer-150018"
     },
     {
       "category": "mailer",
@@ -2408,7 +2408,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150020.png",
-      "template_id": "spec-AircraftWithoutInsertion"
+      "template_id": "sampled-mailer-150020"
     },
     {
       "category": "mailer",
@@ -2422,7 +2422,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150021.png",
-      "template_id": "spec-AircraftWithWindowWithoutInsert"
+      "template_id": "sampled-mailer-150021"
     },
     {
       "category": "mailer",
@@ -2436,7 +2436,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150023.png",
-      "template_id": "spec-TripleFlangedPlaneCaseWithoutTongueP1"
+      "template_id": "sampled-mailer-150023"
     },
     {
       "category": "mailer",
@@ -2450,7 +2450,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150030.png",
-      "template_id": "spec-AircraftWithoutFlank"
+      "template_id": "sampled-mailer-150030"
     },
     {
       "category": "mailer",
@@ -2464,7 +2464,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150032.png",
-      "template_id": "spec-AircraftWithoutWingsHoles"
+      "template_id": "sampled-mailer-150032"
     },
     {
       "category": "mailer",
@@ -2478,7 +2478,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150100.png",
-      "template_id": "spec-AircraftWithTrapezoidP1"
+      "template_id": "sampled-mailer-150100"
     },
     {
       "category": "mailer",
@@ -2492,7 +2492,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/150160.png",
-      "template_id": "spec-AircraftWithHook__150160"
+      "template_id": "sampled-mailer-150160"
     },
     {
       "category": "mailer",
@@ -2506,7 +2506,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/150300.png",
-      "template_id": "spec-MutualLockingCardboardAircraftBox"
+      "template_id": "sampled-mailer-150300"
     },
     {
       "category": "mailer",
@@ -2534,7 +2534,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/151030.png",
-      "template_id": "spec-FlipShoebox"
+      "template_id": "sampled-mailer-151030"
     },
     {
       "category": "mailer",
@@ -2590,7 +2590,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/152100.png",
-      "template_id": "spec-FlapBoxWithTopLatch"
+      "template_id": "sampled-mailer-152100"
     },
     {
       "category": "mailer",
@@ -2604,7 +2604,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/152101.png",
-      "template_id": "spec-FlapBoxWithTopLatchOne"
+      "template_id": "sampled-mailer-152101"
     },
     {
       "category": "mailer",
@@ -2660,7 +2660,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/156130.png",
-      "template_id": "spec-FlipPlugUnbonded"
+      "template_id": "sampled-mailer-156130"
     },
     {
       "category": "mailer",
@@ -2674,7 +2674,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/156181.png",
-      "template_id": "spec-FlipLockBottom"
+      "template_id": "sampled-mailer-156181"
     },
     {
       "category": "mailer",
@@ -2730,7 +2730,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/156410.png",
-      "template_id": "spec-InterlockingPluginLockingBufferFlapBox"
+      "template_id": "sampled-mailer-156410"
     },
     {
       "category": "mailer",
@@ -2758,7 +2758,7 @@
       "thickness": 3,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/200036.png",
-      "template_id": "spec-FullLifeCarton"
+      "template_id": "sampled-mailer-200036"
     },
     {
       "category": "mailer",
@@ -2786,7 +2786,7 @@
       "thickness": 3,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/205010.png",
-      "template_id": "spec-MediumSealedCardboardBox"
+      "template_id": "sampled-mailer-205010"
     },
     {
       "category": "mailer",
@@ -2800,7 +2800,7 @@
       "thickness": 3,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/205011.png",
-      "template_id": "spec-TrayTypeCarton"
+      "template_id": "sampled-mailer-205011"
     },
     {
       "category": "mailer",
@@ -2814,7 +2814,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/206090.png",
-      "template_id": "spec-InsertLockFlatBottomCardboardBox"
+      "template_id": "sampled-mailer-206090"
     },
     {
       "category": "mailer",
@@ -2870,7 +2870,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/10301201.png",
-      "template_id": "spec-BuckleBackopenWithLock"
+      "template_id": "sampled-mailer-10301201"
     },
     {
       "category": "mailer",
@@ -2898,7 +2898,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/15001002.png",
-      "template_id": "spec-AircraftP1__15001002"
+      "template_id": "sampled-mailer-15001002"
     },
     {
       "category": "mailer",
@@ -2912,7 +2912,7 @@
       "thickness": 0.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/15001003.png",
-      "template_id": "spec-AircraftP1__15001003"
+      "template_id": "sampled-mailer-15001003"
     },
     {
       "category": "mailer",
@@ -2926,7 +2926,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/15001006.png",
-      "template_id": "spec-Aircraft__15001006"
+      "template_id": "sampled-mailer-15001006"
     },
     {
       "category": "mailer",
@@ -2940,7 +2940,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/15001007.png",
-      "template_id": "spec-Aircraft__15001007"
+      "template_id": "sampled-mailer-15001007"
     },
     {
       "category": "mailer",
@@ -2954,7 +2954,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/15001008.png",
-      "template_id": "spec-Aircraft__15001008"
+      "template_id": "sampled-mailer-15001008"
     },
     {
       "category": "mailer",
@@ -2968,7 +2968,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/15001009.png",
-      "template_id": "spec-Aircraft__15001009"
+      "template_id": "sampled-mailer-15001009"
     },
     {
       "category": "mailer",
@@ -2996,7 +2996,7 @@
       "thickness": 0.55,
       "material_id": "white",
       "cover_rel": "mailer-covers/15001106.png",
-      "template_id": "spec-AircraftNew__15001106"
+      "template_id": "sampled-mailer-15001106"
     },
     {
       "category": "mailer",
@@ -3010,7 +3010,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "mailer-covers/15201001.png",
-      "template_id": "spec-TraySimpleGluedP1"
+      "template_id": "sampled-mailer-15201001"
     },
     {
       "category": "mailer",
@@ -3052,7 +3052,7 @@
       "thickness": 1.5,
       "material_id": "kraft",
       "cover_rel": "mailer-covers/15826001.png",
-      "template_id": "spec-HookFlipLidBox"
+      "template_id": "sampled-mailer-15826001"
     },
     {
       "category": "mailer",
@@ -3094,7 +3094,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/102041.png",
-      "template_id": "spec-PairBuckletripleBackward"
+      "template_id": "sampled-shipping-102041"
     },
     {
       "category": "shipping",
@@ -3108,7 +3108,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103020.png",
-      "template_id": "spec-SplitLockBuckleBottomBox"
+      "template_id": "sampled-shipping-103020"
     },
     {
       "category": "shipping",
@@ -3122,7 +3122,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103021.png",
-      "template_id": "spec-SplitLockselflockingBox"
+      "template_id": "sampled-shipping-103021"
     },
     {
       "category": "shipping",
@@ -3150,7 +3150,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110680.png",
-      "template_id": "spec-BottomInsertingBoxWithHalfSelfLockingUpperCover"
+      "template_id": "sampled-shipping-110680"
     },
     {
       "category": "shipping",
@@ -3164,7 +3164,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110810.png",
-      "template_id": "spec-BuckleBottomBoxWithInsertion"
+      "template_id": "sampled-shipping-110810"
     },
     {
       "category": "shipping",
@@ -3192,7 +3192,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112470.png",
-      "template_id": "spec-RoofflatHandleBuckle__112470"
+      "template_id": "sampled-shipping-112470"
     },
     {
       "category": "shipping",
@@ -3206,7 +3206,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112471.png",
-      "template_id": "spec-RoofflatHandleBuckleBackward"
+      "template_id": "sampled-shipping-112471"
     },
     {
       "category": "shipping",
@@ -3220,7 +3220,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112480.png",
-      "template_id": "spec-RoofflatHandleBuckletriple"
+      "template_id": "sampled-shipping-112480"
     },
     {
       "category": "shipping",
@@ -3234,7 +3234,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112481.png",
-      "template_id": "spec-RoofflatHandleBuckletripleBackward"
+      "template_id": "sampled-shipping-112481"
     },
     {
       "category": "shipping",
@@ -3248,7 +3248,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112511.png",
-      "template_id": "spec-FlatMouthSpecialLockBottom"
+      "template_id": "sampled-shipping-112511"
     },
     {
       "category": "shipping",
@@ -3262,7 +3262,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/116200.png",
-      "template_id": "spec-InterlockPortableTrayCase"
+      "template_id": "sampled-shipping-116200"
     },
     {
       "category": "shipping",
@@ -3276,7 +3276,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/152102.png",
-      "template_id": "spec-FlapBoxWithTopLatchTwo"
+      "template_id": "sampled-shipping-152102"
     },
     {
       "category": "shipping",
@@ -3318,7 +3318,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/156131.png",
-      "template_id": "spec-FlipSidePlugUnbonded"
+      "template_id": "sampled-shipping-156131"
     },
     {
       "category": "shipping",
@@ -3346,7 +3346,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200012.png",
-      "template_id": "spec-CartonHandhole"
+      "template_id": "sampled-shipping-200012"
     },
     {
       "category": "shipping",
@@ -3360,7 +3360,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200013.png",
-      "template_id": "spec-CartonRegular0209"
+      "template_id": "sampled-shipping-200013"
     },
     {
       "category": "shipping",
@@ -3388,7 +3388,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200015.png",
-      "template_id": "spec-InsideCornerFlatCarton"
+      "template_id": "sampled-shipping-200015"
     },
     {
       "category": "shipping",
@@ -3430,7 +3430,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200020.png",
-      "template_id": "spec-Carton02"
+      "template_id": "sampled-shipping-200020"
     },
     {
       "category": "shipping",
@@ -3444,7 +3444,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200030.png",
-      "template_id": "spec-Carton03"
+      "template_id": "sampled-shipping-200030"
     },
     {
       "category": "shipping",
@@ -3486,7 +3486,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200100.png",
-      "template_id": "spec-CartonEconomic"
+      "template_id": "sampled-shipping-200100"
     },
     {
       "category": "shipping",
@@ -3500,7 +3500,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200102.png",
-      "template_id": "spec-CartonEconomicHandhole"
+      "template_id": "sampled-shipping-200102"
     },
     {
       "category": "shipping",
@@ -3514,7 +3514,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200200.png",
-      "template_id": "spec-CartonSelfBlock"
+      "template_id": "sampled-shipping-200200"
     },
     {
       "category": "shipping",
@@ -3528,7 +3528,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200210.png",
-      "template_id": "spec-CartonMovehouseStrengthen"
+      "template_id": "sampled-shipping-200210"
     },
     {
       "category": "shipping",
@@ -3556,7 +3556,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200240.png",
-      "template_id": "spec-SixCompartmentLinedCarton"
+      "template_id": "sampled-shipping-200240"
     },
     {
       "category": "shipping",
@@ -3584,7 +3584,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200280.png",
-      "template_id": "spec-CartonFlatWithFlipLatch"
+      "template_id": "sampled-shipping-200280"
     },
     {
       "category": "shipping",
@@ -3598,7 +3598,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201012.png",
-      "template_id": "spec-Carton04"
+      "template_id": "sampled-shipping-201012"
     },
     {
       "category": "shipping",
@@ -3612,7 +3612,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201013.png",
-      "template_id": "spec-BottomCardboardBoxABSurface"
+      "template_id": "sampled-shipping-201013"
     },
     {
       "category": "shipping",
@@ -3626,7 +3626,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201015.png",
-      "template_id": "spec-BottomLessCoverCardboardBox"
+      "template_id": "sampled-shipping-201015"
     },
     {
       "category": "shipping",
@@ -3668,7 +3668,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205010.png",
-      "template_id": "spec-MediumSealedCardboardBox"
+      "template_id": "sampled-shipping-205010"
     },
     {
       "category": "shipping",
@@ -3682,7 +3682,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205011.png",
-      "template_id": "spec-TrayTypeCarton"
+      "template_id": "sampled-shipping-205011"
     },
     {
       "category": "shipping",

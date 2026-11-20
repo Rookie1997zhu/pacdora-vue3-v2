@@ -29,7 +29,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/102041.png",
-      "template_id": "spec-PairBuckletripleBackward"
+      "template_id": "sampled-shipping-102041"
     },
     {
       "category": "shipping",
@@ -43,7 +43,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103020.png",
-      "template_id": "spec-SplitLockBuckleBottomBox"
+      "template_id": "sampled-shipping-103020"
     },
     {
       "category": "shipping",
@@ -57,7 +57,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/103021.png",
-      "template_id": "spec-SplitLockselflockingBox"
+      "template_id": "sampled-shipping-103021"
     },
     {
       "category": "shipping",
@@ -85,7 +85,7 @@
       "thickness": 0.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110680.png",
-      "template_id": "spec-BottomInsertingBoxWithHalfSelfLockingUpperCover"
+      "template_id": "sampled-shipping-110680"
     },
     {
       "category": "shipping",
@@ -99,7 +99,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/110810.png",
-      "template_id": "spec-BuckleBottomBoxWithInsertion"
+      "template_id": "sampled-shipping-110810"
     },
     {
       "category": "shipping",
@@ -127,7 +127,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112470.png",
-      "template_id": "spec-RoofflatHandleBuckle__112470"
+      "template_id": "sampled-shipping-112470"
     },
     {
       "category": "shipping",
@@ -141,7 +141,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112471.png",
-      "template_id": "spec-RoofflatHandleBuckleBackward"
+      "template_id": "sampled-shipping-112471"
     },
     {
       "category": "shipping",
@@ -155,7 +155,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112480.png",
-      "template_id": "spec-RoofflatHandleBuckletriple"
+      "template_id": "sampled-shipping-112480"
     },
     {
       "category": "shipping",
@@ -169,7 +169,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112481.png",
-      "template_id": "spec-RoofflatHandleBuckletripleBackward"
+      "template_id": "sampled-shipping-112481"
     },
     {
       "category": "shipping",
@@ -183,7 +183,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/112511.png",
-      "template_id": "spec-FlatMouthSpecialLockBottom"
+      "template_id": "sampled-shipping-112511"
     },
     {
       "category": "shipping",
@@ -197,7 +197,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/116200.png",
-      "template_id": "spec-InterlockPortableTrayCase"
+      "template_id": "sampled-shipping-116200"
     },
     {
       "category": "shipping",
@@ -211,7 +211,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/152102.png",
-      "template_id": "spec-FlapBoxWithTopLatchTwo"
+      "template_id": "sampled-shipping-152102"
     },
     {
       "category": "shipping",
@@ -253,7 +253,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/156131.png",
-      "template_id": "spec-FlipSidePlugUnbonded"
+      "template_id": "sampled-shipping-156131"
     },
     {
       "category": "shipping",
@@ -281,7 +281,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200012.png",
-      "template_id": "spec-CartonHandhole"
+      "template_id": "sampled-shipping-200012"
     },
     {
       "category": "shipping",
@@ -295,7 +295,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200013.png",
-      "template_id": "spec-CartonRegular0209"
+      "template_id": "sampled-shipping-200013"
     },
     {
       "category": "shipping",
@@ -323,7 +323,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200015.png",
-      "template_id": "spec-InsideCornerFlatCarton"
+      "template_id": "sampled-shipping-200015"
     },
     {
       "category": "shipping",
@@ -365,7 +365,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200020.png",
-      "template_id": "spec-Carton02"
+      "template_id": "sampled-shipping-200020"
     },
     {
       "category": "shipping",
@@ -379,7 +379,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200030.png",
-      "template_id": "spec-Carton03"
+      "template_id": "sampled-shipping-200030"
     },
     {
       "category": "shipping",
@@ -421,7 +421,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200100.png",
-      "template_id": "spec-CartonEconomic"
+      "template_id": "sampled-shipping-200100"
     },
     {
       "category": "shipping",
@@ -435,7 +435,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200102.png",
-      "template_id": "spec-CartonEconomicHandhole"
+      "template_id": "sampled-shipping-200102"
     },
     {
       "category": "shipping",
@@ -449,7 +449,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200200.png",
-      "template_id": "spec-CartonSelfBlock"
+      "template_id": "sampled-shipping-200200"
     },
     {
       "category": "shipping",
@@ -463,7 +463,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200210.png",
-      "template_id": "spec-CartonMovehouseStrengthen"
+      "template_id": "sampled-shipping-200210"
     },
     {
       "category": "shipping",
@@ -491,7 +491,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200240.png",
-      "template_id": "spec-SixCompartmentLinedCarton"
+      "template_id": "sampled-shipping-200240"
     },
     {
       "category": "shipping",
@@ -519,7 +519,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/200280.png",
-      "template_id": "spec-CartonFlatWithFlipLatch"
+      "template_id": "sampled-shipping-200280"
     },
     {
       "category": "shipping",
@@ -533,7 +533,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201012.png",
-      "template_id": "spec-Carton04"
+      "template_id": "sampled-shipping-201012"
     },
     {
       "category": "shipping",
@@ -547,7 +547,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201013.png",
-      "template_id": "spec-BottomCardboardBoxABSurface"
+      "template_id": "sampled-shipping-201013"
     },
     {
       "category": "shipping",
@@ -561,7 +561,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/201015.png",
-      "template_id": "spec-BottomLessCoverCardboardBox"
+      "template_id": "sampled-shipping-201015"
     },
     {
       "category": "shipping",
@@ -603,7 +603,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205010.png",
-      "template_id": "spec-MediumSealedCardboardBox"
+      "template_id": "sampled-shipping-205010"
     },
     {
       "category": "shipping",
@@ -617,7 +617,7 @@
       "thickness": 1.5,
       "material_id": "white",
       "cover_rel": "shipping-covers/205011.png",
-      "template_id": "spec-TrayTypeCarton"
+      "template_id": "sampled-shipping-205011"
     },
     {
       "category": "shipping",

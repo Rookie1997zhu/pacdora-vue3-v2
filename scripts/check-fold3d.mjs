@@ -31,6 +31,8 @@ const make=(p,k=1)=>createKnife({
 
 let total=0,noRecipe=0,match=0,resizedOk=0,resizedTotal=0
 const misses=[]
+// 目录里已标注 fold3d:'differs' 的盒型是已知缺陷（页面上不提供 3D 合盖），不算回归
+const knownMisses=[]
 for(const p of PRESETS){
   if(!['folding','tray'].includes(p.categoryId))continue
   if(!String(p.templateId||'').startsWith('spec-')||p.fidelity==='none')continue
@@ -41,7 +43,7 @@ for(const p of PRESETS){
   const raw=JSON.parse(readFileSync(new URL(`../public/${p.geomRel}`,import.meta.url),'utf8'))
   const ref=closedDims(knifeFromPacdoraGeom(raw,{sourceNum:p.sourceNum}))
   if(ratio(ours,ref)<=1.15)match++
-  else misses.push(`${p.id} ours=${ours.map(v=>v.toFixed(0)).join('x')} ref=${ref.map(v=>v.toFixed(0)).join('x')}`)
+  else (p.fold3d==='differs'?knownMisses:misses).push(`${p.id} ours=${ours.map(v=>v.toFixed(0)).join('x')} ref=${ref.map(v=>v.toFixed(0)).join('x')}`)
   // 改尺寸后：参考样本本身能合成接近外尺寸的盒子时，放大后的也应如此
   const o=raw.outSize||{}
   const out=[+o.L||0,+o.W||0,+o.H||0].sort((a,b)=>b-a)
@@ -52,8 +54,11 @@ for(const p of PRESETS){
     if(ratio(closedDims(fold3dKnife(k2)),[o2.length,o2.width,o2.height].sort((a,b)=>b-a))<=1.35)resizedOk++
   }
 }
-console.log(`check-fold3d: specs=${total} matchReplay=${match} noRecipe=${noRecipe} resizedOk=${resizedOk}/${resizedTotal}`)
+console.log(`check-fold3d: specs=${total} matchReplay=${match} knownDiffers=${knownMisses.length} noRecipe=${noRecipe} resizedOk=${resizedOk}/${resizedTotal}`)
 if(misses.length)console.log('  not matching replay:\n  '+misses.slice(0,12).join('\n  '))
 assert.equal(noRecipe,0,'every customizable spec box carries a fold recipe')
-assert.ok(match/total>=.93,`fold recipe must match the reference replay for ≥93% (got ${match}/${total})`)
+// 以前按比例（≥93%）把关；大批盒型改用按尺寸插值模板后，仍用规格模板的盒型变少，已知缺陷的占比被动升高。
+// 改为：除已标注的以外不许有新的不一致，已知缺陷的个数也不许增加。
+assert.equal(misses.length,0,`fold recipe differs from the reference replay on boxes not annotated as such: ${misses.join('; ')}`)
+assert.ok(knownMisses.length<=13,`known fold3d defects must not grow (got ${knownMisses.length})`)
 assert.ok(resizedOk/Math.max(1,resizedTotal)>=.93,`resized boxes must still close (got ${resizedOk}/${resizedTotal})`)
