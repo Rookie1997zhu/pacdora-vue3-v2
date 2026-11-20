@@ -16,7 +16,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
   let scene=new THREE.Scene()
   scene.background=new THREE.Color(background)
   let camera=new THREE.PerspectiveCamera(38,1,.1,5000)
-  let renderer=new THREE.WebGLRenderer({antialias:true})
+  let renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true})
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2))
   container.appendChild(renderer.domElement)
   scene.add(new THREE.HemisphereLight(0xffffff,0x8a8d93,2.7))
@@ -281,8 +281,7 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     pointerDown=null
   }
 
-  function resetView(){
-    if(!camera||!scene)return
+  function fitMetrics(){
     const group=meshGroup()
     if(group)group.updateMatrixWorld(true)
     const box=group?new THREE.Box3().setFromObject(group):new THREE.Box3()
@@ -302,13 +301,33 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     // 竖长的视口按水平视角取景，避免模型左右被裁
     const aspect=Math.min(1,camera.aspect||1)
     const dist=r/Math.sin((fov*Math.PI/180)/2)*1.15/Math.max(aspect,0.35)
-    const dir=new THREE.Vector3(0.8,-0.9,1).normalize()
+    return {center,dist,r}
+  }
+
+  function applyViewDir(dirVec){
+    if(!camera||!scene)return
+    const {center,dist}=fitMetrics()
+    const dir=dirVec.clone().normalize()
     camera.position.copy(center).addScaledVector(dir,dist)
     if(controls){
       controls.target.copy(center)
       controls.maxDistance=Math.max(2500,dist*4)
       controls.update()
     }
+  }
+
+  function resetView(){
+    applyViewDir(new THREE.Vector3(0.8,-0.9,1))
+  }
+
+  /** Place camera along a world-space look direction (from target toward camera). */
+  function setViewFromDir(x,y,z){
+    applyViewDir(new THREE.Vector3(Number(x)||0,Number(y)||-1,Number(z)||0))
+  }
+
+  function setControlsEnabled(on){
+    if(!controls)return
+    controls.enabled=!!on
   }
 
   function resize(){
@@ -386,6 +405,11 @@ export function createKnifeScene(container,{materialId='kraft',background=0xf7f8
     },
     setSelectedPanel,
     resetView,
+    setViewFromDir,
+    setControlsEnabled,
+    getCanvas(){
+      return renderer?.domElement||null
+    },
     dispose(){
       disposed=true
       cancelAnimationFrame(raf);raf=0

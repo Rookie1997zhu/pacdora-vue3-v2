@@ -1,7 +1,7 @@
 <template>
   <div class="console">
     <aside class="nav">
-      <RouterLink class="brand" to="/console">BOXCRAFT Console</RouterLink>
+      <RouterLink class="brand" to="/console">PACKGRIDA Console</RouterLink>
       <nav>
         <RouterLink v-for="item in items" :key="item.to" :to="item.to">{{ t(item.label) }}</RouterLink>
       </nav>

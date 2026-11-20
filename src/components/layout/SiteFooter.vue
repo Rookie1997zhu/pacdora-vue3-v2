@@ -2,8 +2,8 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="brand-block">
-        <RouterLink class="brand" to="/home" aria-label="BOXCRAFT">
-          <img class="logo" :src="logoUrl" alt="BOXCRAFT" width="140" height="44" />
+        <RouterLink class="brand" to="/home" :aria-label="brandName">
+          <img class="logo" :src="logoUrl" :alt="brandName" width="140" height="44" />
         </RouterLink>
         <p class="tagline">{{ t('site.tagline') }}</p>
       </div>
@@ -45,10 +45,11 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import logoUrl from '../../assets/brand/boxcraft-logo.png'
+import { useBrandLogo } from '../../brand/logo'
 import { isWorkbenchEnabled } from '../../features/workbench/manifest'
 
 const { t } = useI18n()
+const { logoUrl, brandName } = useBrandLogo()
 const workbenchOn = isWorkbenchEnabled()
 </script>
 
@@ -75,8 +76,11 @@ const workbenchOn = isWorkbenchEnabled()
 }
 
 .logo {
-  height: 36px;
+  height: 40px;
   width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .tagline {

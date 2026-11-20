@@ -1,8 +1,8 @@
 <template>
   <div class="shell" :class="{ 'shell--flush': flush }">
     <header class="shell-header">
-      <RouterLink class="shell-brand" to="/home" aria-label="BOXCRAFT">
-        <img class="shell-logo" :src="logoUrl" alt="BOXCRAFT" width="160" height="50" />
+      <RouterLink class="shell-brand" to="/home" :aria-label="brandName">
+        <img class="shell-logo" :src="logoUrl" :alt="brandName" width="160" height="50" />
         <small class="shell-tagline">{{ t('site.tagline') }}</small>
       </RouterLink>
 
@@ -132,8 +132,8 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import logoUrl from '../../assets/brand/boxcraft-logo.png'
 import { setLocale } from '../../i18n/index.js'
+import { useBrandLogo } from '../../brand/logo'
 import { useAuthStore } from '../../stores/auth'
 import { useBillingStore } from '../../stores/billing'
 import { isWorkbenchEnabled } from '../../features/workbench/manifest'
@@ -142,6 +142,7 @@ import SiteFooter from './SiteFooter.vue'
 defineProps<{ flush?: boolean }>()
 
 const { t, locale } = useI18n()
+const { logoUrl, brandName } = useBrandLogo()
 const router = useRouter()
 const auth = useAuthStore()
 const billing = useBillingStore()
@@ -259,8 +260,11 @@ onBeforeUnmount(() => {
 
 .shell-logo {
   display: block;
-  height: 36px;
+  height: 40px;
   width: auto;
+  max-width: min(200px, 42vw);
+  object-fit: contain;
+  object-position: left center;
 }
 
 .shell-tagline {

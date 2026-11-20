@@ -6,3 +6,4 @@ export {
   staggerEnterProps,
   staggerItemTransition,
 } from './presets'
+export { prefersStaticHeroMedia } from './mediaPrefs'

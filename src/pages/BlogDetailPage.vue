@@ -106,7 +106,7 @@ function formatDate(iso: string) {
 
 function applyPostSeo(data: BlogDetail) {
   applyPageSeo({
-    title: `${data.meta_title || data.title} · BOXCRAFT`,
+    title: `${data.meta_title || data.title} · PACKGRIDA`,
     description: data.meta_description || data.summary || data.title,
     path: `/blog/${data.slug}`,
     ogType: 'article',

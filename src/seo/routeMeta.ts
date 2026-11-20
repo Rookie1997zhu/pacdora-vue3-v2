@@ -51,8 +51,8 @@ export type PageSeoInput = {
 
 export function applyPageSeo(input: PageSeoInput) {
   if (typeof document === 'undefined') return
-  const title = input.title || 'BOXCRAFT'
-  const description = input.description || 'BOXCRAFT packaging dieline studio'
+  const title = input.title || 'PACKGRIDA'
+  const description = input.description || 'PACKGRIDA packaging dieline studio'
   document.title = title
   upsertMeta('name', 'description', description)
   upsertMeta('property', 'og:title', title)
@@ -73,11 +73,11 @@ export function applyPageSeo(input: PageSeoInput) {
 
 export function applyRouteSeo(path: string, seoKey: string, noindex = false) {
   const msg = tSeo(seoKey)
-  const title = msg.title && !msg.title.startsWith('seo.') ? msg.title : 'BOXCRAFT'
+  const title = msg.title && !msg.title.startsWith('seo.') ? msg.title : 'PACKGRIDA'
   const description =
     msg.description && !msg.description.startsWith('seo.')
       ? msg.description
-      : 'BOXCRAFT packaging dieline studio'
+      : 'PACKGRIDA packaging dieline studio'
   applyPageSeo({ title, description, path, noindex, ogType: 'website' })
 }
 

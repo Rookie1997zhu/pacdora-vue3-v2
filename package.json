@@ -31,7 +31,8 @@
     "check:tuck-end-straight-engineering": "node scripts/check-tuck-end-straight-engineering.mjs",
     "check:mailer-parametric-engineering": "node scripts/check-mailer-parametric-engineering.mjs",
     "build:crashlock-engine": "node scripts/build-crashlock-engine.mjs",
-    "check:productbox-crashlock-engineering": "node scripts/check-productbox-crashlock-engineering.mjs"
+    "check:productbox-crashlock-engineering": "node scripts/check-productbox-crashlock-engineering.mjs",
+    "hero:capture-fold": "node scripts/hero-fold-capture/run.mjs"
   },
   "dependencies": {
     "@lordicon/element": "^3.0.2",

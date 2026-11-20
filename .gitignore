@@ -4,6 +4,7 @@ dist
 *.log
 .vite
 scripts/_tmp_*.mjs
+scripts/hero-fold-capture/.tmp/
 # Pacdora reference geometry dumps — local index only, do not publish as product dielines
 geometry/pacdora_boxes/*.json
 backend/.venv/
